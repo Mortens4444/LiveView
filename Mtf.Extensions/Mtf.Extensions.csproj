@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows7;net8.0-windows7;net481</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <OutputType>Library</OutputType>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mtf.Enums" Version="1.0.0" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="1.0.11" />
+    <PackageReference Include="Mtf.Models" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mtf.Models\Mtf.Models.csproj" />
+  </ItemGroup>
+
+</Project>
