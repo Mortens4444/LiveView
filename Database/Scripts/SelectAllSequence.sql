@@ -1,0 +1,1 @@
+﻿SELECT id, name, active FROM Sequences ORDER BY name

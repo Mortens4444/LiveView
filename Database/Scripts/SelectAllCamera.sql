@@ -1,0 +1,1 @@
+﻿SELECT ip_address, fullscreen_mode, stream_id, c.username, c.password, guid, cameraname, iporhost, s.username, s.password FROM Cameras as c LEFT JOIN Servers as s ON c.serverid = s.ID;

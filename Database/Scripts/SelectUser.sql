@@ -1,0 +1,1 @@
+﻿SELECT username, fullname, secondary_logon_priority, needed_secondary_logon_priority FROM Users WHERE ID = @id

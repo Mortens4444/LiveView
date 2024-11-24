@@ -1,0 +1,1 @@
+﻿SELECT ID, displayed_name, iporhost, db_port, db_name, username, password, mac_address FROM DBServers ORDER BY displayed_name

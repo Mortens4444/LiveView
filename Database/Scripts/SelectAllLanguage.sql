@@ -1,0 +1,1 @@
+﻿SELECT ID, name FROM Languages ORDER BY name

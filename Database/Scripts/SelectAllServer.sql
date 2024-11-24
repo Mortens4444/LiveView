@@ -1,0 +1,1 @@
+﻿SELECT ID, displayed_name, iporhost, username, password, dongle_sn, sziltech_sn, mac_address FROM Servers ORDER BY displayed_name

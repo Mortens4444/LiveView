@@ -1,0 +1,1 @@
+﻿SELECT ID, map, name, comment, original_width, original_height FROM Maps ORDER BY name

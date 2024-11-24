@@ -1,0 +1,2 @@
+﻿INSERT INTO {0} (name, path, isexists, isactive, isarchived, filename) VALUES (@C, @C2, 'True', 'False', 'False', @C6)
+UPDATE Databases SET isactive = @U, isarchived = @U1, filename = @U2 WHERE name = @C

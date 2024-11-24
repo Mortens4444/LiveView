@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\SelectAllCamera.sql" />
+    <None Remove="Scripts\SelectAllServer.sql" />
+    <None Remove="Scripts\SelectCamera.sql" />
+    <None Remove="Scripts\SelectCameraName.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\CreateDatabase.sql" />
+    <EmbeddedResource Include="Scripts\CreateStoredProcedures.sql" />
+    <EmbeddedResource Include="Scripts\DeleteStaticOptions.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllLanguage.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllSequence.sql" />
+    <EmbeddedResource Include="Scripts\SelectServerCameras.sql" />
+    <EmbeddedResource Include="Scripts\SelectLanguageElementsForOperations.sql" />
+    <EmbeddedResource Include="Scripts\SelectLanguageElementsForEvents.sql" />
+    <EmbeddedResource Include="Scripts\SelectNumberOfUsers.sql" />
+    <EmbeddedResource Include="Scripts\SelectUserIdGroupId.sql" />
+    <EmbeddedResource Include="Scripts\InsertDisplay.sql" />
+    <EmbeddedResource Include="Scripts\SelectStaticUserOptions.sql" />
+    <EmbeddedResource Include="Scripts\InsertDatabase.sql" />
+    <EmbeddedResource Include="Scripts\UpdateDatabase.sql" />
+    <EmbeddedResource Include="Scripts\UpdateOptions.sql" />
+    <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
+    <EmbeddedResource Include="Scripts\SelectUser.sql" />
+    <EmbeddedResource Include="Scripts\SelectUserId.sql" />
+    <EmbeddedResource Include="Scripts\SelectMapObject.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllMap.sql" />
+    <EmbeddedResource Include="Scripts\SelectUserOptions.sql" />
+    <EmbeddedResource Include="Scripts\DeletePersonalOptions.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListReset.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetOSDAndShowDateState.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetOSDState.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetShowDateTimeState.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetTopLeftCoordinates.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetFrameState.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetHeightAndWidth.sql" />
+    <EmbeddedResource Include="Scripts\GridCameraListSetShowMethod.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllCamera.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectCamera.sql" />
+    <EmbeddedResource Include="Scripts\SelectCameraName.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Mtf.Database" Version="1.0.7" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="1.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mtf.Enums\Mtf.Enums.csproj" />
+  </ItemGroup>
+
+</Project>

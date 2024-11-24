@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Extensions", "Mtf.Exten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Models", "Mtf.Models\Mtf.Models.csproj", "{20AC2A7B-3D31-4891-B335-914E0FD6E208}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera", "Camera\Camera.csproj", "{9809F222-B010-4EFC-ACD4-23E18788E5F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,8 +42,19 @@ Global
 		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8193D0F-9703-4FE9-AC99-D0DCCFB5AD64}
 	EndGlobalSection
 EndGlobal

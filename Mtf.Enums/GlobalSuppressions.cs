@@ -17,3 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Style", "IDE0251:Make member 'readonly'")]
 [assembly: SuppressMessage("Style", "IDE0300:Simplify collection initialization")]
 [assembly: SuppressMessage("Style", "IDE0305:Simplify collection initialization")]
+[assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "namespace", Target = "~N:Mtf.Enums")]
+[assembly: SuppressMessage("Design", "CA1028:Enum Storage should be Int32", Justification = "<Pending>", Scope = "namespace", Target = "~N:Mtf.Enums")]
+[assembly: SuppressMessage("Design", "CA1028:Enum Storage should be Int32", Justification = "<Pending>", Scope = "namespace", Target = "~N:Mtf.Enums")]
+[assembly: SuppressMessage("Design", "CA1027:Mark enums with FlagsAttribute", Justification = "<Pending>", Scope = "namespace", Target = "~N:Mtf.Enums")]

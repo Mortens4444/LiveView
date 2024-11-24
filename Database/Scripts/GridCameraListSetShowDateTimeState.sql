@@ -1,0 +1,1 @@
+﻿UPDATE Grid_cameralist SET show_date_time = @show_date_time WHERE camera_id = @camera_id AND grid_id = @grid_id AND init_row = @init_row AND init_col = @init_col

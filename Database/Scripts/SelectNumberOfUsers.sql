@@ -1,0 +1,1 @@
+﻿SELECT COUNT_BIG(ID) FROM Users

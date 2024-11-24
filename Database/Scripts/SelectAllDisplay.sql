@@ -1,0 +1,1 @@
+﻿SELECT ID, pnp_device_id, shown_name, fullscreen_display, can_show_sequence, can_show_fullscreen FROM Displays

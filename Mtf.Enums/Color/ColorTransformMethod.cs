@@ -49,8 +49,6 @@
         CMY_To_RGB,
         Exp,
         Pow,
-        Normalized,
         Random
     }
-
 }

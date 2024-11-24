@@ -1,8 +1,106 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="MainForm.cs">
+    <Compile Update="Forms\AddCameras.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\AddDatabaseServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AddGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AddGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AddVideoServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AutoCreateWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\BarcodeReadings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\CameraMotionOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\CameraProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ControlCenter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DisplayOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DisplayProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\EnterPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\GridManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\IOPortEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\IOPortSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\LogViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MapCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\PersonalOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Profile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SequentialChains.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ServerAndCameraManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ServerAndCameraProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SyncronView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SystemOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Templates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\UserAndGroupManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Forms\AutoCreateWizard.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\ControlCenter.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

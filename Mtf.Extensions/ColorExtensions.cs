@@ -175,9 +175,9 @@ namespace Mtf.Extensions
             return Color.FromArgb(value.R, 0, value.B);
         }
 
-        public static YUV_Color ConvertToYUVColor(this Color value)
+        public static YUVColor ConvertToYUVColor(this Color value)
         {
-            return new YUV_Color(value);
+            return new YUVColor(value);
         }
 
         public static Color ConvertToYUVYScale(this Color value)
@@ -188,37 +188,37 @@ namespace Mtf.Extensions
 
         public static Color ConvertToCMYCScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(cmy_color.C, 0, 0);
         }
 
         public static Color ConvertToCMYMScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(0, cmy_color.M, 0);
         }
 
         public static Color ConvertToCMYYScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(0, 0, cmy_color.Y);
         }
 
         public static Color ConvertToCMYCMScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(cmy_color.C, cmy_color.M, 0);
         }
 
         public static Color ConvertToCMYMYScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(0, cmy_color.M, cmy_color.Y);
         }
 
         public static Color ConvertToCMYCYScale(this Color value)
         {
-            var cmy_color = new CMY_Color(value);
+            var cmy_color = new CMYColor(value);
             return Color.FromArgb(cmy_color.C, 0, cmy_color.Y);
         }
 
@@ -314,13 +314,13 @@ namespace Mtf.Extensions
 
         public static Color ConvertFromYUVToRGB(this Color value)
         {
-            var yuv_color = new YUV_Color(value.R, value.G, value.B, ColorSpaceType.YUV);
+            var yuv_color = new YUVColor(value.R, value.G, value.B, ColorSpaceType.YUV);
             return Color.FromArgb(yuv_color.R, yuv_color.G, yuv_color.B);
         }
 
         public static Color ConvertFromCMYToRGB(this Color value)
         {
-            var cmy_color = new CMY_Color(value.R, value.G, value.B);
+            var cmy_color = new CMYColor(value.R, value.G, value.B);
             return Color.FromArgb(cmy_color.R, cmy_color.G, cmy_color.B);
         }
 
@@ -482,7 +482,7 @@ namespace Mtf.Extensions
                 case ColorTransformMethod.CMY_To_RGB:
                     return value.ConvertFromCMYToRGB();
                 case ColorTransformMethod.RGB_To_CMY:
-                    var cmy_color = new CMY_Color(value);
+                    var cmy_color = new CMYColor(value);
                     return Color.FromArgb(cmy_color.C, cmy_color.M, cmy_color.Y);
                 case ColorTransformMethod.Exp:
                     return value.ConvertToExp();
@@ -490,6 +490,8 @@ namespace Mtf.Extensions
                     return value.ConvertToPow();
                 case ColorTransformMethod.Random:
                     return GetRandomColor();
+                case ColorTransformMethod.Original:
+                    return value;
                 default: throw new NotImplementedException();
             }
         }

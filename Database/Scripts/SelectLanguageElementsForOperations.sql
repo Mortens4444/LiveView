@@ -1,0 +1,1 @@
+﻿SELECT language_element_id FROM Operations WHERE ID = @C
