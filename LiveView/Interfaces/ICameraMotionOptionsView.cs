@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ICameraMotionOptionsView
+    public interface ICameraMotionOptionsView : IView
     {
     }
 }

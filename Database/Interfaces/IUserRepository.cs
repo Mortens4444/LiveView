@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository<TModel> : IRepository<TModel>
     {
     }
 }

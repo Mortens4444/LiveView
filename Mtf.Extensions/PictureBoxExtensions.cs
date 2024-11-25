@@ -1,4 +1,4 @@
-﻿using MessageBoxes;
+﻿using Mtf.MessageBoxes;
 using System;
 using System.Drawing;
 using System.Threading;

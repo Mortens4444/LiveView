@@ -1,18 +1,26 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class DisplayProperties : Form, IDisplayPropertiesView
     {
-        private readonly ILogger<DisplayProperties> logger;
+        private readonly DisplayPropertiesPresenter displayPropertiesPresenter;
 
-        public DisplayProperties(ILogger<DisplayProperties> logger)
+        public DisplayProperties(PermissionManager permissionManager, ILogger<DisplayProperties> logger, IDisplayRepository<Display> displayRepository)
         {
             InitializeComponent();
-            this.logger = logger;
+
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            displayPropertiesPresenter = new DisplayPropertiesPresenter(this, displayRepository, logger);
+
             Translator.Translate(this);
         }
     }

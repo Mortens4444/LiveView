@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface ILanguageRepository
+    public interface ILanguageRepository<TModel> : IRepository<TModel>
     {
     }
 }

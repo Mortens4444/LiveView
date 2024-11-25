@@ -1,18 +1,26 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class AddGroup : Form, IAddGroupView
     {
-        private readonly ILogger<AddGroup> logger;
+        private readonly AddGroupPresenter addGroupPresenter;
 
-        public AddGroup(ILogger<AddGroup> logger)
+        public AddGroup(PermissionManager permissionManager, ILogger<AddGroup> logger, IGroupRepository<Group> groupRepository)
         {
             InitializeComponent();
-            this.logger = logger;
+
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            addGroupPresenter = new AddGroupPresenter(this, groupRepository, logger);
+
             Translator.Translate(this);
         }
     }

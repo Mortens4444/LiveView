@@ -1,10 +1,9 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GridsInSequencesRepository : BaseRepository<GridsInSequences>, IGridsInSequencesRepository
+    public sealed class GridsInSequencesRepository<TModel> : BaseRepository<TModel>, IGridsInSequencesRepository<TModel>
     {
     }
 }

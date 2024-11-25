@@ -1,17 +1,23 @@
 ﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Forms;
 using LiveView.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace LiveView.Presenters
 {
-    public class TemplatesPresenter
+    public class TemplatesPresenter : BasePresenter
     {
         private readonly ITemplatesView templatesView;
-        private readonly ITemplateRepository templateRepository;
+        private readonly ITemplateRepository<Template> templateRepository;
+        private readonly ILogger<Templates> logger;
 
-        public TemplatesPresenter(ITemplatesView templatesView, ITemplateRepository templateRepository)
+        public TemplatesPresenter(ITemplatesView templatesView, ITemplateRepository<Template> templateRepository, ILogger<Templates> logger)
+            : base(templatesView)
         {
             this.templatesView = templatesView;
             this.templateRepository = templateRepository;
+            this.logger = logger;
         }
     }
 }

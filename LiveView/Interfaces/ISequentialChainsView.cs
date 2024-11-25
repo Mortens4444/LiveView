@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ISequentialChainsView
+    public interface ISequentialChainsView : IView
     {
     }
 }

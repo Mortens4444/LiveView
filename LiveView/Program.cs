@@ -3,6 +3,7 @@ using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Database;
 using System;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace LiveView
@@ -25,6 +26,7 @@ namespace LiveView
 //            ApplicationConfiguration.Initialize();
 //#endif
 
+            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
             BaseRepository.ScriptsToExecute.Add("CreateDatabase");
 
             var serviceProvider = ServiceProviderFactory.Create();

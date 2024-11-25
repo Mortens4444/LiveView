@@ -1,32 +1,43 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
+using System;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class ServerAndCameraManagement : Form, IServerAndCameraManagementView
     {
-        private readonly FormFactory formFactory;
-        private readonly ILogger<ServerAndCameraManagement> logger;
+        private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
 
-        public ServerAndCameraManagement(FormFactory formFactory, ILogger<ServerAndCameraManagement> logger)
+        public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Sequence> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
-            this.formFactory = formFactory;
-            this.logger = logger;
+
             btn_NewCamera.Tag = "Btn_NewCamera_Click";
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            serverAndCameraManagementPresenter = new ServerAndCameraManagementPresenter(formFactory, this, serverRepository, cameraRepository, logger);
+
             Translator.Translate(this);
         }
 
         [RequirePermission(PermissionType.CreateCamera)]
-        private void Btn_NewCamera_Click(object sender, System.EventArgs e)
+        private void Btn_NewCamera_Click(object sender, EventArgs e)
         {
-            var form = formFactory.CreateForm<AddCameras>(1L, 2L);
-            form.Show();
+            serverAndCameraManagementPresenter.CreateNewCameraForm();
+        }
+
+        private void Btn_Close_Click(object sender, EventArgs e)
+        {
+            serverAndCameraManagementPresenter.CloseForm();
         }
     }
 }

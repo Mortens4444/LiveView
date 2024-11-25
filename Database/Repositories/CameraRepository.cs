@@ -1,10 +1,9 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class CameraRepository : BaseRepository<Camera>, ICameraRepository
+    public sealed class CameraRepository<TModel> : BaseRepository<TModel>, ICameraRepository<TModel>
     {
         public string SelectCameraName(int cameraId)
         {

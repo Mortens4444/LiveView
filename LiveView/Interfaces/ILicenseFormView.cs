@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ILicenseFormView
+    public interface ILicenseFormView : IView
     {
     }
 }

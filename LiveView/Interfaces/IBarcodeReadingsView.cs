@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IBarcodeReadingsView
+    public interface IBarcodeReadingsView : IView
     {
     }
 }

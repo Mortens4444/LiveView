@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IAddVideoServerView
+    public interface IAddVideoServerView : IView
     {
     }
 }

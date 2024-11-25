@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IGridManagerView
+    public interface IGridManagerView : IView
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IAutoCreateWizardView
+    public interface IAutoCreateWizardView : IView
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IMainView
+    public interface IMainView : IView
     {
     }
 }

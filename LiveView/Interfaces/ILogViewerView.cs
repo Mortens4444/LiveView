@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ILogViewerView
+    public interface ILogViewerView : IView
     {
     }
 }

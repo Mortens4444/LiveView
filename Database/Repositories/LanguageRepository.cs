@@ -1,10 +1,9 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class LanguageRepository : BaseRepository<Language>, ILanguageRepository
+    public sealed class LanguageRepository <TModel> : BaseRepository<TModel>, ILanguageRepository<TModel>
     {
     }
 }

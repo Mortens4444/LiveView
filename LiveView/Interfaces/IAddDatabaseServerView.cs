@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IAddDatabaseServerView
+    public interface IAddDatabaseServerView : IView
     {
     }
 }

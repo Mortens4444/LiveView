@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IGroupRepository
+    public interface IGroupRepository<TModel> : IRepository<TModel>
     {
     }
 }

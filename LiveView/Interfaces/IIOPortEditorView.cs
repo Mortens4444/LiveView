@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IIOPortEditorView
+    public interface IIOPortEditorView : IView
     {
     }
 }

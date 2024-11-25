@@ -1,10 +1,9 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GridCameraListRepository : BaseRepository<GridCameraList>, IGridCameraListRepository
+    public sealed class GridCameraListRepository<TModel> : BaseRepository<TModel>, IGridCameraListRepository<TModel>
     {
         public string GridCameraListSetShowMethod(int cameraId)
         {

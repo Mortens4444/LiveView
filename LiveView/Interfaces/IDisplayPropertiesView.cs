@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IDisplayPropertiesView
+    public interface IDisplayPropertiesView : IView
     {
     }
 }

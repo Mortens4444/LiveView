@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IGridsInSequencesRepository
+    public interface IGridsInSequencesRepository<TModel> : IRepository<TModel>
     {
     }
 }

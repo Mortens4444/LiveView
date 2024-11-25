@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IOptionsRepository
+    public interface IOptionsRepository<TModel> : IRepository<TModel>
     {
     }
 }

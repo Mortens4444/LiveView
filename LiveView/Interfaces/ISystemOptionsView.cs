@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ISystemOptionsView
+    public interface ISystemOptionsView : IView
     {
     }
 }

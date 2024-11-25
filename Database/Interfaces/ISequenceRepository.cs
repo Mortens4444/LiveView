@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface ISequenceRepository
+    public interface ISequenceRepository<TModel> : IRepository<TModel>
     {
     }
 }

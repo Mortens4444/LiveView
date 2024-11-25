@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IAddGroupView
+    public interface IAddGroupView : IView
     {
     }
 }

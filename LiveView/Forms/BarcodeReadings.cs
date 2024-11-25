@@ -1,18 +1,24 @@
 ﻿using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class BarcodeReadings : Form, IBarcodeReadingsView
     {
-        private readonly ILogger<BarcodeReadings> logger;
+        private readonly BarcodeReadingsPresenter barcodeReadingsPresenter;
 
-        public BarcodeReadings(ILogger<BarcodeReadings> logger)
+        public BarcodeReadings(PermissionManager permissionManager, ILogger<BarcodeReadings> logger)
         {
             InitializeComponent();
-            this.logger = logger;
+
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            barcodeReadingsPresenter = new BarcodeReadingsPresenter(this, logger);
+
             Translator.Translate(this);
         }
     }

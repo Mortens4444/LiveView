@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ITemplatesView
+    public interface ITemplatesView : IView
     {
     }
 }

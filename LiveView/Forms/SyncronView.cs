@@ -1,18 +1,26 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class SyncronView : Form, ISyncronViewView
     {
-        private readonly ILogger<SyncronView> logger;
+        private readonly SyncronViewPresenter syncronViewPresenter;
 
-        public SyncronView(ILogger<SyncronView> logger)
+        public SyncronView(PermissionManager permissionManager, ILogger<SyncronView> logger, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
-            this.logger = logger;
+
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            syncronViewPresenter = new SyncronViewPresenter(this, cameraRepository, logger);
+
             Translator.Translate(this);
         }
     }

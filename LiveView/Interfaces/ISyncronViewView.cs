@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ISyncronViewView
+    public interface ISyncronViewView : IView
     {
     }
 }

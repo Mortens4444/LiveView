@@ -29,6 +29,6 @@
     <file src=".\Mtf.Models\bin\Release\net481\**" target="lib\net481" />
     <file src=".\Mtf.Models\bin\Release\net8.0\**" target="lib\net8.0" />
     <file src=".\Mtf.Models\bin\Release\net9.0\**" target="lib\net9.0" />
-	<file src=".\ReadMe.md" target="docs\" />
+	<file src=".\Mtf.Models\ReadMe.md" target="docs\" />
   </files>
 </package>

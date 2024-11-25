@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IMapRepository
+    public interface IMapRepository<TModel> : IRepository<TModel>
     {
     }
 }

@@ -1,19 +1,33 @@
 ﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Services;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
-    public class ServerAndCameraManagementPresenter
+    public class ServerAndCameraManagementPresenter : BasePresenter
     {
         private readonly IServerAndCameraManagementView serverAndCameraManagementView;
-        private readonly IServerRepository serverRepository;
-        private readonly ICameraRepository cameraRepository;
+        private readonly IServerRepository<Sequence> serverRepository;
+        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly ILogger<ServerAndCameraManagement> logger;
 
-        public ServerAndCameraManagementPresenter(IServerAndCameraManagementView serverAndCameraManagementView, IServerRepository serverRepository, ICameraRepository cameraRepository)
+        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IServerRepository<Sequence> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
+            : base(serverAndCameraManagementView, formFactory)
         {
             this.serverAndCameraManagementView = serverAndCameraManagementView;
             this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
+            this.logger = logger;
+        }
+
+        public void CreateNewCameraForm()
+        {
+            long serverId = 0;
+            CreateForm<AddCameras>(serverId);
         }
     }
 }

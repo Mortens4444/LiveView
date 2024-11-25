@@ -8,8 +8,6 @@
       
       Compatibility:
       - .NET Framework 4.8.1
-      - .NET 8
-      - .NET 9
 	</description>
     <authors>Mortens</authors>
 	<owners>Mortens</owners>
@@ -21,14 +19,10 @@
 	<readme>docs\ReadMe.md</readme>
     <dependencies>
       <group targetFramework="net481" />
-      <group targetFramework="net8.0-windows7" />
-      <group targetFramework="net9.0-windows7" />
     </dependencies>
   </metadata>
   <files>
     <file src=".\Mtf.Extensions\bin\Release\net481\**" target="lib\net481" />
-    <file src=".\Mtf.Extensions\bin\Release\net8.0-windows\**" target="lib\net8.0-windows7" />
-    <file src=".\Mtf.Extensions\bin\Release\net9.0-windows\**" target="lib\net9.0-windows7" />
-	<file src=".\ReadMe.md" target="docs\" />
+	<file src=".\Mtf.Extensions\ReadMe.md" target="docs\" />
   </files>
 </package>

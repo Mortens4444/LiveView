@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IMapCreatorView
+    public interface IMapCreatorView : IView
     {
     }
 }

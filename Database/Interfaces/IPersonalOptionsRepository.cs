@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IPersonalOptionsRepository
+    public interface IPersonalOptionsRepository<TModel> : IRepository<TModel>
     {
     }
 }

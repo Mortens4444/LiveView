@@ -1,8 +1,12 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
 
@@ -10,19 +14,23 @@ namespace LiveView.Forms
 {
     public partial class AddCameras : Form, IAddCamerasView
     {
-        private readonly long userId;
-        private long serverId;
-        private bool cameraLicenseRunnedOut;
-        private bool isSziltech;
+        private readonly long serverId;
+        private readonly bool cameraLicenseRunnedOut;
+        private readonly bool isSziltech;
 
-        public AddCameras(ILogger<AddCameras> logger, long userId, long serverId)
+        private readonly AddCamerasPresenter addCamerasPresenter;
+
+        public AddCameras(PermissionManager permissionManager, ILogger<AddCameras> logger, ICameraRepository<Camera> cameraRepository, long serverId)
         {
             InitializeComponent();
-            this.userId = userId;
             this.serverId = serverId;
             cameraLicenseRunnedOut = false;
 
             btn_AddCameras.Tag = "Btn_AddCameras_Click";
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            addCamerasPresenter = new AddCamerasPresenter(this, cameraRepository, logger);
+
             Translator.Translate(this);
         }
 

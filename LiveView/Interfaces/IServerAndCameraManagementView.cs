@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IServerAndCameraManagementView
+    public interface IServerAndCameraManagementView : IView
     {
     }
 }

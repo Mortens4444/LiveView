@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IAddGridView
+    public interface IAddGridView : IView
     {
     }
 }

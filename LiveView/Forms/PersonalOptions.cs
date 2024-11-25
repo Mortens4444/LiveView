@@ -1,18 +1,25 @@
-﻿using LanguageService.Windows.Forms;
+﻿using Database.Interfaces;
+using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
+using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class PersonalOptions : Form, IPersonalOptionsView
     {
-        private readonly ILogger<PersonalOptions> logger;
+        private readonly PersonalOptionsPresenter personalOptionsPresenter;
 
-        public PersonalOptions(ILogger<PersonalOptions> logger)
+        public PersonalOptions(PermissionManager permissionManager, ILogger<PersonalOptions> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
         {
             InitializeComponent();
-            this.logger = logger;
+
+            permissionManager.ApplyPermissionsOnControls(this);
+
+            personalOptionsPresenter = new PersonalOptionsPresenter(this, personalOptionsRepository, logger);
+
             Translator.Translate(this);
         }
     }

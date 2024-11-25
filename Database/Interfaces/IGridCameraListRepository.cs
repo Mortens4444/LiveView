@@ -1,6 +1,6 @@
 ﻿namespace Database.Interfaces
 {
-    public interface IGridCameraListRepository
+    public interface IGridCameraListRepository<TModel> : IRepository<TModel>
     {
     }
 }

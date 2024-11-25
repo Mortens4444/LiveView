@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface IEnterPassView
+    public interface IEnterPassView : IView
     {
     }
 }

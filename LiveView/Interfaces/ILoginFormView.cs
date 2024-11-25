@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Interfaces
 {
-    public interface ILoginFormView
+    public interface ILoginFormView : IView
     {
     }
 }
