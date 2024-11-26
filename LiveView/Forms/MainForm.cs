@@ -23,7 +23,7 @@ namespace LiveView.Forms
             //permissionManager.SetUser(this, new Mtf.Permissions.Models.User { IndividualPermissions = new System.Collections.Generic.List<Mtf.Permissions.Models.Permission>{ new Mtf.Permissions.Models.Permission { PermissionType = Mtf.Permissions.Enums.PermissionType.Admin }} });
             permissionManager.ApplyPermissionsOnControls(this);
 
-            mainPresenter = new MainPresenter(this, logger);
+            mainPresenter = new MainPresenter(formFactory, this, logger);
 
             Translator.Translate(this);
         }

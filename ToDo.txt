@@ -1,4 +1,3 @@
-- Set correct ConnectionString in Program.cs and C:\Work\Sziltech\LiveView\Database \EncryptedConnectionStringInConfigFile.bat
 - Fix MenuItem.Enabled in Mtf.Permission
 - Create Forms, from menuitems
 - Add form functionalities

@@ -1,3 +1,4 @@
+using Database.Repositories;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,12 +23,20 @@ namespace LiveView
 //#if NETFRAMEWORK
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-//#else
-//            ApplicationConfiguration.Initialize();
-//#endif
+            //#else
+            //            ApplicationConfiguration.Initialize();
+            //#endif
+
+
+            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository<>).Assembly;
+            BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+
+            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"]?.ConnectionString;
+            BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
+            BaseRepository.ExecuteWithoutTransaction("CreateUser");
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
-            BaseRepository.ScriptsToExecute.Add("CreateDatabase");
+            BaseRepository.ExecuteWithoutTransaction("CreateTables");
 
             var serviceProvider = ServiceProviderFactory.Create();
             Application.Run(serviceProvider.GetRequiredService<MainForm>());
