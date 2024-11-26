@@ -3,6 +3,8 @@ using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.Permissions.Attributes;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
@@ -32,6 +34,7 @@ namespace LiveView.Forms
         {
         }
 
+        [RequirePermission(PermissionType.ServerAndCameraManagement)]
         private void Tsmi_ServerAndCameraManagement_Click(object sender, EventArgs e)
         {
             var form = formFactory.CreateForm<ServerAndCameraManagement>();

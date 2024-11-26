@@ -15,8 +15,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
     <PackageReference Include="Mtf.Controls" Version="1.0.14" />
     <PackageReference Include="Mtf.MessageBoxes" Version="2.0.26" />
-    <PackageReference Include="Mtf.Permissions" Version="1.0.1" />
-    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="2.0.16" />
+    <PackageReference Include="Mtf.Permissions" Version="1.0.2" />
+    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="2.0.17" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
   </ItemGroup>
