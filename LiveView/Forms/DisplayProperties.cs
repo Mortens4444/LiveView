@@ -12,10 +12,12 @@ namespace LiveView.Forms
     public partial class DisplayProperties : Form, IDisplayPropertiesView
     {
         private readonly DisplayPropertiesPresenter displayPropertiesPresenter;
+        private readonly PermissionManager permissionManager;
 
         public DisplayProperties(PermissionManager permissionManager, ILogger<DisplayProperties> logger, IDisplayRepository<Display> displayRepository)
         {
             InitializeComponent();
+            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 

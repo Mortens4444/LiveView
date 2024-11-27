@@ -335,7 +335,7 @@
             // 
             btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Close.Location = new System.Drawing.Point(573, 471);
+            btn_Close.Location = new System.Drawing.Point(569, 467);
             btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Close.Name = "btn_Close";
             btn_Close.Size = new System.Drawing.Size(88, 27);
@@ -346,7 +346,7 @@
             // btn_SavePermissions
             // 
             btn_SavePermissions.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_SavePermissions.Location = new System.Drawing.Point(358, 471);
+            btn_SavePermissions.Location = new System.Drawing.Point(354, 467);
             btn_SavePermissions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_SavePermissions.Name = "btn_SavePermissions";
             btn_SavePermissions.Size = new System.Drawing.Size(208, 27);
@@ -381,6 +381,7 @@
             btn_CreateOrModifyGroup.TabIndex = 4;
             btn_CreateOrModifyGroup.Text = "Create";
             btn_CreateOrModifyGroup.UseVisualStyleBackColor = true;
+            btn_CreateOrModifyGroup.Click += Btn_CreateOrModifyGroup_Click;
             // 
             // tb_Note
             // 

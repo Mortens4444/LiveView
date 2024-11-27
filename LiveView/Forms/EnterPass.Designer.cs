@@ -65,6 +65,7 @@
             btn_OK.TabIndex = 4;
             btn_OK.Text = "OK";
             btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += Btn_OK_Click;
             // 
             // tbSziltechSecurityCode
             // 

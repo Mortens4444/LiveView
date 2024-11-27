@@ -89,7 +89,9 @@
             tb_Password.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_Password.MaxLength = 100;
             tb_Password.Name = "tb_Password";
+            tb_Password.Password = "";
             tb_Password.PasswordChar = '*';
+            tb_Password.ShowRealPasswordLength = false;
             tb_Password.Size = new System.Drawing.Size(182, 23);
             tb_Password.TabIndex = 3;
             // 
@@ -124,6 +126,7 @@
             btn_Create.TabIndex = 1;
             btn_Create.Text = "Add";
             btn_Create.UseVisualStyleBackColor = true;
+            btn_Create.Click += Btn_Create_Click;
             // 
             // nud_LoginSupervisorsRequiredPriority
             // 
@@ -157,6 +160,7 @@
             btn_Cancel.TabIndex = 2;
             btn_Cancel.Text = "Cancel";
             btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
             // chk_LoginSupervisorsRequiredPriority
             // 

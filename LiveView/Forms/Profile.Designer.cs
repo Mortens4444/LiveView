@@ -54,7 +54,7 @@
             lbl_SizeMode = new System.Windows.Forms.Label();
             cb_SizeMode = new System.Windows.Forms.ComboBox();
             btn_SelectPicture = new System.Windows.Forms.Button();
-            btn_Cancel = new System.Windows.Forms.Button();
+            btn_Close = new System.Windows.Forms.Button();
             btn_Save = new System.Windows.Forms.Button();
             gb_Picture = new System.Windows.Forms.GroupBox();
             gb_PersonalDetails = new System.Windows.Forms.GroupBox();
@@ -73,7 +73,9 @@
             tb_CurrentPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_CurrentPassword.MaxLength = 100;
             tb_CurrentPassword.Name = "tb_CurrentPassword";
+            tb_CurrentPassword.Password = "";
             tb_CurrentPassword.PasswordChar = '*';
+            tb_CurrentPassword.ShowRealPasswordLength = false;
             tb_CurrentPassword.Size = new System.Drawing.Size(176, 23);
             tb_CurrentPassword.TabIndex = 3;
             // 
@@ -95,7 +97,9 @@
             tb_ConfirmNewPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_ConfirmNewPassword.MaxLength = 100;
             tb_ConfirmNewPassword.Name = "tb_ConfirmNewPassword";
+            tb_ConfirmNewPassword.Password = "";
             tb_ConfirmNewPassword.PasswordChar = '*';
+            tb_ConfirmNewPassword.ShowRealPasswordLength = false;
             tb_ConfirmNewPassword.Size = new System.Drawing.Size(176, 23);
             tb_ConfirmNewPassword.TabIndex = 7;
             // 
@@ -307,6 +311,8 @@
             pb_Picture.Location = new System.Drawing.Point(7, 68);
             pb_Picture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_Picture.Name = "pb_Picture";
+            pb_Picture.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_Picture.RepositioningAndResizingControlsOnResize = false;
             pb_Picture.Size = new System.Drawing.Size(244, 341);
             pb_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pb_Picture.TabIndex = 5;
@@ -344,17 +350,18 @@
             btn_SelectPicture.Text = "Select picture";
             btn_SelectPicture.UseVisualStyleBackColor = true;
             // 
-            // btn_Cancel
+            // btn_Close
             // 
-            btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Cancel.Location = new System.Drawing.Point(559, 427);
-            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Cancel.Name = "btn_Cancel";
-            btn_Cancel.Size = new System.Drawing.Size(88, 27);
-            btn_Cancel.TabIndex = 4;
-            btn_Cancel.Text = "Cancel";
-            btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btn_Close.Location = new System.Drawing.Point(559, 427);
+            btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Close.Name = "btn_Close";
+            btn_Close.Size = new System.Drawing.Size(88, 27);
+            btn_Close.TabIndex = 4;
+            btn_Close.Text = "Close";
+            btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // btn_Save
             // 
@@ -366,6 +373,7 @@
             btn_Save.TabIndex = 3;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // gb_Picture
             // 
@@ -409,7 +417,7 @@
             // 
             // p_Main
             // 
-            p_Main.Controls.Add(btn_Cancel);
+            p_Main.Controls.Add(btn_Close);
             p_Main.Controls.Add(btn_Save);
             p_Main.Controls.Add(gb_Picture);
             p_Main.Controls.Add(gb_PersonalDetails);
@@ -472,7 +480,7 @@
         private System.Windows.Forms.Label lbl_SizeMode;
         private System.Windows.Forms.ComboBox cb_SizeMode;
         private System.Windows.Forms.Button btn_SelectPicture;
-        private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.GroupBox gb_Picture;
         private System.Windows.Forms.GroupBox gb_PersonalDetails;

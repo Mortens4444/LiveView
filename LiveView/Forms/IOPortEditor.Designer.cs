@@ -35,8 +35,8 @@
             label3 = new System.Windows.Forms.Label();
             numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             label2 = new System.Windows.Forms.Label();
-            button2 = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
+            btnSave = new System.Windows.Forms.Button();
             textBox1 = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             panel1.SuspendLayout();
@@ -51,8 +51,8 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(numericUpDown1);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnCancel);
+            panel1.Controls.Add(btnSave);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -114,29 +114,31 @@
             label2.TabIndex = 4;
             label2.Text = "Maximum signals per day ";
             // 
-            // button2
+            // btnCancel
             // 
-            button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            button2.Location = new System.Drawing.Point(239, 132);
-            button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(88, 27);
-            button2.TabIndex = 3;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
+            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Location = new System.Drawing.Point(239, 132);
+            btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(88, 27);
+            btnCancel.TabIndex = 3;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += BtnCancel_Click;
             // 
-            // button1
+            // btnSave
             // 
-            button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            button1.Location = new System.Drawing.Point(145, 132);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(88, 27);
-            button1.TabIndex = 2;
-            button1.Text = "OK";
-            button1.UseVisualStyleBackColor = true;
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnSave.Location = new System.Drawing.Point(145, 132);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(88, 27);
+            btnSave.TabIndex = 2;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += BtnSave_Click;
             // 
             // textBox1
             // 
@@ -183,8 +185,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
     }

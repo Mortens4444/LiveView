@@ -85,6 +85,7 @@
             btn_DeleteMap.TabIndex = 6;
             btn_DeleteMap.Text = "Delete map";
             btn_DeleteMap.UseVisualStyleBackColor = true;
+            btn_DeleteMap.Click += Btn_DeleteMap_Click;
             // 
             // cb_MapName
             // 
@@ -106,6 +107,7 @@
             btn_AddObject.Text = "Add object";
             btn_AddObject.UseVisualStyleBackColor = true;
             btn_AddObject.Visible = false;
+            btn_AddObject.Click += Btn_AddObject_Click;
             // 
             // rtb_Comment
             // 
@@ -150,6 +152,7 @@
             btn_SaveMap.TabIndex = 7;
             btn_SaveMap.Text = "Save map";
             btn_SaveMap.UseVisualStyleBackColor = true;
+            btn_SaveMap.Click += Btn_SaveMap_Click;
             // 
             // tsmi_SetNewObjectsDefaultSize
             // 
@@ -239,12 +242,16 @@
             // 
             p_Default.BackColor = System.Drawing.Color.Black;
             p_Default.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            p_Default.CanMove = true;
+            p_Default.CanSize = true;
             p_Default.ContextMenuStrip = cms_ObjectMenu;
             p_Default.Location = new System.Drawing.Point(7, 22);
             p_Default.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             p_Default.Name = "p_Default";
             p_Default.Size = new System.Drawing.Size(63, 48);
             p_Default.TabIndex = 8;
+            p_Default.TransparentColor = System.Drawing.Color.Black;
+            p_Default.UseTransparentColor = false;
             // 
             // gb_Tools
             // 
@@ -277,6 +284,7 @@
             btn_LoadImage.TabIndex = 4;
             btn_LoadImage.Text = "Load image";
             btn_LoadImage.UseVisualStyleBackColor = true;
+            btn_LoadImage.Click += Btn_LoadImage_Click;
             // 
             // p_Canvas
             // 
@@ -294,6 +302,8 @@
             pb_Canvas.Location = new System.Drawing.Point(0, 0);
             pb_Canvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_Canvas.Name = "pb_Canvas";
+            pb_Canvas.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_Canvas.RepositioningAndResizingControlsOnResize = false;
             pb_Canvas.Size = new System.Drawing.Size(691, 369);
             pb_Canvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pb_Canvas.TabIndex = 0;

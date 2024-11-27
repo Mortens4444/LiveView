@@ -12,10 +12,12 @@ namespace LiveView.Forms
     public partial class SyncronView : Form, ISyncronViewView
     {
         private readonly SyncronViewPresenter syncronViewPresenter;
+        private readonly PermissionManager permissionManager;
 
         public SyncronView(PermissionManager permissionManager, ILogger<SyncronView> logger, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
+            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 

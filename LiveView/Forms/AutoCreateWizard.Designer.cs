@@ -49,7 +49,7 @@
             label2 = new System.Windows.Forms.Label();
             pictureBox1 = new Mtf.Controls.MtfPictureBox();
             label3 = new System.Windows.Forms.Label();
-            button1 = new System.Windows.Forms.Button();
+            btnAutoCreate = new System.Windows.Forms.Button();
             checkBox1 = new System.Windows.Forms.CheckBox();
             imageList2 = new System.Windows.Forms.ImageList(components);
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -57,7 +57,7 @@
             imageList1 = new System.Windows.Forms.ImageList(components);
             panel5 = new System.Windows.Forms.Panel();
             listView1 = new Mtf.Controls.MtfListView();
-            button2 = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
             panel4 = new System.Windows.Forms.Panel();
             panel2 = new System.Windows.Forms.Panel();
             groupBox1 = new System.Windows.Forms.GroupBox();
@@ -242,6 +242,8 @@
             pictureBox1.Location = new System.Drawing.Point(7, 9);
             pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
+            pictureBox1.OriginalSize = new System.Drawing.Size(100, 50);
+            pictureBox1.RepositioningAndResizingControlsOnResize = false;
             pictureBox1.Size = new System.Drawing.Size(19, 18);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -257,18 +259,19 @@
             label3.TabIndex = 4;
             label3.Text = "Grid name prefix";
             // 
-            // button1
+            // btnAutoCreate
             // 
-            button1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            button1.Enabled = false;
-            button1.Location = new System.Drawing.Point(463, 5);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(88, 27);
-            button1.TabIndex = 1;
-            button1.Text = "Auto create";
-            button1.UseVisualStyleBackColor = true;
+            btnAutoCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAutoCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnAutoCreate.Enabled = false;
+            btnAutoCreate.Location = new System.Drawing.Point(463, 5);
+            btnAutoCreate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAutoCreate.Name = "btnAutoCreate";
+            btnAutoCreate.Size = new System.Drawing.Size(88, 27);
+            btnAutoCreate.TabIndex = 1;
+            btnAutoCreate.Text = "Auto create";
+            btnAutoCreate.UseVisualStyleBackColor = true;
+            btnAutoCreate.Click += BtnAutoCreate_Click;
             // 
             // checkBox1
             // 
@@ -375,24 +378,25 @@
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = System.Windows.Forms.View.Details;
             // 
-            // button2
+            // btnCancel
             // 
-            button2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            button2.Location = new System.Drawing.Point(558, 5);
-            button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(88, 27);
-            button2.TabIndex = 2;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
+            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Location = new System.Drawing.Point(558, 5);
+            btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(88, 27);
+            btnCancel.TabIndex = 2;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += BtnCancel_Click;
             // 
             // panel4
             // 
             panel4.Controls.Add(label2);
             panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(button2);
-            panel4.Controls.Add(button1);
+            panel4.Controls.Add(btnCancel);
+            panel4.Controls.Add(btnAutoCreate);
             panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             panel4.Location = new System.Drawing.Point(0, 518);
             panel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -479,7 +483,7 @@
         private System.Windows.Forms.Label label2;
         private Mtf.Controls.MtfPictureBox pictureBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAutoCreate;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -487,7 +491,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Panel panel5;
         private Mtf.Controls.MtfListView listView1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox1;

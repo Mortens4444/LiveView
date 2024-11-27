@@ -4,6 +4,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -27,6 +28,21 @@ namespace LiveView.Presenters
         {
             long serverId = 0;
             ShowForm<AddCameras>(serverId);
+        }
+
+        public void ModifyServer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveServer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Syncronize()
+        {
+            throw new NotImplementedException();
         }
     }
 }

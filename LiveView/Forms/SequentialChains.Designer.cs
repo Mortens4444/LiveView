@@ -127,6 +127,7 @@
             btn_AddGrid.TabIndex = 4;
             btn_AddGrid.Text = "Add";
             btn_AddGrid.UseVisualStyleBackColor = true;
+            btn_AddGrid.Click += Btn_AddGrid_Click;
             // 
             // cb_GridName
             // 
@@ -187,6 +188,7 @@
             btn_DeleteSequence.TabIndex = 1;
             btn_DeleteSequence.Text = "Delete";
             btn_DeleteSequence.UseVisualStyleBackColor = true;
+            btn_DeleteSequence.Click += Btn_DeleteSequence_Click;
             // 
             // cb_SequenceName
             // 
@@ -263,6 +265,7 @@
             btn_DeleteGrid.TabIndex = 3;
             btn_DeleteGrid.Text = "Delete";
             btn_DeleteGrid.UseVisualStyleBackColor = true;
+            btn_DeleteGrid.Click += Btn_DeleteGrid_Click;
             // 
             // btn_MoveDown
             // 
@@ -274,6 +277,7 @@
             btn_MoveDown.TabIndex = 2;
             btn_MoveDown.Text = "Move down";
             btn_MoveDown.UseVisualStyleBackColor = true;
+            btn_MoveDown.Click += Btn_MoveDown_Click;
             // 
             // btn_MoveUp
             // 
@@ -285,6 +289,7 @@
             btn_MoveUp.TabIndex = 1;
             btn_MoveUp.Text = "Move up";
             btn_MoveUp.UseVisualStyleBackColor = true;
+            btn_MoveUp.Click += Btn_MoveUp_Click;
             // 
             // btn_AddOrUpdateSequence
             // 
@@ -296,6 +301,7 @@
             btn_AddOrUpdateSequence.TabIndex = 4;
             btn_AddOrUpdateSequence.Text = "Add/Update";
             btn_AddOrUpdateSequence.UseVisualStyleBackColor = true;
+            btn_AddOrUpdateSequence.Click += Btn_AddOrUpdateSequence_Click;
             // 
             // lv_Grids
             // 

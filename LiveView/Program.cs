@@ -1,8 +1,10 @@
 using Database.Repositories;
+using LanguageService;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Database;
+using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Configuration;
@@ -40,6 +42,8 @@ namespace LiveView
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
             BaseRepository.ExecuteWithoutTransaction("CreateTables");
+
+            LiveViewTranslator.Translate();
 
             var serviceProvider = ServiceProviderFactory.Create();
             Application.Run(serviceProvider.GetRequiredService<MainForm>());

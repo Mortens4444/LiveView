@@ -109,6 +109,7 @@
             btn_Delete.TabIndex = 2;
             btn_Delete.Text = "Delete";
             btn_Delete.UseVisualStyleBackColor = true;
+            btn_Delete.Click += Btn_Delete_Click;
             // 
             // btn_Close
             // 
@@ -121,6 +122,7 @@
             btn_Close.TabIndex = 1;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // gb_CreateTemplate
             // 
@@ -156,6 +158,7 @@
             btn_Save.TabIndex = 1;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // lbl_TemplateName
             // 

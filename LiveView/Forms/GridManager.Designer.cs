@@ -34,7 +34,7 @@
             textBox1 = new System.Windows.Forms.TextBox();
             comboBox3 = new System.Windows.Forms.ComboBox();
             btn_NewGrid = new System.Windows.Forms.Button();
-            button5 = new System.Windows.Forms.Button();
+            btnDelete = new System.Windows.Forms.Button();
             comboBox2 = new System.Windows.Forms.ComboBox();
             tsmi_ChangeCameraTo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -48,7 +48,7 @@
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             btn_MoveDown = new System.Windows.Forms.Button();
             btn_MoveUp = new System.Windows.Forms.Button();
-            button2 = new System.Windows.Forms.Button();
+            btnModify = new System.Windows.Forms.Button();
             listView1 = new Mtf.Controls.MtfListView();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox4 = new System.Windows.Forms.GroupBox();
@@ -98,17 +98,19 @@
             btn_NewGrid.TabIndex = 4;
             btn_NewGrid.Text = "New grid";
             btn_NewGrid.UseVisualStyleBackColor = true;
+            btn_NewGrid.Click += Btn_NewGrid_Click;
             // 
-            // button5
+            // btnDelete
             // 
-            button5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            button5.Location = new System.Drawing.Point(302, 20);
-            button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(88, 27);
-            button5.TabIndex = 1;
-            button5.Text = "Delete";
-            button5.UseVisualStyleBackColor = true;
+            btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnDelete.Location = new System.Drawing.Point(302, 20);
+            btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new System.Drawing.Size(88, 27);
+            btnDelete.TabIndex = 1;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += BtnDelete_Click;
             // 
             // comboBox2
             // 
@@ -191,6 +193,7 @@
             btn_MoveDown.TabIndex = 2;
             btn_MoveDown.Text = "Move down";
             btn_MoveDown.UseVisualStyleBackColor = true;
+            btn_MoveDown.Click += Btn_MoveDown_Click;
             // 
             // btn_MoveUp
             // 
@@ -203,17 +206,19 @@
             btn_MoveUp.TabIndex = 1;
             btn_MoveUp.Text = "Move up";
             btn_MoveUp.UseVisualStyleBackColor = true;
+            btn_MoveUp.Click += Btn_MoveUp_Click;
             // 
-            // button2
+            // btnModify
             // 
-            button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            button2.Location = new System.Drawing.Point(397, 253);
-            button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(88, 27);
-            button2.TabIndex = 4;
-            button2.Text = "Modify";
-            button2.UseVisualStyleBackColor = true;
+            btnModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnModify.Location = new System.Drawing.Point(397, 253);
+            btnModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnModify.Name = "btnModify";
+            btnModify.Size = new System.Drawing.Size(88, 27);
+            btnModify.TabIndex = 4;
+            btnModify.Text = "Modify";
+            btnModify.UseVisualStyleBackColor = true;
+            btnModify.Click += BtnModify_Click;
             // 
             // listView1
             // 
@@ -246,7 +251,7 @@
             groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             groupBox1.Controls.Add(btn_MoveDown);
             groupBox1.Controls.Add(btn_MoveUp);
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(btnModify);
             groupBox1.Controls.Add(listView1);
             groupBox1.Location = new System.Drawing.Point(0, 105);
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -274,7 +279,7 @@
             // 
             groupBox2.Controls.Add(comboBox3);
             groupBox2.Controls.Add(btn_NewGrid);
-            groupBox2.Controls.Add(button5);
+            groupBox2.Controls.Add(btnDelete);
             groupBox2.Controls.Add(comboBox2);
             groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             groupBox2.Location = new System.Drawing.Point(0, 0);
@@ -314,7 +319,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button btn_NewGrid;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ToolStripMenuItem tsmi_ChangeCameraTo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -328,7 +333,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btn_MoveDown;
         private System.Windows.Forms.Button btn_MoveUp;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnModify;
         private Mtf.Controls.MtfListView listView1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox4;

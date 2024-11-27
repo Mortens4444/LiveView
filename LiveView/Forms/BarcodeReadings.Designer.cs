@@ -51,7 +51,7 @@
             groupBox3 = new System.Windows.Forms.GroupBox();
             checkBox2 = new System.Windows.Forms.CheckBox();
             numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            button1 = new System.Windows.Forms.Button();
+            btnQuery = new System.Windows.Forms.Button();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -337,15 +337,16 @@
             numericUpDown2.TabIndex = 0;
             numericUpDown2.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
-            // button1
+            // btnQuery
             // 
-            button1.Location = new System.Drawing.Point(844, 140);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(88, 27);
-            button1.TabIndex = 11;
-            button1.Text = "Query";
-            button1.UseVisualStyleBackColor = true;
+            btnQuery.Location = new System.Drawing.Point(844, 140);
+            btnQuery.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnQuery.Name = "btnQuery";
+            btnQuery.Size = new System.Drawing.Size(88, 27);
+            btnQuery.TabIndex = 11;
+            btnQuery.Text = "Query";
+            btnQuery.UseVisualStyleBackColor = true;
+            btnQuery.Click += BtnQuery_Click;
             // 
             // columnHeader1
             // 
@@ -459,7 +460,7 @@
             groupBox2.Controls.Add(groupBox8);
             groupBox2.Controls.Add(groupBox4);
             groupBox2.Controls.Add(groupBox3);
-            groupBox2.Controls.Add(button1);
+            groupBox2.Controls.Add(btnQuery);
             groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             groupBox2.Location = new System.Drawing.Point(0, 0);
             groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -798,7 +799,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

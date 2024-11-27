@@ -47,7 +47,7 @@
             lbl_Seconds = new System.Windows.Forms.Label();
             gb_DatabaseOptions = new System.Windows.Forms.GroupBox();
             tb_DatabaseUsage = new System.Windows.Forms.TextBox();
-            button4 = new System.Windows.Forms.Button();
+            btnChangeDatabaseDirectory = new System.Windows.Forms.Button();
             tb_DatabaseFolder = new System.Windows.Forms.TextBox();
             lbl_Usage = new System.Windows.Forms.Label();
             lbl_ServerPort = new System.Windows.Forms.Label();
@@ -78,7 +78,7 @@
             gb_NoSignalImage = new System.Windows.Forms.GroupBox();
             chk_UseCustomNoSignalImage = new System.Windows.Forms.CheckBox();
             pb_NoSignalImage = new Mtf.Controls.MtfPictureBox();
-            btn_Browse = new System.Windows.Forms.Button();
+            btnNoSignalImageBrowse = new System.Windows.Forms.Button();
             gb_EventLogging = new System.Windows.Forms.GroupBox();
             rb_VerboseLogEveryEvents = new System.Windows.Forms.RadioButton();
             rb_VerboseLogOnlyErrors = new System.Windows.Forms.RadioButton();
@@ -294,7 +294,7 @@
             gb_DatabaseOptions.BackgroundImage = (System.Drawing.Image)resources.GetObject("gb_DatabaseOptions.BackgroundImage");
             gb_DatabaseOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             gb_DatabaseOptions.Controls.Add(tb_DatabaseUsage);
-            gb_DatabaseOptions.Controls.Add(button4);
+            gb_DatabaseOptions.Controls.Add(btnChangeDatabaseDirectory);
             gb_DatabaseOptions.Controls.Add(tb_DatabaseFolder);
             gb_DatabaseOptions.Controls.Add(lbl_Usage);
             gb_DatabaseOptions.Controls.Add(lbl_ServerPort);
@@ -327,16 +327,17 @@
             tb_DatabaseUsage.TabIndex = 1;
             tb_DatabaseUsage.TabStop = false;
             // 
-            // button4
+            // btnChangeDatabaseDirectory
             // 
-            button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            button4.Location = new System.Drawing.Point(12, 167);
-            button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button4.Name = "button4";
-            button4.Size = new System.Drawing.Size(208, 27);
-            button4.TabIndex = 12;
-            button4.Text = "Change databases folder";
-            button4.UseVisualStyleBackColor = true;
+            btnChangeDatabaseDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnChangeDatabaseDirectory.Location = new System.Drawing.Point(12, 167);
+            btnChangeDatabaseDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnChangeDatabaseDirectory.Name = "btnChangeDatabaseDirectory";
+            btnChangeDatabaseDirectory.Size = new System.Drawing.Size(208, 27);
+            btnChangeDatabaseDirectory.TabIndex = 12;
+            btnChangeDatabaseDirectory.Text = "Change databases folder";
+            btnChangeDatabaseDirectory.UseVisualStyleBackColor = true;
+            btnChangeDatabaseDirectory.Click += BtnChangeDatabaseDirectory_Click;
             // 
             // tb_DatabaseFolder
             // 
@@ -480,6 +481,8 @@
             pictureBox2.Location = new System.Drawing.Point(7, 27);
             pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox2.Name = "pictureBox2";
+            pictureBox2.OriginalSize = new System.Drawing.Size(100, 50);
+            pictureBox2.RepositioningAndResizingControlsOnResize = false;
             pictureBox2.Size = new System.Drawing.Size(12, 12);
             pictureBox2.TabIndex = 10;
             pictureBox2.TabStop = false;
@@ -596,24 +599,26 @@
             // btn_Standard
             // 
             btn_Standard.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_Standard.Location = new System.Drawing.Point(94, 623);
+            btn_Standard.Location = new System.Drawing.Point(99, 620);
             btn_Standard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Standard.Name = "btn_Standard";
             btn_Standard.Size = new System.Drawing.Size(88, 27);
             btn_Standard.TabIndex = 5;
             btn_Standard.Text = "Standard";
             btn_Standard.UseVisualStyleBackColor = true;
+            btn_Standard.Click += Btn_Standard_Click;
             // 
             // btn_Default
             // 
             btn_Default.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_Default.Location = new System.Drawing.Point(0, 623);
+            btn_Default.Location = new System.Drawing.Point(5, 620);
             btn_Default.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Default.Name = "btn_Default";
             btn_Default.Size = new System.Drawing.Size(88, 27);
             btn_Default.TabIndex = 4;
             btn_Default.Text = "Default";
             btn_Default.UseVisualStyleBackColor = true;
+            btn_Default.Click += Btn_Default_Click;
             // 
             // p_Main
             // 
@@ -638,7 +643,7 @@
             gb_NoSignalImage.Controls.Add(pictureBox2);
             gb_NoSignalImage.Controls.Add(chk_UseCustomNoSignalImage);
             gb_NoSignalImage.Controls.Add(pb_NoSignalImage);
-            gb_NoSignalImage.Controls.Add(btn_Browse);
+            gb_NoSignalImage.Controls.Add(btnNoSignalImageBrowse);
             gb_NoSignalImage.Location = new System.Drawing.Point(369, 307);
             gb_NoSignalImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gb_NoSignalImage.Name = "gb_NoSignalImage";
@@ -667,22 +672,25 @@
             pb_NoSignalImage.Location = new System.Drawing.Point(7, 60);
             pb_NoSignalImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_NoSignalImage.Name = "pb_NoSignalImage";
+            pb_NoSignalImage.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_NoSignalImage.RepositioningAndResizingControlsOnResize = false;
             pb_NoSignalImage.Size = new System.Drawing.Size(317, 242);
             pb_NoSignalImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pb_NoSignalImage.TabIndex = 19;
             pb_NoSignalImage.TabStop = false;
             // 
-            // btn_Browse
+            // btnNoSignalImageBrowse
             // 
-            btn_Browse.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Browse.Enabled = false;
-            btn_Browse.Location = new System.Drawing.Point(237, 27);
-            btn_Browse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Browse.Name = "btn_Browse";
-            btn_Browse.Size = new System.Drawing.Size(88, 27);
-            btn_Browse.TabIndex = 1;
-            btn_Browse.Text = "Browse";
-            btn_Browse.UseVisualStyleBackColor = true;
+            btnNoSignalImageBrowse.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNoSignalImageBrowse.Enabled = false;
+            btnNoSignalImageBrowse.Location = new System.Drawing.Point(237, 27);
+            btnNoSignalImageBrowse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNoSignalImageBrowse.Name = "btnNoSignalImageBrowse";
+            btnNoSignalImageBrowse.Size = new System.Drawing.Size(88, 27);
+            btnNoSignalImageBrowse.TabIndex = 1;
+            btnNoSignalImageBrowse.Text = "Browse";
+            btnNoSignalImageBrowse.UseVisualStyleBackColor = true;
+            btnNoSignalImageBrowse.Click += BtnNoSignalImageBrowse_Click;
             // 
             // gb_EventLogging
             // 
@@ -875,27 +883,29 @@
             // 
             btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Close.Location = new System.Drawing.Point(606, 623);
+            btn_Close.Location = new System.Drawing.Point(605, 620);
             btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Close.Name = "btn_Close";
             btn_Close.Size = new System.Drawing.Size(88, 27);
             btn_Close.TabIndex = 7;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // btn_Save
             // 
             btn_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Save.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btn_Save.Location = new System.Drawing.Point(507, 623);
+            btn_Save.Location = new System.Drawing.Point(506, 620);
             btn_Save.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Save.Name = "btn_Save";
             btn_Save.Size = new System.Drawing.Size(88, 27);
             btn_Save.TabIndex = 6;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
-            // SystemOptions
+            // GeneralOptionsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -904,9 +914,10 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(708, 678);
-            Name = "SystemOptions";
+            Name = "GeneralOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "System options";
+            Shown += GeneralOptionsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)nud_FPS).EndInit();
             ((System.ComponentModel.ISupportInitialize)nud_RestartTemplate).EndInit();
             gb_DatabaseOptions.ResumeLayout(false);
@@ -949,7 +960,7 @@
         private System.Windows.Forms.Label lbl_Seconds;
         private System.Windows.Forms.GroupBox gb_DatabaseOptions;
         private System.Windows.Forms.TextBox tb_DatabaseUsage;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnChangeDatabaseDirectory;
         private System.Windows.Forms.TextBox tb_DatabaseFolder;
         private System.Windows.Forms.Label lbl_Usage;
         private System.Windows.Forms.Label lbl_ServerPort;
@@ -980,7 +991,7 @@
         private System.Windows.Forms.GroupBox gb_NoSignalImage;
         private System.Windows.Forms.CheckBox chk_UseCustomNoSignalImage;
         private Mtf.Controls.MtfPictureBox pb_NoSignalImage;
-        private System.Windows.Forms.Button btn_Browse;
+        private System.Windows.Forms.Button btnNoSignalImageBrowse;
         private System.Windows.Forms.GroupBox gb_EventLogging;
         private System.Windows.Forms.RadioButton rb_VerboseLogEveryEvents;
         private System.Windows.Forms.RadioButton rb_VerboseLogOnlyErrors;

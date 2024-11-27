@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraProperties));
-            button8 = new System.Windows.Forms.Button();
+            btnExportHardwareInfo = new System.Windows.Forms.Button();
             textBox19 = new System.Windows.Forms.TextBox();
             label16 = new System.Windows.Forms.Label();
             textBox21 = new System.Windows.Forms.TextBox();
@@ -40,9 +40,9 @@
             label23 = new System.Windows.Forms.Label();
             textBox8 = new System.Windows.Forms.TextBox();
             textBox9 = new System.Windows.Forms.TextBox();
-            button17 = new System.Windows.Forms.Button();
+            btnRefresh2 = new System.Windows.Forms.Button();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            button4 = new System.Windows.Forms.Button();
+            btnClose2 = new System.Windows.Forms.Button();
             groupBox5 = new System.Windows.Forms.GroupBox();
             textBox10 = new System.Windows.Forms.TextBox();
             textBox11 = new System.Windows.Forms.TextBox();
@@ -60,15 +60,15 @@
             label13 = new System.Windows.Forms.Label();
             textBox12 = new System.Windows.Forms.TextBox();
             tabPage2 = new System.Windows.Forms.TabPage();
-            button5 = new System.Windows.Forms.Button();
+            btnGetHardwareInfo = new System.Windows.Forms.Button();
             fbd_FolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             textBox1 = new System.Windows.Forms.TextBox();
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            button18 = new System.Windows.Forms.Button();
+            btnRefresh = new System.Windows.Forms.Button();
             groupBox4 = new System.Windows.Forms.GroupBox();
-            button9 = new System.Windows.Forms.Button();
+            btnShowPassword = new System.Windows.Forms.Button();
             textBox15 = new System.Windows.Forms.TextBox();
             textBox3 = new System.Windows.Forms.TextBox();
             textBox2 = new System.Windows.Forms.TextBox();
@@ -82,7 +82,7 @@
             label10 = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
             tabPage1 = new System.Windows.Forms.TabPage();
-            button1 = new System.Windows.Forms.Button();
+            btnClose = new System.Windows.Forms.Button();
             groupBox6 = new System.Windows.Forms.GroupBox();
             textBox17 = new System.Windows.Forms.TextBox();
             label20 = new System.Windows.Forms.Label();
@@ -95,9 +95,9 @@
             textBox16 = new System.Windows.Forms.TextBox();
             tb_RecordingInterval = new System.Windows.Forms.TextBox();
             label19 = new System.Windows.Forms.Label();
-            button13 = new System.Windows.Forms.Button();
+            btnRefresh4 = new System.Windows.Forms.Button();
             label50 = new System.Windows.Forms.Label();
-            button11 = new System.Windows.Forms.Button();
+            btnClose5 = new System.Windows.Forms.Button();
             groupBox10 = new System.Windows.Forms.GroupBox();
             lbl_RecordingInterval = new System.Windows.Forms.Label();
             textBox40 = new System.Windows.Forms.TextBox();
@@ -105,19 +105,19 @@
             label43 = new System.Windows.Forms.Label();
             textBox43 = new System.Windows.Forms.TextBox();
             textBox50 = new System.Windows.Forms.TextBox();
-            button14 = new System.Windows.Forms.Button();
-            button15 = new System.Windows.Forms.Button();
+            btnRefresh5 = new System.Windows.Forms.Button();
+            btnClose6 = new System.Windows.Forms.Button();
             groupBox2 = new System.Windows.Forms.GroupBox();
             tabPage5 = new System.Windows.Forms.TabPage();
             tabPage6 = new System.Windows.Forms.TabPage();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabPage3 = new System.Windows.Forms.TabPage();
-            button6 = new System.Windows.Forms.Button();
+            btnClose3 = new System.Windows.Forms.Button();
             groupBox7 = new System.Windows.Forms.GroupBox();
             tabPage4 = new System.Windows.Forms.TabPage();
-            button16 = new System.Windows.Forms.Button();
-            button12 = new System.Windows.Forms.Button();
-            button10 = new System.Windows.Forms.Button();
+            btnExportCameraList = new System.Windows.Forms.Button();
+            btnRefresh3 = new System.Windows.Forms.Button();
+            btnClose4 = new System.Windows.Forms.Button();
             groupBox9 = new System.Windows.Forms.GroupBox();
             lv_Cameras = new Mtf.Controls.MtfListView();
             ch_0_CameraName = new System.Windows.Forms.ColumnHeader();
@@ -159,16 +159,17 @@
             groupBox9.SuspendLayout();
             SuspendLayout();
             // 
-            // button8
+            // btnExportHardwareInfo
             // 
-            button8.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button8.Location = new System.Drawing.Point(304, 403);
-            button8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button8.Name = "button8";
-            button8.Size = new System.Drawing.Size(119, 27);
-            button8.TabIndex = 7;
-            button8.Text = "Export to file";
-            button8.UseVisualStyleBackColor = true;
+            btnExportHardwareInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnExportHardwareInfo.Location = new System.Drawing.Point(304, 386);
+            btnExportHardwareInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnExportHardwareInfo.Name = "btnExportHardwareInfo";
+            btnExportHardwareInfo.Size = new System.Drawing.Size(119, 27);
+            btnExportHardwareInfo.TabIndex = 7;
+            btnExportHardwareInfo.Text = "Export to file";
+            btnExportHardwareInfo.UseVisualStyleBackColor = true;
+            btnExportHardwareInfo.Click += BtnExportHardwareInfo_Click;
             // 
             // textBox19
             // 
@@ -285,37 +286,39 @@
             textBox9.Name = "textBox9";
             textBox9.ReadOnly = true;
             textBox9.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            textBox9.Size = new System.Drawing.Size(404, 137);
+            textBox9.Size = new System.Drawing.Size(404, 131);
             textBox9.TabIndex = 3;
             textBox9.TabStop = false;
             textBox9.Visible = false;
             // 
-            // button17
+            // btnRefresh2
             // 
-            button17.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button17.Location = new System.Drawing.Point(121, 403);
-            button17.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button17.Name = "button17";
-            button17.Size = new System.Drawing.Size(111, 27);
-            button17.TabIndex = 5;
-            button17.Text = "Refresh";
-            button17.UseVisualStyleBackColor = true;
+            btnRefresh2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRefresh2.Location = new System.Drawing.Point(121, 387);
+            btnRefresh2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh2.Name = "btnRefresh2";
+            btnRefresh2.Size = new System.Drawing.Size(111, 27);
+            btnRefresh2.TabIndex = 5;
+            btnRefresh2.Text = "Refresh";
+            btnRefresh2.UseVisualStyleBackColor = true;
+            btnRefresh2.Click += BtnRefresh_Click;
             // 
             // columnHeader2
             // 
             columnHeader2.Text = "Value";
             columnHeader2.Width = 238;
             // 
-            // button4
+            // btnClose2
             // 
-            button4.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button4.Location = new System.Drawing.Point(4, 403);
-            button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button4.Name = "button4";
-            button4.Size = new System.Drawing.Size(111, 27);
-            button4.TabIndex = 4;
-            button4.Text = "Close";
-            button4.UseVisualStyleBackColor = true;
+            btnClose2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose2.Location = new System.Drawing.Point(4, 386);
+            btnClose2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose2.Name = "btnClose2";
+            btnClose2.Size = new System.Drawing.Size(111, 27);
+            btnClose2.TabIndex = 4;
+            btnClose2.Text = "Close";
+            btnClose2.UseVisualStyleBackColor = true;
+            btnClose2.Click += BtnClose_Click;
             // 
             // groupBox5
             // 
@@ -340,7 +343,7 @@
             groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox5.Name = "groupBox5";
             groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox5.Size = new System.Drawing.Size(422, 393);
+            groupBox5.Size = new System.Drawing.Size(422, 383);
             groupBox5.TabIndex = 2;
             groupBox5.TabStop = false;
             // 
@@ -437,7 +440,7 @@
             listView1.ReadonlyCheckboxes = false;
             listView1.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             listView1.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listView1.Size = new System.Drawing.Size(414, 234);
+            listView1.Size = new System.Drawing.Size(414, 218);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = System.Windows.Forms.View.Details;
@@ -471,6 +474,8 @@
             pictureBox3.Location = new System.Drawing.Point(12, 74);
             pictureBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox3.Name = "pictureBox3";
+            pictureBox3.OriginalSize = new System.Drawing.Size(100, 50);
+            pictureBox3.RepositioningAndResizingControlsOnResize = false;
             pictureBox3.Size = new System.Drawing.Size(21, 21);
             pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pictureBox3.TabIndex = 28;
@@ -523,28 +528,29 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(button17);
-            tabPage2.Controls.Add(button4);
+            tabPage2.Controls.Add(btnRefresh2);
+            tabPage2.Controls.Add(btnClose2);
             tabPage2.Controls.Add(groupBox5);
             tabPage2.Location = new System.Drawing.Point(4, 44);
             tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage2.Size = new System.Drawing.Size(427, 414);
+            tabPage2.Size = new System.Drawing.Size(427, 418);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Other data";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnGetHardwareInfo
             // 
-            button5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button5.Location = new System.Drawing.Point(121, 403);
-            button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(176, 27);
-            button5.TabIndex = 6;
-            button5.Text = "Get hardware information";
-            button5.UseVisualStyleBackColor = true;
+            btnGetHardwareInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnGetHardwareInfo.Location = new System.Drawing.Point(121, 386);
+            btnGetHardwareInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGetHardwareInfo.Name = "btnGetHardwareInfo";
+            btnGetHardwareInfo.Size = new System.Drawing.Size(176, 27);
+            btnGetHardwareInfo.TabIndex = 6;
+            btnGetHardwareInfo.Text = "Get hardware information";
+            btnGetHardwareInfo.UseVisualStyleBackColor = true;
+            btnGetHardwareInfo.Click += BtnGetHardwareInfo_Click;
             // 
             // textBox1
             // 
@@ -591,21 +597,22 @@
             label1.TabIndex = 2;
             label1.Text = "Hostname / IP address [:port]";
             // 
-            // button18
+            // btnRefresh
             // 
-            button18.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button18.Location = new System.Drawing.Point(121, 382);
-            button18.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button18.Name = "button18";
-            button18.Size = new System.Drawing.Size(111, 27);
-            button18.TabIndex = 8;
-            button18.Text = "Refresh";
-            button18.UseVisualStyleBackColor = true;
+            btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRefresh.Location = new System.Drawing.Point(121, 386);
+            btnRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new System.Drawing.Size(111, 27);
+            btnRefresh.TabIndex = 8;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += BtnRefresh_Click;
             // 
             // groupBox4
             // 
             groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox4.Controls.Add(button9);
+            groupBox4.Controls.Add(btnShowPassword);
             groupBox4.Controls.Add(textBox15);
             groupBox4.Location = new System.Drawing.Point(4, 302);
             groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -617,16 +624,17 @@
             groupBox4.Text = "Videoserver password";
             groupBox4.Visible = false;
             // 
-            // button9
+            // btnShowPassword
             // 
-            button9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            button9.Location = new System.Drawing.Point(10, 23);
-            button9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button9.Name = "button9";
-            button9.Size = new System.Drawing.Size(187, 27);
-            button9.TabIndex = 0;
-            button9.Text = "Show it!";
-            button9.UseVisualStyleBackColor = true;
+            btnShowPassword.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btnShowPassword.Location = new System.Drawing.Point(10, 23);
+            btnShowPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnShowPassword.Name = "btnShowPassword";
+            btnShowPassword.Size = new System.Drawing.Size(187, 27);
+            btnShowPassword.TabIndex = 0;
+            btnShowPassword.Text = "Show it!";
+            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.Click += BtnShowPassword_Click;
             // 
             // textBox15
             // 
@@ -697,6 +705,8 @@
             pictureBox1.Location = new System.Drawing.Point(10, 20);
             pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
+            pictureBox1.OriginalSize = new System.Drawing.Size(100, 50);
+            pictureBox1.RepositioningAndResizingControlsOnResize = false;
             pictureBox1.Size = new System.Drawing.Size(21, 21);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 22;
@@ -705,13 +715,14 @@
             // btn_WakeOnLAN
             // 
             btn_WakeOnLAN.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_WakeOnLAN.Location = new System.Drawing.Point(239, 382);
+            btn_WakeOnLAN.Location = new System.Drawing.Point(239, 386);
             btn_WakeOnLAN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_WakeOnLAN.Name = "btn_WakeOnLAN";
             btn_WakeOnLAN.Size = new System.Drawing.Size(111, 27);
             btn_WakeOnLAN.TabIndex = 7;
             btn_WakeOnLAN.Text = "Wake on LAN";
             btn_WakeOnLAN.UseVisualStyleBackColor = true;
+            btn_WakeOnLAN.Click += Btn_WakeOnLAN_Click;
             // 
             // pictureBox2
             // 
@@ -719,6 +730,8 @@
             pictureBox2.Location = new System.Drawing.Point(10, 45);
             pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox2.Name = "pictureBox2";
+            pictureBox2.OriginalSize = new System.Drawing.Size(100, 50);
+            pictureBox2.RepositioningAndResizingControlsOnResize = false;
             pictureBox2.Size = new System.Drawing.Size(21, 21);
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 24;
@@ -781,33 +794,34 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button18);
+            tabPage1.Controls.Add(btnRefresh);
             tabPage1.Controls.Add(groupBox4);
             tabPage1.Controls.Add(groupBox8);
             tabPage1.Controls.Add(btn_WakeOnLAN);
             tabPage1.Controls.Add(groupBox3);
             tabPage1.Controls.Add(groupBox1);
-            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(btnClose);
             tabPage1.Location = new System.Drawing.Point(4, 44);
             tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Size = new System.Drawing.Size(427, 414);
+            tabPage1.Size = new System.Drawing.Size(427, 418);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "General details";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnClose
             // 
-            button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            button1.Location = new System.Drawing.Point(4, 382);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(111, 27);
-            button1.TabIndex = 4;
-            button1.Text = "Close";
-            button1.UseVisualStyleBackColor = true;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(4, 386);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(111, 27);
+            btnClose.TabIndex = 4;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
             // groupBox6
             // 
@@ -956,16 +970,17 @@
             label19.TabIndex = 4;
             label19.Text = "CPU usage";
             // 
-            // button13
+            // btnRefresh4
             // 
-            button13.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button13.Location = new System.Drawing.Point(121, 382);
-            button13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button13.Name = "button13";
-            button13.Size = new System.Drawing.Size(111, 27);
-            button13.TabIndex = 2;
-            button13.Text = "Refresh";
-            button13.UseVisualStyleBackColor = true;
+            btnRefresh4.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRefresh4.Location = new System.Drawing.Point(121, 386);
+            btnRefresh4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh4.Name = "btnRefresh4";
+            btnRefresh4.Size = new System.Drawing.Size(111, 27);
+            btnRefresh4.TabIndex = 2;
+            btnRefresh4.Text = "Refresh";
+            btnRefresh4.UseVisualStyleBackColor = true;
+            btnRefresh4.Click += BtnRefresh_Click;
             // 
             // label50
             // 
@@ -978,16 +993,17 @@
             label50.TabIndex = 6;
             label50.Text = "Video Recorder protocol version";
             // 
-            // button11
+            // btnClose5
             // 
-            button11.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button11.Location = new System.Drawing.Point(4, 382);
-            button11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button11.Name = "button11";
-            button11.Size = new System.Drawing.Size(111, 27);
-            button11.TabIndex = 1;
-            button11.Text = "Close";
-            button11.UseVisualStyleBackColor = true;
+            btnClose5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose5.Location = new System.Drawing.Point(4, 386);
+            btnClose5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose5.Name = "btnClose5";
+            btnClose5.Size = new System.Drawing.Size(111, 27);
+            btnClose5.TabIndex = 1;
+            btnClose5.Text = "Close";
+            btnClose5.UseVisualStyleBackColor = true;
+            btnClose5.Click += BtnClose_Click;
             // 
             // groupBox10
             // 
@@ -1081,28 +1097,30 @@
             textBox50.TabIndex = 7;
             textBox50.TabStop = false;
             // 
-            // button14
+            // btnRefresh5
             // 
-            button14.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button14.Location = new System.Drawing.Point(121, 382);
-            button14.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button14.Name = "button14";
-            button14.Size = new System.Drawing.Size(111, 27);
-            button14.TabIndex = 5;
-            button14.Text = "Refresh";
-            button14.UseVisualStyleBackColor = true;
+            btnRefresh5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRefresh5.Location = new System.Drawing.Point(121, 386);
+            btnRefresh5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh5.Name = "btnRefresh5";
+            btnRefresh5.Size = new System.Drawing.Size(111, 27);
+            btnRefresh5.TabIndex = 5;
+            btnRefresh5.Text = "Refresh";
+            btnRefresh5.UseVisualStyleBackColor = true;
+            btnRefresh5.Click += BtnRefresh_Click;
             // 
-            // button15
+            // btnClose6
             // 
-            button15.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button15.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            button15.Location = new System.Drawing.Point(4, 382);
-            button15.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button15.Name = "button15";
-            button15.Size = new System.Drawing.Size(111, 27);
-            button15.TabIndex = 4;
-            button15.Text = "Close";
-            button15.UseVisualStyleBackColor = true;
+            btnClose6.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose6.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose6.Location = new System.Drawing.Point(4, 386);
+            btnClose6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose6.Name = "btnClose6";
+            btnClose6.Size = new System.Drawing.Size(111, 27);
+            btnClose6.TabIndex = 4;
+            btnClose6.Text = "Close";
+            btnClose6.UseVisualStyleBackColor = true;
+            btnClose6.Click += BtnClose_Click;
             // 
             // groupBox2
             // 
@@ -1123,28 +1141,28 @@
             // 
             // tabPage5
             // 
-            tabPage5.Controls.Add(button13);
-            tabPage5.Controls.Add(button11);
+            tabPage5.Controls.Add(btnRefresh4);
+            tabPage5.Controls.Add(btnClose5);
             tabPage5.Controls.Add(groupBox10);
             tabPage5.Location = new System.Drawing.Point(4, 44);
             tabPage5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage5.Size = new System.Drawing.Size(427, 414);
+            tabPage5.Size = new System.Drawing.Size(427, 418);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Video Recorder status";
             tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabPage6
             // 
-            tabPage6.Controls.Add(button14);
-            tabPage6.Controls.Add(button15);
+            tabPage6.Controls.Add(btnRefresh5);
+            tabPage6.Controls.Add(btnClose6);
             tabPage6.Controls.Add(groupBox2);
             tabPage6.Location = new System.Drawing.Point(4, 44);
             tabPage6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage6.Name = "tabPage6";
             tabPage6.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage6.Size = new System.Drawing.Size(427, 414);
+            tabPage6.Size = new System.Drawing.Size(427, 418);
             tabPage6.TabIndex = 5;
             tabPage6.Text = "Version information";
             tabPage6.UseVisualStyleBackColor = true;
@@ -1163,35 +1181,36 @@
             tabControl1.Multiline = true;
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(435, 462);
+            tabControl1.Size = new System.Drawing.Size(435, 466);
             tabControl1.TabIndex = 2;
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(button8);
-            tabPage3.Controls.Add(button5);
+            tabPage3.Controls.Add(btnExportHardwareInfo);
+            tabPage3.Controls.Add(btnGetHardwareInfo);
             tabPage3.Controls.Add(groupBox6);
-            tabPage3.Controls.Add(button6);
+            tabPage3.Controls.Add(btnClose3);
             tabPage3.Controls.Add(groupBox7);
             tabPage3.Location = new System.Drawing.Point(4, 44);
             tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage3.Size = new System.Drawing.Size(427, 414);
+            tabPage3.Size = new System.Drawing.Size(427, 418);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Hardware information";
             tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btnClose3
             // 
-            button6.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button6.Location = new System.Drawing.Point(4, 403);
-            button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button6.Name = "button6";
-            button6.Size = new System.Drawing.Size(111, 27);
-            button6.TabIndex = 1;
-            button6.Text = "Close";
-            button6.UseVisualStyleBackColor = true;
+            btnClose3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose3.Location = new System.Drawing.Point(4, 386);
+            btnClose3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose3.Name = "btnClose3";
+            btnClose3.Size = new System.Drawing.Size(111, 27);
+            btnClose3.TabIndex = 1;
+            btnClose3.Text = "Close";
+            btnClose3.UseVisualStyleBackColor = true;
+            btnClose3.Click += BtnClose_Click;
             // 
             // groupBox7
             // 
@@ -1201,58 +1220,61 @@
             groupBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox7.Name = "groupBox7";
             groupBox7.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox7.Size = new System.Drawing.Size(422, 256);
+            groupBox7.Size = new System.Drawing.Size(422, 240);
             groupBox7.TabIndex = 0;
             groupBox7.TabStop = false;
             groupBox7.Text = "Hardware information";
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(button16);
-            tabPage4.Controls.Add(button12);
-            tabPage4.Controls.Add(button10);
+            tabPage4.Controls.Add(btnExportCameraList);
+            tabPage4.Controls.Add(btnRefresh3);
+            tabPage4.Controls.Add(btnClose4);
             tabPage4.Controls.Add(groupBox9);
             tabPage4.Location = new System.Drawing.Point(4, 44);
             tabPage4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage4.Size = new System.Drawing.Size(427, 414);
+            tabPage4.Size = new System.Drawing.Size(427, 418);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Camera list";
             tabPage4.UseVisualStyleBackColor = true;
             // 
-            // button16
+            // btnExportCameraList
             // 
-            button16.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button16.Location = new System.Drawing.Point(239, 403);
-            button16.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button16.Name = "button16";
-            button16.Size = new System.Drawing.Size(111, 27);
-            button16.TabIndex = 8;
-            button16.Text = "Export to file";
-            button16.UseVisualStyleBackColor = true;
+            btnExportCameraList.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnExportCameraList.Location = new System.Drawing.Point(239, 386);
+            btnExportCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnExportCameraList.Name = "btnExportCameraList";
+            btnExportCameraList.Size = new System.Drawing.Size(111, 27);
+            btnExportCameraList.TabIndex = 8;
+            btnExportCameraList.Text = "Export to file";
+            btnExportCameraList.UseVisualStyleBackColor = true;
+            btnExportCameraList.Click += BtnExportCameraList_Click;
             // 
-            // button12
+            // btnRefresh3
             // 
-            button12.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button12.Location = new System.Drawing.Point(121, 403);
-            button12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button12.Name = "button12";
-            button12.Size = new System.Drawing.Size(111, 27);
-            button12.TabIndex = 5;
-            button12.Text = "Refresh";
-            button12.UseVisualStyleBackColor = true;
+            btnRefresh3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRefresh3.Location = new System.Drawing.Point(121, 386);
+            btnRefresh3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh3.Name = "btnRefresh3";
+            btnRefresh3.Size = new System.Drawing.Size(111, 27);
+            btnRefresh3.TabIndex = 5;
+            btnRefresh3.Text = "Refresh";
+            btnRefresh3.UseVisualStyleBackColor = true;
+            btnRefresh3.Click += BtnRefresh_Click;
             // 
-            // button10
+            // btnClose4
             // 
-            button10.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            button10.Location = new System.Drawing.Point(4, 403);
-            button10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button10.Name = "button10";
-            button10.Size = new System.Drawing.Size(111, 27);
-            button10.TabIndex = 4;
-            button10.Text = "Close";
-            button10.UseVisualStyleBackColor = true;
+            btnClose4.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose4.Location = new System.Drawing.Point(4, 386);
+            btnClose4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose4.Name = "btnClose4";
+            btnClose4.Size = new System.Drawing.Size(111, 27);
+            btnClose4.TabIndex = 4;
+            btnClose4.Text = "Close";
+            btnClose4.UseVisualStyleBackColor = true;
+            btnClose4.Click += BtnClose_Click;
             // 
             // groupBox9
             // 
@@ -1262,7 +1284,7 @@
             groupBox9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox9.Name = "groupBox9";
             groupBox9.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox9.Size = new System.Drawing.Size(422, 392);
+            groupBox9.Size = new System.Drawing.Size(422, 376);
             groupBox9.TabIndex = 3;
             groupBox9.TabStop = false;
             // 
@@ -1286,7 +1308,7 @@
             lv_Cameras.ReadonlyCheckboxes = false;
             lv_Cameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lv_Cameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lv_Cameras.Size = new System.Drawing.Size(414, 370);
+            lv_Cameras.Size = new System.Drawing.Size(414, 354);
             lv_Cameras.TabIndex = 0;
             lv_Cameras.UseCompatibleStateImageBehavior = false;
             lv_Cameras.View = System.Windows.Forms.View.Details;
@@ -1364,11 +1386,11 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(435, 462);
+            ClientSize = new System.Drawing.Size(435, 466);
             Controls.Add(tabControl1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(442, 487);
+            MinimumSize = new System.Drawing.Size(451, 505);
             Name = "ServerAndCameraProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Server and camera properties";
@@ -1405,7 +1427,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnExportHardwareInfo;
         private System.Windows.Forms.TextBox textBox19;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox21;
@@ -1416,9 +1438,9 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button btnRefresh2;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnClose2;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.TextBox textBox11;
@@ -1436,15 +1458,15 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnGetHardwareInfo;
         private System.Windows.Forms.FolderBrowserDialog fbd_FolderBrowser;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnShowPassword;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
@@ -1458,7 +1480,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.Label label20;
@@ -1471,9 +1493,9 @@
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox tb_RecordingInterval;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button btnRefresh4;
         private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btnClose5;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.Label lbl_RecordingInterval;
         private System.Windows.Forms.TextBox textBox40;
@@ -1481,19 +1503,19 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.TextBox textBox43;
         private System.Windows.Forms.TextBox textBox50;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button btnRefresh5;
+        private System.Windows.Forms.Button btnClose6;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnClose3;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btnExportCameraList;
+        private System.Windows.Forms.Button btnRefresh3;
+        private System.Windows.Forms.Button btnClose4;
         private System.Windows.Forms.GroupBox groupBox9;
         private Mtf.Controls.MtfListView lv_Cameras;
         private System.Windows.Forms.ColumnHeader ch_0_CameraName;

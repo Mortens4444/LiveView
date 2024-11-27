@@ -113,31 +113,34 @@
             btn_Validate.TabIndex = 2;
             btn_Validate.Text = "Validate";
             btn_Validate.UseVisualStyleBackColor = true;
+            btn_Validate.Click += Btn_Validate_Click;
             // 
             // btn_Cancel
             // 
             btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Cancel.Location = new System.Drawing.Point(218, 353);
+            btn_Cancel.Location = new System.Drawing.Point(218, 350);
             btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Cancel.Name = "btn_Cancel";
             btn_Cancel.Size = new System.Drawing.Size(88, 27);
             btn_Cancel.TabIndex = 9;
             btn_Cancel.Text = "Cancel";
             btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
             // btn_AddOrModify
             // 
             btn_AddOrModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_AddOrModify.DialogResult = System.Windows.Forms.DialogResult.OK;
             btn_AddOrModify.Enabled = false;
-            btn_AddOrModify.Location = new System.Drawing.Point(124, 353);
+            btn_AddOrModify.Location = new System.Drawing.Point(124, 350);
             btn_AddOrModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_AddOrModify.Name = "btn_AddOrModify";
             btn_AddOrModify.Size = new System.Drawing.Size(88, 27);
             btn_AddOrModify.TabIndex = 8;
             btn_AddOrModify.Text = "Add";
             btn_AddOrModify.UseVisualStyleBackColor = true;
+            btn_AddOrModify.Click += Btn_AddOrModify_Click;
             // 
             // gb_Network
             // 
@@ -230,7 +233,9 @@
             tb_Password.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_Password.MaxLength = 100;
             tb_Password.Name = "tb_Password";
+            tb_Password.Password = "";
             tb_Password.PasswordChar = '*';
+            tb_Password.ShowRealPasswordLength = false;
             tb_Password.Size = new System.Drawing.Size(294, 23);
             tb_Password.TabIndex = 7;
             // 

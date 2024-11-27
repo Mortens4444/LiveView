@@ -85,6 +85,7 @@
             btn_Change.TabIndex = 0;
             btn_Change.Text = "Change";
             btn_Change.UseVisualStyleBackColor = true;
+            btn_Change.Click += Btn_Change_Click;
             // 
             // p_Cameras
             // 

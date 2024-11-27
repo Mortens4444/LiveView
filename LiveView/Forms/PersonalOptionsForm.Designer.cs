@@ -174,6 +174,7 @@
             btn_Close.TabIndex = 3;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // btn_Save
             // 
@@ -186,6 +187,7 @@
             btn_Save.TabIndex = 2;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // rb_DisplayedName
             // 
@@ -295,7 +297,7 @@
             gb_Language.TabStop = false;
             gb_Language.Text = "Language";
             // 
-            // PersonalOptions
+            // PersonalOptionsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -304,7 +306,7 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(652, 231);
-            Name = "PersonalOptions";
+            Name = "PersonalOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "PersonalOptions";
             ((System.ComponentModel.ISupportInitialize)nud_FontSizeSmall).EndInit();

@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,21 @@ namespace LiveView.Presenters
             this.generalOptionsView = generalOptionsView;
             this.generalOptionsRepository = generalOptionsRepository;
             this.logger = logger;
+        }
+
+        internal void LoadDefaultSettings()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void LoadSettings()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void LoadStandardSettings()
+        {
+            throw new NotImplementedException();
         }
     }
 }

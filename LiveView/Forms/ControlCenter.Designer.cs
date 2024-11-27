@@ -151,6 +151,7 @@
             btn_PlayOrPauseSequence.Size = new System.Drawing.Size(28, 28);
             btn_PlayOrPauseSequence.TabIndex = 6;
             btn_PlayOrPauseSequence.UseVisualStyleBackColor = true;
+            btn_PlayOrPauseSequence.Click += Btn_PlayOrPauseSequence_Click;
             // 
             // il_SequenceControllers
             // 
@@ -171,6 +172,7 @@
             btn_ShowPreviousGrid.Size = new System.Drawing.Size(28, 28);
             btn_ShowPreviousGrid.TabIndex = 5;
             btn_ShowPreviousGrid.UseVisualStyleBackColor = true;
+            btn_ShowPreviousGrid.Click += Btn_ShowPreviousGrid_Click;
             // 
             // lbl_NumberOfCameras
             // 
@@ -251,6 +253,8 @@
             pb_CrossHair.Location = new System.Drawing.Point(0, 0);
             pb_CrossHair.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_CrossHair.Name = "pb_CrossHair";
+            pb_CrossHair.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_CrossHair.RepositioningAndResizingControlsOnResize = false;
             pb_CrossHair.Size = new System.Drawing.Size(29, 29);
             pb_CrossHair.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pb_CrossHair.TabIndex = 0;
@@ -290,6 +294,7 @@
             btn_Identify.TabIndex = 4;
             btn_Identify.Text = "Identify";
             btn_Identify.UseVisualStyleBackColor = false;
+            btn_Identify.Click += Btn_Identify_Click;
             // 
             // p_DisplayDevices
             // 
@@ -310,6 +315,7 @@
             btn_RearrangeGrid.Size = new System.Drawing.Size(28, 28);
             btn_RearrangeGrid.TabIndex = 8;
             btn_RearrangeGrid.UseVisualStyleBackColor = true;
+            btn_RearrangeGrid.Click += Btn_RearrangeGrid_Click;
             // 
             // gb_ActiveSequence
             // 
@@ -343,6 +349,7 @@
             btn_ShowNextGrid.Size = new System.Drawing.Size(28, 28);
             btn_ShowNextGrid.TabIndex = 7;
             btn_ShowNextGrid.UseVisualStyleBackColor = true;
+            btn_ShowNextGrid.Click += Btn_ShowNextGrid_Click;
             // 
             // btn_CloseFullScreenCamera
             // 
@@ -355,6 +362,7 @@
             btn_CloseFullScreenCamera.Size = new System.Drawing.Size(21, 21);
             btn_CloseFullScreenCamera.TabIndex = 0;
             btn_CloseFullScreenCamera.UseVisualStyleBackColor = false;
+            btn_CloseFullScreenCamera.Click += Btn_CloseFullScreenCamera_Click;
             // 
             // ch_1_Number
             // 
@@ -609,6 +617,7 @@
             btn_ZoomOut.TabIndex = 80;
             btn_ZoomOut.Text = "-";
             btn_ZoomOut.UseVisualStyleBackColor = true;
+            btn_ZoomOut.Click += Btn_ZoomOut_Click;
             // 
             // btn_ZoomIn
             // 
@@ -621,6 +630,7 @@
             btn_ZoomIn.TabIndex = 73;
             btn_ZoomIn.Text = "+";
             btn_ZoomIn.UseVisualStyleBackColor = true;
+            btn_ZoomIn.Click += Btn_ZoomIn_Click;
             // 
             // btn_Calibrate
             // 
@@ -633,6 +643,7 @@
             btn_Calibrate.TabIndex = 59;
             btn_Calibrate.Text = "Calibrate";
             btn_Calibrate.UseVisualStyleBackColor = true;
+            btn_Calibrate.Click += Btn_Calibrate_Click;
             // 
             // lbl_X
             // 
@@ -709,6 +720,7 @@
             btn_MoveCameraSouthWest.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraSouthWest.TabIndex = 75;
             btn_MoveCameraSouthWest.UseVisualStyleBackColor = true;
+            btn_MoveCameraSouthWest.Click += Btn_MoveCameraSouthWest_Click;
             // 
             // il_CameraImages
             // 
@@ -736,6 +748,7 @@
             btn_MoveCameraSouthEast.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraSouthEast.TabIndex = 74;
             btn_MoveCameraSouthEast.UseVisualStyleBackColor = true;
+            btn_MoveCameraSouthEast.Click += Btn_MoveCameraSouthEast_Click;
             // 
             // btn_MoveCameraSouth
             // 
@@ -748,6 +761,7 @@
             btn_MoveCameraSouth.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraSouth.TabIndex = 73;
             btn_MoveCameraSouth.UseVisualStyleBackColor = true;
+            btn_MoveCameraSouth.Click += Btn_MoveCameraSouth_Click;
             // 
             // btn_MoveCameraWest
             // 
@@ -760,6 +774,7 @@
             btn_MoveCameraWest.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraWest.TabIndex = 72;
             btn_MoveCameraWest.UseVisualStyleBackColor = true;
+            btn_MoveCameraWest.Click += Btn_MoveCameraWest_Click;
             // 
             // btn_MoveCameraEast
             // 
@@ -772,6 +787,7 @@
             btn_MoveCameraEast.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraEast.TabIndex = 71;
             btn_MoveCameraEast.UseVisualStyleBackColor = true;
+            btn_MoveCameraEast.Click += Btn_MoveCameraEast_Click;
             // 
             // btn_MoveCameraToPresetZero
             // 
@@ -784,6 +800,7 @@
             btn_MoveCameraToPresetZero.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraToPresetZero.TabIndex = 70;
             btn_MoveCameraToPresetZero.UseVisualStyleBackColor = true;
+            btn_MoveCameraToPresetZero.Click += Btn_MoveCameraToPresetZero_Click;
             // 
             // btn_MoveCameraNorthWest
             // 
@@ -796,6 +813,7 @@
             btn_MoveCameraNorthWest.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraNorthWest.TabIndex = 69;
             btn_MoveCameraNorthWest.UseVisualStyleBackColor = true;
+            btn_MoveCameraNorthWest.Click += Btn_MoveCameraNorthWest_Click;
             // 
             // btn_MoveCameraNorthEast
             // 
@@ -808,6 +826,7 @@
             btn_MoveCameraNorthEast.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraNorthEast.TabIndex = 68;
             btn_MoveCameraNorthEast.UseVisualStyleBackColor = true;
+            btn_MoveCameraNorthEast.Click += Btn_MoveCameraNorthEast_Click;
             // 
             // btn_MoveCameraNorth
             // 
@@ -820,6 +839,7 @@
             btn_MoveCameraNorth.Size = new System.Drawing.Size(48, 27);
             btn_MoveCameraNorth.TabIndex = 67;
             btn_MoveCameraNorth.UseVisualStyleBackColor = true;
+            btn_MoveCameraNorth.Click += Btn_MoveCameraNorth_Click;
             // 
             // p_MoveCameraSouthEast
             // 
@@ -948,6 +968,7 @@
             btn_CloseSequenceApplications.TabIndex = 0;
             btn_CloseSequenceApplications.UseVisualStyleBackColor = false;
             btn_CloseSequenceApplications.Visible = false;
+            btn_CloseSequenceApplications.Click += Btn_CloseSequenceApplications_Click;
             // 
             // lv_Sequences
             // 
@@ -996,6 +1017,8 @@
             pb_SziltechLogo.Location = new System.Drawing.Point(0, 0);
             pb_SziltechLogo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_SziltechLogo.Name = "pb_SziltechLogo";
+            pb_SziltechLogo.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_SziltechLogo.RepositioningAndResizingControlsOnResize = false;
             pb_SziltechLogo.Size = new System.Drawing.Size(328, 52);
             pb_SziltechLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pb_SziltechLogo.TabIndex = 83;

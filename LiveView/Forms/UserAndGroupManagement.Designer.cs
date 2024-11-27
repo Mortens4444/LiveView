@@ -63,17 +63,24 @@
             // tv_UsersAndGroups
             // 
             tv_UsersAndGroups.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tv_UsersAndGroups.CheckBoxBackground = System.Drawing.SystemColors.Window;
+            tv_UsersAndGroups.DrawDefaultImageToNodes = true;
             tv_UsersAndGroups.FullRowSelect = true;
             tv_UsersAndGroups.HideSelection = false;
             tv_UsersAndGroups.ImageIndex = 0;
             tv_UsersAndGroups.ImageList = il_Images;
+            tv_UsersAndGroups.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             tv_UsersAndGroups.Location = new System.Drawing.Point(7, 20);
             tv_UsersAndGroups.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tv_UsersAndGroups.MultiSelect = false;
             tv_UsersAndGroups.Name = "tv_UsersAndGroups";
             tv_UsersAndGroups.SelectedImageIndex = 0;
+            tv_UsersAndGroups.ShowPlusMinusOnRootNodes = true;
             tv_UsersAndGroups.ShowRootLines = false;
             tv_UsersAndGroups.Size = new System.Drawing.Size(583, 395);
+            tv_UsersAndGroups.StateImageOrCheckBoxOnLeft = false;
             tv_UsersAndGroups.TabIndex = 0;
+            tv_UsersAndGroups.TickColor = System.Drawing.Color.Green;
             // 
             // il_Images
             // 
@@ -99,6 +106,7 @@
             btn_NewGroup.TabIndex = 1;
             btn_NewGroup.Text = "New group";
             btn_NewGroup.UseVisualStyleBackColor = true;
+            btn_NewGroup.Click += Btn_NewGroup_Click;
             // 
             // btn_Modify
             // 
@@ -112,6 +120,7 @@
             btn_Modify.TabIndex = 3;
             btn_Modify.Text = "Modify";
             btn_Modify.UseVisualStyleBackColor = true;
+            btn_Modify.Click += Btn_Modify_Click;
             // 
             // btn_Remove
             // 
@@ -125,6 +134,7 @@
             btn_Remove.TabIndex = 4;
             btn_Remove.Text = "Remove";
             btn_Remove.UseVisualStyleBackColor = true;
+            btn_Remove.Click += Btn_Remove_Click;
             // 
             // btn_NewUser
             // 
@@ -138,6 +148,7 @@
             btn_NewUser.TabIndex = 2;
             btn_NewUser.Text = "New user";
             btn_NewUser.UseVisualStyleBackColor = true;
+            btn_NewUser.Click += Btn_NewUser_Click;
             // 
             // panel1
             // 
@@ -161,6 +172,7 @@
             btn_Close.TabIndex = 1;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // UserAndGroupManagement
             // 

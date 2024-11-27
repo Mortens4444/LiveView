@@ -41,7 +41,7 @@
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
             lblUsername = new System.Windows.Forms.Label();
-            btnCancel = new System.Windows.Forms.Button();
+            btnClose = new System.Windows.Forms.Button();
             btnOk = new System.Windows.Forms.Button();
             pMain.SuspendLayout();
             gb_SecondaryLogin.SuspendLayout();
@@ -52,7 +52,7 @@
             // 
             pMain.Controls.Add(gb_SecondaryLogin);
             pMain.Controls.Add(groupBox1);
-            pMain.Controls.Add(btnCancel);
+            pMain.Controls.Add(btnClose);
             pMain.Controls.Add(btnOk);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
@@ -97,7 +97,9 @@
             tbSecondaryPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbSecondaryPassword.MaxLength = 100;
             tbSecondaryPassword.Name = "tbSecondaryPassword";
+            tbSecondaryPassword.Password = "";
             tbSecondaryPassword.PasswordChar = '*';
+            tbSecondaryPassword.ShowRealPasswordLength = false;
             tbSecondaryPassword.Size = new System.Drawing.Size(381, 23);
             tbSecondaryPassword.TabIndex = 4;
             // 
@@ -193,17 +195,18 @@
             lblUsername.TabIndex = 0;
             lblUsername.Text = "Username";
             // 
-            // btnCancel
+            // btnClose
             // 
-            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(300, 275);
-            btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(88, 27);
-            btnCancel.TabIndex = 7;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(300, 275);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(88, 27);
+            btnClose.TabIndex = 7;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
             // btnOk
             // 
@@ -216,6 +219,7 @@
             btnOk.TabIndex = 6;
             btnOk.Text = "OK";
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += BtnOk_Click;
             // 
             // LoginForm
             // 
@@ -251,7 +255,7 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label lblUsername;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnOk;
     }
 }

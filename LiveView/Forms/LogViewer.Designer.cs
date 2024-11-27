@@ -47,7 +47,7 @@
             numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             button2 = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
+            btnGetLogs = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             listView1 = new Mtf.Controls.MtfListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -71,7 +71,7 @@
             comboBox2 = new System.Windows.Forms.ComboBox();
             comboBox1 = new System.Windows.Forms.ComboBox();
             label7 = new System.Windows.Forms.Label();
-            button3 = new System.Windows.Forms.Button();
+            btnDeleteAllLogs = new System.Windows.Forms.Button();
             groupBox4 = new System.Windows.Forms.GroupBox();
             dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             label2 = new System.Windows.Forms.Label();
@@ -284,16 +284,17 @@
             button2.TabIndex = 0;
             button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnGetLogs
             // 
-            button1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            button1.Location = new System.Drawing.Point(817, 96);
-            button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(190, 27);
-            button1.TabIndex = 3;
-            button1.Text = "Get logs";
-            button1.UseVisualStyleBackColor = true;
+            btnGetLogs.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnGetLogs.Location = new System.Drawing.Point(817, 96);
+            btnGetLogs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGetLogs.Name = "btnGetLogs";
+            btnGetLogs.Size = new System.Drawing.Size(190, 27);
+            btnGetLogs.TabIndex = 3;
+            btnGetLogs.Text = "Get logs";
+            btnGetLogs.UseVisualStyleBackColor = true;
+            btnGetLogs.Click += BtnGetLogs_Click;
             // 
             // groupBox1
             // 
@@ -418,12 +419,12 @@
             panel1.Controls.Add(label10);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(groupBox5);
-            panel1.Controls.Add(button3);
+            panel1.Controls.Add(btnDeleteAllLogs);
             panel1.Controls.Add(groupBox4);
             panel1.Controls.Add(groupBox3);
             panel1.Controls.Add(groupBox2);
             panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnGetLogs);
             panel1.Controls.Add(groupBox1);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             panel1.Location = new System.Drawing.Point(0, 0);
@@ -543,16 +544,17 @@
             label7.TabIndex = 0;
             label7.Text = "Message";
             // 
-            // button3
+            // btnDeleteAllLogs
             // 
-            button3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            button3.Location = new System.Drawing.Point(817, 127);
-            button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(190, 27);
-            button3.TabIndex = 5;
-            button3.Text = "Delete all logs";
-            button3.UseVisualStyleBackColor = true;
+            btnDeleteAllLogs.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnDeleteAllLogs.Location = new System.Drawing.Point(817, 127);
+            btnDeleteAllLogs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDeleteAllLogs.Name = "btnDeleteAllLogs";
+            btnDeleteAllLogs.Size = new System.Drawing.Size(190, 27);
+            btnDeleteAllLogs.TabIndex = 5;
+            btnDeleteAllLogs.Text = "Delete all logs";
+            btnDeleteAllLogs.UseVisualStyleBackColor = true;
+            btnDeleteAllLogs.Click += BtnDeleteAllLogs_Click;
             // 
             // groupBox4
             // 
@@ -633,6 +635,7 @@
             Name = "LogViewer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Log viewer";
+            Shown += LogViewer_Shown;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
@@ -672,7 +675,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGetLogs;
         private System.Windows.Forms.GroupBox groupBox1;
         private Mtf.Controls.MtfListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -696,7 +699,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnDeleteAllLogs;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label2;

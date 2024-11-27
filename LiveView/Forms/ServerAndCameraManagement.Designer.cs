@@ -81,6 +81,7 @@
             btn_MotionDetection.TabIndex = 10;
             btn_MotionDetection.Text = "Motion detection";
             btn_MotionDetection.UseVisualStyleBackColor = true;
+            btn_MotionDetection.Click += Btn_MotionDetection_Click;
             // 
             // btn_NewDBServer
             // 
@@ -94,6 +95,7 @@
             btn_NewDBServer.TabIndex = 9;
             btn_NewDBServer.Text = "New DB server";
             btn_NewDBServer.UseVisualStyleBackColor = true;
+            btn_NewDBServer.Click += Btn_NewDBServer_Click;
             // 
             // lbl_HorizontalLine
             // 
@@ -166,6 +168,7 @@
             btn_Properties.TabIndex = 6;
             btn_Properties.Text = "Properties";
             btn_Properties.UseVisualStyleBackColor = true;
+            btn_Properties.Click += Btn_Properties_Click;
             // 
             // rb_GUID
             // 
@@ -191,6 +194,7 @@
             btn_Syncronize.TabIndex = 0;
             btn_Syncronize.Text = "Syncronize";
             btn_Syncronize.UseVisualStyleBackColor = true;
+            btn_Syncronize.Click += Btn_Syncronize_Click;
             // 
             // tv_ServersAndCameras
             // 
@@ -235,6 +239,7 @@
             btn_NewVideoServer.TabIndex = 1;
             btn_NewVideoServer.Text = "New video server";
             btn_NewVideoServer.UseVisualStyleBackColor = true;
+            btn_NewVideoServer.Click += Btn_NewVideoServer_Click;
             // 
             // btn_Modify
             // 
@@ -248,6 +253,7 @@
             btn_Modify.TabIndex = 3;
             btn_Modify.Text = "Modify";
             btn_Modify.UseVisualStyleBackColor = true;
+            btn_Modify.Click += Btn_Modify_Click;
             // 
             // btn_Remove
             // 
@@ -261,6 +267,7 @@
             btn_Remove.TabIndex = 4;
             btn_Remove.Text = "Remove";
             btn_Remove.UseVisualStyleBackColor = true;
+            btn_Remove.Click += Btn_Remove_Click;
             // 
             // btn_NewCamera
             // 

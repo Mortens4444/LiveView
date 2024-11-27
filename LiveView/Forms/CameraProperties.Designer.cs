@@ -237,7 +237,9 @@
             tb_CameraPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_CameraPassword.MaxLength = 200;
             tb_CameraPassword.Name = "tb_CameraPassword";
+            tb_CameraPassword.Password = "";
             tb_CameraPassword.PasswordChar = '*';
+            tb_CameraPassword.ShowRealPasswordLength = false;
             tb_CameraPassword.Size = new System.Drawing.Size(181, 23);
             tb_CameraPassword.TabIndex = 9;
             // 
@@ -282,6 +284,7 @@
             btn_Close.TabIndex = 23;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = true;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // btn_Save
             // 
@@ -293,6 +296,7 @@
             btn_Save.TabIndex = 22;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // lbl_CameraName
             // 

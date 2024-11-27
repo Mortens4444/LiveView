@@ -34,24 +34,8 @@ namespace LiveView.Forms
             this.formFactory = formFactory;
             this.permissionManager = permissionManager;
 
-            tsmi_ServerAndCameraManagement.Tag = nameof(Tsmi_ServerAndCameraManagement_Click);
-            tsmi_GridManagement.Tag = nameof(Tsmi_GridManagement_Click);
-            tsmi_SequentialChains.Tag = nameof(Tsmi_SequentialChains_Click);
-            tsmi_AutoCreateWizard.Tag = nameof(Tsmi_AutoCreateWizard_Click);
-            tsmi_Templates.Tag = nameof(Tsmi_Templates_Click);
-            tsmi_UserAndGroupManagement.Tag = nameof(Tsmi_UserAndGroupManagement_Click);
-            tsmi_Profile.Tag = nameof(Tsmi_Profile_Click);
-            tsmi_PersonalOptions.Tag = nameof(Tsmi_PersonalOptions_Click);
-            tsmi_GeneralOptions.Tag = nameof(Tsmi_GeneralOptions_Click);
-            tsmi_DisplaySettings.Tag = nameof(Tsmi_DisplaySettings_Click);
-            tsmi_LanguageEditor.Tag = nameof(Tsmi_LanguageEditor_Click);
-            tsmi_LogViewer.Tag = nameof(Tsmi_LogViewer_Click);
-            tsmi_BarCodeReadings.Tag = nameof(Tsmi_BarCodeReadings_Click);
-            tsmi_SyncronView.Tag = nameof(Tsmi_SyncronView_Click);
-            tsmi_IOPortsSettings.Tag = nameof(Tsmi_IOPortsSettings_Click);
-            tsmi_MotionPopup.Tag = nameof(Tsmi_MotionPopup_Click);
-            tsmi_MapCreator.Tag = nameof(Tsmi_MapCreator_Click);
             tsmi_Exit.Tag = nameof(Exit);
+            //permissionManager.ApplyPermissionsOnControls(this);
 
             permissionManager.SetUser(this, new User
             {
@@ -60,7 +44,6 @@ namespace LiveView.Forms
                     new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit }
                 }
             });
-            //permissionManager.ApplyPermissionsOnControls(this);
 
             mainPresenter = new MainPresenter(formFactory, this, logger);
 

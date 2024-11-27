@@ -17,6 +17,7 @@ namespace LiveView.Forms
         private readonly long serverId;
         private readonly bool cameraLicenseRunnedOut;
         private readonly bool isSziltech;
+        private readonly PermissionManager permissionManager;
 
         private readonly AddCamerasPresenter addCamerasPresenter;
 
@@ -24,9 +25,9 @@ namespace LiveView.Forms
         {
             InitializeComponent();
             this.serverId = serverId;
+            this.permissionManager = permissionManager;
             cameraLicenseRunnedOut = false;
 
-            btn_AddCameras.Tag = "Btn_AddCameras_Click";
             permissionManager.ApplyPermissionsOnControls(this);
 
             addCamerasPresenter = new AddCamerasPresenter(this, cameraRepository, logger);
@@ -46,33 +47,34 @@ namespace LiveView.Forms
 
         private void Btn_AddSelected_Click(object sender, EventArgs e)
         {
-
         }
 
         private void Btn_AddAll_Click(object sender, EventArgs e)
         {
-
         }
 
+        [RequirePermission(CameraManagementPermissions.Delete)]
         private void Btn_RemoveSelected_Click(object sender, EventArgs e)
         {
-
+            permissionManager.EnsurePermissions();
         }
 
+        [RequirePermission(CameraManagementPermissions.Delete)]
         private void Btn_RemoveAll_Click(object sender, EventArgs e)
         {
-
+            permissionManager.EnsurePermissions();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
         private void Btn_AddCameras_Click(object sender, EventArgs e)
         {
+            permissionManager.EnsurePermissions();
 
         }
 
         private void Btn_Cancel_Click(object sender, EventArgs e)
         {
-            Close();
+            addCamerasPresenter.CloseForm();
         }
     }
 }

@@ -76,13 +76,14 @@
             // btn_ResetDisplays
             // 
             btn_ResetDisplays.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_ResetDisplays.Location = new System.Drawing.Point(0, 531);
+            btn_ResetDisplays.Location = new System.Drawing.Point(5, 525);
             btn_ResetDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_ResetDisplays.Name = "btn_ResetDisplays";
             btn_ResetDisplays.Size = new System.Drawing.Size(190, 27);
             btn_ResetDisplays.TabIndex = 15;
             btn_ResetDisplays.Text = "Reset displays";
             btn_ResetDisplays.UseVisualStyleBackColor = true;
+            btn_ResetDisplays.Click += Btn_ResetDisplays_Click;
             // 
             // gb_FullscreenViewBehavior
             // 
@@ -193,13 +194,14 @@
             // btn_Identify
             // 
             btn_Identify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Identify.Location = new System.Drawing.Point(354, 531);
+            btn_Identify.Location = new System.Drawing.Point(349, 525);
             btn_Identify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Identify.Name = "btn_Identify";
             btn_Identify.Size = new System.Drawing.Size(88, 27);
             btn_Identify.TabIndex = 12;
             btn_Identify.Text = "Identify";
             btn_Identify.UseVisualStyleBackColor = true;
+            btn_Identify.Click += Btn_Identify_Click;
             // 
             // lbl
             // 
@@ -215,25 +217,27 @@
             // 
             btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Cancel.Location = new System.Drawing.Point(542, 531);
+            btn_Cancel.Location = new System.Drawing.Point(537, 525);
             btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Cancel.Name = "btn_Cancel";
             btn_Cancel.Size = new System.Drawing.Size(88, 27);
             btn_Cancel.TabIndex = 14;
-            btn_Cancel.Text = "Cancel";
+            btn_Cancel.Text = "Close";
             btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
             // btn_Save
             // 
             btn_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btn_Save.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btn_Save.Location = new System.Drawing.Point(448, 531);
+            btn_Save.Location = new System.Drawing.Point(443, 525);
             btn_Save.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn_Save.Name = "btn_Save";
             btn_Save.Size = new System.Drawing.Size(88, 27);
             btn_Save.TabIndex = 13;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // gb_FullscreenDisplay
             // 

@@ -4,7 +4,10 @@ using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Attributes;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
+using System;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -12,16 +15,24 @@ namespace LiveView.Forms
     public partial class AddGroup : Form, IAddGroupView
     {
         private readonly AddGroupPresenter addGroupPresenter;
+        private readonly PermissionManager permissionManager;
 
         public AddGroup(PermissionManager permissionManager, ILogger<AddGroup> logger, IGroupRepository<Group> groupRepository)
         {
             InitializeComponent();
+            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
             addGroupPresenter = new AddGroupPresenter(this, groupRepository, logger);
 
             Translator.Translate(this);
+        }
+
+        [RequirePermission(GroupManagementPermissions.Create)]
+        private void Btn_CreateOrModifyGroup_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
         }
     }
 }

@@ -244,6 +244,8 @@
             pb_NoSignal.Location = new System.Drawing.Point(222, 72);
             pb_NoSignal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pb_NoSignal.Name = "pb_NoSignal";
+            pb_NoSignal.OriginalSize = new System.Drawing.Size(100, 50);
+            pb_NoSignal.RepositioningAndResizingControlsOnResize = false;
             pb_NoSignal.Size = new System.Drawing.Size(117, 65);
             pb_NoSignal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pb_NoSignal.TabIndex = 5;
@@ -262,7 +264,7 @@
             p_Editor.Controls.Add(btn_Save);
             p_Editor.Controls.Add(btn_Close);
             p_Editor.Cursor = System.Windows.Forms.Cursors.NoMove2D;
-            p_Editor.Location = new System.Drawing.Point(14, 7);
+            p_Editor.Location = new System.Drawing.Point(13, 2);
             p_Editor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             p_Editor.Name = "p_Editor";
             p_Editor.Size = new System.Drawing.Size(200, 821);
@@ -346,6 +348,7 @@
             btn_Template12.Size = new System.Drawing.Size(30, 27);
             btn_Template12.TabIndex = 11;
             btn_Template12.UseVisualStyleBackColor = true;
+            btn_Template12.Click += Btn_Template12_Click;
             // 
             // btn_Template11
             // 
@@ -356,6 +359,7 @@
             btn_Template11.Size = new System.Drawing.Size(30, 27);
             btn_Template11.TabIndex = 10;
             btn_Template11.UseVisualStyleBackColor = true;
+            btn_Template11.Click += Btn_Template11_Click;
             // 
             // btn_Template10
             // 
@@ -366,6 +370,7 @@
             btn_Template10.Size = new System.Drawing.Size(30, 27);
             btn_Template10.TabIndex = 9;
             btn_Template10.UseVisualStyleBackColor = true;
+            btn_Template10.Click += Btn_Template10_Click;
             // 
             // btn_Template9
             // 
@@ -376,6 +381,7 @@
             btn_Template9.Size = new System.Drawing.Size(30, 27);
             btn_Template9.TabIndex = 8;
             btn_Template9.UseVisualStyleBackColor = true;
+            btn_Template9.Click += Btn_Template9_Click;
             // 
             // btn_Template8
             // 
@@ -386,6 +392,7 @@
             btn_Template8.Size = new System.Drawing.Size(30, 27);
             btn_Template8.TabIndex = 7;
             btn_Template8.UseVisualStyleBackColor = true;
+            btn_Template8.Click += Btn_Template8_Click;
             // 
             // btn_Template7
             // 
@@ -396,6 +403,7 @@
             btn_Template7.Size = new System.Drawing.Size(30, 27);
             btn_Template7.TabIndex = 6;
             btn_Template7.UseVisualStyleBackColor = true;
+            btn_Template7.Click += Btn_Template7_Click;
             // 
             // btn_Template6
             // 
@@ -406,6 +414,7 @@
             btn_Template6.Size = new System.Drawing.Size(30, 27);
             btn_Template6.TabIndex = 5;
             btn_Template6.UseVisualStyleBackColor = true;
+            btn_Template6.Click += Btn_Template6_Click;
             // 
             // btn_Template5
             // 
@@ -416,6 +425,7 @@
             btn_Template5.Size = new System.Drawing.Size(30, 27);
             btn_Template5.TabIndex = 4;
             btn_Template5.UseVisualStyleBackColor = true;
+            btn_Template5.Click += Btn_Template5_Click;
             // 
             // btn_Template4
             // 
@@ -426,6 +436,7 @@
             btn_Template4.Size = new System.Drawing.Size(30, 27);
             btn_Template4.TabIndex = 3;
             btn_Template4.UseVisualStyleBackColor = true;
+            btn_Template4.Click += Btn_Template4_Click;
             // 
             // btn_Template3
             // 
@@ -436,6 +447,7 @@
             btn_Template3.Size = new System.Drawing.Size(30, 27);
             btn_Template3.TabIndex = 2;
             btn_Template3.UseVisualStyleBackColor = true;
+            btn_Template3.Click += Btn_Template3_Click;
             // 
             // btn_Template2
             // 
@@ -446,6 +458,7 @@
             btn_Template2.Size = new System.Drawing.Size(30, 27);
             btn_Template2.TabIndex = 1;
             btn_Template2.UseVisualStyleBackColor = true;
+            btn_Template2.Click += Btn_Template2_Click;
             // 
             // btn_Template1
             // 
@@ -456,6 +469,7 @@
             btn_Template1.Size = new System.Drawing.Size(30, 27);
             btn_Template1.TabIndex = 0;
             btn_Template1.UseVisualStyleBackColor = true;
+            btn_Template1.Click += Btn_Template1_Click;
             // 
             // gb_Combine
             // 
@@ -584,6 +598,7 @@
             btn_Combine.TabIndex = 17;
             btn_Combine.Text = "Combine";
             btn_Combine.UseVisualStyleBackColor = true;
+            btn_Combine.Click += Btn_Combine_Click;
             // 
             // nud_ClosingRow
             // 
@@ -713,6 +728,7 @@
             btn_16_10_FixedRight.TabIndex = 13;
             btn_16_10_FixedRight.UseVisualStyleBackColor = true;
             btn_16_10_FixedRight.Visible = false;
+            btn_16_10_FixedRight.Click += Btn_16_10_FixedRight_Click;
             // 
             // btn_16_9_FixedRight
             // 
@@ -724,6 +740,7 @@
             btn_16_9_FixedRight.TabIndex = 12;
             btn_16_9_FixedRight.UseVisualStyleBackColor = true;
             btn_16_9_FixedRight.Visible = false;
+            btn_16_9_FixedRight.Click += Btn_16_9_FixedRight_Click;
             // 
             // btn_4_3_FixedRight
             // 
@@ -735,6 +752,7 @@
             btn_4_3_FixedRight.TabIndex = 11;
             btn_4_3_FixedRight.UseVisualStyleBackColor = true;
             btn_4_3_FixedRight.Visible = false;
+            btn_4_3_FixedRight.Click += Btn_4_3_FixedRight_Click;
             // 
             // btn_16_10
             // 
@@ -917,6 +935,7 @@
             btn_Save.TabIndex = 5;
             btn_Save.Text = "Save";
             btn_Save.UseVisualStyleBackColor = false;
+            btn_Save.Click += Btn_Save_Click;
             // 
             // btn_Close
             // 
@@ -929,6 +948,7 @@
             btn_Close.TabIndex = 6;
             btn_Close.Text = "Close";
             btn_Close.UseVisualStyleBackColor = false;
+            btn_Close.Click += Btn_Close_Click;
             // 
             // AddGrid
             // 
