@@ -3,6 +3,7 @@ using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Database;
+using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -17,10 +18,12 @@ namespace LiveView
         [STAThread]
         static void Main()
         {
+            ExceptionHandler.CatchUnhandledExceptions();
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
 
-//#if NETFRAMEWORK
+            //#if NETFRAMEWORK
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //#else

@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -8,11 +9,11 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class PersonalOptions : Form, IPersonalOptionsView
+    public partial class PersonalOptionsForm : Form, IPersonalOptionsView
     {
         private readonly PersonalOptionsPresenter personalOptionsPresenter;
 
-        public PersonalOptions(PermissionManager permissionManager, ILogger<PersonalOptions> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
+        public PersonalOptionsForm(PermissionManager permissionManager, ILogger<PersonalOptionsForm> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
         {
             InitializeComponent();
 

@@ -36,6 +36,7 @@ namespace LiveView.Services
             services.AddSingleton(typeof(ICameraRepository<>), typeof(CameraRepository<>));
             services.AddSingleton(typeof(IDatabaseServerRepository<>), typeof(DatabaseServerRepository<>));
             services.AddSingleton(typeof(IDisplayRepository<>), typeof(DisplayRepository<>));
+            services.AddSingleton(typeof(IGeneralOptionsRepository<>), typeof(GeneralOptionsRepository<>));
             services.AddSingleton(typeof(IGridCameraListRepository<>), typeof(GridCameraListRepository<>));
             services.AddSingleton(typeof(IGridRepository<>), typeof(GridRepository<>));
             services.AddSingleton(typeof(IGridsInSequencesRepository<>), typeof(GridsInSequencesRepository<>));
@@ -44,7 +45,6 @@ namespace LiveView.Services
             services.AddSingleton(typeof(ILanguageRepository<>), typeof(LanguageRepository<>));
             services.AddSingleton(typeof(IMapObjectRepository<>), typeof(MapObjectRepository<>));
             services.AddSingleton(typeof(IMapRepository<>), typeof(MapRepository<>));
-            services.AddSingleton(typeof(IOptionsRepository<>), typeof(OptionsRepository<>));
             services.AddSingleton(typeof(IPersonalOptionsRepository<>), typeof(PersonalOptionsRepository<>));
             services.AddSingleton(typeof(ISequenceRepository<>), typeof(SequenceRepository<>));
             services.AddSingleton(typeof(IServerRepository<>), typeof(ServerRepository<>));
@@ -77,13 +77,13 @@ namespace LiveView.Services
             services.AddTransient<LogViewer>();
             services.AddTransient<MainForm>();
             services.AddTransient<MapCreator>();
-            services.AddTransient<PersonalOptions>();
+            services.AddTransient<PersonalOptionsForm>();
             services.AddTransient<Profile>();
             services.AddTransient<SequentialChains>();
             services.AddTransient<ServerAndCameraManagement>();
             services.AddTransient<ServerAndCameraProperties>();
             services.AddTransient<SyncronView>();
-            services.AddTransient<SystemOptions>();
+            services.AddTransient<GeneralOptionsForm>();
             services.AddTransient<Templates>();
             services.AddTransient<UserAndGroupManagement>();
         }

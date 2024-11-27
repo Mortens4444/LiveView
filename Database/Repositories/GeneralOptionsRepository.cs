@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Database.Repositories
 {
-    public sealed class OptionsRepository<TModel> : BaseRepository<TModel>, IOptionsRepository<TModel>
+    public sealed class GeneralOptionsRepository<TModel> : BaseRepository<TModel>, IGeneralOptionsRepository<TModel>
     {
         //public Options SelectUserOptions()
         //{

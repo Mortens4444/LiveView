@@ -9,17 +9,17 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class SystemOptions : Form, ISystemOptionsView
+    public partial class GeneralOptionsForm : Form, IGeneralOptionsView
     {
-        private readonly SystemOptionsPresenter systemOptionsPresenter;
+        private readonly GeneralOptionsPresenter generalOptionsPresenter;
 
-        public SystemOptions(PermissionManager permissionManager, ILogger<SystemOptions> logger, IOptionsRepository<Options> optionsRepository)
+        public GeneralOptionsForm(PermissionManager permissionManager, ILogger<GeneralOptionsForm> logger, IGeneralOptionsRepository<GeneralOptions> generalOptionsRepository)
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            systemOptionsPresenter = new SystemOptionsPresenter(this, optionsRepository, logger);
+            generalOptionsPresenter = new GeneralOptionsPresenter(this, generalOptionsRepository, logger);
 
             Translator.Translate(this);
         }

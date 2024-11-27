@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class SystemOptions
+    partial class GeneralOptionsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(SystemOptions));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneralOptionsForm));
             chk_ReduceSequenceUsageOfNetworkAndCPU = new System.Windows.Forms.CheckBox();
             lbl_FPS = new System.Windows.Forms.Label();
             nud_FPS = new System.Windows.Forms.NumericUpDown();

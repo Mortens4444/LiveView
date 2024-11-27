@@ -56,7 +56,6 @@
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="Mtf.Database" Version="1.0.9" />
-    <PackageReference Include="Mtf.MessageBoxes" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
   </ItemGroup>
 

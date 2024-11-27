@@ -41,11 +41,11 @@ namespace Mtf.Extensions
         public static string SplitByUppercase(this string input)
         {
             var words = UppercaseCharacters.Split(input);
-            var result = string.Join(" ", words).ToLower(CultureInfo.CurrentCulture);
+            var result = String.Join(" ", words).ToLower(CultureInfo.CurrentCulture);
 
             if (result.Length > 1)
             {
-                result = string.Concat(char.ToUpper(result[0], CultureInfo.CurrentCulture), result.Substring(1));
+                result = String.Concat(char.ToUpper(result[0], CultureInfo.CurrentCulture), result.Substring(1));
             }
 
             return result;
@@ -1112,8 +1112,20 @@ namespace Mtf.Extensions
 
         public static bool IsEqualOneOfThis(this string value, params string[] values)
         {
-            return Generics.IsEqualOneOfThis<string>(value, values);
-        }
+            if (values == null || values.Length == 0)
+            {
+                return false;
+            }
 
+            foreach (var v in values)
+            {
+                if (String.Equals(value, v, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

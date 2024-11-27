@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class PersonalOptions
+    partial class PersonalOptionsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalOptions));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalOptionsForm));
             fontDialog1 = new System.Windows.Forms.FontDialog();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             lbl_SelectedLanguage = new System.Windows.Forms.Label();
