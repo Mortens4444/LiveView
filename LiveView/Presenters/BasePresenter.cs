@@ -15,11 +15,12 @@ namespace LiveView.Presenters
             this.view = view;
         }
 
-        public void CreateForm<TFormType>(params object[] parameters)
+        public TFormType ShowForm<TFormType>(params object[] parameters)
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
             form.Show();
+            return form;
         }
 
         public void CloseForm()

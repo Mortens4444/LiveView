@@ -29,7 +29,7 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(PermissionType.CreateCamera)]
+        [RequirePermission(CameraManagementPermissions.Create)]
         private void Btn_NewCamera_Click(object sender, EventArgs e)
         {
             serverAndCameraManagementPresenter.CreateNewCameraForm();

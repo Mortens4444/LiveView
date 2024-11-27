@@ -64,7 +64,7 @@ namespace LiveView.Forms
 
         }
 
-        [RequirePermission(PermissionType.CreateCamera)]
+        [RequirePermission(CameraManagementPermissions.Create)]
         private void Btn_AddCameras_Click(object sender, EventArgs e)
         {
 

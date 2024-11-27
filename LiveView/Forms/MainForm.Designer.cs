@@ -133,6 +133,7 @@
             tsmi_GeneralOptions.Name = "tsmi_GeneralOptions";
             tsmi_GeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmi_GeneralOptions.Text = "General options";
+            tsmi_GeneralOptions.Click += Tsmi_GeneralOptions_Click;
             // 
             // tsmi_Options
             // 
@@ -149,6 +150,7 @@
             tsmi_PersonalOptions.Name = "tsmi_PersonalOptions";
             tsmi_PersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmi_PersonalOptions.Text = "Personal options";
+            tsmi_PersonalOptions.Click += Tsmi_PersonalOptions_Click;
             // 
             // tsmi_DisplaySettings
             // 
@@ -157,6 +159,7 @@
             tsmi_DisplaySettings.Name = "tsmi_DisplaySettings";
             tsmi_DisplaySettings.Size = new System.Drawing.Size(162, 22);
             tsmi_DisplaySettings.Text = "Display settings";
+            tsmi_DisplaySettings.Click += Tsmi_DisplaySettings_Click;
             // 
             // tsmi_Profile
             // 
@@ -165,6 +168,7 @@
             tsmi_Profile.Name = "tsmi_Profile";
             tsmi_Profile.Size = new System.Drawing.Size(229, 22);
             tsmi_Profile.Text = "Profile";
+            tsmi_Profile.Click += Tsmi_Profile_Click;
             // 
             // tss_Separator4
             // 
@@ -178,6 +182,7 @@
             tsmi_UserAndGroupManagement.Name = "tsmi_UserAndGroupManagement";
             tsmi_UserAndGroupManagement.Size = new System.Drawing.Size(229, 22);
             tsmi_UserAndGroupManagement.Text = "User and group management";
+            tsmi_UserAndGroupManagement.Click += Tsmi_UserAndGroupManagement_Click;
             // 
             // tsmi_Users
             // 
@@ -194,6 +199,7 @@
             tsmi_Templates.Name = "tsmi_Templates";
             tsmi_Templates.Size = new System.Drawing.Size(245, 22);
             tsmi_Templates.Text = "Templates";
+            tsmi_Templates.Click += Tsmi_Templates_Click;
             // 
             // tss_Separator3
             // 
@@ -207,6 +213,7 @@
             tsmi_AutoCreateWizard.Name = "tsmi_AutoCreateWizard";
             tsmi_AutoCreateWizard.Size = new System.Drawing.Size(245, 22);
             tsmi_AutoCreateWizard.Text = "Auto create wizard";
+            tsmi_AutoCreateWizard.Click += Tsmi_AutoCreateWizard_Click;
             // 
             // tss_Separator2
             // 
@@ -220,6 +227,7 @@
             tsmi_SequentialChains.Name = "tsmi_SequentialChains";
             tsmi_SequentialChains.Size = new System.Drawing.Size(245, 22);
             tsmi_SequentialChains.Text = "Sequential chains";
+            tsmi_SequentialChains.Click += Tsmi_SequentialChains_Click;
             // 
             // tsmi_GridManagement
             // 
@@ -228,6 +236,7 @@
             tsmi_GridManagement.Name = "tsmi_GridManagement";
             tsmi_GridManagement.Size = new System.Drawing.Size(245, 22);
             tsmi_GridManagement.Text = "Grid management";
+            tsmi_GridManagement.Click += Tsmi_GridManagement_Click;
             // 
             // tss_Separator
             // 
@@ -252,6 +261,7 @@
             btn_LoginLogoutPrimary.TabIndex = 18;
             btn_LoginLogoutPrimary.Text = "Login";
             btn_LoginLogoutPrimary.UseVisualStyleBackColor = true;
+            btn_LoginLogoutPrimary.Click += Btn_LoginLogoutPrimary_Click;
             // 
             // tb_Password
             // 
@@ -290,8 +300,8 @@
             // 
             tsmi_ControlCenter.Image = (System.Drawing.Image)resources.GetObject("tsmi_ControlCenter.Image");
             tsmi_ControlCenter.Name = "tsmi_ControlCenter";
-            tsmi_ControlCenter.Size = new System.Drawing.Size(110, 20);
-            tsmi_ControlCenter.Text = "ControlCenter";
+            tsmi_ControlCenter.Size = new System.Drawing.Size(111, 20);
+            tsmi_ControlCenter.Text = "Control center";
             tsmi_ControlCenter.Click += Tsmi_ControlCenter_Click;
             // 
             // il_DatabaseIcons
@@ -359,6 +369,7 @@
             tsmi_Exit.Name = "tsmi_Exit";
             tsmi_Exit.Size = new System.Drawing.Size(53, 20);
             tsmi_Exit.Text = "Exit";
+            tsmi_Exit.Click += Tsmi_Exit_Click;
             // 
             // tsmi_License
             // 
@@ -366,6 +377,7 @@
             tsmi_License.Name = "tsmi_License";
             tsmi_License.Size = new System.Drawing.Size(113, 22);
             tsmi_License.Text = "License";
+            tsmi_License.Click += Tsmi_License_Click;
             // 
             // tsmi_Main
             // 
@@ -381,6 +393,7 @@
             tsmi_About.Name = "tsmi_About";
             tsmi_About.Size = new System.Drawing.Size(113, 22);
             tsmi_About.Text = "About";
+            tsmi_About.Click += Tsmi_About_Click;
             // 
             // tsmi_MapCreator
             // 
@@ -388,6 +401,7 @@
             tsmi_MapCreator.Name = "tsmi_MapCreator";
             tsmi_MapCreator.Size = new System.Drawing.Size(215, 22);
             tsmi_MapCreator.Text = "Map creator";
+            tsmi_MapCreator.Click += Tsmi_MapCreator_Click;
             // 
             // tsmi_MotionPopup
             // 
@@ -396,6 +410,7 @@
             tsmi_MotionPopup.Name = "tsmi_MotionPopup";
             tsmi_MotionPopup.Size = new System.Drawing.Size(215, 22);
             tsmi_MotionPopup.Text = "Motion popup";
+            tsmi_MotionPopup.Click += Tsmi_MotionPopup_Click;
             // 
             // tsmi_IOPortsSettings
             // 
@@ -404,6 +419,7 @@
             tsmi_IOPortsSettings.Name = "tsmi_IOPortsSettings";
             tsmi_IOPortsSettings.Size = new System.Drawing.Size(215, 22);
             tsmi_IOPortsSettings.Text = "I/O ports' settings";
+            tsmi_IOPortsSettings.Click += Tsmi_IOPortsSettings_Click;
             // 
             // tsmi_SyncronView
             // 
@@ -412,6 +428,7 @@
             tsmi_SyncronView.Name = "tsmi_SyncronView";
             tsmi_SyncronView.Size = new System.Drawing.Size(215, 22);
             tsmi_SyncronView.Text = "Syncron view";
+            tsmi_SyncronView.Click += Tsmi_SyncronView_Click;
             // 
             // tsmi_BarCodeReadings
             // 
@@ -420,6 +437,7 @@
             tsmi_BarCodeReadings.Name = "tsmi_BarCodeReadings";
             tsmi_BarCodeReadings.Size = new System.Drawing.Size(215, 22);
             tsmi_BarCodeReadings.Text = "Bar code readings";
+            tsmi_BarCodeReadings.Click += Tsmi_BarCodeReadings_Click;
             // 
             // tsmi_PositioningMousePointer
             // 
@@ -428,6 +446,7 @@
             tsmi_PositioningMousePointer.ShortcutKeyDisplayString = "Home";
             tsmi_PositioningMousePointer.Size = new System.Drawing.Size(215, 22);
             tsmi_PositioningMousePointer.Text = "Set mouse position";
+            tsmi_PositioningMousePointer.Click += Tsmi_PositioningMousePointer_Click;
             // 
             // tsmi_LogViewer
             // 
@@ -436,6 +455,7 @@
             tsmi_LogViewer.Name = "tsmi_LogViewer";
             tsmi_LogViewer.Size = new System.Drawing.Size(215, 22);
             tsmi_LogViewer.Text = "Log viewer";
+            tsmi_LogViewer.Click += Tsmi_LogViewer_Click;
             // 
             // tsmi_LanguageEditor
             // 
@@ -444,6 +464,7 @@
             tsmi_LanguageEditor.Name = "tsmi_LanguageEditor";
             tsmi_LanguageEditor.Size = new System.Drawing.Size(215, 22);
             tsmi_LanguageEditor.Text = "Language editor";
+            tsmi_LanguageEditor.Click += Tsmi_LanguageEditor_Click;
             // 
             // tsmi_Help
             // 
@@ -681,6 +702,7 @@
             btn_LoginLogoutSecondary.TabIndex = 18;
             btn_LoginLogoutSecondary.Text = "Login";
             btn_LoginLogoutSecondary.UseVisualStyleBackColor = true;
+            btn_LoginLogoutSecondary.Click += Btn_LoginLogoutSecondary_Click;
             // 
             // tb_Password2
             // 
@@ -898,6 +920,7 @@
             Name = "MainForm";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "LiveView";
+            FormClosing += MainForm_FormClosing;
             ss_StatusStrip.ResumeLayout(false);
             ss_StatusStrip.PerformLayout();
             gb_UserEvents.ResumeLayout(false);
