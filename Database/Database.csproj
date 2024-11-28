@@ -17,6 +17,7 @@
     <EmbeddedResource Include="Scripts\CreateDatabase.sql" />
     <EmbeddedResource Include="Scripts\CreateStoredProcedures.sql" />
     <EmbeddedResource Include="Scripts\DeleteStaticOptions.sql" />
+    <EmbeddedResource Include="Scripts\InsertServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllLanguage.sql" />
@@ -55,7 +56,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="Mtf.Database" Version="1.0.9" />
+    <PackageReference Include="Mtf.Database" Version="1.0.10" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
   </ItemGroup>
 

@@ -1,3 +1,2 @@
-- Create Forms, from menuitems
 - Add form functionalities
 - Import LanguageElements into ods file and remove LanguageRepository.cs

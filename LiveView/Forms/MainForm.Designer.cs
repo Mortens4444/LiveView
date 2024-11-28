@@ -245,6 +245,7 @@
             // 
             // tsmi_ServerAndCameraManagement
             // 
+            tsmi_ServerAndCameraManagement.Enabled = false;
             tsmi_ServerAndCameraManagement.Image = (System.Drawing.Image)resources.GetObject("tsmi_ServerAndCameraManagement.Image");
             tsmi_ServerAndCameraManagement.Name = "tsmi_ServerAndCameraManagement";
             tsmi_ServerAndCameraManagement.Size = new System.Drawing.Size(245, 22);

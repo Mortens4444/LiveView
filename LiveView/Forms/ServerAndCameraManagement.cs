@@ -9,6 +9,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -18,7 +19,15 @@ namespace LiveView.Forms
         private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
         private readonly PermissionManager permissionManager;
 
-        public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Sequence> serverRepository, ICameraRepository<Camera> cameraRepository)
+        private const int ServerIconIndex = 1;
+        private const int CameraIconIndex = 2;
+        private const int UpdateServerIconIndex = 3;
+        private const int UpdateCameraIconIndex = 4;
+        private const int DeleteServerIconIndex = 5;
+        private const int DeleteCameraIconIndex = 6;
+        private const int DatabaseServerIconIndex = 7;
+
+        public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
             this.permissionManager = permissionManager;
@@ -48,7 +57,10 @@ namespace LiveView.Forms
         private void Btn_NewVideoServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraManagementPresenter.ShowForm<AddVideoServer>();
+            if (serverAndCameraManagementPresenter.ShowDialog<AddVideoServer>())
+            {
+                serverAndCameraManagementPresenter.Load();
+            }
         }
 
         [RequirePermission(DatabaseServerManagementPermissions.Create)]
@@ -92,6 +104,19 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Syncronize();
+        }
+
+        [RequirePermission(ServerManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.Select)]
+        private void ServerAndCameraManagement_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            serverAndCameraManagementPresenter.Load();
+        }
+
+        public void AddServer(Server server)
+        {
+            tv_ServersAndCameras.Nodes["Servers"].Nodes.Add(new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex) { Name = server.Id.ToString(), Tag = server });
         }
     }
 }

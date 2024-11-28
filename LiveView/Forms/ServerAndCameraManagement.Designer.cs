@@ -332,6 +332,7 @@
             Name = "ServerAndCameraManagement";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Servers and cameras";
+            Shown += ServerAndCameraManagement_Shown;
             gb_RegisteredServersAndCameras.ResumeLayout(false);
             gb_RegisteredServersAndCameras.PerformLayout();
             p_Main.ResumeLayout(false);

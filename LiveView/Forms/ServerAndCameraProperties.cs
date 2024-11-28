@@ -17,7 +17,7 @@ namespace LiveView.Forms
         private readonly ServerAndCameraPropertiesPresenter serverAndCameraPropertiesPresenter;
         private readonly PermissionManager permissionManager;
 
-        public ServerAndCameraProperties(PermissionManager permissionManager, ILogger<ServerAndCameraProperties> logger, IServerRepository<Sequence> serverRepository, ICameraRepository<Camera> cameraRepository)
+        public ServerAndCameraProperties(PermissionManager permissionManager, ILogger<ServerAndCameraProperties> logger, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
             this.permissionManager = permissionManager;

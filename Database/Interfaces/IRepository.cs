@@ -10,6 +10,10 @@ namespace Database.Interfaces
 
         ReadOnlyCollection<TModel> GetWhere(object param);
 
+        void Insert(TModel model);
+        
+        void Update(TModel model);
+
         void Delete(int id);
 
         void DeleteWhere(object param);

@@ -1,1 +1,1 @@
-﻿SELECT ID, displayed_name, iporhost, username, password, dongle_sn, sziltech_sn, mac_address FROM Servers ORDER BY displayed_name
+﻿SELECT ID AS Id, iporhost AS IpAddress, username AS Username, password AS Password, mac_address AS MacAddress, displayed_name AS Hostname, dongle_sn AS DongleSn, sziltech_sn AS SerialNumber, start_in_motion_popup AS StartInMotionPopup FROM Servers ORDER BY displayed_name

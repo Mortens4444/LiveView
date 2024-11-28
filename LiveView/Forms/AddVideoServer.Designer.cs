@@ -37,6 +37,8 @@
             btn_Cancel = new System.Windows.Forms.Button();
             btn_AddOrModify = new System.Windows.Forms.Button();
             gb_Network = new System.Windows.Forms.GroupBox();
+            lblManufacturer = new System.Windows.Forms.Label();
+            tbManufacturer = new System.Windows.Forms.TextBox();
             tb_MACAddress = new System.Windows.Forms.TextBox();
             lbl_MACAddressOptional = new System.Windows.Forms.Label();
             gb_VideoServer = new System.Windows.Forms.GroupBox();
@@ -144,6 +146,8 @@
             // 
             // gb_Network
             // 
+            gb_Network.Controls.Add(lblManufacturer);
+            gb_Network.Controls.Add(tbManufacturer);
             gb_Network.Controls.Add(tb_MACAddress);
             gb_Network.Controls.Add(lbl_MACAddressOptional);
             gb_Network.Dock = System.Windows.Forms.DockStyle.Top;
@@ -156,14 +160,34 @@
             gb_Network.TabStop = false;
             gb_Network.Text = "Network";
             // 
+            // lblManufacturer
+            // 
+            lblManufacturer.AutoSize = true;
+            lblManufacturer.Location = new System.Drawing.Point(151, 17);
+            lblManufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblManufacturer.Name = "lblManufacturer";
+            lblManufacturer.Size = new System.Drawing.Size(79, 15);
+            lblManufacturer.TabIndex = 3;
+            lblManufacturer.Text = "Manufacturer";
+            // 
+            // tbManufacturer
+            // 
+            tbManufacturer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbManufacturer.Location = new System.Drawing.Point(151, 35);
+            tbManufacturer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbManufacturer.MaxLength = 20;
+            tbManufacturer.Name = "tbManufacturer";
+            tbManufacturer.ReadOnly = true;
+            tbManufacturer.Size = new System.Drawing.Size(153, 23);
+            tbManufacturer.TabIndex = 2;
+            // 
             // tb_MACAddress
             // 
-            tb_MACAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             tb_MACAddress.Location = new System.Drawing.Point(10, 35);
             tb_MACAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tb_MACAddress.MaxLength = 20;
             tb_MACAddress.Name = "tb_MACAddress";
-            tb_MACAddress.Size = new System.Drawing.Size(294, 23);
+            tb_MACAddress.Size = new System.Drawing.Size(133, 23);
             tb_MACAddress.TabIndex = 1;
             // 
             // lbl_MACAddressOptional
@@ -205,6 +229,7 @@
             cb_DNSNameOrIPAddress.Name = "cb_DNSNameOrIPAddress";
             cb_DNSNameOrIPAddress.Size = new System.Drawing.Size(294, 23);
             cb_DNSNameOrIPAddress.TabIndex = 1;
+            cb_DNSNameOrIPAddress.SelectedIndexChanged += Cb_DNSNameOrIPAddress_SelectedIndexChanged;
             // 
             // tb_DisplayedName
             // 
@@ -292,6 +317,7 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New Video Server";
             TopMost = true;
+            Shown += AddVideoServer_Shown;
             pMain.ResumeLayout(false);
             gb_Validate.ResumeLayout(false);
             gb_Validate.PerformLayout();
@@ -323,5 +349,7 @@
         private System.Windows.Forms.TextBox tb_Username;
         private System.Windows.Forms.Label lbl_Username;
         private System.Windows.Forms.Label lbl_DNSNameOrIPAddress;
+        private System.Windows.Forms.TextBox tbManufacturer;
+        private System.Windows.Forms.Label lblManufacturer;
     }
 }

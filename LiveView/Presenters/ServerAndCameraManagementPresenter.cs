@@ -11,11 +11,11 @@ namespace LiveView.Presenters
     public class ServerAndCameraManagementPresenter : BasePresenter
     {
         private readonly IServerAndCameraManagementView serverAndCameraManagementView;
-        private readonly IServerRepository<Sequence> serverRepository;
+        private readonly IServerRepository<Server> serverRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ServerAndCameraManagement> logger;
 
-        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IServerRepository<Sequence> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
+        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
             : base(serverAndCameraManagementView, formFactory)
         {
             this.serverAndCameraManagementView = serverAndCameraManagementView;
@@ -43,6 +43,15 @@ namespace LiveView.Presenters
         public void Syncronize()
         {
             throw new NotImplementedException();
+        }
+
+        public void Load()
+        {
+            var servers = serverRepository.GetAll();
+            foreach (var server in servers)
+            {
+                serverAndCameraManagementView.AddServer(server);
+            }
         }
     }
 }
