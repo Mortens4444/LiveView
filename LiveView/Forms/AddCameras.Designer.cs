@@ -32,7 +32,7 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCameras));
             tt_Hint = new System.Windows.Forms.ToolTip(components);
             lbl_CamerasOfServer = new System.Windows.Forms.Label();
-            cb_ServerDisplayedName = new System.Windows.Forms.ComboBox();
+            cb_Servers = new System.Windows.Forms.ComboBox();
             lv_CamerasToView = new Mtf.Controls.MtfListView();
             il_Images = new System.Windows.Forms.ImageList(components);
             lbl_CamerasToView = new System.Windows.Forms.Label();
@@ -40,7 +40,6 @@
             btn_AddAll = new System.Windows.Forms.Button();
             btn_RemoveAll = new System.Windows.Forms.Button();
             btn_AddSelected = new System.Windows.Forms.Button();
-            cb_ServerID = new System.Windows.Forms.ComboBox();
             p_Header = new System.Windows.Forms.Panel();
             lbl_Host = new System.Windows.Forms.Label();
             btn_AddCameras = new System.Windows.Forms.Button();
@@ -50,11 +49,13 @@
             p_Cameras = new System.Windows.Forms.Panel();
             p_Main = new System.Windows.Forms.Panel();
             gb_Main = new System.Windows.Forms.GroupBox();
+            axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
             p_Header.SuspendLayout();
             p_Footer.SuspendLayout();
             p_Cameras.SuspendLayout();
             p_Main.SuspendLayout();
             gb_Main.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
             SuspendLayout();
             // 
             // lbl_CamerasOfServer
@@ -67,17 +68,17 @@
             lbl_CamerasOfServer.TabIndex = 2;
             lbl_CamerasOfServer.Text = "Server's cameras";
             // 
-            // cb_ServerDisplayedName
+            // cb_Servers
             // 
-            cb_ServerDisplayedName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cb_ServerDisplayedName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_ServerDisplayedName.FormattingEnabled = true;
-            cb_ServerDisplayedName.Location = new System.Drawing.Point(1, 24);
-            cb_ServerDisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_ServerDisplayedName.Name = "cb_ServerDisplayedName";
-            cb_ServerDisplayedName.Size = new System.Drawing.Size(423, 23);
-            cb_ServerDisplayedName.TabIndex = 1;
-            cb_ServerDisplayedName.SelectedIndexChanged += Cb_ServerDisplayedName_SelectedIndexChanged;
+            cb_Servers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cb_Servers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cb_Servers.FormattingEnabled = true;
+            cb_Servers.Location = new System.Drawing.Point(1, 24);
+            cb_Servers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cb_Servers.Name = "cb_Servers";
+            cb_Servers.Size = new System.Drawing.Size(423, 23);
+            cb_Servers.TabIndex = 1;
+            cb_Servers.SelectedIndexChanged += Cb_Servers_SelectedIndexChanged;
             // 
             // lv_CamerasToView
             // 
@@ -186,23 +187,12 @@
             btn_AddSelected.UseVisualStyleBackColor = true;
             btn_AddSelected.Click += Btn_AddSelected_Click;
             // 
-            // cb_ServerID
-            // 
-            cb_ServerID.FormattingEnabled = true;
-            cb_ServerID.Location = new System.Drawing.Point(286, 1);
-            cb_ServerID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_ServerID.Name = "cb_ServerID";
-            cb_ServerID.Size = new System.Drawing.Size(140, 23);
-            cb_ServerID.TabIndex = 4;
-            cb_ServerID.TabStop = false;
-            cb_ServerID.Visible = false;
-            // 
             // p_Header
             // 
-            p_Header.Controls.Add(cb_ServerID);
+            p_Header.Controls.Add(axVideoServer);
             p_Header.Controls.Add(lbl_CamerasToView);
             p_Header.Controls.Add(lbl_CamerasOfServer);
-            p_Header.Controls.Add(cb_ServerDisplayedName);
+            p_Header.Controls.Add(cb_Servers);
             p_Header.Controls.Add(lbl_Host);
             p_Header.Dock = System.Windows.Forms.DockStyle.Top;
             p_Header.Location = new System.Drawing.Point(4, 19);
@@ -310,6 +300,16 @@
             gb_Main.TabIndex = 1;
             gb_Main.TabStop = false;
             // 
+            // axVideoServer
+            // 
+            axVideoServer.Enabled = true;
+            axVideoServer.Location = new System.Drawing.Point(335, 3);
+            axVideoServer.Name = "axVideoServer";
+            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
+            axVideoServer.Size = new System.Drawing.Size(62, 44);
+            axVideoServer.TabIndex = 4;
+            axVideoServer.Visible = false;
+            // 
             // AddCameras
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -321,12 +321,14 @@
             Name = "AddCameras";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New cameras";
+            Shown += AddCameras_Shown;
             p_Header.ResumeLayout(false);
             p_Header.PerformLayout();
             p_Footer.ResumeLayout(false);
             p_Cameras.ResumeLayout(false);
             p_Main.ResumeLayout(false);
             gb_Main.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
             ResumeLayout(false);
         }
 
@@ -334,7 +336,7 @@
 
         private System.Windows.Forms.ToolTip tt_Hint;
         private System.Windows.Forms.Label lbl_CamerasOfServer;
-        private System.Windows.Forms.ComboBox cb_ServerDisplayedName;
+        private System.Windows.Forms.ComboBox cb_Servers;
         private Mtf.Controls.MtfListView lv_CamerasToView;
         private System.Windows.Forms.ImageList il_Images;
         private System.Windows.Forms.Label lbl_CamerasToView;
@@ -342,7 +344,6 @@
         private System.Windows.Forms.Button btn_AddAll;
         private System.Windows.Forms.Button btn_RemoveAll;
         private System.Windows.Forms.Button btn_AddSelected;
-        private System.Windows.Forms.ComboBox cb_ServerID;
         private System.Windows.Forms.Panel p_Header;
         private System.Windows.Forms.Label lbl_Host;
         private System.Windows.Forms.Button btn_AddCameras;
@@ -352,5 +353,6 @@
         private System.Windows.Forms.Panel p_Cameras;
         private System.Windows.Forms.Panel p_Main;
         private System.Windows.Forms.GroupBox gb_Main;
+        private AxVIDEOCONTROL4Lib.AxVideoServer axVideoServer;
     }
 }

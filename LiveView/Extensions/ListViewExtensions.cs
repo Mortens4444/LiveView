@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+﻿using Database.Interfaces;
 using System.Windows.Forms;
 
 
@@ -6,10 +6,17 @@ namespace LiveView.Extensions
 {
     public static class ListViewExtensions
     {
-        public static bool HasElementWithKey(this ListView listView, string key)
+        public static bool HasElementWithGuid<TModelType>(this ListView listView, string guid)
+            where TModelType : IHaveGuid
         {
-            var findItems = listView.Items.Find(key, false);
-            return findItems.Length > 0;
+            foreach (ListViewItem item in listView.Items)
+            {
+                if (((IHaveGuid)item.Tag).Guid == guid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

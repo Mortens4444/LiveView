@@ -1,8 +1,9 @@
-﻿using Mtf.Enums.Camera;
+﻿using Database.Interfaces;
+using Mtf.Enums.Camera;
 
 namespace Database.Models
 {
-    public class Camera
+    public class Camera : IHaveGuid
     {
         public string Guid { get; set; }
 

@@ -9,6 +9,8 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,14 +20,6 @@ namespace LiveView.Forms
     {
         private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
         private readonly PermissionManager permissionManager;
-
-        private const int ServerIconIndex = 1;
-        private const int CameraIconIndex = 2;
-        private const int UpdateServerIconIndex = 3;
-        private const int UpdateCameraIconIndex = 4;
-        private const int DeleteServerIconIndex = 5;
-        private const int DeleteCameraIconIndex = 6;
-        private const int DatabaseServerIconIndex = 7;
 
         public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
@@ -74,14 +68,14 @@ namespace LiveView.Forms
         private void Btn_Modify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraManagementPresenter.ModifyServer();
+            serverAndCameraManagementPresenter.Modify();
         }
 
         [RequirePermission(ServerManagementPermissions.Delete)]
         private void Btn_Remove_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraManagementPresenter.RemoveServer();
+            serverAndCameraManagementPresenter.Remove();
 
         }
 
@@ -114,9 +108,21 @@ namespace LiveView.Forms
             serverAndCameraManagementPresenter.Load();
         }
 
-        public void AddServer(Server server)
+        public void ShowServerNodes(IEnumerable<TreeNode> serverNodes)
         {
-            tv_ServersAndCameras.Nodes["Servers"].Nodes.Add(new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex) { Name = server.Id.ToString(), Tag = server });
+            var serversNode = tv_ServersAndCameras.Nodes["Servers"];
+            serversNode.Nodes.Clear();
+            foreach (var serverNode in serverNodes)
+            {
+                serversNode.Nodes.Add(serverNode);
+            }
+
+            tv_ServersAndCameras.ExpandAll();
+        }
+
+        public TreeNode GetSelectedItem()
+        {
+            return tv_ServersAndCameras.SelectedNode;
         }
     }
 }

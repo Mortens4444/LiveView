@@ -2,7 +2,11 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Network;
+using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace LiveView.Presenters
 {
@@ -20,11 +24,38 @@ namespace LiveView.Presenters
             this.logger = logger;
         }
 
-        public void Add()
+        public void AddOrModify(Server server)
         {
-            var server = addVideoServerView.GetServer();
-            serverRepository.Insert(Server.From(server));
-            logger.LogInformation($"Videoserver '{server}' has been created.");
+            var serverDto = addVideoServerView.GetServerDto();
+            var newServer = Server.From(serverDto);
+            if (server == null)
+            {
+                serverRepository.Insert(newServer);
+            }
+            else
+            {
+                newServer.Id = server.Id;
+                serverRepository.Update(newServer);
+            }
+
+            logger.LogInformation($"Videoserver '{serverDto}' has been created.");
+        }
+
+        public async Task SearchForHostsAsync()
+        {
+            HostDiscoveryService.HostDiscovered += OnHostDiscovered;
+            await Task.Run(HostDiscoveryService.Discovery);
+            HostDiscoveryService.HostDiscovered -= OnHostDiscovered;
+        }
+
+        public void LoadData(Server server)
+        {
+            addVideoServerView.LoadData(server);
+        }
+
+        private void OnHostDiscovered(HostDiscoveryResult result)
+        {
+            addVideoServerView.AddToServerSelector(result);
         }
     }
 }

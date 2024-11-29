@@ -1,0 +1,1 @@
+﻿UPDATE Servers SET iporhost = @IpAddress, username = @Username, password = @Password, displayed_name = @Hostname, dongle_sn = @DongleSn, sziltech_sn = @SerialNumber, mac_address = @MacAddress WHERE ID = @Id;
