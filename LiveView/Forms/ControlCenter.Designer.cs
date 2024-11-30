@@ -234,7 +234,7 @@
             gb_DisplayDevices.Size = new System.Drawing.Size(328, 189);
             gb_DisplayDevices.TabIndex = 0;
             gb_DisplayDevices.TabStop = false;
-            gb_DisplayDevices.Text = "Primary monitor";
+            gb_DisplayDevices.Text = "Primary display";
             // 
             // p_CrossHair
             // 

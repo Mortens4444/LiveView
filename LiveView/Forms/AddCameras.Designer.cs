@@ -41,6 +41,7 @@
             btn_RemoveAll = new System.Windows.Forms.Button();
             btn_AddSelected = new System.Windows.Forms.Button();
             p_Header = new System.Windows.Forms.Panel();
+            axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
             lbl_Host = new System.Windows.Forms.Label();
             btn_AddCameras = new System.Windows.Forms.Button();
             btn_RemoveSelected = new System.Windows.Forms.Button();
@@ -49,13 +50,12 @@
             p_Cameras = new System.Windows.Forms.Panel();
             p_Main = new System.Windows.Forms.Panel();
             gb_Main = new System.Windows.Forms.GroupBox();
-            axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
             p_Header.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
             p_Footer.SuspendLayout();
             p_Cameras.SuspendLayout();
             p_Main.SuspendLayout();
             gb_Main.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
             SuspendLayout();
             // 
             // lbl_CamerasOfServer
@@ -64,9 +64,9 @@
             lbl_CamerasOfServer.Location = new System.Drawing.Point(2, 52);
             lbl_CamerasOfServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbl_CamerasOfServer.Name = "lbl_CamerasOfServer";
-            lbl_CamerasOfServer.Size = new System.Drawing.Size(94, 15);
+            lbl_CamerasOfServer.Size = new System.Drawing.Size(86, 15);
             lbl_CamerasOfServer.TabIndex = 2;
-            lbl_CamerasOfServer.Text = "Server's cameras";
+            lbl_CamerasOfServer.Text = "Server cameras";
             // 
             // cb_Servers
             // 
@@ -120,9 +120,9 @@
             lbl_CamerasToView.Location = new System.Drawing.Point(240, 52);
             lbl_CamerasToView.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbl_CamerasToView.Name = "lbl_CamerasToView";
-            lbl_CamerasToView.Size = new System.Drawing.Size(111, 15);
+            lbl_CamerasToView.Size = new System.Drawing.Size(94, 15);
             lbl_CamerasToView.TabIndex = 3;
-            lbl_CamerasToView.Text = "Cameras to preview";
+            lbl_CamerasToView.Text = "Cameras to view";
             // 
             // lv_CamerasOfServer
             // 
@@ -200,6 +200,16 @@
             p_Header.Name = "p_Header";
             p_Header.Size = new System.Drawing.Size(428, 70);
             p_Header.TabIndex = 0;
+            // 
+            // axVideoServer
+            // 
+            axVideoServer.Enabled = true;
+            axVideoServer.Location = new System.Drawing.Point(335, 3);
+            axVideoServer.Name = "axVideoServer";
+            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
+            axVideoServer.Size = new System.Drawing.Size(62, 44);
+            axVideoServer.TabIndex = 4;
+            axVideoServer.Visible = false;
             // 
             // lbl_Host
             // 
@@ -300,16 +310,6 @@
             gb_Main.TabIndex = 1;
             gb_Main.TabStop = false;
             // 
-            // axVideoServer
-            // 
-            axVideoServer.Enabled = true;
-            axVideoServer.Location = new System.Drawing.Point(335, 3);
-            axVideoServer.Name = "axVideoServer";
-            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
-            axVideoServer.Size = new System.Drawing.Size(62, 44);
-            axVideoServer.TabIndex = 4;
-            axVideoServer.Visible = false;
-            // 
             // AddCameras
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -320,15 +320,15 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddCameras";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "New cameras";
+            Text = "New camera";
             Shown += AddCameras_Shown;
             p_Header.ResumeLayout(false);
             p_Header.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
             p_Footer.ResumeLayout(false);
             p_Cameras.ResumeLayout(false);
             p_Main.ResumeLayout(false);
             gb_Main.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
             ResumeLayout(false);
         }
 

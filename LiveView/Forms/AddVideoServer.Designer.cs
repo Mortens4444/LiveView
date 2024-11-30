@@ -101,9 +101,9 @@
             lbl_SziltechSNOptional.Location = new System.Drawing.Point(7, 18);
             lbl_SziltechSNOptional.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbl_SziltechSNOptional.Name = "lbl_SziltechSNOptional";
-            lbl_SziltechSNOptional.Size = new System.Drawing.Size(122, 15);
+            lbl_SziltechSNOptional.Size = new System.Drawing.Size(120, 15);
             lbl_SziltechSNOptional.TabIndex = 0;
-            lbl_SziltechSNOptional.Text = "Sziltech SN (opcional)";
+            lbl_SziltechSNOptional.Text = "Sziltech SN (optional)";
             // 
             // btn_Validate
             // 
@@ -196,9 +196,9 @@
             lbl_MACAddressOptional.Location = new System.Drawing.Point(7, 18);
             lbl_MACAddressOptional.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbl_MACAddressOptional.Name = "lbl_MACAddressOptional";
-            lbl_MACAddressOptional.Size = new System.Drawing.Size(136, 15);
+            lbl_MACAddressOptional.Size = new System.Drawing.Size(134, 15);
             lbl_MACAddressOptional.TabIndex = 0;
-            lbl_MACAddressOptional.Text = "MAC Address (opcional)";
+            lbl_MACAddressOptional.Text = "MAC Address (optional)";
             // 
             // gb_VideoServer
             // 
@@ -315,7 +315,7 @@
             MinimumSize = new System.Drawing.Size(322, 407);
             Name = "AddVideoServer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "New Video Server";
+            Text = "New video server";
             TopMost = true;
             Shown += AddVideoServer_Shown;
             pMain.ResumeLayout(false);

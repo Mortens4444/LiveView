@@ -92,6 +92,11 @@ namespace LiveView.Forms
 
         public void LoadData(Server server)
         {
+            if (server == null)
+            {
+                return;
+            }
+
             cb_DNSNameOrIPAddress.Text = server.IpAddress;
             tb_DisplayedName.Text = server.Hostname;
             tb_MACAddress.Text = server.MacAddress;
