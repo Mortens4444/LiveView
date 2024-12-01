@@ -9,7 +9,6 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -18,6 +17,8 @@ namespace LiveView.Forms
     {
         private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
         private readonly PermissionManager permissionManager;
+
+        public TreeView ServersAndCameras => tv_ServersAndCameras;
 
         public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
@@ -74,7 +75,6 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Remove();
-
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
@@ -104,23 +104,6 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Load();
-        }
-
-        public void ShowServerNodes(IEnumerable<TreeNode> serverNodes)
-        {
-            var serversNode = tv_ServersAndCameras.Nodes["Servers"];
-            serversNode.Nodes.Clear();
-            foreach (var serverNode in serverNodes)
-            {
-                serversNode.Nodes.Add(serverNode);
-            }
-
-            tv_ServersAndCameras.ExpandAll();
-        }
-
-        public TreeNode GetSelectedItem()
-        {
-            return tv_ServersAndCameras.SelectedNode;
         }
     }
 }

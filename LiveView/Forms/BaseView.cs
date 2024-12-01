@@ -4,6 +4,7 @@ using Mtf.MessageBoxes;
 using System;
 using System.Windows.Forms;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace LiveView.Forms
 {
@@ -60,7 +61,7 @@ namespace LiveView.Forms
         {
             return listView.SelectedItems;
         }
-        
+
         public void AddToItems(ListView listView, params ListViewItem[] itemsToView)
         {
             listView.Items.AddRange(itemsToView);
@@ -95,6 +96,30 @@ namespace LiveView.Forms
             {
                 listView.Items.Remove(listView.SelectedItems[i]);
             }
+        }
+
+        public void AddNodes(TreeNode treeNode, IEnumerable<TreeNode> nodes)
+        {
+            treeNode.Nodes.Clear();
+            foreach (var node in nodes)
+            {
+                treeNode.Nodes.Add(node);
+            }
+        }
+
+        public void Expand(TreeNode treeNode)
+        {
+            treeNode.Expand();
+        }
+
+        public void ExpandAll(TreeNode treeNode)
+        {
+            treeNode.ExpandAll();
+        }
+
+        public TreeNode GetSelectedItem(TreeView treeView)
+        {
+            return treeView.SelectedNode;
         }
     }
 }

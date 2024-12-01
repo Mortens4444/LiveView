@@ -7,7 +7,9 @@ using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
 using Mtf.Enums.Camera;
 using Mtf.LanguageService;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -88,7 +90,8 @@ namespace LiveView.Presenters
                 {
                     items.Add(new ListViewItem(camera.Name, CameraIconIndex)
                     {
-                        Tag = camera
+                        Tag = camera,
+                        ToolTipText = camera.Guid
                     });
                 }
                 addCamerasView.AddToItems(addCamerasView.ServerCameras, items.ToArray());
@@ -104,7 +107,10 @@ namespace LiveView.Presenters
             var server = addCamerasView.GetSelectedItem<Server>(addCamerasView.Servers);
             cameraRepository.DeleteWhere(new { ServerId = server.Id });
             var cameras = addCamerasView.GetItems(addCamerasView.CamerasToView);
-            foreach (ListViewItem camera in cameras)
+            var orderedCameras = cameras.Cast<ListViewItem>().OrderBy(camera => camera.Text).ToList();
+
+            var items = addCamerasView.GetItems(addCamerasView.ServerCameras);
+            foreach (ListViewItem camera in orderedCameras)
             {
                 var videoServerCamera = (VideoServerCamera)camera.Tag;
                 cameraRepository.Insert(new Camera
@@ -112,10 +118,22 @@ namespace LiveView.Presenters
                     CameraName = videoServerCamera.Name,
                     ServerId = server.Id,
                     Guid = videoServerCamera.Guid,
-                    RecorderIndex = camera.Index
+                    RecorderIndex = AddCamerasPresenter.GetRecorderIndex(items, videoServerCamera.Name)
                 });
             }
             addCamerasView.Close();
+        }
+
+        private static int GetRecorderIndex(ListView.ListViewItemCollection items, string cameraName)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Text == cameraName)
+                {
+                    return i;
+                }
+            }
+            throw new InvalidOperationException();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Mtf.MessageBoxes.Enums;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
@@ -38,5 +39,13 @@ namespace LiveView.Interfaces
         void RemoveAllItem(ListView listView);
 
         void RemoveSelectedItems(ListView listView);
+
+        void AddNodes(TreeNode treeNode, IEnumerable<TreeNode> nodes);
+
+        void Expand(TreeNode treeNode);
+
+        void ExpandAll(TreeNode treeNode);
+
+        TreeNode GetSelectedItem(TreeView treeView);
     }
 }

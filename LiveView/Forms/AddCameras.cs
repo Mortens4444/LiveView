@@ -11,6 +11,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -47,11 +48,6 @@ namespace LiveView.Forms
         private async void Cb_Servers_SelectedIndexChanged(object sender, EventArgs e)
         {
             await addCamerasPresenter.GetCamerasAsync();
-        }
-
-        private void Lv_CamerasOfServer_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]

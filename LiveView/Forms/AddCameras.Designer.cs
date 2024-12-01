@@ -100,6 +100,7 @@
             lv_CamerasToView.ReadonlyCheckboxes = false;
             lv_CamerasToView.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lv_CamerasToView.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lv_CamerasToView.ShowItemToolTips = true;
             lv_CamerasToView.Size = new System.Drawing.Size(191, 389);
             lv_CamerasToView.SmallImageList = il_Images;
             lv_CamerasToView.TabIndex = 1;
@@ -144,12 +145,12 @@
             lv_CamerasOfServer.ReadonlyCheckboxes = false;
             lv_CamerasOfServer.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lv_CamerasOfServer.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lv_CamerasOfServer.ShowItemToolTips = true;
             lv_CamerasOfServer.Size = new System.Drawing.Size(191, 389);
             lv_CamerasOfServer.SmallImageList = il_Images;
             lv_CamerasOfServer.TabIndex = 0;
             lv_CamerasOfServer.UseCompatibleStateImageBehavior = false;
             lv_CamerasOfServer.View = System.Windows.Forms.View.List;
-            lv_CamerasOfServer.ItemMouseHover += Lv_CamerasOfServer_ItemMouseHover;
             // 
             // btn_AddAll
             // 

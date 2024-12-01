@@ -5,6 +5,7 @@ using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -36,7 +37,7 @@ namespace LiveView.Presenters
 
         public void CreateNewCameraForm()
         {
-            var node = serverAndCameraManagementView.GetSelectedItem();
+            var node = serverAndCameraManagementView.GetSelectedItem(serverAndCameraManagementView.ServersAndCameras);
             if (node?.Tag is Server server)
             {
                 ShowForm<AddCameras>(server);
@@ -49,7 +50,7 @@ namespace LiveView.Presenters
 
         public void Modify()
         {
-            var node = serverAndCameraManagementView.GetSelectedItem();
+            var node = serverAndCameraManagementView.GetSelectedItem(serverAndCameraManagementView.ServersAndCameras);
             if (node.Tag is Server server)
             {
                 ShowDialog<AddVideoServer>(server);
@@ -77,13 +78,35 @@ namespace LiveView.Presenters
         public void Load()
         {
             var servers = serverRepository.GetAll();
-            var treeNodes = servers.Select(server =>
-                new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex)
+            var cameras = cameraRepository.GetAll();
+            var videoServerTreeNodes = new List<TreeNode>();
+            foreach (var server in servers)
+            {
+                var serverTreeNode = new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex)
                 {
                     Name = server.Id.ToString(),
-                    Tag = server
-                });
-            serverAndCameraManagementView.ShowServerNodes(treeNodes);
+                    Tag = server,
+                    ToolTipText = server.IpAddress
+                };
+
+                var serverCameras = cameras.Where(camera => camera.ServerId == server.Id);
+                foreach (var serverCamera in serverCameras)
+                {
+                    var cameraTreeNode = new TreeNode(serverCamera.CameraName, CameraIconIndex, CameraIconIndex)
+                    {
+                        Name = serverCamera.Guid,
+                        Tag = serverCamera,
+                        ToolTipText = serverCamera.Guid
+                    };
+                    serverTreeNode.Nodes.Add(cameraTreeNode);
+                }
+
+                videoServerTreeNodes.Add(serverTreeNode);
+            }
+
+            var serversNode = serverAndCameraManagementView.ServersAndCameras.Nodes["Servers"];
+            serverAndCameraManagementView.AddNodes(serversNode, videoServerTreeNodes);
+            serverAndCameraManagementView.ExpandAll(serversNode);
         }
     }
 }

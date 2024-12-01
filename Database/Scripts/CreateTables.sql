@@ -29,7 +29,12 @@ BEGIN
         partner_camera_id BIGINT NULL,
         motion_trigger BIGINT NULL,
         motion_trigger_minimum_length BIGINT NULL,
-        ip_address NVARCHAR(200) NULL
+        ip_address NVARCHAR(200) NULL,
+        stream_id INT NULL,
+        http_stream_url NVARCHAR(200) NULL,
+        username NVARCHAR(200) NULL,
+        password NVARCHAR(200) NULL,
+        fullscreen_mode INT NOT NULL DEFAULT 0
     );
 END;
 

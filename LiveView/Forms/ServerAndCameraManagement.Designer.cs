@@ -220,6 +220,7 @@
             treeNode2.Text = "DB servers";
             tv_ServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2 });
             tv_ServersAndCameras.SelectedImageIndex = 0;
+            tv_ServersAndCameras.ShowNodeToolTips = true;
             tv_ServersAndCameras.ShowPlusMinusOnRootNodes = true;
             tv_ServersAndCameras.ShowRootLines = false;
             tv_ServersAndCameras.Size = new System.Drawing.Size(514, 451);
