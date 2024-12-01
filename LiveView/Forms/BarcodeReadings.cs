@@ -5,11 +5,10 @@ using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class BarcodeReadings : Form, IBarcodeReadingsView
+    public partial class BarcodeReadings : BaseView, IBarcodeReadingsView
     {
         private readonly BarcodeReadingsPresenter barcodeReadingsPresenter;
         private readonly PermissionManager permissionManager;

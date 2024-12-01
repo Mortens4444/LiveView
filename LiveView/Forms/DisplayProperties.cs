@@ -5,11 +5,10 @@ using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class DisplayProperties : Form, IDisplayPropertiesView
+    public partial class DisplayProperties : BaseView, IDisplayPropertiesView
     {
         private readonly DisplayPropertiesPresenter displayPropertiesPresenter;
         private readonly PermissionManager permissionManager;

@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class IOPortEditor : Form, IIOPortEditorView
+    public partial class IOPortEditor : BaseView, IIOPortEditorView
     {
         private readonly IOPortEditorPresenter ioPortEditorPresenter;
         private readonly PermissionManager permissionManager;

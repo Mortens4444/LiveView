@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class AddDatabaseServer : Form, IAddDatabaseServerView
+    public partial class AddDatabaseServer : BaseView, IAddDatabaseServerView
     {
         private readonly AddDatabaseServerPresenter addDatabaseServerPresenter;
         private readonly PermissionManager permissionManager;

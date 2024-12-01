@@ -5,11 +5,10 @@ using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class SyncronView : Form, ISyncronViewView
+    public partial class SyncronView : BaseView, ISyncronViewView
     {
         private readonly SyncronViewPresenter syncronViewPresenter;
         private readonly PermissionManager permissionManager;

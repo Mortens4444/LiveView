@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class MapCreator : Form, IMapCreatorView
+    public partial class MapCreator : BaseView, IMapCreatorView
     {
         private readonly MapCreatorPresenter mapCreatorPresenter;
         private readonly PermissionManager permissionManager;

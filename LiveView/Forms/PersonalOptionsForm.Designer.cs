@@ -162,6 +162,7 @@
             cb_Languages.Name = "cb_Languages";
             cb_Languages.Size = new System.Drawing.Size(182, 23);
             cb_Languages.TabIndex = 1;
+            cb_Languages.SelectedIndexChanged += Cb_Languages_SelectedIndexChanged;
             // 
             // btn_Close
             // 
@@ -309,6 +310,7 @@
             Name = "PersonalOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "PersonalOptions";
+            Shown += PersonalOptionsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)nud_FontSizeSmall).EndInit();
             ((System.ComponentModel.ISupportInitialize)nud_FontSizeBig).EndInit();
             ((System.ComponentModel.ISupportInitialize)pb_ShadowColor).EndInit();

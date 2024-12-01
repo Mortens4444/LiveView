@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class About : Form
+    public partial class About : BaseView
     {
         private readonly PermissionManager permissionManager;
 

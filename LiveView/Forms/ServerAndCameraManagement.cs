@@ -10,13 +10,11 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class ServerAndCameraManagement : Form, IServerAndCameraManagementView
+    public partial class ServerAndCameraManagement : BaseView, IServerAndCameraManagementView
     {
         private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
         private readonly PermissionManager permissionManager;

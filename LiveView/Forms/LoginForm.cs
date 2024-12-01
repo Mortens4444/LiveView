@@ -5,11 +5,10 @@ using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class LoginForm : Form, ILoginFormView
+    public partial class LoginForm : BaseView, ILoginFormView
     {
         private readonly LoginFormPresenter loginFormPresenter;
         private readonly PermissionManager permissionManager;

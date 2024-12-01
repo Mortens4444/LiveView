@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class DisplayOptions : Form, IDisplayOptionsView
+    public partial class DisplayOptions : BaseView, IDisplayOptionsView
     {
         private readonly DisplayOptionsPresenter displayOptionsPresenter;
         private readonly PermissionManager permissionManager;

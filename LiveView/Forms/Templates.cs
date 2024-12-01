@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class Templates : Form, ITemplatesView
+    public partial class Templates : BaseView, ITemplatesView
     {
         private readonly TemplatesPresenter templatesPresenter;
         private readonly PermissionManager permissionManager;

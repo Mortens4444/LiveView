@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class EnterPass : Form, IEnterPassView
+    public partial class EnterPass : BaseView, IEnterPassView
     {
         private readonly EnterPassPresenter enterPassPresenter;
         private readonly PermissionManager permissionManager;

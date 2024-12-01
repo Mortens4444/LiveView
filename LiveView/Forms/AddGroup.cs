@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class AddGroup : Form, IAddGroupView
+    public partial class AddGroup : BaseView, IAddGroupView
     {
         private readonly AddGroupPresenter addGroupPresenter;
         private readonly PermissionManager permissionManager;

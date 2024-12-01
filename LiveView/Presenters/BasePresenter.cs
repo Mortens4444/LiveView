@@ -1,7 +1,8 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Services;
+using Mtf.MessageBoxes.Enums;
+using System;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace LiveView.Presenters
 {
@@ -20,7 +21,7 @@ namespace LiveView.Presenters
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
-            form.Show();
+            view.Show(form);
             return form;
         }
 
@@ -43,13 +44,33 @@ namespace LiveView.Presenters
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
-            var dialogResult = form.ShowDialog();
-            return dialogResult == DialogResult.OK || dialogResult == DialogResult.Yes;
+            return view.ShowDialog(form);
         }
 
         public void CloseForm()
         {
             view.Close();
+        }
+
+        public bool ShowConfirm(string title, string message, Decide decide = Decide.No)
+        {
+            return view.ShowConfirm(title, message, decide);
+        }
+
+        public void ShowInfo(string title, string message)
+        {
+            view.ShowInfo(title, message);
+        }
+
+
+        public void ShowError(string title, string message)
+        {
+            view.ShowError(title, message);
+        }
+
+        public void ShowError(Exception exception)
+        {
+            view.ShowError(exception);
         }
     }
 }

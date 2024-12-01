@@ -10,11 +10,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class AddVideoServer : Form, IAddVideoServerView
+    public partial class AddVideoServer : BaseView, IAddVideoServerView
     {
         private readonly Server server;
         private readonly AddVideoServerPresenter addVideoServerPresenter;

@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class CameraProperties : Form, ICameraPropertiesView
+    public partial class CameraProperties : BaseView, ICameraPropertiesView
     {
         private readonly CameraPropertiesPresenter cameraPropertiesPresenter;
         private readonly PermissionManager permissionManager;

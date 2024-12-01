@@ -22,5 +22,9 @@ namespace Database.Models
         public bool Actual { get; set; }
 
         public ServerConnection ServerConnection { get; set; }
+
+        public int ServerId { get; set; }
+
+        public int RecorderIndex { get; set; }
     }
 }

@@ -1,29 +1,15 @@
-﻿using Database.Models;
-using System.Collections.ObjectModel;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
     public interface IAddCamerasView : IView
     {
-        void AddAllCameras();
+        ComboBox Servers { get; }
 
-        void AddSelectedCamera();
+        ListView ServerCameras { get; }
 
-        void AddToItemsToView(params ListViewItem[] itemsToView);
+        ListView CamerasToView { get; }
 
         bool CamerasToViewHasElementWithGuid(string cameraGuid);
-
-        void GetCameras();
-
-        ListView.ListViewItemCollection GetServerCameras();
-
-        ListView.SelectedListViewItemCollection GetServerSelectedCameras();
-
-        void LoadServers(ReadOnlyCollection<Server> servers);
-
-        void RemoveAllCamera();
-
-        void RemoveSelectedCamera();
     }
 }

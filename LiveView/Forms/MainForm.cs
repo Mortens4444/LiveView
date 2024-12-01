@@ -1,25 +1,25 @@
-﻿using LiveView.Interfaces;
+﻿using LanguageService;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.MessageBoxes;
+using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Models;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.ComponentModel;
-using Mtf.MessageBoxes;
-using LanguageService;
-using Mtf.MessageBoxes.Enums;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class MainForm : Form, IMainView
+    public partial class MainForm : BaseView, IMainView
     {
         private readonly FormFactory formFactory;
         private readonly MainPresenter mainPresenter;
@@ -43,6 +43,7 @@ namespace LiveView.Forms
                 {
                     new Permission { PermissionGroup = typeof(CameraManagementPermissions), PermissionValue = (long)CameraManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(ServerManagementPermissions), PermissionValue = (long)ServerManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.PersonalSettingsManagement },
                     new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit }
                 }
             });

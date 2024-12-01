@@ -16,7 +16,9 @@
     <EmbeddedResource Include="Scripts\CreateTables.sql" />
     <EmbeddedResource Include="Scripts\CreateDatabase.sql" />
     <EmbeddedResource Include="Scripts\CreateStoredProcedures.sql" />
+    <EmbeddedResource Include="Scripts\DeleteCamera.sql" />
     <EmbeddedResource Include="Scripts\DeleteStaticOptions.sql" />
+    <EmbeddedResource Include="Scripts\InsertCamera.sql" />
     <EmbeddedResource Include="Scripts\InsertServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />

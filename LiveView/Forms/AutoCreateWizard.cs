@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class AutoCreateWizard : Form, IAutoCreateWizardView
+    public partial class AutoCreateWizard : BaseView, IAutoCreateWizardView
     {
         private readonly AutoCreateWizardPresenter autoCreateWizardPresenter;
         private readonly PermissionManager permissionManager;

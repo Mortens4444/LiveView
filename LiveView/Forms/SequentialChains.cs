@@ -8,11 +8,10 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class SequentialChains : Form, ISequentialChainsView
+    public partial class SequentialChains : BaseView, ISequentialChainsView
     {
         private readonly SequentialChainsPresenter sequentialChainsPresenter;
         private readonly PermissionManager permissionManager;

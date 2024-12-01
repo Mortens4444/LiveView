@@ -2,11 +2,10 @@
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class LicenseForm : Form, ILicenseFormView
+    public partial class LicenseForm : BaseView, ILicenseFormView
     {
         private readonly LicenseFormPresenter licenseFormPresenter;
 

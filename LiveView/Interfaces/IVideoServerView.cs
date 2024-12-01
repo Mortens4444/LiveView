@@ -1,12 +1,9 @@
 ﻿using AxVIDEOCONTROL4Lib;
-using System;
 
 namespace LiveView.Interfaces
 {
-    public interface IVideoServerView
+    public interface IVideoServerView : IInvoker
     {
         AxVideoServer GetVideoServerControl();
-
-        void InvokeAction(Action action);
     }
 }

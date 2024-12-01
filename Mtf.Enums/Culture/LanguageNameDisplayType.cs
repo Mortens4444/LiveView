@@ -10,5 +10,4 @@
         ThreeLetterWindowsLanguageName,
         TwoLetterISOLanguageName,
     }
-
 }

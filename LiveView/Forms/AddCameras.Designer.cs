@@ -46,7 +46,7 @@
             btn_AddCameras = new System.Windows.Forms.Button();
             btn_RemoveSelected = new System.Windows.Forms.Button();
             p_Footer = new System.Windows.Forms.Panel();
-            btn_Cancel = new System.Windows.Forms.Button();
+            btnClose = new System.Windows.Forms.Button();
             p_Cameras = new System.Windows.Forms.Panel();
             p_Main = new System.Windows.Forms.Panel();
             gb_Main = new System.Windows.Forms.GroupBox();
@@ -249,7 +249,7 @@
             // 
             // p_Footer
             // 
-            p_Footer.Controls.Add(btn_Cancel);
+            p_Footer.Controls.Add(btnClose);
             p_Footer.Controls.Add(btn_AddCameras);
             p_Footer.Dock = System.Windows.Forms.DockStyle.Bottom;
             p_Footer.Location = new System.Drawing.Point(0, 391);
@@ -258,18 +258,18 @@
             p_Footer.Size = new System.Drawing.Size(428, 36);
             p_Footer.TabIndex = 0;
             // 
-            // btn_Cancel
+            // btnClose
             // 
-            btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Cancel.Location = new System.Drawing.Point(335, 5);
-            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Cancel.Name = "btn_Cancel";
-            btn_Cancel.Size = new System.Drawing.Size(88, 27);
-            btn_Cancel.TabIndex = 1;
-            btn_Cancel.Text = "Cancel";
-            btn_Cancel.UseVisualStyleBackColor = true;
-            btn_Cancel.Click += Btn_Cancel_Click;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(335, 5);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(88, 27);
+            btnClose.TabIndex = 1;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
             // p_Cameras
             // 
@@ -349,7 +349,7 @@
         private System.Windows.Forms.Button btn_AddCameras;
         private System.Windows.Forms.Button btn_RemoveSelected;
         private System.Windows.Forms.Panel p_Footer;
-        private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel p_Cameras;
         private System.Windows.Forms.Panel p_Main;
         private System.Windows.Forms.GroupBox gb_Main;
