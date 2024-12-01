@@ -9,11 +9,6 @@ namespace LiveView.Forms
 {
     public partial class BaseView : Form, IView
     {
-        public BaseView()
-        {
-            InitializeComponent();
-        }
-
         public void InvokeAction(Action action)
         {
             Invoke(action);
