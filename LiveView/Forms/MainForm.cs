@@ -3,6 +3,9 @@ using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.HardwareKey;
+using Mtf.HardwareKey.Extensions;
+using Mtf.HardwareKey.Interfaces;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
@@ -24,9 +27,17 @@ namespace LiveView.Forms
         private readonly FormFactory formFactory;
         private readonly MainPresenter mainPresenter;
         private readonly PermissionManager permissionManager;
+        public static readonly IHardwareKey HardwareKey;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static ControlCenter ControlCenter { get; private set; }
+
+        static MainForm()
+        {
+            HardwareKey = new VirtualSziltechHardwareKey();
+            //HardwareKey = new SziltechHardwareKey();
+            HardwareKey.GetDescription();
+        }
 
         public MainForm(PermissionManager permissionManager, ILogger<MainForm> logger, FormFactory formFactory)
         {

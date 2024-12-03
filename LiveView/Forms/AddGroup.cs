@@ -29,9 +29,11 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(GroupManagementPermissions.Create)]
+        [RequirePermission(GroupManagementPermissions.Update)]
         private void Btn_CreateOrModifyGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            addGroupPresenter.CreateOrModifyGroup();
         }
     }
 }

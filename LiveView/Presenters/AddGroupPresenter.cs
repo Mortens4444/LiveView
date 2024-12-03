@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,11 @@ namespace LiveView.Presenters
             this.addGroupView = addGroupView;
             this.groupRepository = groupRepository;
             this.logger = logger;
+        }
+
+        internal void CreateOrModifyGroup()
+        {
+            throw new NotImplementedException();
         }
     }
 }
