@@ -32,18 +32,21 @@ namespace LiveView.Forms
         private void LogViewer_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            logViewerPresenter.Load();
         }
 
         [RequirePermission(LogManagementPermissions.Select)]
         private void BtnGetLogs_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            logViewerPresenter.GetLogs();
         }
 
         [RequirePermission(LogManagementPermissions.Delete)]
         private void BtnDeleteAllLogs_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            logViewerPresenter.DeleteAllLogs();
         }
     }
 }

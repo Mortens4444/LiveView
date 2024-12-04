@@ -37,6 +37,7 @@ namespace LiveView.Forms
         private void BtnShowPassword_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.ShowPassword();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
@@ -44,30 +45,35 @@ namespace LiveView.Forms
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.Refresh();
         }
 
         [RequirePermission(CameraManagementPermissions.ExportCameraList)]
         private void BtnExportCameraList_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.ExportCameraList();
         }
 
         [RequirePermission(HardwareManagementPermissions.ExportInfo)]
         private void BtnExportHardwareInfo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.ExportHadwareInfo();
         }
 
         [RequirePermission(HardwareManagementPermissions.Select)]
         private void BtnGetHardwareInfo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.GetHardwareInfo();
         }
 
         [RequirePermission(NetworkManagementPermissions.WakeOnLAN)]
-        private void Btn_WakeOnLAN_Click(object sender, EventArgs e)
+        private void BtnWakeOnLan_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            serverAndCameraPropertiesPresenter.WakeOnLan();
         }
     }
 }

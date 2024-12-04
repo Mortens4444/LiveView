@@ -29,20 +29,27 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(TemplateManagementPermissions.Update)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            templatesPresenter.Save();
         }
 
         [RequirePermission(TemplateManagementPermissions.Delete)]
-        private void Btn_Delete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            templatesPresenter.Delete();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             templatesPresenter.CloseForm();
+        }
+
+        private void Templates_Shown(object sender, EventArgs e)
+        {
+            templatesPresenter.Load();
         }
     }
 }

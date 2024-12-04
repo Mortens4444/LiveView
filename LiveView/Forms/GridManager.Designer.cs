@@ -31,32 +31,31 @@
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(GridManager));
             pMain = new System.Windows.Forms.Panel();
-            textBox1 = new System.Windows.Forms.TextBox();
-            comboBox3 = new System.Windows.Forms.ComboBox();
-            btn_NewGrid = new System.Windows.Forms.Button();
+            tbGridName = new System.Windows.Forms.TextBox();
+            btnNewGrid = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
-            comboBox2 = new System.Windows.Forms.ComboBox();
-            tsmi_ChangeCameraTo = new System.Windows.Forms.ToolStripMenuItem();
+            cbGrids = new System.Windows.Forms.ComboBox();
+            tsmiChangeCameraTo = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            deleteGridFromChainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            btn_MoveDown = new System.Windows.Forms.Button();
-            btn_MoveUp = new System.Windows.Forms.Button();
+            tsmiDeleteGridFromChain = new System.Windows.Forms.ToolStripMenuItem();
+            tsmiMoveDown = new System.Windows.Forms.ToolStripMenuItem();
+            tsmiMoveUp = new System.Windows.Forms.ToolStripMenuItem();
+            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
+            chGuid = new System.Windows.Forms.ColumnHeader();
+            chVideoServerName = new System.Windows.Forms.ColumnHeader();
+            chCameraName = new System.Windows.Forms.ColumnHeader();
+            chNumber = new System.Windows.Forms.ColumnHeader();
+            btnMoveDown = new System.Windows.Forms.Button();
+            btnMoveUp = new System.Windows.Forms.Button();
             btnModify = new System.Windows.Forms.Button();
-            listView1 = new Mtf.Controls.MtfListView();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            groupBox4 = new System.Windows.Forms.GroupBox();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            contextMenuStrip1.SuspendLayout();
-            groupBox1.SuspendLayout();
-            groupBox4.SuspendLayout();
-            groupBox2.SuspendLayout();
+            lvGridCameras = new Mtf.Controls.MtfListView();
+            gbGridStructure = new System.Windows.Forms.GroupBox();
+            gbGridName = new System.Windows.Forms.GroupBox();
+            gbGridSelector = new System.Windows.Forms.GroupBox();
+            contextMenuStrip.SuspendLayout();
+            gbGridStructure.SuspendLayout();
+            gbGridName.SuspendLayout();
+            gbGridSelector.SuspendLayout();
             SuspendLayout();
             // 
             // pMain
@@ -68,37 +67,27 @@
             pMain.Size = new System.Drawing.Size(491, 391);
             pMain.TabIndex = 0;
             // 
-            // textBox1
+            // tbGridName
             // 
-            textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox1.Location = new System.Drawing.Point(7, 22);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.MaxLength = 50;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(476, 23);
-            textBox1.TabIndex = 0;
+            tbGridName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbGridName.Location = new System.Drawing.Point(7, 22);
+            tbGridName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbGridName.MaxLength = 50;
+            tbGridName.Name = "tbGridName";
+            tbGridName.Size = new System.Drawing.Size(476, 23);
+            tbGridName.TabIndex = 0;
             // 
-            // comboBox3
+            // btnNewGrid
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new System.Drawing.Point(98, 22);
-            comboBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new System.Drawing.Size(88, 23);
-            comboBox3.TabIndex = 2;
-            comboBox3.Visible = false;
-            // 
-            // btn_NewGrid
-            // 
-            btn_NewGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_NewGrid.Location = new System.Drawing.Point(397, 20);
-            btn_NewGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_NewGrid.Name = "btn_NewGrid";
-            btn_NewGrid.Size = new System.Drawing.Size(88, 27);
-            btn_NewGrid.TabIndex = 4;
-            btn_NewGrid.Text = "New grid";
-            btn_NewGrid.UseVisualStyleBackColor = true;
-            btn_NewGrid.Click += Btn_NewGrid_Click;
+            btnNewGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewGrid.Location = new System.Drawing.Point(397, 20);
+            btnNewGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNewGrid.Name = "btnNewGrid";
+            btnNewGrid.Size = new System.Drawing.Size(88, 27);
+            btnNewGrid.TabIndex = 4;
+            btnNewGrid.Text = "New grid";
+            btnNewGrid.UseVisualStyleBackColor = true;
+            btnNewGrid.Click += BtnNewGrid_Click;
             // 
             // btnDelete
             // 
@@ -112,22 +101,23 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += BtnDelete_Click;
             // 
-            // comboBox2
+            // cbGrids
             // 
-            comboBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new System.Drawing.Point(7, 22);
-            comboBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new System.Drawing.Size(288, 23);
-            comboBox2.TabIndex = 0;
+            cbGrids.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbGrids.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbGrids.FormattingEnabled = true;
+            cbGrids.Location = new System.Drawing.Point(7, 22);
+            cbGrids.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbGrids.Name = "cbGrids";
+            cbGrids.Size = new System.Drawing.Size(288, 23);
+            cbGrids.TabIndex = 0;
+            cbGrids.SelectedIndexChanged += CbGrids_SelectedIndexChanged;
             // 
-            // tsmi_ChangeCameraTo
+            // tsmiChangeCameraTo
             // 
-            tsmi_ChangeCameraTo.Name = "tsmi_ChangeCameraTo";
-            tsmi_ChangeCameraTo.Size = new System.Drawing.Size(192, 22);
-            tsmi_ChangeCameraTo.Text = "Change camera to ...";
+            tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
+            tsmiChangeCameraTo.Size = new System.Drawing.Size(192, 22);
+            tsmiChangeCameraTo.Text = "Change camera to ...";
             // 
             // toolStripSeparator1
             // 
@@ -135,78 +125,77 @@
             toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
             toolStripSeparator1.Visible = false;
             // 
-            // deleteGridFromChainToolStripMenuItem
+            // tsmiDeleteGridFromChain
             // 
-            deleteGridFromChainToolStripMenuItem.Name = "deleteGridFromChainToolStripMenuItem";
-            deleteGridFromChainToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            deleteGridFromChainToolStripMenuItem.Text = "Delete grid from chain";
-            deleteGridFromChainToolStripMenuItem.Visible = false;
+            tsmiDeleteGridFromChain.Name = "tsmiDeleteGridFromChain";
+            tsmiDeleteGridFromChain.Size = new System.Drawing.Size(192, 22);
+            tsmiDeleteGridFromChain.Text = "Delete grid from chain";
+            tsmiDeleteGridFromChain.Visible = false;
             // 
-            // moveDownToolStripMenuItem
+            // tsmiMoveDown
             // 
-            moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            moveDownToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            moveDownToolStripMenuItem.Text = "Move down";
-            moveDownToolStripMenuItem.Visible = false;
+            tsmiMoveDown.Name = "tsmiMoveDown";
+            tsmiMoveDown.Size = new System.Drawing.Size(192, 22);
+            tsmiMoveDown.Text = "Move down";
+            tsmiMoveDown.Visible = false;
             // 
-            // moveUpToolStripMenuItem
+            // tsmiMoveUp
             // 
-            moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            moveUpToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            moveUpToolStripMenuItem.Text = "Move up";
-            moveUpToolStripMenuItem.Visible = false;
+            tsmiMoveUp.Name = "tsmiMoveUp";
+            tsmiMoveUp.Size = new System.Drawing.Size(192, 22);
+            tsmiMoveUp.Text = "Move up";
+            tsmiMoveUp.Visible = false;
             // 
-            // contextMenuStrip1
+            // contextMenuStrip
             // 
-            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { moveUpToolStripMenuItem, moveDownToolStripMenuItem, deleteGridFromChainToolStripMenuItem, toolStripSeparator1, tsmi_ChangeCameraTo });
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new System.Drawing.Size(193, 98);
+            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo });
+            contextMenuStrip.Name = "contextMenuStrip1";
+            contextMenuStrip.Size = new System.Drawing.Size(193, 120);
             // 
-            // columnHeader3
+            // chGuid
             // 
-            columnHeader3.Text = "GUID";
-            columnHeader3.Width = 229;
+            chGuid.Text = "GUID";
+            chGuid.Width = 229;
             // 
-            // columnHeader4
+            // chVideoServerName
             // 
-            columnHeader4.Text = "Video server name";
-            columnHeader4.Width = 131;
+            chVideoServerName.Text = "Video server name";
+            chVideoServerName.Width = 131;
             // 
-            // columnHeader2
+            // chCameraName
             // 
-            columnHeader2.Text = "Camera name";
-            columnHeader2.Width = 103;
+            chCameraName.Text = "Camera name";
+            chCameraName.Width = 103;
             // 
-            // columnHeader1
+            // chNumber
             // 
-            columnHeader1.Text = "Number";
-            columnHeader1.Width = 53;
+            chNumber.Text = "Number";
             // 
-            // btn_MoveDown
+            // btnMoveDown
             // 
-            btn_MoveDown.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_MoveDown.Enabled = false;
-            btn_MoveDown.Location = new System.Drawing.Point(98, 253);
-            btn_MoveDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_MoveDown.Name = "btn_MoveDown";
-            btn_MoveDown.Size = new System.Drawing.Size(88, 27);
-            btn_MoveDown.TabIndex = 2;
-            btn_MoveDown.Text = "Move down";
-            btn_MoveDown.UseVisualStyleBackColor = true;
-            btn_MoveDown.Click += Btn_MoveDown_Click;
+            btnMoveDown.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnMoveDown.Enabled = false;
+            btnMoveDown.Location = new System.Drawing.Point(98, 253);
+            btnMoveDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnMoveDown.Name = "btnMoveDown";
+            btnMoveDown.Size = new System.Drawing.Size(88, 27);
+            btnMoveDown.TabIndex = 2;
+            btnMoveDown.Text = "Move down";
+            btnMoveDown.UseVisualStyleBackColor = true;
+            btnMoveDown.Click += BtnMoveDown_Click;
             // 
-            // btn_MoveUp
+            // btnMoveUp
             // 
-            btn_MoveUp.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_MoveUp.Enabled = false;
-            btn_MoveUp.Location = new System.Drawing.Point(4, 253);
-            btn_MoveUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_MoveUp.Name = "btn_MoveUp";
-            btn_MoveUp.Size = new System.Drawing.Size(88, 27);
-            btn_MoveUp.TabIndex = 1;
-            btn_MoveUp.Text = "Move up";
-            btn_MoveUp.UseVisualStyleBackColor = true;
-            btn_MoveUp.Click += Btn_MoveUp_Click;
+            btnMoveUp.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnMoveUp.Enabled = false;
+            btnMoveUp.Location = new System.Drawing.Point(4, 253);
+            btnMoveUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnMoveUp.Name = "btnMoveUp";
+            btnMoveUp.Size = new System.Drawing.Size(88, 27);
+            btnMoveUp.TabIndex = 1;
+            btnMoveUp.Text = "Move up";
+            btnMoveUp.UseVisualStyleBackColor = true;
+            btnMoveUp.Click += BtnMoveUp_Click;
             // 
             // btnModify
             // 
@@ -220,123 +209,122 @@
             btnModify.UseVisualStyleBackColor = true;
             btnModify.Click += BtnModify_Click;
             // 
-            // listView1
+            // lvGridCameras
             // 
-            listView1.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            listView1.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            listView1.AlternatingColorsAreInUse = true;
-            listView1.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            listView1.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            listView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader4, columnHeader3 });
-            listView1.CompactView = false;
-            listView1.ContextMenuStrip = contextMenuStrip1;
-            listView1.EnsureLastItemIsVisible = false;
-            listView1.FirstItemIsGray = false;
-            listView1.FullRowSelect = true;
-            listView1.Location = new System.Drawing.Point(2, 23);
-            listView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listView1.Name = "listView1";
-            listView1.OwnerDraw = true;
-            listView1.ReadonlyCheckboxes = false;
-            listView1.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            listView1.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listView1.Size = new System.Drawing.Size(483, 226);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = System.Windows.Forms.View.Details;
+            lvGridCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvGridCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvGridCameras.AlternatingColorsAreInUse = true;
+            lvGridCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvGridCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvGridCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lvGridCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chNumber, chCameraName, chVideoServerName, chGuid });
+            lvGridCameras.CompactView = false;
+            lvGridCameras.ContextMenuStrip = contextMenuStrip;
+            lvGridCameras.EnsureLastItemIsVisible = false;
+            lvGridCameras.FirstItemIsGray = false;
+            lvGridCameras.FullRowSelect = true;
+            lvGridCameras.Location = new System.Drawing.Point(2, 23);
+            lvGridCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvGridCameras.Name = "lvGridCameras";
+            lvGridCameras.OwnerDraw = true;
+            lvGridCameras.ReadonlyCheckboxes = false;
+            lvGridCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvGridCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvGridCameras.Size = new System.Drawing.Size(483, 226);
+            lvGridCameras.TabIndex = 0;
+            lvGridCameras.UseCompatibleStateImageBehavior = false;
+            lvGridCameras.View = System.Windows.Forms.View.Details;
             // 
-            // groupBox1
+            // gbGridStructure
             // 
-            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox1.Controls.Add(btn_MoveDown);
-            groupBox1.Controls.Add(btn_MoveUp);
-            groupBox1.Controls.Add(btnModify);
-            groupBox1.Controls.Add(listView1);
-            groupBox1.Location = new System.Drawing.Point(0, 105);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(491, 286);
-            groupBox1.TabIndex = 10;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Grid structure";
+            gbGridStructure.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbGridStructure.Controls.Add(btnMoveDown);
+            gbGridStructure.Controls.Add(btnMoveUp);
+            gbGridStructure.Controls.Add(btnModify);
+            gbGridStructure.Controls.Add(lvGridCameras);
+            gbGridStructure.Location = new System.Drawing.Point(0, 105);
+            gbGridStructure.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridStructure.Name = "gbGridStructure";
+            gbGridStructure.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridStructure.Size = new System.Drawing.Size(491, 286);
+            gbGridStructure.TabIndex = 10;
+            gbGridStructure.TabStop = false;
+            gbGridStructure.Text = "Grid structure";
             // 
-            // groupBox4
+            // gbGridName
             // 
-            groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox4.Controls.Add(textBox1);
-            groupBox4.Location = new System.Drawing.Point(0, 53);
-            groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Size = new System.Drawing.Size(491, 52);
-            groupBox4.TabIndex = 9;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Name of the grid";
+            gbGridName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbGridName.Controls.Add(tbGridName);
+            gbGridName.Location = new System.Drawing.Point(0, 53);
+            gbGridName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridName.Name = "gbGridName";
+            gbGridName.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridName.Size = new System.Drawing.Size(491, 52);
+            gbGridName.TabIndex = 9;
+            gbGridName.TabStop = false;
+            gbGridName.Text = "Name of the grid";
             // 
-            // groupBox2
+            // gbGridSelector
             // 
-            groupBox2.Controls.Add(comboBox3);
-            groupBox2.Controls.Add(btn_NewGrid);
-            groupBox2.Controls.Add(btnDelete);
-            groupBox2.Controls.Add(comboBox2);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox2.Location = new System.Drawing.Point(0, 0);
-            groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Size = new System.Drawing.Size(491, 53);
-            groupBox2.TabIndex = 8;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Grid name";
+            gbGridSelector.Controls.Add(btnNewGrid);
+            gbGridSelector.Controls.Add(btnDelete);
+            gbGridSelector.Controls.Add(cbGrids);
+            gbGridSelector.Dock = System.Windows.Forms.DockStyle.Top;
+            gbGridSelector.Location = new System.Drawing.Point(0, 0);
+            gbGridSelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridSelector.Name = "gbGridSelector";
+            gbGridSelector.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbGridSelector.Size = new System.Drawing.Size(491, 53);
+            gbGridSelector.TabIndex = 8;
+            gbGridSelector.TabStop = false;
+            gbGridSelector.Text = "Grid name";
             // 
             // GridManager
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(491, 391);
-            Controls.Add(groupBox1);
-            Controls.Add(groupBox4);
-            Controls.Add(groupBox2);
+            Controls.Add(gbGridStructure);
+            Controls.Add(gbGridName);
+            Controls.Add(gbGridSelector);
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "GridManager";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Grid manager";
-            contextMenuStrip1.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
-            groupBox2.ResumeLayout(false);
+            Shown += GridManager_Shown;
+            contextMenuStrip.ResumeLayout(false);
+            gbGridStructure.ResumeLayout(false);
+            gbGridName.ResumeLayout(false);
+            gbGridName.PerformLayout();
+            gbGridSelector.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel pMain;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Button btn_NewGrid;
+        private System.Windows.Forms.TextBox tbGridName;
+        private System.Windows.Forms.Button btnNewGrid;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_ChangeCameraTo;
+        private System.Windows.Forms.ComboBox cbGrids;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeCameraTo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem deleteGridFromChainToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveUpToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button btn_MoveDown;
-        private System.Windows.Forms.Button btn_MoveUp;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDeleteGridFromChain;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMoveDown;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMoveUp;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ColumnHeader chGuid;
+        private System.Windows.Forms.ColumnHeader chVideoServerName;
+        private System.Windows.Forms.ColumnHeader chCameraName;
+        private System.Windows.Forms.ColumnHeader chNumber;
+        private System.Windows.Forms.Button btnMoveDown;
+        private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnModify;
-        private Mtf.Controls.MtfListView listView1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private Mtf.Controls.MtfListView lvGridCameras;
+        private System.Windows.Forms.GroupBox gbGridStructure;
+        private System.Windows.Forms.GroupBox gbGridName;
+        private System.Windows.Forms.GroupBox gbGridSelector;
     }
 }

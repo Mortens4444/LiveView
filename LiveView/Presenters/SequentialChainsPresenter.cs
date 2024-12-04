@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,41 @@ namespace LiveView.Presenters
             this.sequentialChainsView = sequentialChainsView;
             this.sequenceRepository = sequenceRepository;
             this.logger = logger;
+        }
+
+        public void AddGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddOrMUpdateSequence()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSequence()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveGridDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveGridUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Load()
+        {
+            throw new NotImplementedException();
         }
     }
 }

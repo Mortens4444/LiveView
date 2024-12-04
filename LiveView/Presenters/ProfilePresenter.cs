@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,21 @@ namespace LiveView.Presenters
             this.profileView = profileView;
             this.userRepository = userRepository;
             this.logger = logger;
+        }
+
+        public override void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SelectProfilePicture()
+        {
+            throw new NotImplementedException();
         }
     }
 }

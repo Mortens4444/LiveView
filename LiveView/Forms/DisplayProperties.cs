@@ -4,7 +4,10 @@ using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Attributes;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Forms
 {
@@ -23,6 +26,13 @@ namespace LiveView.Forms
             displayPropertiesPresenter = new DisplayPropertiesPresenter(this, displayRepository, logger);
 
             Translator.Translate(this);
+        }
+
+        [RequirePermission(DisplayManagementPermissions.Select)]
+        private void DisplayProperties_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            displayPropertiesPresenter.Load();
         }
     }
 }

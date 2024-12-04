@@ -15,11 +15,11 @@ namespace LiveView.Forms
         {
             InitializeComponent();
             this.permissionManager = permissionManager;
-            lbl_ProductName.Text = Application.ProductName;
-            lbl_Version.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));
+            lblProductName.Text = Application.ProductName;
+            lblVersion.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));
         }
 
-        private void Btn_Ok_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -28,14 +28,14 @@ namespace LiveView.Forms
         private void EmailAddress_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            Process.Start(String.Concat("mailto:", ll_EmailAddress.Text));
+            Process.Start(String.Concat("mailto:", llEmailAddress.Text));
         }
 
         [RequirePermission(GeneralPermissions.OpenLink)]
         private void WebPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            Process.Start(ll_WebPage.Text);
+            Process.Start(llWebPage.Text);
         }
     }
 }

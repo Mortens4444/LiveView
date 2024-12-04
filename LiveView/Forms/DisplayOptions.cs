@@ -29,26 +29,34 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(DisplayManagementPermissions.Update)]
-        private void Btn_ResetDisplays_Click(object sender, EventArgs e)
+        private void BtnResetDisplays_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            displayOptionsPresenter.ResetDisplays();
         }
 
         [RequirePermission(DisplayManagementPermissions.Select)]
-        private void Btn_Identify_Click(object sender, EventArgs e)
+        private void BtnIdentify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            displayOptionsPresenter.IdentifyDisplays();
         }
 
         [RequirePermission(DisplayManagementPermissions.Update)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            displayOptionsPresenter.SaveDisplaySettings();
         }
 
-        private void Btn_Cancel_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             displayOptionsPresenter.CloseForm();
+        }
+
+        private void DisplayOptions_Shown(object sender, EventArgs e)
+        {
+            displayOptionsPresenter.Load();
         }
     }
 }

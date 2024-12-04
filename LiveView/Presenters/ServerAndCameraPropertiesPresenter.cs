@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -20,6 +21,36 @@ namespace LiveView.Presenters
             this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
             this.logger = logger;
+        }
+
+        internal void ExportCameraList()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ExportHadwareInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void GetHardwareInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Refresh()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ShowPassword()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void WakeOnLan()
+        {
+            throw new NotImplementedException();
         }
     }
 }

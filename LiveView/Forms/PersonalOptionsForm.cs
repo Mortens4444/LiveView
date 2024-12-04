@@ -33,29 +33,31 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(SettingsManagementPermissions.UpdatePersonal)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            personalOptionsPresenter.SaveSettings();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             personalOptionsPresenter.CloseForm();
         }
 
         private void PersonalOptionsForm_Shown(object sender, EventArgs e)
         {
+            personalOptionsPresenter.Load();
             foreach (ImplementedLanguage language in Enum.GetValues(typeof(ImplementedLanguage)))
             {
                 var description = language.GetDescription();
-                cb_Languages.Items.Add($"{language} ({description})");
+                cbLanguages.Items.Add($"{language} ({description})");
             }
         }
 
-        private void Cb_Languages_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = cb_Languages.SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedItem))
+            var selectedItem = cbLanguages.SelectedItem?.ToString();
+            if (!String.IsNullOrEmpty(selectedItem))
             {
                 var languageEnum = EnumExtensions.GetFromDescription<Language>(selectedItem);
                 Lng.DefaultLanguage = languageEnum;

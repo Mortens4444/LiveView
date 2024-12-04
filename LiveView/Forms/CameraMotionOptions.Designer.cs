@@ -30,333 +30,334 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraMotionOptions));
-            lbl_MotionSensitiveness = new System.Windows.Forms.Label();
-            btn_Change = new System.Windows.Forms.Button();
-            p_Cameras = new System.Windows.Forms.Panel();
-            gb_Cameras = new System.Windows.Forms.GroupBox();
-            lv_Cameras = new Mtf.Controls.MtfListView();
-            ch_0_VideoServer = new System.Windows.Forms.ColumnHeader();
-            ch_1_Camera = new System.Windows.Forms.ColumnHeader();
-            ch_2_MotionTrigger = new System.Windows.Forms.ColumnHeader();
-            ch_3_MotionTriggerMinimumLength = new System.Windows.Forms.ColumnHeader();
-            ch_4_PartnerCamera = new System.Windows.Forms.ColumnHeader();
-            cms_ContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
-            tsmi_ClearValues = new System.Windows.Forms.ToolStripMenuItem();
-            cb_PartnerServerID = new System.Windows.Forms.ComboBox();
-            lbl_PartnerVideoServer = new System.Windows.Forms.Label();
-            cb_PartnerVideoServer = new System.Windows.Forms.ComboBox();
-            cb_PartnerCameraID = new System.Windows.Forms.ComboBox();
-            cb_PartnerCamera = new System.Windows.Forms.ComboBox();
-            lbl_PartnerCamera = new System.Windows.Forms.Label();
-            lbl_MotionTriggerMinimumLength = new System.Windows.Forms.Label();
-            nud_MotionTriggerMinimumLength = new System.Windows.Forms.NumericUpDown();
-            gb_CameraOptions = new System.Windows.Forms.GroupBox();
-            nud_MotionTrigger = new System.Windows.Forms.NumericUpDown();
-            p_Settings = new System.Windows.Forms.Panel();
-            p_Main = new System.Windows.Forms.Panel();
-            p_Cameras.SuspendLayout();
-            gb_Cameras.SuspendLayout();
-            cms_ContextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_MotionTriggerMinimumLength).BeginInit();
-            gb_CameraOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_MotionTrigger).BeginInit();
-            p_Settings.SuspendLayout();
-            p_Main.SuspendLayout();
+            lblMotionSensitiveness = new System.Windows.Forms.Label();
+            btnChange = new System.Windows.Forms.Button();
+            pCameras = new System.Windows.Forms.Panel();
+            gbCameras = new System.Windows.Forms.GroupBox();
+            lvCameras = new Mtf.Controls.MtfListView();
+            chVideoServer = new System.Windows.Forms.ColumnHeader();
+            chCamera = new System.Windows.Forms.ColumnHeader();
+            chMotionTrigger = new System.Windows.Forms.ColumnHeader();
+            chMotionTriggerMinimumLength = new System.Windows.Forms.ColumnHeader();
+            chPartnerCamera = new System.Windows.Forms.ColumnHeader();
+            cmsContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            tsmiClearValues = new System.Windows.Forms.ToolStripMenuItem();
+            cbPartnerServerID = new System.Windows.Forms.ComboBox();
+            lblPartnerVideoServer = new System.Windows.Forms.Label();
+            cbPartnerVideoServer = new System.Windows.Forms.ComboBox();
+            cbPartnerCameraID = new System.Windows.Forms.ComboBox();
+            cbPartnerCamera = new System.Windows.Forms.ComboBox();
+            lblPartnerCamera = new System.Windows.Forms.Label();
+            lblMotionTriggerMinimumLength = new System.Windows.Forms.Label();
+            nudMotionTriggerMinimumLength = new System.Windows.Forms.NumericUpDown();
+            gbCameraOptions = new System.Windows.Forms.GroupBox();
+            nudMotionTrigger = new System.Windows.Forms.NumericUpDown();
+            pSettings = new System.Windows.Forms.Panel();
+            pMain = new System.Windows.Forms.Panel();
+            pCameras.SuspendLayout();
+            gbCameras.SuspendLayout();
+            cmsContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMotionTriggerMinimumLength).BeginInit();
+            gbCameraOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMotionTrigger).BeginInit();
+            pSettings.SuspendLayout();
+            pMain.SuspendLayout();
             SuspendLayout();
             // 
-            // lbl_MotionSensitiveness
+            // lblMotionSensitiveness
             // 
-            lbl_MotionSensitiveness.AutoSize = true;
-            lbl_MotionSensitiveness.Location = new System.Drawing.Point(7, 22);
-            lbl_MotionSensitiveness.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_MotionSensitiveness.Name = "lbl_MotionSensitiveness";
-            lbl_MotionSensitiveness.Size = new System.Drawing.Size(117, 15);
-            lbl_MotionSensitiveness.TabIndex = 2;
-            lbl_MotionSensitiveness.Text = "Motion sensitiveness";
+            lblMotionSensitiveness.AutoSize = true;
+            lblMotionSensitiveness.Location = new System.Drawing.Point(7, 22);
+            lblMotionSensitiveness.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMotionSensitiveness.Name = "lblMotionSensitiveness";
+            lblMotionSensitiveness.Size = new System.Drawing.Size(117, 15);
+            lblMotionSensitiveness.TabIndex = 2;
+            lblMotionSensitiveness.Text = "Motion sensitiveness";
             // 
-            // btn_Change
+            // btnChange
             // 
-            btn_Change.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Change.Enabled = false;
-            btn_Change.Location = new System.Drawing.Point(827, 16);
-            btn_Change.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Change.Name = "btn_Change";
-            btn_Change.Size = new System.Drawing.Size(88, 27);
-            btn_Change.TabIndex = 0;
-            btn_Change.Text = "Change";
-            btn_Change.UseVisualStyleBackColor = true;
-            btn_Change.Click += Btn_Change_Click;
+            btnChange.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnChange.Enabled = false;
+            btnChange.Location = new System.Drawing.Point(827, 16);
+            btnChange.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnChange.Name = "btnChange";
+            btnChange.Size = new System.Drawing.Size(88, 27);
+            btnChange.TabIndex = 0;
+            btnChange.Text = "Change";
+            btnChange.UseVisualStyleBackColor = true;
+            btnChange.Click += BtnChange_Click;
             // 
-            // p_Cameras
+            // pCameras
             // 
-            p_Cameras.Controls.Add(gb_Cameras);
-            p_Cameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Cameras.Location = new System.Drawing.Point(0, 84);
-            p_Cameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Cameras.Name = "p_Cameras";
-            p_Cameras.Size = new System.Drawing.Size(918, 390);
-            p_Cameras.TabIndex = 1;
+            pCameras.Controls.Add(gbCameras);
+            pCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            pCameras.Location = new System.Drawing.Point(0, 84);
+            pCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pCameras.Name = "pCameras";
+            pCameras.Size = new System.Drawing.Size(918, 390);
+            pCameras.TabIndex = 1;
             // 
-            // gb_Cameras
+            // gbCameras
             // 
-            gb_Cameras.Controls.Add(lv_Cameras);
-            gb_Cameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_Cameras.Location = new System.Drawing.Point(0, 0);
-            gb_Cameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Cameras.Name = "gb_Cameras";
-            gb_Cameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Cameras.Size = new System.Drawing.Size(918, 390);
-            gb_Cameras.TabIndex = 1;
-            gb_Cameras.TabStop = false;
-            gb_Cameras.Text = "Cameras";
+            gbCameras.Controls.Add(lvCameras);
+            gbCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbCameras.Location = new System.Drawing.Point(0, 0);
+            gbCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameras.Name = "gbCameras";
+            gbCameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameras.Size = new System.Drawing.Size(918, 390);
+            gbCameras.TabIndex = 1;
+            gbCameras.TabStop = false;
+            gbCameras.Text = "Cameras";
             // 
-            // lv_Cameras
+            // lvCameras
             // 
-            lv_Cameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lv_Cameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lv_Cameras.AlternatingColorsAreInUse = true;
-            lv_Cameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lv_Cameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lv_Cameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { ch_0_VideoServer, ch_1_Camera, ch_2_MotionTrigger, ch_3_MotionTriggerMinimumLength, ch_4_PartnerCamera });
-            lv_Cameras.CompactView = false;
-            lv_Cameras.ContextMenuStrip = cms_ContextMenu;
-            lv_Cameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            lv_Cameras.EnsureLastItemIsVisible = false;
-            lv_Cameras.FirstItemIsGray = false;
-            lv_Cameras.FullRowSelect = true;
-            lv_Cameras.Location = new System.Drawing.Point(4, 19);
-            lv_Cameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lv_Cameras.Name = "lv_Cameras";
-            lv_Cameras.OwnerDraw = true;
-            lv_Cameras.ReadonlyCheckboxes = false;
-            lv_Cameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lv_Cameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lv_Cameras.Size = new System.Drawing.Size(910, 368);
-            lv_Cameras.TabIndex = 0;
-            lv_Cameras.UseCompatibleStateImageBehavior = false;
-            lv_Cameras.View = System.Windows.Forms.View.Details;
+            lvCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvCameras.AlternatingColorsAreInUse = true;
+            lvCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chVideoServer, chCamera, chMotionTrigger, chMotionTriggerMinimumLength, chPartnerCamera });
+            lvCameras.CompactView = false;
+            lvCameras.ContextMenuStrip = cmsContextMenu;
+            lvCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvCameras.EnsureLastItemIsVisible = false;
+            lvCameras.FirstItemIsGray = false;
+            lvCameras.FullRowSelect = true;
+            lvCameras.Location = new System.Drawing.Point(4, 19);
+            lvCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvCameras.Name = "lvCameras";
+            lvCameras.OwnerDraw = true;
+            lvCameras.ReadonlyCheckboxes = false;
+            lvCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvCameras.Size = new System.Drawing.Size(910, 368);
+            lvCameras.TabIndex = 0;
+            lvCameras.UseCompatibleStateImageBehavior = false;
+            lvCameras.View = System.Windows.Forms.View.Details;
             // 
-            // ch_0_VideoServer
+            // chVideoServer
             // 
-            ch_0_VideoServer.Text = "Video server";
-            ch_0_VideoServer.Width = 165;
+            chVideoServer.Text = "Video server";
+            chVideoServer.Width = 165;
             // 
-            // ch_1_Camera
+            // chCamera
             // 
-            ch_1_Camera.Text = "Camera";
-            ch_1_Camera.Width = 118;
+            chCamera.Text = "Camera";
+            chCamera.Width = 118;
             // 
-            // ch_2_MotionTrigger
+            // chMotionTrigger
             // 
-            ch_2_MotionTrigger.Text = "MotionTrigger";
-            ch_2_MotionTrigger.Width = 84;
+            chMotionTrigger.Text = "MotionTrigger";
+            chMotionTrigger.Width = 84;
             // 
-            // ch_3_MotionTriggerMinimumLength
+            // chMotionTriggerMinimumLength
             // 
-            ch_3_MotionTriggerMinimumLength.Text = "Motion trigger minimum length (seconds)";
-            ch_3_MotionTriggerMinimumLength.Width = 206;
+            chMotionTriggerMinimumLength.Text = "Motion trigger minimum length (seconds)";
+            chMotionTriggerMinimumLength.Width = 206;
             // 
-            // ch_4_PartnerCamera
+            // chPartnerCamera
             // 
-            ch_4_PartnerCamera.Text = "Partner camera";
-            ch_4_PartnerCamera.Width = 149;
+            chPartnerCamera.Text = "Partner camera";
+            chPartnerCamera.Width = 149;
             // 
-            // cms_ContextMenu
+            // cmsContextMenu
             // 
-            cms_ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmi_ClearValues });
-            cms_ContextMenu.Name = "cms_ContextMenu";
-            cms_ContextMenu.Size = new System.Drawing.Size(102, 26);
+            cmsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiClearValues });
+            cmsContextMenu.Name = "cms_ContextMenu";
+            cmsContextMenu.Size = new System.Drawing.Size(102, 26);
             // 
-            // tsmi_ClearValues
+            // tsmiClearValues
             // 
-            tsmi_ClearValues.Name = "tsmi_ClearValues";
-            tsmi_ClearValues.Size = new System.Drawing.Size(101, 22);
-            tsmi_ClearValues.Text = "Clear";
+            tsmiClearValues.Name = "tsmiClearValues";
+            tsmiClearValues.Size = new System.Drawing.Size(101, 22);
+            tsmiClearValues.Text = "Clear";
             // 
-            // cb_PartnerServerID
+            // cbPartnerServerID
             // 
-            cb_PartnerServerID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_PartnerServerID.FormattingEnabled = true;
-            cb_PartnerServerID.Location = new System.Drawing.Point(144, 52);
-            cb_PartnerServerID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PartnerServerID.Name = "cb_PartnerServerID";
-            cb_PartnerServerID.Size = new System.Drawing.Size(35, 23);
-            cb_PartnerServerID.TabIndex = 10;
-            cb_PartnerServerID.Visible = false;
+            cbPartnerServerID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbPartnerServerID.FormattingEnabled = true;
+            cbPartnerServerID.Location = new System.Drawing.Point(144, 52);
+            cbPartnerServerID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPartnerServerID.Name = "cbPartnerServerID";
+            cbPartnerServerID.Size = new System.Drawing.Size(35, 23);
+            cbPartnerServerID.TabIndex = 10;
+            cbPartnerServerID.Visible = false;
             // 
-            // lbl_PartnerVideoServer
+            // lblPartnerVideoServer
             // 
-            lbl_PartnerVideoServer.AutoSize = true;
-            lbl_PartnerVideoServer.Location = new System.Drawing.Point(7, 55);
-            lbl_PartnerVideoServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_PartnerVideoServer.Name = "lbl_PartnerVideoServer";
-            lbl_PartnerVideoServer.Size = new System.Drawing.Size(111, 15);
-            lbl_PartnerVideoServer.TabIndex = 9;
-            lbl_PartnerVideoServer.Text = "Partner video server";
+            lblPartnerVideoServer.AutoSize = true;
+            lblPartnerVideoServer.Location = new System.Drawing.Point(7, 55);
+            lblPartnerVideoServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPartnerVideoServer.Name = "lblPartnerVideoServer";
+            lblPartnerVideoServer.Size = new System.Drawing.Size(111, 15);
+            lblPartnerVideoServer.TabIndex = 9;
+            lblPartnerVideoServer.Text = "Partner video server";
             // 
-            // cb_PartnerVideoServer
+            // cbPartnerVideoServer
             // 
-            cb_PartnerVideoServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_PartnerVideoServer.FormattingEnabled = true;
-            cb_PartnerVideoServer.Location = new System.Drawing.Point(144, 52);
-            cb_PartnerVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PartnerVideoServer.Name = "cb_PartnerVideoServer";
-            cb_PartnerVideoServer.Size = new System.Drawing.Size(284, 23);
-            cb_PartnerVideoServer.TabIndex = 8;
+            cbPartnerVideoServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbPartnerVideoServer.FormattingEnabled = true;
+            cbPartnerVideoServer.Location = new System.Drawing.Point(144, 52);
+            cbPartnerVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPartnerVideoServer.Name = "cbPartnerVideoServer";
+            cbPartnerVideoServer.Size = new System.Drawing.Size(284, 23);
+            cbPartnerVideoServer.TabIndex = 8;
             // 
-            // cb_PartnerCameraID
+            // cbPartnerCameraID
             // 
-            cb_PartnerCameraID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_PartnerCameraID.FormattingEnabled = true;
-            cb_PartnerCameraID.Location = new System.Drawing.Point(534, 52);
-            cb_PartnerCameraID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PartnerCameraID.Name = "cb_PartnerCameraID";
-            cb_PartnerCameraID.Size = new System.Drawing.Size(35, 23);
-            cb_PartnerCameraID.TabIndex = 7;
-            cb_PartnerCameraID.Visible = false;
+            cbPartnerCameraID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbPartnerCameraID.FormattingEnabled = true;
+            cbPartnerCameraID.Location = new System.Drawing.Point(534, 52);
+            cbPartnerCameraID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPartnerCameraID.Name = "cbPartnerCameraID";
+            cbPartnerCameraID.Size = new System.Drawing.Size(35, 23);
+            cbPartnerCameraID.TabIndex = 7;
+            cbPartnerCameraID.Visible = false;
             // 
-            // cb_PartnerCamera
+            // cbPartnerCamera
             // 
-            cb_PartnerCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cb_PartnerCamera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_PartnerCamera.FormattingEnabled = true;
-            cb_PartnerCamera.Location = new System.Drawing.Point(534, 52);
-            cb_PartnerCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PartnerCamera.Name = "cb_PartnerCamera";
-            cb_PartnerCamera.Size = new System.Drawing.Size(160, 23);
-            cb_PartnerCamera.TabIndex = 6;
+            cbPartnerCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbPartnerCamera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbPartnerCamera.FormattingEnabled = true;
+            cbPartnerCamera.Location = new System.Drawing.Point(534, 52);
+            cbPartnerCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPartnerCamera.Name = "cbPartnerCamera";
+            cbPartnerCamera.Size = new System.Drawing.Size(160, 23);
+            cbPartnerCamera.TabIndex = 6;
             // 
-            // lbl_PartnerCamera
+            // lblPartnerCamera
             // 
-            lbl_PartnerCamera.AutoSize = true;
-            lbl_PartnerCamera.Location = new System.Drawing.Point(435, 55);
-            lbl_PartnerCamera.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_PartnerCamera.Name = "lbl_PartnerCamera";
-            lbl_PartnerCamera.Size = new System.Drawing.Size(87, 15);
-            lbl_PartnerCamera.TabIndex = 5;
-            lbl_PartnerCamera.Text = "Partner camera";
+            lblPartnerCamera.AutoSize = true;
+            lblPartnerCamera.Location = new System.Drawing.Point(435, 55);
+            lblPartnerCamera.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPartnerCamera.Name = "lblPartnerCamera";
+            lblPartnerCamera.Size = new System.Drawing.Size(87, 15);
+            lblPartnerCamera.TabIndex = 5;
+            lblPartnerCamera.Text = "Partner camera";
             // 
-            // lbl_MotionTriggerMinimumLength
+            // lblMotionTriggerMinimumLength
             // 
-            lbl_MotionTriggerMinimumLength.AutoSize = true;
-            lbl_MotionTriggerMinimumLength.Location = new System.Drawing.Point(410, 22);
-            lbl_MotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_MotionTriggerMinimumLength.Name = "lbl_MotionTriggerMinimumLength";
-            lbl_MotionTriggerMinimumLength.Size = new System.Drawing.Size(231, 15);
-            lbl_MotionTriggerMinimumLength.TabIndex = 4;
-            lbl_MotionTriggerMinimumLength.Text = "Motion trigger minimum length (seconds)";
+            lblMotionTriggerMinimumLength.AutoSize = true;
+            lblMotionTriggerMinimumLength.Location = new System.Drawing.Point(410, 22);
+            lblMotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMotionTriggerMinimumLength.Name = "lblMotionTriggerMinimumLength";
+            lblMotionTriggerMinimumLength.Size = new System.Drawing.Size(231, 15);
+            lblMotionTriggerMinimumLength.TabIndex = 4;
+            lblMotionTriggerMinimumLength.Text = "Motion trigger minimum length (seconds)";
             // 
-            // nud_MotionTriggerMinimumLength
+            // nudMotionTriggerMinimumLength
             // 
-            nud_MotionTriggerMinimumLength.Location = new System.Drawing.Point(644, 20);
-            nud_MotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_MotionTriggerMinimumLength.Maximum = new decimal(new int[] { 6000, 0, 0, 0 });
-            nud_MotionTriggerMinimumLength.Name = "nud_MotionTriggerMinimumLength";
-            nud_MotionTriggerMinimumLength.Size = new System.Drawing.Size(51, 23);
-            nud_MotionTriggerMinimumLength.TabIndex = 3;
+            nudMotionTriggerMinimumLength.Location = new System.Drawing.Point(644, 20);
+            nudMotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMotionTriggerMinimumLength.Maximum = new decimal(new int[] { 6000, 0, 0, 0 });
+            nudMotionTriggerMinimumLength.Name = "nudMotionTriggerMinimumLength";
+            nudMotionTriggerMinimumLength.Size = new System.Drawing.Size(51, 23);
+            nudMotionTriggerMinimumLength.TabIndex = 3;
             // 
-            // gb_CameraOptions
+            // gbCameraOptions
             // 
-            gb_CameraOptions.Controls.Add(cb_PartnerServerID);
-            gb_CameraOptions.Controls.Add(lbl_PartnerVideoServer);
-            gb_CameraOptions.Controls.Add(cb_PartnerVideoServer);
-            gb_CameraOptions.Controls.Add(cb_PartnerCameraID);
-            gb_CameraOptions.Controls.Add(cb_PartnerCamera);
-            gb_CameraOptions.Controls.Add(lbl_PartnerCamera);
-            gb_CameraOptions.Controls.Add(lbl_MotionTriggerMinimumLength);
-            gb_CameraOptions.Controls.Add(nud_MotionTriggerMinimumLength);
-            gb_CameraOptions.Controls.Add(lbl_MotionSensitiveness);
-            gb_CameraOptions.Controls.Add(nud_MotionTrigger);
-            gb_CameraOptions.Controls.Add(btn_Change);
-            gb_CameraOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_CameraOptions.Location = new System.Drawing.Point(0, 0);
-            gb_CameraOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_CameraOptions.Name = "gb_CameraOptions";
-            gb_CameraOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_CameraOptions.Size = new System.Drawing.Size(918, 84);
-            gb_CameraOptions.TabIndex = 0;
-            gb_CameraOptions.TabStop = false;
-            gb_CameraOptions.Text = "Camera options";
+            gbCameraOptions.Controls.Add(cbPartnerServerID);
+            gbCameraOptions.Controls.Add(lblPartnerVideoServer);
+            gbCameraOptions.Controls.Add(cbPartnerVideoServer);
+            gbCameraOptions.Controls.Add(cbPartnerCameraID);
+            gbCameraOptions.Controls.Add(cbPartnerCamera);
+            gbCameraOptions.Controls.Add(lblPartnerCamera);
+            gbCameraOptions.Controls.Add(lblMotionTriggerMinimumLength);
+            gbCameraOptions.Controls.Add(nudMotionTriggerMinimumLength);
+            gbCameraOptions.Controls.Add(lblMotionSensitiveness);
+            gbCameraOptions.Controls.Add(nudMotionTrigger);
+            gbCameraOptions.Controls.Add(btnChange);
+            gbCameraOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbCameraOptions.Location = new System.Drawing.Point(0, 0);
+            gbCameraOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraOptions.Name = "gbCameraOptions";
+            gbCameraOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraOptions.Size = new System.Drawing.Size(918, 84);
+            gbCameraOptions.TabIndex = 0;
+            gbCameraOptions.TabStop = false;
+            gbCameraOptions.Text = "Camera options";
             // 
-            // nud_MotionTrigger
+            // nudMotionTrigger
             // 
-            nud_MotionTrigger.Location = new System.Drawing.Point(144, 20);
-            nud_MotionTrigger.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_MotionTrigger.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
-            nud_MotionTrigger.Name = "nud_MotionTrigger";
-            nud_MotionTrigger.Size = new System.Drawing.Size(51, 23);
-            nud_MotionTrigger.TabIndex = 1;
-            nud_MotionTrigger.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            nudMotionTrigger.Location = new System.Drawing.Point(144, 20);
+            nudMotionTrigger.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMotionTrigger.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
+            nudMotionTrigger.Name = "nudMotionTrigger";
+            nudMotionTrigger.Size = new System.Drawing.Size(51, 23);
+            nudMotionTrigger.TabIndex = 1;
+            nudMotionTrigger.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
-            // p_Settings
+            // pSettings
             // 
-            p_Settings.Controls.Add(gb_CameraOptions);
-            p_Settings.Dock = System.Windows.Forms.DockStyle.Top;
-            p_Settings.Location = new System.Drawing.Point(0, 0);
-            p_Settings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Settings.Name = "p_Settings";
-            p_Settings.Size = new System.Drawing.Size(918, 84);
-            p_Settings.TabIndex = 0;
+            pSettings.Controls.Add(gbCameraOptions);
+            pSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            pSettings.Location = new System.Drawing.Point(0, 0);
+            pSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pSettings.Name = "pSettings";
+            pSettings.Size = new System.Drawing.Size(918, 84);
+            pSettings.TabIndex = 0;
             // 
-            // p_Main
+            // pMain
             // 
-            p_Main.Controls.Add(p_Cameras);
-            p_Main.Controls.Add(p_Settings);
-            p_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Main.Location = new System.Drawing.Point(0, 0);
-            p_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Main.Name = "p_Main";
-            p_Main.Size = new System.Drawing.Size(918, 474);
-            p_Main.TabIndex = 1;
+            pMain.Controls.Add(pCameras);
+            pMain.Controls.Add(pSettings);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(918, 474);
+            pMain.TabIndex = 1;
             // 
             // CameraMotionOptions
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(918, 474);
-            Controls.Add(p_Main);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CameraMotionOptions";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Camera motion options";
-            p_Cameras.ResumeLayout(false);
-            gb_Cameras.ResumeLayout(false);
-            cms_ContextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)nud_MotionTriggerMinimumLength).EndInit();
-            gb_CameraOptions.ResumeLayout(false);
-            gb_CameraOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_MotionTrigger).EndInit();
-            p_Settings.ResumeLayout(false);
-            p_Main.ResumeLayout(false);
+            Shown += CameraMotionOptions_Shown;
+            pCameras.ResumeLayout(false);
+            gbCameras.ResumeLayout(false);
+            cmsContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)nudMotionTriggerMinimumLength).EndInit();
+            gbCameraOptions.ResumeLayout(false);
+            gbCameraOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMotionTrigger).EndInit();
+            pSettings.ResumeLayout(false);
+            pMain.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lbl_MotionSensitiveness;
-        private System.Windows.Forms.Button btn_Change;
-        private System.Windows.Forms.Panel p_Cameras;
-        private System.Windows.Forms.GroupBox gb_Cameras;
-        private Mtf.Controls.MtfListView lv_Cameras;
-        private System.Windows.Forms.ColumnHeader ch_0_VideoServer;
-        private System.Windows.Forms.ColumnHeader ch_1_Camera;
-        private System.Windows.Forms.ColumnHeader ch_2_MotionTrigger;
-        private System.Windows.Forms.ColumnHeader ch_3_MotionTriggerMinimumLength;
-        private System.Windows.Forms.ColumnHeader ch_4_PartnerCamera;
-        private System.Windows.Forms.ContextMenuStrip cms_ContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem tsmi_ClearValues;
-        private System.Windows.Forms.ComboBox cb_PartnerServerID;
-        private System.Windows.Forms.Label lbl_PartnerVideoServer;
-        private System.Windows.Forms.ComboBox cb_PartnerVideoServer;
-        private System.Windows.Forms.ComboBox cb_PartnerCameraID;
-        private System.Windows.Forms.ComboBox cb_PartnerCamera;
-        private System.Windows.Forms.Label lbl_PartnerCamera;
-        private System.Windows.Forms.Label lbl_MotionTriggerMinimumLength;
-        private System.Windows.Forms.NumericUpDown nud_MotionTriggerMinimumLength;
-        private System.Windows.Forms.GroupBox gb_CameraOptions;
-        private System.Windows.Forms.NumericUpDown nud_MotionTrigger;
-        private System.Windows.Forms.Panel p_Settings;
-        private System.Windows.Forms.Panel p_Main;
+        private System.Windows.Forms.Label lblMotionSensitiveness;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Panel pCameras;
+        private System.Windows.Forms.GroupBox gbCameras;
+        private Mtf.Controls.MtfListView lvCameras;
+        private System.Windows.Forms.ColumnHeader chVideoServer;
+        private System.Windows.Forms.ColumnHeader chCamera;
+        private System.Windows.Forms.ColumnHeader chMotionTrigger;
+        private System.Windows.Forms.ColumnHeader chMotionTriggerMinimumLength;
+        private System.Windows.Forms.ColumnHeader chPartnerCamera;
+        private System.Windows.Forms.ContextMenuStrip cmsContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClearValues;
+        private System.Windows.Forms.ComboBox cbPartnerServerID;
+        private System.Windows.Forms.Label lblPartnerVideoServer;
+        private System.Windows.Forms.ComboBox cbPartnerVideoServer;
+        private System.Windows.Forms.ComboBox cbPartnerCameraID;
+        private System.Windows.Forms.ComboBox cbPartnerCamera;
+        private System.Windows.Forms.Label lblPartnerCamera;
+        private System.Windows.Forms.Label lblMotionTriggerMinimumLength;
+        private System.Windows.Forms.NumericUpDown nudMotionTriggerMinimumLength;
+        private System.Windows.Forms.GroupBox gbCameraOptions;
+        private System.Windows.Forms.NumericUpDown nudMotionTrigger;
+        private System.Windows.Forms.Panel pSettings;
+        private System.Windows.Forms.Panel pMain;
     }
 }

@@ -29,9 +29,15 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]
-        private void Btn_Change_Click(object sender, EventArgs e)
+        private void BtnChange_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            cameraMotionOptionsPresenter.SaveSettings();
+        }
+
+        private void CameraMotionOptions_Shown(object sender, EventArgs e)
+        {
+            cameraMotionOptionsPresenter.Load();
         }
     }
 }

@@ -30,303 +30,303 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraManagement));
-            var treeNode1 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
-            var treeNode2 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
-            tt_Hint = new System.Windows.Forms.ToolTip(components);
-            il_Images = new System.Windows.Forms.ImageList(components);
-            btn_MotionDetection = new System.Windows.Forms.Button();
-            btn_NewDBServer = new System.Windows.Forms.Button();
-            lbl_HorizontalLine = new System.Windows.Forms.Label();
-            rb_CameraName = new System.Windows.Forms.RadioButton();
-            lbl_SyncronizeBy = new System.Windows.Forms.Label();
-            rb_RecorderIndex = new System.Windows.Forms.RadioButton();
-            btn_Close = new System.Windows.Forms.Button();
-            btn_Properties = new System.Windows.Forms.Button();
-            rb_GUID = new System.Windows.Forms.RadioButton();
-            btn_Syncronize = new System.Windows.Forms.Button();
-            tv_ServersAndCameras = new Mtf.Controls.MtfTreeView();
-            btn_NewVideoServer = new System.Windows.Forms.Button();
-            btn_Modify = new System.Windows.Forms.Button();
-            btn_Remove = new System.Windows.Forms.Button();
-            btn_NewCamera = new System.Windows.Forms.Button();
-            gb_RegisteredServersAndCameras = new System.Windows.Forms.GroupBox();
-            p_Main = new System.Windows.Forms.Panel();
-            gb_RegisteredServersAndCameras.SuspendLayout();
-            p_Main.SuspendLayout();
+            var treeNode3 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
+            var treeNode4 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
+            ttHint = new System.Windows.Forms.ToolTip(components);
+            ilImages = new System.Windows.Forms.ImageList(components);
+            btnMotionDetection = new System.Windows.Forms.Button();
+            btnNewDbServer = new System.Windows.Forms.Button();
+            lblHorizontalLine = new System.Windows.Forms.Label();
+            rbCameraName = new System.Windows.Forms.RadioButton();
+            lblSyncronizeBy = new System.Windows.Forms.Label();
+            rbRecorderIndex = new System.Windows.Forms.RadioButton();
+            btnClose = new System.Windows.Forms.Button();
+            btnProperties = new System.Windows.Forms.Button();
+            rbGuid = new System.Windows.Forms.RadioButton();
+            btnSyncronize = new System.Windows.Forms.Button();
+            tvServersAndCameras = new Mtf.Controls.MtfTreeView();
+            btnNewVideoServer = new System.Windows.Forms.Button();
+            btnModify = new System.Windows.Forms.Button();
+            btnRemove = new System.Windows.Forms.Button();
+            btnNewCamera = new System.Windows.Forms.Button();
+            gbRegisteredServersAndCameras = new System.Windows.Forms.GroupBox();
+            pMain = new System.Windows.Forms.Panel();
+            gbRegisteredServersAndCameras.SuspendLayout();
+            pMain.SuspendLayout();
             SuspendLayout();
             // 
-            // il_Images
+            // ilImages
             // 
-            il_Images.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            il_Images.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("il_Images.ImageStream");
-            il_Images.TransparentColor = System.Drawing.Color.Transparent;
-            il_Images.Images.SetKeyName(0, "videoservers.ico");
-            il_Images.Images.SetKeyName(1, "videoserver.ico");
-            il_Images.Images.SetKeyName(2, "cam 0.ico");
-            il_Images.Images.SetKeyName(3, "videoserver_mod.ico");
-            il_Images.Images.SetKeyName(4, "cammod.ico");
-            il_Images.Images.SetKeyName(5, "videoserver_del.ico");
-            il_Images.Images.SetKeyName(6, "camdel.ico");
-            il_Images.Images.SetKeyName(7, "db_server.ico");
+            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
+            ilImages.TransparentColor = System.Drawing.Color.Transparent;
+            ilImages.Images.SetKeyName(0, "videoservers.ico");
+            ilImages.Images.SetKeyName(1, "videoserver.ico");
+            ilImages.Images.SetKeyName(2, "cam 0.ico");
+            ilImages.Images.SetKeyName(3, "videoserver_mod.ico");
+            ilImages.Images.SetKeyName(4, "cammod.ico");
+            ilImages.Images.SetKeyName(5, "videoserver_del.ico");
+            ilImages.Images.SetKeyName(6, "camdel.ico");
+            ilImages.Images.SetKeyName(7, "db_server.ico");
             // 
-            // btn_MotionDetection
+            // btnMotionDetection
             // 
-            btn_MotionDetection.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_MotionDetection.Image = (System.Drawing.Image)resources.GetObject("btn_MotionDetection.Image");
-            btn_MotionDetection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_MotionDetection.Location = new System.Drawing.Point(528, 220);
-            btn_MotionDetection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_MotionDetection.Name = "btn_MotionDetection";
-            btn_MotionDetection.Size = new System.Drawing.Size(146, 27);
-            btn_MotionDetection.TabIndex = 10;
-            btn_MotionDetection.Text = "Motion detection";
-            btn_MotionDetection.UseVisualStyleBackColor = true;
-            btn_MotionDetection.Click += Btn_MotionDetection_Click;
+            btnMotionDetection.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnMotionDetection.Image = (System.Drawing.Image)resources.GetObject("btnMotionDetection.Image");
+            btnMotionDetection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnMotionDetection.Location = new System.Drawing.Point(495, 220);
+            btnMotionDetection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnMotionDetection.Name = "btnMotionDetection";
+            btnMotionDetection.Size = new System.Drawing.Size(179, 27);
+            btnMotionDetection.TabIndex = 10;
+            btnMotionDetection.Text = "Motion detection";
+            btnMotionDetection.UseVisualStyleBackColor = true;
+            btnMotionDetection.Click += BtnMotionDetection_Click;
             // 
-            // btn_NewDBServer
+            // btnNewDbServer
             // 
-            btn_NewDBServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_NewDBServer.Image = (System.Drawing.Image)resources.GetObject("btn_NewDBServer.Image");
-            btn_NewDBServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_NewDBServer.Location = new System.Drawing.Point(528, 53);
-            btn_NewDBServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_NewDBServer.Name = "btn_NewDBServer";
-            btn_NewDBServer.Size = new System.Drawing.Size(146, 27);
-            btn_NewDBServer.TabIndex = 9;
-            btn_NewDBServer.Text = "New DB server";
-            btn_NewDBServer.UseVisualStyleBackColor = true;
-            btn_NewDBServer.Click += Btn_NewDBServer_Click;
+            btnNewDbServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewDbServer.Image = (System.Drawing.Image)resources.GetObject("btnNewDbServer.Image");
+            btnNewDbServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnNewDbServer.Location = new System.Drawing.Point(495, 53);
+            btnNewDbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNewDbServer.Name = "btnNewDbServer";
+            btnNewDbServer.Size = new System.Drawing.Size(179, 27);
+            btnNewDbServer.TabIndex = 9;
+            btnNewDbServer.Text = "New DB server";
+            btnNewDbServer.UseVisualStyleBackColor = true;
+            btnNewDbServer.Click += BtnNewDBServer_Click;
             // 
-            // lbl_HorizontalLine
+            // lblHorizontalLine
             // 
-            lbl_HorizontalLine.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            lbl_HorizontalLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            lbl_HorizontalLine.Location = new System.Drawing.Point(528, 353);
-            lbl_HorizontalLine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_HorizontalLine.Name = "lbl_HorizontalLine";
-            lbl_HorizontalLine.Size = new System.Drawing.Size(140, 2);
-            lbl_HorizontalLine.TabIndex = 8;
+            lblHorizontalLine.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblHorizontalLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            lblHorizontalLine.Location = new System.Drawing.Point(500, 353);
+            lblHorizontalLine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHorizontalLine.Name = "lblHorizontalLine";
+            lblHorizontalLine.Size = new System.Drawing.Size(168, 1);
+            lblHorizontalLine.TabIndex = 8;
             // 
-            // rb_CameraName
+            // rbCameraName
             // 
-            rb_CameraName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rb_CameraName.AutoSize = true;
-            rb_CameraName.Location = new System.Drawing.Point(534, 418);
-            rb_CameraName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_CameraName.Name = "rb_CameraName";
-            rb_CameraName.Size = new System.Drawing.Size(99, 19);
-            rb_CameraName.TabIndex = 3;
-            rb_CameraName.Text = "Camera name";
-            rb_CameraName.UseVisualStyleBackColor = true;
+            rbCameraName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            rbCameraName.AutoSize = true;
+            rbCameraName.Location = new System.Drawing.Point(500, 408);
+            rbCameraName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbCameraName.Name = "rbCameraName";
+            rbCameraName.Size = new System.Drawing.Size(99, 19);
+            rbCameraName.TabIndex = 3;
+            rbCameraName.Text = "Camera name";
+            rbCameraName.UseVisualStyleBackColor = true;
             // 
-            // lbl_SyncronizeBy
+            // lblSyncronizeBy
             // 
-            lbl_SyncronizeBy.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            lbl_SyncronizeBy.AutoSize = true;
-            lbl_SyncronizeBy.Location = new System.Drawing.Point(525, 333);
-            lbl_SyncronizeBy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_SyncronizeBy.Name = "lbl_SyncronizeBy";
-            lbl_SyncronizeBy.Size = new System.Drawing.Size(80, 15);
-            lbl_SyncronizeBy.TabIndex = 7;
-            lbl_SyncronizeBy.Text = "Syncronize by";
+            lblSyncronizeBy.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblSyncronizeBy.AutoSize = true;
+            lblSyncronizeBy.Location = new System.Drawing.Point(495, 328);
+            lblSyncronizeBy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSyncronizeBy.Name = "lblSyncronizeBy";
+            lblSyncronizeBy.Size = new System.Drawing.Size(80, 15);
+            lblSyncronizeBy.TabIndex = 7;
+            lblSyncronizeBy.Text = "Syncronize by";
             // 
-            // rb_RecorderIndex
+            // rbRecorderIndex
             // 
-            rb_RecorderIndex.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rb_RecorderIndex.AutoSize = true;
-            rb_RecorderIndex.Location = new System.Drawing.Point(539, 392);
-            rb_RecorderIndex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_RecorderIndex.Name = "rb_RecorderIndex";
-            rb_RecorderIndex.Size = new System.Drawing.Size(103, 19);
-            rb_RecorderIndex.TabIndex = 2;
-            rb_RecorderIndex.Text = "Recorder index";
-            rb_RecorderIndex.UseVisualStyleBackColor = true;
+            rbRecorderIndex.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            rbRecorderIndex.AutoSize = true;
+            rbRecorderIndex.Location = new System.Drawing.Point(500, 383);
+            rbRecorderIndex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbRecorderIndex.Name = "rbRecorderIndex";
+            rbRecorderIndex.Size = new System.Drawing.Size(103, 19);
+            rbRecorderIndex.TabIndex = 2;
+            rbRecorderIndex.Text = "Recorder index";
+            rbRecorderIndex.UseVisualStyleBackColor = true;
             // 
-            // btn_Close
+            // btnClose
             // 
-            btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Close.Location = new System.Drawing.Point(528, 485);
-            btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Close.Name = "btn_Close";
-            btn_Close.Size = new System.Drawing.Size(146, 27);
-            btn_Close.TabIndex = 1;
-            btn_Close.Text = "Close";
-            btn_Close.UseVisualStyleBackColor = true;
-            btn_Close.Click += Btn_Close_Click;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(500, 485);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(174, 27);
+            btnClose.TabIndex = 1;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
-            // btn_Properties
+            // btnProperties
             // 
-            btn_Properties.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Properties.Enabled = false;
-            btn_Properties.Image = (System.Drawing.Image)resources.GetObject("btn_Properties.Image");
-            btn_Properties.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_Properties.Location = new System.Drawing.Point(528, 187);
-            btn_Properties.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Properties.Name = "btn_Properties";
-            btn_Properties.Size = new System.Drawing.Size(146, 27);
-            btn_Properties.TabIndex = 6;
-            btn_Properties.Text = "Properties";
-            btn_Properties.UseVisualStyleBackColor = true;
-            btn_Properties.Click += Btn_Properties_Click;
+            btnProperties.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnProperties.Enabled = false;
+            btnProperties.Image = (System.Drawing.Image)resources.GetObject("btnProperties.Image");
+            btnProperties.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnProperties.Location = new System.Drawing.Point(495, 187);
+            btnProperties.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnProperties.Name = "btnProperties";
+            btnProperties.Size = new System.Drawing.Size(179, 27);
+            btnProperties.TabIndex = 6;
+            btnProperties.Text = "Properties";
+            btnProperties.UseVisualStyleBackColor = true;
+            btnProperties.Click += BtnProperties_Click;
             // 
-            // rb_GUID
+            // rbGuid
             // 
-            rb_GUID.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rb_GUID.AutoSize = true;
-            rb_GUID.Checked = true;
-            rb_GUID.Location = new System.Drawing.Point(537, 364);
-            rb_GUID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_GUID.Name = "rb_GUID";
-            rb_GUID.Size = new System.Drawing.Size(52, 19);
-            rb_GUID.TabIndex = 1;
-            rb_GUID.TabStop = true;
-            rb_GUID.Text = "GUID";
-            rb_GUID.UseVisualStyleBackColor = true;
+            rbGuid.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            rbGuid.AutoSize = true;
+            rbGuid.Checked = true;
+            rbGuid.Location = new System.Drawing.Point(500, 358);
+            rbGuid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbGuid.Name = "rbGuid";
+            rbGuid.Size = new System.Drawing.Size(52, 19);
+            rbGuid.TabIndex = 1;
+            rbGuid.TabStop = true;
+            rbGuid.Text = "GUID";
+            rbGuid.UseVisualStyleBackColor = true;
             // 
-            // btn_Syncronize
+            // btnSyncronize
             // 
-            btn_Syncronize.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Syncronize.Location = new System.Drawing.Point(528, 444);
-            btn_Syncronize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Syncronize.Name = "btn_Syncronize";
-            btn_Syncronize.Size = new System.Drawing.Size(132, 27);
-            btn_Syncronize.TabIndex = 0;
-            btn_Syncronize.Text = "Syncronize";
-            btn_Syncronize.UseVisualStyleBackColor = true;
-            btn_Syncronize.Click += Btn_Syncronize_Click;
+            btnSyncronize.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSyncronize.Location = new System.Drawing.Point(500, 444);
+            btnSyncronize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSyncronize.Name = "btnSyncronize";
+            btnSyncronize.Size = new System.Drawing.Size(160, 27);
+            btnSyncronize.TabIndex = 0;
+            btnSyncronize.Text = "Syncronize";
+            btnSyncronize.UseVisualStyleBackColor = true;
+            btnSyncronize.Click += BtnSyncronize_Click;
             // 
-            // tv_ServersAndCameras
+            // tvServersAndCameras
             // 
-            tv_ServersAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tv_ServersAndCameras.CheckBoxBackground = System.Drawing.SystemColors.Window;
-            tv_ServersAndCameras.DrawDefaultImageToNodes = true;
-            tv_ServersAndCameras.FullRowSelect = true;
-            tv_ServersAndCameras.HideSelection = false;
-            tv_ServersAndCameras.ImageIndex = 0;
-            tv_ServersAndCameras.ImageList = il_Images;
-            tv_ServersAndCameras.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-            tv_ServersAndCameras.Location = new System.Drawing.Point(7, 20);
-            tv_ServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tv_ServersAndCameras.MultiSelect = false;
-            tv_ServersAndCameras.Name = "tv_ServersAndCameras";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "Servers";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "Servers";
-            treeNode2.ImageIndex = 7;
-            treeNode2.Name = "DBServers";
-            treeNode2.SelectedImageIndex = 7;
-            treeNode2.Text = "DB servers";
-            tv_ServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2 });
-            tv_ServersAndCameras.SelectedImageIndex = 0;
-            tv_ServersAndCameras.ShowNodeToolTips = true;
-            tv_ServersAndCameras.ShowPlusMinusOnRootNodes = true;
-            tv_ServersAndCameras.ShowRootLines = false;
-            tv_ServersAndCameras.Size = new System.Drawing.Size(514, 451);
-            tv_ServersAndCameras.StateImageOrCheckBoxOnLeft = false;
-            tv_ServersAndCameras.TabIndex = 0;
-            tv_ServersAndCameras.TickColor = System.Drawing.Color.Green;
+            tvServersAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tvServersAndCameras.CheckBoxBackground = System.Drawing.SystemColors.Window;
+            tvServersAndCameras.DrawDefaultImageToNodes = true;
+            tvServersAndCameras.FullRowSelect = true;
+            tvServersAndCameras.HideSelection = false;
+            tvServersAndCameras.ImageIndex = 0;
+            tvServersAndCameras.ImageList = ilImages;
+            tvServersAndCameras.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+            tvServersAndCameras.Location = new System.Drawing.Point(7, 20);
+            tvServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tvServersAndCameras.MultiSelect = false;
+            tvServersAndCameras.Name = "tvServersAndCameras";
+            treeNode3.ImageIndex = 0;
+            treeNode3.Name = "Servers";
+            treeNode3.SelectedImageIndex = 0;
+            treeNode3.Text = "Servers";
+            treeNode4.ImageIndex = 7;
+            treeNode4.Name = "DBServers";
+            treeNode4.SelectedImageIndex = 7;
+            treeNode4.Text = "DB servers";
+            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode3, treeNode4 });
+            tvServersAndCameras.SelectedImageIndex = 0;
+            tvServersAndCameras.ShowNodeToolTips = true;
+            tvServersAndCameras.ShowPlusMinusOnRootNodes = true;
+            tvServersAndCameras.ShowRootLines = false;
+            tvServersAndCameras.Size = new System.Drawing.Size(480, 451);
+            tvServersAndCameras.StateImageOrCheckBoxOnLeft = false;
+            tvServersAndCameras.TabIndex = 0;
+            tvServersAndCameras.TickColor = System.Drawing.Color.Green;
             // 
-            // btn_NewVideoServer
+            // btnNewVideoServer
             // 
-            btn_NewVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_NewVideoServer.Image = (System.Drawing.Image)resources.GetObject("btn_NewVideoServer.Image");
-            btn_NewVideoServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_NewVideoServer.Location = new System.Drawing.Point(528, 20);
-            btn_NewVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_NewVideoServer.Name = "btn_NewVideoServer";
-            btn_NewVideoServer.Size = new System.Drawing.Size(146, 27);
-            btn_NewVideoServer.TabIndex = 1;
-            btn_NewVideoServer.Text = "New video server";
-            btn_NewVideoServer.UseVisualStyleBackColor = true;
-            btn_NewVideoServer.Click += Btn_NewVideoServer_Click;
+            btnNewVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewVideoServer.Image = (System.Drawing.Image)resources.GetObject("btnNewVideoServer.Image");
+            btnNewVideoServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnNewVideoServer.Location = new System.Drawing.Point(495, 20);
+            btnNewVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNewVideoServer.Name = "btnNewVideoServer";
+            btnNewVideoServer.Size = new System.Drawing.Size(179, 27);
+            btnNewVideoServer.TabIndex = 1;
+            btnNewVideoServer.Text = "New video server";
+            btnNewVideoServer.UseVisualStyleBackColor = true;
+            btnNewVideoServer.Click += BtnNewVideoServer_Click;
             // 
-            // btn_Modify
+            // btnModify
             // 
-            btn_Modify.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Modify.Image = (System.Drawing.Image)resources.GetObject("btn_Modify.Image");
-            btn_Modify.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_Modify.Location = new System.Drawing.Point(528, 120);
-            btn_Modify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Modify.Name = "btn_Modify";
-            btn_Modify.Size = new System.Drawing.Size(146, 27);
-            btn_Modify.TabIndex = 3;
-            btn_Modify.Text = "Modify";
-            btn_Modify.UseVisualStyleBackColor = true;
-            btn_Modify.Click += Btn_Modify_Click;
+            btnModify.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnModify.Image = (System.Drawing.Image)resources.GetObject("btnModify.Image");
+            btnModify.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnModify.Location = new System.Drawing.Point(495, 120);
+            btnModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnModify.Name = "btnModify";
+            btnModify.Size = new System.Drawing.Size(179, 27);
+            btnModify.TabIndex = 3;
+            btnModify.Text = "Modify";
+            btnModify.UseVisualStyleBackColor = true;
+            btnModify.Click += BtnModify_Click;
             // 
-            // btn_Remove
+            // btnRemove
             // 
-            btn_Remove.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Remove.Image = (System.Drawing.Image)resources.GetObject("btn_Remove.Image");
-            btn_Remove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_Remove.Location = new System.Drawing.Point(528, 153);
-            btn_Remove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Remove.Name = "btn_Remove";
-            btn_Remove.Size = new System.Drawing.Size(146, 27);
-            btn_Remove.TabIndex = 4;
-            btn_Remove.Text = "Remove";
-            btn_Remove.UseVisualStyleBackColor = true;
-            btn_Remove.Click += Btn_Remove_Click;
+            btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnRemove.Image = (System.Drawing.Image)resources.GetObject("btnRemove.Image");
+            btnRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnRemove.Location = new System.Drawing.Point(495, 153);
+            btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new System.Drawing.Size(179, 27);
+            btnRemove.TabIndex = 4;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += BtnRemove_Click;
             // 
-            // btn_NewCamera
+            // btnNewCamera
             // 
-            btn_NewCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_NewCamera.Image = (System.Drawing.Image)resources.GetObject("btn_NewCamera.Image");
-            btn_NewCamera.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            btn_NewCamera.Location = new System.Drawing.Point(528, 87);
-            btn_NewCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_NewCamera.Name = "btn_NewCamera";
-            btn_NewCamera.Size = new System.Drawing.Size(146, 27);
-            btn_NewCamera.TabIndex = 2;
-            btn_NewCamera.Text = "New camera";
-            btn_NewCamera.UseVisualStyleBackColor = true;
-            btn_NewCamera.Click += Btn_NewCamera_Click;
+            btnNewCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnNewCamera.Image = (System.Drawing.Image)resources.GetObject("btnNewCamera.Image");
+            btnNewCamera.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnNewCamera.Location = new System.Drawing.Point(495, 87);
+            btnNewCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNewCamera.Name = "btnNewCamera";
+            btnNewCamera.Size = new System.Drawing.Size(179, 27);
+            btnNewCamera.TabIndex = 2;
+            btnNewCamera.Text = "New camera";
+            btnNewCamera.UseVisualStyleBackColor = true;
+            btnNewCamera.Click += BtnNewCamera_Click;
             // 
-            // gb_RegisteredServersAndCameras
+            // gbRegisteredServersAndCameras
             // 
-            gb_RegisteredServersAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gb_RegisteredServersAndCameras.Controls.Add(btn_MotionDetection);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_NewDBServer);
-            gb_RegisteredServersAndCameras.Controls.Add(lbl_HorizontalLine);
-            gb_RegisteredServersAndCameras.Controls.Add(rb_CameraName);
-            gb_RegisteredServersAndCameras.Controls.Add(lbl_SyncronizeBy);
-            gb_RegisteredServersAndCameras.Controls.Add(rb_RecorderIndex);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_Properties);
-            gb_RegisteredServersAndCameras.Controls.Add(rb_GUID);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_Syncronize);
-            gb_RegisteredServersAndCameras.Controls.Add(tv_ServersAndCameras);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_NewVideoServer);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_Modify);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_Remove);
-            gb_RegisteredServersAndCameras.Controls.Add(btn_NewCamera);
-            gb_RegisteredServersAndCameras.Location = new System.Drawing.Point(0, 0);
-            gb_RegisteredServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_RegisteredServersAndCameras.Name = "gb_RegisteredServersAndCameras";
-            gb_RegisteredServersAndCameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_RegisteredServersAndCameras.Size = new System.Drawing.Size(681, 479);
-            gb_RegisteredServersAndCameras.TabIndex = 0;
-            gb_RegisteredServersAndCameras.TabStop = false;
-            gb_RegisteredServersAndCameras.Text = "Registered servers and cameras";
+            gbRegisteredServersAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbRegisteredServersAndCameras.Controls.Add(btnMotionDetection);
+            gbRegisteredServersAndCameras.Controls.Add(btnNewDbServer);
+            gbRegisteredServersAndCameras.Controls.Add(lblHorizontalLine);
+            gbRegisteredServersAndCameras.Controls.Add(rbCameraName);
+            gbRegisteredServersAndCameras.Controls.Add(lblSyncronizeBy);
+            gbRegisteredServersAndCameras.Controls.Add(rbRecorderIndex);
+            gbRegisteredServersAndCameras.Controls.Add(btnProperties);
+            gbRegisteredServersAndCameras.Controls.Add(rbGuid);
+            gbRegisteredServersAndCameras.Controls.Add(btnSyncronize);
+            gbRegisteredServersAndCameras.Controls.Add(tvServersAndCameras);
+            gbRegisteredServersAndCameras.Controls.Add(btnNewVideoServer);
+            gbRegisteredServersAndCameras.Controls.Add(btnModify);
+            gbRegisteredServersAndCameras.Controls.Add(btnRemove);
+            gbRegisteredServersAndCameras.Controls.Add(btnNewCamera);
+            gbRegisteredServersAndCameras.Location = new System.Drawing.Point(0, 0);
+            gbRegisteredServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbRegisteredServersAndCameras.Name = "gbRegisteredServersAndCameras";
+            gbRegisteredServersAndCameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbRegisteredServersAndCameras.Size = new System.Drawing.Size(681, 479);
+            gbRegisteredServersAndCameras.TabIndex = 0;
+            gbRegisteredServersAndCameras.TabStop = false;
+            gbRegisteredServersAndCameras.Text = "Registered servers and cameras";
             // 
-            // p_Main
+            // pMain
             // 
-            p_Main.Controls.Add(btn_Close);
-            p_Main.Controls.Add(gb_RegisteredServersAndCameras);
-            p_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Main.Location = new System.Drawing.Point(0, 0);
-            p_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Main.Name = "p_Main";
-            p_Main.Size = new System.Drawing.Size(681, 515);
-            p_Main.TabIndex = 2;
+            pMain.Controls.Add(btnClose);
+            pMain.Controls.Add(gbRegisteredServersAndCameras);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(681, 515);
+            pMain.TabIndex = 2;
             // 
             // ServerAndCameraManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(681, 515);
-            Controls.Add(p_Main);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(541, 396);
@@ -334,32 +334,32 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Servers and cameras";
             Shown += ServerAndCameraManagement_Shown;
-            gb_RegisteredServersAndCameras.ResumeLayout(false);
-            gb_RegisteredServersAndCameras.PerformLayout();
-            p_Main.ResumeLayout(false);
+            gbRegisteredServersAndCameras.ResumeLayout(false);
+            gbRegisteredServersAndCameras.PerformLayout();
+            pMain.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolTip tt_Hint;
-        private System.Windows.Forms.ImageList il_Images;
-        private System.Windows.Forms.Button btn_MotionDetection;
-        private System.Windows.Forms.Button btn_NewDBServer;
-        private System.Windows.Forms.Label lbl_HorizontalLine;
-        private System.Windows.Forms.RadioButton rb_CameraName;
-        private System.Windows.Forms.Label lbl_SyncronizeBy;
-        private System.Windows.Forms.RadioButton rb_RecorderIndex;
-        private System.Windows.Forms.Button btn_Close;
-        private System.Windows.Forms.Button btn_Properties;
-        private System.Windows.Forms.RadioButton rb_GUID;
-        private System.Windows.Forms.Button btn_Syncronize;
-        private Mtf.Controls.MtfTreeView tv_ServersAndCameras;
-        private System.Windows.Forms.Button btn_NewVideoServer;
-        private System.Windows.Forms.Button btn_Modify;
-        private System.Windows.Forms.Button btn_Remove;
-        private System.Windows.Forms.Button btn_NewCamera;
-        private System.Windows.Forms.GroupBox gb_RegisteredServersAndCameras;
-        private System.Windows.Forms.Panel p_Main;
+        private System.Windows.Forms.ToolTip ttHint;
+        private System.Windows.Forms.ImageList ilImages;
+        private System.Windows.Forms.Button btnMotionDetection;
+        private System.Windows.Forms.Button btnNewDbServer;
+        private System.Windows.Forms.Label lblHorizontalLine;
+        private System.Windows.Forms.RadioButton rbCameraName;
+        private System.Windows.Forms.Label lblSyncronizeBy;
+        private System.Windows.Forms.RadioButton rbRecorderIndex;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnProperties;
+        private System.Windows.Forms.RadioButton rbGuid;
+        private System.Windows.Forms.Button btnSyncronize;
+        private Mtf.Controls.MtfTreeView tvServersAndCameras;
+        private System.Windows.Forms.Button btnNewVideoServer;
+        private System.Windows.Forms.Button btnModify;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnNewCamera;
+        private System.Windows.Forms.GroupBox gbRegisteredServersAndCameras;
+        private System.Windows.Forms.Panel pMain;
     }
 }

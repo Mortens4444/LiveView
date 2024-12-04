@@ -2,5 +2,6 @@
 {
     public interface IAddGroupView : IView
     {
+        //string GroupName { get; }
     }
 }

@@ -8,6 +8,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
@@ -29,117 +30,191 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(SequenceManagementPermissions.Close)]
-        private void Btn_CloseSequenceApplications_Click(object sender, EventArgs e)
+        private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.CloseSequenceApplications();
         }
 
         [RequirePermission(CameraManagementPermissions.CloseFullScreen)]
-        private void Btn_CloseFullScreenCamera_Click(object sender, EventArgs e)
+        private void BtnCloseFullScreenCamera_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.CloseFullScreenCameraApplication();
         }
 
         [RequirePermission(DisplayManagementPermissions.Select)]
-        private void Btn_Identify_Click(object sender, EventArgs e)
+        private void BtnIdentify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-        }
-
-        [RequirePermission(CameraManagementPermissions.ZoomIn)]
-        private void Btn_ZoomIn_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
-        }
-
-        [RequirePermission(CameraManagementPermissions.ZoomOut)]
-        private void Btn_ZoomOut_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
+            controlCenterPresenter.IdentifyDisplays();
         }
 
         [RequirePermission(JoystickManagementPermissions.Calibrate)]
-        private void Btn_Calibrate_Click(object sender, EventArgs e)
+        private void BtnCalibrate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.CalibrateJoystick();
+        }
+
+        [RequirePermission(GridManagementPermissions.Navigate)]
+        private void BtnShowPreviousGrid_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.ShowPreviousGrid();
+        }
+
+        [RequirePermission(GridManagementPermissions.Navigate)]
+        private void BtnPlayOrPauseSequence_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.PlayOrPauseSequence();
+        }
+
+        [RequirePermission(GridManagementPermissions.Navigate)]
+        private void BtnShowNextGrid_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.ShowNextGrid();
+        }
+
+        [RequirePermission(GridManagementPermissions.Rearrange)]
+        private void BtnRearrangeGrid_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.RearrangeGrids();
+        }
+
+        [RequirePermission(CameraManagementPermissions.ZoomIn)]
+        private void BtnZoomIn_MouseDown(object sender, MouseEventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.ZoomIn();
+        }
+
+        private void BtnZoomIn_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopZoom();
+        }
+
+        [RequirePermission(CameraManagementPermissions.ZoomOut)]
+        private void BtnZoomOut_MouseDown(object sender, MouseEventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            controlCenterPresenter.ZoomOut();
+        }
+
+        private void BtnZoomOut_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopZoom();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
-        private void Btn_MoveCameraNorthWest_Click(object sender, EventArgs e)
+        private void BtnMoveCameraNorthWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToNorthWest();
+        }
+
+        private void BtnMoveCameraNorthWest_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Tilt)]
-        private void Btn_MoveCameraNorth_Click(object sender, EventArgs e)
+        private void BtnMoveCameraNorth_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToNorth();
+        }
+
+        private void BtnMoveCameraNorth_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
-        private void Btn_MoveCameraNorthEast_Click(object sender, EventArgs e)
+        private void BtnMoveCameraNorthEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToNorthEast();
+        }
+
+        private void BtnMoveCameraNorthEast_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Pan)]
-        private void Btn_MoveCameraWest_Click(object sender, EventArgs e)
+        private void BtnMoveCameraWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToWest();
+        }
+
+        private void BtnMoveCameraWest_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Preset)]
-        private void Btn_MoveCameraToPresetZero_Click(object sender, EventArgs e)
+        private void BtnMoveCameraToPresetZero_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToPresetZero();
         }
 
         [RequirePermission(CameraManagementPermissions.Pan)]
-        private void Btn_MoveCameraEast_Click(object sender, EventArgs e)
+        private void BtnMoveCameraEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToEast();
+        }
+
+        private void BtnMoveCameraEast_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
-        private void Btn_MoveCameraSouthWest_Click(object sender, EventArgs e)
+        private void BtnMoveCameraSouthWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToSouthWest();
+        }
+
+        private void BtnMoveCameraSouthWest_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Tilt)]
-        private void Btn_MoveCameraSouth_Click(object sender, EventArgs e)
+        private void BtnMoveCameraSouth_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToSouth();
+        }
+
+        private void BtnMoveCameraSouth_MouseUp(object sender, MouseEventArgs e)
+        {
+            controlCenterPresenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
-        private void Btn_MoveCameraSouthEast_Click(object sender, EventArgs e)
+        private void BtnMoveCameraSouthEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
+            controlCenterPresenter.MoveToSouthEast();
         }
 
-        [RequirePermission(GridManagementPermissions.Navigate)]
-        private void Btn_ShowPreviousGrid_Click(object sender, EventArgs e)
+        private void BtnMoveCameraSouthEast_MouseUp(object sender, MouseEventArgs e)
         {
-            permissionManager.EnsurePermissions();
+            controlCenterPresenter.StopMoving();
         }
 
-        [RequirePermission(GridManagementPermissions.Navigate)]
-        private void Btn_PlayOrPauseSequence_Click(object sender, EventArgs e)
+        private void ControlCenter_Shown(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
-        }
-
-        [RequirePermission(GridManagementPermissions.Navigate)]
-        private void Btn_ShowNextGrid_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
-        }
-
-        [RequirePermission(GridManagementPermissions.Navigate)]
-        private void Btn_RearrangeGrid_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
+            controlCenterPresenter.Load();
         }
     }
 }

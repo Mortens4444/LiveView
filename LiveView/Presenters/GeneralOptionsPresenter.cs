@@ -21,17 +21,27 @@ namespace LiveView.Presenters
             this.logger = logger;
         }
 
-        internal void LoadDefaultSettings()
+        public void LoadDefaultSettings()
         {
             throw new NotImplementedException();
         }
 
-        internal void LoadSettings()
+        public override void Load()
         {
             throw new NotImplementedException();
         }
 
-        internal void LoadStandardSettings()
+        public void LoadStandardSettings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SelectNoSignalImage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveSettings()
         {
             throw new NotImplementedException();
         }

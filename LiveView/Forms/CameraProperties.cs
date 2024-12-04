@@ -29,14 +29,20 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.Update)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            cameraPropertiesPresenter.Save();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             cameraPropertiesPresenter.CloseForm();
+        }
+
+        private void CameraProperties_Load(object sender, EventArgs e)
+        {
+            cameraPropertiesPresenter.Load();
         }
     }
 }

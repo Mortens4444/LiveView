@@ -47,6 +47,16 @@ namespace LiveView.Presenters
             return view.ShowDialog(form);
         }
 
+        public void ShowDialogWithReload<TFormType>(params object[] parameters)
+            where TFormType : Form
+        {
+            var form = formFactory.CreateForm<TFormType>(parameters);
+            if (view.ShowDialog(form))
+            {
+                Load();
+            }
+        }
+
         public void CloseForm()
         {
             view.Close();
@@ -71,6 +81,10 @@ namespace LiveView.Presenters
         public void ShowError(Exception exception)
         {
             view.ShowError(exception);
+        }
+
+        public virtual void Load()
+        {
         }
     }
 }

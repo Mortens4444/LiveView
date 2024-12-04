@@ -29,14 +29,27 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(UserManagementPermissions.Update)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            profilePresenter.Save();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             profilePresenter.CloseForm();
+        }
+
+        [RequirePermission(UserManagementPermissions.Update)]
+        private void BtnSelectPicture_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            profilePresenter.SelectProfilePicture();
+        }
+
+        private void Profile_Shown(object sender, EventArgs e)
+        {
+            profilePresenter.Load();
         }
     }
 }

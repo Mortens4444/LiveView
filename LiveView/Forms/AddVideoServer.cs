@@ -32,19 +32,19 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        private void Btn_Validate_Click(object sender, EventArgs e)
+        private void BtnValidate_Click(object sender, EventArgs e)
         {
-
+            addVideoServerPresenter.Validate();
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
-        private void Btn_AddOrModify_Click(object sender, EventArgs e)
+        private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addVideoServerPresenter.AddOrModify(server);
         }
 
-        private void Btn_Cancel_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             addVideoServerPresenter.CloseForm();
         }
@@ -57,11 +57,11 @@ namespace LiveView.Forms
             await addVideoServerPresenter.SearchForHostsAsync();
         }
 
-        private void Cb_DNSNameOrIPAddress_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbIpAddress_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var hostDiscoveryResult = (HostDiscoveryResult)cb_DNSNameOrIPAddress.SelectedItem;
-            tb_DisplayedName.Text = hostDiscoveryResult.Hostname;
-            tb_MACAddress.Text = hostDiscoveryResult.MacAddress;
+            var hostDiscoveryResult = (HostDiscoveryResult)cbIpAddress.SelectedItem;
+            tbDisplayedName.Text = hostDiscoveryResult.Hostname;
+            tbMacAddress.Text = hostDiscoveryResult.MacAddress;
             tbManufacturer.Text = hostDiscoveryResult.Manufacturer;
         }
 
@@ -69,14 +69,14 @@ namespace LiveView.Forms
         {
             return new ServerDto
             {
-                IpAddress = cb_DNSNameOrIPAddress.Text,
-                Hostname = tb_DisplayedName.Text,
-                MacAddress = tb_MACAddress.Text,
-                SerialNumber = tb_SziltechSN.Text,
+                IpAddress = cbIpAddress.Text,
+                Hostname = tbDisplayedName.Text,
+                MacAddress = tbMacAddress.Text,
+                SerialNumber = tbSziltechSerialNumber.Text,
                 VideoServerCredentials = new Credentials
                 {
-                    UserName = tb_Username.Text,
-                    Password = tb_Password.Password
+                    UserName = tbUsername.Text,
+                    Password = tbPassword.Password
                 }
             };
         }
@@ -85,7 +85,7 @@ namespace LiveView.Forms
         {
             Invoke((Action)(() =>
             {
-                cb_DNSNameOrIPAddress.Items.Add(result);
+                cbIpAddress.Items.Add(result);
             }));
         }
 
@@ -96,14 +96,14 @@ namespace LiveView.Forms
                 return;
             }
 
-            cb_DNSNameOrIPAddress.Text = server.IpAddress;
-            tb_DisplayedName.Text = server.Hostname;
-            tb_MACAddress.Text = server.MacAddress;
-            tb_SziltechSN.Text = server.SerialNumber;
-            tb_Username.Text = server.Username;
-            tb_Password.Text = server.Password;
+            cbIpAddress.Text = server.IpAddress;
+            tbDisplayedName.Text = server.Hostname;
+            tbMacAddress.Text = server.MacAddress;
+            tbSziltechSerialNumber.Text = server.SerialNumber;
+            tbUsername.Text = server.Username;
+            tbPassword.Text = server.Password;
 
-            btn_AddOrModify.Text = Lng.Elem("Modify");
+            btnAddOrModify.Text = Lng.Elem("Modify");
         }
     }
 }

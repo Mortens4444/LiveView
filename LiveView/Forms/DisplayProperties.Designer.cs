@@ -29,349 +29,350 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayProperties));
-            p_Main = new System.Windows.Forms.Panel();
-            gb_main = new System.Windows.Forms.GroupBox();
-            lbl_DefaultFullScreenDevice = new System.Windows.Forms.Label();
-            lbl_AttachedToDesktop = new System.Windows.Forms.Label();
-            lbl_Removable = new System.Windows.Forms.Label();
-            lbl_ShowSequences = new System.Windows.Forms.Label();
-            chk_DefaultFullScreenDevice = new System.Windows.Forms.CheckBox();
-            chk_AttachedToDesktop = new System.Windows.Forms.CheckBox();
-            chk_Removable = new System.Windows.Forms.CheckBox();
-            chk_ShowSequences = new System.Windows.Forms.CheckBox();
-            tb_WorkPlaceArea = new System.Windows.Forms.TextBox();
-            lbl_WorkPlaceArea = new System.Windows.Forms.Label();
-            tb_TopLeftCoordinate = new System.Windows.Forms.TextBox();
-            lbl_TopLeftCoordinate = new System.Windows.Forms.Label();
-            tb_Resolution = new System.Windows.Forms.TextBox();
-            lbl_Resolution = new System.Windows.Forms.Label();
-            tb_DisplayDeviceIdentifier = new System.Windows.Forms.TextBox();
-            lbl_DisplayDeviceIdentifier = new System.Windows.Forms.Label();
-            tb_AdapterName = new System.Windows.Forms.TextBox();
-            lbl_AdapterName = new System.Windows.Forms.Label();
-            tb_MonitorName = new System.Windows.Forms.TextBox();
-            lbl_MonitorName = new System.Windows.Forms.Label();
-            tb_DisplayDeviceSziltechID = new System.Windows.Forms.TextBox();
-            lbl_DisplayDeviceSziltechID = new System.Windows.Forms.Label();
-            p_Main.SuspendLayout();
-            gb_main.SuspendLayout();
+            pMain = new System.Windows.Forms.Panel();
+            gbMain = new System.Windows.Forms.GroupBox();
+            lblDefaultFullScreenDevice = new System.Windows.Forms.Label();
+            lblAttachedToDesktop = new System.Windows.Forms.Label();
+            lblRemovable = new System.Windows.Forms.Label();
+            lblShowSequences = new System.Windows.Forms.Label();
+            chkDefaultFullScreenDevice = new System.Windows.Forms.CheckBox();
+            chkAttachedToDesktop = new System.Windows.Forms.CheckBox();
+            chkRemovable = new System.Windows.Forms.CheckBox();
+            chkShowSequences = new System.Windows.Forms.CheckBox();
+            tbWorkPlaceArea = new System.Windows.Forms.TextBox();
+            lblWorkPlaceArea = new System.Windows.Forms.Label();
+            tbTopLeftCoordinate = new System.Windows.Forms.TextBox();
+            lblTopLeftCoordinate = new System.Windows.Forms.Label();
+            tbResolution = new System.Windows.Forms.TextBox();
+            lblResolution = new System.Windows.Forms.Label();
+            tbDisplayDeviceIdentifier = new System.Windows.Forms.TextBox();
+            lblDisplayDeviceIdentifier = new System.Windows.Forms.Label();
+            tbAdapterName = new System.Windows.Forms.TextBox();
+            lblAdapterName = new System.Windows.Forms.Label();
+            tbDisplayName = new System.Windows.Forms.TextBox();
+            lblDisplayName = new System.Windows.Forms.Label();
+            tbDisplayDeviceSziltechID = new System.Windows.Forms.TextBox();
+            lblDisplayDeviceSziltechId = new System.Windows.Forms.Label();
+            pMain.SuspendLayout();
+            gbMain.SuspendLayout();
             SuspendLayout();
             // 
-            // p_Main
+            // pMain
             // 
-            p_Main.Controls.Add(gb_main);
-            p_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Main.Location = new System.Drawing.Point(0, 0);
-            p_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Main.Name = "p_Main";
-            p_Main.Size = new System.Drawing.Size(497, 278);
-            p_Main.TabIndex = 1;
+            pMain.Controls.Add(gbMain);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(497, 278);
+            pMain.TabIndex = 1;
             // 
-            // gb_main
+            // gbMain
             // 
-            gb_main.Controls.Add(lbl_DefaultFullScreenDevice);
-            gb_main.Controls.Add(lbl_AttachedToDesktop);
-            gb_main.Controls.Add(lbl_Removable);
-            gb_main.Controls.Add(lbl_ShowSequences);
-            gb_main.Controls.Add(chk_DefaultFullScreenDevice);
-            gb_main.Controls.Add(chk_AttachedToDesktop);
-            gb_main.Controls.Add(chk_Removable);
-            gb_main.Controls.Add(chk_ShowSequences);
-            gb_main.Controls.Add(tb_WorkPlaceArea);
-            gb_main.Controls.Add(lbl_WorkPlaceArea);
-            gb_main.Controls.Add(tb_TopLeftCoordinate);
-            gb_main.Controls.Add(lbl_TopLeftCoordinate);
-            gb_main.Controls.Add(tb_Resolution);
-            gb_main.Controls.Add(lbl_Resolution);
-            gb_main.Controls.Add(tb_DisplayDeviceIdentifier);
-            gb_main.Controls.Add(lbl_DisplayDeviceIdentifier);
-            gb_main.Controls.Add(tb_AdapterName);
-            gb_main.Controls.Add(lbl_AdapterName);
-            gb_main.Controls.Add(tb_MonitorName);
-            gb_main.Controls.Add(lbl_MonitorName);
-            gb_main.Controls.Add(tb_DisplayDeviceSziltechID);
-            gb_main.Controls.Add(lbl_DisplayDeviceSziltechID);
-            gb_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_main.Location = new System.Drawing.Point(0, 0);
-            gb_main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_main.Name = "gb_main";
-            gb_main.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_main.Size = new System.Drawing.Size(497, 278);
-            gb_main.TabIndex = 0;
-            gb_main.TabStop = false;
+            gbMain.Controls.Add(lblDefaultFullScreenDevice);
+            gbMain.Controls.Add(lblAttachedToDesktop);
+            gbMain.Controls.Add(lblRemovable);
+            gbMain.Controls.Add(lblShowSequences);
+            gbMain.Controls.Add(chkDefaultFullScreenDevice);
+            gbMain.Controls.Add(chkAttachedToDesktop);
+            gbMain.Controls.Add(chkRemovable);
+            gbMain.Controls.Add(chkShowSequences);
+            gbMain.Controls.Add(tbWorkPlaceArea);
+            gbMain.Controls.Add(lblWorkPlaceArea);
+            gbMain.Controls.Add(tbTopLeftCoordinate);
+            gbMain.Controls.Add(lblTopLeftCoordinate);
+            gbMain.Controls.Add(tbResolution);
+            gbMain.Controls.Add(lblResolution);
+            gbMain.Controls.Add(tbDisplayDeviceIdentifier);
+            gbMain.Controls.Add(lblDisplayDeviceIdentifier);
+            gbMain.Controls.Add(tbAdapterName);
+            gbMain.Controls.Add(lblAdapterName);
+            gbMain.Controls.Add(tbDisplayName);
+            gbMain.Controls.Add(lblDisplayName);
+            gbMain.Controls.Add(tbDisplayDeviceSziltechID);
+            gbMain.Controls.Add(lblDisplayDeviceSziltechId);
+            gbMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbMain.Location = new System.Drawing.Point(0, 0);
+            gbMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Name = "gbMain";
+            gbMain.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Size = new System.Drawing.Size(497, 278);
+            gbMain.TabIndex = 0;
+            gbMain.TabStop = false;
             // 
-            // lbl_DefaultFullScreenDevice
+            // lblDefaultFullScreenDevice
             // 
-            lbl_DefaultFullScreenDevice.AutoSize = true;
-            lbl_DefaultFullScreenDevice.Location = new System.Drawing.Point(240, 253);
-            lbl_DefaultFullScreenDevice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_DefaultFullScreenDevice.Name = "lbl_DefaultFullScreenDevice";
-            lbl_DefaultFullScreenDevice.Size = new System.Drawing.Size(148, 15);
-            lbl_DefaultFullScreenDevice.TabIndex = 23;
-            lbl_DefaultFullScreenDevice.Text = "Default full screen monitor";
+            lblDefaultFullScreenDevice.AutoSize = true;
+            lblDefaultFullScreenDevice.Location = new System.Drawing.Point(240, 253);
+            lblDefaultFullScreenDevice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDefaultFullScreenDevice.Name = "lblDefaultFullScreenDevice";
+            lblDefaultFullScreenDevice.Size = new System.Drawing.Size(148, 15);
+            lblDefaultFullScreenDevice.TabIndex = 23;
+            lblDefaultFullScreenDevice.Text = "Default full screen monitor";
             // 
-            // lbl_AttachedToDesktop
+            // lblAttachedToDesktop
             // 
-            lbl_AttachedToDesktop.AutoSize = true;
-            lbl_AttachedToDesktop.Location = new System.Drawing.Point(240, 225);
-            lbl_AttachedToDesktop.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_AttachedToDesktop.Name = "lbl_AttachedToDesktop";
-            lbl_AttachedToDesktop.Size = new System.Drawing.Size(114, 15);
-            lbl_AttachedToDesktop.TabIndex = 22;
-            lbl_AttachedToDesktop.Text = "Attached to desktop";
+            lblAttachedToDesktop.AutoSize = true;
+            lblAttachedToDesktop.Location = new System.Drawing.Point(240, 225);
+            lblAttachedToDesktop.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAttachedToDesktop.Name = "lblAttachedToDesktop";
+            lblAttachedToDesktop.Size = new System.Drawing.Size(114, 15);
+            lblAttachedToDesktop.TabIndex = 22;
+            lblAttachedToDesktop.Text = "Attached to desktop";
             // 
-            // lbl_Removable
+            // lblRemovable
             // 
-            lbl_Removable.AutoSize = true;
-            lbl_Removable.Location = new System.Drawing.Point(35, 253);
-            lbl_Removable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_Removable.Name = "lbl_Removable";
-            lbl_Removable.Size = new System.Drawing.Size(66, 15);
-            lbl_Removable.TabIndex = 21;
-            lbl_Removable.Text = "Removable";
+            lblRemovable.AutoSize = true;
+            lblRemovable.Location = new System.Drawing.Point(35, 253);
+            lblRemovable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRemovable.Name = "lblRemovable";
+            lblRemovable.Size = new System.Drawing.Size(66, 15);
+            lblRemovable.TabIndex = 21;
+            lblRemovable.Text = "Removable";
             // 
-            // lbl_ShowSequences
+            // lblShowSequences
             // 
-            lbl_ShowSequences.AutoSize = true;
-            lbl_ShowSequences.Location = new System.Drawing.Point(35, 225);
-            lbl_ShowSequences.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_ShowSequences.Name = "lbl_ShowSequences";
-            lbl_ShowSequences.Size = new System.Drawing.Size(94, 15);
-            lbl_ShowSequences.TabIndex = 20;
-            lbl_ShowSequences.Text = "Show sequences";
+            lblShowSequences.AutoSize = true;
+            lblShowSequences.Location = new System.Drawing.Point(35, 225);
+            lblShowSequences.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblShowSequences.Name = "lblShowSequences";
+            lblShowSequences.Size = new System.Drawing.Size(94, 15);
+            lblShowSequences.TabIndex = 20;
+            lblShowSequences.Text = "Show sequences";
             // 
-            // chk_DefaultFullScreenDevice
+            // chkDefaultFullScreenDevice
             // 
-            chk_DefaultFullScreenDevice.AutoCheck = false;
-            chk_DefaultFullScreenDevice.AutoSize = true;
-            chk_DefaultFullScreenDevice.Enabled = false;
-            chk_DefaultFullScreenDevice.Location = new System.Drawing.Point(216, 253);
-            chk_DefaultFullScreenDevice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chk_DefaultFullScreenDevice.Name = "chk_DefaultFullScreenDevice";
-            chk_DefaultFullScreenDevice.Size = new System.Drawing.Size(15, 14);
-            chk_DefaultFullScreenDevice.TabIndex = 19;
-            chk_DefaultFullScreenDevice.UseVisualStyleBackColor = true;
+            chkDefaultFullScreenDevice.AutoCheck = false;
+            chkDefaultFullScreenDevice.AutoSize = true;
+            chkDefaultFullScreenDevice.Enabled = false;
+            chkDefaultFullScreenDevice.Location = new System.Drawing.Point(216, 253);
+            chkDefaultFullScreenDevice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkDefaultFullScreenDevice.Name = "chkDefaultFullScreenDevice";
+            chkDefaultFullScreenDevice.Size = new System.Drawing.Size(15, 14);
+            chkDefaultFullScreenDevice.TabIndex = 19;
+            chkDefaultFullScreenDevice.UseVisualStyleBackColor = true;
             // 
-            // chk_AttachedToDesktop
+            // chkAttachedToDesktop
             // 
-            chk_AttachedToDesktop.AutoCheck = false;
-            chk_AttachedToDesktop.AutoSize = true;
-            chk_AttachedToDesktop.Enabled = false;
-            chk_AttachedToDesktop.Location = new System.Drawing.Point(216, 225);
-            chk_AttachedToDesktop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chk_AttachedToDesktop.Name = "chk_AttachedToDesktop";
-            chk_AttachedToDesktop.Size = new System.Drawing.Size(15, 14);
-            chk_AttachedToDesktop.TabIndex = 18;
-            chk_AttachedToDesktop.UseVisualStyleBackColor = true;
+            chkAttachedToDesktop.AutoCheck = false;
+            chkAttachedToDesktop.AutoSize = true;
+            chkAttachedToDesktop.Enabled = false;
+            chkAttachedToDesktop.Location = new System.Drawing.Point(216, 225);
+            chkAttachedToDesktop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkAttachedToDesktop.Name = "chkAttachedToDesktop";
+            chkAttachedToDesktop.Size = new System.Drawing.Size(15, 14);
+            chkAttachedToDesktop.TabIndex = 18;
+            chkAttachedToDesktop.UseVisualStyleBackColor = true;
             // 
-            // chk_Removable
+            // chkRemovable
             // 
-            chk_Removable.AutoCheck = false;
-            chk_Removable.AutoSize = true;
-            chk_Removable.Enabled = false;
-            chk_Removable.Location = new System.Drawing.Point(10, 253);
-            chk_Removable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chk_Removable.Name = "chk_Removable";
-            chk_Removable.Size = new System.Drawing.Size(15, 14);
-            chk_Removable.TabIndex = 17;
-            chk_Removable.UseVisualStyleBackColor = true;
+            chkRemovable.AutoCheck = false;
+            chkRemovable.AutoSize = true;
+            chkRemovable.Enabled = false;
+            chkRemovable.Location = new System.Drawing.Point(10, 253);
+            chkRemovable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkRemovable.Name = "chkRemovable";
+            chkRemovable.Size = new System.Drawing.Size(15, 14);
+            chkRemovable.TabIndex = 17;
+            chkRemovable.UseVisualStyleBackColor = true;
             // 
-            // chk_ShowSequences
+            // chkShowSequences
             // 
-            chk_ShowSequences.AutoCheck = false;
-            chk_ShowSequences.AutoSize = true;
-            chk_ShowSequences.BackColor = System.Drawing.SystemColors.Control;
-            chk_ShowSequences.Enabled = false;
-            chk_ShowSequences.Location = new System.Drawing.Point(10, 225);
-            chk_ShowSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chk_ShowSequences.Name = "chk_ShowSequences";
-            chk_ShowSequences.Size = new System.Drawing.Size(15, 14);
-            chk_ShowSequences.TabIndex = 16;
-            chk_ShowSequences.UseVisualStyleBackColor = false;
+            chkShowSequences.AutoCheck = false;
+            chkShowSequences.AutoSize = true;
+            chkShowSequences.BackColor = System.Drawing.SystemColors.Control;
+            chkShowSequences.Enabled = false;
+            chkShowSequences.Location = new System.Drawing.Point(10, 225);
+            chkShowSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkShowSequences.Name = "chkShowSequences";
+            chkShowSequences.Size = new System.Drawing.Size(15, 14);
+            chkShowSequences.TabIndex = 16;
+            chkShowSequences.UseVisualStyleBackColor = false;
             // 
-            // tb_WorkPlaceArea
+            // tbWorkPlaceArea
             // 
-            tb_WorkPlaceArea.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_WorkPlaceArea.Location = new System.Drawing.Point(216, 195);
-            tb_WorkPlaceArea.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_WorkPlaceArea.Name = "tb_WorkPlaceArea";
-            tb_WorkPlaceArea.ReadOnly = true;
-            tb_WorkPlaceArea.Size = new System.Drawing.Size(274, 23);
-            tb_WorkPlaceArea.TabIndex = 15;
+            tbWorkPlaceArea.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbWorkPlaceArea.Location = new System.Drawing.Point(216, 195);
+            tbWorkPlaceArea.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWorkPlaceArea.Name = "tbWorkPlaceArea";
+            tbWorkPlaceArea.ReadOnly = true;
+            tbWorkPlaceArea.Size = new System.Drawing.Size(274, 23);
+            tbWorkPlaceArea.TabIndex = 15;
             // 
-            // lbl_WorkPlaceArea
+            // lblWorkPlaceArea
             // 
-            lbl_WorkPlaceArea.AutoSize = true;
-            lbl_WorkPlaceArea.Location = new System.Drawing.Point(7, 198);
-            lbl_WorkPlaceArea.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_WorkPlaceArea.Name = "lbl_WorkPlaceArea";
-            lbl_WorkPlaceArea.Size = new System.Drawing.Size(90, 15);
-            lbl_WorkPlaceArea.TabIndex = 14;
-            lbl_WorkPlaceArea.Text = "Workspace area";
+            lblWorkPlaceArea.AutoSize = true;
+            lblWorkPlaceArea.Location = new System.Drawing.Point(7, 198);
+            lblWorkPlaceArea.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWorkPlaceArea.Name = "lblWorkPlaceArea";
+            lblWorkPlaceArea.Size = new System.Drawing.Size(90, 15);
+            lblWorkPlaceArea.TabIndex = 14;
+            lblWorkPlaceArea.Text = "Workspace area";
             // 
-            // tb_TopLeftCoordinate
+            // tbTopLeftCoordinate
             // 
-            tb_TopLeftCoordinate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_TopLeftCoordinate.Location = new System.Drawing.Point(216, 135);
-            tb_TopLeftCoordinate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_TopLeftCoordinate.Name = "tb_TopLeftCoordinate";
-            tb_TopLeftCoordinate.ReadOnly = true;
-            tb_TopLeftCoordinate.Size = new System.Drawing.Size(274, 23);
-            tb_TopLeftCoordinate.TabIndex = 11;
+            tbTopLeftCoordinate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbTopLeftCoordinate.Location = new System.Drawing.Point(216, 135);
+            tbTopLeftCoordinate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbTopLeftCoordinate.Name = "tbTopLeftCoordinate";
+            tbTopLeftCoordinate.ReadOnly = true;
+            tbTopLeftCoordinate.Size = new System.Drawing.Size(274, 23);
+            tbTopLeftCoordinate.TabIndex = 11;
             // 
-            // lbl_TopLeftCoordinate
+            // lblTopLeftCoordinate
             // 
-            lbl_TopLeftCoordinate.AutoSize = true;
-            lbl_TopLeftCoordinate.Location = new System.Drawing.Point(7, 138);
-            lbl_TopLeftCoordinate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_TopLeftCoordinate.Name = "lbl_TopLeftCoordinate";
-            lbl_TopLeftCoordinate.Size = new System.Drawing.Size(109, 15);
-            lbl_TopLeftCoordinate.TabIndex = 10;
-            lbl_TopLeftCoordinate.Text = "Top-left coordinate";
+            lblTopLeftCoordinate.AutoSize = true;
+            lblTopLeftCoordinate.Location = new System.Drawing.Point(7, 138);
+            lblTopLeftCoordinate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTopLeftCoordinate.Name = "lblTopLeftCoordinate";
+            lblTopLeftCoordinate.Size = new System.Drawing.Size(109, 15);
+            lblTopLeftCoordinate.TabIndex = 10;
+            lblTopLeftCoordinate.Text = "Top-left coordinate";
             // 
-            // tb_Resolution
+            // tbResolution
             // 
-            tb_Resolution.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_Resolution.Location = new System.Drawing.Point(216, 165);
-            tb_Resolution.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_Resolution.Name = "tb_Resolution";
-            tb_Resolution.ReadOnly = true;
-            tb_Resolution.Size = new System.Drawing.Size(274, 23);
-            tb_Resolution.TabIndex = 9;
+            tbResolution.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbResolution.Location = new System.Drawing.Point(216, 165);
+            tbResolution.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbResolution.Name = "tbResolution";
+            tbResolution.ReadOnly = true;
+            tbResolution.Size = new System.Drawing.Size(274, 23);
+            tbResolution.TabIndex = 9;
             // 
-            // lbl_Resolution
+            // lblResolution
             // 
-            lbl_Resolution.AutoSize = true;
-            lbl_Resolution.Location = new System.Drawing.Point(7, 168);
-            lbl_Resolution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_Resolution.Name = "lbl_Resolution";
-            lbl_Resolution.Size = new System.Drawing.Size(63, 15);
-            lbl_Resolution.TabIndex = 8;
-            lbl_Resolution.Text = "Resolution";
+            lblResolution.AutoSize = true;
+            lblResolution.Location = new System.Drawing.Point(7, 168);
+            lblResolution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblResolution.Name = "lblResolution";
+            lblResolution.Size = new System.Drawing.Size(63, 15);
+            lblResolution.TabIndex = 8;
+            lblResolution.Text = "Resolution";
             // 
-            // tb_DisplayDeviceIdentifier
+            // tbDisplayDeviceIdentifier
             // 
-            tb_DisplayDeviceIdentifier.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_DisplayDeviceIdentifier.Location = new System.Drawing.Point(216, 45);
-            tb_DisplayDeviceIdentifier.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_DisplayDeviceIdentifier.Name = "tb_DisplayDeviceIdentifier";
-            tb_DisplayDeviceIdentifier.ReadOnly = true;
-            tb_DisplayDeviceIdentifier.Size = new System.Drawing.Size(274, 23);
-            tb_DisplayDeviceIdentifier.TabIndex = 7;
+            tbDisplayDeviceIdentifier.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDisplayDeviceIdentifier.Location = new System.Drawing.Point(216, 45);
+            tbDisplayDeviceIdentifier.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDisplayDeviceIdentifier.Name = "tbDisplayDeviceIdentifier";
+            tbDisplayDeviceIdentifier.ReadOnly = true;
+            tbDisplayDeviceIdentifier.Size = new System.Drawing.Size(274, 23);
+            tbDisplayDeviceIdentifier.TabIndex = 7;
             // 
-            // lbl_DisplayDeviceIdentifier
+            // lblDisplayDeviceIdentifier
             // 
-            lbl_DisplayDeviceIdentifier.AutoSize = true;
-            lbl_DisplayDeviceIdentifier.Location = new System.Drawing.Point(7, 48);
-            lbl_DisplayDeviceIdentifier.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_DisplayDeviceIdentifier.Name = "lbl_DisplayDeviceIdentifier";
-            lbl_DisplayDeviceIdentifier.Size = new System.Drawing.Size(132, 15);
-            lbl_DisplayDeviceIdentifier.TabIndex = 6;
-            lbl_DisplayDeviceIdentifier.Text = "Display device identifier";
+            lblDisplayDeviceIdentifier.AutoSize = true;
+            lblDisplayDeviceIdentifier.Location = new System.Drawing.Point(7, 48);
+            lblDisplayDeviceIdentifier.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDisplayDeviceIdentifier.Name = "lblDisplayDeviceIdentifier";
+            lblDisplayDeviceIdentifier.Size = new System.Drawing.Size(132, 15);
+            lblDisplayDeviceIdentifier.TabIndex = 6;
+            lblDisplayDeviceIdentifier.Text = "Display device identifier";
             // 
-            // tb_AdapterName
+            // tbAdapterName
             // 
-            tb_AdapterName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_AdapterName.Location = new System.Drawing.Point(216, 105);
-            tb_AdapterName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_AdapterName.Name = "tb_AdapterName";
-            tb_AdapterName.ReadOnly = true;
-            tb_AdapterName.Size = new System.Drawing.Size(274, 23);
-            tb_AdapterName.TabIndex = 5;
+            tbAdapterName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbAdapterName.Location = new System.Drawing.Point(216, 105);
+            tbAdapterName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbAdapterName.Name = "tbAdapterName";
+            tbAdapterName.ReadOnly = true;
+            tbAdapterName.Size = new System.Drawing.Size(274, 23);
+            tbAdapterName.TabIndex = 5;
             // 
-            // lbl_AdapterName
+            // lblAdapterName
             // 
-            lbl_AdapterName.AutoSize = true;
-            lbl_AdapterName.Location = new System.Drawing.Point(7, 108);
-            lbl_AdapterName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_AdapterName.Name = "lbl_AdapterName";
-            lbl_AdapterName.Size = new System.Drawing.Size(82, 15);
-            lbl_AdapterName.TabIndex = 4;
-            lbl_AdapterName.Text = "Adapter name";
+            lblAdapterName.AutoSize = true;
+            lblAdapterName.Location = new System.Drawing.Point(7, 108);
+            lblAdapterName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAdapterName.Name = "lblAdapterName";
+            lblAdapterName.Size = new System.Drawing.Size(82, 15);
+            lblAdapterName.TabIndex = 4;
+            lblAdapterName.Text = "Adapter name";
             // 
-            // tb_MonitorName
+            // tbDisplayName
             // 
-            tb_MonitorName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_MonitorName.Location = new System.Drawing.Point(216, 75);
-            tb_MonitorName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_MonitorName.Name = "tb_MonitorName";
-            tb_MonitorName.ReadOnly = true;
-            tb_MonitorName.Size = new System.Drawing.Size(274, 23);
-            tb_MonitorName.TabIndex = 3;
+            tbDisplayName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDisplayName.Location = new System.Drawing.Point(216, 75);
+            tbDisplayName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDisplayName.Name = "tbDisplayName";
+            tbDisplayName.ReadOnly = true;
+            tbDisplayName.Size = new System.Drawing.Size(274, 23);
+            tbDisplayName.TabIndex = 3;
             // 
-            // lbl_MonitorName
+            // lblDisplayName
             // 
-            lbl_MonitorName.AutoSize = true;
-            lbl_MonitorName.Location = new System.Drawing.Point(7, 78);
-            lbl_MonitorName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_MonitorName.Name = "lbl_MonitorName";
-            lbl_MonitorName.Size = new System.Drawing.Size(83, 15);
-            lbl_MonitorName.TabIndex = 2;
-            lbl_MonitorName.Text = "Monitor name";
+            lblDisplayName.AutoSize = true;
+            lblDisplayName.Location = new System.Drawing.Point(7, 78);
+            lblDisplayName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDisplayName.Name = "lblDisplayName";
+            lblDisplayName.Size = new System.Drawing.Size(78, 15);
+            lblDisplayName.TabIndex = 2;
+            lblDisplayName.Text = "Display name";
             // 
-            // tb_DisplayDeviceSziltechID
+            // tbDisplayDeviceSziltechID
             // 
-            tb_DisplayDeviceSziltechID.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_DisplayDeviceSziltechID.Location = new System.Drawing.Point(216, 15);
-            tb_DisplayDeviceSziltechID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_DisplayDeviceSziltechID.MinimumSize = new System.Drawing.Size(274, 20);
-            tb_DisplayDeviceSziltechID.Name = "tb_DisplayDeviceSziltechID";
-            tb_DisplayDeviceSziltechID.ReadOnly = true;
-            tb_DisplayDeviceSziltechID.Size = new System.Drawing.Size(274, 23);
-            tb_DisplayDeviceSziltechID.TabIndex = 1;
+            tbDisplayDeviceSziltechID.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDisplayDeviceSziltechID.Location = new System.Drawing.Point(216, 15);
+            tbDisplayDeviceSziltechID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDisplayDeviceSziltechID.MinimumSize = new System.Drawing.Size(274, 20);
+            tbDisplayDeviceSziltechID.Name = "tbDisplayDeviceSziltechID";
+            tbDisplayDeviceSziltechID.ReadOnly = true;
+            tbDisplayDeviceSziltechID.Size = new System.Drawing.Size(274, 23);
+            tbDisplayDeviceSziltechID.TabIndex = 1;
             // 
-            // lbl_DisplayDeviceSziltechID
+            // lblDisplayDeviceSziltechId
             // 
-            lbl_DisplayDeviceSziltechID.AutoSize = true;
-            lbl_DisplayDeviceSziltechID.Location = new System.Drawing.Point(7, 18);
-            lbl_DisplayDeviceSziltechID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_DisplayDeviceSziltechID.Name = "lbl_DisplayDeviceSziltechID";
-            lbl_DisplayDeviceSziltechID.Size = new System.Drawing.Size(175, 15);
-            lbl_DisplayDeviceSziltechID.TabIndex = 0;
-            lbl_DisplayDeviceSziltechID.Text = "Display device Sziltech identifier";
+            lblDisplayDeviceSziltechId.AutoSize = true;
+            lblDisplayDeviceSziltechId.Location = new System.Drawing.Point(7, 18);
+            lblDisplayDeviceSziltechId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDisplayDeviceSziltechId.Name = "lblDisplayDeviceSziltechId";
+            lblDisplayDeviceSziltechId.Size = new System.Drawing.Size(175, 15);
+            lblDisplayDeviceSziltechId.TabIndex = 0;
+            lblDisplayDeviceSziltechId.Text = "Display device Sziltech identifier";
             // 
             // DisplayProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(497, 278);
-            Controls.Add(p_Main);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "DisplayProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Display properties";
-            p_Main.ResumeLayout(false);
-            gb_main.ResumeLayout(false);
-            gb_main.PerformLayout();
+            Shown += DisplayProperties_Shown;
+            pMain.ResumeLayout(false);
+            gbMain.ResumeLayout(false);
+            gbMain.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel p_Main;
-        private System.Windows.Forms.GroupBox gb_main;
-        private System.Windows.Forms.Label lbl_DefaultFullScreenDevice;
-        private System.Windows.Forms.Label lbl_AttachedToDesktop;
-        private System.Windows.Forms.Label lbl_Removable;
-        private System.Windows.Forms.Label lbl_ShowSequences;
-        private System.Windows.Forms.CheckBox chk_DefaultFullScreenDevice;
-        private System.Windows.Forms.CheckBox chk_AttachedToDesktop;
-        private System.Windows.Forms.CheckBox chk_Removable;
-        private System.Windows.Forms.CheckBox chk_ShowSequences;
-        private System.Windows.Forms.TextBox tb_WorkPlaceArea;
-        private System.Windows.Forms.Label lbl_WorkPlaceArea;
-        private System.Windows.Forms.TextBox tb_TopLeftCoordinate;
-        private System.Windows.Forms.Label lbl_TopLeftCoordinate;
-        private System.Windows.Forms.TextBox tb_Resolution;
-        private System.Windows.Forms.Label lbl_Resolution;
-        private System.Windows.Forms.TextBox tb_DisplayDeviceIdentifier;
-        private System.Windows.Forms.Label lbl_DisplayDeviceIdentifier;
-        private System.Windows.Forms.TextBox tb_AdapterName;
-        private System.Windows.Forms.Label lbl_AdapterName;
-        private System.Windows.Forms.TextBox tb_MonitorName;
-        private System.Windows.Forms.Label lbl_MonitorName;
-        private System.Windows.Forms.TextBox tb_DisplayDeviceSziltechID;
-        private System.Windows.Forms.Label lbl_DisplayDeviceSziltechID;
+        private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.GroupBox gbMain;
+        private System.Windows.Forms.Label lblDefaultFullScreenDevice;
+        private System.Windows.Forms.Label lblAttachedToDesktop;
+        private System.Windows.Forms.Label lblRemovable;
+        private System.Windows.Forms.Label lblShowSequences;
+        private System.Windows.Forms.CheckBox chkDefaultFullScreenDevice;
+        private System.Windows.Forms.CheckBox chkAttachedToDesktop;
+        private System.Windows.Forms.CheckBox chkRemovable;
+        private System.Windows.Forms.CheckBox chkShowSequences;
+        private System.Windows.Forms.TextBox tbWorkPlaceArea;
+        private System.Windows.Forms.Label lblWorkPlaceArea;
+        private System.Windows.Forms.TextBox tbTopLeftCoordinate;
+        private System.Windows.Forms.Label lblTopLeftCoordinate;
+        private System.Windows.Forms.TextBox tbResolution;
+        private System.Windows.Forms.Label lblResolution;
+        private System.Windows.Forms.TextBox tbDisplayDeviceIdentifier;
+        private System.Windows.Forms.Label lblDisplayDeviceIdentifier;
+        private System.Windows.Forms.TextBox tbAdapterName;
+        private System.Windows.Forms.Label lblAdapterName;
+        private System.Windows.Forms.TextBox tbDisplayName;
+        private System.Windows.Forms.Label lblDisplayName;
+        private System.Windows.Forms.TextBox tbDisplayDeviceSziltechID;
+        private System.Windows.Forms.Label lblDisplayDeviceSziltechId;
     }
 }

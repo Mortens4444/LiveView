@@ -30,234 +30,225 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCreateWizard));
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            button5 = new System.Windows.Forms.Button();
-            btn_Add = new System.Windows.Forms.Button();
-            textBox4 = new System.Windows.Forms.TextBox();
-            label5 = new System.Windows.Forms.Label();
-            textBox3 = new System.Windows.Forms.TextBox();
-            label6 = new System.Windows.Forms.Label();
-            textBox2 = new System.Windows.Forms.TextBox();
-            label4 = new System.Windows.Forms.Label();
-            button3 = new System.Windows.Forms.Button();
-            textBox1 = new System.Windows.Forms.TextBox();
-            comboBox3 = new System.Windows.Forms.ComboBox();
-            comboBox2 = new System.Windows.Forms.ComboBox();
-            label1 = new System.Windows.Forms.Label();
-            comboBox1 = new System.Windows.Forms.ComboBox();
-            button6 = new System.Windows.Forms.Button();
-            label2 = new System.Windows.Forms.Label();
-            pictureBox1 = new Mtf.Controls.MtfPictureBox();
-            label3 = new System.Windows.Forms.Label();
+            chLeftHeader = new System.Windows.Forms.ColumnHeader();
+            btnRemoveAll = new System.Windows.Forms.Button();
+            btnAdd = new System.Windows.Forms.Button();
+            tblblSequenceNamePostfix = new System.Windows.Forms.TextBox();
+            lblSequenceNamePostfix = new System.Windows.Forms.Label();
+            tbSequenceNamePrefix = new System.Windows.Forms.TextBox();
+            lblSequenceNamePrefix = new System.Windows.Forms.Label();
+            tbGridNamePostfix = new System.Windows.Forms.TextBox();
+            lblGridNamePostfix = new System.Windows.Forms.Label();
+            btnRemove = new System.Windows.Forms.Button();
+            tbGridNamePrefix = new System.Windows.Forms.TextBox();
+            cbX = new System.Windows.Forms.ComboBox();
+            lblSelectGridLook = new System.Windows.Forms.Label();
+            cbSelectGridLook = new System.Windows.Forms.ComboBox();
+            btnAddAll = new System.Windows.Forms.Button();
+            lblStatus = new System.Windows.Forms.Label();
+            pbCheck = new Mtf.Controls.MtfPictureBox();
+            lblGridNamePrefix = new System.Windows.Forms.Label();
             btnAutoCreate = new System.Windows.Forms.Button();
-            checkBox1 = new System.Windows.Forms.CheckBox();
-            imageList2 = new System.Windows.Forms.ImageList(components);
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            listView2 = new Mtf.Controls.MtfListView();
-            imageList1 = new System.Windows.Forms.ImageList(components);
-            panel5 = new System.Windows.Forms.Panel();
-            listView1 = new Mtf.Controls.MtfListView();
-            btnCancel = new System.Windows.Forms.Button();
-            panel4 = new System.Windows.Forms.Panel();
-            panel2 = new System.Windows.Forms.Panel();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel5.SuspendLayout();
-            panel4.SuspendLayout();
-            panel2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            chkCreateSequences = new System.Windows.Forms.CheckBox();
+            chRightHeader = new System.Windows.Forms.ColumnHeader();
+            lvRightSide = new Mtf.Controls.MtfListView();
+            ilImages = new System.Windows.Forms.ImageList(components);
+            pLists = new System.Windows.Forms.Panel();
+            lvLeftSide = new Mtf.Controls.MtfListView();
+            btnClose = new System.Windows.Forms.Button();
+            pFooter = new System.Windows.Forms.Panel();
+            pControl = new System.Windows.Forms.Panel();
+            gbMain = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)pbCheck).BeginInit();
+            pLists.SuspendLayout();
+            pFooter.SuspendLayout();
+            pControl.SuspendLayout();
+            gbMain.SuspendLayout();
             SuspendLayout();
             // 
-            // columnHeader1
+            // chLeftHeader
             // 
-            columnHeader1.Width = 251;
+            chLeftHeader.Width = 251;
             // 
-            // button5
+            // btnRemoveAll
             // 
-            button5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            button5.Image = (System.Drawing.Image)resources.GetObject("button5.Image");
-            button5.Location = new System.Drawing.Point(306, 173);
-            button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(33, 27);
-            button5.TabIndex = 5;
-            button5.UseVisualStyleBackColor = true;
+            btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveAll.Image = (System.Drawing.Image)resources.GetObject("btnRemoveAll.Image");
+            btnRemoveAll.Location = new System.Drawing.Point(306, 173);
+            btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveAll.Name = "btnRemoveAll";
+            btnRemoveAll.Size = new System.Drawing.Size(33, 27);
+            btnRemoveAll.TabIndex = 5;
+            btnRemoveAll.UseVisualStyleBackColor = true;
+            btnRemoveAll.Click += BtnRemoveAll_Click;
             // 
-            // btn_Add
+            // btnAdd
             // 
-            btn_Add.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btn_Add.Image = (System.Drawing.Image)resources.GetObject("btn_Add.Image");
-            btn_Add.Location = new System.Drawing.Point(306, 73);
-            btn_Add.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Add.Name = "btn_Add";
-            btn_Add.Size = new System.Drawing.Size(33, 27);
-            btn_Add.TabIndex = 2;
-            btn_Add.UseVisualStyleBackColor = true;
+            btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAdd.Image = (System.Drawing.Image)resources.GetObject("btnAdd.Image");
+            btnAdd.Location = new System.Drawing.Point(306, 73);
+            btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new System.Drawing.Size(33, 27);
+            btnAdd.TabIndex = 2;
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += BtnAdd_Click;
             // 
-            // textBox4
+            // tblblSequenceNamePostfix
             // 
-            textBox4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            textBox4.Location = new System.Drawing.Point(516, 493);
-            textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new System.Drawing.Size(128, 23);
-            textBox4.TabIndex = 13;
+            tblblSequenceNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            tblblSequenceNamePostfix.Location = new System.Drawing.Point(516, 493);
+            tblblSequenceNamePostfix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tblblSequenceNamePostfix.Name = "tblblSequenceNamePostfix";
+            tblblSequenceNamePostfix.Size = new System.Drawing.Size(128, 23);
+            tblblSequenceNamePostfix.TabIndex = 13;
             // 
-            // label5
+            // lblSequenceNamePostfix
             // 
-            label5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(342, 496);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(129, 15);
-            label5.TabIndex = 12;
-            label5.Text = "Sequence name postfix";
+            lblSequenceNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            lblSequenceNamePostfix.AutoSize = true;
+            lblSequenceNamePostfix.Location = new System.Drawing.Point(342, 496);
+            lblSequenceNamePostfix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSequenceNamePostfix.Name = "lblSequenceNamePostfix";
+            lblSequenceNamePostfix.Size = new System.Drawing.Size(129, 15);
+            lblSequenceNamePostfix.TabIndex = 12;
+            lblSequenceNamePostfix.Text = "Sequence name postfix";
             // 
-            // textBox3
+            // tbSequenceNamePrefix
             // 
-            textBox3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            textBox3.Location = new System.Drawing.Point(171, 493);
-            textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new System.Drawing.Size(128, 23);
-            textBox3.TabIndex = 11;
+            tbSequenceNamePrefix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            tbSequenceNamePrefix.Location = new System.Drawing.Point(171, 493);
+            tbSequenceNamePrefix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbSequenceNamePrefix.Name = "tbSequenceNamePrefix";
+            tbSequenceNamePrefix.Size = new System.Drawing.Size(128, 23);
+            tbSequenceNamePrefix.TabIndex = 11;
             // 
-            // label6
+            // lblSequenceNamePrefix
             // 
-            label6.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(3, 496);
-            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(123, 15);
-            label6.TabIndex = 10;
-            label6.Text = "Sequence name prefix";
+            lblSequenceNamePrefix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            lblSequenceNamePrefix.AutoSize = true;
+            lblSequenceNamePrefix.Location = new System.Drawing.Point(3, 496);
+            lblSequenceNamePrefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSequenceNamePrefix.Name = "lblSequenceNamePrefix";
+            lblSequenceNamePrefix.Size = new System.Drawing.Size(123, 15);
+            lblSequenceNamePrefix.TabIndex = 10;
+            lblSequenceNamePrefix.Text = "Sequence name prefix";
             // 
-            // textBox2
+            // tbGridNamePostfix
             // 
-            textBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            textBox2.Location = new System.Drawing.Point(516, 435);
-            textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(128, 23);
-            textBox2.TabIndex = 7;
+            tbGridNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            tbGridNamePostfix.Location = new System.Drawing.Point(516, 435);
+            tbGridNamePostfix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbGridNamePostfix.Name = "tbGridNamePostfix";
+            tbGridNamePostfix.Size = new System.Drawing.Size(128, 23);
+            tbGridNamePostfix.TabIndex = 7;
             // 
-            // label4
+            // lblGridNamePostfix
             // 
-            label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(342, 438);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(100, 15);
-            label4.TabIndex = 6;
-            label4.Text = "Grid name postfix";
+            lblGridNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            lblGridNamePostfix.AutoSize = true;
+            lblGridNamePostfix.Location = new System.Drawing.Point(342, 438);
+            lblGridNamePostfix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGridNamePostfix.Name = "lblGridNamePostfix";
+            lblGridNamePostfix.Size = new System.Drawing.Size(100, 15);
+            lblGridNamePostfix.TabIndex = 6;
+            lblGridNamePostfix.Text = "Grid name postfix";
             // 
-            // button3
+            // btnRemove
             // 
-            button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            button3.Image = (System.Drawing.Image)resources.GetObject("button3.Image");
-            button3.Location = new System.Drawing.Point(306, 140);
-            button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(33, 27);
-            button3.TabIndex = 4;
-            button3.UseVisualStyleBackColor = true;
+            btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemove.Image = (System.Drawing.Image)resources.GetObject("btnRemove.Image");
+            btnRemove.Location = new System.Drawing.Point(306, 140);
+            btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new System.Drawing.Size(33, 27);
+            btnRemove.TabIndex = 4;
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += BtnRemove_Click;
             // 
-            // textBox1
+            // tbGridNamePrefix
             // 
-            textBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            textBox1.Location = new System.Drawing.Point(171, 435);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(128, 23);
-            textBox1.TabIndex = 5;
+            tbGridNamePrefix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            tbGridNamePrefix.Location = new System.Drawing.Point(171, 435);
+            tbGridNamePrefix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbGridNamePrefix.Name = "tbGridNamePrefix";
+            tbGridNamePrefix.Size = new System.Drawing.Size(128, 23);
+            tbGridNamePrefix.TabIndex = 5;
             // 
-            // comboBox3
+            // cbX
             // 
-            comboBox3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new System.Drawing.Point(516, 464);
-            comboBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new System.Drawing.Size(128, 23);
-            comboBox3.TabIndex = 9;
+            cbX.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            cbX.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbX.FormattingEnabled = true;
+            cbX.Location = new System.Drawing.Point(516, 464);
+            cbX.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbX.Name = "cbX";
+            cbX.Size = new System.Drawing.Size(128, 23);
+            cbX.TabIndex = 9;
             // 
-            // comboBox2
+            // lblSelectGridLook
             // 
-            comboBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new System.Drawing.Point(381, 405);
-            comboBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new System.Drawing.Size(66, 23);
-            comboBox2.TabIndex = 2;
-            comboBox2.Visible = false;
+            lblSelectGridLook.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            lblSelectGridLook.AutoSize = true;
+            lblSelectGridLook.Location = new System.Drawing.Point(3, 408);
+            lblSelectGridLook.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSelectGridLook.Name = "lblSelectGridLook";
+            lblSelectGridLook.Size = new System.Drawing.Size(97, 15);
+            lblSelectGridLook.TabIndex = 1;
+            lblSelectGridLook.Text = "Select a grid look";
             // 
-            // label1
+            // cbSelectGridLook
             // 
-            label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(3, 408);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(97, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Select a grid look";
+            cbSelectGridLook.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            cbSelectGridLook.FormattingEnabled = true;
+            cbSelectGridLook.Location = new System.Drawing.Point(454, 405);
+            cbSelectGridLook.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbSelectGridLook.Name = "cbSelectGridLook";
+            cbSelectGridLook.Size = new System.Drawing.Size(191, 23);
+            cbSelectGridLook.TabIndex = 3;
             // 
-            // comboBox1
+            // btnAddAll
             // 
-            comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new System.Drawing.Point(454, 405);
-            comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new System.Drawing.Size(191, 23);
-            comboBox1.TabIndex = 3;
+            btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddAll.Image = (System.Drawing.Image)resources.GetObject("btnAddAll.Image");
+            btnAddAll.Location = new System.Drawing.Point(306, 106);
+            btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddAll.Name = "btnAddAll";
+            btnAddAll.Size = new System.Drawing.Size(33, 27);
+            btnAddAll.TabIndex = 3;
+            btnAddAll.UseVisualStyleBackColor = true;
+            btnAddAll.Click += BtnAddAll_Click;
             // 
-            // button6
+            // lblStatus
             // 
-            button6.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            button6.Image = (System.Drawing.Image)resources.GetObject("button6.Image");
-            button6.Location = new System.Drawing.Point(306, 106);
-            button6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            button6.Name = "button6";
-            button6.Size = new System.Drawing.Size(33, 27);
-            button6.TabIndex = 3;
-            button6.UseVisualStyleBackColor = true;
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new System.Drawing.Point(33, 10);
+            lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new System.Drawing.Size(0, 15);
+            lblStatus.TabIndex = 0;
             // 
-            // label2
+            // pbCheck
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(33, 10);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(0, 15);
-            label2.TabIndex = 0;
+            pbCheck.Location = new System.Drawing.Point(7, 9);
+            pbCheck.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbCheck.Name = "pbCheck";
+            pbCheck.OriginalSize = new System.Drawing.Size(100, 50);
+            pbCheck.RepositioningAndResizingControlsOnResize = false;
+            pbCheck.Size = new System.Drawing.Size(19, 18);
+            pbCheck.TabIndex = 2;
+            pbCheck.TabStop = false;
             // 
-            // pictureBox1
+            // lblGridNamePrefix
             // 
-            pictureBox1.Location = new System.Drawing.Point(7, 9);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.OriginalSize = new System.Drawing.Size(100, 50);
-            pictureBox1.RepositioningAndResizingControlsOnResize = false;
-            pictureBox1.Size = new System.Drawing.Size(19, 18);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(3, 438);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(94, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Grid name prefix";
+            lblGridNamePrefix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            lblGridNamePrefix.AutoSize = true;
+            lblGridNamePrefix.Location = new System.Drawing.Point(3, 438);
+            lblGridNamePrefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGridNamePrefix.Name = "lblGridNamePrefix";
+            lblGridNamePrefix.Size = new System.Drawing.Size(94, 15);
+            lblGridNamePrefix.TabIndex = 4;
+            lblGridNamePrefix.Text = "Grid name prefix";
             // 
             // btnAutoCreate
             // 
@@ -273,227 +264,216 @@
             btnAutoCreate.UseVisualStyleBackColor = true;
             btnAutoCreate.Click += BtnAutoCreate_Click;
             // 
-            // checkBox1
+            // chkCreateSequences
             // 
-            checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkBox1.Location = new System.Drawing.Point(6, 469);
-            checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox1.MaximumSize = new System.Drawing.Size(321, 20);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new System.Drawing.Size(205, 19);
-            checkBox1.TabIndex = 8;
-            checkBox1.Tag = "";
-            checkBox1.Text = "Create sequence from every x grid";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkCreateSequences.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            chkCreateSequences.AutoSize = true;
+            chkCreateSequences.Checked = true;
+            chkCreateSequences.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkCreateSequences.Location = new System.Drawing.Point(6, 469);
+            chkCreateSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkCreateSequences.MaximumSize = new System.Drawing.Size(321, 20);
+            chkCreateSequences.Name = "chkCreateSequences";
+            chkCreateSequences.Size = new System.Drawing.Size(205, 19);
+            chkCreateSequences.TabIndex = 8;
+            chkCreateSequences.Tag = "";
+            chkCreateSequences.Text = "Create sequence from every x grid";
+            chkCreateSequences.UseVisualStyleBackColor = true;
             // 
-            // imageList2
+            // chRightHeader
             // 
-            imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            imageList2.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imageList2.ImageStream");
-            imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            imageList2.Images.SetKeyName(0, "bigcam.ico");
+            chRightHeader.Width = 252;
             // 
-            // columnHeader2
+            // lvRightSide
             // 
-            columnHeader2.Width = 252;
+            lvRightSide.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvRightSide.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvRightSide.AlternatingColorsAreInUse = true;
+            lvRightSide.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvRightSide.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvRightSide.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lvRightSide.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chRightHeader });
+            lvRightSide.CompactView = false;
+            lvRightSide.EnsureLastItemIsVisible = false;
+            lvRightSide.FirstItemIsGray = false;
+            lvRightSide.FullRowSelect = true;
+            lvRightSide.Location = new System.Drawing.Point(345, 8);
+            lvRightSide.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvRightSide.Name = "lvRightSide";
+            lvRightSide.OwnerDraw = true;
+            lvRightSide.ReadonlyCheckboxes = false;
+            lvRightSide.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvRightSide.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvRightSide.Size = new System.Drawing.Size(298, 394);
+            lvRightSide.SmallImageList = ilImages;
+            lvRightSide.TabIndex = 1;
+            lvRightSide.UseCompatibleStateImageBehavior = false;
+            lvRightSide.View = System.Windows.Forms.View.Details;
             // 
-            // listView2
+            // ilImages
             // 
-            listView2.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            listView2.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            listView2.AlternatingColorsAreInUse = true;
-            listView2.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            listView2.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            listView2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader2 });
-            listView2.CompactView = false;
-            listView2.EnsureLastItemIsVisible = false;
-            listView2.FirstItemIsGray = false;
-            listView2.FullRowSelect = true;
-            listView2.LargeImageList = imageList2;
-            listView2.Location = new System.Drawing.Point(345, 8);
-            listView2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listView2.Name = "listView2";
-            listView2.OwnerDraw = true;
-            listView2.ReadonlyCheckboxes = false;
-            listView2.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            listView2.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listView2.Size = new System.Drawing.Size(298, 394);
-            listView2.SmallImageList = imageList1;
-            listView2.TabIndex = 1;
-            listView2.UseCompatibleStateImageBehavior = false;
-            listView2.View = System.Windows.Forms.View.Details;
+            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
+            ilImages.TransparentColor = System.Drawing.Color.Transparent;
+            ilImages.Images.SetKeyName(0, "cam 0.ico");
+            ilImages.Images.SetKeyName(1, "tick.ico");
+            ilImages.Images.SetKeyName(2, "del.ico");
             // 
-            // imageList1
+            // pLists
             // 
-            imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            imageList1.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            imageList1.Images.SetKeyName(0, "cam 0.ico");
-            imageList1.Images.SetKeyName(1, "tick.ico");
-            imageList1.Images.SetKeyName(2, "del.ico");
+            pLists.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pLists.Controls.Add(lvRightSide);
+            pLists.Controls.Add(lvLeftSide);
+            pLists.Controls.Add(btnAddAll);
+            pLists.Controls.Add(btnRemoveAll);
+            pLists.Controls.Add(btnAdd);
+            pLists.Controls.Add(btnRemove);
+            pLists.Location = new System.Drawing.Point(0, -8);
+            pLists.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pLists.Name = "pLists";
+            pLists.Size = new System.Drawing.Size(649, 406);
+            pLists.TabIndex = 0;
             // 
-            // panel5
+            // lvLeftSide
             // 
-            panel5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            panel5.Controls.Add(listView2);
-            panel5.Controls.Add(listView1);
-            panel5.Controls.Add(button6);
-            panel5.Controls.Add(button5);
-            panel5.Controls.Add(btn_Add);
-            panel5.Controls.Add(button3);
-            panel5.Location = new System.Drawing.Point(0, -8);
-            panel5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(649, 406);
-            panel5.TabIndex = 0;
+            lvLeftSide.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvLeftSide.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvLeftSide.AlternatingColorsAreInUse = true;
+            lvLeftSide.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvLeftSide.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvLeftSide.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lvLeftSide.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chLeftHeader });
+            lvLeftSide.CompactView = false;
+            lvLeftSide.EnsureLastItemIsVisible = false;
+            lvLeftSide.FirstItemIsGray = false;
+            lvLeftSide.FullRowSelect = true;
+            lvLeftSide.Location = new System.Drawing.Point(1, 8);
+            lvLeftSide.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvLeftSide.Name = "lvLeftSide";
+            lvLeftSide.OwnerDraw = true;
+            lvLeftSide.ReadonlyCheckboxes = false;
+            lvLeftSide.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvLeftSide.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvLeftSide.Size = new System.Drawing.Size(298, 394);
+            lvLeftSide.SmallImageList = ilImages;
+            lvLeftSide.TabIndex = 0;
+            lvLeftSide.UseCompatibleStateImageBehavior = false;
+            lvLeftSide.View = System.Windows.Forms.View.Details;
             // 
-            // listView1
+            // btnClose
             // 
-            listView1.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            listView1.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            listView1.AlternatingColorsAreInUse = true;
-            listView1.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            listView1.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            listView1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
-            listView1.CompactView = false;
-            listView1.EnsureLastItemIsVisible = false;
-            listView1.FirstItemIsGray = false;
-            listView1.FullRowSelect = true;
-            listView1.LargeImageList = imageList2;
-            listView1.Location = new System.Drawing.Point(1, 8);
-            listView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listView1.Name = "listView1";
-            listView1.OwnerDraw = true;
-            listView1.ReadonlyCheckboxes = false;
-            listView1.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            listView1.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listView1.Size = new System.Drawing.Size(298, 394);
-            listView1.SmallImageList = imageList1;
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = System.Windows.Forms.View.Details;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(558, 5);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(88, 27);
+            btnClose.TabIndex = 2;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnCancel_Click;
             // 
-            // btnCancel
+            // pFooter
             // 
-            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(558, 5);
-            btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(88, 27);
-            btnCancel.TabIndex = 2;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += BtnCancel_Click;
+            pFooter.Controls.Add(lblStatus);
+            pFooter.Controls.Add(pbCheck);
+            pFooter.Controls.Add(btnClose);
+            pFooter.Controls.Add(btnAutoCreate);
+            pFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            pFooter.Location = new System.Drawing.Point(0, 518);
+            pFooter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pFooter.Name = "pFooter";
+            pFooter.Size = new System.Drawing.Size(649, 36);
+            pFooter.TabIndex = 14;
             // 
-            // panel4
+            // pControl
             // 
-            panel4.Controls.Add(label2);
-            panel4.Controls.Add(pictureBox1);
-            panel4.Controls.Add(btnCancel);
-            panel4.Controls.Add(btnAutoCreate);
-            panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel4.Location = new System.Drawing.Point(0, 518);
-            panel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(649, 36);
-            panel4.TabIndex = 14;
+            pControl.Controls.Add(tblblSequenceNamePostfix);
+            pControl.Controls.Add(lblSequenceNamePostfix);
+            pControl.Controls.Add(tbSequenceNamePrefix);
+            pControl.Controls.Add(lblSequenceNamePrefix);
+            pControl.Controls.Add(tbGridNamePostfix);
+            pControl.Controls.Add(lblGridNamePostfix);
+            pControl.Controls.Add(tbGridNamePrefix);
+            pControl.Controls.Add(lblGridNamePrefix);
+            pControl.Controls.Add(cbX);
+            pControl.Controls.Add(lblSelectGridLook);
+            pControl.Controls.Add(cbSelectGridLook);
+            pControl.Controls.Add(chkCreateSequences);
+            pControl.Controls.Add(pLists);
+            pControl.Controls.Add(pFooter);
+            pControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            pControl.Location = new System.Drawing.Point(4, 19);
+            pControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pControl.Name = "pControl";
+            pControl.Size = new System.Drawing.Size(649, 554);
+            pControl.TabIndex = 0;
             // 
-            // panel2
+            // gbMain
             // 
-            panel2.Controls.Add(textBox4);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(textBox3);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(textBox2);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(textBox1);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(comboBox3);
-            panel2.Controls.Add(comboBox2);
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(comboBox1);
-            panel2.Controls.Add(checkBox1);
-            panel2.Controls.Add(panel5);
-            panel2.Controls.Add(panel4);
-            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(4, 19);
-            panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(649, 554);
-            panel2.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(panel2);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            groupBox1.Location = new System.Drawing.Point(0, 0);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(657, 576);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
+            gbMain.Controls.Add(pControl);
+            gbMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbMain.Location = new System.Drawing.Point(0, 0);
+            gbMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Name = "gbMain";
+            gbMain.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Size = new System.Drawing.Size(657, 576);
+            gbMain.TabIndex = 1;
+            gbMain.TabStop = false;
             // 
             // AutoCreateWizard
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(657, 576);
-            Controls.Add(groupBox1);
+            Controls.Add(gbMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(664, 559);
             Name = "AutoCreateWizard";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Auto create wizard";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel5.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            groupBox1.ResumeLayout(false);
+            Shown += AutoCreateWizard_Shown;
+            ((System.ComponentModel.ISupportInitialize)pbCheck).EndInit();
+            pLists.ResumeLayout(false);
+            pFooter.ResumeLayout(false);
+            pFooter.PerformLayout();
+            pControl.ResumeLayout(false);
+            pControl.PerformLayout();
+            gbMain.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button btn_Add;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Label label2;
-        private Mtf.Controls.MtfPictureBox pictureBox1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader chLeftHeader;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TextBox tblblSequenceNamePostfix;
+        private System.Windows.Forms.Label lblSequenceNamePostfix;
+        private System.Windows.Forms.TextBox tbSequenceNamePrefix;
+        private System.Windows.Forms.Label lblSequenceNamePrefix;
+        private System.Windows.Forms.TextBox tbGridNamePostfix;
+        private System.Windows.Forms.Label lblGridNamePostfix;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.TextBox tbGridNamePrefix;
+        private System.Windows.Forms.ComboBox cbX;
+        private System.Windows.Forms.Label lblSelectGridLook;
+        private System.Windows.Forms.ComboBox cbSelectGridLook;
+        private System.Windows.Forms.Button btnAddAll;
+        private System.Windows.Forms.Label lblStatus;
+        private Mtf.Controls.MtfPictureBox pbCheck;
+        private System.Windows.Forms.Label lblGridNamePrefix;
         private System.Windows.Forms.Button btnAutoCreate;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private Mtf.Controls.MtfListView listView2;
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Panel panel5;
-        private Mtf.Controls.MtfListView listView1;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkCreateSequences;
+        private System.Windows.Forms.ColumnHeader chRightHeader;
+        private Mtf.Controls.MtfListView lvRightSide;
+        private System.Windows.Forms.ImageList ilImages;
+        private System.Windows.Forms.Panel pLists;
+        private Mtf.Controls.MtfListView lvLeftSide;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Panel pFooter;
+        private System.Windows.Forms.Panel pControl;
+        private System.Windows.Forms.GroupBox gbMain;
     }
 }

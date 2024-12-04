@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
-using System.Windows.Forms;
+using System;
 
 namespace LiveView.Forms
 {
@@ -29,12 +29,13 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
-        private void BtnAdd_Click(object sender, System.EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            addDatabaseServerPresenter.AddDatabaseServer();
         }
 
-        private void BtnCancel_Click(object sender, System.EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             addDatabaseServerPresenter.CloseForm();
         }

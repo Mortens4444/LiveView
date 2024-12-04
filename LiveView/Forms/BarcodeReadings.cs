@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Forms
 {
@@ -26,9 +27,15 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(SerialDeviceManagementPermissions.Select)]
-        private void BtnQuery_Click(object sender, System.EventArgs e)
+        private void BtnQuery_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            barcodeReadingsPresenter.Query();
+        }
+
+        private void BarcodeReadings_Shown(object sender, EventArgs e)
+        {
+            barcodeReadingsPresenter.Load();
         }
     }
 }

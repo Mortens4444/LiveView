@@ -30,312 +30,311 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(BarcodeReadings));
-            checkBox1 = new System.Windows.Forms.CheckBox();
-            label7 = new System.Windows.Forms.Label();
-            checkBox7 = new System.Windows.Forms.CheckBox();
-            numericUpDown10 = new System.Windows.Forms.NumericUpDown();
-            label14 = new System.Windows.Forms.Label();
-            textBox2 = new System.Windows.Forms.TextBox();
-            label13 = new System.Windows.Forms.Label();
-            checkBox6 = new System.Windows.Forms.CheckBox();
-            label6 = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            label11 = new System.Windows.Forms.Label();
-            groupBox3 = new System.Windows.Forms.GroupBox();
-            checkBox2 = new System.Windows.Forms.CheckBox();
-            numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            chkStoreDates = new System.Windows.Forms.CheckBox();
+            lblMinute = new System.Windows.Forms.Label();
+            cbSlPort = new System.Windows.Forms.CheckBox();
+            nudSlPort = new System.Windows.Forms.NumericUpDown();
+            lblSender = new System.Windows.Forms.Label();
+            tbSender = new System.Windows.Forms.TextBox();
+            lblValue = new System.Windows.Forms.Label();
+            chkAck = new System.Windows.Forms.CheckBox();
+            lblMinute2 = new System.Windows.Forms.Label();
+            lblHour2 = new System.Windows.Forms.Label();
+            lblHour = new System.Windows.Forms.Label();
+            nudToMinutes = new System.Windows.Forms.NumericUpDown();
+            nudToHour = new System.Windows.Forms.NumericUpDown();
+            nudFromMinutes = new System.Windows.Forms.NumericUpDown();
+            nudFromHour = new System.Windows.Forms.NumericUpDown();
+            dtpToDate = new System.Windows.Forms.DateTimePicker();
+            dtpFromDate = new System.Windows.Forms.DateTimePicker();
+            lblFrom = new System.Windows.Forms.Label();
+            gbMaximumRows = new System.Windows.Forms.GroupBox();
+            chkMaximumRows = new System.Windows.Forms.CheckBox();
+            nudMaximumRows = new System.Windows.Forms.NumericUpDown();
             btnQuery = new System.Windows.Forms.Button();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            columnHeader5 = new System.Windows.Forms.ColumnHeader();
-            columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            columnHeader7 = new System.Windows.Forms.ColumnHeader();
-            columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            label10 = new System.Windows.Forms.Label();
-            panel1 = new System.Windows.Forms.Panel();
-            listViewNF1 = new Mtf.Controls.MtfListView();
-            columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
-            moreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            checkBox4 = new System.Windows.Forms.CheckBox();
-            checkBox5 = new System.Windows.Forms.CheckBox();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            lbl_SecondsToShow = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
-            label5 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
-            groupBox5 = new System.Windows.Forms.GroupBox();
-            comboBox2 = new System.Windows.Forms.ComboBox();
-            comboBox1 = new System.Windows.Forms.ComboBox();
-            groupBox8 = new System.Windows.Forms.GroupBox();
-            textBox1 = new System.Windows.Forms.TextBox();
-            groupBox4 = new System.Windows.Forms.GroupBox();
-            checkBox3 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown6).BeginInit();
-            groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            panel1.SuspendLayout();
-            contextMenuStrip1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown9).BeginInit();
-            groupBox5.SuspendLayout();
-            groupBox8.SuspendLayout();
-            groupBox4.SuspendLayout();
+            chId = new System.Windows.Forms.ColumnHeader();
+            chStoreDate = new System.Windows.Forms.ColumnHeader();
+            chUtcStoreDate = new System.Windows.Forms.ColumnHeader();
+            chBcScanDate = new System.Windows.Forms.ColumnHeader();
+            chUtcBcScanDate = new System.Windows.Forms.ColumnHeader();
+            chValue = new System.Windows.Forms.ColumnHeader();
+            chSender = new System.Windows.Forms.ColumnHeader();
+            chSlPort = new System.Windows.Forms.ColumnHeader();
+            lblTo = new System.Windows.Forms.Label();
+            pMain = new System.Windows.Forms.Panel();
+            lvScans = new Mtf.Controls.MtfListView();
+            chAck = new System.Windows.Forms.ColumnHeader();
+            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            tsmiMore = new System.Windows.Forms.ToolStripMenuItem();
+            gbFilters = new System.Windows.Forms.GroupBox();
+            gbBarcodeScanDates = new System.Windows.Forms.GroupBox();
+            chkUtc2 = new System.Windows.Forms.CheckBox();
+            chkBarcodeScanDates = new System.Windows.Forms.CheckBox();
+            lblMinute4 = new System.Windows.Forms.Label();
+            lblMinute3 = new System.Windows.Forms.Label();
+            lblHour4 = new System.Windows.Forms.Label();
+            lblHour3 = new System.Windows.Forms.Label();
+            nudToMinutes2 = new System.Windows.Forms.NumericUpDown();
+            nudToHour2 = new System.Windows.Forms.NumericUpDown();
+            nudFromMinutes2 = new System.Windows.Forms.NumericUpDown();
+            nudFromHour2 = new System.Windows.Forms.NumericUpDown();
+            dtpToDate2 = new System.Windows.Forms.DateTimePicker();
+            dtpFromDate2 = new System.Windows.Forms.DateTimePicker();
+            lblTo2 = new System.Windows.Forms.Label();
+            lblFrom2 = new System.Windows.Forms.Label();
+            gbDatabaseServer = new System.Windows.Forms.GroupBox();
+            cbDatabaseServer = new System.Windows.Forms.ComboBox();
+            gbOther = new System.Windows.Forms.GroupBox();
+            tbValue = new System.Windows.Forms.TextBox();
+            gbStoreDates = new System.Windows.Forms.GroupBox();
+            chkUtc = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)nudSlPort).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudToMinutes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudToHour).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromMinutes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromHour).BeginInit();
+            gbMaximumRows.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMaximumRows).BeginInit();
+            pMain.SuspendLayout();
+            cmsMenu.SuspendLayout();
+            gbFilters.SuspendLayout();
+            gbBarcodeScanDates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudToMinutes2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudToHour2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromMinutes2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromHour2).BeginInit();
+            gbDatabaseServer.SuspendLayout();
+            gbOther.SuspendLayout();
+            gbStoreDates.SuspendLayout();
             SuspendLayout();
             // 
-            // checkBox1
+            // chkStoreDates
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new System.Drawing.Point(13, -1);
-            checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new System.Drawing.Size(84, 19);
-            checkBox1.TabIndex = 12;
-            checkBox1.Text = "Store dates";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkStoreDates.AutoSize = true;
+            chkStoreDates.Location = new System.Drawing.Point(13, -1);
+            chkStoreDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkStoreDates.Name = "chkStoreDates";
+            chkStoreDates.Size = new System.Drawing.Size(84, 19);
+            chkStoreDates.TabIndex = 12;
+            chkStoreDates.Text = "Store dates";
+            chkStoreDates.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // lblMinute
             // 
-            label7.AutoSize = true;
-            label7.Enabled = false;
-            label7.Location = new System.Drawing.Point(359, 23);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(18, 15);
-            label7.TabIndex = 5;
-            label7.Text = "m";
+            lblMinute.AutoSize = true;
+            lblMinute.Enabled = false;
+            lblMinute.Location = new System.Drawing.Point(359, 23);
+            lblMinute.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMinute.Name = "lblMinute";
+            lblMinute.Size = new System.Drawing.Size(18, 15);
+            lblMinute.TabIndex = 5;
+            lblMinute.Text = "m";
             // 
-            // checkBox7
+            // cbSlPort
             // 
-            checkBox7.AutoSize = true;
-            checkBox7.Location = new System.Drawing.Point(304, 22);
-            checkBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new System.Drawing.Size(63, 19);
-            checkBox7.TabIndex = 11;
-            checkBox7.Text = "SL port";
-            checkBox7.UseVisualStyleBackColor = true;
+            cbSlPort.AutoSize = true;
+            cbSlPort.Location = new System.Drawing.Point(304, 22);
+            cbSlPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbSlPort.Name = "cbSlPort";
+            cbSlPort.Size = new System.Drawing.Size(63, 19);
+            cbSlPort.TabIndex = 11;
+            cbSlPort.Text = "SL port";
+            cbSlPort.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown10
+            // nudSlPort
             // 
-            numericUpDown10.Location = new System.Drawing.Point(304, 45);
-            numericUpDown10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown10.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
-            numericUpDown10.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown10.Name = "numericUpDown10";
-            numericUpDown10.Size = new System.Drawing.Size(70, 23);
-            numericUpDown10.TabIndex = 10;
-            numericUpDown10.Value = new decimal(new int[] { 23550, 0, 0, 0 });
+            nudSlPort.Location = new System.Drawing.Point(304, 45);
+            nudSlPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudSlPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            nudSlPort.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudSlPort.Name = "nudSlPort";
+            nudSlPort.Size = new System.Drawing.Size(70, 23);
+            nudSlPort.TabIndex = 10;
+            nudSlPort.Value = new decimal(new int[] { 23550, 0, 0, 0 });
             // 
-            // label14
+            // lblSender
             // 
-            label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(146, 23);
-            label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(43, 15);
-            label14.TabIndex = 9;
-            label14.Text = "Sender";
+            lblSender.AutoSize = true;
+            lblSender.Location = new System.Drawing.Point(146, 23);
+            lblSender.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSender.Name = "lblSender";
+            lblSender.Size = new System.Drawing.Size(43, 15);
+            lblSender.TabIndex = 9;
+            lblSender.Text = "Sender";
             // 
-            // textBox2
+            // tbSender
             // 
-            textBox2.Location = new System.Drawing.Point(149, 44);
-            textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(134, 23);
-            textBox2.TabIndex = 8;
+            tbSender.Location = new System.Drawing.Point(149, 44);
+            tbSender.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbSender.Name = "tbSender";
+            tbSender.Size = new System.Drawing.Size(134, 23);
+            tbSender.TabIndex = 8;
             // 
-            // label13
+            // lblValue
             // 
-            label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(9, 23);
-            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(35, 15);
-            label13.TabIndex = 7;
-            label13.Text = "Value";
+            lblValue.AutoSize = true;
+            lblValue.Location = new System.Drawing.Point(9, 23);
+            lblValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblValue.Name = "lblValue";
+            lblValue.Size = new System.Drawing.Size(35, 15);
+            lblValue.TabIndex = 7;
+            lblValue.Text = "Value";
             // 
-            // checkBox6
+            // chkAck
             // 
-            checkBox6.AutoSize = true;
-            checkBox6.Checked = true;
-            checkBox6.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            checkBox6.Location = new System.Drawing.Point(399, 46);
-            checkBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new System.Drawing.Size(49, 19);
-            checkBox6.TabIndex = 6;
-            checkBox6.Text = "ACK";
-            checkBox6.ThreeState = true;
-            checkBox6.UseVisualStyleBackColor = true;
+            chkAck.AutoSize = true;
+            chkAck.Checked = true;
+            chkAck.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            chkAck.Location = new System.Drawing.Point(399, 46);
+            chkAck.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkAck.Name = "chkAck";
+            chkAck.Size = new System.Drawing.Size(49, 19);
+            chkAck.TabIndex = 6;
+            chkAck.Text = "ACK";
+            chkAck.ThreeState = true;
+            chkAck.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // lblMinute2
             // 
-            label6.AutoSize = true;
-            label6.Enabled = false;
-            label6.Location = new System.Drawing.Point(359, 50);
-            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(18, 15);
-            label6.TabIndex = 11;
-            label6.Text = "m";
+            lblMinute2.AutoSize = true;
+            lblMinute2.Enabled = false;
+            lblMinute2.Location = new System.Drawing.Point(359, 50);
+            lblMinute2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMinute2.Name = "lblMinute2";
+            lblMinute2.Size = new System.Drawing.Size(18, 15);
+            lblMinute2.TabIndex = 11;
+            lblMinute2.Text = "m";
             // 
-            // label8
+            // lblHour2
             // 
-            label8.AutoSize = true;
-            label8.Enabled = false;
-            label8.Location = new System.Drawing.Point(285, 50);
-            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(14, 15);
-            label8.TabIndex = 9;
-            label8.Text = "h";
+            lblHour2.AutoSize = true;
+            lblHour2.Enabled = false;
+            lblHour2.Location = new System.Drawing.Point(285, 50);
+            lblHour2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHour2.Name = "lblHour2";
+            lblHour2.Size = new System.Drawing.Size(14, 15);
+            lblHour2.TabIndex = 9;
+            lblHour2.Text = "h";
             // 
-            // label9
+            // lblHour
             // 
-            label9.AutoSize = true;
-            label9.Enabled = false;
-            label9.Location = new System.Drawing.Point(285, 23);
-            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(14, 15);
-            label9.TabIndex = 3;
-            label9.Text = "h";
+            lblHour.AutoSize = true;
+            lblHour.Enabled = false;
+            lblHour.Location = new System.Drawing.Point(285, 23);
+            lblHour.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHour.Name = "lblHour";
+            lblHour.Size = new System.Drawing.Size(14, 15);
+            lblHour.TabIndex = 3;
+            lblHour.Text = "h";
             // 
-            // numericUpDown4
+            // nudToMinutes
             // 
-            numericUpDown4.Enabled = false;
-            numericUpDown4.Location = new System.Drawing.Point(304, 45);
-            numericUpDown4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown4.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
-            numericUpDown4.Name = "numericUpDown4";
-            numericUpDown4.Size = new System.Drawing.Size(54, 23);
-            numericUpDown4.TabIndex = 10;
-            numericUpDown4.Value = new decimal(new int[] { 59, 0, 0, 0 });
+            nudToMinutes.Enabled = false;
+            nudToMinutes.Location = new System.Drawing.Point(304, 45);
+            nudToMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudToMinutes.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
+            nudToMinutes.Name = "nudToMinutes";
+            nudToMinutes.Size = new System.Drawing.Size(54, 23);
+            nudToMinutes.TabIndex = 10;
+            nudToMinutes.Value = new decimal(new int[] { 59, 0, 0, 0 });
             // 
-            // numericUpDown5
+            // nudToHour
             // 
-            numericUpDown5.Enabled = false;
-            numericUpDown5.Location = new System.Drawing.Point(230, 45);
-            numericUpDown5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown5.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
-            numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new System.Drawing.Size(54, 23);
-            numericUpDown5.TabIndex = 8;
-            numericUpDown5.Value = new decimal(new int[] { 23, 0, 0, 0 });
+            nudToHour.Enabled = false;
+            nudToHour.Location = new System.Drawing.Point(230, 45);
+            nudToHour.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudToHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
+            nudToHour.Name = "nudToHour";
+            nudToHour.Size = new System.Drawing.Size(54, 23);
+            nudToHour.TabIndex = 8;
+            nudToHour.Value = new decimal(new int[] { 23, 0, 0, 0 });
             // 
-            // numericUpDown3
+            // nudFromMinutes
             // 
-            numericUpDown3.Enabled = false;
-            numericUpDown3.Location = new System.Drawing.Point(304, 18);
-            numericUpDown3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown3.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new System.Drawing.Size(54, 23);
-            numericUpDown3.TabIndex = 4;
+            nudFromMinutes.Enabled = false;
+            nudFromMinutes.Location = new System.Drawing.Point(304, 18);
+            nudFromMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFromMinutes.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
+            nudFromMinutes.Name = "nudFromMinutes";
+            nudFromMinutes.Size = new System.Drawing.Size(54, 23);
+            nudFromMinutes.TabIndex = 4;
             // 
-            // numericUpDown6
+            // nudFromHour
             // 
-            numericUpDown6.Enabled = false;
-            numericUpDown6.Location = new System.Drawing.Point(230, 18);
-            numericUpDown6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown6.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
-            numericUpDown6.Name = "numericUpDown6";
-            numericUpDown6.Size = new System.Drawing.Size(54, 23);
-            numericUpDown6.TabIndex = 2;
+            nudFromHour.Enabled = false;
+            nudFromHour.Location = new System.Drawing.Point(230, 18);
+            nudFromHour.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFromHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
+            nudFromHour.Name = "nudFromHour";
+            nudFromHour.Size = new System.Drawing.Size(54, 23);
+            nudFromHour.TabIndex = 2;
             // 
-            // dateTimePicker2
+            // dtpToDate
             // 
-            dateTimePicker2.Enabled = false;
-            dateTimePicker2.Location = new System.Drawing.Point(68, 45);
-            dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new System.Drawing.Size(154, 23);
-            dateTimePicker2.TabIndex = 7;
+            dtpToDate.Enabled = false;
+            dtpToDate.Location = new System.Drawing.Point(68, 45);
+            dtpToDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dtpToDate.Name = "dtpToDate";
+            dtpToDate.Size = new System.Drawing.Size(154, 23);
+            dtpToDate.TabIndex = 7;
             // 
-            // dateTimePicker1
+            // dtpFromDate
             // 
-            dateTimePicker1.Enabled = false;
-            dateTimePicker1.Location = new System.Drawing.Point(68, 18);
-            dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new System.Drawing.Size(154, 23);
-            dateTimePicker1.TabIndex = 1;
+            dtpFromDate.Enabled = false;
+            dtpFromDate.Location = new System.Drawing.Point(68, 18);
+            dtpFromDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dtpFromDate.Name = "dtpFromDate";
+            dtpFromDate.Size = new System.Drawing.Size(154, 23);
+            dtpFromDate.TabIndex = 1;
             // 
-            // label11
+            // lblFrom
             // 
-            label11.AutoSize = true;
-            label11.Enabled = false;
-            label11.Location = new System.Drawing.Point(9, 23);
-            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(35, 15);
-            label11.TabIndex = 0;
-            label11.Text = "From";
+            lblFrom.AutoSize = true;
+            lblFrom.Enabled = false;
+            lblFrom.Location = new System.Drawing.Point(9, 23);
+            lblFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFrom.Name = "lblFrom";
+            lblFrom.Size = new System.Drawing.Size(35, 15);
+            lblFrom.TabIndex = 0;
+            lblFrom.Text = "From";
             // 
-            // groupBox3
+            // gbMaximumRows
             // 
-            groupBox3.Controls.Add(checkBox2);
-            groupBox3.Controls.Add(numericUpDown2);
-            groupBox3.Location = new System.Drawing.Point(471, 98);
-            groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox3.Size = new System.Drawing.Size(174, 74);
-            groupBox3.TabIndex = 2;
-            groupBox3.TabStop = false;
-            groupBox3.Text = " ";
+            gbMaximumRows.Controls.Add(chkMaximumRows);
+            gbMaximumRows.Controls.Add(nudMaximumRows);
+            gbMaximumRows.Location = new System.Drawing.Point(471, 98);
+            gbMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMaximumRows.Name = "gbMaximumRows";
+            gbMaximumRows.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMaximumRows.Size = new System.Drawing.Size(174, 74);
+            gbMaximumRows.TabIndex = 2;
+            gbMaximumRows.TabStop = false;
+            gbMaximumRows.Text = " ";
             // 
-            // checkBox2
+            // chkMaximumRows
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Checked = true;
-            checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkBox2.Location = new System.Drawing.Point(13, -1);
-            checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new System.Drawing.Size(108, 19);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "Maximum rows";
-            checkBox2.UseVisualStyleBackColor = true;
+            chkMaximumRows.AutoSize = true;
+            chkMaximumRows.Checked = true;
+            chkMaximumRows.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkMaximumRows.Location = new System.Drawing.Point(13, -1);
+            chkMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkMaximumRows.Name = "chkMaximumRows";
+            chkMaximumRows.Size = new System.Drawing.Size(108, 19);
+            chkMaximumRows.TabIndex = 1;
+            chkMaximumRows.Text = "Maximum rows";
+            chkMaximumRows.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown2
+            // nudMaximumRows
             // 
-            numericUpDown2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            numericUpDown2.Location = new System.Drawing.Point(7, 45);
-            numericUpDown2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown2.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-            numericUpDown2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(160, 23);
-            numericUpDown2.TabIndex = 0;
-            numericUpDown2.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            nudMaximumRows.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            nudMaximumRows.Location = new System.Drawing.Point(7, 45);
+            nudMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMaximumRows.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+            nudMaximumRows.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudMaximumRows.Name = "nudMaximumRows";
+            nudMaximumRows.Size = new System.Drawing.Size(160, 23);
+            nudMaximumRows.TabIndex = 0;
+            nudMaximumRows.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // btnQuery
             // 
@@ -348,494 +347,483 @@
             btnQuery.UseVisualStyleBackColor = true;
             btnQuery.Click += BtnQuery_Click;
             // 
-            // columnHeader1
+            // chId
             // 
-            columnHeader1.Text = "ID";
-            columnHeader1.Width = 41;
+            chId.Text = "ID";
+            chId.Width = 41;
             // 
-            // columnHeader2
+            // chStoreDate
             // 
-            columnHeader2.Text = "Store date";
-            columnHeader2.Width = 115;
+            chStoreDate.Text = "Store date";
+            chStoreDate.Width = 115;
             // 
-            // columnHeader3
+            // chUtcStoreDate
             // 
-            columnHeader3.Text = "Store date (UTC)";
-            columnHeader3.Width = 115;
+            chUtcStoreDate.Text = "Store date (UTC)";
+            chUtcStoreDate.Width = 115;
             // 
-            // columnHeader4
+            // chBcScanDate
             // 
-            columnHeader4.Text = "BC scan date";
-            columnHeader4.Width = 115;
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "BC scan date (UTC)";
-            columnHeader5.Width = 115;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "Value";
-            columnHeader6.Width = 111;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Sender";
-            columnHeader7.Width = 131;
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "SL port";
-            columnHeader8.Width = 47;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Enabled = false;
-            label10.Location = new System.Drawing.Point(9, 50);
-            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(20, 15);
-            label10.TabIndex = 6;
-            label10.Text = "To";
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(listViewNF1);
-            panel1.Controls.Add(groupBox2);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 0);
-            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(979, 549);
-            panel1.TabIndex = 1;
-            // 
-            // listViewNF1
-            // 
-            listViewNF1.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            listViewNF1.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            listViewNF1.AlternatingColorsAreInUse = true;
-            listViewNF1.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            listViewNF1.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            listViewNF1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9 });
-            listViewNF1.CompactView = false;
-            listViewNF1.ContextMenuStrip = contextMenuStrip1;
-            listViewNF1.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewNF1.EnsureLastItemIsVisible = false;
-            listViewNF1.FirstItemIsGray = false;
-            listViewNF1.FullRowSelect = true;
-            listViewNF1.Location = new System.Drawing.Point(0, 178);
-            listViewNF1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listViewNF1.Name = "listViewNF1";
-            listViewNF1.OwnerDraw = true;
-            listViewNF1.ReadonlyCheckboxes = false;
-            listViewNF1.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            listViewNF1.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listViewNF1.Size = new System.Drawing.Size(979, 371);
-            listViewNF1.TabIndex = 11;
-            listViewNF1.UseCompatibleStateImageBehavior = false;
-            listViewNF1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader9
-            // 
-            columnHeader9.Text = "ACK";
-            columnHeader9.Width = 38;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { moreToolStripMenuItem });
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new System.Drawing.Size(103, 26);
-            // 
-            // moreToolStripMenuItem
-            // 
-            moreToolStripMenuItem.Name = "moreToolStripMenuItem";
-            moreToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            moreToolStripMenuItem.Text = "More";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(groupBox1);
-            groupBox2.Controls.Add(groupBox5);
-            groupBox2.Controls.Add(groupBox8);
-            groupBox2.Controls.Add(groupBox4);
-            groupBox2.Controls.Add(groupBox3);
-            groupBox2.Controls.Add(btnQuery);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox2.Location = new System.Drawing.Point(0, 0);
-            groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Size = new System.Drawing.Size(979, 178);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Filters";
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(checkBox4);
-            groupBox1.Controls.Add(checkBox5);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(lbl_SecondsToShow);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(numericUpDown1);
-            groupBox1.Controls.Add(numericUpDown7);
-            groupBox1.Controls.Add(numericUpDown8);
-            groupBox1.Controls.Add(numericUpDown9);
-            groupBox1.Controls.Add(dateTimePicker3);
-            groupBox1.Controls.Add(dateTimePicker4);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label12);
-            groupBox1.Location = new System.Drawing.Point(471, 17);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(460, 74);
-            groupBox1.TabIndex = 14;
-            groupBox1.TabStop = false;
-            groupBox1.Text = " ";
-            // 
-            // checkBox4
-            // 
-            checkBox4.AutoSize = true;
-            checkBox4.Enabled = false;
-            checkBox4.Location = new System.Drawing.Point(399, 48);
-            checkBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new System.Drawing.Size(48, 19);
-            checkBox4.TabIndex = 13;
-            checkBox4.Text = "UTC";
-            checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new System.Drawing.Point(13, -1);
-            checkBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new System.Drawing.Size(127, 19);
-            checkBox5.TabIndex = 12;
-            checkBox5.Text = "Barcode scan dates";
-            checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Enabled = false;
-            label1.Location = new System.Drawing.Point(359, 50);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(18, 15);
-            label1.TabIndex = 11;
-            label1.Text = "m";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Enabled = false;
-            label2.Location = new System.Drawing.Point(359, 23);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(18, 15);
-            label2.TabIndex = 5;
-            label2.Text = "m";
-            // 
-            // lbl_SecondsToShow
-            // 
-            lbl_SecondsToShow.AutoSize = true;
-            lbl_SecondsToShow.Enabled = false;
-            lbl_SecondsToShow.Location = new System.Drawing.Point(285, 50);
-            lbl_SecondsToShow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_SecondsToShow.Name = "lbl_SecondsToShow";
-            lbl_SecondsToShow.Size = new System.Drawing.Size(14, 15);
-            lbl_SecondsToShow.TabIndex = 9;
-            lbl_SecondsToShow.Text = "h";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Enabled = false;
-            label4.Location = new System.Drawing.Point(285, 23);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(14, 15);
-            label4.TabIndex = 3;
-            label4.Text = "h";
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Enabled = false;
-            numericUpDown1.Location = new System.Drawing.Point(304, 45);
-            numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown1.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new System.Drawing.Size(54, 23);
-            numericUpDown1.TabIndex = 10;
-            numericUpDown1.Value = new decimal(new int[] { 59, 0, 0, 0 });
-            // 
-            // numericUpDown7
-            // 
-            numericUpDown7.Enabled = false;
-            numericUpDown7.Location = new System.Drawing.Point(230, 45);
-            numericUpDown7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown7.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
-            numericUpDown7.Name = "numericUpDown7";
-            numericUpDown7.Size = new System.Drawing.Size(54, 23);
-            numericUpDown7.TabIndex = 8;
-            numericUpDown7.Value = new decimal(new int[] { 23, 0, 0, 0 });
-            // 
-            // numericUpDown8
-            // 
-            numericUpDown8.Enabled = false;
-            numericUpDown8.Location = new System.Drawing.Point(304, 18);
-            numericUpDown8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown8.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
-            numericUpDown8.Name = "numericUpDown8";
-            numericUpDown8.Size = new System.Drawing.Size(54, 23);
-            numericUpDown8.TabIndex = 4;
-            // 
-            // numericUpDown9
-            // 
-            numericUpDown9.Enabled = false;
-            numericUpDown9.Location = new System.Drawing.Point(230, 18);
-            numericUpDown9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            numericUpDown9.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
-            numericUpDown9.Name = "numericUpDown9";
-            numericUpDown9.Size = new System.Drawing.Size(54, 23);
-            numericUpDown9.TabIndex = 2;
-            // 
-            // dateTimePicker3
-            // 
-            dateTimePicker3.Enabled = false;
-            dateTimePicker3.Location = new System.Drawing.Point(68, 45);
-            dateTimePicker3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new System.Drawing.Size(154, 23);
-            dateTimePicker3.TabIndex = 7;
-            // 
-            // dateTimePicker4
-            // 
-            dateTimePicker4.Enabled = false;
-            dateTimePicker4.Location = new System.Drawing.Point(68, 18);
-            dateTimePicker4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            dateTimePicker4.Name = "dateTimePicker4";
-            dateTimePicker4.Size = new System.Drawing.Size(154, 23);
-            dateTimePicker4.TabIndex = 1;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Enabled = false;
-            label5.Location = new System.Drawing.Point(9, 50);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(20, 15);
-            label5.TabIndex = 6;
-            label5.Text = "To";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Enabled = false;
-            label12.Location = new System.Drawing.Point(9, 23);
-            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(35, 15);
-            label12.TabIndex = 0;
-            label12.Text = "From";
-            // 
-            // groupBox5
-            // 
-            groupBox5.Controls.Add(comboBox2);
-            groupBox5.Controls.Add(comboBox1);
-            groupBox5.Location = new System.Drawing.Point(656, 98);
-            groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox5.Size = new System.Drawing.Size(174, 74);
-            groupBox5.TabIndex = 3;
-            groupBox5.TabStop = false;
-            groupBox5.Text = "Database server";
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new System.Drawing.Point(13, 20);
-            comboBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new System.Drawing.Size(55, 23);
-            comboBox2.TabIndex = 15;
-            comboBox2.Visible = false;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new System.Drawing.Point(13, 44);
-            comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new System.Drawing.Size(140, 23);
-            comboBox1.TabIndex = 13;
-            // 
-            // groupBox8
-            // 
-            groupBox8.Controls.Add(checkBox7);
-            groupBox8.Controls.Add(numericUpDown10);
-            groupBox8.Controls.Add(label14);
-            groupBox8.Controls.Add(textBox2);
-            groupBox8.Controls.Add(label13);
-            groupBox8.Controls.Add(checkBox6);
-            groupBox8.Controls.Add(textBox1);
-            groupBox8.Location = new System.Drawing.Point(5, 98);
-            groupBox8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox8.Name = "groupBox8";
-            groupBox8.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox8.Size = new System.Drawing.Size(460, 74);
-            groupBox8.TabIndex = 7;
-            groupBox8.TabStop = false;
-            groupBox8.Text = "Other";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new System.Drawing.Point(7, 44);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(134, 23);
-            textBox1.TabIndex = 5;
-            // 
-            // groupBox4
-            // 
-            groupBox4.Controls.Add(checkBox3);
-            groupBox4.Controls.Add(checkBox1);
-            groupBox4.Controls.Add(label6);
-            groupBox4.Controls.Add(label7);
-            groupBox4.Controls.Add(label8);
-            groupBox4.Controls.Add(label9);
-            groupBox4.Controls.Add(numericUpDown4);
-            groupBox4.Controls.Add(numericUpDown5);
-            groupBox4.Controls.Add(numericUpDown3);
-            groupBox4.Controls.Add(numericUpDown6);
-            groupBox4.Controls.Add(dateTimePicker2);
-            groupBox4.Controls.Add(dateTimePicker1);
-            groupBox4.Controls.Add(label10);
-            groupBox4.Controls.Add(label11);
-            groupBox4.Location = new System.Drawing.Point(5, 17);
-            groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Size = new System.Drawing.Size(460, 74);
-            groupBox4.TabIndex = 3;
-            groupBox4.TabStop = false;
-            groupBox4.Text = " ";
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Enabled = false;
-            checkBox3.Location = new System.Drawing.Point(399, 48);
-            checkBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new System.Drawing.Size(48, 19);
-            checkBox3.TabIndex = 13;
-            checkBox3.Text = "UTC";
-            checkBox3.UseVisualStyleBackColor = true;
+            chBcScanDate.Text = "BC scan date";
+            chBcScanDate.Width = 115;
+            // 
+            // chUtcBcScanDate
+            // 
+            chUtcBcScanDate.Text = "BC scan date (UTC)";
+            chUtcBcScanDate.Width = 115;
+            // 
+            // chValue
+            // 
+            chValue.Text = "Value";
+            chValue.Width = 111;
+            // 
+            // chSender
+            // 
+            chSender.Text = "Sender";
+            chSender.Width = 131;
+            // 
+            // chSlPort
+            // 
+            chSlPort.Text = "SL port";
+            chSlPort.Width = 50;
+            // 
+            // lblTo
+            // 
+            lblTo.AutoSize = true;
+            lblTo.Enabled = false;
+            lblTo.Location = new System.Drawing.Point(9, 50);
+            lblTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTo.Name = "lblTo";
+            lblTo.Size = new System.Drawing.Size(20, 15);
+            lblTo.TabIndex = 6;
+            lblTo.Text = "To";
+            // 
+            // pMain
+            // 
+            pMain.Controls.Add(lvScans);
+            pMain.Controls.Add(gbFilters);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(979, 549);
+            pMain.TabIndex = 1;
+            // 
+            // lvScans
+            // 
+            lvScans.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvScans.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvScans.AlternatingColorsAreInUse = true;
+            lvScans.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvScans.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvScans.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chId, chStoreDate, chUtcStoreDate, chBcScanDate, chUtcBcScanDate, chValue, chSender, chSlPort, chAck });
+            lvScans.CompactView = false;
+            lvScans.ContextMenuStrip = cmsMenu;
+            lvScans.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvScans.EnsureLastItemIsVisible = false;
+            lvScans.FirstItemIsGray = false;
+            lvScans.FullRowSelect = true;
+            lvScans.Location = new System.Drawing.Point(0, 178);
+            lvScans.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvScans.Name = "lvScans";
+            lvScans.OwnerDraw = true;
+            lvScans.ReadonlyCheckboxes = false;
+            lvScans.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvScans.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvScans.Size = new System.Drawing.Size(979, 371);
+            lvScans.TabIndex = 11;
+            lvScans.UseCompatibleStateImageBehavior = false;
+            lvScans.View = System.Windows.Forms.View.Details;
+            // 
+            // chAck
+            // 
+            chAck.Text = "ACK";
+            chAck.Width = 38;
+            // 
+            // cmsMenu
+            // 
+            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMore });
+            cmsMenu.Name = "contextMenuStrip1";
+            cmsMenu.Size = new System.Drawing.Size(103, 26);
+            // 
+            // tsmiMore
+            // 
+            tsmiMore.Name = "tsmiMore";
+            tsmiMore.Size = new System.Drawing.Size(102, 22);
+            tsmiMore.Text = "More";
+            // 
+            // gbFilters
+            // 
+            gbFilters.Controls.Add(gbBarcodeScanDates);
+            gbFilters.Controls.Add(gbDatabaseServer);
+            gbFilters.Controls.Add(gbOther);
+            gbFilters.Controls.Add(gbStoreDates);
+            gbFilters.Controls.Add(gbMaximumRows);
+            gbFilters.Controls.Add(btnQuery);
+            gbFilters.Dock = System.Windows.Forms.DockStyle.Top;
+            gbFilters.Location = new System.Drawing.Point(0, 0);
+            gbFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFilters.Name = "gbFilters";
+            gbFilters.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFilters.Size = new System.Drawing.Size(979, 178);
+            gbFilters.TabIndex = 1;
+            gbFilters.TabStop = false;
+            gbFilters.Text = "Filters";
+            // 
+            // gbBarcodeScanDates
+            // 
+            gbBarcodeScanDates.Controls.Add(chkUtc2);
+            gbBarcodeScanDates.Controls.Add(chkBarcodeScanDates);
+            gbBarcodeScanDates.Controls.Add(lblMinute4);
+            gbBarcodeScanDates.Controls.Add(lblMinute3);
+            gbBarcodeScanDates.Controls.Add(lblHour4);
+            gbBarcodeScanDates.Controls.Add(lblHour3);
+            gbBarcodeScanDates.Controls.Add(nudToMinutes2);
+            gbBarcodeScanDates.Controls.Add(nudToHour2);
+            gbBarcodeScanDates.Controls.Add(nudFromMinutes2);
+            gbBarcodeScanDates.Controls.Add(nudFromHour2);
+            gbBarcodeScanDates.Controls.Add(dtpToDate2);
+            gbBarcodeScanDates.Controls.Add(dtpFromDate2);
+            gbBarcodeScanDates.Controls.Add(lblTo2);
+            gbBarcodeScanDates.Controls.Add(lblFrom2);
+            gbBarcodeScanDates.Location = new System.Drawing.Point(471, 17);
+            gbBarcodeScanDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBarcodeScanDates.Name = "gbBarcodeScanDates";
+            gbBarcodeScanDates.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBarcodeScanDates.Size = new System.Drawing.Size(460, 74);
+            gbBarcodeScanDates.TabIndex = 14;
+            gbBarcodeScanDates.TabStop = false;
+            gbBarcodeScanDates.Text = " ";
+            // 
+            // chkUtc2
+            // 
+            chkUtc2.AutoSize = true;
+            chkUtc2.Enabled = false;
+            chkUtc2.Location = new System.Drawing.Point(399, 48);
+            chkUtc2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkUtc2.Name = "chkUtc2";
+            chkUtc2.Size = new System.Drawing.Size(48, 19);
+            chkUtc2.TabIndex = 13;
+            chkUtc2.Text = "UTC";
+            chkUtc2.UseVisualStyleBackColor = true;
+            // 
+            // chkBarcodeScanDates
+            // 
+            chkBarcodeScanDates.AutoSize = true;
+            chkBarcodeScanDates.Location = new System.Drawing.Point(13, -1);
+            chkBarcodeScanDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkBarcodeScanDates.Name = "chkBarcodeScanDates";
+            chkBarcodeScanDates.Size = new System.Drawing.Size(127, 19);
+            chkBarcodeScanDates.TabIndex = 12;
+            chkBarcodeScanDates.Text = "Barcode scan dates";
+            chkBarcodeScanDates.UseVisualStyleBackColor = true;
+            // 
+            // lblMinute4
+            // 
+            lblMinute4.AutoSize = true;
+            lblMinute4.Enabled = false;
+            lblMinute4.Location = new System.Drawing.Point(359, 50);
+            lblMinute4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMinute4.Name = "lblMinute4";
+            lblMinute4.Size = new System.Drawing.Size(18, 15);
+            lblMinute4.TabIndex = 11;
+            lblMinute4.Text = "m";
+            // 
+            // lblMinute3
+            // 
+            lblMinute3.AutoSize = true;
+            lblMinute3.Enabled = false;
+            lblMinute3.Location = new System.Drawing.Point(359, 23);
+            lblMinute3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMinute3.Name = "lblMinute3";
+            lblMinute3.Size = new System.Drawing.Size(18, 15);
+            lblMinute3.TabIndex = 5;
+            lblMinute3.Text = "m";
+            // 
+            // lblHour4
+            // 
+            lblHour4.AutoSize = true;
+            lblHour4.Enabled = false;
+            lblHour4.Location = new System.Drawing.Point(285, 50);
+            lblHour4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHour4.Name = "lblHour4";
+            lblHour4.Size = new System.Drawing.Size(14, 15);
+            lblHour4.TabIndex = 9;
+            lblHour4.Text = "h";
+            // 
+            // lblHour3
+            // 
+            lblHour3.AutoSize = true;
+            lblHour3.Enabled = false;
+            lblHour3.Location = new System.Drawing.Point(285, 23);
+            lblHour3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHour3.Name = "lblHour3";
+            lblHour3.Size = new System.Drawing.Size(14, 15);
+            lblHour3.TabIndex = 3;
+            lblHour3.Text = "h";
+            // 
+            // nudToMinutes2
+            // 
+            nudToMinutes2.Enabled = false;
+            nudToMinutes2.Location = new System.Drawing.Point(304, 45);
+            nudToMinutes2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudToMinutes2.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
+            nudToMinutes2.Name = "nudToMinutes2";
+            nudToMinutes2.Size = new System.Drawing.Size(54, 23);
+            nudToMinutes2.TabIndex = 10;
+            nudToMinutes2.Value = new decimal(new int[] { 59, 0, 0, 0 });
+            // 
+            // nudToHour2
+            // 
+            nudToHour2.Enabled = false;
+            nudToHour2.Location = new System.Drawing.Point(230, 45);
+            nudToHour2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudToHour2.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
+            nudToHour2.Name = "nudToHour2";
+            nudToHour2.Size = new System.Drawing.Size(54, 23);
+            nudToHour2.TabIndex = 8;
+            nudToHour2.Value = new decimal(new int[] { 23, 0, 0, 0 });
+            // 
+            // nudFromMinutes2
+            // 
+            nudFromMinutes2.Enabled = false;
+            nudFromMinutes2.Location = new System.Drawing.Point(304, 18);
+            nudFromMinutes2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFromMinutes2.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
+            nudFromMinutes2.Name = "nudFromMinutes2";
+            nudFromMinutes2.Size = new System.Drawing.Size(54, 23);
+            nudFromMinutes2.TabIndex = 4;
+            // 
+            // nudFromHour2
+            // 
+            nudFromHour2.Enabled = false;
+            nudFromHour2.Location = new System.Drawing.Point(230, 18);
+            nudFromHour2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFromHour2.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
+            nudFromHour2.Name = "nudFromHour2";
+            nudFromHour2.Size = new System.Drawing.Size(54, 23);
+            nudFromHour2.TabIndex = 2;
+            // 
+            // dtpToDate2
+            // 
+            dtpToDate2.Enabled = false;
+            dtpToDate2.Location = new System.Drawing.Point(68, 45);
+            dtpToDate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dtpToDate2.Name = "dtpToDate2";
+            dtpToDate2.Size = new System.Drawing.Size(154, 23);
+            dtpToDate2.TabIndex = 7;
+            // 
+            // dtpFromDate2
+            // 
+            dtpFromDate2.Enabled = false;
+            dtpFromDate2.Location = new System.Drawing.Point(68, 18);
+            dtpFromDate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dtpFromDate2.Name = "dtpFromDate2";
+            dtpFromDate2.Size = new System.Drawing.Size(154, 23);
+            dtpFromDate2.TabIndex = 1;
+            // 
+            // lblTo2
+            // 
+            lblTo2.AutoSize = true;
+            lblTo2.Enabled = false;
+            lblTo2.Location = new System.Drawing.Point(9, 50);
+            lblTo2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblTo2.Name = "lblTo2";
+            lblTo2.Size = new System.Drawing.Size(20, 15);
+            lblTo2.TabIndex = 6;
+            lblTo2.Text = "To";
+            // 
+            // lblFrom2
+            // 
+            lblFrom2.AutoSize = true;
+            lblFrom2.Enabled = false;
+            lblFrom2.Location = new System.Drawing.Point(9, 23);
+            lblFrom2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFrom2.Name = "lblFrom2";
+            lblFrom2.Size = new System.Drawing.Size(35, 15);
+            lblFrom2.TabIndex = 0;
+            lblFrom2.Text = "From";
+            // 
+            // gbDatabaseServer
+            // 
+            gbDatabaseServer.Controls.Add(cbDatabaseServer);
+            gbDatabaseServer.Location = new System.Drawing.Point(656, 98);
+            gbDatabaseServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDatabaseServer.Name = "gbDatabaseServer";
+            gbDatabaseServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDatabaseServer.Size = new System.Drawing.Size(174, 74);
+            gbDatabaseServer.TabIndex = 3;
+            gbDatabaseServer.TabStop = false;
+            gbDatabaseServer.Text = "Database server";
+            // 
+            // cbDatabaseServer
+            // 
+            cbDatabaseServer.FormattingEnabled = true;
+            cbDatabaseServer.Location = new System.Drawing.Point(13, 44);
+            cbDatabaseServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbDatabaseServer.Name = "cbDatabaseServer";
+            cbDatabaseServer.Size = new System.Drawing.Size(140, 23);
+            cbDatabaseServer.TabIndex = 13;
+            // 
+            // gbOther
+            // 
+            gbOther.Controls.Add(cbSlPort);
+            gbOther.Controls.Add(nudSlPort);
+            gbOther.Controls.Add(lblSender);
+            gbOther.Controls.Add(tbSender);
+            gbOther.Controls.Add(lblValue);
+            gbOther.Controls.Add(chkAck);
+            gbOther.Controls.Add(tbValue);
+            gbOther.Location = new System.Drawing.Point(5, 98);
+            gbOther.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbOther.Name = "gbOther";
+            gbOther.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbOther.Size = new System.Drawing.Size(460, 74);
+            gbOther.TabIndex = 7;
+            gbOther.TabStop = false;
+            gbOther.Text = "Other";
+            // 
+            // tbValue
+            // 
+            tbValue.Location = new System.Drawing.Point(7, 44);
+            tbValue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbValue.Name = "tbValue";
+            tbValue.Size = new System.Drawing.Size(134, 23);
+            tbValue.TabIndex = 5;
+            // 
+            // gbStoreDates
+            // 
+            gbStoreDates.Controls.Add(chkUtc);
+            gbStoreDates.Controls.Add(chkStoreDates);
+            gbStoreDates.Controls.Add(lblMinute2);
+            gbStoreDates.Controls.Add(lblMinute);
+            gbStoreDates.Controls.Add(lblHour2);
+            gbStoreDates.Controls.Add(lblHour);
+            gbStoreDates.Controls.Add(nudToMinutes);
+            gbStoreDates.Controls.Add(nudToHour);
+            gbStoreDates.Controls.Add(nudFromMinutes);
+            gbStoreDates.Controls.Add(nudFromHour);
+            gbStoreDates.Controls.Add(dtpToDate);
+            gbStoreDates.Controls.Add(dtpFromDate);
+            gbStoreDates.Controls.Add(lblTo);
+            gbStoreDates.Controls.Add(lblFrom);
+            gbStoreDates.Location = new System.Drawing.Point(5, 17);
+            gbStoreDates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbStoreDates.Name = "gbStoreDates";
+            gbStoreDates.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbStoreDates.Size = new System.Drawing.Size(460, 74);
+            gbStoreDates.TabIndex = 3;
+            gbStoreDates.TabStop = false;
+            gbStoreDates.Text = " ";
+            // 
+            // chkUtc
+            // 
+            chkUtc.AutoSize = true;
+            chkUtc.Enabled = false;
+            chkUtc.Location = new System.Drawing.Point(399, 48);
+            chkUtc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkUtc.Name = "chkUtc";
+            chkUtc.Size = new System.Drawing.Size(48, 19);
+            chkUtc.TabIndex = 13;
+            chkUtc.Text = "UTC";
+            chkUtc.UseVisualStyleBackColor = true;
             // 
             // BarcodeReadings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(979, 549);
-            Controls.Add(panel1);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "BarcodeReadings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "BarcodeReadings";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown6).EndInit();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            panel1.ResumeLayout(false);
-            contextMenuStrip1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown9).EndInit();
-            groupBox5.ResumeLayout(false);
-            groupBox8.ResumeLayout(false);
-            groupBox8.PerformLayout();
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
+            Shown += BarcodeReadings_Shown;
+            ((System.ComponentModel.ISupportInitialize)nudSlPort).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudToMinutes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudToHour).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromMinutes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromHour).EndInit();
+            gbMaximumRows.ResumeLayout(false);
+            gbMaximumRows.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMaximumRows).EndInit();
+            pMain.ResumeLayout(false);
+            cmsMenu.ResumeLayout(false);
+            gbFilters.ResumeLayout(false);
+            gbBarcodeScanDates.ResumeLayout(false);
+            gbBarcodeScanDates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudToMinutes2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudToHour2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromMinutes2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFromHour2).EndInit();
+            gbDatabaseServer.ResumeLayout(false);
+            gbOther.ResumeLayout(false);
+            gbOther.PerformLayout();
+            gbStoreDates.ResumeLayout(false);
+            gbStoreDates.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.NumericUpDown numericUpDown10;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.CheckBox chkStoreDates;
+        private System.Windows.Forms.Label lblMinute;
+        private System.Windows.Forms.CheckBox cbSlPort;
+        private System.Windows.Forms.NumericUpDown nudSlPort;
+        private System.Windows.Forms.Label lblSender;
+        private System.Windows.Forms.TextBox tbSender;
+        private System.Windows.Forms.Label lblValue;
+        private System.Windows.Forms.CheckBox chkAck;
+        private System.Windows.Forms.Label lblMinute2;
+        private System.Windows.Forms.Label lblHour2;
+        private System.Windows.Forms.Label lblHour;
+        private System.Windows.Forms.NumericUpDown nudToMinutes;
+        private System.Windows.Forms.NumericUpDown nudToHour;
+        private System.Windows.Forms.NumericUpDown nudFromMinutes;
+        private System.Windows.Forms.NumericUpDown nudFromHour;
+        private System.Windows.Forms.DateTimePicker dtpToDate;
+        private System.Windows.Forms.DateTimePicker dtpFromDate;
+        private System.Windows.Forms.Label lblFrom;
+        private System.Windows.Forms.GroupBox gbMaximumRows;
+        private System.Windows.Forms.CheckBox chkMaximumRows;
+        private System.Windows.Forms.NumericUpDown nudMaximumRows;
         private System.Windows.Forms.Button btnQuery;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel1;
-        private Mtf.Controls.MtfListView listViewNF1;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem moreToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lbl_SecondsToShow;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.NumericUpDown numericUpDown8;
-        private System.Windows.Forms.NumericUpDown numericUpDown9;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.ColumnHeader chId;
+        private System.Windows.Forms.ColumnHeader chStoreDate;
+        private System.Windows.Forms.ColumnHeader chUtcStoreDate;
+        private System.Windows.Forms.ColumnHeader chBcScanDate;
+        private System.Windows.Forms.ColumnHeader chUtcBcScanDate;
+        private System.Windows.Forms.ColumnHeader chValue;
+        private System.Windows.Forms.ColumnHeader chSender;
+        private System.Windows.Forms.ColumnHeader chSlPort;
+        private System.Windows.Forms.Label lblTo;
+        private System.Windows.Forms.Panel pMain;
+        private Mtf.Controls.MtfListView lvScans;
+        private System.Windows.Forms.ColumnHeader chAck;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMore;
+        private System.Windows.Forms.GroupBox gbFilters;
+        private System.Windows.Forms.GroupBox gbBarcodeScanDates;
+        private System.Windows.Forms.CheckBox chkUtc2;
+        private System.Windows.Forms.CheckBox chkBarcodeScanDates;
+        private System.Windows.Forms.Label lblMinute4;
+        private System.Windows.Forms.Label lblMinute3;
+        private System.Windows.Forms.Label lblHour4;
+        private System.Windows.Forms.Label lblHour3;
+        private System.Windows.Forms.NumericUpDown nudToMinutes2;
+        private System.Windows.Forms.NumericUpDown nudToHour2;
+        private System.Windows.Forms.NumericUpDown nudFromMinutes2;
+        private System.Windows.Forms.NumericUpDown nudFromHour2;
+        private System.Windows.Forms.DateTimePicker dtpToDate2;
+        private System.Windows.Forms.DateTimePicker dtpFromDate2;
+        private System.Windows.Forms.Label lblTo2;
+        private System.Windows.Forms.Label lblFrom2;
+        private System.Windows.Forms.GroupBox gbDatabaseServer;
+        private System.Windows.Forms.ComboBox cbDatabaseServer;
+        private System.Windows.Forms.GroupBox gbOther;
+        private System.Windows.Forms.TextBox tbValue;
+        private System.Windows.Forms.GroupBox gbStoreDates;
+        private System.Windows.Forms.CheckBox chkUtc;
     }
 }

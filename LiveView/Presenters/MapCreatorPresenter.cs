@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,26 @@ namespace LiveView.Presenters
             this.mapCreatorView = mapCreatorView;
             this.mapRepository = mapRepository;
             this.logger = logger;
+        }
+
+        public void AddObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadMapImage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveMap()
+        {
+            throw new NotImplementedException();
         }
     }
 }

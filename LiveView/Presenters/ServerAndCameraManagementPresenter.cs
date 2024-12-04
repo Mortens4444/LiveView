@@ -75,7 +75,7 @@ namespace LiveView.Presenters
             throw new NotImplementedException();
         }
 
-        public void Load()
+        public override void Load()
         {
             var servers = serverRepository.GetAll();
             var cameras = cameraRepository.GetAll();

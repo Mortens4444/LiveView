@@ -29,380 +29,381 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraProperties));
-            p_Main = new System.Windows.Forms.Panel();
-            gb_Properties = new System.Windows.Forms.GroupBox();
-            tb_HttpStream = new System.Windows.Forms.TextBox();
-            lbl_HttpStream = new System.Windows.Forms.Label();
-            cb_PatternName = new System.Windows.Forms.ComboBox();
-            nud_PatternNumber = new System.Windows.Forms.NumericUpDown();
-            lbl_PatternNumberAndName = new System.Windows.Forms.Label();
-            cb_PresetName = new System.Windows.Forms.ComboBox();
-            nud_PresetNumber = new System.Windows.Forms.NumericUpDown();
-            lbl_PresetNumberAndName = new System.Windows.Forms.Label();
-            cb_FullscreenMode = new System.Windows.Forms.ComboBox();
-            lbl_FullscreenMode = new System.Windows.Forms.Label();
-            nud_StreamID = new System.Windows.Forms.NumericUpDown();
-            lbl_StreamID = new System.Windows.Forms.Label();
-            tb_CameraPassword = new Mtf.Controls.PasswordBox();
-            lbl_CameraPassword = new System.Windows.Forms.Label();
-            tb_CameraUsername = new System.Windows.Forms.TextBox();
-            lbl_CameraUsername = new System.Windows.Forms.Label();
-            btn_Close = new System.Windows.Forms.Button();
-            btn_Save = new System.Windows.Forms.Button();
-            lbl_CameraName = new System.Windows.Forms.Label();
-            tb_CameraIPAddress = new System.Windows.Forms.TextBox();
-            lbl_Name = new System.Windows.Forms.Label();
-            lbl_CameraIPAddress = new System.Windows.Forms.Label();
-            lbl_CameraGUID = new System.Windows.Forms.Label();
-            lbl_GUID = new System.Windows.Forms.Label();
-            p_Main.SuspendLayout();
-            gb_Properties.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_PatternNumber).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nud_PresetNumber).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nud_StreamID).BeginInit();
+            pMain = new System.Windows.Forms.Panel();
+            gbProperties = new System.Windows.Forms.GroupBox();
+            tbHttpStream = new System.Windows.Forms.TextBox();
+            lblHttpStream = new System.Windows.Forms.Label();
+            cbPatternName = new System.Windows.Forms.ComboBox();
+            nudPatternNumber = new System.Windows.Forms.NumericUpDown();
+            lblPatternNumberAndName = new System.Windows.Forms.Label();
+            cbPresetName = new System.Windows.Forms.ComboBox();
+            nudPresetNumber = new System.Windows.Forms.NumericUpDown();
+            lblPresetNumberAndName = new System.Windows.Forms.Label();
+            cbFullscreenMode = new System.Windows.Forms.ComboBox();
+            lblFullscreenMode = new System.Windows.Forms.Label();
+            nudStreamId = new System.Windows.Forms.NumericUpDown();
+            lblStreamId = new System.Windows.Forms.Label();
+            tbCameraPassword = new Mtf.Controls.PasswordBox();
+            lblCameraPassword = new System.Windows.Forms.Label();
+            tbCameraUsername = new System.Windows.Forms.TextBox();
+            lblCameraUsername = new System.Windows.Forms.Label();
+            btnClose = new System.Windows.Forms.Button();
+            btnSave = new System.Windows.Forms.Button();
+            lblCameraName = new System.Windows.Forms.Label();
+            tbCameraIpAddress = new System.Windows.Forms.TextBox();
+            lblName = new System.Windows.Forms.Label();
+            lblCameraIpAddress = new System.Windows.Forms.Label();
+            lblCameraGUID = new System.Windows.Forms.Label();
+            lblGuid = new System.Windows.Forms.Label();
+            pMain.SuspendLayout();
+            gbProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudPatternNumber).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudPresetNumber).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudStreamId).BeginInit();
             SuspendLayout();
             // 
-            // p_Main
+            // pMain
             // 
-            p_Main.Controls.Add(gb_Properties);
-            p_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Main.Location = new System.Drawing.Point(0, 0);
-            p_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Main.Name = "p_Main";
-            p_Main.Size = new System.Drawing.Size(348, 321);
-            p_Main.TabIndex = 1;
+            pMain.Controls.Add(gbProperties);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(348, 321);
+            pMain.TabIndex = 1;
             // 
-            // gb_Properties
+            // gbProperties
             // 
-            gb_Properties.Controls.Add(tb_HttpStream);
-            gb_Properties.Controls.Add(lbl_HttpStream);
-            gb_Properties.Controls.Add(cb_PatternName);
-            gb_Properties.Controls.Add(nud_PatternNumber);
-            gb_Properties.Controls.Add(lbl_PatternNumberAndName);
-            gb_Properties.Controls.Add(cb_PresetName);
-            gb_Properties.Controls.Add(nud_PresetNumber);
-            gb_Properties.Controls.Add(lbl_PresetNumberAndName);
-            gb_Properties.Controls.Add(cb_FullscreenMode);
-            gb_Properties.Controls.Add(lbl_FullscreenMode);
-            gb_Properties.Controls.Add(nud_StreamID);
-            gb_Properties.Controls.Add(lbl_StreamID);
-            gb_Properties.Controls.Add(tb_CameraPassword);
-            gb_Properties.Controls.Add(lbl_CameraPassword);
-            gb_Properties.Controls.Add(tb_CameraUsername);
-            gb_Properties.Controls.Add(lbl_CameraUsername);
-            gb_Properties.Controls.Add(btn_Close);
-            gb_Properties.Controls.Add(btn_Save);
-            gb_Properties.Controls.Add(lbl_CameraName);
-            gb_Properties.Controls.Add(tb_CameraIPAddress);
-            gb_Properties.Controls.Add(lbl_Name);
-            gb_Properties.Controls.Add(lbl_CameraIPAddress);
-            gb_Properties.Controls.Add(lbl_CameraGUID);
-            gb_Properties.Controls.Add(lbl_GUID);
-            gb_Properties.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_Properties.Location = new System.Drawing.Point(0, 0);
-            gb_Properties.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Properties.Name = "gb_Properties";
-            gb_Properties.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Properties.Size = new System.Drawing.Size(348, 321);
-            gb_Properties.TabIndex = 0;
-            gb_Properties.TabStop = false;
+            gbProperties.Controls.Add(tbHttpStream);
+            gbProperties.Controls.Add(lblHttpStream);
+            gbProperties.Controls.Add(cbPatternName);
+            gbProperties.Controls.Add(nudPatternNumber);
+            gbProperties.Controls.Add(lblPatternNumberAndName);
+            gbProperties.Controls.Add(cbPresetName);
+            gbProperties.Controls.Add(nudPresetNumber);
+            gbProperties.Controls.Add(lblPresetNumberAndName);
+            gbProperties.Controls.Add(cbFullscreenMode);
+            gbProperties.Controls.Add(lblFullscreenMode);
+            gbProperties.Controls.Add(nudStreamId);
+            gbProperties.Controls.Add(lblStreamId);
+            gbProperties.Controls.Add(tbCameraPassword);
+            gbProperties.Controls.Add(lblCameraPassword);
+            gbProperties.Controls.Add(tbCameraUsername);
+            gbProperties.Controls.Add(lblCameraUsername);
+            gbProperties.Controls.Add(btnClose);
+            gbProperties.Controls.Add(btnSave);
+            gbProperties.Controls.Add(lblCameraName);
+            gbProperties.Controls.Add(tbCameraIpAddress);
+            gbProperties.Controls.Add(lblName);
+            gbProperties.Controls.Add(lblCameraIpAddress);
+            gbProperties.Controls.Add(lblCameraGUID);
+            gbProperties.Controls.Add(lblGuid);
+            gbProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbProperties.Location = new System.Drawing.Point(0, 0);
+            gbProperties.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbProperties.Name = "gbProperties";
+            gbProperties.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbProperties.Size = new System.Drawing.Size(348, 321);
+            gbProperties.TabIndex = 0;
+            gbProperties.TabStop = false;
             // 
-            // tb_HttpStream
+            // tbHttpStream
             // 
-            tb_HttpStream.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_HttpStream.Location = new System.Drawing.Point(152, 193);
-            tb_HttpStream.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_HttpStream.MaxLength = 200;
-            tb_HttpStream.Name = "tb_HttpStream";
-            tb_HttpStream.Size = new System.Drawing.Size(181, 23);
-            tb_HttpStream.TabIndex = 15;
+            tbHttpStream.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbHttpStream.Location = new System.Drawing.Point(152, 193);
+            tbHttpStream.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbHttpStream.MaxLength = 200;
+            tbHttpStream.Name = "tbHttpStream";
+            tbHttpStream.Size = new System.Drawing.Size(181, 23);
+            tbHttpStream.TabIndex = 15;
             // 
-            // lbl_HttpStream
+            // lblHttpStream
             // 
-            lbl_HttpStream.AutoSize = true;
-            lbl_HttpStream.Location = new System.Drawing.Point(7, 196);
-            lbl_HttpStream.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_HttpStream.Name = "lbl_HttpStream";
-            lbl_HttpStream.Size = new System.Drawing.Size(70, 15);
-            lbl_HttpStream.TabIndex = 14;
-            lbl_HttpStream.Text = "Http stream";
+            lblHttpStream.AutoSize = true;
+            lblHttpStream.Location = new System.Drawing.Point(7, 196);
+            lblHttpStream.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHttpStream.Name = "lblHttpStream";
+            lblHttpStream.Size = new System.Drawing.Size(70, 15);
+            lblHttpStream.TabIndex = 14;
+            lblHttpStream.Text = "Http stream";
             // 
-            // cb_PatternName
+            // cbPatternName
             // 
-            cb_PatternName.FormattingEnabled = true;
-            cb_PatternName.Location = new System.Drawing.Point(203, 253);
-            cb_PatternName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PatternName.MaxLength = 50;
-            cb_PatternName.Name = "cb_PatternName";
-            cb_PatternName.Size = new System.Drawing.Size(130, 23);
-            cb_PatternName.TabIndex = 21;
+            cbPatternName.FormattingEnabled = true;
+            cbPatternName.Location = new System.Drawing.Point(203, 253);
+            cbPatternName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPatternName.MaxLength = 50;
+            cbPatternName.Name = "cbPatternName";
+            cbPatternName.Size = new System.Drawing.Size(130, 23);
+            cbPatternName.TabIndex = 21;
             // 
-            // nud_PatternNumber
+            // nudPatternNumber
             // 
-            nud_PatternNumber.Location = new System.Drawing.Point(152, 254);
-            nud_PatternNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_PatternNumber.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
-            nud_PatternNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nud_PatternNumber.Name = "nud_PatternNumber";
-            nud_PatternNumber.Size = new System.Drawing.Size(44, 23);
-            nud_PatternNumber.TabIndex = 20;
-            nud_PatternNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPatternNumber.Location = new System.Drawing.Point(152, 254);
+            nudPatternNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudPatternNumber.Maximum = new decimal(new int[] { 15, 0, 0, 0 });
+            nudPatternNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPatternNumber.Name = "nudPatternNumber";
+            nudPatternNumber.Size = new System.Drawing.Size(44, 23);
+            nudPatternNumber.TabIndex = 20;
+            nudPatternNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // lbl_PatternNumberAndName
+            // lblPatternNumberAndName
             // 
-            lbl_PatternNumberAndName.AutoSize = true;
-            lbl_PatternNumberAndName.Location = new System.Drawing.Point(7, 256);
-            lbl_PatternNumberAndName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_PatternNumberAndName.Name = "lbl_PatternNumberAndName";
-            lbl_PatternNumberAndName.Size = new System.Drawing.Size(126, 15);
-            lbl_PatternNumberAndName.TabIndex = 19;
-            lbl_PatternNumberAndName.Text = "Pattern number, name";
+            lblPatternNumberAndName.AutoSize = true;
+            lblPatternNumberAndName.Location = new System.Drawing.Point(7, 256);
+            lblPatternNumberAndName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPatternNumberAndName.Name = "lblPatternNumberAndName";
+            lblPatternNumberAndName.Size = new System.Drawing.Size(126, 15);
+            lblPatternNumberAndName.TabIndex = 19;
+            lblPatternNumberAndName.Text = "Pattern number, name";
             // 
-            // cb_PresetName
+            // cbPresetName
             // 
-            cb_PresetName.FormattingEnabled = true;
-            cb_PresetName.Location = new System.Drawing.Point(203, 227);
-            cb_PresetName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_PresetName.MaxLength = 50;
-            cb_PresetName.Name = "cb_PresetName";
-            cb_PresetName.Size = new System.Drawing.Size(130, 23);
-            cb_PresetName.TabIndex = 18;
+            cbPresetName.FormattingEnabled = true;
+            cbPresetName.Location = new System.Drawing.Point(203, 227);
+            cbPresetName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbPresetName.MaxLength = 50;
+            cbPresetName.Name = "cbPresetName";
+            cbPresetName.Size = new System.Drawing.Size(130, 23);
+            cbPresetName.TabIndex = 18;
             // 
-            // nud_PresetNumber
+            // nudPresetNumber
             // 
-            nud_PresetNumber.Location = new System.Drawing.Point(152, 228);
-            nud_PresetNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_PresetNumber.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
-            nud_PresetNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nud_PresetNumber.Name = "nud_PresetNumber";
-            nud_PresetNumber.Size = new System.Drawing.Size(44, 23);
-            nud_PresetNumber.TabIndex = 17;
-            nud_PresetNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPresetNumber.Location = new System.Drawing.Point(152, 228);
+            nudPresetNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudPresetNumber.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+            nudPresetNumber.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPresetNumber.Name = "nudPresetNumber";
+            nudPresetNumber.Size = new System.Drawing.Size(44, 23);
+            nudPresetNumber.TabIndex = 17;
+            nudPresetNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // lbl_PresetNumberAndName
+            // lblPresetNumberAndName
             // 
-            lbl_PresetNumberAndName.AutoSize = true;
-            lbl_PresetNumberAndName.Location = new System.Drawing.Point(7, 231);
-            lbl_PresetNumberAndName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_PresetNumberAndName.Name = "lbl_PresetNumberAndName";
-            lbl_PresetNumberAndName.Size = new System.Drawing.Size(120, 15);
-            lbl_PresetNumberAndName.TabIndex = 16;
-            lbl_PresetNumberAndName.Text = "Preset number, name";
+            lblPresetNumberAndName.AutoSize = true;
+            lblPresetNumberAndName.Location = new System.Drawing.Point(7, 231);
+            lblPresetNumberAndName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPresetNumberAndName.Name = "lblPresetNumberAndName";
+            lblPresetNumberAndName.Size = new System.Drawing.Size(120, 15);
+            lblPresetNumberAndName.TabIndex = 16;
+            lblPresetNumberAndName.Text = "Preset number, name";
             // 
-            // cb_FullscreenMode
+            // cbFullscreenMode
             // 
-            cb_FullscreenMode.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cb_FullscreenMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_FullscreenMode.FormattingEnabled = true;
-            cb_FullscreenMode.Location = new System.Drawing.Point(152, 167);
-            cb_FullscreenMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_FullscreenMode.Name = "cb_FullscreenMode";
-            cb_FullscreenMode.Size = new System.Drawing.Size(181, 23);
-            cb_FullscreenMode.TabIndex = 13;
+            cbFullscreenMode.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbFullscreenMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbFullscreenMode.FormattingEnabled = true;
+            cbFullscreenMode.Location = new System.Drawing.Point(152, 167);
+            cbFullscreenMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbFullscreenMode.Name = "cbFullscreenMode";
+            cbFullscreenMode.Size = new System.Drawing.Size(181, 23);
+            cbFullscreenMode.TabIndex = 13;
             // 
-            // lbl_FullscreenMode
+            // lblFullscreenMode
             // 
-            lbl_FullscreenMode.AutoSize = true;
-            lbl_FullscreenMode.Location = new System.Drawing.Point(7, 171);
-            lbl_FullscreenMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_FullscreenMode.Name = "lbl_FullscreenMode";
-            lbl_FullscreenMode.Size = new System.Drawing.Size(94, 15);
-            lbl_FullscreenMode.TabIndex = 12;
-            lbl_FullscreenMode.Text = "Fullscreen mode";
+            lblFullscreenMode.AutoSize = true;
+            lblFullscreenMode.Location = new System.Drawing.Point(7, 171);
+            lblFullscreenMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFullscreenMode.Name = "lblFullscreenMode";
+            lblFullscreenMode.Size = new System.Drawing.Size(94, 15);
+            lblFullscreenMode.TabIndex = 12;
+            lblFullscreenMode.Text = "Fullscreen mode";
             // 
-            // nud_StreamID
+            // nudStreamId
             // 
-            nud_StreamID.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            nud_StreamID.Location = new System.Drawing.Point(152, 143);
-            nud_StreamID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_StreamID.Name = "nud_StreamID";
-            nud_StreamID.Size = new System.Drawing.Size(182, 23);
-            nud_StreamID.TabIndex = 11;
-            nud_StreamID.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudStreamId.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            nudStreamId.Location = new System.Drawing.Point(152, 143);
+            nudStreamId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudStreamId.Name = "nudStreamId";
+            nudStreamId.Size = new System.Drawing.Size(182, 23);
+            nudStreamId.TabIndex = 11;
+            nudStreamId.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // lbl_StreamID
+            // lblStreamId
             // 
-            lbl_StreamID.AutoSize = true;
-            lbl_StreamID.Location = new System.Drawing.Point(7, 145);
-            lbl_StreamID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_StreamID.Name = "lbl_StreamID";
-            lbl_StreamID.Size = new System.Drawing.Size(58, 15);
-            lbl_StreamID.TabIndex = 10;
-            lbl_StreamID.Text = "Stream ID";
+            lblStreamId.AutoSize = true;
+            lblStreamId.Location = new System.Drawing.Point(7, 145);
+            lblStreamId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblStreamId.Name = "lblStreamId";
+            lblStreamId.Size = new System.Drawing.Size(58, 15);
+            lblStreamId.TabIndex = 10;
+            lblStreamId.Text = "Stream ID";
             // 
-            // tb_CameraPassword
+            // tbCameraPassword
             // 
-            tb_CameraPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_CameraPassword.Location = new System.Drawing.Point(152, 117);
-            tb_CameraPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_CameraPassword.MaxLength = 200;
-            tb_CameraPassword.Name = "tb_CameraPassword";
-            tb_CameraPassword.Password = "";
-            tb_CameraPassword.PasswordChar = '*';
-            tb_CameraPassword.ShowRealPasswordLength = false;
-            tb_CameraPassword.Size = new System.Drawing.Size(181, 23);
-            tb_CameraPassword.TabIndex = 9;
+            tbCameraPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbCameraPassword.Location = new System.Drawing.Point(152, 117);
+            tbCameraPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbCameraPassword.MaxLength = 200;
+            tbCameraPassword.Name = "tbCameraPassword";
+            tbCameraPassword.Password = "";
+            tbCameraPassword.PasswordChar = '*';
+            tbCameraPassword.ShowRealPasswordLength = false;
+            tbCameraPassword.Size = new System.Drawing.Size(181, 23);
+            tbCameraPassword.TabIndex = 9;
             // 
-            // lbl_CameraPassword
+            // lblCameraPassword
             // 
-            lbl_CameraPassword.AutoSize = true;
-            lbl_CameraPassword.Location = new System.Drawing.Point(7, 120);
-            lbl_CameraPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CameraPassword.Name = "lbl_CameraPassword";
-            lbl_CameraPassword.Size = new System.Drawing.Size(101, 15);
-            lbl_CameraPassword.TabIndex = 8;
-            lbl_CameraPassword.Text = "Camera password";
+            lblCameraPassword.AutoSize = true;
+            lblCameraPassword.Location = new System.Drawing.Point(7, 120);
+            lblCameraPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCameraPassword.Name = "lblCameraPassword";
+            lblCameraPassword.Size = new System.Drawing.Size(101, 15);
+            lblCameraPassword.TabIndex = 8;
+            lblCameraPassword.Text = "Camera password";
             // 
-            // tb_CameraUsername
+            // tbCameraUsername
             // 
-            tb_CameraUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_CameraUsername.Location = new System.Drawing.Point(152, 91);
-            tb_CameraUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_CameraUsername.MaxLength = 200;
-            tb_CameraUsername.Name = "tb_CameraUsername";
-            tb_CameraUsername.Size = new System.Drawing.Size(181, 23);
-            tb_CameraUsername.TabIndex = 7;
+            tbCameraUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbCameraUsername.Location = new System.Drawing.Point(152, 91);
+            tbCameraUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbCameraUsername.MaxLength = 200;
+            tbCameraUsername.Name = "tbCameraUsername";
+            tbCameraUsername.Size = new System.Drawing.Size(181, 23);
+            tbCameraUsername.TabIndex = 7;
             // 
-            // lbl_CameraUsername
+            // lblCameraUsername
             // 
-            lbl_CameraUsername.AutoSize = true;
-            lbl_CameraUsername.Location = new System.Drawing.Point(7, 95);
-            lbl_CameraUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CameraUsername.Name = "lbl_CameraUsername";
-            lbl_CameraUsername.Size = new System.Drawing.Size(103, 15);
-            lbl_CameraUsername.TabIndex = 6;
-            lbl_CameraUsername.Text = "Camera username";
+            lblCameraUsername.AutoSize = true;
+            lblCameraUsername.Location = new System.Drawing.Point(7, 95);
+            lblCameraUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCameraUsername.Name = "lblCameraUsername";
+            lblCameraUsername.Size = new System.Drawing.Size(103, 15);
+            lblCameraUsername.TabIndex = 6;
+            lblCameraUsername.Text = "Camera username";
             // 
-            // btn_Close
+            // btnClose
             // 
-            btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Close.Location = new System.Drawing.Point(246, 287);
-            btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Close.Name = "btn_Close";
-            btn_Close.Size = new System.Drawing.Size(88, 27);
-            btn_Close.TabIndex = 23;
-            btn_Close.Text = "Close";
-            btn_Close.UseVisualStyleBackColor = true;
-            btn_Close.Click += Btn_Close_Click;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(246, 287);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(88, 27);
+            btnClose.TabIndex = 23;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
-            // btn_Save
+            // btnSave
             // 
-            btn_Save.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_Save.Location = new System.Drawing.Point(152, 287);
-            btn_Save.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Save.Name = "btn_Save";
-            btn_Save.Size = new System.Drawing.Size(88, 27);
-            btn_Save.TabIndex = 22;
-            btn_Save.Text = "Save";
-            btn_Save.UseVisualStyleBackColor = true;
-            btn_Save.Click += Btn_Save_Click;
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSave.Location = new System.Drawing.Point(152, 287);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(88, 27);
+            btnSave.TabIndex = 22;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += BtnSave_Click;
             // 
-            // lbl_CameraName
+            // lblCameraName
             // 
-            lbl_CameraName.AutoSize = true;
-            lbl_CameraName.Location = new System.Drawing.Point(7, 18);
-            lbl_CameraName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CameraName.Name = "lbl_CameraName";
-            lbl_CameraName.Size = new System.Drawing.Size(81, 15);
-            lbl_CameraName.TabIndex = 0;
-            lbl_CameraName.Text = "Camera name";
+            lblCameraName.AutoSize = true;
+            lblCameraName.Location = new System.Drawing.Point(7, 18);
+            lblCameraName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCameraName.Name = "lblCameraName";
+            lblCameraName.Size = new System.Drawing.Size(81, 15);
+            lblCameraName.TabIndex = 0;
+            lblCameraName.Text = "Camera name";
             // 
-            // tb_CameraIPAddress
+            // tbCameraIpAddress
             // 
-            tb_CameraIPAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_CameraIPAddress.Location = new System.Drawing.Point(152, 66);
-            tb_CameraIPAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_CameraIPAddress.MaxLength = 200;
-            tb_CameraIPAddress.Name = "tb_CameraIPAddress";
-            tb_CameraIPAddress.Size = new System.Drawing.Size(181, 23);
-            tb_CameraIPAddress.TabIndex = 5;
+            tbCameraIpAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbCameraIpAddress.Location = new System.Drawing.Point(152, 66);
+            tbCameraIpAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbCameraIpAddress.MaxLength = 200;
+            tbCameraIpAddress.Name = "tbCameraIpAddress";
+            tbCameraIpAddress.Size = new System.Drawing.Size(181, 23);
+            tbCameraIpAddress.TabIndex = 5;
             // 
-            // lbl_Name
+            // lblName
             // 
-            lbl_Name.AutoSize = true;
-            lbl_Name.Location = new System.Drawing.Point(148, 18);
-            lbl_Name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_Name.Name = "lbl_Name";
-            lbl_Name.Size = new System.Drawing.Size(0, 15);
-            lbl_Name.TabIndex = 1;
+            lblName.AutoSize = true;
+            lblName.Location = new System.Drawing.Point(148, 18);
+            lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblName.Name = "lblName";
+            lblName.Size = new System.Drawing.Size(0, 15);
+            lblName.TabIndex = 1;
             // 
-            // lbl_CameraIPAddress
+            // lblCameraIpAddress
             // 
-            lbl_CameraIPAddress.AutoSize = true;
-            lbl_CameraIPAddress.Location = new System.Drawing.Point(7, 69);
-            lbl_CameraIPAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CameraIPAddress.Name = "lbl_CameraIPAddress";
-            lbl_CameraIPAddress.Size = new System.Drawing.Size(104, 15);
-            lbl_CameraIPAddress.TabIndex = 4;
-            lbl_CameraIPAddress.Text = "Camera IP address";
+            lblCameraIpAddress.AutoSize = true;
+            lblCameraIpAddress.Location = new System.Drawing.Point(7, 69);
+            lblCameraIpAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCameraIpAddress.Name = "lblCameraIpAddress";
+            lblCameraIpAddress.Size = new System.Drawing.Size(104, 15);
+            lblCameraIpAddress.TabIndex = 4;
+            lblCameraIpAddress.Text = "Camera IP address";
             // 
-            // lbl_CameraGUID
+            // lblCameraGUID
             // 
-            lbl_CameraGUID.AutoSize = true;
-            lbl_CameraGUID.Location = new System.Drawing.Point(7, 44);
-            lbl_CameraGUID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CameraGUID.Name = "lbl_CameraGUID";
-            lbl_CameraGUID.Size = new System.Drawing.Size(78, 15);
-            lbl_CameraGUID.TabIndex = 2;
-            lbl_CameraGUID.Text = "Camera GUID";
+            lblCameraGUID.AutoSize = true;
+            lblCameraGUID.Location = new System.Drawing.Point(7, 44);
+            lblCameraGUID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCameraGUID.Name = "lblCameraGUID";
+            lblCameraGUID.Size = new System.Drawing.Size(78, 15);
+            lblCameraGUID.TabIndex = 2;
+            lblCameraGUID.Text = "Camera GUID";
             // 
-            // lbl_GUID
+            // lblGuid
             // 
-            lbl_GUID.AutoSize = true;
-            lbl_GUID.Location = new System.Drawing.Point(148, 44);
-            lbl_GUID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_GUID.Name = "lbl_GUID";
-            lbl_GUID.Size = new System.Drawing.Size(0, 15);
-            lbl_GUID.TabIndex = 3;
+            lblGuid.AutoSize = true;
+            lblGuid.Location = new System.Drawing.Point(148, 44);
+            lblGuid.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblGuid.Name = "lblGuid";
+            lblGuid.Size = new System.Drawing.Size(0, 15);
+            lblGuid.TabIndex = 3;
             // 
             // CameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(348, 321);
-            Controls.Add(p_Main);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CameraProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Camera properties";
-            p_Main.ResumeLayout(false);
-            gb_Properties.ResumeLayout(false);
-            gb_Properties.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nud_PatternNumber).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nud_PresetNumber).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nud_StreamID).EndInit();
+            Load += CameraProperties_Load;
+            pMain.ResumeLayout(false);
+            gbProperties.ResumeLayout(false);
+            gbProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudPatternNumber).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudPresetNumber).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudStreamId).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel p_Main;
-        private System.Windows.Forms.GroupBox gb_Properties;
-        private System.Windows.Forms.TextBox tb_HttpStream;
-        private System.Windows.Forms.Label lbl_HttpStream;
-        private System.Windows.Forms.ComboBox cb_PatternName;
-        private System.Windows.Forms.NumericUpDown nud_PatternNumber;
-        private System.Windows.Forms.Label lbl_PatternNumberAndName;
-        private System.Windows.Forms.ComboBox cb_PresetName;
-        private System.Windows.Forms.NumericUpDown nud_PresetNumber;
-        private System.Windows.Forms.Label lbl_PresetNumberAndName;
-        private System.Windows.Forms.ComboBox cb_FullscreenMode;
-        private System.Windows.Forms.Label lbl_FullscreenMode;
-        private System.Windows.Forms.NumericUpDown nud_StreamID;
-        private System.Windows.Forms.Label lbl_StreamID;
-        private Mtf.Controls.PasswordBox tb_CameraPassword;
-        private System.Windows.Forms.Label lbl_CameraPassword;
-        private System.Windows.Forms.TextBox tb_CameraUsername;
-        private System.Windows.Forms.Label lbl_CameraUsername;
-        private System.Windows.Forms.Button btn_Close;
-        private System.Windows.Forms.Button btn_Save;
-        private System.Windows.Forms.Label lbl_CameraName;
-        private System.Windows.Forms.TextBox tb_CameraIPAddress;
-        private System.Windows.Forms.Label lbl_Name;
-        private System.Windows.Forms.Label lbl_CameraIPAddress;
-        private System.Windows.Forms.Label lbl_CameraGUID;
-        private System.Windows.Forms.Label lbl_GUID;
+        private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.GroupBox gbProperties;
+        private System.Windows.Forms.TextBox tbHttpStream;
+        private System.Windows.Forms.Label lblHttpStream;
+        private System.Windows.Forms.ComboBox cbPatternName;
+        private System.Windows.Forms.NumericUpDown nudPatternNumber;
+        private System.Windows.Forms.Label lblPatternNumberAndName;
+        private System.Windows.Forms.ComboBox cbPresetName;
+        private System.Windows.Forms.NumericUpDown nudPresetNumber;
+        private System.Windows.Forms.Label lblPresetNumberAndName;
+        private System.Windows.Forms.ComboBox cbFullscreenMode;
+        private System.Windows.Forms.Label lblFullscreenMode;
+        private System.Windows.Forms.NumericUpDown nudStreamId;
+        private System.Windows.Forms.Label lblStreamId;
+        private Mtf.Controls.PasswordBox tbCameraPassword;
+        private System.Windows.Forms.Label lblCameraPassword;
+        private System.Windows.Forms.TextBox tbCameraUsername;
+        private System.Windows.Forms.Label lblCameraUsername;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblCameraName;
+        private System.Windows.Forms.TextBox tbCameraIpAddress;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblCameraIpAddress;
+        private System.Windows.Forms.Label lblCameraGUID;
+        private System.Windows.Forms.Label lblGuid;
     }
 }

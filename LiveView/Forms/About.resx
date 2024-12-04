@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="tb_ConditionsAndTerms.Text" xml:space="preserve">
+  <data name="tbConditionsAndTerms.Text" xml:space="preserve">
     <value>You may not make any copies of this software. You may not reverse engineer, decompile, or disassemble this software. You may not rent, lease, lend, pledge, or directly or indirectly transfer or distribute this software. The distributor may terminate your rights to use this software if you fail to comply with these conditions and terms.</value>
   </data>
 </root>

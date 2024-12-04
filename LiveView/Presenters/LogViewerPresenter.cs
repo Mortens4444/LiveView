@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,21 @@ namespace LiveView.Presenters
             this.logViewerView = logViewerView;
             this.logRepository = logRepository;
             this.logger = logger;
+        }
+
+        public void DeleteAllLogs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetLogs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Load()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -32,25 +32,25 @@
             pMain = new System.Windows.Forms.Panel();
             btnCancel = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
-            groupBox2 = new System.Windows.Forms.GroupBox();
+            gbNetwork = new System.Windows.Forms.GroupBox();
             tbDatabaseServerMacAddress = new System.Windows.Forms.TextBox();
-            label6 = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            label7 = new System.Windows.Forms.Label();
+            lblMacAddress = new System.Windows.Forms.Label();
+            gbDatabaseServer = new System.Windows.Forms.GroupBox();
+            lblServerPort = new System.Windows.Forms.Label();
             nudDatabaseServerPort = new System.Windows.Forms.NumericUpDown();
             tbDatabaseName = new System.Windows.Forms.TextBox();
-            label5 = new System.Windows.Forms.Label();
-            cb_HostnameOrIP = new System.Windows.Forms.ComboBox();
-            tb_DisplayedName = new System.Windows.Forms.TextBox();
-            label2 = new System.Windows.Forms.Label();
+            lblDatabaseName = new System.Windows.Forms.Label();
+            cbHost = new System.Windows.Forms.ComboBox();
+            tbDisplayedName = new System.Windows.Forms.TextBox();
+            lblDisplayedName = new System.Windows.Forms.Label();
             tbPassword = new Mtf.Controls.PasswordBox();
-            label4 = new System.Windows.Forms.Label();
-            tbusername = new System.Windows.Forms.TextBox();
-            label3 = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
+            lblPassword = new System.Windows.Forms.Label();
+            tbUsername = new System.Windows.Forms.TextBox();
+            lblUsername = new System.Windows.Forms.Label();
+            lblIpAddress = new System.Windows.Forms.Label();
             pMain.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            gbNetwork.SuspendLayout();
+            gbDatabaseServer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudDatabaseServerPort).BeginInit();
             SuspendLayout();
             // 
@@ -58,8 +58,8 @@
             // 
             pMain.Controls.Add(btnCancel);
             pMain.Controls.Add(btnAdd);
-            pMain.Controls.Add(groupBox2);
-            pMain.Controls.Add(groupBox1);
+            pMain.Controls.Add(gbNetwork);
+            pMain.Controls.Add(gbDatabaseServer);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -76,9 +76,9 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(88, 27);
             btnCancel.TabIndex = 13;
-            btnCancel.Text = "Cancel";
+            btnCancel.Text = "Close";
             btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += BtnCancel_Click;
+            btnCancel.Click += BtnClose_Click;
             // 
             // btnAdd
             // 
@@ -93,19 +93,19 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += BtnAdd_Click;
             // 
-            // groupBox2
+            // gbNetwork
             // 
-            groupBox2.Controls.Add(tbDatabaseServerMacAddress);
-            groupBox2.Controls.Add(label6);
-            groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox2.Location = new System.Drawing.Point(0, 286);
-            groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Size = new System.Drawing.Size(315, 70);
-            groupBox2.TabIndex = 11;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Network";
+            gbNetwork.Controls.Add(tbDatabaseServerMacAddress);
+            gbNetwork.Controls.Add(lblMacAddress);
+            gbNetwork.Dock = System.Windows.Forms.DockStyle.Top;
+            gbNetwork.Location = new System.Drawing.Point(0, 286);
+            gbNetwork.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbNetwork.Name = "gbNetwork";
+            gbNetwork.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbNetwork.Size = new System.Drawing.Size(315, 70);
+            gbNetwork.TabIndex = 11;
+            gbNetwork.TabStop = false;
+            gbNetwork.Text = "Network";
             // 
             // tbDatabaseServerMacAddress
             // 
@@ -117,49 +117,49 @@
             tbDatabaseServerMacAddress.Size = new System.Drawing.Size(294, 23);
             tbDatabaseServerMacAddress.TabIndex = 1;
             // 
-            // label6
+            // lblMacAddress
             // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(7, 18);
-            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(144, 15);
-            label6.TabIndex = 0;
-            label6.Text = "MAC Address (opcionális)";
+            lblMacAddress.AutoSize = true;
+            lblMacAddress.Location = new System.Drawing.Point(7, 18);
+            lblMacAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMacAddress.Name = "lblMacAddress";
+            lblMacAddress.Size = new System.Drawing.Size(134, 15);
+            lblMacAddress.TabIndex = 0;
+            lblMacAddress.Text = "MAC Address (optional)";
             // 
-            // groupBox1
+            // gbDatabaseServer
             // 
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(nudDatabaseServerPort);
-            groupBox1.Controls.Add(tbDatabaseName);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(cb_HostnameOrIP);
-            groupBox1.Controls.Add(tb_DisplayedName);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(tbPassword);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(tbusername);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox1.Location = new System.Drawing.Point(0, 0);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(315, 286);
-            groupBox1.TabIndex = 10;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Database server";
+            gbDatabaseServer.Controls.Add(lblServerPort);
+            gbDatabaseServer.Controls.Add(nudDatabaseServerPort);
+            gbDatabaseServer.Controls.Add(tbDatabaseName);
+            gbDatabaseServer.Controls.Add(lblDatabaseName);
+            gbDatabaseServer.Controls.Add(cbHost);
+            gbDatabaseServer.Controls.Add(tbDisplayedName);
+            gbDatabaseServer.Controls.Add(lblDisplayedName);
+            gbDatabaseServer.Controls.Add(tbPassword);
+            gbDatabaseServer.Controls.Add(lblPassword);
+            gbDatabaseServer.Controls.Add(tbUsername);
+            gbDatabaseServer.Controls.Add(lblUsername);
+            gbDatabaseServer.Controls.Add(lblIpAddress);
+            gbDatabaseServer.Dock = System.Windows.Forms.DockStyle.Top;
+            gbDatabaseServer.Location = new System.Drawing.Point(0, 0);
+            gbDatabaseServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDatabaseServer.Name = "gbDatabaseServer";
+            gbDatabaseServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDatabaseServer.Size = new System.Drawing.Size(315, 286);
+            gbDatabaseServer.TabIndex = 10;
+            gbDatabaseServer.TabStop = false;
+            gbDatabaseServer.Text = "Database server";
             // 
-            // label7
+            // lblServerPort
             // 
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(9, 255);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(64, 15);
-            label7.TabIndex = 11;
-            label7.Text = "Server port";
+            lblServerPort.AutoSize = true;
+            lblServerPort.Location = new System.Drawing.Point(9, 255);
+            lblServerPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblServerPort.Name = "lblServerPort";
+            lblServerPort.Size = new System.Drawing.Size(64, 15);
+            lblServerPort.TabIndex = 11;
+            lblServerPort.Text = "Server port";
             // 
             // nudDatabaseServerPort
             // 
@@ -183,45 +183,45 @@
             tbDatabaseName.Size = new System.Drawing.Size(294, 23);
             tbDatabaseName.TabIndex = 9;
             // 
-            // label5
+            // lblDatabaseName
             // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(7, 204);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(88, 15);
-            label5.TabIndex = 8;
-            label5.Text = "Database name";
+            lblDatabaseName.AutoSize = true;
+            lblDatabaseName.Location = new System.Drawing.Point(7, 204);
+            lblDatabaseName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDatabaseName.Name = "lblDatabaseName";
+            lblDatabaseName.Size = new System.Drawing.Size(88, 15);
+            lblDatabaseName.TabIndex = 8;
+            lblDatabaseName.Text = "Database name";
             // 
-            // cb_HostnameOrIP
+            // cbHost
             // 
-            cb_HostnameOrIP.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cb_HostnameOrIP.FormattingEnabled = true;
-            cb_HostnameOrIP.Location = new System.Drawing.Point(10, 37);
-            cb_HostnameOrIP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_HostnameOrIP.Name = "cb_HostnameOrIP";
-            cb_HostnameOrIP.Size = new System.Drawing.Size(294, 23);
-            cb_HostnameOrIP.TabIndex = 1;
+            cbHost.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbHost.FormattingEnabled = true;
+            cbHost.Location = new System.Drawing.Point(10, 37);
+            cbHost.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbHost.Name = "cbHost";
+            cbHost.Size = new System.Drawing.Size(294, 23);
+            cbHost.TabIndex = 1;
             // 
-            // tb_DisplayedName
+            // tbDisplayedName
             // 
-            tb_DisplayedName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_DisplayedName.Location = new System.Drawing.Point(10, 83);
-            tb_DisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_DisplayedName.MaxLength = 100;
-            tb_DisplayedName.Name = "tb_DisplayedName";
-            tb_DisplayedName.Size = new System.Drawing.Size(294, 23);
-            tb_DisplayedName.TabIndex = 3;
+            tbDisplayedName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDisplayedName.Location = new System.Drawing.Point(10, 83);
+            tbDisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDisplayedName.MaxLength = 100;
+            tbDisplayedName.Name = "tbDisplayedName";
+            tbDisplayedName.Size = new System.Drawing.Size(294, 23);
+            tbDisplayedName.TabIndex = 3;
             // 
-            // label2
+            // lblDisplayedName
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(7, 65);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(76, 15);
-            label2.TabIndex = 2;
-            label2.Text = "Shown name";
+            lblDisplayedName.AutoSize = true;
+            lblDisplayedName.Location = new System.Drawing.Point(7, 65);
+            lblDisplayedName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDisplayedName.Name = "lblDisplayedName";
+            lblDisplayedName.Size = new System.Drawing.Size(91, 15);
+            lblDisplayedName.TabIndex = 2;
+            lblDisplayedName.Text = "Displayed name";
             // 
             // tbPassword
             // 
@@ -236,45 +236,45 @@
             tbPassword.Size = new System.Drawing.Size(294, 23);
             tbPassword.TabIndex = 7;
             // 
-            // label4
+            // lblPassword
             // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(7, 153);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(57, 15);
-            label4.TabIndex = 6;
-            label4.Text = "Password";
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new System.Drawing.Point(7, 153);
+            lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new System.Drawing.Size(57, 15);
+            lblPassword.TabIndex = 6;
+            lblPassword.Text = "Password";
             // 
-            // tbusername
+            // tbUsername
             // 
-            tbusername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbusername.Location = new System.Drawing.Point(10, 127);
-            tbusername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbusername.MaxLength = 100;
-            tbusername.Name = "tbusername";
-            tbusername.Size = new System.Drawing.Size(294, 23);
-            tbusername.TabIndex = 5;
+            tbUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUsername.Location = new System.Drawing.Point(10, 127);
+            tbUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbUsername.MaxLength = 100;
+            tbUsername.Name = "tbUsername";
+            tbUsername.Size = new System.Drawing.Size(294, 23);
+            tbUsername.TabIndex = 5;
             // 
-            // label3
+            // lblUsername
             // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(7, 108);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(60, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Username";
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new System.Drawing.Point(7, 108);
+            lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new System.Drawing.Size(60, 15);
+            lblUsername.TabIndex = 4;
+            lblUsername.Text = "Username";
             // 
-            // label1
+            // lblIpAddress
             // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(7, 18);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(133, 15);
-            label1.TabIndex = 0;
-            label1.Text = "DNS name or IP address";
+            lblIpAddress.AutoSize = true;
+            lblIpAddress.Location = new System.Drawing.Point(7, 18);
+            lblIpAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblIpAddress.Name = "lblIpAddress";
+            lblIpAddress.Size = new System.Drawing.Size(133, 15);
+            lblIpAddress.TabIndex = 0;
+            lblIpAddress.Text = "DNS name or IP address";
             // 
             // AddDatabaseServer
             // 
@@ -289,10 +289,10 @@
             Text = "New database server";
             TopMost = true;
             pMain.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            gbNetwork.ResumeLayout(false);
+            gbNetwork.PerformLayout();
+            gbDatabaseServer.ResumeLayout(false);
+            gbDatabaseServer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudDatabaseServerPort).EndInit();
             ResumeLayout(false);
         }
@@ -302,21 +302,21 @@
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbNetwork;
         private System.Windows.Forms.TextBox tbDatabaseServerMacAddress;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblMacAddress;
+        private System.Windows.Forms.GroupBox gbDatabaseServer;
+        private System.Windows.Forms.Label lblServerPort;
         private System.Windows.Forms.NumericUpDown nudDatabaseServerPort;
         private System.Windows.Forms.TextBox tbDatabaseName;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cb_HostnameOrIP;
-        private System.Windows.Forms.TextBox tb_DisplayedName;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblDatabaseName;
+        private System.Windows.Forms.ComboBox cbHost;
+        private System.Windows.Forms.TextBox tbDisplayedName;
+        private System.Windows.Forms.Label lblDisplayedName;
         private Mtf.Controls.PasswordBox tbPassword;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tbusername;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label lblIpAddress;
     }
 }

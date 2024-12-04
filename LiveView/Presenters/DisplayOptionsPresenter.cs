@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,26 @@ namespace LiveView.Presenters
             this.displayOptionsView = displayOptionsView;
             this.displayRepository = displayRepository;
             this.logger = logger;
+        }
+
+        public void IdentifyDisplays()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResetDisplays()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveDisplaySettings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Load()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -29,43 +29,43 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterPass));
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC = new System.Windows.Forms.GroupBox();
-            btn_OK = new System.Windows.Forms.Button();
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC = new System.Windows.Forms.GroupBox();
+            btnOK = new System.Windows.Forms.Button();
             tbSziltechSecurityCode = new System.Windows.Forms.TextBox();
-            rb_SziltechSecurityCode = new System.Windows.Forms.RadioButton();
-            tb_DatabaseSaPassword = new Mtf.Controls.PasswordBox();
-            rb_DatabaseSaPassword = new System.Windows.Forms.RadioButton();
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.SuspendLayout();
+            rbSziltechSecurityCode = new System.Windows.Forms.RadioButton();
+            tbDatabaseSaPassword = new Mtf.Controls.PasswordBox();
+            rbDatabaseSaPassword = new System.Windows.Forms.RadioButton();
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.SuspendLayout();
             SuspendLayout();
             // 
-            // gb_PleaseEnterMSSQLAdministratorPasswordOrSSC
+            // gbPleaseEnterMSSQLAdministratorPasswordOrSSC
             // 
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(btn_OK);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(tbSziltechSecurityCode);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(rb_SziltechSecurityCode);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(tb_DatabaseSaPassword);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(rb_DatabaseSaPassword);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Location = new System.Drawing.Point(0, 0);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Name = "gb_PleaseEnterMSSQLAdministratorPasswordOrSSC";
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Size = new System.Drawing.Size(341, 173);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.TabIndex = 1;
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.TabStop = false;
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.Text = "Please enter MSSQL administrator password or SSC";
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(btnOK);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(tbSziltechSecurityCode);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(rbSziltechSecurityCode);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(tbDatabaseSaPassword);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Controls.Add(rbDatabaseSaPassword);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Location = new System.Drawing.Point(0, 0);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Name = "gbPleaseEnterMSSQLAdministratorPasswordOrSSC";
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Size = new System.Drawing.Size(341, 173);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.TabIndex = 1;
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.TabStop = false;
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.Text = "Please enter MSSQL administrator password or SSC";
             // 
-            // btn_OK
+            // btnOK
             // 
-            btn_OK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btn_OK.Location = new System.Drawing.Point(239, 135);
-            btn_OK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_OK.Name = "btn_OK";
-            btn_OK.Size = new System.Drawing.Size(88, 27);
-            btn_OK.TabIndex = 4;
-            btn_OK.Text = "OK";
-            btn_OK.UseVisualStyleBackColor = true;
-            btn_OK.Click += Btn_OK_Click;
+            btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnOK.Location = new System.Drawing.Point(239, 135);
+            btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new System.Drawing.Size(88, 27);
+            btnOK.TabIndex = 4;
+            btnOK.Text = "OK";
+            btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += BtnOK_Click;
             // 
             // tbSziltechSecurityCode
             // 
@@ -77,65 +77,65 @@
             tbSziltechSecurityCode.Size = new System.Drawing.Size(312, 23);
             tbSziltechSecurityCode.TabIndex = 3;
             // 
-            // rb_SziltechSecurityCode
+            // rbSziltechSecurityCode
             // 
-            rb_SziltechSecurityCode.AutoSize = true;
-            rb_SziltechSecurityCode.Location = new System.Drawing.Point(14, 78);
-            rb_SziltechSecurityCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_SziltechSecurityCode.Name = "rb_SziltechSecurityCode";
-            rb_SziltechSecurityCode.Size = new System.Drawing.Size(169, 19);
-            rb_SziltechSecurityCode.TabIndex = 2;
-            rb_SziltechSecurityCode.Text = "Sziltech security code (SSC)";
-            rb_SziltechSecurityCode.UseVisualStyleBackColor = true;
+            rbSziltechSecurityCode.AutoSize = true;
+            rbSziltechSecurityCode.Location = new System.Drawing.Point(14, 78);
+            rbSziltechSecurityCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbSziltechSecurityCode.Name = "rbSziltechSecurityCode";
+            rbSziltechSecurityCode.Size = new System.Drawing.Size(169, 19);
+            rbSziltechSecurityCode.TabIndex = 2;
+            rbSziltechSecurityCode.Text = "Sziltech security code (SSC)";
+            rbSziltechSecurityCode.UseVisualStyleBackColor = true;
             // 
-            // tb_DatabaseSaPassword
+            // tbDatabaseSaPassword
             // 
-            tb_DatabaseSaPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_DatabaseSaPassword.Location = new System.Drawing.Point(14, 48);
-            tb_DatabaseSaPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_DatabaseSaPassword.Name = "tb_DatabaseSaPassword";
-            tb_DatabaseSaPassword.Password = "";
-            tb_DatabaseSaPassword.PasswordChar = '*';
-            tb_DatabaseSaPassword.ShowRealPasswordLength = false;
-            tb_DatabaseSaPassword.Size = new System.Drawing.Size(312, 23);
-            tb_DatabaseSaPassword.TabIndex = 1;
+            tbDatabaseSaPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDatabaseSaPassword.Location = new System.Drawing.Point(14, 48);
+            tbDatabaseSaPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDatabaseSaPassword.Name = "tbDatabaseSaPassword";
+            tbDatabaseSaPassword.Password = "";
+            tbDatabaseSaPassword.PasswordChar = '*';
+            tbDatabaseSaPassword.ShowRealPasswordLength = false;
+            tbDatabaseSaPassword.Size = new System.Drawing.Size(312, 23);
+            tbDatabaseSaPassword.TabIndex = 1;
             // 
-            // rb_DatabaseSaPassword
+            // rbDatabaseSaPassword
             // 
-            rb_DatabaseSaPassword.AutoSize = true;
-            rb_DatabaseSaPassword.Checked = true;
-            rb_DatabaseSaPassword.Location = new System.Drawing.Point(14, 22);
-            rb_DatabaseSaPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_DatabaseSaPassword.Name = "rb_DatabaseSaPassword";
-            rb_DatabaseSaPassword.Size = new System.Drawing.Size(140, 19);
-            rb_DatabaseSaPassword.TabIndex = 0;
-            rb_DatabaseSaPassword.TabStop = true;
-            rb_DatabaseSaPassword.Text = "Database sa password";
-            rb_DatabaseSaPassword.UseVisualStyleBackColor = true;
+            rbDatabaseSaPassword.AutoSize = true;
+            rbDatabaseSaPassword.Checked = true;
+            rbDatabaseSaPassword.Location = new System.Drawing.Point(14, 22);
+            rbDatabaseSaPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbDatabaseSaPassword.Name = "rbDatabaseSaPassword";
+            rbDatabaseSaPassword.Size = new System.Drawing.Size(140, 19);
+            rbDatabaseSaPassword.TabIndex = 0;
+            rbDatabaseSaPassword.TabStop = true;
+            rbDatabaseSaPassword.Text = "Database sa password";
+            rbDatabaseSaPassword.UseVisualStyleBackColor = true;
             // 
             // EnterPass
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(341, 173);
-            Controls.Add(gb_PleaseEnterMSSQLAdministratorPasswordOrSSC);
+            Controls.Add(gbPleaseEnterMSSQLAdministratorPasswordOrSSC);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "EnterPass";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Please enter password";
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.ResumeLayout(false);
-            gb_PleaseEnterMSSQLAdministratorPasswordOrSSC.PerformLayout();
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.ResumeLayout(false);
+            gbPleaseEnterMSSQLAdministratorPasswordOrSSC.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gb_PleaseEnterMSSQLAdministratorPasswordOrSSC;
-        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.GroupBox gbPleaseEnterMSSQLAdministratorPasswordOrSSC;
+        private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.TextBox tbSziltechSecurityCode;
-        private System.Windows.Forms.RadioButton rb_SziltechSecurityCode;
-        private Mtf.Controls.PasswordBox tb_DatabaseSaPassword;
-        private System.Windows.Forms.RadioButton rb_DatabaseSaPassword;
+        private System.Windows.Forms.RadioButton rbSziltechSecurityCode;
+        private Mtf.Controls.PasswordBox tbDatabaseSaPassword;
+        private System.Windows.Forms.RadioButton rbDatabaseSaPassword;
     }
 }

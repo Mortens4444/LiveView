@@ -29,27 +29,31 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
-        private void Btn_AddObject_Click(object sender, EventArgs e)
+        private void BtnAddObject_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            mapCreatorPresenter.AddObject();
         }
 
         [RequirePermission(MapManagementPermissions.Delete)]
-        private void Btn_DeleteMap_Click(object sender, EventArgs e)
+        private void BtnDeleteMap_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            mapCreatorPresenter.DeleteMap();
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
-        private void Btn_LoadImage_Click(object sender, EventArgs e)
+        private void BtnLoadImage_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            mapCreatorPresenter.LoadMapImage();
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
-        private void Btn_SaveMap_Click(object sender, EventArgs e)
+        private void BtnSaveMap_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            mapCreatorPresenter.SaveMap();
         }
     }
 }

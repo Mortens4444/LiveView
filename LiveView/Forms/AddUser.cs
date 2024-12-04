@@ -29,12 +29,13 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(UserManagementPermissions.Create)]
-        private void Btn_Create_Click(object sender, EventArgs e)
+        private void BtnCreate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            addUserPresenter.CreateUser();
         }
 
-        private void Btn_Cancel_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             addUserPresenter.CloseForm();
         }

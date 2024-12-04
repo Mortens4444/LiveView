@@ -38,28 +38,30 @@ namespace LiveView.Forms
         private void BtnNoSignalImageBrowse_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            generalOptionsPresenter.SelectNoSignalImage();
         }
 
         [RequirePermission(SettingsManagementPermissions.UpdateStatic)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            generalOptionsPresenter.SaveSettings();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             generalOptionsPresenter.CloseForm();
         }
 
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
-        private void Btn_Default_Click(object sender, EventArgs e)
+        private void BtnDefault_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             generalOptionsPresenter.LoadDefaultSettings();
         }
 
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
-        private void Btn_Standard_Click(object sender, EventArgs e)
+        private void BtnStandard_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             generalOptionsPresenter.LoadStandardSettings();
@@ -69,7 +71,7 @@ namespace LiveView.Forms
         private void GeneralOptionsForm_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.LoadSettings();
+            generalOptionsPresenter.Load();
         }
     }
 }

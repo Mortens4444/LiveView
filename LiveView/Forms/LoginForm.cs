@@ -27,7 +27,7 @@ namespace LiveView.Forms
 
         private void BtnOk_Click(object sender, System.EventArgs e)
         {
-
+            loginFormPresenter.Login();
         }
 
         private void BtnClose_Click(object sender, System.EventArgs e)

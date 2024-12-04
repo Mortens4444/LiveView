@@ -25,11 +25,11 @@ namespace LiveView.Forms
 
         private readonly AddCamerasPresenter addCamerasPresenter;
 
-        public ListView ServerCameras => lv_CamerasOfServer;
+        public ListView ServerCameras => lvCamerasOfServer;
 
-        public ListView CamerasToView => lv_CamerasToView;
+        public ListView CamerasToView => lvCamerasToView;
 
-        public ComboBox Servers => cb_Servers;
+        public ComboBox Servers => cbServers;
 
         public AddCameras(PermissionManager permissionManager, ILogger<AddCameras> logger, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, Server server = null)
         {
@@ -45,41 +45,41 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        private async void Cb_Servers_SelectedIndexChanged(object sender, EventArgs e)
+        private async void CbServers_SelectedIndexChanged(object sender, EventArgs e)
         {
             await addCamerasPresenter.GetCamerasAsync();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
-        private void Btn_AddSelected_Click(object sender, EventArgs e)
+        private void BtnAddSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addCamerasPresenter.AddSelectedCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
-        private void Btn_AddAll_Click(object sender, EventArgs e)
+        private void BtnAddAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addCamerasPresenter.AddAllCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
-        private void Btn_RemoveSelected_Click(object sender, EventArgs e)
+        private void BtnRemoveSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addCamerasPresenter.RemoveSelectedCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
-        private void Btn_RemoveAll_Click(object sender, EventArgs e)
+        private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addCamerasPresenter.RemoveAllCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Create | CameraManagementPermissions.Delete)]
-        private void Btn_AddCameras_Click(object sender, EventArgs e)
+        private void BtnAddCameras_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             addCamerasPresenter.SaveCameras();
@@ -102,7 +102,7 @@ namespace LiveView.Forms
 
         public bool CamerasToViewHasElementWithGuid(string guid)
         {
-            return lv_CamerasToView.HasElementWithGuid<VideoServerCamera>(guid);
+            return lvCamerasToView.HasElementWithGuid<VideoServerCamera>(guid);
         }
     }
 }

@@ -32,6 +32,12 @@ namespace LiveView.Forms
         private void BtnAddToRules_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            ioPortSettingsPresenter.AddRule();
+        }
+
+        private void IOPortSettings_Shown(object sender, EventArgs e)
+        {
+            ioPortSettingsPresenter.Load();
         }
     }
 }

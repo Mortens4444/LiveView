@@ -29,94 +29,151 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(GridManagementPermissions.Create)]
-        private void Btn_Save_Click(object sender, EventArgs e)
+        [RequirePermission(GridManagementPermissions.Update)]
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            addGridPresenter.SaveGrid();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             addGridPresenter.CloseForm();
         }
 
-        private void Btn_Combine_Click(object sender, EventArgs e)
+        private void BtnCombine_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.CombineOnGrid();
         }
 
-        private void Btn_Template1_Click(object sender, EventArgs e)
+        private void BtnTemplate1_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate1Way();
         }
 
-        private void Btn_Template2_Click(object sender, EventArgs e)
+        private void BtnTemplate2_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate4Way();
         }
 
-        private void Btn_Template3_Click(object sender, EventArgs e)
+        private void BtnTemplate3_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate6Way();
         }
 
-        private void Btn_Template4_Click(object sender, EventArgs e)
+        private void BtnTemplate4_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate7Way();
         }
 
-        private void Btn_Template5_Click(object sender, EventArgs e)
+        private void BtnTemplate5_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate8Way();
         }
 
-        private void Btn_Template6_Click(object sender, EventArgs e)
+        private void BtnTemplate6_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate9Way();
         }
 
-        private void Btn_Template7_Click(object sender, EventArgs e)
+        private void BtnTemplate7_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate10Way();
         }
 
-        private void Btn_Template8_Click(object sender, EventArgs e)
+        private void BtnTemplate8_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate16Way();
         }
 
-        private void Btn_Template9_Click(object sender, EventArgs e)
+        private void BtnTemplate9_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate25Way();
         }
 
-        private void Btn_Template10_Click(object sender, EventArgs e)
+        private void BtnTemplate10_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate36Way();
         }
 
-        private void Btn_Template11_Click(object sender, EventArgs e)
+        private void BtnTemplate11_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate49Way();
         }
 
-        private void Btn_Template12_Click(object sender, EventArgs e)
+        private void BtnTemplate12_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.LoadTemplate64Way();
         }
 
-        private void Btn_4_3_FixedRight_Click(object sender, EventArgs e)
+        private void Btn4_3_FixedRight_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.SetHeightForAspect4_3();
         }
 
-        private void Btn_16_9_FixedRight_Click(object sender, EventArgs e)
+        private void Btn16_9_FixedRight_Click(object sender, EventArgs e)
         {
-
+            addGridPresenter.SetHeightForAspect16_9();
         }
 
-        private void Btn_16_10_FixedRight_Click(object sender, EventArgs e)
+        private void Btn16_10_FixedRight_Click(object sender, EventArgs e)
         {
+            addGridPresenter.SetHeightForAspect16_10();
+        }
 
+        private void Btn4_3_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.SetWidthForAspect4_3();
+        }
+
+        private void Btn16_9_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.SetWidthForAspect16_9();
+        }
+
+        private void Btn16_10_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.SetWidthForAspect16_10();
+        }
+
+        private void BtnNorthUp_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustUpperEdgeUpwards();
+        }
+
+        private void BtnNorthDown_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustUpperEdgeDownwards();
+        }
+
+        private void BtnWestLeft_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustLeftEdgeLeftwards();
+        }
+
+        private void BtnWestRight_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustLeftEdgeRightwards();
+        }
+
+        private void BtnEastLeft_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustRightEdgeLeftwards();
+        }
+
+        private void BtnEastRight_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustRightEdgeRightwards();
+        }
+
+        private void BtnSouthUp_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustLowerEdgeUpwards();
+        }
+
+        private void BtnSouthDown_Click(object sender, EventArgs e)
+        {
+            addGridPresenter.AdjustLowerEdgeDownwards();
         }
     }
 }

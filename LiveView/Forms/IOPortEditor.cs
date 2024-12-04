@@ -32,9 +32,10 @@ namespace LiveView.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            ioPortEditorPresenter.Save();
         }
 
-        private void BtnCancel_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             ioPortEditorPresenter.CloseForm();
         }

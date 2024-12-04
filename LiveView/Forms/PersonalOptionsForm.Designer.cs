@@ -30,280 +30,280 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalOptionsForm));
-            fontDialog1 = new System.Windows.Forms.FontDialog();
-            colorDialog1 = new System.Windows.Forms.ColorDialog();
-            lbl_SelectedLanguage = new System.Windows.Forms.Label();
-            lbl_FontSizeSmall = new System.Windows.Forms.Label();
-            lbl_FontSizeBig = new System.Windows.Forms.Label();
-            nud_FontSizeSmall = new System.Windows.Forms.NumericUpDown();
-            nud_FontSizeBig = new System.Windows.Forms.NumericUpDown();
-            btn_FontType = new System.Windows.Forms.Button();
-            lbl_ShowVideoServerIdentifier = new System.Windows.Forms.Label();
-            rb_None = new System.Windows.Forms.RadioButton();
-            rb_DNSNameOrIPAddress = new System.Windows.Forms.RadioButton();
-            cb_Languages = new System.Windows.Forms.ComboBox();
-            btn_Close = new System.Windows.Forms.Button();
-            btn_Save = new System.Windows.Forms.Button();
-            rb_DisplayedName = new System.Windows.Forms.RadioButton();
-            pb_ShadowColor = new Mtf.Controls.MtfPictureBox();
-            pb_FontColor = new Mtf.Controls.MtfPictureBox();
-            lbl_FontColor = new System.Windows.Forms.Label();
-            tt_Hint = new System.Windows.Forms.ToolTip(components);
-            gb_Texts = new System.Windows.Forms.GroupBox();
-            lbl_ShadowColor = new System.Windows.Forms.Label();
-            panel1 = new System.Windows.Forms.Panel();
-            gb_Language = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)nud_FontSizeSmall).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nud_FontSizeBig).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pb_ShadowColor).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pb_FontColor).BeginInit();
-            gb_Texts.SuspendLayout();
-            panel1.SuspendLayout();
-            gb_Language.SuspendLayout();
+            fdFontPicker = new System.Windows.Forms.FontDialog();
+            cdColorPicker = new System.Windows.Forms.ColorDialog();
+            lblSelectedLanguage = new System.Windows.Forms.Label();
+            lblFontSizeSmall = new System.Windows.Forms.Label();
+            lblFontSizeBig = new System.Windows.Forms.Label();
+            nudFontSizeSmall = new System.Windows.Forms.NumericUpDown();
+            nudFontSizeBig = new System.Windows.Forms.NumericUpDown();
+            btnFontType = new System.Windows.Forms.Button();
+            lblShowVideoServerIdentifier = new System.Windows.Forms.Label();
+            rbNone = new System.Windows.Forms.RadioButton();
+            rbIpAddress = new System.Windows.Forms.RadioButton();
+            cbLanguages = new System.Windows.Forms.ComboBox();
+            btnClose = new System.Windows.Forms.Button();
+            btnSave = new System.Windows.Forms.Button();
+            rbDisplayedName = new System.Windows.Forms.RadioButton();
+            pbShadowColor = new Mtf.Controls.MtfPictureBox();
+            pbFontColor = new Mtf.Controls.MtfPictureBox();
+            lblFontColor = new System.Windows.Forms.Label();
+            ttHint = new System.Windows.Forms.ToolTip(components);
+            gbTexts = new System.Windows.Forms.GroupBox();
+            lblShadowColor = new System.Windows.Forms.Label();
+            pMain = new System.Windows.Forms.Panel();
+            gbLanguage = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbShadowColor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbFontColor).BeginInit();
+            gbTexts.SuspendLayout();
+            pMain.SuspendLayout();
+            gbLanguage.SuspendLayout();
             SuspendLayout();
             // 
-            // lbl_SelectedLanguage
+            // lblSelectedLanguage
             // 
-            lbl_SelectedLanguage.AutoSize = true;
-            lbl_SelectedLanguage.Location = new System.Drawing.Point(14, 18);
-            lbl_SelectedLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_SelectedLanguage.Name = "lbl_SelectedLanguage";
-            lbl_SelectedLanguage.Size = new System.Drawing.Size(103, 15);
-            lbl_SelectedLanguage.TabIndex = 0;
-            lbl_SelectedLanguage.Text = "Selected language";
+            lblSelectedLanguage.AutoSize = true;
+            lblSelectedLanguage.Location = new System.Drawing.Point(14, 18);
+            lblSelectedLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSelectedLanguage.Name = "lblSelectedLanguage";
+            lblSelectedLanguage.Size = new System.Drawing.Size(103, 15);
+            lblSelectedLanguage.TabIndex = 0;
+            lblSelectedLanguage.Text = "Selected language";
             // 
-            // lbl_FontSizeSmall
+            // lblFontSizeSmall
             // 
-            lbl_FontSizeSmall.AutoSize = true;
-            lbl_FontSizeSmall.Location = new System.Drawing.Point(451, 93);
-            lbl_FontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_FontSizeSmall.Name = "lbl_FontSizeSmall";
-            lbl_FontSizeSmall.Size = new System.Drawing.Size(83, 15);
-            lbl_FontSizeSmall.TabIndex = 9;
-            lbl_FontSizeSmall.Text = "Small font size";
+            lblFontSizeSmall.AutoSize = true;
+            lblFontSizeSmall.Location = new System.Drawing.Point(451, 93);
+            lblFontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFontSizeSmall.Name = "lblFontSizeSmall";
+            lblFontSizeSmall.Size = new System.Drawing.Size(83, 15);
+            lblFontSizeSmall.TabIndex = 9;
+            lblFontSizeSmall.Text = "Small font size";
             // 
-            // lbl_FontSizeBig
+            // lblFontSizeBig
             // 
-            lbl_FontSizeBig.AutoSize = true;
-            lbl_FontSizeBig.Location = new System.Drawing.Point(451, 63);
-            lbl_FontSizeBig.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_FontSizeBig.Name = "lbl_FontSizeBig";
-            lbl_FontSizeBig.Size = new System.Drawing.Size(83, 15);
-            lbl_FontSizeBig.TabIndex = 7;
-            lbl_FontSizeBig.Text = "Large font size";
+            lblFontSizeBig.AutoSize = true;
+            lblFontSizeBig.Location = new System.Drawing.Point(451, 63);
+            lblFontSizeBig.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFontSizeBig.Name = "lblFontSizeBig";
+            lblFontSizeBig.Size = new System.Drawing.Size(83, 15);
+            lblFontSizeBig.TabIndex = 7;
+            lblFontSizeBig.Text = "Large font size";
             // 
-            // nud_FontSizeSmall
+            // nudFontSizeSmall
             // 
-            nud_FontSizeSmall.Location = new System.Drawing.Point(551, 91);
-            nud_FontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_FontSizeSmall.Name = "nud_FontSizeSmall";
-            nud_FontSizeSmall.Size = new System.Drawing.Size(88, 23);
-            nud_FontSizeSmall.TabIndex = 10;
+            nudFontSizeSmall.Location = new System.Drawing.Point(551, 91);
+            nudFontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFontSizeSmall.Name = "nudFontSizeSmall";
+            nudFontSizeSmall.Size = new System.Drawing.Size(88, 23);
+            nudFontSizeSmall.TabIndex = 10;
             // 
-            // nud_FontSizeBig
+            // nudFontSizeBig
             // 
-            nud_FontSizeBig.Location = new System.Drawing.Point(551, 61);
-            nud_FontSizeBig.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nud_FontSizeBig.Name = "nud_FontSizeBig";
-            nud_FontSizeBig.Size = new System.Drawing.Size(88, 23);
-            nud_FontSizeBig.TabIndex = 8;
+            nudFontSizeBig.Location = new System.Drawing.Point(551, 61);
+            nudFontSizeBig.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudFontSizeBig.Name = "nudFontSizeBig";
+            nudFontSizeBig.Size = new System.Drawing.Size(88, 23);
+            nudFontSizeBig.TabIndex = 8;
             // 
-            // btn_FontType
+            // btnFontType
             // 
-            btn_FontType.Location = new System.Drawing.Point(455, 23);
-            btn_FontType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_FontType.Name = "btn_FontType";
-            btn_FontType.Size = new System.Drawing.Size(183, 27);
-            btn_FontType.TabIndex = 6;
-            btn_FontType.Text = "Font type";
-            btn_FontType.UseVisualStyleBackColor = true;
+            btnFontType.Location = new System.Drawing.Point(455, 23);
+            btnFontType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnFontType.Name = "btnFontType";
+            btnFontType.Size = new System.Drawing.Size(183, 27);
+            btnFontType.TabIndex = 6;
+            btnFontType.Text = "Font type";
+            btnFontType.UseVisualStyleBackColor = true;
             // 
-            // lbl_ShowVideoServerIdentifier
+            // lblShowVideoServerIdentifier
             // 
-            lbl_ShowVideoServerIdentifier.AutoSize = true;
-            lbl_ShowVideoServerIdentifier.Location = new System.Drawing.Point(14, 23);
-            lbl_ShowVideoServerIdentifier.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_ShowVideoServerIdentifier.Name = "lbl_ShowVideoServerIdentifier";
-            lbl_ShowVideoServerIdentifier.Size = new System.Drawing.Size(152, 15);
-            lbl_ShowVideoServerIdentifier.TabIndex = 0;
-            lbl_ShowVideoServerIdentifier.Text = "Show video server identifier";
+            lblShowVideoServerIdentifier.AutoSize = true;
+            lblShowVideoServerIdentifier.Location = new System.Drawing.Point(14, 23);
+            lblShowVideoServerIdentifier.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblShowVideoServerIdentifier.Name = "lblShowVideoServerIdentifier";
+            lblShowVideoServerIdentifier.Size = new System.Drawing.Size(152, 15);
+            lblShowVideoServerIdentifier.TabIndex = 0;
+            lblShowVideoServerIdentifier.Text = "Show video server identifier";
             // 
-            // rb_None
+            // rbNone
             // 
-            rb_None.AutoSize = true;
-            rb_None.Location = new System.Drawing.Point(18, 95);
-            rb_None.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_None.Name = "rb_None";
-            rb_None.Size = new System.Drawing.Size(54, 19);
-            rb_None.TabIndex = 3;
-            rb_None.TabStop = true;
-            rb_None.Text = "None";
-            rb_None.UseVisualStyleBackColor = true;
+            rbNone.AutoSize = true;
+            rbNone.Location = new System.Drawing.Point(18, 95);
+            rbNone.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbNone.Name = "rbNone";
+            rbNone.Size = new System.Drawing.Size(54, 19);
+            rbNone.TabIndex = 3;
+            rbNone.TabStop = true;
+            rbNone.Text = "None";
+            rbNone.UseVisualStyleBackColor = true;
             // 
-            // rb_DNSNameOrIPAddress
+            // rbIpAddress
             // 
-            rb_DNSNameOrIPAddress.AutoSize = true;
-            rb_DNSNameOrIPAddress.Location = new System.Drawing.Point(18, 68);
-            rb_DNSNameOrIPAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_DNSNameOrIPAddress.Name = "rb_DNSNameOrIPAddress";
-            rb_DNSNameOrIPAddress.Size = new System.Drawing.Size(151, 19);
-            rb_DNSNameOrIPAddress.TabIndex = 2;
-            rb_DNSNameOrIPAddress.TabStop = true;
-            rb_DNSNameOrIPAddress.Text = "DNS name or IP address";
-            rb_DNSNameOrIPAddress.UseVisualStyleBackColor = true;
+            rbIpAddress.AutoSize = true;
+            rbIpAddress.Location = new System.Drawing.Point(18, 68);
+            rbIpAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbIpAddress.Name = "rbIpAddress";
+            rbIpAddress.Size = new System.Drawing.Size(151, 19);
+            rbIpAddress.TabIndex = 2;
+            rbIpAddress.TabStop = true;
+            rbIpAddress.Text = "DNS name or IP address";
+            rbIpAddress.UseVisualStyleBackColor = true;
             // 
-            // cb_Languages
+            // cbLanguages
             // 
-            cb_Languages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            cb_Languages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_Languages.FormattingEnabled = true;
-            cb_Languages.Location = new System.Drawing.Point(455, 15);
-            cb_Languages.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_Languages.Name = "cb_Languages";
-            cb_Languages.Size = new System.Drawing.Size(182, 23);
-            cb_Languages.TabIndex = 1;
-            cb_Languages.SelectedIndexChanged += Cb_Languages_SelectedIndexChanged;
+            cbLanguages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            cbLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbLanguages.FormattingEnabled = true;
+            cbLanguages.Location = new System.Drawing.Point(455, 15);
+            cbLanguages.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbLanguages.Name = "cbLanguages";
+            cbLanguages.Size = new System.Drawing.Size(182, 23);
+            cbLanguages.TabIndex = 1;
+            cbLanguages.SelectedIndexChanged += CbLanguages_SelectedIndexChanged;
             // 
-            // btn_Close
+            // btnClose
             // 
-            btn_Close.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btn_Close.Location = new System.Drawing.Point(551, 175);
-            btn_Close.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Close.Name = "btn_Close";
-            btn_Close.Size = new System.Drawing.Size(88, 27);
-            btn_Close.TabIndex = 3;
-            btn_Close.Text = "Close";
-            btn_Close.UseVisualStyleBackColor = true;
-            btn_Close.Click += Btn_Close_Click;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.Location = new System.Drawing.Point(551, 175);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(88, 27);
+            btnClose.TabIndex = 3;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
-            // btn_Save
+            // btnSave
             // 
-            btn_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btn_Save.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btn_Save.Location = new System.Drawing.Point(455, 175);
-            btn_Save.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_Save.Name = "btn_Save";
-            btn_Save.Size = new System.Drawing.Size(88, 27);
-            btn_Save.TabIndex = 2;
-            btn_Save.Text = "Save";
-            btn_Save.UseVisualStyleBackColor = true;
-            btn_Save.Click += Btn_Save_Click;
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnSave.Location = new System.Drawing.Point(455, 175);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(88, 27);
+            btnSave.TabIndex = 2;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += BtnSave_Click;
             // 
-            // rb_DisplayedName
+            // rbDisplayedName
             // 
-            rb_DisplayedName.AutoSize = true;
-            rb_DisplayedName.Location = new System.Drawing.Point(18, 42);
-            rb_DisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rb_DisplayedName.Name = "rb_DisplayedName";
-            rb_DisplayedName.Size = new System.Drawing.Size(109, 19);
-            rb_DisplayedName.TabIndex = 1;
-            rb_DisplayedName.TabStop = true;
-            rb_DisplayedName.Text = "Displayed name";
-            rb_DisplayedName.UseVisualStyleBackColor = true;
+            rbDisplayedName.AutoSize = true;
+            rbDisplayedName.Location = new System.Drawing.Point(18, 42);
+            rbDisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbDisplayedName.Name = "rbDisplayedName";
+            rbDisplayedName.Size = new System.Drawing.Size(109, 19);
+            rbDisplayedName.TabIndex = 1;
+            rbDisplayedName.TabStop = true;
+            rbDisplayedName.Text = "Displayed name";
+            rbDisplayedName.UseVisualStyleBackColor = true;
             // 
-            // pb_ShadowColor
+            // pbShadowColor
             // 
-            pb_ShadowColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pb_ShadowColor.Location = new System.Drawing.Point(220, 82);
-            pb_ShadowColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pb_ShadowColor.Name = "pb_ShadowColor";
-            pb_ShadowColor.OriginalSize = new System.Drawing.Size(100, 50);
-            pb_ShadowColor.RepositioningAndResizingControlsOnResize = false;
-            pb_ShadowColor.Size = new System.Drawing.Size(33, 26);
-            pb_ShadowColor.TabIndex = 14;
-            pb_ShadowColor.TabStop = false;
+            pbShadowColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            pbShadowColor.Location = new System.Drawing.Point(220, 82);
+            pbShadowColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbShadowColor.Name = "pbShadowColor";
+            pbShadowColor.OriginalSize = new System.Drawing.Size(100, 50);
+            pbShadowColor.RepositioningAndResizingControlsOnResize = false;
+            pbShadowColor.Size = new System.Drawing.Size(33, 26);
+            pbShadowColor.TabIndex = 14;
+            pbShadowColor.TabStop = false;
             // 
-            // pb_FontColor
+            // pbFontColor
             // 
-            pb_FontColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pb_FontColor.Location = new System.Drawing.Point(220, 48);
-            pb_FontColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pb_FontColor.Name = "pb_FontColor";
-            pb_FontColor.OriginalSize = new System.Drawing.Size(100, 50);
-            pb_FontColor.RepositioningAndResizingControlsOnResize = false;
-            pb_FontColor.Size = new System.Drawing.Size(33, 26);
-            pb_FontColor.TabIndex = 13;
-            pb_FontColor.TabStop = false;
+            pbFontColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            pbFontColor.Location = new System.Drawing.Point(220, 48);
+            pbFontColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbFontColor.Name = "pbFontColor";
+            pbFontColor.OriginalSize = new System.Drawing.Size(100, 50);
+            pbFontColor.RepositioningAndResizingControlsOnResize = false;
+            pbFontColor.Size = new System.Drawing.Size(33, 26);
+            pbFontColor.TabIndex = 13;
+            pbFontColor.TabStop = false;
             // 
-            // lbl_FontColor
+            // lblFontColor
             // 
-            lbl_FontColor.AutoSize = true;
-            lbl_FontColor.Location = new System.Drawing.Point(261, 54);
-            lbl_FontColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_FontColor.Name = "lbl_FontColor";
-            lbl_FontColor.Size = new System.Drawing.Size(61, 15);
-            lbl_FontColor.TabIndex = 4;
-            lbl_FontColor.Text = "Font color";
+            lblFontColor.AutoSize = true;
+            lblFontColor.Location = new System.Drawing.Point(261, 54);
+            lblFontColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblFontColor.Name = "lblFontColor";
+            lblFontColor.Size = new System.Drawing.Size(61, 15);
+            lblFontColor.TabIndex = 4;
+            lblFontColor.Text = "Font color";
             // 
-            // gb_Texts
+            // gbTexts
             // 
-            gb_Texts.Controls.Add(lbl_FontSizeSmall);
-            gb_Texts.Controls.Add(lbl_FontSizeBig);
-            gb_Texts.Controls.Add(nud_FontSizeSmall);
-            gb_Texts.Controls.Add(nud_FontSizeBig);
-            gb_Texts.Controls.Add(btn_FontType);
-            gb_Texts.Controls.Add(lbl_ShowVideoServerIdentifier);
-            gb_Texts.Controls.Add(rb_None);
-            gb_Texts.Controls.Add(rb_DNSNameOrIPAddress);
-            gb_Texts.Controls.Add(rb_DisplayedName);
-            gb_Texts.Controls.Add(pb_ShadowColor);
-            gb_Texts.Controls.Add(pb_FontColor);
-            gb_Texts.Controls.Add(lbl_ShadowColor);
-            gb_Texts.Controls.Add(lbl_FontColor);
-            gb_Texts.Dock = System.Windows.Forms.DockStyle.Top;
-            gb_Texts.Location = new System.Drawing.Point(0, 47);
-            gb_Texts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Texts.Name = "gb_Texts";
-            gb_Texts.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Texts.Size = new System.Drawing.Size(645, 122);
-            gb_Texts.TabIndex = 1;
-            gb_Texts.TabStop = false;
-            gb_Texts.Text = "Texts";
+            gbTexts.Controls.Add(lblFontSizeSmall);
+            gbTexts.Controls.Add(lblFontSizeBig);
+            gbTexts.Controls.Add(nudFontSizeSmall);
+            gbTexts.Controls.Add(nudFontSizeBig);
+            gbTexts.Controls.Add(btnFontType);
+            gbTexts.Controls.Add(lblShowVideoServerIdentifier);
+            gbTexts.Controls.Add(rbNone);
+            gbTexts.Controls.Add(rbIpAddress);
+            gbTexts.Controls.Add(rbDisplayedName);
+            gbTexts.Controls.Add(pbShadowColor);
+            gbTexts.Controls.Add(pbFontColor);
+            gbTexts.Controls.Add(lblShadowColor);
+            gbTexts.Controls.Add(lblFontColor);
+            gbTexts.Dock = System.Windows.Forms.DockStyle.Top;
+            gbTexts.Location = new System.Drawing.Point(0, 47);
+            gbTexts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbTexts.Name = "gbTexts";
+            gbTexts.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbTexts.Size = new System.Drawing.Size(645, 122);
+            gbTexts.TabIndex = 1;
+            gbTexts.TabStop = false;
+            gbTexts.Text = "Texts";
             // 
-            // lbl_ShadowColor
+            // lblShadowColor
             // 
-            lbl_ShadowColor.AutoSize = true;
-            lbl_ShadowColor.Location = new System.Drawing.Point(258, 88);
-            lbl_ShadowColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_ShadowColor.Name = "lbl_ShadowColor";
-            lbl_ShadowColor.Size = new System.Drawing.Size(79, 15);
-            lbl_ShadowColor.TabIndex = 5;
-            lbl_ShadowColor.Text = "Shadow color";
+            lblShadowColor.AutoSize = true;
+            lblShadowColor.Location = new System.Drawing.Point(258, 88);
+            lblShadowColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblShadowColor.Name = "lblShadowColor";
+            lblShadowColor.Size = new System.Drawing.Size(79, 15);
+            lblShadowColor.TabIndex = 5;
+            lblShadowColor.Text = "Shadow color";
             // 
-            // panel1
+            // pMain
             // 
-            panel1.Controls.Add(gb_Texts);
-            panel1.Controls.Add(btn_Close);
-            panel1.Controls.Add(btn_Save);
-            panel1.Controls.Add(gb_Language);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 0);
-            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(645, 205);
-            panel1.TabIndex = 1;
+            pMain.Controls.Add(gbTexts);
+            pMain.Controls.Add(btnClose);
+            pMain.Controls.Add(btnSave);
+            pMain.Controls.Add(gbLanguage);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(0, 0);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(645, 205);
+            pMain.TabIndex = 1;
             // 
-            // gb_Language
+            // gbLanguage
             // 
-            gb_Language.Controls.Add(cb_Languages);
-            gb_Language.Controls.Add(lbl_SelectedLanguage);
-            gb_Language.Dock = System.Windows.Forms.DockStyle.Top;
-            gb_Language.Location = new System.Drawing.Point(0, 0);
-            gb_Language.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Language.Name = "gb_Language";
-            gb_Language.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Language.Size = new System.Drawing.Size(645, 47);
-            gb_Language.TabIndex = 0;
-            gb_Language.TabStop = false;
-            gb_Language.Text = "Language";
+            gbLanguage.Controls.Add(cbLanguages);
+            gbLanguage.Controls.Add(lblSelectedLanguage);
+            gbLanguage.Dock = System.Windows.Forms.DockStyle.Top;
+            gbLanguage.Location = new System.Drawing.Point(0, 0);
+            gbLanguage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbLanguage.Name = "gbLanguage";
+            gbLanguage.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbLanguage.Size = new System.Drawing.Size(645, 47);
+            gbLanguage.TabIndex = 0;
+            gbLanguage.TabStop = false;
+            gbLanguage.Text = "Language";
             // 
             // PersonalOptionsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(645, 205);
-            Controls.Add(panel1);
+            Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(652, 231);
@@ -311,42 +311,42 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "PersonalOptions";
             Shown += PersonalOptionsForm_Shown;
-            ((System.ComponentModel.ISupportInitialize)nud_FontSizeSmall).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nud_FontSizeBig).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pb_ShadowColor).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pb_FontColor).EndInit();
-            gb_Texts.ResumeLayout(false);
-            gb_Texts.PerformLayout();
-            panel1.ResumeLayout(false);
-            gb_Language.ResumeLayout(false);
-            gb_Language.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbShadowColor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbFontColor).EndInit();
+            gbTexts.ResumeLayout(false);
+            gbTexts.PerformLayout();
+            pMain.ResumeLayout(false);
+            gbLanguage.ResumeLayout(false);
+            gbLanguage.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Label lbl_SelectedLanguage;
-        private System.Windows.Forms.Label lbl_FontSizeSmall;
-        private System.Windows.Forms.Label lbl_FontSizeBig;
-        private System.Windows.Forms.NumericUpDown nud_FontSizeSmall;
-        private System.Windows.Forms.NumericUpDown nud_FontSizeBig;
-        private System.Windows.Forms.Button btn_FontType;
-        private System.Windows.Forms.Label lbl_ShowVideoServerIdentifier;
-        private System.Windows.Forms.RadioButton rb_None;
-        private System.Windows.Forms.RadioButton rb_DNSNameOrIPAddress;
-        private System.Windows.Forms.ComboBox cb_Languages;
-        private System.Windows.Forms.Button btn_Close;
-        private System.Windows.Forms.Button btn_Save;
-        private System.Windows.Forms.RadioButton rb_DisplayedName;
-        private Mtf.Controls.MtfPictureBox pb_ShadowColor;
-        private Mtf.Controls.MtfPictureBox pb_FontColor;
-        private System.Windows.Forms.Label lbl_FontColor;
-        private System.Windows.Forms.ToolTip tt_Hint;
-        private System.Windows.Forms.GroupBox gb_Texts;
-        private System.Windows.Forms.Label lbl_ShadowColor;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox gb_Language;
+        private System.Windows.Forms.FontDialog fdFontPicker;
+        private System.Windows.Forms.ColorDialog cdColorPicker;
+        private System.Windows.Forms.Label lblSelectedLanguage;
+        private System.Windows.Forms.Label lblFontSizeSmall;
+        private System.Windows.Forms.Label lblFontSizeBig;
+        private System.Windows.Forms.NumericUpDown nudFontSizeSmall;
+        private System.Windows.Forms.NumericUpDown nudFontSizeBig;
+        private System.Windows.Forms.Button btnFontType;
+        private System.Windows.Forms.Label lblShowVideoServerIdentifier;
+        private System.Windows.Forms.RadioButton rbNone;
+        private System.Windows.Forms.RadioButton rbIpAddress;
+        private System.Windows.Forms.ComboBox cbLanguages;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.RadioButton rbDisplayedName;
+        private Mtf.Controls.MtfPictureBox pbShadowColor;
+        private Mtf.Controls.MtfPictureBox pbFontColor;
+        private System.Windows.Forms.Label lblFontColor;
+        private System.Windows.Forms.ToolTip ttHint;
+        private System.Windows.Forms.GroupBox gbTexts;
+        private System.Windows.Forms.Label lblShadowColor;
+        private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.GroupBox gbLanguage;
     }
 }

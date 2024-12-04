@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,41 @@ namespace LiveView.Presenters
             this.syncronViewView = syncronViewView;
             this.cameraRepository = cameraRepository;
             this.logger = logger;
+        }
+
+        public void Goto()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Pause()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Play()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StepBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StepNext()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConnectToCamera()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetSpeed()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -29,39 +29,51 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(SequenceManagementPermissions.Delete)]
-        private void Btn_DeleteSequence_Click(object sender, EventArgs e)
+        private void BtnDeleteSequence_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.DeleteSequence();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
-        private void Btn_AddGrid_Click(object sender, EventArgs e)
+        private void BtnAddGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.AddGrid();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
-        private void Btn_MoveUp_Click(object sender, EventArgs e)
+        private void BtnMoveUp_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.MoveGridUp();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
-        private void Btn_MoveDown_Click(object sender, EventArgs e)
+        private void BtnMoveDown_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.MoveGridDown();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
-        private void Btn_DeleteGrid_Click(object sender, EventArgs e)
+        private void BtnDeleteGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.DeleteGrid();
         }
 
+        [RequirePermission(SequenceManagementPermissions.Create)]
         [RequirePermission(SequenceManagementPermissions.Update)]
-        private void Btn_AddOrUpdateSequence_Click(object sender, EventArgs e)
+        private void BtnAddOrUpdateSequence_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            sequentialChainsPresenter.AddOrMUpdateSequence();
+        }
+
+        private void SequentialChains_Shown(object sender, EventArgs e)
+        {
+            sequentialChainsPresenter.Load();
         }
     }
 }

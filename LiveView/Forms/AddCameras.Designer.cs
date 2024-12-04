@@ -30,177 +30,177 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCameras));
-            tt_Hint = new System.Windows.Forms.ToolTip(components);
-            lbl_CamerasOfServer = new System.Windows.Forms.Label();
-            cb_Servers = new System.Windows.Forms.ComboBox();
-            lv_CamerasToView = new Mtf.Controls.MtfListView();
-            il_Images = new System.Windows.Forms.ImageList(components);
-            lbl_CamerasToView = new System.Windows.Forms.Label();
-            lv_CamerasOfServer = new Mtf.Controls.MtfListView();
-            btn_AddAll = new System.Windows.Forms.Button();
-            btn_RemoveAll = new System.Windows.Forms.Button();
-            btn_AddSelected = new System.Windows.Forms.Button();
-            p_Header = new System.Windows.Forms.Panel();
+            ttHint = new System.Windows.Forms.ToolTip(components);
+            lblCamerasOfServer = new System.Windows.Forms.Label();
+            cbServers = new System.Windows.Forms.ComboBox();
+            lvCamerasToView = new Mtf.Controls.MtfListView();
+            ilImages = new System.Windows.Forms.ImageList(components);
+            lblCamerasToView = new System.Windows.Forms.Label();
+            lvCamerasOfServer = new Mtf.Controls.MtfListView();
+            btnAddAll = new System.Windows.Forms.Button();
+            btnRemoveAll = new System.Windows.Forms.Button();
+            btnAddSelected = new System.Windows.Forms.Button();
+            pHeader = new System.Windows.Forms.Panel();
             axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
-            lbl_Host = new System.Windows.Forms.Label();
-            btn_AddCameras = new System.Windows.Forms.Button();
-            btn_RemoveSelected = new System.Windows.Forms.Button();
-            p_Footer = new System.Windows.Forms.Panel();
+            lblHost = new System.Windows.Forms.Label();
+            btnAddCameras = new System.Windows.Forms.Button();
+            btnRemoveSelected = new System.Windows.Forms.Button();
+            pFooter = new System.Windows.Forms.Panel();
             btnClose = new System.Windows.Forms.Button();
-            p_Cameras = new System.Windows.Forms.Panel();
-            p_Main = new System.Windows.Forms.Panel();
-            gb_Main = new System.Windows.Forms.GroupBox();
-            p_Header.SuspendLayout();
+            pCameras = new System.Windows.Forms.Panel();
+            pMain = new System.Windows.Forms.Panel();
+            gbMain = new System.Windows.Forms.GroupBox();
+            pHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
-            p_Footer.SuspendLayout();
-            p_Cameras.SuspendLayout();
-            p_Main.SuspendLayout();
-            gb_Main.SuspendLayout();
+            pFooter.SuspendLayout();
+            pCameras.SuspendLayout();
+            pMain.SuspendLayout();
+            gbMain.SuspendLayout();
             SuspendLayout();
             // 
-            // lbl_CamerasOfServer
+            // lblCamerasOfServer
             // 
-            lbl_CamerasOfServer.AutoSize = true;
-            lbl_CamerasOfServer.Location = new System.Drawing.Point(2, 52);
-            lbl_CamerasOfServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CamerasOfServer.Name = "lbl_CamerasOfServer";
-            lbl_CamerasOfServer.Size = new System.Drawing.Size(86, 15);
-            lbl_CamerasOfServer.TabIndex = 2;
-            lbl_CamerasOfServer.Text = "Server cameras";
+            lblCamerasOfServer.AutoSize = true;
+            lblCamerasOfServer.Location = new System.Drawing.Point(2, 52);
+            lblCamerasOfServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCamerasOfServer.Name = "lblCamerasOfServer";
+            lblCamerasOfServer.Size = new System.Drawing.Size(86, 15);
+            lblCamerasOfServer.TabIndex = 2;
+            lblCamerasOfServer.Text = "Server cameras";
             // 
-            // cb_Servers
+            // cbServers
             // 
-            cb_Servers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cb_Servers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cb_Servers.FormattingEnabled = true;
-            cb_Servers.Location = new System.Drawing.Point(1, 24);
-            cb_Servers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cb_Servers.Name = "cb_Servers";
-            cb_Servers.Size = new System.Drawing.Size(423, 23);
-            cb_Servers.TabIndex = 1;
-            cb_Servers.SelectedIndexChanged += Cb_Servers_SelectedIndexChanged;
+            cbServers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbServers.FormattingEnabled = true;
+            cbServers.Location = new System.Drawing.Point(1, 24);
+            cbServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbServers.Name = "cbServers";
+            cbServers.Size = new System.Drawing.Size(423, 23);
+            cbServers.TabIndex = 1;
+            cbServers.SelectedIndexChanged += CbServers_SelectedIndexChanged;
             // 
-            // lv_CamerasToView
+            // lvCamerasToView
             // 
-            lv_CamerasToView.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lv_CamerasToView.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lv_CamerasToView.AlternatingColorsAreInUse = true;
-            lv_CamerasToView.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lv_CamerasToView.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lv_CamerasToView.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            lv_CamerasToView.CompactView = false;
-            lv_CamerasToView.EnsureLastItemIsVisible = false;
-            lv_CamerasToView.FirstItemIsGray = false;
-            lv_CamerasToView.FullRowSelect = true;
-            lv_CamerasToView.Location = new System.Drawing.Point(235, 0);
-            lv_CamerasToView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lv_CamerasToView.MinimumSize = new System.Drawing.Size(191, 316);
-            lv_CamerasToView.Name = "lv_CamerasToView";
-            lv_CamerasToView.OwnerDraw = true;
-            lv_CamerasToView.ReadonlyCheckboxes = false;
-            lv_CamerasToView.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lv_CamerasToView.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lv_CamerasToView.ShowItemToolTips = true;
-            lv_CamerasToView.Size = new System.Drawing.Size(191, 389);
-            lv_CamerasToView.SmallImageList = il_Images;
-            lv_CamerasToView.TabIndex = 1;
-            lv_CamerasToView.UseCompatibleStateImageBehavior = false;
-            lv_CamerasToView.View = System.Windows.Forms.View.List;
+            lvCamerasToView.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvCamerasToView.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvCamerasToView.AlternatingColorsAreInUse = true;
+            lvCamerasToView.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvCamerasToView.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvCamerasToView.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lvCamerasToView.CompactView = false;
+            lvCamerasToView.EnsureLastItemIsVisible = false;
+            lvCamerasToView.FirstItemIsGray = false;
+            lvCamerasToView.FullRowSelect = true;
+            lvCamerasToView.Location = new System.Drawing.Point(235, 0);
+            lvCamerasToView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvCamerasToView.MinimumSize = new System.Drawing.Size(191, 316);
+            lvCamerasToView.Name = "lvCamerasToView";
+            lvCamerasToView.OwnerDraw = true;
+            lvCamerasToView.ReadonlyCheckboxes = false;
+            lvCamerasToView.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvCamerasToView.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvCamerasToView.ShowItemToolTips = true;
+            lvCamerasToView.Size = new System.Drawing.Size(191, 389);
+            lvCamerasToView.SmallImageList = ilImages;
+            lvCamerasToView.TabIndex = 1;
+            lvCamerasToView.UseCompatibleStateImageBehavior = false;
+            lvCamerasToView.View = System.Windows.Forms.View.List;
             // 
-            // il_Images
+            // ilImages
             // 
-            il_Images.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            il_Images.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("il_Images.ImageStream");
-            il_Images.TransparentColor = System.Drawing.Color.Transparent;
-            il_Images.Images.SetKeyName(0, "cam 0.ico");
+            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
+            ilImages.TransparentColor = System.Drawing.Color.Transparent;
+            ilImages.Images.SetKeyName(0, "cam 0.ico");
             // 
-            // lbl_CamerasToView
+            // lblCamerasToView
             // 
-            lbl_CamerasToView.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lbl_CamerasToView.AutoSize = true;
-            lbl_CamerasToView.Location = new System.Drawing.Point(240, 52);
-            lbl_CamerasToView.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_CamerasToView.Name = "lbl_CamerasToView";
-            lbl_CamerasToView.Size = new System.Drawing.Size(94, 15);
-            lbl_CamerasToView.TabIndex = 3;
-            lbl_CamerasToView.Text = "Cameras to view";
+            lblCamerasToView.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblCamerasToView.AutoSize = true;
+            lblCamerasToView.Location = new System.Drawing.Point(240, 52);
+            lblCamerasToView.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCamerasToView.Name = "lblCamerasToView";
+            lblCamerasToView.Size = new System.Drawing.Size(94, 15);
+            lblCamerasToView.TabIndex = 3;
+            lblCamerasToView.Text = "Cameras to view";
             // 
-            // lv_CamerasOfServer
+            // lvCamerasOfServer
             // 
-            lv_CamerasOfServer.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lv_CamerasOfServer.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lv_CamerasOfServer.AlternatingColorsAreInUse = true;
-            lv_CamerasOfServer.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lv_CamerasOfServer.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lv_CamerasOfServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            lv_CamerasOfServer.CompactView = false;
-            lv_CamerasOfServer.EnsureLastItemIsVisible = false;
-            lv_CamerasOfServer.FirstItemIsGray = false;
-            lv_CamerasOfServer.FullRowSelect = true;
-            lv_CamerasOfServer.Location = new System.Drawing.Point(1, 0);
-            lv_CamerasOfServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lv_CamerasOfServer.MinimumSize = new System.Drawing.Size(191, 316);
-            lv_CamerasOfServer.Name = "lv_CamerasOfServer";
-            lv_CamerasOfServer.OwnerDraw = true;
-            lv_CamerasOfServer.ReadonlyCheckboxes = false;
-            lv_CamerasOfServer.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lv_CamerasOfServer.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lv_CamerasOfServer.ShowItemToolTips = true;
-            lv_CamerasOfServer.Size = new System.Drawing.Size(191, 389);
-            lv_CamerasOfServer.SmallImageList = il_Images;
-            lv_CamerasOfServer.TabIndex = 0;
-            lv_CamerasOfServer.UseCompatibleStateImageBehavior = false;
-            lv_CamerasOfServer.View = System.Windows.Forms.View.List;
+            lvCamerasOfServer.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvCamerasOfServer.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvCamerasOfServer.AlternatingColorsAreInUse = true;
+            lvCamerasOfServer.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvCamerasOfServer.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvCamerasOfServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lvCamerasOfServer.CompactView = false;
+            lvCamerasOfServer.EnsureLastItemIsVisible = false;
+            lvCamerasOfServer.FirstItemIsGray = false;
+            lvCamerasOfServer.FullRowSelect = true;
+            lvCamerasOfServer.Location = new System.Drawing.Point(1, 0);
+            lvCamerasOfServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvCamerasOfServer.MinimumSize = new System.Drawing.Size(191, 316);
+            lvCamerasOfServer.Name = "lvCamerasOfServer";
+            lvCamerasOfServer.OwnerDraw = true;
+            lvCamerasOfServer.ReadonlyCheckboxes = false;
+            lvCamerasOfServer.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvCamerasOfServer.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvCamerasOfServer.ShowItemToolTips = true;
+            lvCamerasOfServer.Size = new System.Drawing.Size(191, 389);
+            lvCamerasOfServer.SmallImageList = ilImages;
+            lvCamerasOfServer.TabIndex = 0;
+            lvCamerasOfServer.UseCompatibleStateImageBehavior = false;
+            lvCamerasOfServer.View = System.Windows.Forms.View.List;
             // 
-            // btn_AddAll
+            // btnAddAll
             // 
-            btn_AddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btn_AddAll.Image = (System.Drawing.Image)resources.GetObject("btn_AddAll.Image");
-            btn_AddAll.Location = new System.Drawing.Point(198, 106);
-            btn_AddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_AddAll.Name = "btn_AddAll";
-            btn_AddAll.Size = new System.Drawing.Size(33, 27);
-            btn_AddAll.TabIndex = 3;
-            btn_AddAll.UseVisualStyleBackColor = true;
-            btn_AddAll.Click += Btn_AddAll_Click;
+            btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddAll.Image = (System.Drawing.Image)resources.GetObject("btnAddAll.Image");
+            btnAddAll.Location = new System.Drawing.Point(198, 106);
+            btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddAll.Name = "btnAddAll";
+            btnAddAll.Size = new System.Drawing.Size(33, 27);
+            btnAddAll.TabIndex = 3;
+            btnAddAll.UseVisualStyleBackColor = true;
+            btnAddAll.Click += BtnAddAll_Click;
             // 
-            // btn_RemoveAll
+            // btnRemoveAll
             // 
-            btn_RemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btn_RemoveAll.Image = (System.Drawing.Image)resources.GetObject("btn_RemoveAll.Image");
-            btn_RemoveAll.Location = new System.Drawing.Point(198, 173);
-            btn_RemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_RemoveAll.Name = "btn_RemoveAll";
-            btn_RemoveAll.Size = new System.Drawing.Size(33, 27);
-            btn_RemoveAll.TabIndex = 5;
-            btn_RemoveAll.UseVisualStyleBackColor = true;
-            btn_RemoveAll.Click += Btn_RemoveAll_Click;
+            btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveAll.Image = (System.Drawing.Image)resources.GetObject("btnRemoveAll.Image");
+            btnRemoveAll.Location = new System.Drawing.Point(198, 173);
+            btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveAll.Name = "btnRemoveAll";
+            btnRemoveAll.Size = new System.Drawing.Size(33, 27);
+            btnRemoveAll.TabIndex = 5;
+            btnRemoveAll.UseVisualStyleBackColor = true;
+            btnRemoveAll.Click += BtnRemoveAll_Click;
             // 
-            // btn_AddSelected
+            // btnAddSelected
             // 
-            btn_AddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btn_AddSelected.Image = (System.Drawing.Image)resources.GetObject("btn_AddSelected.Image");
-            btn_AddSelected.Location = new System.Drawing.Point(198, 73);
-            btn_AddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_AddSelected.Name = "btn_AddSelected";
-            btn_AddSelected.Size = new System.Drawing.Size(33, 27);
-            btn_AddSelected.TabIndex = 2;
-            btn_AddSelected.UseVisualStyleBackColor = true;
-            btn_AddSelected.Click += Btn_AddSelected_Click;
+            btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddSelected.Image = (System.Drawing.Image)resources.GetObject("btnAddSelected.Image");
+            btnAddSelected.Location = new System.Drawing.Point(198, 73);
+            btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddSelected.Name = "btnAddSelected";
+            btnAddSelected.Size = new System.Drawing.Size(33, 27);
+            btnAddSelected.TabIndex = 2;
+            btnAddSelected.UseVisualStyleBackColor = true;
+            btnAddSelected.Click += BtnAddSelected_Click;
             // 
-            // p_Header
+            // pHeader
             // 
-            p_Header.Controls.Add(axVideoServer);
-            p_Header.Controls.Add(lbl_CamerasToView);
-            p_Header.Controls.Add(lbl_CamerasOfServer);
-            p_Header.Controls.Add(cb_Servers);
-            p_Header.Controls.Add(lbl_Host);
-            p_Header.Dock = System.Windows.Forms.DockStyle.Top;
-            p_Header.Location = new System.Drawing.Point(4, 19);
-            p_Header.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Header.Name = "p_Header";
-            p_Header.Size = new System.Drawing.Size(428, 70);
-            p_Header.TabIndex = 0;
+            pHeader.Controls.Add(axVideoServer);
+            pHeader.Controls.Add(lblCamerasToView);
+            pHeader.Controls.Add(lblCamerasOfServer);
+            pHeader.Controls.Add(cbServers);
+            pHeader.Controls.Add(lblHost);
+            pHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            pHeader.Location = new System.Drawing.Point(4, 19);
+            pHeader.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pHeader.Name = "pHeader";
+            pHeader.Size = new System.Drawing.Size(428, 70);
+            pHeader.TabIndex = 0;
             // 
             // axVideoServer
             // 
@@ -212,52 +212,52 @@
             axVideoServer.TabIndex = 4;
             axVideoServer.Visible = false;
             // 
-            // lbl_Host
+            // lblHost
             // 
-            lbl_Host.AutoSize = true;
-            lbl_Host.Location = new System.Drawing.Point(2, 5);
-            lbl_Host.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_Host.Name = "lbl_Host";
-            lbl_Host.Size = new System.Drawing.Size(142, 15);
-            lbl_Host.TabIndex = 0;
-            lbl_Host.Text = "Server name or IP address";
+            lblHost.AutoSize = true;
+            lblHost.Location = new System.Drawing.Point(2, 5);
+            lblHost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHost.Name = "lblHost";
+            lblHost.Size = new System.Drawing.Size(142, 15);
+            lblHost.TabIndex = 0;
+            lblHost.Text = "Server name or IP address";
             // 
-            // btn_AddCameras
+            // btnAddCameras
             // 
-            btn_AddCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btn_AddCameras.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btn_AddCameras.Enabled = false;
-            btn_AddCameras.Location = new System.Drawing.Point(240, 5);
-            btn_AddCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_AddCameras.Name = "btn_AddCameras";
-            btn_AddCameras.Size = new System.Drawing.Size(88, 27);
-            btn_AddCameras.TabIndex = 0;
-            btn_AddCameras.Text = "Add";
-            btn_AddCameras.UseVisualStyleBackColor = true;
-            btn_AddCameras.Click += Btn_AddCameras_Click;
+            btnAddCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAddCameras.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnAddCameras.Enabled = false;
+            btnAddCameras.Location = new System.Drawing.Point(240, 5);
+            btnAddCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddCameras.Name = "btnAddCameras";
+            btnAddCameras.Size = new System.Drawing.Size(88, 27);
+            btnAddCameras.TabIndex = 0;
+            btnAddCameras.Text = "Add";
+            btnAddCameras.UseVisualStyleBackColor = true;
+            btnAddCameras.Click += BtnAddCameras_Click;
             // 
-            // btn_RemoveSelected
+            // btnRemoveSelected
             // 
-            btn_RemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btn_RemoveSelected.Image = (System.Drawing.Image)resources.GetObject("btn_RemoveSelected.Image");
-            btn_RemoveSelected.Location = new System.Drawing.Point(198, 140);
-            btn_RemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_RemoveSelected.Name = "btn_RemoveSelected";
-            btn_RemoveSelected.Size = new System.Drawing.Size(33, 27);
-            btn_RemoveSelected.TabIndex = 4;
-            btn_RemoveSelected.UseVisualStyleBackColor = true;
-            btn_RemoveSelected.Click += Btn_RemoveSelected_Click;
+            btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveSelected.Image = (System.Drawing.Image)resources.GetObject("btnRemoveSelected.Image");
+            btnRemoveSelected.Location = new System.Drawing.Point(198, 140);
+            btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveSelected.Name = "btnRemoveSelected";
+            btnRemoveSelected.Size = new System.Drawing.Size(33, 27);
+            btnRemoveSelected.TabIndex = 4;
+            btnRemoveSelected.UseVisualStyleBackColor = true;
+            btnRemoveSelected.Click += BtnRemoveSelected_Click;
             // 
-            // p_Footer
+            // pFooter
             // 
-            p_Footer.Controls.Add(btnClose);
-            p_Footer.Controls.Add(btn_AddCameras);
-            p_Footer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            p_Footer.Location = new System.Drawing.Point(0, 391);
-            p_Footer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Footer.Name = "p_Footer";
-            p_Footer.Size = new System.Drawing.Size(428, 36);
-            p_Footer.TabIndex = 0;
+            pFooter.Controls.Add(btnClose);
+            pFooter.Controls.Add(btnAddCameras);
+            pFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            pFooter.Location = new System.Drawing.Point(0, 391);
+            pFooter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pFooter.Name = "pFooter";
+            pFooter.Size = new System.Drawing.Size(428, 36);
+            pFooter.TabIndex = 0;
             // 
             // btnClose
             // 
@@ -272,88 +272,88 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += BtnClose_Click;
             // 
-            // p_Cameras
+            // pCameras
             // 
-            p_Cameras.Controls.Add(lv_CamerasToView);
-            p_Cameras.Controls.Add(lv_CamerasOfServer);
-            p_Cameras.Controls.Add(btn_AddAll);
-            p_Cameras.Controls.Add(btn_RemoveAll);
-            p_Cameras.Controls.Add(btn_AddSelected);
-            p_Cameras.Controls.Add(btn_RemoveSelected);
-            p_Cameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Cameras.Location = new System.Drawing.Point(0, 0);
-            p_Cameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Cameras.Name = "p_Cameras";
-            p_Cameras.Size = new System.Drawing.Size(428, 391);
-            p_Cameras.TabIndex = 0;
+            pCameras.Controls.Add(lvCamerasToView);
+            pCameras.Controls.Add(lvCamerasOfServer);
+            pCameras.Controls.Add(btnAddAll);
+            pCameras.Controls.Add(btnRemoveAll);
+            pCameras.Controls.Add(btnAddSelected);
+            pCameras.Controls.Add(btnRemoveSelected);
+            pCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            pCameras.Location = new System.Drawing.Point(0, 0);
+            pCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pCameras.Name = "pCameras";
+            pCameras.Size = new System.Drawing.Size(428, 391);
+            pCameras.TabIndex = 0;
             // 
-            // p_Main
+            // pMain
             // 
-            p_Main.Controls.Add(p_Cameras);
-            p_Main.Controls.Add(p_Footer);
-            p_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            p_Main.Location = new System.Drawing.Point(4, 89);
-            p_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            p_Main.Name = "p_Main";
-            p_Main.Size = new System.Drawing.Size(428, 427);
-            p_Main.TabIndex = 0;
+            pMain.Controls.Add(pCameras);
+            pMain.Controls.Add(pFooter);
+            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Location = new System.Drawing.Point(4, 89);
+            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Name = "pMain";
+            pMain.Size = new System.Drawing.Size(428, 427);
+            pMain.TabIndex = 0;
             // 
-            // gb_Main
+            // gbMain
             // 
-            gb_Main.Controls.Add(p_Main);
-            gb_Main.Controls.Add(p_Header);
-            gb_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            gb_Main.Location = new System.Drawing.Point(0, 0);
-            gb_Main.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Main.Name = "gb_Main";
-            gb_Main.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_Main.Size = new System.Drawing.Size(436, 519);
-            gb_Main.TabIndex = 1;
-            gb_Main.TabStop = false;
+            gbMain.Controls.Add(pMain);
+            gbMain.Controls.Add(pHeader);
+            gbMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbMain.Location = new System.Drawing.Point(0, 0);
+            gbMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Name = "gbMain";
+            gbMain.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMain.Size = new System.Drawing.Size(436, 519);
+            gbMain.TabIndex = 1;
+            gbMain.TabStop = false;
             // 
             // AddCameras
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(436, 519);
-            Controls.Add(gb_Main);
+            Controls.Add(gbMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddCameras";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New camera";
             Shown += AddCameras_Shown;
-            p_Header.ResumeLayout(false);
-            p_Header.PerformLayout();
+            pHeader.ResumeLayout(false);
+            pHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
-            p_Footer.ResumeLayout(false);
-            p_Cameras.ResumeLayout(false);
-            p_Main.ResumeLayout(false);
-            gb_Main.ResumeLayout(false);
+            pFooter.ResumeLayout(false);
+            pCameras.ResumeLayout(false);
+            pMain.ResumeLayout(false);
+            gbMain.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.ToolTip tt_Hint;
-        private System.Windows.Forms.Label lbl_CamerasOfServer;
-        private System.Windows.Forms.ComboBox cb_Servers;
-        private Mtf.Controls.MtfListView lv_CamerasToView;
-        private System.Windows.Forms.ImageList il_Images;
-        private System.Windows.Forms.Label lbl_CamerasToView;
-        private Mtf.Controls.MtfListView lv_CamerasOfServer;
-        private System.Windows.Forms.Button btn_AddAll;
-        private System.Windows.Forms.Button btn_RemoveAll;
-        private System.Windows.Forms.Button btn_AddSelected;
-        private System.Windows.Forms.Panel p_Header;
-        private System.Windows.Forms.Label lbl_Host;
-        private System.Windows.Forms.Button btn_AddCameras;
-        private System.Windows.Forms.Button btn_RemoveSelected;
-        private System.Windows.Forms.Panel p_Footer;
+        private System.Windows.Forms.ToolTip ttHint;
+        private System.Windows.Forms.Label lblCamerasOfServer;
+        private System.Windows.Forms.ComboBox cbServers;
+        private Mtf.Controls.MtfListView lvCamerasToView;
+        private System.Windows.Forms.ImageList ilImages;
+        private System.Windows.Forms.Label lblCamerasToView;
+        private Mtf.Controls.MtfListView lvCamerasOfServer;
+        private System.Windows.Forms.Button btnAddAll;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Button btnAddSelected;
+        private System.Windows.Forms.Panel pHeader;
+        private System.Windows.Forms.Label lblHost;
+        private System.Windows.Forms.Button btnAddCameras;
+        private System.Windows.Forms.Button btnRemoveSelected;
+        private System.Windows.Forms.Panel pFooter;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Panel p_Cameras;
-        private System.Windows.Forms.Panel p_Main;
-        private System.Windows.Forms.GroupBox gb_Main;
+        private System.Windows.Forms.Panel pCameras;
+        private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.GroupBox gbMain;
         private AxVIDEOCONTROL4Lib.AxVideoServer axVideoServer;
     }
 }

@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -18,6 +19,11 @@ namespace LiveView.Presenters
             this.addUserView = addUserView;
             this.userRepository = userRepository;
             this.logger = logger;
+        }
+
+        public void CreateUser()
+        {
+            throw new NotImplementedException();
         }
     }
 }

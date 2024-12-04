@@ -53,6 +53,11 @@ namespace LiveView.Presenters
             addVideoServerView.LoadData(server);
         }
 
+        public void Validate()
+        {
+            throw new NotImplementedException();
+        }
+
         private void OnHostDiscovered(HostDiscoveryResult result)
         {
             addVideoServerView.AddToServerSelector(result);

@@ -30,13 +30,13 @@
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             pMain = new System.Windows.Forms.Panel();
-            gb_SecondaryLogin = new System.Windows.Forms.GroupBox();
-            chk_SecondaryLogin = new System.Windows.Forms.CheckBox();
+            gbSecondaryLogin = new System.Windows.Forms.GroupBox();
+            chkSecondaryLogin = new System.Windows.Forms.CheckBox();
             tbSecondaryPassword = new Mtf.Controls.PasswordBox();
             lblSecondaryPassword = new System.Windows.Forms.Label();
             tbSecondaryUsername = new System.Windows.Forms.TextBox();
             lblSecondaryUsername = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            gbPrimaryLogin = new System.Windows.Forms.GroupBox();
             tbPassword = new Mtf.Controls.PasswordBox();
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
@@ -44,14 +44,14 @@
             btnClose = new System.Windows.Forms.Button();
             btnOk = new System.Windows.Forms.Button();
             pMain.SuspendLayout();
-            gb_SecondaryLogin.SuspendLayout();
-            groupBox1.SuspendLayout();
+            gbSecondaryLogin.SuspendLayout();
+            gbPrimaryLogin.SuspendLayout();
             SuspendLayout();
             // 
             // pMain
             // 
-            pMain.Controls.Add(gb_SecondaryLogin);
-            pMain.Controls.Add(groupBox1);
+            pMain.Controls.Add(gbSecondaryLogin);
+            pMain.Controls.Add(gbPrimaryLogin);
             pMain.Controls.Add(btnClose);
             pMain.Controls.Add(btnOk);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -61,33 +61,33 @@
             pMain.Size = new System.Drawing.Size(400, 310);
             pMain.TabIndex = 0;
             // 
-            // gb_SecondaryLogin
+            // gbSecondaryLogin
             // 
-            gb_SecondaryLogin.Controls.Add(chk_SecondaryLogin);
-            gb_SecondaryLogin.Controls.Add(tbSecondaryPassword);
-            gb_SecondaryLogin.Controls.Add(lblSecondaryPassword);
-            gb_SecondaryLogin.Controls.Add(tbSecondaryUsername);
-            gb_SecondaryLogin.Controls.Add(lblSecondaryUsername);
-            gb_SecondaryLogin.Dock = System.Windows.Forms.DockStyle.Top;
-            gb_SecondaryLogin.Location = new System.Drawing.Point(0, 136);
-            gb_SecondaryLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_SecondaryLogin.Name = "gb_SecondaryLogin";
-            gb_SecondaryLogin.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gb_SecondaryLogin.Size = new System.Drawing.Size(400, 136);
-            gb_SecondaryLogin.TabIndex = 5;
-            gb_SecondaryLogin.TabStop = false;
-            gb_SecondaryLogin.Text = " ";
+            gbSecondaryLogin.Controls.Add(chkSecondaryLogin);
+            gbSecondaryLogin.Controls.Add(tbSecondaryPassword);
+            gbSecondaryLogin.Controls.Add(lblSecondaryPassword);
+            gbSecondaryLogin.Controls.Add(tbSecondaryUsername);
+            gbSecondaryLogin.Controls.Add(lblSecondaryUsername);
+            gbSecondaryLogin.Dock = System.Windows.Forms.DockStyle.Top;
+            gbSecondaryLogin.Location = new System.Drawing.Point(0, 136);
+            gbSecondaryLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbSecondaryLogin.Name = "gbSecondaryLogin";
+            gbSecondaryLogin.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbSecondaryLogin.Size = new System.Drawing.Size(400, 136);
+            gbSecondaryLogin.TabIndex = 5;
+            gbSecondaryLogin.TabStop = false;
+            gbSecondaryLogin.Text = " ";
             // 
-            // chk_SecondaryLogin
+            // chkSecondaryLogin
             // 
-            chk_SecondaryLogin.AutoSize = true;
-            chk_SecondaryLogin.Location = new System.Drawing.Point(14, 0);
-            chk_SecondaryLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chk_SecondaryLogin.Name = "chk_SecondaryLogin";
-            chk_SecondaryLogin.Size = new System.Drawing.Size(111, 19);
-            chk_SecondaryLogin.TabIndex = 0;
-            chk_SecondaryLogin.Text = "Secondary login";
-            chk_SecondaryLogin.UseVisualStyleBackColor = true;
+            chkSecondaryLogin.AutoSize = true;
+            chkSecondaryLogin.Location = new System.Drawing.Point(14, 0);
+            chkSecondaryLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkSecondaryLogin.Name = "chkSecondaryLogin";
+            chkSecondaryLogin.Size = new System.Drawing.Size(111, 19);
+            chkSecondaryLogin.TabIndex = 0;
+            chkSecondaryLogin.Text = "Secondary login";
+            chkSecondaryLogin.UseVisualStyleBackColor = true;
             // 
             // tbSecondaryPassword
             // 
@@ -136,21 +136,21 @@
             lblSecondaryUsername.TabIndex = 1;
             lblSecondaryUsername.Text = "Username";
             // 
-            // groupBox1
+            // gbPrimaryLogin
             // 
-            groupBox1.Controls.Add(tbPassword);
-            groupBox1.Controls.Add(lblPassword);
-            groupBox1.Controls.Add(tbUsername);
-            groupBox1.Controls.Add(lblUsername);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox1.Location = new System.Drawing.Point(0, 0);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(400, 136);
-            groupBox1.TabIndex = 4;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Primary login";
+            gbPrimaryLogin.Controls.Add(tbPassword);
+            gbPrimaryLogin.Controls.Add(lblPassword);
+            gbPrimaryLogin.Controls.Add(tbUsername);
+            gbPrimaryLogin.Controls.Add(lblUsername);
+            gbPrimaryLogin.Dock = System.Windows.Forms.DockStyle.Top;
+            gbPrimaryLogin.Location = new System.Drawing.Point(0, 0);
+            gbPrimaryLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPrimaryLogin.Name = "gbPrimaryLogin";
+            gbPrimaryLogin.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPrimaryLogin.Size = new System.Drawing.Size(400, 136);
+            gbPrimaryLogin.TabIndex = 4;
+            gbPrimaryLogin.TabStop = false;
+            gbPrimaryLogin.Text = "Primary login";
             // 
             // tbPassword
             // 
@@ -234,23 +234,23 @@
             Text = "Change user";
             TopMost = true;
             pMain.ResumeLayout(false);
-            gb_SecondaryLogin.ResumeLayout(false);
-            gb_SecondaryLogin.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            gbSecondaryLogin.ResumeLayout(false);
+            gbSecondaryLogin.PerformLayout();
+            gbPrimaryLogin.ResumeLayout(false);
+            gbPrimaryLogin.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel pMain;
-        private System.Windows.Forms.GroupBox gb_SecondaryLogin;
-        private System.Windows.Forms.CheckBox chk_SecondaryLogin;
+        private System.Windows.Forms.GroupBox gbSecondaryLogin;
+        private System.Windows.Forms.CheckBox chkSecondaryLogin;
         private Mtf.Controls.PasswordBox tbSecondaryPassword;
         private System.Windows.Forms.Label lblSecondaryPassword;
         private System.Windows.Forms.TextBox tbSecondaryUsername;
         private System.Windows.Forms.Label lblSecondaryUsername;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbPrimaryLogin;
         private Mtf.Controls.PasswordBox tbPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;

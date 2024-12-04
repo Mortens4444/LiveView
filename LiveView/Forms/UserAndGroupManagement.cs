@@ -29,34 +29,49 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(GroupManagementPermissions.Create)]
-        private void Btn_NewGroup_Click(object sender, EventArgs e)
+        private void BtnNewGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            if (userAndGroupManagementPresenter.ShowDialog<AddGroup>())
+            {
+                userAndGroupManagementPresenter.Load();
+            }
         }
 
         [RequirePermission(UserManagementPermissions.Create)]
-        private void Btn_NewUser_Click(object sender, EventArgs e)
+        private void BtnNewUser_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            if (userAndGroupManagementPresenter.ShowDialog<AddUser>())
+            {
+                userAndGroupManagementPresenter.Load();
+            }
         }
 
         [RequirePermission(GroupManagementPermissions.Update)]
         [RequirePermission(UserManagementPermissions.Update)]
-        private void Btn_Modify_Click(object sender, EventArgs e)
+        private void BtnModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            userAndGroupManagementPresenter.Modify();
         }
 
         [RequirePermission(GroupManagementPermissions.Delete)]
         [RequirePermission(UserManagementPermissions.Delete)]
-        private void Btn_Remove_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            userAndGroupManagementPresenter.Delete();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             userAndGroupManagementPresenter.CloseForm();
+        }
+
+        private void UserAndGroupManagement_Shown(object sender, EventArgs e)
+        {
+            userAndGroupManagementPresenter.Load();
         }
     }
 }

@@ -2,6 +2,7 @@
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -15,6 +16,21 @@ namespace LiveView.Presenters
         {
             this.mainView = mainView;
             this.logger = logger;
+        }
+
+        public override void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PrimaryLogon()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SecondaryLogon()
+        {
+            throw new NotImplementedException();
         }
     }
 }

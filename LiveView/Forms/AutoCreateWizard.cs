@@ -34,11 +34,49 @@ namespace LiveView.Forms
         private void BtnAutoCreate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
+            autoCreateWizardPresenter.AutoCreate();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             autoCreateWizardPresenter.CloseForm();
+        }
+
+        [RequirePermission(GridManagementPermissions.Create)]
+        [RequirePermission(SequenceManagementPermissions.Create)]
+        [RequirePermission(TemplateManagementPermissions.Create)]
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            autoCreateWizardPresenter.AddSelected();
+        }
+
+        [RequirePermission(GridManagementPermissions.Create)]
+        [RequirePermission(SequenceManagementPermissions.Create)]
+        [RequirePermission(TemplateManagementPermissions.Create)]
+        private void BtnAddAll_Click(object sender, EventArgs e)
+        {
+            autoCreateWizardPresenter.AddAll();
+        }
+
+        [RequirePermission(GridManagementPermissions.Delete)]
+        [RequirePermission(SequenceManagementPermissions.Delete)]
+        [RequirePermission(TemplateManagementPermissions.Delete)]
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            autoCreateWizardPresenter.RemoveSelected();
+        }
+
+        [RequirePermission(GridManagementPermissions.Delete)]
+        [RequirePermission(SequenceManagementPermissions.Delete)]
+        [RequirePermission(TemplateManagementPermissions.Delete)]
+        private void BtnRemoveAll_Click(object sender, EventArgs e)
+        {
+            autoCreateWizardPresenter.RemoveAll();
+        }
+
+        private void AutoCreateWizard_Shown(object sender, EventArgs e)
+        {
+            autoCreateWizardPresenter.Load();
         }
     }
 }

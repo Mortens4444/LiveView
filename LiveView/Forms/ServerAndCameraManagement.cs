@@ -18,15 +18,15 @@ namespace LiveView.Forms
         private readonly ServerAndCameraManagementPresenter serverAndCameraManagementPresenter;
         private readonly PermissionManager permissionManager;
 
-        public TreeView ServersAndCameras => tv_ServersAndCameras;
+        public TreeView ServersAndCameras => tvServersAndCameras;
 
         public ServerAndCameraManagement(PermissionManager permissionManager, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
         {
             InitializeComponent();
             this.permissionManager = permissionManager;
 
-            btn_NewCamera.Tag = nameof(Btn_NewCamera_Click);
-            btn_NewVideoServer.Tag = nameof(Btn_NewVideoServer_Click);
+            btnNewCamera.Tag = nameof(BtnNewCamera_Click);
+            btnNewVideoServer.Tag = nameof(BtnNewVideoServer_Click);
             permissionManager.ApplyPermissionsOnControls(this);
 
             serverAndCameraManagementPresenter = new ServerAndCameraManagementPresenter(formFactory, this, serverRepository, cameraRepository, logger);
@@ -35,19 +35,19 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
-        private void Btn_NewCamera_Click(object sender, EventArgs e)
+        private void BtnNewCamera_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.CreateNewCameraForm();
         }
 
-        private void Btn_Close_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             serverAndCameraManagementPresenter.CloseForm();
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
-        private void Btn_NewVideoServer_Click(object sender, EventArgs e)
+        private void BtnNewVideoServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             if (serverAndCameraManagementPresenter.ShowDialog<AddVideoServer>())
@@ -57,42 +57,45 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(DatabaseServerManagementPermissions.Create)]
-        private void Btn_NewDBServer_Click(object sender, EventArgs e)
+        private void BtnNewDBServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraManagementPresenter.ShowForm<AddDatabaseServer>();
+            if (serverAndCameraManagementPresenter.ShowDialog<AddDatabaseServer>())
+            {
+                serverAndCameraManagementPresenter.Load();
+            }
         }
 
         [RequirePermission(ServerManagementPermissions.Update)]
-        private void Btn_Modify_Click(object sender, EventArgs e)
+        private void BtnModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Modify();
         }
 
         [RequirePermission(ServerManagementPermissions.Delete)]
-        private void Btn_Remove_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Remove();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
-        private void Btn_Properties_Click(object sender, EventArgs e)
+        private void BtnProperties_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.ShowForm<ServerAndCameraProperties>();
         }
 
         [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]
-        private void Btn_MotionDetection_Click(object sender, EventArgs e)
+        private void BtnMotionDetection_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.ShowForm<CameraMotionOptions>();
         }
 
         [RequirePermission(CameraManagementPermissions.Update)]
-        private void Btn_Syncronize_Click(object sender, EventArgs e)
+        private void BtnSyncronize_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             serverAndCameraManagementPresenter.Syncronize();

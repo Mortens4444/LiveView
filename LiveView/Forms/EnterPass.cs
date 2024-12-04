@@ -4,9 +4,10 @@ using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Attributes;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
@@ -27,9 +28,11 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        private void Btn_OK_Click(object sender, EventArgs e)
+        [RequirePermission(DatabaseServerManagementPermissions.FullControl)]
+        private void BtnOK_Click(object sender, EventArgs e)
         {
-
+            permissionManager.EnsurePermissions();
+            enterPassPresenter.Login();
         }
     }
 }

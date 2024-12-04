@@ -30,133 +30,132 @@
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraProperties));
             btnExportHardwareInfo = new System.Windows.Forms.Button();
-            textBox19 = new System.Windows.Forms.TextBox();
-            label16 = new System.Windows.Forms.Label();
-            textBox21 = new System.Windows.Forms.TextBox();
-            label18 = new System.Windows.Forms.Label();
-            textBox24 = new System.Windows.Forms.TextBox();
-            label24 = new System.Windows.Forms.Label();
-            textBox23 = new System.Windows.Forms.TextBox();
-            label23 = new System.Windows.Forms.Label();
-            textBox8 = new System.Windows.Forms.TextBox();
-            textBox9 = new System.Windows.Forms.TextBox();
+            tbReturnCode = new System.Windows.Forms.TextBox();
+            lblReturnCode = new System.Windows.Forms.Label();
+            tbVideoServerTime = new System.Windows.Forms.TextBox();
+            lblVideoServerTime = new System.Windows.Forms.Label();
+            tbDongleSubtype = new System.Windows.Forms.TextBox();
+            lblDongleSubtype = new System.Windows.Forms.Label();
+            tbDongleSerial = new System.Windows.Forms.TextBox();
+            lblDongleSerial = new System.Windows.Forms.Label();
+            tbModel = new System.Windows.Forms.TextBox();
+            tbNote = new System.Windows.Forms.TextBox();
             btnRefresh2 = new System.Windows.Forms.Button();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            chValue = new System.Windows.Forms.ColumnHeader();
             btnClose2 = new System.Windows.Forms.Button();
-            groupBox5 = new System.Windows.Forms.GroupBox();
-            textBox10 = new System.Windows.Forms.TextBox();
-            textBox11 = new System.Windows.Forms.TextBox();
-            label8 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            listView1 = new Mtf.Controls.MtfListView();
-            textBox14 = new System.Windows.Forms.TextBox();
-            label15 = new System.Windows.Forms.Label();
-            pictureBox3 = new Mtf.Controls.MtfPictureBox();
-            textBox13 = new System.Windows.Forms.TextBox();
-            label14 = new System.Windows.Forms.Label();
-            label13 = new System.Windows.Forms.Label();
-            textBox12 = new System.Windows.Forms.TextBox();
-            tabPage2 = new System.Windows.Forms.TabPage();
+            gbMisc = new System.Windows.Forms.GroupBox();
+            tbManufacturer = new System.Windows.Forms.TextBox();
+            tbMacAddress = new System.Windows.Forms.TextBox();
+            lblModel = new System.Windows.Forms.Label();
+            lblNote = new System.Windows.Forms.Label();
+            lblManufacturer = new System.Windows.Forms.Label();
+            lblMacAddress = new System.Windows.Forms.Label();
+            chKey = new System.Windows.Forms.ColumnHeader();
+            lvHardwareInformation = new Mtf.Controls.MtfListView();
+            tbWindowErrorMessage = new System.Windows.Forms.TextBox();
+            lblWindowsConnectionStatus = new System.Windows.Forms.Label();
+            pbWindowsConnectionStatus = new Mtf.Controls.MtfPictureBox();
+            tbWindowsPassword = new System.Windows.Forms.TextBox();
+            lblWindowsPassword = new System.Windows.Forms.Label();
+            lblWindowsUsername = new System.Windows.Forms.Label();
+            tbWindowsUsername = new System.Windows.Forms.TextBox();
+            tpOtherData = new System.Windows.Forms.TabPage();
             btnGetHardwareInfo = new System.Windows.Forms.Button();
-            fbd_FolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            textBox1 = new System.Windows.Forms.TextBox();
-            label3 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
+            fbdFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            tbHost = new System.Windows.Forms.TextBox();
+            lblVideoserverUsername = new System.Windows.Forms.Label();
+            lblVideoServerName = new System.Windows.Forms.Label();
+            lblHost = new System.Windows.Forms.Label();
             btnRefresh = new System.Windows.Forms.Button();
-            groupBox4 = new System.Windows.Forms.GroupBox();
             btnShowPassword = new System.Windows.Forms.Button();
-            textBox15 = new System.Windows.Forms.TextBox();
-            textBox3 = new System.Windows.Forms.TextBox();
-            textBox2 = new System.Windows.Forms.TextBox();
-            groupBox8 = new System.Windows.Forms.GroupBox();
-            tb_VideoServersErrorMessage = new System.Windows.Forms.TextBox();
-            pictureBox1 = new Mtf.Controls.MtfPictureBox();
-            btn_WakeOnLAN = new System.Windows.Forms.Button();
-            pictureBox2 = new Mtf.Controls.MtfPictureBox();
-            label9 = new System.Windows.Forms.Label();
-            groupBox3 = new System.Windows.Forms.GroupBox();
-            label10 = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            tabPage1 = new System.Windows.Forms.TabPage();
+            tbPassword = new System.Windows.Forms.TextBox();
+            tbVideoserverUsername = new System.Windows.Forms.TextBox();
+            tbVideoServerName = new System.Windows.Forms.TextBox();
+            gbVideoServerErrorMessage = new System.Windows.Forms.GroupBox();
+            tbVideoServerErrorMessage = new System.Windows.Forms.TextBox();
+            pbPingTestStatus = new Mtf.Controls.MtfPictureBox();
+            btnWakeOnLan = new System.Windows.Forms.Button();
+            pbRemoteVideoServerConnectionStatus = new Mtf.Controls.MtfPictureBox();
+            lblPingTestStatus = new System.Windows.Forms.Label();
+            gbAvailabilityTests = new System.Windows.Forms.GroupBox();
+            lblRemoteVideoServerConnectionStatus = new System.Windows.Forms.Label();
+            gbVideoServer = new System.Windows.Forms.GroupBox();
+            tpVideoServer = new System.Windows.Forms.TabPage();
             btnClose = new System.Windows.Forms.Button();
-            groupBox6 = new System.Windows.Forms.GroupBox();
-            textBox17 = new System.Windows.Forms.TextBox();
-            label20 = new System.Windows.Forms.Label();
-            textBox25 = new System.Windows.Forms.TextBox();
-            label25 = new System.Windows.Forms.Label();
-            textBox22 = new System.Windows.Forms.TextBox();
-            label22 = new System.Windows.Forms.Label();
-            textBox20 = new System.Windows.Forms.TextBox();
-            label17 = new System.Windows.Forms.Label();
-            textBox16 = new System.Windows.Forms.TextBox();
-            tb_RecordingInterval = new System.Windows.Forms.TextBox();
-            label19 = new System.Windows.Forms.Label();
+            gbWindowsCredentials = new System.Windows.Forms.GroupBox();
+            tbLiveViewDisplay = new System.Windows.Forms.TextBox();
+            lblLiveViewDisplay = new System.Windows.Forms.Label();
+            tbLicensedCameraNumber = new System.Windows.Forms.TextBox();
+            lblLicensedCameraNumber = new System.Windows.Forms.Label();
+            tbRecordedLocalCameraNumber = new System.Windows.Forms.TextBox();
+            lblRecordedLocalCameraNumber = new System.Windows.Forms.Label();
+            tbRecorderStatus = new System.Windows.Forms.TextBox();
+            lblRecorderStatus = new System.Windows.Forms.Label();
+            tbCpuUsage = new System.Windows.Forms.TextBox();
+            tbRecordingInterval = new System.Windows.Forms.TextBox();
+            lblCpuUsage = new System.Windows.Forms.Label();
             btnRefresh4 = new System.Windows.Forms.Button();
-            label50 = new System.Windows.Forms.Label();
+            lblVideoRecorderProtocolVersion = new System.Windows.Forms.Label();
             btnClose5 = new System.Windows.Forms.Button();
-            groupBox10 = new System.Windows.Forms.GroupBox();
-            lbl_RecordingInterval = new System.Windows.Forms.Label();
-            textBox40 = new System.Windows.Forms.TextBox();
-            label41 = new System.Windows.Forms.Label();
-            label43 = new System.Windows.Forms.Label();
-            textBox43 = new System.Windows.Forms.TextBox();
-            textBox50 = new System.Windows.Forms.TextBox();
+            gbVideoRecorderStatus = new System.Windows.Forms.GroupBox();
+            lblRecordingInterval = new System.Windows.Forms.Label();
+            tbVersionRecorderVersion = new System.Windows.Forms.TextBox();
+            lblRemoteVideoServerVersion = new System.Windows.Forms.Label();
+            lblVersionRecorderVersion = new System.Windows.Forms.Label();
+            tbRemoteVideoServerVersion = new System.Windows.Forms.TextBox();
+            tbVideoRecorderProtocolVersion = new System.Windows.Forms.TextBox();
             btnRefresh5 = new System.Windows.Forms.Button();
             btnClose6 = new System.Windows.Forms.Button();
-            groupBox2 = new System.Windows.Forms.GroupBox();
-            tabPage5 = new System.Windows.Forms.TabPage();
-            tabPage6 = new System.Windows.Forms.TabPage();
-            tabControl1 = new System.Windows.Forms.TabControl();
-            tabPage3 = new System.Windows.Forms.TabPage();
+            gbVersionInformation = new System.Windows.Forms.GroupBox();
+            tpVideoRecorderStatus = new System.Windows.Forms.TabPage();
+            tpVersionInformation = new System.Windows.Forms.TabPage();
+            tcInfoPages = new System.Windows.Forms.TabControl();
+            tpHardwareInformation = new System.Windows.Forms.TabPage();
             btnClose3 = new System.Windows.Forms.Button();
-            groupBox7 = new System.Windows.Forms.GroupBox();
-            tabPage4 = new System.Windows.Forms.TabPage();
+            gbHardwareInformation = new System.Windows.Forms.GroupBox();
+            tpCameraList = new System.Windows.Forms.TabPage();
             btnExportCameraList = new System.Windows.Forms.Button();
             btnRefresh3 = new System.Windows.Forms.Button();
             btnClose4 = new System.Windows.Forms.Button();
-            groupBox9 = new System.Windows.Forms.GroupBox();
-            lv_Cameras = new Mtf.Controls.MtfListView();
-            ch_0_CameraName = new System.Windows.Forms.ColumnHeader();
-            ch_1_RPCReturnCode = new System.Windows.Forms.ColumnHeader();
-            ch_2_FrameRate = new System.Windows.Forms.ColumnHeader();
-            ch_3_CapturedFrames = new System.Windows.Forms.ColumnHeader();
-            ch_4_DroppedFrames = new System.Windows.Forms.ColumnHeader();
-            ch_5_StoredFrames = new System.Windows.Forms.ColumnHeader();
-            ch_6_DiskUsageGBPerDay = new System.Windows.Forms.ColumnHeader();
-            ch_7_EstimatedCapacity = new System.Windows.Forms.ColumnHeader();
-            ch_8_Motion = new System.Windows.Forms.ColumnHeader();
-            ch_9_Light = new System.Windows.Forms.ColumnHeader();
-            ch_10_Alarm = new System.Windows.Forms.ColumnHeader();
-            ch_11_Error = new System.Windows.Forms.ColumnHeader();
-            ch_12_Compression = new System.Windows.Forms.ColumnHeader();
-            ch_13_VideoSignal = new System.Windows.Forms.ColumnHeader();
-            ch_14_CarSignReader = new System.Windows.Forms.ColumnHeader();
-            ch_15_EstimatedCapacity_2 = new System.Windows.Forms.ColumnHeader();
-            ch_16_GUID = new System.Windows.Forms.ColumnHeader();
-            groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage2.SuspendLayout();
-            groupBox4.SuspendLayout();
-            groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            groupBox3.SuspendLayout();
-            groupBox1.SuspendLayout();
-            tabPage1.SuspendLayout();
-            groupBox6.SuspendLayout();
-            groupBox10.SuspendLayout();
-            groupBox2.SuspendLayout();
-            tabPage5.SuspendLayout();
-            tabPage6.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage3.SuspendLayout();
-            groupBox7.SuspendLayout();
-            tabPage4.SuspendLayout();
-            groupBox9.SuspendLayout();
+            gbCameraList = new System.Windows.Forms.GroupBox();
+            lvCameraList = new Mtf.Controls.MtfListView();
+            chCameraName = new System.Windows.Forms.ColumnHeader();
+            chRpcReturnCode = new System.Windows.Forms.ColumnHeader();
+            chFrameRate = new System.Windows.Forms.ColumnHeader();
+            chCapturedFrames = new System.Windows.Forms.ColumnHeader();
+            chDroppedFrames = new System.Windows.Forms.ColumnHeader();
+            chStoredFrames = new System.Windows.Forms.ColumnHeader();
+            chDiskUsageGbPerDay = new System.Windows.Forms.ColumnHeader();
+            chEstimatedCapacity = new System.Windows.Forms.ColumnHeader();
+            chMotion = new System.Windows.Forms.ColumnHeader();
+            chLight = new System.Windows.Forms.ColumnHeader();
+            chAlarm = new System.Windows.Forms.ColumnHeader();
+            chError = new System.Windows.Forms.ColumnHeader();
+            chCompression = new System.Windows.Forms.ColumnHeader();
+            chVideoSignal = new System.Windows.Forms.ColumnHeader();
+            chLicensePlateRecognition = new System.Windows.Forms.ColumnHeader();
+            chEstimatedCapacity2 = new System.Windows.Forms.ColumnHeader();
+            chGuid = new System.Windows.Forms.ColumnHeader();
+            lblPassword = new System.Windows.Forms.Label();
+            gbMisc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).BeginInit();
+            tpOtherData.SuspendLayout();
+            gbVideoServerErrorMessage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbPingTestStatus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbRemoteVideoServerConnectionStatus).BeginInit();
+            gbAvailabilityTests.SuspendLayout();
+            gbVideoServer.SuspendLayout();
+            tpVideoServer.SuspendLayout();
+            gbWindowsCredentials.SuspendLayout();
+            gbVideoRecorderStatus.SuspendLayout();
+            gbVersionInformation.SuspendLayout();
+            tpVideoRecorderStatus.SuspendLayout();
+            tpVersionInformation.SuspendLayout();
+            tcInfoPages.SuspendLayout();
+            tpHardwareInformation.SuspendLayout();
+            gbHardwareInformation.SuspendLayout();
+            tpCameraList.SuspendLayout();
+            gbCameraList.SuspendLayout();
             SuspendLayout();
             // 
             // btnExportHardwareInfo
@@ -171,125 +170,125 @@
             btnExportHardwareInfo.UseVisualStyleBackColor = true;
             btnExportHardwareInfo.Click += BtnExportHardwareInfo_Click;
             // 
-            // textBox19
+            // tbReturnCode
             // 
-            textBox19.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox19.BackColor = System.Drawing.Color.IndianRed;
-            textBox19.Location = new System.Drawing.Point(204, 108);
-            textBox19.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox19.MaxLength = 100;
-            textBox19.Name = "textBox19";
-            textBox19.ReadOnly = true;
-            textBox19.Size = new System.Drawing.Size(209, 23);
-            textBox19.TabIndex = 23;
-            textBox19.TabStop = false;
+            tbReturnCode.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbReturnCode.BackColor = System.Drawing.Color.IndianRed;
+            tbReturnCode.Location = new System.Drawing.Point(204, 108);
+            tbReturnCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbReturnCode.MaxLength = 100;
+            tbReturnCode.Name = "tbReturnCode";
+            tbReturnCode.ReadOnly = true;
+            tbReturnCode.Size = new System.Drawing.Size(209, 23);
+            tbReturnCode.TabIndex = 23;
+            tbReturnCode.TabStop = false;
             // 
-            // label16
+            // lblReturnCode
             // 
-            label16.AutoSize = true;
-            label16.Location = new System.Drawing.Point(7, 112);
-            label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label16.MaximumSize = new System.Drawing.Size(191, 15);
-            label16.Name = "label16";
-            label16.Size = new System.Drawing.Size(71, 15);
-            label16.TabIndex = 22;
-            label16.Text = "Return code";
+            lblReturnCode.AutoSize = true;
+            lblReturnCode.Location = new System.Drawing.Point(7, 112);
+            lblReturnCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblReturnCode.MaximumSize = new System.Drawing.Size(191, 15);
+            lblReturnCode.Name = "lblReturnCode";
+            lblReturnCode.Size = new System.Drawing.Size(71, 15);
+            lblReturnCode.TabIndex = 22;
+            lblReturnCode.Text = "Return code";
             // 
-            // textBox21
+            // tbVideoServerTime
             // 
-            textBox21.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox21.Location = new System.Drawing.Point(204, 188);
-            textBox21.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox21.MaxLength = 100;
-            textBox21.Name = "textBox21";
-            textBox21.ReadOnly = true;
-            textBox21.Size = new System.Drawing.Size(209, 23);
-            textBox21.TabIndex = 21;
-            textBox21.TabStop = false;
+            tbVideoServerTime.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoServerTime.Location = new System.Drawing.Point(204, 188);
+            tbVideoServerTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoServerTime.MaxLength = 100;
+            tbVideoServerTime.Name = "tbVideoServerTime";
+            tbVideoServerTime.ReadOnly = true;
+            tbVideoServerTime.Size = new System.Drawing.Size(209, 23);
+            tbVideoServerTime.TabIndex = 21;
+            tbVideoServerTime.TabStop = false;
             // 
-            // label18
+            // lblVideoServerTime
             // 
-            label18.AutoSize = true;
-            label18.Location = new System.Drawing.Point(7, 192);
-            label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label18.MaximumSize = new System.Drawing.Size(191, 15);
-            label18.Name = "label18";
-            label18.Size = new System.Drawing.Size(179, 15);
-            label18.TabIndex = 20;
-            label18.Text = "Video server GMT reference time";
+            lblVideoServerTime.AutoSize = true;
+            lblVideoServerTime.Location = new System.Drawing.Point(7, 192);
+            lblVideoServerTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVideoServerTime.MaximumSize = new System.Drawing.Size(191, 15);
+            lblVideoServerTime.Name = "lblVideoServerTime";
+            lblVideoServerTime.Size = new System.Drawing.Size(179, 15);
+            lblVideoServerTime.TabIndex = 20;
+            lblVideoServerTime.Text = "Video server GMT reference time";
             // 
-            // textBox24
+            // tbDongleSubtype
             // 
-            textBox24.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox24.Location = new System.Drawing.Point(204, 162);
-            textBox24.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox24.MaxLength = 100;
-            textBox24.Name = "textBox24";
-            textBox24.ReadOnly = true;
-            textBox24.Size = new System.Drawing.Size(209, 23);
-            textBox24.TabIndex = 19;
-            textBox24.TabStop = false;
+            tbDongleSubtype.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDongleSubtype.Location = new System.Drawing.Point(204, 162);
+            tbDongleSubtype.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDongleSubtype.MaxLength = 100;
+            tbDongleSubtype.Name = "tbDongleSubtype";
+            tbDongleSubtype.ReadOnly = true;
+            tbDongleSubtype.Size = new System.Drawing.Size(209, 23);
+            tbDongleSubtype.TabIndex = 19;
+            tbDongleSubtype.TabStop = false;
             // 
-            // label24
+            // lblDongleSubtype
             // 
-            label24.AutoSize = true;
-            label24.Location = new System.Drawing.Point(7, 165);
-            label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label24.MaximumSize = new System.Drawing.Size(191, 15);
-            label24.Name = "label24";
-            label24.Size = new System.Drawing.Size(90, 15);
-            label24.TabIndex = 18;
-            label24.Text = "Dongle subtype";
+            lblDongleSubtype.AutoSize = true;
+            lblDongleSubtype.Location = new System.Drawing.Point(7, 165);
+            lblDongleSubtype.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDongleSubtype.MaximumSize = new System.Drawing.Size(191, 15);
+            lblDongleSubtype.Name = "lblDongleSubtype";
+            lblDongleSubtype.Size = new System.Drawing.Size(90, 15);
+            lblDongleSubtype.TabIndex = 18;
+            lblDongleSubtype.Text = "Dongle subtype";
             // 
-            // textBox23
+            // tbDongleSerial
             // 
-            textBox23.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox23.Location = new System.Drawing.Point(204, 135);
-            textBox23.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox23.MaxLength = 100;
-            textBox23.Name = "textBox23";
-            textBox23.ReadOnly = true;
-            textBox23.Size = new System.Drawing.Size(209, 23);
-            textBox23.TabIndex = 17;
-            textBox23.TabStop = false;
+            tbDongleSerial.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbDongleSerial.Location = new System.Drawing.Point(204, 135);
+            tbDongleSerial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbDongleSerial.MaxLength = 100;
+            tbDongleSerial.Name = "tbDongleSerial";
+            tbDongleSerial.ReadOnly = true;
+            tbDongleSerial.Size = new System.Drawing.Size(209, 23);
+            tbDongleSerial.TabIndex = 17;
+            tbDongleSerial.TabStop = false;
             // 
-            // label23
+            // lblDongleSerial
             // 
-            label23.AutoSize = true;
-            label23.Location = new System.Drawing.Point(7, 138);
-            label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label23.MaximumSize = new System.Drawing.Size(191, 15);
-            label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(75, 15);
-            label23.TabIndex = 16;
-            label23.Text = "Dongle serial";
+            lblDongleSerial.AutoSize = true;
+            lblDongleSerial.Location = new System.Drawing.Point(7, 138);
+            lblDongleSerial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDongleSerial.MaximumSize = new System.Drawing.Size(191, 15);
+            lblDongleSerial.Name = "lblDongleSerial";
+            lblDongleSerial.Size = new System.Drawing.Size(75, 15);
+            lblDongleSerial.TabIndex = 16;
+            lblDongleSerial.Text = "Dongle serial";
             // 
-            // textBox8
+            // tbModel
             // 
-            textBox8.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox8.Location = new System.Drawing.Point(204, 40);
-            textBox8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox8.MaxLength = 1000;
-            textBox8.Name = "textBox8";
-            textBox8.ReadOnly = true;
-            textBox8.Size = new System.Drawing.Size(209, 23);
-            textBox8.TabIndex = 5;
-            textBox8.TabStop = false;
+            tbModel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbModel.Location = new System.Drawing.Point(204, 40);
+            tbModel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbModel.MaxLength = 1000;
+            tbModel.Name = "tbModel";
+            tbModel.ReadOnly = true;
+            tbModel.Size = new System.Drawing.Size(209, 23);
+            tbModel.TabIndex = 5;
+            tbModel.TabStop = false;
             // 
-            // textBox9
+            // tbNote
             // 
-            textBox9.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox9.Location = new System.Drawing.Point(9, 246);
-            textBox9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox9.MaxLength = 1000;
-            textBox9.Multiline = true;
-            textBox9.Name = "textBox9";
-            textBox9.ReadOnly = true;
-            textBox9.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            textBox9.Size = new System.Drawing.Size(404, 131);
-            textBox9.TabIndex = 3;
-            textBox9.TabStop = false;
-            textBox9.Visible = false;
+            tbNote.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbNote.Location = new System.Drawing.Point(9, 246);
+            tbNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbNote.MaxLength = 1000;
+            tbNote.Multiline = true;
+            tbNote.Name = "tbNote";
+            tbNote.ReadOnly = true;
+            tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            tbNote.Size = new System.Drawing.Size(404, 131);
+            tbNote.TabIndex = 3;
+            tbNote.TabStop = false;
+            tbNote.Visible = false;
             // 
             // btnRefresh2
             // 
@@ -303,10 +302,10 @@
             btnRefresh2.UseVisualStyleBackColor = true;
             btnRefresh2.Click += BtnRefresh_Click;
             // 
-            // columnHeader2
+            // chValue
             // 
-            columnHeader2.Text = "Value";
-            columnHeader2.Width = 238;
+            chValue.Text = "Value";
+            chValue.Width = 238;
             // 
             // btnClose2
             // 
@@ -320,225 +319,225 @@
             btnClose2.UseVisualStyleBackColor = true;
             btnClose2.Click += BtnClose_Click;
             // 
-            // groupBox5
+            // gbMisc
             // 
-            groupBox5.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox5.Controls.Add(textBox19);
-            groupBox5.Controls.Add(label16);
-            groupBox5.Controls.Add(textBox21);
-            groupBox5.Controls.Add(label18);
-            groupBox5.Controls.Add(textBox24);
-            groupBox5.Controls.Add(label24);
-            groupBox5.Controls.Add(textBox23);
-            groupBox5.Controls.Add(label23);
-            groupBox5.Controls.Add(textBox8);
-            groupBox5.Controls.Add(textBox9);
-            groupBox5.Controls.Add(textBox10);
-            groupBox5.Controls.Add(textBox11);
-            groupBox5.Controls.Add(label8);
-            groupBox5.Controls.Add(label7);
-            groupBox5.Controls.Add(label11);
-            groupBox5.Controls.Add(label12);
-            groupBox5.Location = new System.Drawing.Point(4, 3);
-            groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox5.Name = "groupBox5";
-            groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox5.Size = new System.Drawing.Size(422, 383);
-            groupBox5.TabIndex = 2;
-            groupBox5.TabStop = false;
+            gbMisc.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbMisc.Controls.Add(tbReturnCode);
+            gbMisc.Controls.Add(lblReturnCode);
+            gbMisc.Controls.Add(tbVideoServerTime);
+            gbMisc.Controls.Add(lblVideoServerTime);
+            gbMisc.Controls.Add(tbDongleSubtype);
+            gbMisc.Controls.Add(lblDongleSubtype);
+            gbMisc.Controls.Add(tbDongleSerial);
+            gbMisc.Controls.Add(lblDongleSerial);
+            gbMisc.Controls.Add(tbModel);
+            gbMisc.Controls.Add(tbNote);
+            gbMisc.Controls.Add(tbManufacturer);
+            gbMisc.Controls.Add(tbMacAddress);
+            gbMisc.Controls.Add(lblModel);
+            gbMisc.Controls.Add(lblNote);
+            gbMisc.Controls.Add(lblManufacturer);
+            gbMisc.Controls.Add(lblMacAddress);
+            gbMisc.Location = new System.Drawing.Point(4, 3);
+            gbMisc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMisc.Name = "gbMisc";
+            gbMisc.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbMisc.Size = new System.Drawing.Size(422, 383);
+            gbMisc.TabIndex = 2;
+            gbMisc.TabStop = false;
             // 
-            // textBox10
+            // tbManufacturer
             // 
-            textBox10.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox10.Location = new System.Drawing.Point(204, 15);
-            textBox10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox10.MaxLength = 17;
-            textBox10.Name = "textBox10";
-            textBox10.ReadOnly = true;
-            textBox10.Size = new System.Drawing.Size(209, 23);
-            textBox10.TabIndex = 1;
-            textBox10.TabStop = false;
+            tbManufacturer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbManufacturer.Location = new System.Drawing.Point(204, 15);
+            tbManufacturer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbManufacturer.MaxLength = 17;
+            tbManufacturer.Name = "tbManufacturer";
+            tbManufacturer.ReadOnly = true;
+            tbManufacturer.Size = new System.Drawing.Size(209, 23);
+            tbManufacturer.TabIndex = 1;
+            tbManufacturer.TabStop = false;
             // 
-            // textBox11
+            // tbMacAddress
             // 
-            textBox11.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox11.Location = new System.Drawing.Point(204, 66);
-            textBox11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox11.MaxLength = 17;
-            textBox11.Name = "textBox11";
-            textBox11.ReadOnly = true;
-            textBox11.Size = new System.Drawing.Size(209, 23);
-            textBox11.TabIndex = 1;
-            textBox11.TabStop = false;
+            tbMacAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbMacAddress.Location = new System.Drawing.Point(204, 66);
+            tbMacAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbMacAddress.MaxLength = 17;
+            tbMacAddress.Name = "tbMacAddress";
+            tbMacAddress.ReadOnly = true;
+            tbMacAddress.Size = new System.Drawing.Size(209, 23);
+            tbMacAddress.TabIndex = 1;
+            tbMacAddress.TabStop = false;
             // 
-            // label8
+            // lblModel
             // 
-            label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(7, 44);
-            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label8.MaximumSize = new System.Drawing.Size(191, 15);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(41, 15);
-            label8.TabIndex = 2;
-            label8.Text = "Model";
+            lblModel.AutoSize = true;
+            lblModel.Location = new System.Drawing.Point(7, 44);
+            lblModel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblModel.MaximumSize = new System.Drawing.Size(191, 15);
+            lblModel.Name = "lblModel";
+            lblModel.Size = new System.Drawing.Size(41, 15);
+            lblModel.TabIndex = 2;
+            lblModel.Text = "Model";
             // 
-            // label7
+            // lblNote
             // 
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(7, 227);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(33, 15);
-            label7.TabIndex = 2;
-            label7.Text = "Note";
-            label7.Visible = false;
+            lblNote.AutoSize = true;
+            lblNote.Location = new System.Drawing.Point(7, 227);
+            lblNote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblNote.Name = "lblNote";
+            lblNote.Size = new System.Drawing.Size(33, 15);
+            lblNote.TabIndex = 2;
+            lblNote.Text = "Note";
+            lblNote.Visible = false;
             // 
-            // label11
+            // lblManufacturer
             // 
-            label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(7, 20);
-            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label11.MaximumSize = new System.Drawing.Size(191, 15);
-            label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(79, 15);
-            label11.TabIndex = 0;
-            label11.Text = "Manufacturer";
+            lblManufacturer.AutoSize = true;
+            lblManufacturer.Location = new System.Drawing.Point(7, 20);
+            lblManufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblManufacturer.MaximumSize = new System.Drawing.Size(191, 15);
+            lblManufacturer.Name = "lblManufacturer";
+            lblManufacturer.Size = new System.Drawing.Size(79, 15);
+            lblManufacturer.TabIndex = 0;
+            lblManufacturer.Text = "Manufacturer";
             // 
-            // label12
+            // lblMacAddress
             // 
-            label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(7, 69);
-            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label12.MaximumSize = new System.Drawing.Size(191, 15);
-            label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(77, 15);
-            label12.TabIndex = 0;
-            label12.Text = "MAC address";
+            lblMacAddress.AutoSize = true;
+            lblMacAddress.Location = new System.Drawing.Point(7, 69);
+            lblMacAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMacAddress.MaximumSize = new System.Drawing.Size(191, 15);
+            lblMacAddress.Name = "lblMacAddress";
+            lblMacAddress.Size = new System.Drawing.Size(77, 15);
+            lblMacAddress.TabIndex = 0;
+            lblMacAddress.Text = "MAC address";
             // 
-            // columnHeader1
+            // chKey
             // 
-            columnHeader1.Text = "Key";
-            columnHeader1.Width = 111;
+            chKey.Text = "Key";
+            chKey.Width = 111;
             // 
-            // listView1
+            // lvHardwareInformation
             // 
-            listView1.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            listView1.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            listView1.AlternatingColorsAreInUse = true;
-            listView1.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            listView1.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2 });
-            listView1.CompactView = false;
-            listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            listView1.EnsureLastItemIsVisible = false;
-            listView1.FirstItemIsGray = false;
-            listView1.FullRowSelect = true;
-            listView1.Location = new System.Drawing.Point(4, 19);
-            listView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listView1.Name = "listView1";
-            listView1.OwnerDraw = true;
-            listView1.ReadonlyCheckboxes = false;
-            listView1.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            listView1.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            listView1.Size = new System.Drawing.Size(414, 218);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = System.Windows.Forms.View.Details;
+            lvHardwareInformation.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvHardwareInformation.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvHardwareInformation.AlternatingColorsAreInUse = true;
+            lvHardwareInformation.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvHardwareInformation.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvHardwareInformation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chKey, chValue });
+            lvHardwareInformation.CompactView = false;
+            lvHardwareInformation.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvHardwareInformation.EnsureLastItemIsVisible = false;
+            lvHardwareInformation.FirstItemIsGray = false;
+            lvHardwareInformation.FullRowSelect = true;
+            lvHardwareInformation.Location = new System.Drawing.Point(4, 19);
+            lvHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvHardwareInformation.Name = "lvHardwareInformation";
+            lvHardwareInformation.OwnerDraw = true;
+            lvHardwareInformation.ReadonlyCheckboxes = false;
+            lvHardwareInformation.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvHardwareInformation.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvHardwareInformation.Size = new System.Drawing.Size(414, 218);
+            lvHardwareInformation.TabIndex = 0;
+            lvHardwareInformation.UseCompatibleStateImageBehavior = false;
+            lvHardwareInformation.View = System.Windows.Forms.View.Details;
             // 
-            // textBox14
+            // tbWindowErrorMessage
             // 
-            textBox14.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox14.Location = new System.Drawing.Point(12, 98);
-            textBox14.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox14.MaxLength = 5000;
-            textBox14.Name = "textBox14";
-            textBox14.ReadOnly = true;
-            textBox14.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            textBox14.Size = new System.Drawing.Size(403, 23);
-            textBox14.TabIndex = 6;
-            textBox14.TabStop = false;
+            tbWindowErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbWindowErrorMessage.Location = new System.Drawing.Point(12, 98);
+            tbWindowErrorMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWindowErrorMessage.MaxLength = 5000;
+            tbWindowErrorMessage.Name = "tbWindowErrorMessage";
+            tbWindowErrorMessage.ReadOnly = true;
+            tbWindowErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            tbWindowErrorMessage.Size = new System.Drawing.Size(403, 23);
+            tbWindowErrorMessage.TabIndex = 6;
+            tbWindowErrorMessage.TabStop = false;
             // 
-            // label15
+            // lblWindowsConnectionStatus
             // 
-            label15.AutoSize = true;
-            label15.Location = new System.Drawing.Point(40, 76);
-            label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label15.MaximumSize = new System.Drawing.Size(369, 15);
-            label15.Name = "label15";
-            label15.Size = new System.Drawing.Size(0, 15);
-            label15.TabIndex = 5;
+            lblWindowsConnectionStatus.AutoSize = true;
+            lblWindowsConnectionStatus.Location = new System.Drawing.Point(40, 76);
+            lblWindowsConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWindowsConnectionStatus.MaximumSize = new System.Drawing.Size(369, 15);
+            lblWindowsConnectionStatus.Name = "lblWindowsConnectionStatus";
+            lblWindowsConnectionStatus.Size = new System.Drawing.Size(0, 15);
+            lblWindowsConnectionStatus.TabIndex = 5;
             // 
-            // pictureBox3
+            // pbWindowsConnectionStatus
             // 
-            pictureBox3.Image = (System.Drawing.Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new System.Drawing.Point(12, 74);
-            pictureBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.OriginalSize = new System.Drawing.Size(100, 50);
-            pictureBox3.RepositioningAndResizingControlsOnResize = false;
-            pictureBox3.Size = new System.Drawing.Size(21, 21);
-            pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            pictureBox3.TabIndex = 28;
-            pictureBox3.TabStop = false;
+            pbWindowsConnectionStatus.Image = (System.Drawing.Image)resources.GetObject("pbWindowsConnectionStatus.Image");
+            pbWindowsConnectionStatus.Location = new System.Drawing.Point(12, 74);
+            pbWindowsConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbWindowsConnectionStatus.Name = "pbWindowsConnectionStatus";
+            pbWindowsConnectionStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbWindowsConnectionStatus.RepositioningAndResizingControlsOnResize = false;
+            pbWindowsConnectionStatus.Size = new System.Drawing.Size(21, 21);
+            pbWindowsConnectionStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pbWindowsConnectionStatus.TabIndex = 28;
+            pbWindowsConnectionStatus.TabStop = false;
             // 
-            // textBox13
+            // tbWindowsPassword
             // 
-            textBox13.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox13.Location = new System.Drawing.Point(204, 42);
-            textBox13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox13.MaxLength = 50;
-            textBox13.Name = "textBox13";
-            textBox13.PasswordChar = '*';
-            textBox13.Size = new System.Drawing.Size(209, 23);
-            textBox13.TabIndex = 4;
-            textBox13.Text = "72svpi";
+            tbWindowsPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbWindowsPassword.Location = new System.Drawing.Point(204, 42);
+            tbWindowsPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWindowsPassword.MaxLength = 50;
+            tbWindowsPassword.Name = "tbWindowsPassword";
+            tbWindowsPassword.PasswordChar = '*';
+            tbWindowsPassword.Size = new System.Drawing.Size(209, 23);
+            tbWindowsPassword.TabIndex = 4;
+            tbWindowsPassword.Text = "72svpi";
             // 
-            // label14
+            // lblWindowsPassword
             // 
-            label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(7, 45);
-            label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label14.MaximumSize = new System.Drawing.Size(191, 15);
-            label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(57, 15);
-            label14.TabIndex = 3;
-            label14.Text = "Password";
+            lblWindowsPassword.AutoSize = true;
+            lblWindowsPassword.Location = new System.Drawing.Point(7, 45);
+            lblWindowsPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWindowsPassword.MaximumSize = new System.Drawing.Size(191, 15);
+            lblWindowsPassword.Name = "lblWindowsPassword";
+            lblWindowsPassword.Size = new System.Drawing.Size(57, 15);
+            lblWindowsPassword.TabIndex = 3;
+            lblWindowsPassword.Text = "Password";
             // 
-            // label13
+            // lblWindowsUsername
             // 
-            label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(7, 20);
-            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label13.MaximumSize = new System.Drawing.Size(191, 15);
-            label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(60, 15);
-            label13.TabIndex = 1;
-            label13.Text = "Username";
+            lblWindowsUsername.AutoSize = true;
+            lblWindowsUsername.Location = new System.Drawing.Point(7, 20);
+            lblWindowsUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWindowsUsername.MaximumSize = new System.Drawing.Size(191, 15);
+            lblWindowsUsername.Name = "lblWindowsUsername";
+            lblWindowsUsername.Size = new System.Drawing.Size(60, 15);
+            lblWindowsUsername.TabIndex = 1;
+            lblWindowsUsername.Text = "Username";
             // 
-            // textBox12
+            // tbWindowsUsername
             // 
-            textBox12.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox12.Location = new System.Drawing.Point(204, 15);
-            textBox12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox12.MaxLength = 100;
-            textBox12.Name = "textBox12";
-            textBox12.Size = new System.Drawing.Size(209, 23);
-            textBox12.TabIndex = 2;
-            textBox12.Text = "Rendszergazda";
+            tbWindowsUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbWindowsUsername.Location = new System.Drawing.Point(204, 15);
+            tbWindowsUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWindowsUsername.MaxLength = 100;
+            tbWindowsUsername.Name = "tbWindowsUsername";
+            tbWindowsUsername.Size = new System.Drawing.Size(209, 23);
+            tbWindowsUsername.TabIndex = 2;
+            tbWindowsUsername.Text = "Rendszergazda";
             // 
-            // tabPage2
+            // tpOtherData
             // 
-            tabPage2.Controls.Add(btnRefresh2);
-            tabPage2.Controls.Add(btnClose2);
-            tabPage2.Controls.Add(groupBox5);
-            tabPage2.Location = new System.Drawing.Point(4, 44);
-            tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage2.Size = new System.Drawing.Size(427, 418);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Other data";
-            tabPage2.UseVisualStyleBackColor = true;
+            tpOtherData.Controls.Add(btnRefresh2);
+            tpOtherData.Controls.Add(btnClose2);
+            tpOtherData.Controls.Add(gbMisc);
+            tpOtherData.Location = new System.Drawing.Point(4, 44);
+            tpOtherData.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpOtherData.Name = "tpOtherData";
+            tpOtherData.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpOtherData.Size = new System.Drawing.Size(427, 418);
+            tpOtherData.TabIndex = 1;
+            tpOtherData.Text = "Misc";
+            tpOtherData.UseVisualStyleBackColor = true;
             // 
             // btnGetHardwareInfo
             // 
@@ -552,50 +551,50 @@
             btnGetHardwareInfo.UseVisualStyleBackColor = true;
             btnGetHardwareInfo.Click += BtnGetHardwareInfo_Click;
             // 
-            // textBox1
+            // tbHost
             // 
-            textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox1.Location = new System.Drawing.Point(204, 40);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.MaxLength = 100;
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new System.Drawing.Size(205, 23);
-            textBox1.TabIndex = 3;
-            textBox1.TabStop = false;
+            tbHost.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbHost.Location = new System.Drawing.Point(204, 40);
+            tbHost.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbHost.MaxLength = 100;
+            tbHost.Name = "tbHost";
+            tbHost.ReadOnly = true;
+            tbHost.Size = new System.Drawing.Size(205, 23);
+            tbHost.TabIndex = 3;
+            tbHost.TabStop = false;
             // 
-            // label3
+            // lblVideoserverUsername
             // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(7, 70);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label3.MaximumSize = new System.Drawing.Size(191, 15);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(123, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Videoserver username";
+            lblVideoserverUsername.AutoSize = true;
+            lblVideoserverUsername.Location = new System.Drawing.Point(7, 70);
+            lblVideoserverUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVideoserverUsername.MaximumSize = new System.Drawing.Size(191, 15);
+            lblVideoserverUsername.Name = "lblVideoserverUsername";
+            lblVideoserverUsername.Size = new System.Drawing.Size(60, 15);
+            lblVideoserverUsername.TabIndex = 4;
+            lblVideoserverUsername.Text = "Username";
             // 
-            // label2
+            // lblVideoServerName
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(7, 18);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label2.MaximumSize = new System.Drawing.Size(191, 15);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(104, 15);
-            label2.TabIndex = 0;
-            label2.Text = "Video server name";
+            lblVideoServerName.AutoSize = true;
+            lblVideoServerName.Location = new System.Drawing.Point(7, 18);
+            lblVideoServerName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVideoServerName.MaximumSize = new System.Drawing.Size(191, 15);
+            lblVideoServerName.Name = "lblVideoServerName";
+            lblVideoServerName.Size = new System.Drawing.Size(39, 15);
+            lblVideoServerName.TabIndex = 0;
+            lblVideoServerName.Text = "Name";
             // 
-            // label1
+            // lblHost
             // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(7, 44);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label1.MaximumSize = new System.Drawing.Size(191, 15);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(162, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Hostname / IP address [:port]";
+            lblHost.AutoSize = true;
+            lblHost.Location = new System.Drawing.Point(7, 44);
+            lblHost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHost.MaximumSize = new System.Drawing.Size(191, 15);
+            lblHost.Name = "lblHost";
+            lblHost.Size = new System.Drawing.Size(162, 15);
+            lblHost.TabIndex = 2;
+            lblHost.Text = "Hostname / IP address [:port]";
             // 
             // btnRefresh
             // 
@@ -609,206 +608,194 @@
             btnRefresh.UseVisualStyleBackColor = true;
             btnRefresh.Click += BtnRefresh_Click;
             // 
-            // groupBox4
-            // 
-            groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox4.Controls.Add(btnShowPassword);
-            groupBox4.Controls.Add(textBox15);
-            groupBox4.Location = new System.Drawing.Point(4, 302);
-            groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox4.Size = new System.Drawing.Size(418, 57);
-            groupBox4.TabIndex = 3;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Videoserver password";
-            groupBox4.Visible = false;
-            // 
             // btnShowPassword
             // 
             btnShowPassword.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            btnShowPassword.Location = new System.Drawing.Point(10, 23);
+            btnShowPassword.Location = new System.Drawing.Point(82, 89);
             btnShowPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnShowPassword.Name = "btnShowPassword";
-            btnShowPassword.Size = new System.Drawing.Size(187, 27);
+            btnShowPassword.Size = new System.Drawing.Size(114, 27);
             btnShowPassword.TabIndex = 0;
             btnShowPassword.Text = "Show it!";
             btnShowPassword.UseVisualStyleBackColor = true;
             btnShowPassword.Click += BtnShowPassword_Click;
             // 
-            // textBox15
+            // tbPassword
             // 
-            textBox15.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox15.Location = new System.Drawing.Point(204, 25);
-            textBox15.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox15.MaxLength = 100;
-            textBox15.Name = "textBox15";
-            textBox15.PasswordChar = '*';
-            textBox15.ReadOnly = true;
-            textBox15.Size = new System.Drawing.Size(205, 23);
-            textBox15.TabIndex = 1;
+            tbPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbPassword.Location = new System.Drawing.Point(203, 91);
+            tbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbPassword.MaxLength = 100;
+            tbPassword.Name = "tbPassword";
+            tbPassword.PasswordChar = '*';
+            tbPassword.ReadOnly = true;
+            tbPassword.Size = new System.Drawing.Size(205, 23);
+            tbPassword.TabIndex = 1;
             // 
-            // textBox3
+            // tbVideoserverUsername
             // 
-            textBox3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox3.Location = new System.Drawing.Point(204, 66);
-            textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox3.MaxLength = 100;
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new System.Drawing.Size(205, 23);
-            textBox3.TabIndex = 5;
-            textBox3.TabStop = false;
+            tbVideoserverUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoserverUsername.Location = new System.Drawing.Point(204, 66);
+            tbVideoserverUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoserverUsername.MaxLength = 100;
+            tbVideoserverUsername.Name = "tbVideoserverUsername";
+            tbVideoserverUsername.ReadOnly = true;
+            tbVideoserverUsername.Size = new System.Drawing.Size(205, 23);
+            tbVideoserverUsername.TabIndex = 5;
+            tbVideoserverUsername.TabStop = false;
             // 
-            // textBox2
+            // tbVideoServerName
             // 
-            textBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox2.Location = new System.Drawing.Point(204, 15);
-            textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox2.MaxLength = 100;
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new System.Drawing.Size(205, 23);
-            textBox2.TabIndex = 1;
-            textBox2.TabStop = false;
+            tbVideoServerName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoServerName.Location = new System.Drawing.Point(204, 15);
+            tbVideoServerName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoServerName.MaxLength = 100;
+            tbVideoServerName.Name = "tbVideoServerName";
+            tbVideoServerName.ReadOnly = true;
+            tbVideoServerName.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerName.TabIndex = 1;
+            tbVideoServerName.TabStop = false;
             // 
-            // groupBox8
+            // gbVideoServerErrorMessage
             // 
-            groupBox8.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox8.Controls.Add(tb_VideoServersErrorMessage);
-            groupBox8.Location = new System.Drawing.Point(4, 196);
-            groupBox8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox8.Name = "groupBox8";
-            groupBox8.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox8.Size = new System.Drawing.Size(418, 104);
-            groupBox8.TabIndex = 2;
-            groupBox8.TabStop = false;
-            groupBox8.Text = "Video server's error message";
+            gbVideoServerErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbVideoServerErrorMessage.Controls.Add(tbVideoServerErrorMessage);
+            gbVideoServerErrorMessage.Location = new System.Drawing.Point(4, 212);
+            gbVideoServerErrorMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoServerErrorMessage.Name = "gbVideoServerErrorMessage";
+            gbVideoServerErrorMessage.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoServerErrorMessage.Size = new System.Drawing.Size(418, 168);
+            gbVideoServerErrorMessage.TabIndex = 2;
+            gbVideoServerErrorMessage.TabStop = false;
+            gbVideoServerErrorMessage.Text = "Video server's error message";
             // 
-            // tb_VideoServersErrorMessage
+            // tbVideoServerErrorMessage
             // 
-            tb_VideoServersErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_VideoServersErrorMessage.Location = new System.Drawing.Point(10, 22);
-            tb_VideoServersErrorMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_VideoServersErrorMessage.MaxLength = 5000;
-            tb_VideoServersErrorMessage.Multiline = true;
-            tb_VideoServersErrorMessage.Name = "tb_VideoServersErrorMessage";
-            tb_VideoServersErrorMessage.ReadOnly = true;
-            tb_VideoServersErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            tb_VideoServersErrorMessage.Size = new System.Drawing.Size(398, 73);
-            tb_VideoServersErrorMessage.TabIndex = 0;
-            tb_VideoServersErrorMessage.TabStop = false;
+            tbVideoServerErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoServerErrorMessage.Location = new System.Drawing.Point(10, 22);
+            tbVideoServerErrorMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoServerErrorMessage.MaxLength = 5000;
+            tbVideoServerErrorMessage.Multiline = true;
+            tbVideoServerErrorMessage.Name = "tbVideoServerErrorMessage";
+            tbVideoServerErrorMessage.ReadOnly = true;
+            tbVideoServerErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            tbVideoServerErrorMessage.Size = new System.Drawing.Size(398, 137);
+            tbVideoServerErrorMessage.TabIndex = 0;
+            tbVideoServerErrorMessage.TabStop = false;
             // 
-            // pictureBox1
+            // pbPingTestStatus
             // 
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(10, 20);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.OriginalSize = new System.Drawing.Size(100, 50);
-            pictureBox1.RepositioningAndResizingControlsOnResize = false;
-            pictureBox1.Size = new System.Drawing.Size(21, 21);
-            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 22;
-            pictureBox1.TabStop = false;
+            pbPingTestStatus.Image = (System.Drawing.Image)resources.GetObject("pbPingTestStatus.Image");
+            pbPingTestStatus.Location = new System.Drawing.Point(10, 20);
+            pbPingTestStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbPingTestStatus.Name = "pbPingTestStatus";
+            pbPingTestStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbPingTestStatus.RepositioningAndResizingControlsOnResize = false;
+            pbPingTestStatus.Size = new System.Drawing.Size(21, 21);
+            pbPingTestStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pbPingTestStatus.TabIndex = 22;
+            pbPingTestStatus.TabStop = false;
             // 
-            // btn_WakeOnLAN
+            // btnWakeOnLan
             // 
-            btn_WakeOnLAN.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btn_WakeOnLAN.Location = new System.Drawing.Point(239, 386);
-            btn_WakeOnLAN.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_WakeOnLAN.Name = "btn_WakeOnLAN";
-            btn_WakeOnLAN.Size = new System.Drawing.Size(111, 27);
-            btn_WakeOnLAN.TabIndex = 7;
-            btn_WakeOnLAN.Text = "Wake on LAN";
-            btn_WakeOnLAN.UseVisualStyleBackColor = true;
-            btn_WakeOnLAN.Click += Btn_WakeOnLAN_Click;
+            btnWakeOnLan.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnWakeOnLan.Location = new System.Drawing.Point(239, 386);
+            btnWakeOnLan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnWakeOnLan.Name = "btnWakeOnLan";
+            btnWakeOnLan.Size = new System.Drawing.Size(111, 27);
+            btnWakeOnLan.TabIndex = 7;
+            btnWakeOnLan.Text = "Wake on LAN";
+            btnWakeOnLan.UseVisualStyleBackColor = true;
+            btnWakeOnLan.Click += BtnWakeOnLan_Click;
             // 
-            // pictureBox2
+            // pbRemoteVideoServerConnectionStatus
             // 
-            pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new System.Drawing.Point(10, 45);
-            pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.OriginalSize = new System.Drawing.Size(100, 50);
-            pictureBox2.RepositioningAndResizingControlsOnResize = false;
-            pictureBox2.Size = new System.Drawing.Size(21, 21);
-            pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            pictureBox2.TabIndex = 24;
-            pictureBox2.TabStop = false;
+            pbRemoteVideoServerConnectionStatus.Image = (System.Drawing.Image)resources.GetObject("pbRemoteVideoServerConnectionStatus.Image");
+            pbRemoteVideoServerConnectionStatus.Location = new System.Drawing.Point(10, 45);
+            pbRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbRemoteVideoServerConnectionStatus.Name = "pbRemoteVideoServerConnectionStatus";
+            pbRemoteVideoServerConnectionStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbRemoteVideoServerConnectionStatus.RepositioningAndResizingControlsOnResize = false;
+            pbRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(21, 21);
+            pbRemoteVideoServerConnectionStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pbRemoteVideoServerConnectionStatus.TabIndex = 24;
+            pbRemoteVideoServerConnectionStatus.TabStop = false;
             // 
-            // label9
+            // lblPingTestStatus
             // 
-            label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(37, 22);
-            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label9.MaximumSize = new System.Drawing.Size(374, 15);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(114, 15);
-            label9.TabIndex = 0;
-            label9.Text = "Ping test in progress";
+            lblPingTestStatus.AutoSize = true;
+            lblPingTestStatus.Location = new System.Drawing.Point(37, 22);
+            lblPingTestStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPingTestStatus.MaximumSize = new System.Drawing.Size(374, 15);
+            lblPingTestStatus.Name = "lblPingTestStatus";
+            lblPingTestStatus.Size = new System.Drawing.Size(114, 15);
+            lblPingTestStatus.TabIndex = 0;
+            lblPingTestStatus.Text = "Ping test in progress";
             // 
-            // groupBox3
+            // gbAvailabilityTests
             // 
-            groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox3.Controls.Add(label10);
-            groupBox3.Controls.Add(pictureBox2);
-            groupBox3.Controls.Add(label9);
-            groupBox3.Controls.Add(pictureBox1);
-            groupBox3.Location = new System.Drawing.Point(4, 114);
-            groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox3.Size = new System.Drawing.Size(418, 75);
-            groupBox3.TabIndex = 1;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Availability tests";
+            gbAvailabilityTests.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbAvailabilityTests.Controls.Add(lblRemoteVideoServerConnectionStatus);
+            gbAvailabilityTests.Controls.Add(pbRemoteVideoServerConnectionStatus);
+            gbAvailabilityTests.Controls.Add(lblPingTestStatus);
+            gbAvailabilityTests.Controls.Add(pbPingTestStatus);
+            gbAvailabilityTests.Location = new System.Drawing.Point(4, 131);
+            gbAvailabilityTests.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbAvailabilityTests.Name = "gbAvailabilityTests";
+            gbAvailabilityTests.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbAvailabilityTests.Size = new System.Drawing.Size(418, 75);
+            gbAvailabilityTests.TabIndex = 1;
+            gbAvailabilityTests.TabStop = false;
+            gbAvailabilityTests.Text = "Availability tests";
             // 
-            // label10
+            // lblRemoteVideoServerConnectionStatus
             // 
-            label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(37, 47);
-            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label10.MaximumSize = new System.Drawing.Size(374, 15);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(238, 15);
-            label10.TabIndex = 1;
-            label10.Text = "Remote video server connection in progress";
+            lblRemoteVideoServerConnectionStatus.AutoSize = true;
+            lblRemoteVideoServerConnectionStatus.Location = new System.Drawing.Point(37, 47);
+            lblRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRemoteVideoServerConnectionStatus.MaximumSize = new System.Drawing.Size(374, 15);
+            lblRemoteVideoServerConnectionStatus.Name = "lblRemoteVideoServerConnectionStatus";
+            lblRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(238, 15);
+            lblRemoteVideoServerConnectionStatus.TabIndex = 1;
+            lblRemoteVideoServerConnectionStatus.Text = "Remote video server connection in progress";
             // 
-            // groupBox1
+            // gbVideoServer
             // 
-            groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox1.Controls.Add(textBox3);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Location = new System.Drawing.Point(4, 3);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(418, 105);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
+            gbVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbVideoServer.Controls.Add(lblPassword);
+            gbVideoServer.Controls.Add(btnShowPassword);
+            gbVideoServer.Controls.Add(tbVideoserverUsername);
+            gbVideoServer.Controls.Add(tbPassword);
+            gbVideoServer.Controls.Add(tbVideoServerName);
+            gbVideoServer.Controls.Add(tbHost);
+            gbVideoServer.Controls.Add(lblVideoserverUsername);
+            gbVideoServer.Controls.Add(lblVideoServerName);
+            gbVideoServer.Controls.Add(lblHost);
+            gbVideoServer.Location = new System.Drawing.Point(4, 3);
+            gbVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoServer.Name = "gbVideoServer";
+            gbVideoServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoServer.Size = new System.Drawing.Size(418, 122);
+            gbVideoServer.TabIndex = 0;
+            gbVideoServer.TabStop = false;
+            gbVideoServer.Text = "Video server";
             // 
-            // tabPage1
+            // tpVideoServer
             // 
-            tabPage1.Controls.Add(btnRefresh);
-            tabPage1.Controls.Add(groupBox4);
-            tabPage1.Controls.Add(groupBox8);
-            tabPage1.Controls.Add(btn_WakeOnLAN);
-            tabPage1.Controls.Add(groupBox3);
-            tabPage1.Controls.Add(groupBox1);
-            tabPage1.Controls.Add(btnClose);
-            tabPage1.Location = new System.Drawing.Point(4, 44);
-            tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Size = new System.Drawing.Size(427, 418);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "General details";
-            tabPage1.UseVisualStyleBackColor = true;
+            tpVideoServer.Controls.Add(btnRefresh);
+            tpVideoServer.Controls.Add(gbVideoServerErrorMessage);
+            tpVideoServer.Controls.Add(btnWakeOnLan);
+            tpVideoServer.Controls.Add(gbAvailabilityTests);
+            tpVideoServer.Controls.Add(gbVideoServer);
+            tpVideoServer.Controls.Add(btnClose);
+            tpVideoServer.Location = new System.Drawing.Point(4, 44);
+            tpVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVideoServer.Name = "tpVideoServer";
+            tpVideoServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVideoServer.Size = new System.Drawing.Size(427, 418);
+            tpVideoServer.TabIndex = 0;
+            tpVideoServer.Text = "General details";
+            tpVideoServer.UseVisualStyleBackColor = true;
             // 
             // btnClose
             // 
@@ -823,152 +810,152 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += BtnClose_Click;
             // 
-            // groupBox6
+            // gbWindowsCredentials
             // 
-            groupBox6.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox6.Controls.Add(textBox14);
-            groupBox6.Controls.Add(label15);
-            groupBox6.Controls.Add(pictureBox3);
-            groupBox6.Controls.Add(textBox13);
-            groupBox6.Controls.Add(label14);
-            groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(textBox12);
-            groupBox6.Location = new System.Drawing.Point(4, 3);
-            groupBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox6.Size = new System.Drawing.Size(422, 129);
-            groupBox6.TabIndex = 4;
-            groupBox6.TabStop = false;
-            groupBox6.Text = "Credentials";
+            gbWindowsCredentials.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbWindowsCredentials.Controls.Add(tbWindowErrorMessage);
+            gbWindowsCredentials.Controls.Add(lblWindowsConnectionStatus);
+            gbWindowsCredentials.Controls.Add(pbWindowsConnectionStatus);
+            gbWindowsCredentials.Controls.Add(tbWindowsPassword);
+            gbWindowsCredentials.Controls.Add(lblWindowsPassword);
+            gbWindowsCredentials.Controls.Add(lblWindowsUsername);
+            gbWindowsCredentials.Controls.Add(tbWindowsUsername);
+            gbWindowsCredentials.Location = new System.Drawing.Point(4, 3);
+            gbWindowsCredentials.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbWindowsCredentials.Name = "gbWindowsCredentials";
+            gbWindowsCredentials.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbWindowsCredentials.Size = new System.Drawing.Size(422, 129);
+            gbWindowsCredentials.TabIndex = 4;
+            gbWindowsCredentials.TabStop = false;
+            gbWindowsCredentials.Text = "Credentials";
             // 
-            // textBox17
+            // tbLiveViewDisplay
             // 
-            textBox17.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox17.Location = new System.Drawing.Point(204, 143);
-            textBox17.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox17.MaxLength = 100;
-            textBox17.Name = "textBox17";
-            textBox17.ReadOnly = true;
-            textBox17.Size = new System.Drawing.Size(209, 23);
-            textBox17.TabIndex = 21;
-            textBox17.TabStop = false;
+            tbLiveViewDisplay.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbLiveViewDisplay.Location = new System.Drawing.Point(204, 143);
+            tbLiveViewDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbLiveViewDisplay.MaxLength = 100;
+            tbLiveViewDisplay.Name = "tbLiveViewDisplay";
+            tbLiveViewDisplay.ReadOnly = true;
+            tbLiveViewDisplay.Size = new System.Drawing.Size(209, 23);
+            tbLiveViewDisplay.TabIndex = 21;
+            tbLiveViewDisplay.TabStop = false;
             // 
-            // label20
+            // lblLiveViewDisplay
             // 
-            label20.AutoSize = true;
-            label20.Location = new System.Drawing.Point(7, 148);
-            label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label20.MaximumSize = new System.Drawing.Size(191, 15);
-            label20.Name = "label20";
-            label20.Size = new System.Drawing.Size(95, 15);
-            label20.TabIndex = 20;
-            label20.Text = "Live view display";
+            lblLiveViewDisplay.AutoSize = true;
+            lblLiveViewDisplay.Location = new System.Drawing.Point(7, 148);
+            lblLiveViewDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLiveViewDisplay.MaximumSize = new System.Drawing.Size(191, 15);
+            lblLiveViewDisplay.Name = "lblLiveViewDisplay";
+            lblLiveViewDisplay.Size = new System.Drawing.Size(95, 15);
+            lblLiveViewDisplay.TabIndex = 20;
+            lblLiveViewDisplay.Text = "Live view display";
             // 
-            // textBox25
+            // tbLicensedCameraNumber
             // 
-            textBox25.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox25.Location = new System.Drawing.Point(204, 117);
-            textBox25.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox25.MaxLength = 100;
-            textBox25.Name = "textBox25";
-            textBox25.ReadOnly = true;
-            textBox25.Size = new System.Drawing.Size(209, 23);
-            textBox25.TabIndex = 19;
-            textBox25.TabStop = false;
+            tbLicensedCameraNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbLicensedCameraNumber.Location = new System.Drawing.Point(204, 117);
+            tbLicensedCameraNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbLicensedCameraNumber.MaxLength = 100;
+            tbLicensedCameraNumber.Name = "tbLicensedCameraNumber";
+            tbLicensedCameraNumber.ReadOnly = true;
+            tbLicensedCameraNumber.Size = new System.Drawing.Size(209, 23);
+            tbLicensedCameraNumber.TabIndex = 19;
+            tbLicensedCameraNumber.TabStop = false;
             // 
-            // label25
+            // lblLicensedCameraNumber
             // 
-            label25.AutoSize = true;
-            label25.Location = new System.Drawing.Point(7, 121);
-            label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label25.MaximumSize = new System.Drawing.Size(191, 15);
-            label25.Name = "label25";
-            label25.Size = new System.Drawing.Size(158, 15);
-            label25.TabIndex = 18;
-            label25.Text = "Number of licensed cameras";
+            lblLicensedCameraNumber.AutoSize = true;
+            lblLicensedCameraNumber.Location = new System.Drawing.Point(7, 121);
+            lblLicensedCameraNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblLicensedCameraNumber.MaximumSize = new System.Drawing.Size(191, 15);
+            lblLicensedCameraNumber.Name = "lblLicensedCameraNumber";
+            lblLicensedCameraNumber.Size = new System.Drawing.Size(158, 15);
+            lblLicensedCameraNumber.TabIndex = 18;
+            lblLicensedCameraNumber.Text = "Number of licensed cameras";
             // 
-            // textBox22
+            // tbRecordedLocalCameraNumber
             // 
-            textBox22.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox22.Location = new System.Drawing.Point(204, 91);
-            textBox22.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox22.MaxLength = 100;
-            textBox22.Name = "textBox22";
-            textBox22.ReadOnly = true;
-            textBox22.Size = new System.Drawing.Size(209, 23);
-            textBox22.TabIndex = 11;
-            textBox22.TabStop = false;
+            tbRecordedLocalCameraNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRecordedLocalCameraNumber.Location = new System.Drawing.Point(204, 91);
+            tbRecordedLocalCameraNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRecordedLocalCameraNumber.MaxLength = 100;
+            tbRecordedLocalCameraNumber.Name = "tbRecordedLocalCameraNumber";
+            tbRecordedLocalCameraNumber.ReadOnly = true;
+            tbRecordedLocalCameraNumber.Size = new System.Drawing.Size(209, 23);
+            tbRecordedLocalCameraNumber.TabIndex = 11;
+            tbRecordedLocalCameraNumber.TabStop = false;
             // 
-            // label22
+            // lblRecordedLocalCameraNumber
             // 
-            label22.AutoSize = true;
-            label22.Location = new System.Drawing.Point(7, 96);
-            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label22.MaximumSize = new System.Drawing.Size(191, 15);
-            label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(191, 15);
-            label22.TabIndex = 10;
-            label22.Text = "Number of local cameras to record";
+            lblRecordedLocalCameraNumber.AutoSize = true;
+            lblRecordedLocalCameraNumber.Location = new System.Drawing.Point(7, 96);
+            lblRecordedLocalCameraNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRecordedLocalCameraNumber.MaximumSize = new System.Drawing.Size(191, 15);
+            lblRecordedLocalCameraNumber.Name = "lblRecordedLocalCameraNumber";
+            lblRecordedLocalCameraNumber.Size = new System.Drawing.Size(191, 15);
+            lblRecordedLocalCameraNumber.TabIndex = 10;
+            lblRecordedLocalCameraNumber.Text = "Number of local cameras to record";
             // 
-            // textBox20
+            // tbRecorderStatus
             // 
-            textBox20.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox20.BackColor = System.Drawing.SystemColors.Control;
-            textBox20.Location = new System.Drawing.Point(204, 15);
-            textBox20.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox20.MaxLength = 100;
-            textBox20.Name = "textBox20";
-            textBox20.ReadOnly = true;
-            textBox20.Size = new System.Drawing.Size(209, 23);
-            textBox20.TabIndex = 9;
-            textBox20.TabStop = false;
+            tbRecorderStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRecorderStatus.BackColor = System.Drawing.SystemColors.Control;
+            tbRecorderStatus.Location = new System.Drawing.Point(204, 15);
+            tbRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRecorderStatus.MaxLength = 100;
+            tbRecorderStatus.Name = "tbRecorderStatus";
+            tbRecorderStatus.ReadOnly = true;
+            tbRecorderStatus.Size = new System.Drawing.Size(209, 23);
+            tbRecorderStatus.TabIndex = 9;
+            tbRecorderStatus.TabStop = false;
             // 
-            // label17
+            // lblRecorderStatus
             // 
-            label17.AutoSize = true;
-            label17.Location = new System.Drawing.Point(7, 20);
-            label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label17.MaximumSize = new System.Drawing.Size(191, 15);
-            label17.Name = "label17";
-            label17.Size = new System.Drawing.Size(95, 15);
-            label17.TabIndex = 8;
-            label17.Text = "Recording status";
+            lblRecorderStatus.AutoSize = true;
+            lblRecorderStatus.Location = new System.Drawing.Point(7, 20);
+            lblRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRecorderStatus.MaximumSize = new System.Drawing.Size(191, 15);
+            lblRecorderStatus.Name = "lblRecorderStatus";
+            lblRecorderStatus.Size = new System.Drawing.Size(95, 15);
+            lblRecorderStatus.TabIndex = 8;
+            lblRecorderStatus.Text = "Recording status";
             // 
-            // textBox16
+            // tbCpuUsage
             // 
-            textBox16.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox16.Location = new System.Drawing.Point(204, 40);
-            textBox16.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox16.MaxLength = 100;
-            textBox16.Name = "textBox16";
-            textBox16.ReadOnly = true;
-            textBox16.Size = new System.Drawing.Size(209, 23);
-            textBox16.TabIndex = 5;
-            textBox16.TabStop = false;
+            tbCpuUsage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbCpuUsage.Location = new System.Drawing.Point(204, 40);
+            tbCpuUsage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbCpuUsage.MaxLength = 100;
+            tbCpuUsage.Name = "tbCpuUsage";
+            tbCpuUsage.ReadOnly = true;
+            tbCpuUsage.Size = new System.Drawing.Size(209, 23);
+            tbCpuUsage.TabIndex = 5;
+            tbCpuUsage.TabStop = false;
             // 
-            // tb_RecordingInterval
+            // tbRecordingInterval
             // 
-            tb_RecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tb_RecordingInterval.Location = new System.Drawing.Point(204, 66);
-            tb_RecordingInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tb_RecordingInterval.MaxLength = 100;
-            tb_RecordingInterval.Name = "tb_RecordingInterval";
-            tb_RecordingInterval.ReadOnly = true;
-            tb_RecordingInterval.Size = new System.Drawing.Size(209, 23);
-            tb_RecordingInterval.TabIndex = 3;
-            tb_RecordingInterval.TabStop = false;
+            tbRecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRecordingInterval.Location = new System.Drawing.Point(204, 66);
+            tbRecordingInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRecordingInterval.MaxLength = 100;
+            tbRecordingInterval.Name = "tbRecordingInterval";
+            tbRecordingInterval.ReadOnly = true;
+            tbRecordingInterval.Size = new System.Drawing.Size(209, 23);
+            tbRecordingInterval.TabIndex = 3;
+            tbRecordingInterval.TabStop = false;
             // 
-            // label19
+            // lblCpuUsage
             // 
-            label19.AutoSize = true;
-            label19.Location = new System.Drawing.Point(7, 45);
-            label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label19.MaximumSize = new System.Drawing.Size(191, 15);
-            label19.Name = "label19";
-            label19.Size = new System.Drawing.Size(64, 15);
-            label19.TabIndex = 4;
-            label19.Text = "CPU usage";
+            lblCpuUsage.AutoSize = true;
+            lblCpuUsage.Location = new System.Drawing.Point(7, 45);
+            lblCpuUsage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCpuUsage.MaximumSize = new System.Drawing.Size(191, 15);
+            lblCpuUsage.Name = "lblCpuUsage";
+            lblCpuUsage.Size = new System.Drawing.Size(64, 15);
+            lblCpuUsage.TabIndex = 4;
+            lblCpuUsage.Text = "CPU usage";
             // 
             // btnRefresh4
             // 
@@ -982,16 +969,16 @@
             btnRefresh4.UseVisualStyleBackColor = true;
             btnRefresh4.Click += BtnRefresh_Click;
             // 
-            // label50
+            // lblVideoRecorderProtocolVersion
             // 
-            label50.AutoSize = true;
-            label50.Location = new System.Drawing.Point(7, 73);
-            label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label50.MaximumSize = new System.Drawing.Size(191, 15);
-            label50.Name = "label50";
-            label50.Size = new System.Drawing.Size(176, 15);
-            label50.TabIndex = 6;
-            label50.Text = "Video Recorder protocol version";
+            lblVideoRecorderProtocolVersion.AutoSize = true;
+            lblVideoRecorderProtocolVersion.Location = new System.Drawing.Point(7, 73);
+            lblVideoRecorderProtocolVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVideoRecorderProtocolVersion.MaximumSize = new System.Drawing.Size(191, 15);
+            lblVideoRecorderProtocolVersion.Name = "lblVideoRecorderProtocolVersion";
+            lblVideoRecorderProtocolVersion.Size = new System.Drawing.Size(176, 15);
+            lblVideoRecorderProtocolVersion.TabIndex = 6;
+            lblVideoRecorderProtocolVersion.Text = "Video Recorder protocol version";
             // 
             // btnClose5
             // 
@@ -1005,97 +992,97 @@
             btnClose5.UseVisualStyleBackColor = true;
             btnClose5.Click += BtnClose_Click;
             // 
-            // groupBox10
+            // gbVideoRecorderStatus
             // 
-            groupBox10.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox10.Controls.Add(textBox17);
-            groupBox10.Controls.Add(label20);
-            groupBox10.Controls.Add(textBox25);
-            groupBox10.Controls.Add(label25);
-            groupBox10.Controls.Add(textBox22);
-            groupBox10.Controls.Add(label22);
-            groupBox10.Controls.Add(textBox20);
-            groupBox10.Controls.Add(label17);
-            groupBox10.Controls.Add(textBox16);
-            groupBox10.Controls.Add(tb_RecordingInterval);
-            groupBox10.Controls.Add(label19);
-            groupBox10.Controls.Add(lbl_RecordingInterval);
-            groupBox10.Location = new System.Drawing.Point(4, 3);
-            groupBox10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox10.Name = "groupBox10";
-            groupBox10.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox10.Size = new System.Drawing.Size(422, 174);
-            groupBox10.TabIndex = 0;
-            groupBox10.TabStop = false;
+            gbVideoRecorderStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbVideoRecorderStatus.Controls.Add(tbLiveViewDisplay);
+            gbVideoRecorderStatus.Controls.Add(lblLiveViewDisplay);
+            gbVideoRecorderStatus.Controls.Add(tbLicensedCameraNumber);
+            gbVideoRecorderStatus.Controls.Add(lblLicensedCameraNumber);
+            gbVideoRecorderStatus.Controls.Add(tbRecordedLocalCameraNumber);
+            gbVideoRecorderStatus.Controls.Add(lblRecordedLocalCameraNumber);
+            gbVideoRecorderStatus.Controls.Add(tbRecorderStatus);
+            gbVideoRecorderStatus.Controls.Add(lblRecorderStatus);
+            gbVideoRecorderStatus.Controls.Add(tbCpuUsage);
+            gbVideoRecorderStatus.Controls.Add(tbRecordingInterval);
+            gbVideoRecorderStatus.Controls.Add(lblCpuUsage);
+            gbVideoRecorderStatus.Controls.Add(lblRecordingInterval);
+            gbVideoRecorderStatus.Location = new System.Drawing.Point(4, 3);
+            gbVideoRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoRecorderStatus.Name = "gbVideoRecorderStatus";
+            gbVideoRecorderStatus.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVideoRecorderStatus.Size = new System.Drawing.Size(422, 174);
+            gbVideoRecorderStatus.TabIndex = 0;
+            gbVideoRecorderStatus.TabStop = false;
             // 
-            // lbl_RecordingInterval
+            // lblRecordingInterval
             // 
-            lbl_RecordingInterval.AutoSize = true;
-            lbl_RecordingInterval.Location = new System.Drawing.Point(7, 70);
-            lbl_RecordingInterval.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lbl_RecordingInterval.MaximumSize = new System.Drawing.Size(191, 15);
-            lbl_RecordingInterval.Name = "lbl_RecordingInterval";
-            lbl_RecordingInterval.Size = new System.Drawing.Size(103, 15);
-            lbl_RecordingInterval.TabIndex = 2;
-            lbl_RecordingInterval.Text = "Recording interval";
+            lblRecordingInterval.AutoSize = true;
+            lblRecordingInterval.Location = new System.Drawing.Point(7, 70);
+            lblRecordingInterval.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRecordingInterval.MaximumSize = new System.Drawing.Size(191, 15);
+            lblRecordingInterval.Name = "lblRecordingInterval";
+            lblRecordingInterval.Size = new System.Drawing.Size(103, 15);
+            lblRecordingInterval.TabIndex = 2;
+            lblRecordingInterval.Text = "Recording interval";
             // 
-            // textBox40
+            // tbVersionRecorderVersion
             // 
-            textBox40.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox40.Location = new System.Drawing.Point(204, 15);
-            textBox40.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox40.MaxLength = 100;
-            textBox40.Name = "textBox40";
-            textBox40.ReadOnly = true;
-            textBox40.Size = new System.Drawing.Size(209, 23);
-            textBox40.TabIndex = 23;
-            textBox40.TabStop = false;
+            tbVersionRecorderVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVersionRecorderVersion.Location = new System.Drawing.Point(204, 15);
+            tbVersionRecorderVersion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVersionRecorderVersion.MaxLength = 100;
+            tbVersionRecorderVersion.Name = "tbVersionRecorderVersion";
+            tbVersionRecorderVersion.ReadOnly = true;
+            tbVersionRecorderVersion.Size = new System.Drawing.Size(209, 23);
+            tbVersionRecorderVersion.TabIndex = 23;
+            tbVersionRecorderVersion.TabStop = false;
             // 
-            // label41
+            // lblRemoteVideoServerVersion
             // 
-            label41.AutoSize = true;
-            label41.Location = new System.Drawing.Point(7, 46);
-            label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label41.MaximumSize = new System.Drawing.Size(191, 15);
-            label41.Name = "label41";
-            label41.Size = new System.Drawing.Size(157, 15);
-            label41.TabIndex = 20;
-            label41.Text = "Remote Video Server version";
+            lblRemoteVideoServerVersion.AutoSize = true;
+            lblRemoteVideoServerVersion.Location = new System.Drawing.Point(7, 46);
+            lblRemoteVideoServerVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRemoteVideoServerVersion.MaximumSize = new System.Drawing.Size(191, 15);
+            lblRemoteVideoServerVersion.Name = "lblRemoteVideoServerVersion";
+            lblRemoteVideoServerVersion.Size = new System.Drawing.Size(157, 15);
+            lblRemoteVideoServerVersion.TabIndex = 20;
+            lblRemoteVideoServerVersion.Text = "Remote Video Server version";
             // 
-            // label43
+            // lblVersionRecorderVersion
             // 
-            label43.AutoSize = true;
-            label43.Location = new System.Drawing.Point(7, 20);
-            label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label43.MaximumSize = new System.Drawing.Size(191, 15);
-            label43.Name = "label43";
-            label43.Size = new System.Drawing.Size(128, 15);
-            label43.TabIndex = 22;
-            label43.Text = "Video Recorder version";
+            lblVersionRecorderVersion.AutoSize = true;
+            lblVersionRecorderVersion.Location = new System.Drawing.Point(7, 20);
+            lblVersionRecorderVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVersionRecorderVersion.MaximumSize = new System.Drawing.Size(191, 15);
+            lblVersionRecorderVersion.Name = "lblVersionRecorderVersion";
+            lblVersionRecorderVersion.Size = new System.Drawing.Size(128, 15);
+            lblVersionRecorderVersion.TabIndex = 22;
+            lblVersionRecorderVersion.Text = "Video Recorder version";
             // 
-            // textBox43
+            // tbRemoteVideoServerVersion
             // 
-            textBox43.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox43.Location = new System.Drawing.Point(204, 40);
-            textBox43.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox43.MaxLength = 100;
-            textBox43.Name = "textBox43";
-            textBox43.ReadOnly = true;
-            textBox43.Size = new System.Drawing.Size(209, 23);
-            textBox43.TabIndex = 21;
-            textBox43.TabStop = false;
+            tbRemoteVideoServerVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRemoteVideoServerVersion.Location = new System.Drawing.Point(204, 40);
+            tbRemoteVideoServerVersion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRemoteVideoServerVersion.MaxLength = 100;
+            tbRemoteVideoServerVersion.Name = "tbRemoteVideoServerVersion";
+            tbRemoteVideoServerVersion.ReadOnly = true;
+            tbRemoteVideoServerVersion.Size = new System.Drawing.Size(209, 23);
+            tbRemoteVideoServerVersion.TabIndex = 21;
+            tbRemoteVideoServerVersion.TabStop = false;
             // 
-            // textBox50
+            // tbVideoRecorderProtocolVersion
             // 
-            textBox50.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            textBox50.Location = new System.Drawing.Point(204, 66);
-            textBox50.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox50.MaxLength = 100;
-            textBox50.Name = "textBox50";
-            textBox50.ReadOnly = true;
-            textBox50.Size = new System.Drawing.Size(209, 23);
-            textBox50.TabIndex = 7;
-            textBox50.TabStop = false;
+            tbVideoRecorderProtocolVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoRecorderProtocolVersion.Location = new System.Drawing.Point(204, 66);
+            tbVideoRecorderProtocolVersion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoRecorderProtocolVersion.MaxLength = 100;
+            tbVideoRecorderProtocolVersion.Name = "tbVideoRecorderProtocolVersion";
+            tbVideoRecorderProtocolVersion.ReadOnly = true;
+            tbVideoRecorderProtocolVersion.Size = new System.Drawing.Size(209, 23);
+            tbVideoRecorderProtocolVersion.TabIndex = 7;
+            tbVideoRecorderProtocolVersion.TabStop = false;
             // 
             // btnRefresh5
             // 
@@ -1122,83 +1109,83 @@
             btnClose6.UseVisualStyleBackColor = true;
             btnClose6.Click += BtnClose_Click;
             // 
-            // groupBox2
+            // gbVersionInformation
             // 
-            groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox2.Controls.Add(textBox40);
-            groupBox2.Controls.Add(label41);
-            groupBox2.Controls.Add(label43);
-            groupBox2.Controls.Add(textBox43);
-            groupBox2.Controls.Add(textBox50);
-            groupBox2.Controls.Add(label50);
-            groupBox2.Location = new System.Drawing.Point(4, 3);
-            groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox2.Size = new System.Drawing.Size(422, 96);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
+            gbVersionInformation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbVersionInformation.Controls.Add(tbVersionRecorderVersion);
+            gbVersionInformation.Controls.Add(lblRemoteVideoServerVersion);
+            gbVersionInformation.Controls.Add(lblVersionRecorderVersion);
+            gbVersionInformation.Controls.Add(tbRemoteVideoServerVersion);
+            gbVersionInformation.Controls.Add(tbVideoRecorderProtocolVersion);
+            gbVersionInformation.Controls.Add(lblVideoRecorderProtocolVersion);
+            gbVersionInformation.Location = new System.Drawing.Point(4, 3);
+            gbVersionInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVersionInformation.Name = "gbVersionInformation";
+            gbVersionInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbVersionInformation.Size = new System.Drawing.Size(422, 96);
+            gbVersionInformation.TabIndex = 3;
+            gbVersionInformation.TabStop = false;
             // 
-            // tabPage5
+            // tpVideoRecorderStatus
             // 
-            tabPage5.Controls.Add(btnRefresh4);
-            tabPage5.Controls.Add(btnClose5);
-            tabPage5.Controls.Add(groupBox10);
-            tabPage5.Location = new System.Drawing.Point(4, 44);
-            tabPage5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage5.Name = "tabPage5";
-            tabPage5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage5.Size = new System.Drawing.Size(427, 418);
-            tabPage5.TabIndex = 4;
-            tabPage5.Text = "Video Recorder status";
-            tabPage5.UseVisualStyleBackColor = true;
+            tpVideoRecorderStatus.Controls.Add(btnRefresh4);
+            tpVideoRecorderStatus.Controls.Add(btnClose5);
+            tpVideoRecorderStatus.Controls.Add(gbVideoRecorderStatus);
+            tpVideoRecorderStatus.Location = new System.Drawing.Point(4, 44);
+            tpVideoRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVideoRecorderStatus.Name = "tpVideoRecorderStatus";
+            tpVideoRecorderStatus.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVideoRecorderStatus.Size = new System.Drawing.Size(427, 418);
+            tpVideoRecorderStatus.TabIndex = 4;
+            tpVideoRecorderStatus.Text = "Video Recorder status";
+            tpVideoRecorderStatus.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // tpVersionInformation
             // 
-            tabPage6.Controls.Add(btnRefresh5);
-            tabPage6.Controls.Add(btnClose6);
-            tabPage6.Controls.Add(groupBox2);
-            tabPage6.Location = new System.Drawing.Point(4, 44);
-            tabPage6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage6.Name = "tabPage6";
-            tabPage6.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage6.Size = new System.Drawing.Size(427, 418);
-            tabPage6.TabIndex = 5;
-            tabPage6.Text = "Version information";
-            tabPage6.UseVisualStyleBackColor = true;
+            tpVersionInformation.Controls.Add(btnRefresh5);
+            tpVersionInformation.Controls.Add(btnClose6);
+            tpVersionInformation.Controls.Add(gbVersionInformation);
+            tpVersionInformation.Location = new System.Drawing.Point(4, 44);
+            tpVersionInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVersionInformation.Name = "tpVersionInformation";
+            tpVersionInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpVersionInformation.Size = new System.Drawing.Size(427, 418);
+            tpVersionInformation.TabIndex = 5;
+            tpVersionInformation.Text = "Version information";
+            tpVersionInformation.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tcInfoPages
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
-            tabControl1.Controls.Add(tabPage5);
-            tabControl1.Controls.Add(tabPage6);
-            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabControl1.Location = new System.Drawing.Point(0, 0);
-            tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabControl1.Multiline = true;
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(435, 466);
-            tabControl1.TabIndex = 2;
+            tcInfoPages.Controls.Add(tpVideoServer);
+            tcInfoPages.Controls.Add(tpOtherData);
+            tcInfoPages.Controls.Add(tpHardwareInformation);
+            tcInfoPages.Controls.Add(tpCameraList);
+            tcInfoPages.Controls.Add(tpVideoRecorderStatus);
+            tcInfoPages.Controls.Add(tpVersionInformation);
+            tcInfoPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcInfoPages.Location = new System.Drawing.Point(0, 0);
+            tcInfoPages.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tcInfoPages.Multiline = true;
+            tcInfoPages.Name = "tcInfoPages";
+            tcInfoPages.SelectedIndex = 0;
+            tcInfoPages.Size = new System.Drawing.Size(435, 466);
+            tcInfoPages.TabIndex = 2;
             // 
-            // tabPage3
+            // tpHardwareInformation
             // 
-            tabPage3.Controls.Add(btnExportHardwareInfo);
-            tabPage3.Controls.Add(btnGetHardwareInfo);
-            tabPage3.Controls.Add(groupBox6);
-            tabPage3.Controls.Add(btnClose3);
-            tabPage3.Controls.Add(groupBox7);
-            tabPage3.Location = new System.Drawing.Point(4, 44);
-            tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage3.Size = new System.Drawing.Size(427, 418);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "Hardware information";
-            tabPage3.UseVisualStyleBackColor = true;
+            tpHardwareInformation.Controls.Add(btnExportHardwareInfo);
+            tpHardwareInformation.Controls.Add(btnGetHardwareInfo);
+            tpHardwareInformation.Controls.Add(gbWindowsCredentials);
+            tpHardwareInformation.Controls.Add(btnClose3);
+            tpHardwareInformation.Controls.Add(gbHardwareInformation);
+            tpHardwareInformation.Location = new System.Drawing.Point(4, 44);
+            tpHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpHardwareInformation.Name = "tpHardwareInformation";
+            tpHardwareInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpHardwareInformation.Size = new System.Drawing.Size(427, 418);
+            tpHardwareInformation.TabIndex = 2;
+            tpHardwareInformation.Text = "Hardware information";
+            tpHardwareInformation.UseVisualStyleBackColor = true;
             // 
             // btnClose3
             // 
@@ -1212,33 +1199,33 @@
             btnClose3.UseVisualStyleBackColor = true;
             btnClose3.Click += BtnClose_Click;
             // 
-            // groupBox7
+            // gbHardwareInformation
             // 
-            groupBox7.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox7.Controls.Add(listView1);
-            groupBox7.Location = new System.Drawing.Point(4, 140);
-            groupBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox7.Name = "groupBox7";
-            groupBox7.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox7.Size = new System.Drawing.Size(422, 240);
-            groupBox7.TabIndex = 0;
-            groupBox7.TabStop = false;
-            groupBox7.Text = "Hardware information";
+            gbHardwareInformation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbHardwareInformation.Controls.Add(lvHardwareInformation);
+            gbHardwareInformation.Location = new System.Drawing.Point(4, 140);
+            gbHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbHardwareInformation.Name = "gbHardwareInformation";
+            gbHardwareInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbHardwareInformation.Size = new System.Drawing.Size(422, 240);
+            gbHardwareInformation.TabIndex = 0;
+            gbHardwareInformation.TabStop = false;
+            gbHardwareInformation.Text = "Hardware information";
             // 
-            // tabPage4
+            // tpCameraList
             // 
-            tabPage4.Controls.Add(btnExportCameraList);
-            tabPage4.Controls.Add(btnRefresh3);
-            tabPage4.Controls.Add(btnClose4);
-            tabPage4.Controls.Add(groupBox9);
-            tabPage4.Location = new System.Drawing.Point(4, 44);
-            tabPage4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage4.Size = new System.Drawing.Size(427, 418);
-            tabPage4.TabIndex = 3;
-            tabPage4.Text = "Camera list";
-            tabPage4.UseVisualStyleBackColor = true;
+            tpCameraList.Controls.Add(btnExportCameraList);
+            tpCameraList.Controls.Add(btnRefresh3);
+            tpCameraList.Controls.Add(btnClose4);
+            tpCameraList.Controls.Add(gbCameraList);
+            tpCameraList.Location = new System.Drawing.Point(4, 44);
+            tpCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpCameraList.Name = "tpCameraList";
+            tpCameraList.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tpCameraList.Size = new System.Drawing.Size(427, 418);
+            tpCameraList.TabIndex = 3;
+            tpCameraList.Text = "Camera list";
+            tpCameraList.UseVisualStyleBackColor = true;
             // 
             // btnExportCameraList
             // 
@@ -1276,264 +1263,273 @@
             btnClose4.UseVisualStyleBackColor = true;
             btnClose4.Click += BtnClose_Click;
             // 
-            // groupBox9
+            // gbCameraList
             // 
-            groupBox9.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            groupBox9.Controls.Add(lv_Cameras);
-            groupBox9.Location = new System.Drawing.Point(4, 3);
-            groupBox9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox9.Name = "groupBox9";
-            groupBox9.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox9.Size = new System.Drawing.Size(422, 376);
-            groupBox9.TabIndex = 3;
-            groupBox9.TabStop = false;
+            gbCameraList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbCameraList.Controls.Add(lvCameraList);
+            gbCameraList.Location = new System.Drawing.Point(4, 3);
+            gbCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraList.Name = "gbCameraList";
+            gbCameraList.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraList.Size = new System.Drawing.Size(422, 376);
+            gbCameraList.TabIndex = 3;
+            gbCameraList.TabStop = false;
             // 
-            // lv_Cameras
+            // lvCameraList
             // 
-            lv_Cameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lv_Cameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lv_Cameras.AlternatingColorsAreInUse = true;
-            lv_Cameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lv_Cameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lv_Cameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { ch_0_CameraName, ch_1_RPCReturnCode, ch_2_FrameRate, ch_3_CapturedFrames, ch_4_DroppedFrames, ch_5_StoredFrames, ch_6_DiskUsageGBPerDay, ch_7_EstimatedCapacity, ch_8_Motion, ch_9_Light, ch_10_Alarm, ch_11_Error, ch_12_Compression, ch_13_VideoSignal, ch_14_CarSignReader, ch_15_EstimatedCapacity_2, ch_16_GUID });
-            lv_Cameras.CompactView = false;
-            lv_Cameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            lv_Cameras.EnsureLastItemIsVisible = false;
-            lv_Cameras.FirstItemIsGray = false;
-            lv_Cameras.FullRowSelect = true;
-            lv_Cameras.Location = new System.Drawing.Point(4, 19);
-            lv_Cameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lv_Cameras.Name = "lv_Cameras";
-            lv_Cameras.OwnerDraw = true;
-            lv_Cameras.ReadonlyCheckboxes = false;
-            lv_Cameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lv_Cameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lv_Cameras.Size = new System.Drawing.Size(414, 354);
-            lv_Cameras.TabIndex = 0;
-            lv_Cameras.UseCompatibleStateImageBehavior = false;
-            lv_Cameras.View = System.Windows.Forms.View.Details;
+            lvCameraList.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvCameraList.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvCameraList.AlternatingColorsAreInUse = true;
+            lvCameraList.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvCameraList.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvCameraList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chCameraName, chRpcReturnCode, chFrameRate, chCapturedFrames, chDroppedFrames, chStoredFrames, chDiskUsageGbPerDay, chEstimatedCapacity, chMotion, chLight, chAlarm, chError, chCompression, chVideoSignal, chLicensePlateRecognition, chEstimatedCapacity2, chGuid });
+            lvCameraList.CompactView = false;
+            lvCameraList.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvCameraList.EnsureLastItemIsVisible = false;
+            lvCameraList.FirstItemIsGray = false;
+            lvCameraList.FullRowSelect = true;
+            lvCameraList.Location = new System.Drawing.Point(4, 19);
+            lvCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvCameraList.Name = "lvCameraList";
+            lvCameraList.OwnerDraw = true;
+            lvCameraList.ReadonlyCheckboxes = false;
+            lvCameraList.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvCameraList.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvCameraList.Size = new System.Drawing.Size(414, 354);
+            lvCameraList.TabIndex = 0;
+            lvCameraList.UseCompatibleStateImageBehavior = false;
+            lvCameraList.View = System.Windows.Forms.View.Details;
             // 
-            // ch_0_CameraName
+            // chCameraName
             // 
-            ch_0_CameraName.Text = "Camera name";
-            ch_0_CameraName.Width = 89;
+            chCameraName.Text = "Camera name";
+            chCameraName.Width = 89;
             // 
-            // ch_1_RPCReturnCode
+            // chRpcReturnCode
             // 
-            ch_1_RPCReturnCode.Text = "RPC return code";
+            chRpcReturnCode.Text = "RPC return code";
             // 
-            // ch_2_FrameRate
+            // chFrameRate
             // 
-            ch_2_FrameRate.Text = "Frame rate";
+            chFrameRate.Text = "Frame rate";
             // 
-            // ch_3_CapturedFrames
+            // chCapturedFrames
             // 
-            ch_3_CapturedFrames.Text = "Captured frames";
+            chCapturedFrames.Text = "Captured frames";
             // 
-            // ch_4_DroppedFrames
+            // chDroppedFrames
             // 
-            ch_4_DroppedFrames.Text = "Dropped frames";
+            chDroppedFrames.Text = "Dropped frames";
             // 
-            // ch_5_StoredFrames
+            // chStoredFrames
             // 
-            ch_5_StoredFrames.Text = "Stored frames";
+            chStoredFrames.Text = "Stored frames";
             // 
-            // ch_6_DiskUsageGBPerDay
+            // chDiskUsageGbPerDay
             // 
-            ch_6_DiskUsageGBPerDay.Text = "Disk usage (GB/ day)";
+            chDiskUsageGbPerDay.Text = "Disk usage (GB/ day)";
             // 
-            // ch_7_EstimatedCapacity
+            // chEstimatedCapacity
             // 
-            ch_7_EstimatedCapacity.Text = "m_EstimatedCapacity";
+            chEstimatedCapacity.Text = "m_EstimatedCapacity";
             // 
-            // ch_8_Motion
+            // chMotion
             // 
-            ch_8_Motion.Text = "nMotion";
+            chMotion.Text = "nMotion";
             // 
-            // ch_9_Light
+            // chLight
             // 
-            ch_9_Light.Text = "nLight";
+            chLight.Text = "nLight";
             // 
-            // ch_10_Alarm
+            // chAlarm
             // 
-            ch_10_Alarm.Text = "Alarm";
+            chAlarm.Text = "Alarm";
             // 
-            // ch_11_Error
+            // chError
             // 
-            ch_11_Error.Text = "Error";
+            chError.Text = "Error";
             // 
-            // ch_12_Compression
+            // chCompression
             // 
-            ch_12_Compression.Text = "Compression";
+            chCompression.Text = "Compression";
             // 
-            // ch_13_VideoSignal
+            // chVideoSignal
             // 
-            ch_13_VideoSignal.Text = "m_nVideoSignal";
+            chVideoSignal.Text = "m_nVideoSignal";
             // 
-            // ch_14_CarSignReader
+            // chLicensePlateRecognition
             // 
-            ch_14_CarSignReader.Text = "CarSignReader";
+            chLicensePlateRecognition.Text = "CarSignReader";
             // 
-            // ch_15_EstimatedCapacity_2
+            // chEstimatedCapacity2
             // 
-            ch_15_EstimatedCapacity_2.Text = "EstimatedCapacity";
+            chEstimatedCapacity2.Text = "EstimatedCapacity";
             // 
-            // ch_16_GUID
+            // chGuid
             // 
-            ch_16_GUID.Text = "GUID";
+            chGuid.Text = "GUID";
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new System.Drawing.Point(7, 99);
+            lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPassword.MaximumSize = new System.Drawing.Size(191, 15);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new System.Drawing.Size(57, 15);
+            lblPassword.TabIndex = 6;
+            lblPassword.Text = "Password";
             // 
             // ServerAndCameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(435, 466);
-            Controls.Add(tabControl1);
+            Controls.Add(tcInfoPages);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(451, 505);
             Name = "ServerAndCameraProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Server and camera properties";
-            groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            tabPage2.ResumeLayout(false);
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
-            groupBox8.ResumeLayout(false);
-            groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            tabPage1.ResumeLayout(false);
-            groupBox6.ResumeLayout(false);
-            groupBox6.PerformLayout();
-            groupBox10.ResumeLayout(false);
-            groupBox10.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            tabPage5.ResumeLayout(false);
-            tabPage6.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage3.ResumeLayout(false);
-            groupBox7.ResumeLayout(false);
-            tabPage4.ResumeLayout(false);
-            groupBox9.ResumeLayout(false);
+            gbMisc.ResumeLayout(false);
+            gbMisc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).EndInit();
+            tpOtherData.ResumeLayout(false);
+            gbVideoServerErrorMessage.ResumeLayout(false);
+            gbVideoServerErrorMessage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbPingTestStatus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbRemoteVideoServerConnectionStatus).EndInit();
+            gbAvailabilityTests.ResumeLayout(false);
+            gbAvailabilityTests.PerformLayout();
+            gbVideoServer.ResumeLayout(false);
+            gbVideoServer.PerformLayout();
+            tpVideoServer.ResumeLayout(false);
+            gbWindowsCredentials.ResumeLayout(false);
+            gbWindowsCredentials.PerformLayout();
+            gbVideoRecorderStatus.ResumeLayout(false);
+            gbVideoRecorderStatus.PerformLayout();
+            gbVersionInformation.ResumeLayout(false);
+            gbVersionInformation.PerformLayout();
+            tpVideoRecorderStatus.ResumeLayout(false);
+            tpVersionInformation.ResumeLayout(false);
+            tcInfoPages.ResumeLayout(false);
+            tpHardwareInformation.ResumeLayout(false);
+            gbHardwareInformation.ResumeLayout(false);
+            tpCameraList.ResumeLayout(false);
+            gbCameraList.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.Button btnExportHardwareInfo;
-        private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox21;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox24;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textBox23;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox tbReturnCode;
+        private System.Windows.Forms.Label lblReturnCode;
+        private System.Windows.Forms.TextBox tbVideoServerTime;
+        private System.Windows.Forms.Label lblVideoServerTime;
+        private System.Windows.Forms.TextBox tbDongleSubtype;
+        private System.Windows.Forms.Label lblDongleSubtype;
+        private System.Windows.Forms.TextBox tbDongleSerial;
+        private System.Windows.Forms.Label lblDongleSerial;
+        private System.Windows.Forms.TextBox tbModel;
+        private System.Windows.Forms.TextBox tbNote;
         private System.Windows.Forms.Button btnRefresh2;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader chValue;
         private System.Windows.Forms.Button btnClose2;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private Mtf.Controls.MtfListView listView1;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.Label label15;
-        private Mtf.Controls.MtfPictureBox pictureBox3;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox gbMisc;
+        private System.Windows.Forms.TextBox tbManufacturer;
+        private System.Windows.Forms.TextBox tbMacAddress;
+        private System.Windows.Forms.Label lblModel;
+        private System.Windows.Forms.Label lblNote;
+        private System.Windows.Forms.Label lblManufacturer;
+        private System.Windows.Forms.Label lblMacAddress;
+        private System.Windows.Forms.ColumnHeader chKey;
+        private Mtf.Controls.MtfListView lvHardwareInformation;
+        private System.Windows.Forms.TextBox tbWindowErrorMessage;
+        private System.Windows.Forms.Label lblWindowsConnectionStatus;
+        private Mtf.Controls.MtfPictureBox pbWindowsConnectionStatus;
+        private System.Windows.Forms.TextBox tbWindowsPassword;
+        private System.Windows.Forms.Label lblWindowsPassword;
+        private System.Windows.Forms.Label lblWindowsUsername;
+        private System.Windows.Forms.TextBox tbWindowsUsername;
+        private System.Windows.Forms.TabPage tpOtherData;
         private System.Windows.Forms.Button btnGetHardwareInfo;
-        private System.Windows.Forms.FolderBrowserDialog fbd_FolderBrowser;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FolderBrowserDialog fbdFolderBrowser;
+        private System.Windows.Forms.TextBox tbHost;
+        private System.Windows.Forms.Label lblVideoserverUsername;
+        private System.Windows.Forms.Label lblVideoServerName;
+        private System.Windows.Forms.Label lblHost;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnShowPassword;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox tb_VideoServersErrorMessage;
-        private Mtf.Controls.MtfPictureBox pictureBox1;
-        private System.Windows.Forms.Button btn_WakeOnLAN;
-        private Mtf.Controls.MtfPictureBox pictureBox2;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.TextBox tbVideoserverUsername;
+        private System.Windows.Forms.TextBox tbVideoServerName;
+        private System.Windows.Forms.GroupBox gbVideoServerErrorMessage;
+        private System.Windows.Forms.TextBox tbVideoServerErrorMessage;
+        private Mtf.Controls.MtfPictureBox pbPingTestStatus;
+        private System.Windows.Forms.Button btnWakeOnLan;
+        private Mtf.Controls.MtfPictureBox pbRemoteVideoServerConnectionStatus;
+        private System.Windows.Forms.Label lblPingTestStatus;
+        private System.Windows.Forms.GroupBox gbAvailabilityTests;
+        private System.Windows.Forms.Label lblRemoteVideoServerConnectionStatus;
+        private System.Windows.Forms.GroupBox gbVideoServer;
+        private System.Windows.Forms.TabPage tpVideoServer;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox25;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox textBox22;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.TextBox tb_RecordingInterval;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox gbWindowsCredentials;
+        private System.Windows.Forms.TextBox tbLiveViewDisplay;
+        private System.Windows.Forms.Label lblLiveViewDisplay;
+        private System.Windows.Forms.TextBox tbLicensedCameraNumber;
+        private System.Windows.Forms.Label lblLicensedCameraNumber;
+        private System.Windows.Forms.TextBox tbRecordedLocalCameraNumber;
+        private System.Windows.Forms.Label lblRecordedLocalCameraNumber;
+        private System.Windows.Forms.TextBox tbRecorderStatus;
+        private System.Windows.Forms.Label lblRecorderStatus;
+        private System.Windows.Forms.TextBox tbCpuUsage;
+        private System.Windows.Forms.TextBox tbRecordingInterval;
+        private System.Windows.Forms.Label lblCpuUsage;
         private System.Windows.Forms.Button btnRefresh4;
-        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label lblVideoRecorderProtocolVersion;
         private System.Windows.Forms.Button btnClose5;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.Label lbl_RecordingInterval;
-        private System.Windows.Forms.TextBox textBox40;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.TextBox textBox43;
-        private System.Windows.Forms.TextBox textBox50;
+        private System.Windows.Forms.GroupBox gbVideoRecorderStatus;
+        private System.Windows.Forms.Label lblRecordingInterval;
+        private System.Windows.Forms.TextBox tbVersionRecorderVersion;
+        private System.Windows.Forms.Label lblRemoteVideoServerVersion;
+        private System.Windows.Forms.Label lblVersionRecorderVersion;
+        private System.Windows.Forms.TextBox tbRemoteVideoServerVersion;
+        private System.Windows.Forms.TextBox tbVideoRecorderProtocolVersion;
         private System.Windows.Forms.Button btnRefresh5;
         private System.Windows.Forms.Button btnClose6;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox gbVersionInformation;
+        private System.Windows.Forms.TabPage tpVideoRecorderStatus;
+        private System.Windows.Forms.TabPage tpVersionInformation;
+        private System.Windows.Forms.TabControl tcInfoPages;
+        private System.Windows.Forms.TabPage tpHardwareInformation;
         private System.Windows.Forms.Button btnClose3;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox gbHardwareInformation;
+        private System.Windows.Forms.TabPage tpCameraList;
         private System.Windows.Forms.Button btnExportCameraList;
         private System.Windows.Forms.Button btnRefresh3;
         private System.Windows.Forms.Button btnClose4;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private Mtf.Controls.MtfListView lv_Cameras;
-        private System.Windows.Forms.ColumnHeader ch_0_CameraName;
-        private System.Windows.Forms.ColumnHeader ch_1_RPCReturnCode;
-        private System.Windows.Forms.ColumnHeader ch_2_FrameRate;
-        private System.Windows.Forms.ColumnHeader ch_3_CapturedFrames;
-        private System.Windows.Forms.ColumnHeader ch_4_DroppedFrames;
-        private System.Windows.Forms.ColumnHeader ch_5_StoredFrames;
-        private System.Windows.Forms.ColumnHeader ch_6_DiskUsageGBPerDay;
-        private System.Windows.Forms.ColumnHeader ch_7_EstimatedCapacity;
-        private System.Windows.Forms.ColumnHeader ch_8_Motion;
-        private System.Windows.Forms.ColumnHeader ch_9_Light;
-        private System.Windows.Forms.ColumnHeader ch_10_Alarm;
-        private System.Windows.Forms.ColumnHeader ch_11_Error;
-        private System.Windows.Forms.ColumnHeader ch_12_Compression;
-        private System.Windows.Forms.ColumnHeader ch_13_VideoSignal;
-        private System.Windows.Forms.ColumnHeader ch_14_CarSignReader;
-        private System.Windows.Forms.ColumnHeader ch_15_EstimatedCapacity_2;
-        private System.Windows.Forms.ColumnHeader ch_16_GUID;
+        private System.Windows.Forms.GroupBox gbCameraList;
+        private Mtf.Controls.MtfListView lvCameraList;
+        private System.Windows.Forms.ColumnHeader chCameraName;
+        private System.Windows.Forms.ColumnHeader chRpcReturnCode;
+        private System.Windows.Forms.ColumnHeader chFrameRate;
+        private System.Windows.Forms.ColumnHeader chCapturedFrames;
+        private System.Windows.Forms.ColumnHeader chDroppedFrames;
+        private System.Windows.Forms.ColumnHeader chStoredFrames;
+        private System.Windows.Forms.ColumnHeader chDiskUsageGbPerDay;
+        private System.Windows.Forms.ColumnHeader chEstimatedCapacity;
+        private System.Windows.Forms.ColumnHeader chMotion;
+        private System.Windows.Forms.ColumnHeader chLight;
+        private System.Windows.Forms.ColumnHeader chAlarm;
+        private System.Windows.Forms.ColumnHeader chError;
+        private System.Windows.Forms.ColumnHeader chCompression;
+        private System.Windows.Forms.ColumnHeader chVideoSignal;
+        private System.Windows.Forms.ColumnHeader chLicensePlateRecognition;
+        private System.Windows.Forms.ColumnHeader chEstimatedCapacity2;
+        private System.Windows.Forms.ColumnHeader chGuid;
+        private System.Windows.Forms.Label lblPassword;
     }
 }
