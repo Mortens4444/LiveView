@@ -27,7 +27,7 @@
       <Guid>419d9aed-e973-424e-80b0-257e01858caf</Guid>
       <Lcid>0</Lcid>
       <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="AxVIDEOCONTROL4Lib">
       <WrapperTool>aximp</WrapperTool>
@@ -36,6 +36,7 @@
       <Guid>419d9aed-e973-424e-80b0-257e01858caf</Guid>
       <Lcid>0</Lcid>
       <Isolated>false</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
 

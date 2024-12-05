@@ -1,1 +1,1 @@
-﻿SELECT ID, image, x, y, width, height, action_type, action_referenced_id, comment FROM MapObjects WHERE ID IN (SELECT mapobject_id FROM ObjectsInMaps WHERE map_id = @C
+﻿SELECT ID, image, x, y, width, height, action_type as ActionType, action_referenced_id as ActionReferencedId, comment FROM MapObjects WHERE ID IN (SELECT mapobject_id FROM ObjectsInMaps WHERE map_id = @mapId)

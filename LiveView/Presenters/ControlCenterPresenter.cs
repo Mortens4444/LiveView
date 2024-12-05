@@ -132,7 +132,6 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            throw new NotImplementedException();
         }
     }
 }

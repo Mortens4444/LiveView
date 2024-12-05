@@ -19,25 +19,5 @@
         public string SerialNumber { get; set; }
 
         public bool StartInMotionPopup { get; set; }
-
-        public static Server From(ServerDto server)
-        {
-            return new Server
-            {
-                IpAddress = server.IpAddress,
-                Username = server.VideoServerCredentials.UserName,
-                Password = server.VideoServerCredentials.Password,
-                MacAddress = server.MacAddress,
-                Hostname = server.Hostname,
-                DongleSn = server.DongleSerialNumber,
-                SerialNumber = server.SerialNumber,
-                StartInMotionPopup = false
-            };
-        }
-
-        public override string ToString()
-        {
-            return Hostname;
-        }
     }
 }

@@ -27,7 +27,7 @@ namespace LiveView.Presenters
         public void AddOrModify(Server server)
         {
             var serverDto = addVideoServerView.GetServerDto();
-            var newServer = Server.From(serverDto);
+            var newServer = serverDto.ToModel();
             if (server == null)
             {
                 serverRepository.Insert(newServer);

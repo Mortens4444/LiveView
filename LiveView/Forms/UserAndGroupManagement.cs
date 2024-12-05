@@ -32,20 +32,14 @@ namespace LiveView.Forms
         private void BtnNewGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (userAndGroupManagementPresenter.ShowDialog<AddGroup>())
-            {
-                userAndGroupManagementPresenter.Load();
-            }
+            userAndGroupManagementPresenter.ShowDialogWithReload<AddGroup>();
         }
 
         [RequirePermission(UserManagementPermissions.Create)]
         private void BtnNewUser_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (userAndGroupManagementPresenter.ShowDialog<AddUser>())
-            {
-                userAndGroupManagementPresenter.Load();
-            }
+            userAndGroupManagementPresenter.ShowDialogWithReload<AddUser>();
         }
 
         [RequirePermission(GroupManagementPermissions.Update)]

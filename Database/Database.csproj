@@ -23,6 +23,7 @@
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllLanguage.sql" />
+    <EmbeddedResource Include="Scripts\SelectMap.sql" />
     <EmbeddedResource Include="Scripts\SelectAllSequence.sql" />
     <EmbeddedResource Include="Scripts\UpdateServer.sql" />
     <EmbeddedResource Include="Scripts\SelectServerCameras.sql" />

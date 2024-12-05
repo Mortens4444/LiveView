@@ -16,6 +16,21 @@
 
         public Credentials VideoServerCredentials { get; set; }
 
+        public Server ToModel()
+        {
+            return new Server
+            {
+                IpAddress = IpAddress,
+                Username = VideoServerCredentials.UserName,
+                Password = VideoServerCredentials.Password,
+                MacAddress = MacAddress,
+                Hostname = Hostname,
+                DongleSn = DongleSerialNumber,
+                SerialNumber = SerialNumber,
+                StartInMotionPopup = false
+            };
+        }
+
         public override string ToString()
         {
             return $"{Hostname} ({IpAddress}, {MacAddress})";

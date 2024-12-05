@@ -2,7 +2,11 @@
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Enums.Keyboard;
+using Mtf.LanguageService;
+using Mtf.MessageBoxes.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
@@ -20,7 +24,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            MousePointer.ShowOnCtrlKey();
+            var handle = mainView.GetHandle();
+            WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
         }
 
         public void PrimaryLogon()
@@ -31,6 +37,29 @@ namespace LiveView.Presenters
         public void SecondaryLogon()
         {
             throw new NotImplementedException();
+        }
+
+        public void MoveMouseToHome()
+        {
+            SendKeys.Send("{HOME}");
+        }
+
+        public bool Exit()
+        {
+            if (mainView.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
+            {
+                Environment.Exit(0);
+                var handle = mainView.GetHandle();
+                WinAPI.UnregisterHotKey(handle, 1);
+                return true;
+            }
+            return false;
+        }
+
+        public void SetCursorPosition()
+        {
+            mainView.SetCursorPosition();
+            SendKeys.Send("^");
         }
     }
 }

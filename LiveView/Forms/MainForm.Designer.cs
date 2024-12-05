@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode2 = new System.Windows.Forms.TreeNode("I/O Devices", 0, 0);
+            var treeNode1 = new System.Windows.Forms.TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new System.Windows.Forms.ToolStripMenuItem();
             tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             tsmiPersonalOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,7 +131,7 @@
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Image = (System.Drawing.Image)resources.GetObject("tsmiGeneralOptions.Image");
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -148,7 +148,7 @@
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Image = (System.Drawing.Image)resources.GetObject("tsmiPersonalOptions.Image");
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -157,7 +157,7 @@
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = (System.Drawing.Image)resources.GetObject("tsmiDisplaySettings.Image");
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
@@ -267,6 +267,7 @@
             // tbPassword
             // 
             tbPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbPassword.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbPassword.Location = new System.Drawing.Point(7, 105);
             tbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbPassword.MaxLength = 100;
@@ -290,6 +291,7 @@
             // tbUsername
             // 
             tbUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUsername.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbUsername.Location = new System.Drawing.Point(7, 54);
             tbUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbUsername.MaxLength = 100;
@@ -376,7 +378,7 @@
             // 
             tsmiLicense.Image = (System.Drawing.Image)resources.GetObject("tsmiLicense.Image");
             tsmiLicense.Name = "tsmiLicense";
-            tsmiLicense.Size = new System.Drawing.Size(180, 22);
+            tsmiLicense.Size = new System.Drawing.Size(113, 22);
             tsmiLicense.Text = "License";
             tsmiLicense.Click += TsmiLicense_Click;
             // 
@@ -392,7 +394,7 @@
             // 
             tsmiAbout.Image = (System.Drawing.Image)resources.GetObject("tsmiAbout.Image");
             tsmiAbout.Name = "tsmiAbout";
-            tsmiAbout.Size = new System.Drawing.Size(180, 22);
+            tsmiAbout.Size = new System.Drawing.Size(113, 22);
             tsmiAbout.Text = "About";
             tsmiAbout.Click += TsmiAbout_Click;
             // 
@@ -513,6 +515,7 @@
             lvUserEvents.AlternatingColorsAreInUse = true;
             lvUserEvents.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvUserEvents.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvUserEvents.BackColor = System.Drawing.Color.Silver;
             lvUserEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chEventName, chDescription });
             lvUserEvents.CompactView = false;
             lvUserEvents.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -591,6 +594,7 @@
             // 
             // tvIOPorts
             // 
+            tvIOPorts.BackColor = System.Drawing.Color.Silver;
             tvIOPorts.CheckBoxBackground = System.Drawing.SystemColors.Window;
             tvIOPorts.Dock = System.Windows.Forms.DockStyle.Top;
             tvIOPorts.DrawDefaultImageToNodes = true;
@@ -602,11 +606,11 @@
             tvIOPorts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "IO_Devices";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -643,6 +647,7 @@
             lvIOPorts.AlternatingColorsAreInUse = true;
             lvIOPorts.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvIOPorts.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvIOPorts.BackColor = System.Drawing.Color.Silver;
             lvIOPorts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chPortName, chPortValue, chPortDirection });
             lvIOPorts.CompactView = false;
             lvIOPorts.Dock = System.Windows.Forms.DockStyle.Top;
@@ -677,6 +682,7 @@
             // 
             // gbSecondaryLogon
             // 
+            gbSecondaryLogon.BackColor = System.Drawing.Color.Silver;
             gbSecondaryLogon.Controls.Add(btnLoginLogoutSecondary);
             gbSecondaryLogon.Controls.Add(tbPassword2);
             gbSecondaryLogon.Controls.Add(lblPassword2);
@@ -708,6 +714,7 @@
             // tbPassword2
             // 
             tbPassword2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbPassword2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbPassword2.Location = new System.Drawing.Point(7, 105);
             tbPassword2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbPassword2.MaxLength = 100;
@@ -731,6 +738,7 @@
             // tbUsername2
             // 
             tbUsername2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUsername2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbUsername2.Location = new System.Drawing.Point(7, 54);
             tbUsername2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbUsername2.MaxLength = 100;
@@ -750,6 +758,7 @@
             // 
             // gbPrimaryLogon
             // 
+            gbPrimaryLogon.BackColor = System.Drawing.Color.Silver;
             gbPrimaryLogon.Controls.Add(btnLoginLogoutPrimary);
             gbPrimaryLogon.Controls.Add(tbPassword);
             gbPrimaryLogon.Controls.Add(lblPassword);
@@ -807,6 +816,7 @@
             lvPortEvents.AlternatingColorsAreInUse = true;
             lvPortEvents.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvPortEvents.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvPortEvents.BackColor = System.Drawing.Color.Silver;
             lvPortEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chIOPortEventID, chIOPortEventDate, chIOPortEventDevice, chIOPortEventPortNumber, chIOPortEventPortState, chIOPortEventLoggedOnUser, chIOPortEventNote });
             lvPortEvents.CompactView = false;
             lvPortEvents.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -860,6 +870,7 @@
             // 
             // pbMap
             // 
+            pbMap.BackColor = System.Drawing.Color.Silver;
             pbMap.Dock = System.Windows.Forms.DockStyle.Fill;
             pbMap.Image = (System.Drawing.Image)resources.GetObject("pbMap.Image");
             pbMap.Location = new System.Drawing.Point(0, 0);

@@ -8,6 +8,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -16,6 +17,19 @@ namespace LiveView.Forms
     {
         private readonly ControlCenterPresenter controlCenterPresenter;
         private readonly PermissionManager permissionManager;
+
+        public Point HomeLocation
+        {
+            get
+            {
+                if ((Location.X != -32000) && (Location.Y != -32000))
+                {
+                    return new Point(Location.X + pCrossHair.Location.X + pbCrossHair.Width / 2 + 5, Location.Y + pDisplays.Location.Y + pCrossHair.Location.Y + SystemInformation.CaptionHeight + pbCrossHair.Height / 2 + 3);
+                }
+
+                return new Point(Screen.PrimaryScreen.Bounds.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2);
+            }
+        }
 
         public ControlCenter(PermissionManager permissionManager, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository)
         {

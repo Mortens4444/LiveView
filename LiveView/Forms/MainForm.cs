@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -45,11 +46,10 @@ namespace LiveView.Forms
             this.formFactory = formFactory;
             this.permissionManager = permissionManager;
 
-            tsmiExit.Tag = nameof(Exit);
             //permissionManager.ApplyPermissionsOnControls(this);
-
             permissionManager.SetUser(this, new User
             {
+                Id = 1,
                 IndividualPermissions = new List<Permission>
                 {
                     new Permission { PermissionGroup = typeof(CameraManagementPermissions), PermissionValue = (long)CameraManagementPermissions.FullControl },
@@ -169,7 +169,7 @@ namespace LiveView.Forms
 
         private void TsmiPositioningMousePointer_Click(object sender, EventArgs e)
         {
-
+            mainPresenter.MoveMouseToHome();
         }
 
         [RequirePermission(SerialDeviceManagementPermissions.FullControl)]
@@ -217,37 +217,21 @@ namespace LiveView.Forms
             mainPresenter.ShowForm<LicenseForm>();
         }
 
+        [RequirePermission(ApplicationManagementPermissions.Exit)]
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Exit())
+            permissionManager.EnsurePermissions();
+            if (!mainPresenter.Exit())
             {
                 e.Cancel = true;
             }
         }
 
+        [RequirePermission(ApplicationManagementPermissions.Exit)]
         private void TsmiExit_Click(object sender, EventArgs e)
         {
-            Exit();
-        }
-
-        [RequirePermission(ApplicationManagementPermissions.Exit)]
-        private bool Exit()
-        {
-            try
-            {
-                permissionManager.EnsurePermissions();
-                if (ConfirmBox.Show(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No) == DialogResult.Yes)
-                {
-                    Environment.Exit(0);
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorBox.Show(ex);
-                return false;
-            }
+            permissionManager.EnsurePermissions();
+            mainPresenter.Exit();
         }
 
         private void BtnLoginLogoutPrimary_Click(object sender, EventArgs e)
@@ -263,6 +247,70 @@ namespace LiveView.Forms
         private void MainForm_Shown(object sender, EventArgs e)
         {
             mainPresenter.Load();
+        }
+
+        public IntPtr GetHandle()
+        {
+            return Handle;
+        }
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_HOTKEY = 0x0312;
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
+            const int SC_SIZE = 0xF000;
+
+            switch (m.Msg)
+            {
+                case WM_HOTKEY:
+                    HandleHotkey(m);
+                    break;
+
+                case WM_SYSCOMMAND:
+                    //if (permissionManager.User.Id != 1 && permissionManager.User.Id != 2)
+                    //{
+                    //    int command = m.WParam.ToInt32() & 0xFFF0;
+                    //    if (command == SC_MOVE || command == SC_SIZE)
+                    //    {
+                    //        // Prevent the move/resize action
+                    //        return;
+                    //    }
+                    //}
+                    base.WndProc(ref m);
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+        }
+
+        private void HandleHotkey(Message m)
+        {
+            switch (m.WParam.ToInt32())
+            {
+                case 1:
+                    mainPresenter.SetCursorPosition();
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+        }
+
+        public void SetCursorPosition()
+        {
+            if (ControlCenter != null)
+            {
+                Cursor.Position = ControlCenter.HomeLocation;
+                WinAPI.SetCursorPos(ControlCenter.HomeLocation.X, ControlCenter.HomeLocation.Y);
+            }
+            else
+            {
+                var point = new Point(Screen.PrimaryScreen.Bounds.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2);
+                Cursor.Position = point;
+            }
         }
     }
 }

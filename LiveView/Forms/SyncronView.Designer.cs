@@ -26,8 +26,6 @@
 	    private System.Windows.Forms.Label lblImageMinute;
 	    private System.Windows.Forms.Label lblImageHour;
 	    private System.Windows.Forms.GroupBox gbControls;
-	    private AxVIDEOCONTROL4Lib.AxVideoPicture vp;
-	    private AxVIDEOCONTROL4Lib.AxVideoTimeline tl;
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline4;
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline3;
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline2;

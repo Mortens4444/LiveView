@@ -50,20 +50,14 @@ namespace LiveView.Forms
         private void BtnNewVideoServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (serverAndCameraManagementPresenter.ShowDialog<AddVideoServer>())
-            {
-                serverAndCameraManagementPresenter.Load();
-            }
+            serverAndCameraManagementPresenter.ShowDialogWithReload<AddVideoServer>();
         }
 
         [RequirePermission(DatabaseServerManagementPermissions.Create)]
         private void BtnNewDBServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (serverAndCameraManagementPresenter.ShowDialog<AddDatabaseServer>())
-            {
-                serverAndCameraManagementPresenter.Load();
-            }
+            serverAndCameraManagementPresenter.ShowDialogWithReload<AddDatabaseServer>();
         }
 
         [RequirePermission(ServerManagementPermissions.Update)]
