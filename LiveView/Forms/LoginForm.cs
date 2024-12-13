@@ -1,9 +1,9 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LanguageService.Windows.Forms;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Services;
 
 namespace LiveView.Forms

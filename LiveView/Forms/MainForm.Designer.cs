@@ -1,4 +1,6 @@
-﻿namespace LiveView.Forms
+﻿using System.Windows.Forms;
+
+namespace LiveView.Forms
 {
     partial class MainForm
     {
@@ -30,88 +32,90 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode1 = new System.Windows.Forms.TreeNode("I/O Devices", 0, 0);
-            tsmiGeneralOptions = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiPersonalOptions = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiDisplaySettings = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiProfile = new System.Windows.Forms.ToolStripMenuItem();
-            tssSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            tsmiUserAndGroupManagement = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiUsers = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiTemplates = new System.Windows.Forms.ToolStripMenuItem();
-            tssSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            tsmiAutoCreateWizard = new System.Windows.Forms.ToolStripMenuItem();
-            tssSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            tsmiSequentialChains = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiGridManagement = new System.Windows.Forms.ToolStripMenuItem();
-            tssSeparator = new System.Windows.Forms.ToolStripSeparator();
-            tsmiServerAndCameraManagement = new System.Windows.Forms.ToolStripMenuItem();
-            btnLoginLogoutPrimary = new System.Windows.Forms.Button();
+            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
+            tsmiGeneralOptions = new ToolStripMenuItem();
+            tsmiOptions = new ToolStripMenuItem();
+            tsmiPersonalOptions = new ToolStripMenuItem();
+            tsmiDisplaySettings = new ToolStripMenuItem();
+            tsmiProfile = new ToolStripMenuItem();
+            tssSeparator4 = new ToolStripSeparator();
+            tsmiUserAndGroupManagement = new ToolStripMenuItem();
+            tsmiUsers = new ToolStripMenuItem();
+            tsmiTemplates = new ToolStripMenuItem();
+            tssSeparator3 = new ToolStripSeparator();
+            tsmiAutoCreateWizard = new ToolStripMenuItem();
+            tssSeparator2 = new ToolStripSeparator();
+            tsmiSequentialChains = new ToolStripMenuItem();
+            tsmiGridManagement = new ToolStripMenuItem();
+            tssSeparator = new ToolStripSeparator();
+            tsmiServerAndCameraManagement = new ToolStripMenuItem();
+            btnLoginLogoutPrimary = new Button();
             tbPassword = new Mtf.Controls.PasswordBox();
-            lblPassword = new System.Windows.Forms.Label();
-            tbUsername = new System.Windows.Forms.TextBox();
-            tsmiControlCenter = new System.Windows.Forms.ToolStripMenuItem();
-            ttHint = new System.Windows.Forms.ToolTip(components);
-            ilDatabaseIcons = new System.Windows.Forms.ImageList(components);
-            tsbDatabaseUsage = new System.Windows.Forms.ToolStripButton();
-            tsslUptime = new System.Windows.Forms.ToolStripStatusLabel();
-            tsslSpaceHolder = new System.Windows.Forms.ToolStripStatusLabel();
-            tsslLoggedOnUser = new System.Windows.Forms.ToolStripStatusLabel();
-            ssStatusStrip = new System.Windows.Forms.StatusStrip();
-            tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiLicense = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiMain = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiMapCreator = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiMotionPopup = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiIOPortsSettings = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiSyncronView = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiBarCodeReadings = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiPositioningMousePointer = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiLogViewer = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiLanguageEditor = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
-            tsmiTools = new System.Windows.Forms.ToolStripMenuItem();
-            lblUsername = new System.Windows.Forms.Label();
-            gbUserEvents = new System.Windows.Forms.GroupBox();
+            lblPassword = new Label();
+            tbUsername = new TextBox();
+            tsmiControlCenter = new ToolStripMenuItem();
+            ttHint = new ToolTip(components);
+            ilDatabaseIcons = new ImageList(components);
+            tsbDatabaseUsage = new ToolStripButton();
+            tsslUptime = new ToolStripStatusLabel();
+            tsslSpaceHolder = new ToolStripStatusLabel();
+            tsslLoggedOnUser = new ToolStripStatusLabel();
+            ssStatusStrip = new StatusStrip();
+            tsslOsUptime = new ToolStripStatusLabel();
+            tsmiExit = new ToolStripMenuItem();
+            tsmiLicense = new ToolStripMenuItem();
+            tsmiMain = new ToolStripMenuItem();
+            tsmiAbout = new ToolStripMenuItem();
+            tsmiMapCreator = new ToolStripMenuItem();
+            tsmiMotionPopup = new ToolStripMenuItem();
+            tsmiIOPortsSettings = new ToolStripMenuItem();
+            tsmiSyncronView = new ToolStripMenuItem();
+            tsmiBarCodeReadings = new ToolStripMenuItem();
+            tsmiPositioningMousePointer = new ToolStripMenuItem();
+            tsmiLogViewer = new ToolStripMenuItem();
+            tsmiLanguageEditor = new ToolStripMenuItem();
+            tsmiHelp = new ToolStripMenuItem();
+            tsmiTools = new ToolStripMenuItem();
+            lblUsername = new Label();
+            gbUserEvents = new GroupBox();
             lvUserEvents = new Mtf.Controls.MtfListView();
-            chEventName = new System.Windows.Forms.ColumnHeader();
-            chDescription = new System.Windows.Forms.ColumnHeader();
-            splitter = new System.Windows.Forms.Splitter();
-            pLeft = new System.Windows.Forms.Panel();
-            pLeftBottom = new System.Windows.Forms.Panel();
-            splitter4 = new System.Windows.Forms.Splitter();
+            chEventName = new ColumnHeader();
+            chDescription = new ColumnHeader();
+            splitter = new Splitter();
+            pLeft = new Panel();
+            pLeftBottom = new Panel();
+            splitter4 = new Splitter();
             tvIOPorts = new Mtf.Controls.MtfTreeView();
-            ilIOPortIcons = new System.Windows.Forms.ImageList(components);
-            splitter2 = new System.Windows.Forms.Splitter();
+            ilIOPortIcons = new ImageList(components);
+            splitter2 = new Splitter();
             lvIOPorts = new Mtf.Controls.MtfListView();
-            chPortName = new System.Windows.Forms.ColumnHeader();
-            chPortValue = new System.Windows.Forms.ColumnHeader();
-            chPortDirection = new System.Windows.Forms.ColumnHeader();
-            gbSecondaryLogon = new System.Windows.Forms.GroupBox();
-            btnLoginLogoutSecondary = new System.Windows.Forms.Button();
+            chPortName = new ColumnHeader();
+            chPortValue = new ColumnHeader();
+            chPortDirection = new ColumnHeader();
+            gbSecondaryLogon = new GroupBox();
+            btnLoginLogoutSecondary = new Button();
             tbPassword2 = new Mtf.Controls.PasswordBox();
-            lblPassword2 = new System.Windows.Forms.Label();
-            tbUsername2 = new System.Windows.Forms.TextBox();
-            lblUsername2 = new System.Windows.Forms.Label();
-            gbPrimaryLogon = new System.Windows.Forms.GroupBox();
-            chIOPortEventNote = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventLoggedOnUser = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventPortState = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventPortNumber = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventDevice = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventDate = new System.Windows.Forms.ColumnHeader();
-            chIOPortEventID = new System.Windows.Forms.ColumnHeader();
+            lblPassword2 = new Label();
+            tbUsername2 = new TextBox();
+            lblUsername2 = new Label();
+            gbPrimaryLogon = new GroupBox();
+            chIOPortEventNote = new ColumnHeader();
+            chIOPortEventLoggedOnUser = new ColumnHeader();
+            chIOPortEventPortState = new ColumnHeader();
+            chIOPortEventPortNumber = new ColumnHeader();
+            chIOPortEventDevice = new ColumnHeader();
+            chIOPortEventDate = new ColumnHeader();
+            chIOPortEventID = new ColumnHeader();
             lvPortEvents = new Mtf.Controls.MtfListView();
-            gb_PortEvents = new System.Windows.Forms.GroupBox();
-            splitter3 = new System.Windows.Forms.Splitter();
-            pRightBottom = new System.Windows.Forms.Panel();
+            gb_PortEvents = new GroupBox();
+            splitter3 = new Splitter();
+            pRightBottom = new Panel();
             pbMap = new Mtf.Controls.MtfPictureBox();
-            pMap = new System.Windows.Forms.Panel();
-            pMain = new System.Windows.Forms.Panel();
-            msMenu = new System.Windows.Forms.MenuStrip();
+            pMap = new Panel();
+            pMain = new Panel();
+            msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
+            timer = new Timer(components);
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
@@ -137,7 +141,7 @@
             // 
             // tsmiOptions
             // 
-            tsmiOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiPersonalOptions, tsmiGeneralOptions, tsmiDisplaySettings });
+            tsmiOptions.DropDownItems.AddRange(new ToolStripItem[] { tsmiPersonalOptions, tsmiGeneralOptions, tsmiDisplaySettings });
             tsmiOptions.Image = (System.Drawing.Image)resources.GetObject("tsmiOptions.Image");
             tsmiOptions.Name = "tsmiOptions";
             tsmiOptions.Size = new System.Drawing.Size(77, 20);
@@ -186,7 +190,7 @@
             // 
             // tsmiUsers
             // 
-            tsmiUsers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiUserAndGroupManagement, tssSeparator4, tsmiProfile });
+            tsmiUsers.DropDownItems.AddRange(new ToolStripItem[] { tsmiUserAndGroupManagement, tssSeparator4, tsmiProfile });
             tsmiUsers.Image = (System.Drawing.Image)resources.GetObject("tsmiUsers.Image");
             tsmiUsers.Name = "tsmiUsers";
             tsmiUsers.Size = new System.Drawing.Size(63, 20);
@@ -254,9 +258,9 @@
             // 
             // btnLoginLogoutPrimary
             // 
-            btnLoginLogoutPrimary.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnLoginLogoutPrimary.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnLoginLogoutPrimary.Location = new System.Drawing.Point(7, 134);
-            btnLoginLogoutPrimary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnLoginLogoutPrimary.Margin = new Padding(4, 3, 4, 3);
             btnLoginLogoutPrimary.Name = "btnLoginLogoutPrimary";
             btnLoginLogoutPrimary.Size = new System.Drawing.Size(234, 27);
             btnLoginLogoutPrimary.TabIndex = 18;
@@ -266,10 +270,10 @@
             // 
             // tbPassword
             // 
-            tbPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbPassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbPassword.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbPassword.Location = new System.Drawing.Point(7, 105);
-            tbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbPassword.Margin = new Padding(4, 3, 4, 3);
             tbPassword.MaxLength = 100;
             tbPassword.Name = "tbPassword";
             tbPassword.Password = "";
@@ -282,7 +286,7 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.Location = new System.Drawing.Point(4, 83);
-            lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPassword.Margin = new Padding(4, 0, 4, 0);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new System.Drawing.Size(57, 15);
             lblPassword.TabIndex = 16;
@@ -290,10 +294,10 @@
             // 
             // tbUsername
             // 
-            tbUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbUsername.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbUsername.Location = new System.Drawing.Point(7, 54);
-            tbUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbUsername.Margin = new Padding(4, 3, 4, 3);
             tbUsername.MaxLength = 100;
             tbUsername.Name = "tbUsername";
             tbUsername.Size = new System.Drawing.Size(234, 23);
@@ -309,8 +313,8 @@
             // 
             // ilDatabaseIcons
             // 
-            ilDatabaseIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilDatabaseIcons.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilDatabaseIcons.ImageStream");
+            ilDatabaseIcons.ColorDepth = ColorDepth.Depth8Bit;
+            ilDatabaseIcons.ImageStream = (ImageListStreamer)resources.GetObject("ilDatabaseIcons.ImageStream");
             ilDatabaseIcons.TransparentColor = System.Drawing.Color.Transparent;
             ilDatabaseIcons.Images.SetKeyName(0, "database_10.ico");
             ilDatabaseIcons.Images.SetKeyName(1, "database_20.ico");
@@ -327,47 +331,54 @@
             // tsbDatabaseUsage
             // 
             tsbDatabaseUsage.Checked = true;
-            tsbDatabaseUsage.CheckState = System.Windows.Forms.CheckState.Checked;
+            tsbDatabaseUsage.CheckState = CheckState.Checked;
             tsbDatabaseUsage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             tsbDatabaseUsage.ImageTransparentColor = System.Drawing.Color.Magenta;
             tsbDatabaseUsage.Name = "tsbDatabaseUsage";
-            tsbDatabaseUsage.Size = new System.Drawing.Size(87, 19);
+            tsbDatabaseUsage.Size = new System.Drawing.Size(87, 20);
             tsbDatabaseUsage.Text = "Not accessible";
             // 
             // tsslUptime
             // 
             tsslUptime.Name = "tsslUptime";
-            tsslUptime.Size = new System.Drawing.Size(125, 15);
+            tsslUptime.Size = new System.Drawing.Size(125, 17);
             tsslUptime.Text = "Uptime: 0 day 00:00:00";
             // 
             // tsslSpaceHolder
             // 
             tsslSpaceHolder.Name = "tsslSpaceHolder";
-            tsslSpaceHolder.Size = new System.Drawing.Size(0, 0);
+            tsslSpaceHolder.Size = new System.Drawing.Size(0, 17);
             tsslSpaceHolder.Spring = true;
             // 
             // tsslLoggedOnUser
             // 
             tsslLoggedOnUser.Name = "tsslLoggedOnUser";
-            tsslLoggedOnUser.Size = new System.Drawing.Size(145, 15);
+            tsslLoggedOnUser.Size = new System.Drawing.Size(145, 17);
             tsslLoggedOnUser.Text = "There's no logged in users";
             tsslLoggedOnUser.Visible = false;
             // 
             // ssStatusStrip
             // 
-            ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage });
-            ssStatusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            ssStatusStrip.Location = new System.Drawing.Point(0, 676);
+            ssStatusStrip.Items.AddRange(new ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage, tsslOsUptime });
+            ssStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            ssStatusStrip.Location = new System.Drawing.Point(0, 675);
             ssStatusStrip.Name = "ssStatusStrip";
-            ssStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            ssStatusStrip.Padding = new Padding(1, 0, 16, 0);
             ssStatusStrip.ShowItemToolTips = true;
-            ssStatusStrip.Size = new System.Drawing.Size(1186, 21);
+            ssStatusStrip.Size = new System.Drawing.Size(1186, 22);
             ssStatusStrip.TabIndex = 3;
             ssStatusStrip.Text = "statusStrip1";
             // 
+            // tsslOsUptime
+            // 
+            tsslOsUptime.Alignment = ToolStripItemAlignment.Right;
+            tsslOsUptime.Name = "tsslOsUptime";
+            tsslOsUptime.Size = new System.Drawing.Size(125, 17);
+            tsslOsUptime.Text = "Uptime: 0 day 00:00:00";
+            // 
             // tsmiExit
             // 
-            tsmiExit.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            tsmiExit.Alignment = ToolStripItemAlignment.Right;
             tsmiExit.Image = (System.Drawing.Image)resources.GetObject("tsmiExit.Image");
             tsmiExit.Name = "tsmiExit";
             tsmiExit.Size = new System.Drawing.Size(53, 20);
@@ -384,7 +395,7 @@
             // 
             // tsmiMain
             // 
-            tsmiMain.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiServerAndCameraManagement, tssSeparator, tsmiGridManagement, tsmiSequentialChains, tssSeparator2, tsmiAutoCreateWizard, tssSeparator3, tsmiTemplates });
+            tsmiMain.DropDownItems.AddRange(new ToolStripItem[] { tsmiServerAndCameraManagement, tssSeparator, tsmiGridManagement, tsmiSequentialChains, tssSeparator2, tsmiAutoCreateWizard, tssSeparator3, tsmiTemplates });
             tsmiMain.Image = (System.Drawing.Image)resources.GetObject("tsmiMain.Image");
             tsmiMain.Name = "tsmiMain";
             tsmiMain.Size = new System.Drawing.Size(62, 20);
@@ -471,7 +482,7 @@
             // 
             // tsmiHelp
             // 
-            tsmiHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiAbout, tsmiLicense });
+            tsmiHelp.DropDownItems.AddRange(new ToolStripItem[] { tsmiAbout, tsmiLicense });
             tsmiHelp.Image = (System.Drawing.Image)resources.GetObject("tsmiHelp.Image");
             tsmiHelp.Name = "tsmiHelp";
             tsmiHelp.Size = new System.Drawing.Size(60, 20);
@@ -479,7 +490,7 @@
             // 
             // tsmiTools
             // 
-            tsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator });
+            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator });
             tsmiTools.Image = (System.Drawing.Image)resources.GetObject("tsmiTools.Image");
             tsmiTools.Name = "tsmiTools";
             tsmiTools.Size = new System.Drawing.Size(63, 20);
@@ -489,7 +500,7 @@
             // 
             lblUsername.AutoSize = true;
             lblUsername.Location = new System.Drawing.Point(4, 32);
-            lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblUsername.Margin = new Padding(4, 0, 4, 0);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new System.Drawing.Size(60, 15);
             lblUsername.TabIndex = 14;
@@ -498,12 +509,12 @@
             // gbUserEvents
             // 
             gbUserEvents.Controls.Add(lvUserEvents);
-            gbUserEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbUserEvents.Dock = DockStyle.Fill;
             gbUserEvents.Location = new System.Drawing.Point(0, 147);
-            gbUserEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbUserEvents.Margin = new Padding(4, 3, 4, 3);
             gbUserEvents.Name = "gbUserEvents";
-            gbUserEvents.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbUserEvents.Size = new System.Drawing.Size(253, 171);
+            gbUserEvents.Padding = new Padding(4, 3, 4, 3);
+            gbUserEvents.Size = new System.Drawing.Size(253, 170);
             gbUserEvents.TabIndex = 14;
             gbUserEvents.TabStop = false;
             gbUserEvents.Text = "Choose the active event";
@@ -516,25 +527,25 @@
             lvUserEvents.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvUserEvents.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvUserEvents.BackColor = System.Drawing.Color.Silver;
-            lvUserEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chEventName, chDescription });
+            lvUserEvents.Columns.AddRange(new ColumnHeader[] { chEventName, chDescription });
             lvUserEvents.CompactView = false;
-            lvUserEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvUserEvents.Dock = DockStyle.Fill;
             lvUserEvents.Enabled = false;
             lvUserEvents.EnsureLastItemIsVisible = false;
             lvUserEvents.FirstItemIsGray = false;
             lvUserEvents.FullRowSelect = true;
             lvUserEvents.Location = new System.Drawing.Point(4, 19);
-            lvUserEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvUserEvents.Margin = new Padding(4, 3, 4, 3);
             lvUserEvents.MultiSelect = false;
             lvUserEvents.Name = "lvUserEvents";
             lvUserEvents.OwnerDraw = true;
             lvUserEvents.ReadonlyCheckboxes = false;
             lvUserEvents.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvUserEvents.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvUserEvents.Size = new System.Drawing.Size(245, 149);
+            lvUserEvents.Size = new System.Drawing.Size(245, 148);
             lvUserEvents.TabIndex = 0;
             lvUserEvents.UseCompatibleStateImageBehavior = false;
-            lvUserEvents.View = System.Windows.Forms.View.Details;
+            lvUserEvents.View = View.Details;
             // 
             // chEventName
             // 
@@ -550,9 +561,9 @@
             // 
             splitter.BackColor = System.Drawing.SystemColors.ControlDark;
             splitter.Location = new System.Drawing.Point(253, 24);
-            splitter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            splitter.Margin = new Padding(4, 3, 4, 3);
             splitter.Name = "splitter";
-            splitter.Size = new System.Drawing.Size(4, 652);
+            splitter.Size = new System.Drawing.Size(4, 651);
             splitter.TabIndex = 6;
             splitter.TabStop = false;
             // 
@@ -561,11 +572,11 @@
             pLeft.Controls.Add(pLeftBottom);
             pLeft.Controls.Add(gbSecondaryLogon);
             pLeft.Controls.Add(gbPrimaryLogon);
-            pLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            pLeft.Dock = DockStyle.Left;
             pLeft.Location = new System.Drawing.Point(0, 24);
-            pLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pLeft.Margin = new Padding(4, 3, 4, 3);
             pLeft.Name = "pLeft";
-            pLeft.Size = new System.Drawing.Size(253, 652);
+            pLeft.Size = new System.Drawing.Size(253, 651);
             pLeft.TabIndex = 5;
             // 
             // pLeftBottom
@@ -575,18 +586,18 @@
             pLeftBottom.Controls.Add(tvIOPorts);
             pLeftBottom.Controls.Add(splitter2);
             pLeftBottom.Controls.Add(lvIOPorts);
-            pLeftBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            pLeftBottom.Dock = DockStyle.Fill;
             pLeftBottom.Location = new System.Drawing.Point(0, 334);
-            pLeftBottom.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pLeftBottom.Margin = new Padding(4, 3, 4, 3);
             pLeftBottom.Name = "pLeftBottom";
-            pLeftBottom.Size = new System.Drawing.Size(253, 318);
+            pLeftBottom.Size = new System.Drawing.Size(253, 317);
             pLeftBottom.TabIndex = 13;
             // 
             // splitter4
             // 
-            splitter4.Dock = System.Windows.Forms.DockStyle.Top;
+            splitter4.Dock = DockStyle.Top;
             splitter4.Location = new System.Drawing.Point(0, 144);
-            splitter4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            splitter4.Margin = new Padding(4, 3, 4, 3);
             splitter4.Name = "splitter4";
             splitter4.Size = new System.Drawing.Size(253, 3);
             splitter4.TabIndex = 4;
@@ -596,21 +607,21 @@
             // 
             tvIOPorts.BackColor = System.Drawing.Color.Silver;
             tvIOPorts.CheckBoxBackground = System.Drawing.SystemColors.Window;
-            tvIOPorts.Dock = System.Windows.Forms.DockStyle.Top;
+            tvIOPorts.Dock = DockStyle.Top;
             tvIOPorts.DrawDefaultImageToNodes = true;
             tvIOPorts.HideSelection = false;
             tvIOPorts.ImageIndex = 0;
             tvIOPorts.ImageList = ilIOPortIcons;
             tvIOPorts.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
             tvIOPorts.Location = new System.Drawing.Point(0, 80);
-            tvIOPorts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
             treeNode1.ImageIndex = 0;
             treeNode1.Name = "IO_Devices";
             treeNode1.SelectedImageIndex = 0;
             treeNode1.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1 });
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -621,8 +632,8 @@
             // 
             // ilIOPortIcons
             // 
-            ilIOPortIcons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilIOPortIcons.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilIOPortIcons.ImageStream");
+            ilIOPortIcons.ColorDepth = ColorDepth.Depth8Bit;
+            ilIOPortIcons.ImageStream = (ImageListStreamer)resources.GetObject("ilIOPortIcons.ImageStream");
             ilIOPortIcons.TransparentColor = System.Drawing.Color.Transparent;
             ilIOPortIcons.Images.SetKeyName(0, "app.ico");
             ilIOPortIcons.Images.SetKeyName(1, "0.ico");
@@ -632,9 +643,9 @@
             // 
             // splitter2
             // 
-            splitter2.Dock = System.Windows.Forms.DockStyle.Top;
+            splitter2.Dock = DockStyle.Top;
             splitter2.Location = new System.Drawing.Point(0, 77);
-            splitter2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            splitter2.Margin = new Padding(4, 3, 4, 3);
             splitter2.Name = "splitter2";
             splitter2.Size = new System.Drawing.Size(253, 3);
             splitter2.TabIndex = 2;
@@ -648,14 +659,14 @@
             lvIOPorts.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvIOPorts.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvIOPorts.BackColor = System.Drawing.Color.Silver;
-            lvIOPorts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chPortName, chPortValue, chPortDirection });
+            lvIOPorts.Columns.AddRange(new ColumnHeader[] { chPortName, chPortValue, chPortDirection });
             lvIOPorts.CompactView = false;
-            lvIOPorts.Dock = System.Windows.Forms.DockStyle.Top;
+            lvIOPorts.Dock = DockStyle.Top;
             lvIOPorts.EnsureLastItemIsVisible = false;
             lvIOPorts.FirstItemIsGray = false;
             lvIOPorts.FullRowSelect = true;
             lvIOPorts.Location = new System.Drawing.Point(0, 0);
-            lvIOPorts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvIOPorts.Margin = new Padding(4, 3, 4, 3);
             lvIOPorts.Name = "lvIOPorts";
             lvIOPorts.OwnerDraw = true;
             lvIOPorts.ReadonlyCheckboxes = false;
@@ -664,7 +675,7 @@
             lvIOPorts.Size = new System.Drawing.Size(253, 77);
             lvIOPorts.TabIndex = 1;
             lvIOPorts.UseCompatibleStateImageBehavior = false;
-            lvIOPorts.View = System.Windows.Forms.View.Details;
+            lvIOPorts.View = View.Details;
             lvIOPorts.Visible = false;
             // 
             // chPortName
@@ -688,11 +699,11 @@
             gbSecondaryLogon.Controls.Add(lblPassword2);
             gbSecondaryLogon.Controls.Add(tbUsername2);
             gbSecondaryLogon.Controls.Add(lblUsername2);
-            gbSecondaryLogon.Dock = System.Windows.Forms.DockStyle.Top;
+            gbSecondaryLogon.Dock = DockStyle.Top;
             gbSecondaryLogon.Location = new System.Drawing.Point(0, 167);
-            gbSecondaryLogon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbSecondaryLogon.Margin = new Padding(4, 3, 4, 3);
             gbSecondaryLogon.Name = "gbSecondaryLogon";
-            gbSecondaryLogon.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbSecondaryLogon.Padding = new Padding(4, 3, 4, 3);
             gbSecondaryLogon.Size = new System.Drawing.Size(253, 167);
             gbSecondaryLogon.TabIndex = 7;
             gbSecondaryLogon.TabStop = false;
@@ -701,9 +712,9 @@
             // 
             // btnLoginLogoutSecondary
             // 
-            btnLoginLogoutSecondary.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnLoginLogoutSecondary.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnLoginLogoutSecondary.Location = new System.Drawing.Point(7, 134);
-            btnLoginLogoutSecondary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnLoginLogoutSecondary.Margin = new Padding(4, 3, 4, 3);
             btnLoginLogoutSecondary.Name = "btnLoginLogoutSecondary";
             btnLoginLogoutSecondary.Size = new System.Drawing.Size(234, 27);
             btnLoginLogoutSecondary.TabIndex = 18;
@@ -713,10 +724,10 @@
             // 
             // tbPassword2
             // 
-            tbPassword2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbPassword2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbPassword2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbPassword2.Location = new System.Drawing.Point(7, 105);
-            tbPassword2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbPassword2.Margin = new Padding(4, 3, 4, 3);
             tbPassword2.MaxLength = 100;
             tbPassword2.Name = "tbPassword2";
             tbPassword2.Password = "";
@@ -729,7 +740,7 @@
             // 
             lblPassword2.AutoSize = true;
             lblPassword2.Location = new System.Drawing.Point(4, 83);
-            lblPassword2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPassword2.Margin = new Padding(4, 0, 4, 0);
             lblPassword2.Name = "lblPassword2";
             lblPassword2.Size = new System.Drawing.Size(57, 15);
             lblPassword2.TabIndex = 16;
@@ -737,10 +748,10 @@
             // 
             // tbUsername2
             // 
-            tbUsername2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUsername2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbUsername2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             tbUsername2.Location = new System.Drawing.Point(7, 54);
-            tbUsername2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbUsername2.Margin = new Padding(4, 3, 4, 3);
             tbUsername2.MaxLength = 100;
             tbUsername2.Name = "tbUsername2";
             tbUsername2.Size = new System.Drawing.Size(234, 23);
@@ -750,7 +761,7 @@
             // 
             lblUsername2.AutoSize = true;
             lblUsername2.Location = new System.Drawing.Point(4, 32);
-            lblUsername2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblUsername2.Margin = new Padding(4, 0, 4, 0);
             lblUsername2.Name = "lblUsername2";
             lblUsername2.Size = new System.Drawing.Size(60, 15);
             lblUsername2.TabIndex = 14;
@@ -764,11 +775,11 @@
             gbPrimaryLogon.Controls.Add(lblPassword);
             gbPrimaryLogon.Controls.Add(tbUsername);
             gbPrimaryLogon.Controls.Add(lblUsername);
-            gbPrimaryLogon.Dock = System.Windows.Forms.DockStyle.Top;
+            gbPrimaryLogon.Dock = DockStyle.Top;
             gbPrimaryLogon.Location = new System.Drawing.Point(0, 0);
-            gbPrimaryLogon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPrimaryLogon.Margin = new Padding(4, 3, 4, 3);
             gbPrimaryLogon.Name = "gbPrimaryLogon";
-            gbPrimaryLogon.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbPrimaryLogon.Padding = new Padding(4, 3, 4, 3);
             gbPrimaryLogon.Size = new System.Drawing.Size(253, 167);
             gbPrimaryLogon.TabIndex = 6;
             gbPrimaryLogon.TabStop = false;
@@ -817,14 +828,14 @@
             lvPortEvents.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvPortEvents.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvPortEvents.BackColor = System.Drawing.Color.Silver;
-            lvPortEvents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chIOPortEventID, chIOPortEventDate, chIOPortEventDevice, chIOPortEventPortNumber, chIOPortEventPortState, chIOPortEventLoggedOnUser, chIOPortEventNote });
+            lvPortEvents.Columns.AddRange(new ColumnHeader[] { chIOPortEventID, chIOPortEventDate, chIOPortEventDevice, chIOPortEventPortNumber, chIOPortEventPortState, chIOPortEventLoggedOnUser, chIOPortEventNote });
             lvPortEvents.CompactView = false;
-            lvPortEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvPortEvents.Dock = DockStyle.Fill;
             lvPortEvents.EnsureLastItemIsVisible = false;
             lvPortEvents.FirstItemIsGray = false;
             lvPortEvents.FullRowSelect = true;
             lvPortEvents.Location = new System.Drawing.Point(4, 19);
-            lvPortEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvPortEvents.Margin = new Padding(4, 3, 4, 3);
             lvPortEvents.Name = "lvPortEvents";
             lvPortEvents.OwnerDraw = true;
             lvPortEvents.ReadonlyCheckboxes = false;
@@ -833,16 +844,16 @@
             lvPortEvents.Size = new System.Drawing.Size(921, 142);
             lvPortEvents.TabIndex = 1;
             lvPortEvents.UseCompatibleStateImageBehavior = false;
-            lvPortEvents.View = System.Windows.Forms.View.Details;
+            lvPortEvents.View = View.Details;
             // 
             // gb_PortEvents
             // 
             gb_PortEvents.Controls.Add(lvPortEvents);
-            gb_PortEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            gb_PortEvents.Dock = DockStyle.Fill;
             gb_PortEvents.Location = new System.Drawing.Point(0, 0);
-            gb_PortEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gb_PortEvents.Margin = new Padding(4, 3, 4, 3);
             gb_PortEvents.Name = "gb_PortEvents";
-            gb_PortEvents.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gb_PortEvents.Padding = new Padding(4, 3, 4, 3);
             gb_PortEvents.Size = new System.Drawing.Size(929, 164);
             gb_PortEvents.TabIndex = 0;
             gb_PortEvents.TabStop = false;
@@ -850,9 +861,9 @@
             // splitter3
             // 
             splitter3.BackColor = System.Drawing.SystemColors.ControlDark;
-            splitter3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            splitter3.Location = new System.Drawing.Point(257, 509);
-            splitter3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            splitter3.Dock = DockStyle.Bottom;
+            splitter3.Location = new System.Drawing.Point(257, 508);
+            splitter3.Margin = new Padding(4, 3, 4, 3);
             splitter3.Name = "splitter3";
             splitter3.Size = new System.Drawing.Size(929, 3);
             splitter3.TabIndex = 10;
@@ -861,9 +872,9 @@
             // pRightBottom
             // 
             pRightBottom.Controls.Add(gb_PortEvents);
-            pRightBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            pRightBottom.Location = new System.Drawing.Point(257, 512);
-            pRightBottom.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pRightBottom.Dock = DockStyle.Bottom;
+            pRightBottom.Location = new System.Drawing.Point(257, 511);
+            pRightBottom.Margin = new Padding(4, 3, 4, 3);
             pRightBottom.Name = "pRightBottom";
             pRightBottom.Size = new System.Drawing.Size(929, 164);
             pRightBottom.TabIndex = 9;
@@ -871,15 +882,15 @@
             // pbMap
             // 
             pbMap.BackColor = System.Drawing.Color.Silver;
-            pbMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            pbMap.Dock = DockStyle.Fill;
             pbMap.Image = (System.Drawing.Image)resources.GetObject("pbMap.Image");
             pbMap.Location = new System.Drawing.Point(0, 0);
-            pbMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbMap.Margin = new Padding(4, 3, 4, 3);
             pbMap.Name = "pbMap";
             pbMap.OriginalSize = new System.Drawing.Size(100, 50);
             pbMap.RepositioningAndResizingControlsOnResize = false;
-            pbMap.Size = new System.Drawing.Size(929, 485);
-            pbMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pbMap.Size = new System.Drawing.Size(929, 484);
+            pbMap.SizeMode = PictureBoxSizeMode.Zoom;
             pbMap.TabIndex = 0;
             pbMap.TabStop = false;
             // 
@@ -887,11 +898,11 @@
             // 
             pMap.BackColor = System.Drawing.Color.AliceBlue;
             pMap.Controls.Add(pbMap);
-            pMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMap.Dock = DockStyle.Fill;
             pMap.Location = new System.Drawing.Point(257, 24);
-            pMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMap.Margin = new Padding(4, 3, 4, 3);
             pMap.Name = "pMap";
-            pMap.Size = new System.Drawing.Size(929, 485);
+            pMap.Size = new System.Drawing.Size(929, 484);
             pMap.TabIndex = 11;
             // 
             // pMain
@@ -903,34 +914,40 @@
             pMain.Controls.Add(pLeft);
             pMain.Controls.Add(msMenu);
             pMain.Controls.Add(ssStatusStrip);
-            pMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            pMain.Dock = DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
-            pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pMain.Margin = new Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(1186, 697);
             pMain.TabIndex = 1;
             // 
             // msMenu
             // 
-            msMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiControlCenter, tsmiMain, tsmiUsers, tsmiOptions, tsmiTools, tsmiHelp, tsmiExit });
-            msMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            msMenu.Items.AddRange(new ToolStripItem[] { tsmiControlCenter, tsmiMain, tsmiUsers, tsmiOptions, tsmiTools, tsmiHelp, tsmiExit });
+            msMenu.LayoutStyle = ToolStripLayoutStyle.Flow;
             msMenu.Location = new System.Drawing.Point(0, 0);
             msMenu.Name = "msMenu";
-            msMenu.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            msMenu.Padding = new Padding(7, 2, 0, 2);
             msMenu.Size = new System.Drawing.Size(1186, 24);
             msMenu.TabIndex = 4;
             msMenu.Text = "menuStrip1";
             // 
+            // timer
+            // 
+            timer.Enabled = true;
+            timer.Interval = 500;
+            timer.Tick += Timer_Tick;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1186, 697);
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Margin = new Padding(4, 3, 4, 3);
             Name = "MainForm";
-            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            StartPosition = FormStartPosition.Manual;
             Text = "LiveView";
             FormClosing += MainForm_FormClosing;
             Shown += MainForm_Shown;
@@ -1037,5 +1054,7 @@
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.MenuStrip msMenu;
         private System.ComponentModel.BackgroundWorker bwCreateStatisticsMessage;
+        private System.Windows.Forms.ToolStripStatusLabel tsslOsUptime;
+        private Timer timer;
     }
 }

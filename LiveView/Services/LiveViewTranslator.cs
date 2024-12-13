@@ -1,4 +1,4 @@
-﻿using LanguageService;
+﻿using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 
 namespace LiveView.Services

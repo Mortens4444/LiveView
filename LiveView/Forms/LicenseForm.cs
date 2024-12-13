@@ -1,7 +1,7 @@
-﻿using LanguageService.Windows.Forms;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService.Windows.Forms;
 using System;
 
 namespace LiveView.Forms

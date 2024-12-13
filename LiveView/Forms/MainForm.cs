@@ -1,14 +1,12 @@
-﻿using LanguageService;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
+using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
-using Mtf.MessageBoxes;
-using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Models;
@@ -20,12 +18,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace LiveView.Forms
 {
     public partial class MainForm : BaseView, IMainView
     {
-        private readonly FormFactory formFactory;
         private readonly MainPresenter mainPresenter;
         private readonly PermissionManager permissionManager;
         public static readonly IHardwareKey HardwareKey;
@@ -43,7 +41,6 @@ namespace LiveView.Forms
         public MainForm(PermissionManager permissionManager, ILogger<MainForm> logger, FormFactory formFactory)
         {
             InitializeComponent();
-            this.formFactory = formFactory;
             this.permissionManager = permissionManager;
 
             //permissionManager.ApplyPermissionsOnControls(this);
@@ -311,6 +308,17 @@ namespace LiveView.Forms
                 var point = new Point(Screen.PrimaryScreen.Bounds.Width / 2, Screen.PrimaryScreen.Bounds.Height / 2);
                 Cursor.Position = point;
             }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            mainPresenter.SetUptime();
+        }
+
+        public void SetUptime(TimeSpan osUptime, TimeSpan appUptime)
+        {
+            tsslOsUptime.Text = osUptime.Days < 2 ? $"{Lng.Elem("Uptime")}: {osUptime.Days} {Lng.Elem("day")} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{Lng.Elem("Uptime")}: {osUptime.Days} {Lng.Elem("days")} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
+            tsslUptime.Text = appUptime.Days < 2 ? $"{Lng.Elem("Uptime")}: {appUptime.Days} {Lng.Elem("day")} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Lng.Elem("Uptime")}: {appUptime.Days} {Lng.Elem("days")} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
         }
     }
 }

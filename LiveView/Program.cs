@@ -1,10 +1,8 @@
 using Database.Repositories;
-using LanguageService;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Database;
-using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Configuration;

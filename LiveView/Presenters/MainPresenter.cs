@@ -14,17 +14,19 @@ namespace LiveView.Presenters
     {
         private readonly IMainView mainView;
         private readonly ILogger<MainForm> logger;
+        private readonly Uptime uptime;
 
         public MainPresenter(FormFactory formFactory, IMainView mainView, ILogger<MainForm> logger)
             : base(mainView, formFactory)
         {
             this.mainView = mainView;
             this.logger = logger;
+            uptime = new Uptime();
         }
 
         public override void Load()
         {
-            MousePointer.ShowOnCtrlKey();
+            //MousePointer.ShowOnCtrlKey();
             var handle = mainView.GetHandle();
             WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
         }
@@ -60,6 +62,13 @@ namespace LiveView.Presenters
         {
             mainView.SetCursorPosition();
             SendKeys.Send("^");
+        }
+
+        public void SetUptime()
+        {
+            var osUptime = uptime.GetOs();
+            var appUptime = uptime.GetApp();
+            mainView.SetUptime(osUptime, appUptime);
         }
     }
 }

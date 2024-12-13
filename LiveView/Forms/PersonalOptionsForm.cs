@@ -1,17 +1,17 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LanguageService;
-using LanguageService.Windows.Forms;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
+using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
-using Language = LanguageService.Language;
+using Language = Mtf.LanguageService.Enums.Language;
 
 namespace LiveView.Forms
 {

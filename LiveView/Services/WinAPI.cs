@@ -22,5 +22,9 @@ namespace LiveView.Services
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern bool SetCursorPos(int x, int y);
+
+        [DllImport("Kernel32.dll")]
+        public static extern ulong GetTickCount64();
+
     }
 }
