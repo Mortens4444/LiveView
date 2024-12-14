@@ -43,7 +43,6 @@
             pCrossHair = new System.Windows.Forms.Panel();
             pbCrossHair = new Mtf.Controls.MtfPictureBox();
             lblDisplayDeviceName = new System.Windows.Forms.Label();
-            nudIdentifySeconds = new System.Windows.Forms.NumericUpDown();
             btnIdentify = new System.Windows.Forms.Button();
             pDisplayDevices = new Mtf.Controls.TransparentPanel();
             btnRearrangeGrid = new System.Windows.Forms.Button();
@@ -115,7 +114,6 @@
             gbDisplayDevices.SuspendLayout();
             pCrossHair.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbCrossHair).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudIdentifySeconds).BeginInit();
             gbActiveSequence.SuspendLayout();
             gbCameras.SuspendLayout();
             cmDisplayDeviceContextMenu.SuspendLayout();
@@ -223,7 +221,6 @@
             // 
             gbDisplayDevices.Controls.Add(pCrossHair);
             gbDisplayDevices.Controls.Add(lblDisplayDeviceName);
-            gbDisplayDevices.Controls.Add(nudIdentifySeconds);
             gbDisplayDevices.Controls.Add(btnIdentify);
             gbDisplayDevices.Controls.Add(pDisplayDevices);
             gbDisplayDevices.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -249,7 +246,7 @@
             // 
             // pbCrossHair
             // 
-            pbCrossHair.Image = (System.Drawing.Image)resources.GetObject("pbCrossHair.Image");
+            pbCrossHair.Image = Properties.Resources.pb_CrossHair_Image;
             pbCrossHair.Location = new System.Drawing.Point(0, 0);
             pbCrossHair.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbCrossHair.Name = "pbCrossHair";
@@ -263,25 +260,13 @@
             // lblDisplayDeviceName
             // 
             lblDisplayDeviceName.AutoSize = true;
-            lblDisplayDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblDisplayDeviceName.Font = (System.Drawing.Font)resources.GetObject("lblDisplayDeviceName.Font");
             lblDisplayDeviceName.Location = new System.Drawing.Point(44, 164);
             lblDisplayDeviceName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDisplayDeviceName.Name = "lblDisplayDeviceName";
             lblDisplayDeviceName.Size = new System.Drawing.Size(0, 17);
             lblDisplayDeviceName.TabIndex = 2;
             lblDisplayDeviceName.Visible = false;
-            // 
-            // nudIdentifySeconds
-            // 
-            nudIdentifySeconds.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            nudIdentifySeconds.Location = new System.Drawing.Point(189, 160);
-            nudIdentifySeconds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudIdentifySeconds.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
-            nudIdentifySeconds.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudIdentifySeconds.Name = "nudIdentifySeconds";
-            nudIdentifySeconds.Size = new System.Drawing.Size(43, 23);
-            nudIdentifySeconds.TabIndex = 3;
-            nudIdentifySeconds.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // btnIdentify
             // 
@@ -305,11 +290,12 @@
             pDisplayDevices.Name = "pDisplayDevices";
             pDisplayDevices.Size = new System.Drawing.Size(321, 130);
             pDisplayDevices.TabIndex = 0;
+            pDisplayDevices.TransparentColor = System.Drawing.Color.Black;
+            pDisplayDevices.UseTransparentColor = false;
             pDisplayDevices.Paint += PDisplayDevices_Paint;
             // 
             // btnRearrangeGrid
             // 
-            btnRearrangeGrid.Image = (System.Drawing.Image)resources.GetObject("btnRearrangeGrid.Image");
             btnRearrangeGrid.Location = new System.Drawing.Point(118, 125);
             btnRearrangeGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRearrangeGrid.Name = "btnRearrangeGrid";
@@ -356,7 +342,7 @@
             // 
             btnCloseFullScreenCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCloseFullScreenCamera.BackColor = System.Drawing.SystemColors.Control;
-            btnCloseFullScreenCamera.Image = (System.Drawing.Image)resources.GetObject("btnCloseFullScreenCamera.Image");
+            btnCloseFullScreenCamera.Image = Properties.Resources.btn_CloseSequenceApplications_Image;
             btnCloseFullScreenCamera.Location = new System.Drawing.Point(303, 7);
             btnCloseFullScreenCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCloseFullScreenCamera.Name = "btnCloseFullScreenCamera";
@@ -610,7 +596,7 @@
             // btnZoomOut
             // 
             btnZoomOut.Enabled = false;
-            btnZoomOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            btnZoomOut.Font = (System.Drawing.Font)resources.GetObject("btnZoomOut.Font");
             btnZoomOut.Location = new System.Drawing.Point(122, 3);
             btnZoomOut.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnZoomOut.Name = "btnZoomOut";
@@ -624,7 +610,7 @@
             // btnZoomIn
             // 
             btnZoomIn.Enabled = false;
-            btnZoomIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            btnZoomIn.Font = (System.Drawing.Font)resources.GetObject("btnZoomIn.Font");
             btnZoomIn.Location = new System.Drawing.Point(74, 3);
             btnZoomIn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnZoomIn.Name = "btnZoomIn";
@@ -971,7 +957,7 @@
             // 
             btnCloseSequenceApplications.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCloseSequenceApplications.BackColor = System.Drawing.SystemColors.Control;
-            btnCloseSequenceApplications.Image = (System.Drawing.Image)resources.GetObject("btnCloseSequenceApplications.Image");
+            btnCloseSequenceApplications.Image = Properties.Resources.btn_CloseSequenceApplications_Image;
             btnCloseSequenceApplications.Location = new System.Drawing.Point(303, 8);
             btnCloseSequenceApplications.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCloseSequenceApplications.Name = "btnCloseSequenceApplications";
@@ -1024,7 +1010,7 @@
             // pbSziltechLogo
             // 
             pbSziltechLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            pbSziltechLogo.Image = (System.Drawing.Image)resources.GetObject("pbSziltechLogo.Image");
+            pbSziltechLogo.Image = Properties.Resources.pb_Logo_Image;
             pbSziltechLogo.Location = new System.Drawing.Point(0, 0);
             pbSziltechLogo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbSziltechLogo.Name = "pbSziltechLogo";
@@ -1137,7 +1123,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(328, 940);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -1150,7 +1135,6 @@
             gbDisplayDevices.PerformLayout();
             pCrossHair.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbCrossHair).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudIdentifySeconds).EndInit();
             gbActiveSequence.ResumeLayout(false);
             gbActiveSequence.PerformLayout();
             gbCameras.ResumeLayout(false);
@@ -1188,7 +1172,6 @@
         private System.Windows.Forms.Panel pCrossHair;
         private Mtf.Controls.MtfPictureBox pbCrossHair;
         private System.Windows.Forms.Label lblDisplayDeviceName;
-        private System.Windows.Forms.NumericUpDown nudIdentifySeconds;
         private System.Windows.Forms.Button btnIdentify;
         private Mtf.Controls.TransparentPanel pDisplayDevices;
         private System.Windows.Forms.Button btnRearrangeGrid;

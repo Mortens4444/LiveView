@@ -40,6 +40,9 @@
     <Compile Update="Forms\ControlCenter.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\DisplayDeviceIdentifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DisplayOptions.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -43,14 +43,14 @@ namespace LiveView.Forms
             mouseBrush = new SolidBrush(Color.Red);
         }
 
-        public ControlCenter(PermissionManager permissionManager, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository, DisplayManager displayManager)
+        public ControlCenter(FormFactory formFactory, PermissionManager permissionManager, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository, DisplayManager displayManager)
         {
             InitializeComponent();
             this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            controlCenterPresenter = new ControlCenterPresenter(this, templateRepository, displayRepository, cameraRepository, displayManager, logger);
+            controlCenterPresenter = new ControlCenterPresenter(this, formFactory, templateRepository, displayRepository, cameraRepository, displayManager, logger);
 
             Translator.Translate(this);
         }
