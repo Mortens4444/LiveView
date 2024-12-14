@@ -1,5 +1,9 @@
-﻿using Mtf.Enums.Keyboard;
+﻿using LiveView.Dto;
+using Mtf.Enums;
+using Mtf.Enums.Display;
+using Mtf.Enums.Keyboard;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace LiveView.Services
@@ -26,5 +30,20 @@ namespace LiveView.Services
         [DllImport("Kernel32.dll")]
         public static extern ulong GetTickCount64();
 
+        [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Ansi)]
+        public static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+
+        [DllImport("User32.dll")]
+        public static extern bool EnumDisplaySettingsEx(string lpszDeviceName, EDSModeNum iModeNum, ref DEVMODE lpDevMode, EDSFlags dwFlags);
+
+        [DllImport("User32.dll", SetLastError = true)]
+        public static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
+
+        [DllImport("User32.dll")]
+        public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+
+        [DllImport("User32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetCursorPos(out POINT lpPoint);
     }
 }

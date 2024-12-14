@@ -18,7 +18,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace LiveView.Forms
 {
@@ -26,6 +25,11 @@ namespace LiveView.Forms
     {
         private readonly MainPresenter mainPresenter;
         private readonly PermissionManager permissionManager;
+
+        private static string Uptime;
+        private static string Day;
+        private static string Days;
+
         public static readonly IHardwareKey HardwareKey;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -52,13 +56,18 @@ namespace LiveView.Forms
                     new Permission { PermissionGroup = typeof(CameraManagementPermissions), PermissionValue = (long)CameraManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(ServerManagementPermissions), PermissionValue = (long)ServerManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.PersonalSettingsManagement },
-                    new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit }
+                    new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit },
+                    new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl}
                 }
             });
 
             mainPresenter = new MainPresenter(formFactory, this, logger);
 
             Translator.Translate(this);
+
+            Uptime = Lng.Elem("Uptime");
+            Day = Lng.Elem("day");
+            Days = Lng.Elem("days");
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
@@ -317,8 +326,8 @@ namespace LiveView.Forms
 
         public void SetUptime(TimeSpan osUptime, TimeSpan appUptime)
         {
-            tsslOsUptime.Text = osUptime.Days < 2 ? $"{Lng.Elem("Uptime")}: {osUptime.Days} {Lng.Elem("day")} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{Lng.Elem("Uptime")}: {osUptime.Days} {Lng.Elem("days")} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
-            tsslUptime.Text = appUptime.Days < 2 ? $"{Lng.Elem("Uptime")}: {appUptime.Days} {Lng.Elem("day")} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Lng.Elem("Uptime")}: {appUptime.Days} {Lng.Elem("days")} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
+            tsslOsUptime.Text = osUptime.Days < 2 ? $"{Uptime}: {osUptime.Days} {Day} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{Uptime}: {osUptime.Days} {Days} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
+            tsslUptime.Text = appUptime.Days < 2 ? $"{Uptime}: {appUptime.Days} {Day} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Uptime}: {appUptime.Days} {Days} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
         }
     }
 }

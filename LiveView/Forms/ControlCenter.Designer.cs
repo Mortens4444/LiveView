@@ -45,7 +45,7 @@
             lblDisplayDeviceName = new System.Windows.Forms.Label();
             nudIdentifySeconds = new System.Windows.Forms.NumericUpDown();
             btnIdentify = new System.Windows.Forms.Button();
-            pDisplayDevices = new System.Windows.Forms.Panel();
+            pDisplayDevices = new Mtf.Controls.TransparentPanel();
             btnRearrangeGrid = new System.Windows.Forms.Button();
             gbActiveSequence = new System.Windows.Forms.GroupBox();
             btnShowNextGrid = new System.Windows.Forms.Button();
@@ -305,6 +305,7 @@
             pDisplayDevices.Name = "pDisplayDevices";
             pDisplayDevices.Size = new System.Drawing.Size(321, 130);
             pDisplayDevices.TabIndex = 0;
+            pDisplayDevices.Paint += PDisplayDevices_Paint;
             // 
             // btnRearrangeGrid
             // 
@@ -1189,7 +1190,7 @@
         private System.Windows.Forms.Label lblDisplayDeviceName;
         private System.Windows.Forms.NumericUpDown nudIdentifySeconds;
         private System.Windows.Forms.Button btnIdentify;
-        private System.Windows.Forms.Panel pDisplayDevices;
+        private Mtf.Controls.TransparentPanel pDisplayDevices;
         private System.Windows.Forms.Button btnRearrangeGrid;
         private System.Windows.Forms.GroupBox gbActiveSequence;
         private System.Windows.Forms.Button btnShowNextGrid;

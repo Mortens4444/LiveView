@@ -29,6 +29,7 @@ namespace LiveView.Services
         {
             services.AddSingleton<FormFactory>();
             services.AddSingleton<PermissionManager>();
+            services.AddSingleton<DisplayManager>();
         }
 
         private static void RegisterRepositories(ServiceCollection services)
