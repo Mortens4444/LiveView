@@ -25,9 +25,9 @@ namespace LiveView.Presenters
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
 
-        public ControlCenterPresenter(IControlCenterView controlCenterView, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
+        public ControlCenterPresenter(IControlCenterView controlCenterView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
             ICameraRepository<Camera> cameraRepository, DisplayManager displayManager, ILogger<ControlCenter> logger)
-            : base(controlCenterView, formFactory)
+            : base(controlCenterView, generalOptionsRepository, formFactory)
         {
             this.controlCenterView = controlCenterView;
             this.templateRepository = templateRepository;

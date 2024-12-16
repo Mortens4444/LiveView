@@ -20,9 +20,8 @@ namespace LiveView.Forms
         private readonly Server server;
         private readonly bool cameraLicenseRunnedOut;
         private readonly bool isSziltech;
-        private readonly PermissionManager permissionManager;
 
-        private readonly AddCamerasPresenter addCamerasPresenter;
+        private readonly AddCamerasPresenter presenter;
 
         public ListView ServerCameras => lvCamerasOfServer;
 
@@ -30,68 +29,69 @@ namespace LiveView.Forms
 
         public ComboBox Servers => cbServers;
 
-        public AddCameras(PermissionManager permissionManager, ILogger<AddCameras> logger, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, Server server = null)
+        public AddCameras(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddCameras> logger, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, Server server = null)
+             : base(permissionManager)
         {
             InitializeComponent();
             this.server = server;
-            this.permissionManager = permissionManager;
             cameraLicenseRunnedOut = false;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            addCamerasPresenter = new AddCamerasPresenter(this, cameraRepository, serverRepository, logger);
+            presenter = new AddCamerasPresenter(this, generalOptionsRepository, cameraRepository, serverRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
 
         private async void CbServers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await addCamerasPresenter.GetCamerasAsync();
+            await presenter.GetCamerasAsync();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
         private void BtnAddSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addCamerasPresenter.AddSelectedCamera();
+            presenter.AddSelectedCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
         private void BtnAddAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addCamerasPresenter.AddAllCamera();
+            presenter.AddAllCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
         private void BtnRemoveSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addCamerasPresenter.RemoveSelectedCamera();
+            presenter.RemoveSelectedCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
         private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addCamerasPresenter.RemoveAllCamera();
+            presenter.RemoveAllCamera();
         }
 
         [RequirePermission(CameraManagementPermissions.Create | CameraManagementPermissions.Delete)]
         private void BtnAddCameras_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addCamerasPresenter.SaveCameras();
+            presenter.SaveCameras();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            addCamerasPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void AddCameras_Shown(object sender, EventArgs e)
         {
-            addCamerasPresenter.LoadServers();
+            presenter.LoadServers();
         }
 
         public AxVideoServer GetVideoServerControl()

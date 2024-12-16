@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class IOPortEditor : BaseView, IIOPortEditorView
     {
-        private readonly IOPortEditorPresenter ioPortEditorPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly IOPortEditorPresenter presenter;
 
-        public IOPortEditor(PermissionManager permissionManager, ILogger<IOPortEditor> logger, IIOPortRepository<IOPort> ioPortRepository)
+        public IOPortEditor(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<IOPortEditor> logger, IIOPortRepository<IOPort> ioPortRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            ioPortEditorPresenter = new IOPortEditorPresenter(this, ioPortRepository, logger);
+            presenter = new IOPortEditorPresenter(this, generalOptionsRepository, ioPortRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,12 +32,12 @@ namespace LiveView.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            ioPortEditorPresenter.Save();
+            presenter.Save();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            ioPortEditorPresenter.CloseForm();
+            presenter.CloseForm();
         }
     }
 }

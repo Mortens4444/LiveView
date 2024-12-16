@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class DisplayOptions : BaseView, IDisplayOptionsView
     {
-        private readonly DisplayOptionsPresenter displayOptionsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly DisplayOptionsPresenter presenter;
 
-        public DisplayOptions(PermissionManager permissionManager, ILogger<DisplayOptions> logger, IDisplayRepository<Display> displayRepository)
+        public DisplayOptions(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<DisplayOptions> logger, IDisplayRepository<Display> displayRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            displayOptionsPresenter = new DisplayOptionsPresenter(this, displayRepository, logger);
+            presenter = new DisplayOptionsPresenter(this, generalOptionsRepository, displayRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,31 +31,31 @@ namespace LiveView.Forms
         private void BtnResetDisplays_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            displayOptionsPresenter.ResetDisplays();
+            presenter.ResetDisplays();
         }
 
         [RequirePermission(DisplayManagementPermissions.Select)]
         private void BtnIdentify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            displayOptionsPresenter.IdentifyDisplays();
+            presenter.IdentifyDisplays();
         }
 
         [RequirePermission(DisplayManagementPermissions.Update)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            displayOptionsPresenter.SaveDisplaySettings();
+            presenter.SaveDisplaySettings();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            displayOptionsPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void DisplayOptions_Shown(object sender, EventArgs e)
         {
-            displayOptionsPresenter.Load();
+            presenter.Load();
         }
     }
 }

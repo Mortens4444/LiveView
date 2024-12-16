@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class GeneralOptionsForm : BaseView, IGeneralOptionsView
     {
-        private readonly GeneralOptionsPresenter generalOptionsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly GeneralOptionsPresenter presenter;
 
-        public GeneralOptionsForm(PermissionManager permissionManager, ILogger<GeneralOptionsForm> logger, IGeneralOptionsRepository<GeneralOptions> generalOptionsRepository)
+        public GeneralOptionsForm(PermissionManager permissionManager, ILogger<GeneralOptionsForm> logger, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            generalOptionsPresenter = new GeneralOptionsPresenter(this, generalOptionsRepository, logger);
+            presenter = new GeneralOptionsPresenter(this, generalOptionsRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -38,40 +38,40 @@ namespace LiveView.Forms
         private void BtnNoSignalImageBrowse_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.SelectNoSignalImage();
+            presenter.SelectNoSignalImage();
         }
 
         [RequirePermission(SettingsManagementPermissions.UpdateStatic)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.SaveSettings();
+            presenter.SaveSettings();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            generalOptionsPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
         private void BtnDefault_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.LoadDefaultSettings();
+            presenter.LoadDefaultSettings();
         }
 
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
         private void BtnStandard_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.LoadStandardSettings();
+            presenter.LoadStandardSettings();
         }
 
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
         private void GeneralOptionsForm_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            generalOptionsPresenter.Load();
+            presenter.Load();
         }
     }
 }

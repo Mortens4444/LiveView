@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<SyncronView> logger;
 
-        public SyncronViewPresenter(ISyncronViewView syncronViewView, ICameraRepository<Camera> cameraRepository, ILogger<SyncronView> logger)
-            : base(syncronViewView)
+        public SyncronViewPresenter(ISyncronViewView syncronViewView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<SyncronView> logger)
+            : base(syncronViewView, generalOptionsRepository)
         {
             this.syncronViewView = syncronViewView;
             this.cameraRepository = cameraRepository;

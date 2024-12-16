@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class CameraProperties : BaseView, ICameraPropertiesView
     {
-        private readonly CameraPropertiesPresenter cameraPropertiesPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly CameraPropertiesPresenter presenter;
 
-        public CameraProperties(PermissionManager permissionManager, ILogger<CameraProperties> logger, ICameraRepository<Camera> cameraRepository)
+        public CameraProperties(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<CameraProperties> logger, ICameraRepository<Camera> cameraRepository)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            cameraPropertiesPresenter = new CameraPropertiesPresenter(this, cameraRepository, logger);
+            presenter = new CameraPropertiesPresenter(this, generalOptionsRepository, cameraRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,17 +32,17 @@ namespace LiveView.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            cameraPropertiesPresenter.Save();
+            presenter.Save();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            cameraPropertiesPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void CameraProperties_Load(object sender, EventArgs e)
         {
-            cameraPropertiesPresenter.Load();
+            presenter.Load();
         }
     }
 }

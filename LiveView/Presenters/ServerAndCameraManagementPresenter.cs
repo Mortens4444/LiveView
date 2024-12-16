@@ -26,8 +26,8 @@ namespace LiveView.Presenters
         private const int DeleteCameraIconIndex = 6;
         private const int DatabaseServerIconIndex = 7;
 
-        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
-            : base(serverAndCameraManagementView, formFactory)
+        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
+            : base(serverAndCameraManagementView, generalOptionsRepository, formFactory)
         {
             this.serverAndCameraManagementView = serverAndCameraManagementView;
             this.serverRepository = serverRepository;

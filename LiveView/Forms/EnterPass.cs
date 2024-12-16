@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class EnterPass : BaseView, IEnterPassView
     {
-        private readonly EnterPassPresenter enterPassPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly EnterPassPresenter presenter;
 
-        public EnterPass(PermissionManager permissionManager, ILogger<EnterPass> logger, IUserRepository<User> userRepository)
+        public EnterPass(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<EnterPass> logger, IUserRepository<User> userRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            enterPassPresenter = new EnterPassPresenter(this, userRepository, logger);
+            presenter = new EnterPassPresenter(this, generalOptionsRepository, userRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,7 +31,7 @@ namespace LiveView.Forms
         private void BtnOK_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            enterPassPresenter.Login();
+            presenter.Login();
         }
     }
 }

@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class Templates : BaseView, ITemplatesView
     {
-        private readonly TemplatesPresenter templatesPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly TemplatesPresenter presenter;
 
-        public Templates(PermissionManager permissionManager, ILogger<Templates> logger, ITemplateRepository<Template> templateRepository)
+        public Templates(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<Templates> logger, ITemplateRepository<Template> templateRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            templatesPresenter = new TemplatesPresenter(this, templateRepository, logger);
+            presenter = new TemplatesPresenter(this, generalOptionsRepository, templateRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,24 +31,24 @@ namespace LiveView.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            templatesPresenter.Save();
+            presenter.Save();
         }
 
         [RequirePermission(TemplateManagementPermissions.Delete)]
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            templatesPresenter.Delete();
+            presenter.Delete();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            templatesPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void Templates_Shown(object sender, EventArgs e)
         {
-            templatesPresenter.Load();
+            presenter.Load();
         }
     }
 }

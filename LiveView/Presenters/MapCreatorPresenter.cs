@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly IMapRepository<Map> mapRepository;
         private readonly ILogger<MapCreator> logger;
 
-        public MapCreatorPresenter(IMapCreatorView mapCreatorView, IMapRepository<Map> mapRepository, ILogger<MapCreator> logger)
-            : base(mapCreatorView)
+        public MapCreatorPresenter(IMapCreatorView mapCreatorView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IMapRepository<Map> mapRepository, ILogger<MapCreator> logger)
+            : base(mapCreatorView, generalOptionsRepository)
         {
             this.mapCreatorView = mapCreatorView;
             this.mapRepository = mapRepository;

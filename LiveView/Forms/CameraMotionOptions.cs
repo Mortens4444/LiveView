@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class CameraMotionOptions : BaseView, ICameraMotionOptionsView
     {
-        private readonly CameraMotionOptionsPresenter cameraMotionOptionsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly CameraMotionOptionsPresenter presenter;
 
-        public CameraMotionOptions(PermissionManager permissionManager, ILogger<CameraMotionOptions> logger, ICameraRepository<Camera> cameraRepository)
+        public CameraMotionOptions(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<CameraMotionOptions> logger, ICameraRepository<Camera> cameraRepository)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            cameraMotionOptionsPresenter = new CameraMotionOptionsPresenter(this, cameraRepository, logger);
+            presenter = new CameraMotionOptionsPresenter(this, generalOptionsRepository, cameraRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,12 +32,12 @@ namespace LiveView.Forms
         private void BtnChange_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            cameraMotionOptionsPresenter.SaveSettings();
+            presenter.SaveSettings();
         }
 
         private void CameraMotionOptions_Shown(object sender, EventArgs e)
         {
-            cameraMotionOptionsPresenter.Load();
+            presenter.Load();
         }
     }
 }

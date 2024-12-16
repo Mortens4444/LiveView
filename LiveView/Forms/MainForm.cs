@@ -1,4 +1,6 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
@@ -18,13 +20,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using User = Mtf.Permissions.Models.User;
 
 namespace LiveView.Forms
 {
     public partial class MainForm : BaseView, IMainView
     {
-        private readonly MainPresenter mainPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly MainPresenter presenter;
 
         private static string Uptime;
         private static string Day;
@@ -42,10 +44,9 @@ namespace LiveView.Forms
             HardwareKey.GetDescription();
         }
 
-        public MainForm(PermissionManager permissionManager, ILogger<MainForm> logger, FormFactory formFactory)
+        public MainForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger, FormFactory formFactory) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             //permissionManager.ApplyPermissionsOnControls(this);
             permissionManager.SetUser(this, new User
@@ -57,11 +58,13 @@ namespace LiveView.Forms
                     new Permission { PermissionGroup = typeof(ServerManagementPermissions), PermissionValue = (long)ServerManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.PersonalSettingsManagement },
                     new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit },
-                    new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl}
+                    new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl},
+                    new Permission { PermissionGroup = typeof(WindowManagementPermissions), PermissionValue = (long)WindowManagementPermissions.FullControl},
                 }
             });
 
-            mainPresenter = new MainPresenter(formFactory, this, logger);
+            presenter = new MainPresenter(formFactory, this, generalOptionsRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
 
@@ -74,7 +77,7 @@ namespace LiveView.Forms
         {
             if (ControlCenter == null)
             {
-                ControlCenter = mainPresenter.ShowForm<ControlCenter>();
+                ControlCenter = presenter.ShowForm<ControlCenter>();
             }
             else
             {
@@ -89,21 +92,21 @@ namespace LiveView.Forms
         private void TsmiServerAndCameraManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<ServerAndCameraManagement>();
+            presenter.ShowForm<ServerAndCameraManagement>();
         }
 
         [RequirePermission(GridManagementPermissions.FullControl)]
         private void TsmiGridManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<GridManager>();
+            presenter.ShowForm<GridManager>();
         }
 
         [RequirePermission(SequenceManagementPermissions.FullControl)]
         private void TsmiSequentialChains_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<SequentialChains>();
+            presenter.ShowForm<SequentialChains>();
         }
 
         [RequirePermission(GridManagementPermissions.FullControl)]
@@ -112,14 +115,14 @@ namespace LiveView.Forms
         private void TsmiAutoCreateWizard_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<AutoCreateWizard>();
+            presenter.ShowForm<AutoCreateWizard>();
         }
 
         [RequirePermission(TemplateManagementPermissions.FullControl)]
         private void TsmiTemplates_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<Templates>();
+            presenter.ShowForm<Templates>();
         }
 
         [RequirePermission(UserManagementPermissions.FullControl)]
@@ -127,14 +130,14 @@ namespace LiveView.Forms
         private void TsmiUserAndGroupManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<UserAndGroupManagement>();
+            presenter.ShowForm<UserAndGroupManagement>();
         }
 
         [RequirePermission(UserManagementPermissions.FullControl)]
         private void TsmiProfile_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<Profile>();
+            presenter.ShowForm<Profile>();
         }
 
         [RequirePermission(SettingsManagementPermissions.PersonalSettingsManagement)]
@@ -142,21 +145,21 @@ namespace LiveView.Forms
         private void TsmiPersonalOptions_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<PersonalOptionsForm>();
+            presenter.ShowForm<PersonalOptionsForm>();
         }
 
         [RequirePermission(SettingsManagementPermissions.StaticSettingsManagement)]
         private void TsmiGeneralOptions_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<GeneralOptionsForm>();
+            presenter.ShowForm<GeneralOptionsForm>();
         }
 
         [RequirePermission(DisplayManagementPermissions.FullControl)]
         private void TsmiDisplaySettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<DisplayOptions>();
+            presenter.ShowForm<DisplayOptions>();
         }
 
         [RequirePermission(LanguageManagementPermissions.Update)]
@@ -170,64 +173,64 @@ namespace LiveView.Forms
         private void TsmiLogViewer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<LogViewer>();
+            presenter.ShowForm<LogViewer>();
         }
 
         private void TsmiPositioningMousePointer_Click(object sender, EventArgs e)
         {
-            mainPresenter.MoveMouseToHome();
+            presenter.MoveMouseToHome();
         }
 
         [RequirePermission(SerialDeviceManagementPermissions.FullControl)]
         private void TsmiBarCodeReadings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<BarcodeReadings>();
+            presenter.ShowForm<BarcodeReadings>();
         }
 
         [RequirePermission(CameraManagementPermissions.FullControl)]
         private void TsmiSyncronView_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<SyncronView>();
+            presenter.ShowForm<SyncronView>();
         }
 
         [RequirePermission(IODeviceManagementPermissions.FullControl)]
         private void TsmiIOPortsSettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<IOPortSettings>();
+            presenter.ShowForm<IOPortSettings>();
         }
 
         [RequirePermission(CameraManagementPermissions.FullControl)]
         private void TsmiMotionPopup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<CameraMotionOptions>();
+            presenter.ShowForm<CameraMotionOptions>();
         }
 
         [RequirePermission(MapManagementPermissions.FullControl)]
         private void TsmiMapCreator_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.ShowForm<MapCreator>();
+            presenter.ShowForm<MapCreator>();
         }
 
         private void TsmiAbout_Click(object sender, EventArgs e)
         {
-            mainPresenter.ShowForm<About>();
+            presenter.ShowForm<About>();
         }
 
         private void TsmiLicense_Click(object sender, EventArgs e)
         {
-            mainPresenter.ShowForm<LicenseForm>();
+            presenter.ShowForm<LicenseForm>();
         }
 
         [RequirePermission(ApplicationManagementPermissions.Exit)]
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (!mainPresenter.Exit())
+            if (!presenter.Exit())
             {
                 e.Cancel = true;
             }
@@ -237,22 +240,22 @@ namespace LiveView.Forms
         private void TsmiExit_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mainPresenter.Exit();
+            presenter.Exit();
         }
 
         private void BtnLoginLogoutPrimary_Click(object sender, EventArgs e)
         {
-            mainPresenter.PrimaryLogon();
+            presenter.PrimaryLogon();
         }
 
         private void BtnLoginLogoutSecondary_Click(object sender, EventArgs e)
         {
-            mainPresenter.SecondaryLogon();
+            presenter.SecondaryLogon();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            mainPresenter.Load();
+            presenter.Load();
         }
 
         public IntPtr GetHandle()
@@ -296,7 +299,7 @@ namespace LiveView.Forms
             switch (m.WParam.ToInt32())
             {
                 case 1:
-                    mainPresenter.SetCursorPosition();
+                    presenter.SetCursorPosition();
                     break;
 
                 default:
@@ -321,7 +324,7 @@ namespace LiveView.Forms
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            mainPresenter.SetUptime();
+            presenter?.SetUptime();
         }
 
         public void SetUptime(TimeSpan osUptime, TimeSpan appUptime)

@@ -1,4 +1,7 @@
-﻿using Mtf.Permissions.Attributes;
+﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Presenters;
+using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
@@ -9,14 +12,13 @@ namespace LiveView.Forms
 {
     public partial class About : BaseView
     {
-        private readonly PermissionManager permissionManager;
-
-        public About(PermissionManager permissionManager)
+        public About(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
             lblProductName.Text = Application.ProductName;
             lblVersion.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));
+
+            SetPresenter(new BasePresenter(this, generalOptionsRepository));
         }
 
         private void BtnOk_Click(object sender, EventArgs e)

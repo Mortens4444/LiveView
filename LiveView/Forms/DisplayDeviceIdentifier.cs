@@ -1,16 +1,16 @@
 ﻿using LiveView.Dto;
 using Mtf.LanguageService;
+using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class DisplayDeviceIdentifier : Form
+    public partial class DisplayDeviceIdentifier : BaseView
     {
         private const int secondsToShow = 5;
 
-        public DisplayDeviceIdentifier(DisplayDto display)
+        public DisplayDeviceIdentifier(PermissionManager permissionManager, DisplayDto display) : base(permissionManager)
         {
             InitializeComponent();
 

@@ -16,8 +16,8 @@ namespace LiveView.Presenters
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<AddVideoServer> logger;
 
-        public AddVideoServerPresenter(IAddVideoServerView addVideoServerView, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
-            : base(addVideoServerView)
+        public AddVideoServerPresenter(IAddVideoServerView addVideoServerView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
+            : base(addVideoServerView, generalOptionsRepository)
         {
             this.addVideoServerView = addVideoServerView;
             this.serverRepository = serverRepository;

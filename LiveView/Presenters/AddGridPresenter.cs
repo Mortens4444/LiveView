@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly IGridRepository<Grid> gridRepository;
         private readonly ILogger<AddGrid> logger;
 
-        public AddGridPresenter(IAddGridView addGridView, IGridRepository<Grid> gridRepository, ILogger<AddGrid> logger)
-            : base(addGridView)
+        public AddGridPresenter(IAddGridView addGridView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<AddGrid> logger)
+            : base(addGridView, generalOptionsRepository)
         {
             this.addGridView = addGridView;
             this.gridRepository = gridRepository;

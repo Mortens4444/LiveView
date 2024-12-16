@@ -16,45 +16,45 @@ namespace LiveView.Forms
     public partial class AddVideoServer : BaseView, IAddVideoServerView
     {
         private readonly Server server;
-        private readonly AddVideoServerPresenter addVideoServerPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly AddVideoServerPresenter presenter;
 
-        public AddVideoServer(PermissionManager permissionManager, ILogger<AddVideoServer> logger, IServerRepository<Server> serverRepository, Server server = null)
+        public AddVideoServer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddVideoServer> logger, IServerRepository<Server> serverRepository, Server server = null)
+             : base(permissionManager)
         {
             InitializeComponent();
             this.server = server;
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            addVideoServerPresenter = new AddVideoServerPresenter(this, serverRepository, logger);
+            presenter = new AddVideoServerPresenter(this, generalOptionsRepository, serverRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
 
         private void BtnValidate_Click(object sender, EventArgs e)
         {
-            addVideoServerPresenter.Validate();
+            presenter.Validate();
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
         private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addVideoServerPresenter.AddOrModify(server);
+            presenter.AddOrModify(server);
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            addVideoServerPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
         private async void AddVideoServer_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addVideoServerPresenter.LoadData(server);
-            await addVideoServerPresenter.SearchForHostsAsync();
+            presenter.LoadData(server);
+            await presenter.SearchForHostsAsync();
         }
 
         private void CbIpAddress_SelectedIndexChanged(object sender, EventArgs e)

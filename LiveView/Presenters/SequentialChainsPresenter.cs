@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly ISequenceRepository<Sequence> sequenceRepository;
         private readonly ILogger<SequentialChains> logger;
 
-        public SequentialChainsPresenter(ISequentialChainsView sequentialChainsView, ISequenceRepository<Sequence> sequenceRepository, ILogger<SequentialChains> logger)
-            : base(sequentialChainsView)
+        public SequentialChainsPresenter(ISequentialChainsView sequentialChainsView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ISequenceRepository<Sequence> sequenceRepository, ILogger<SequentialChains> logger)
+            : base(sequentialChainsView, generalOptionsRepository)
         {
             this.sequentialChainsView = sequentialChainsView;
             this.sequenceRepository = sequenceRepository;

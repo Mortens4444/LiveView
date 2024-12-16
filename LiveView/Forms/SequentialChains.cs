@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class SequentialChains : BaseView, ISequentialChainsView
     {
-        private readonly SequentialChainsPresenter sequentialChainsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly SequentialChainsPresenter presenter;
 
-        public SequentialChains(PermissionManager permissionManager, ILogger<SequentialChains> logger, ISequenceRepository<Sequence> sequenceRepository)
+        public SequentialChains(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<SequentialChains> logger, ISequenceRepository<Sequence> sequenceRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            sequentialChainsPresenter = new SequentialChainsPresenter(this, sequenceRepository, logger);
+            presenter = new SequentialChainsPresenter(this, generalOptionsRepository, sequenceRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,35 +32,35 @@ namespace LiveView.Forms
         private void BtnDeleteSequence_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.DeleteSequence();
+            presenter.DeleteSequence();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
         private void BtnAddGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.AddGrid();
+            presenter.AddGrid();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
         private void BtnMoveUp_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.MoveGridUp();
+            presenter.MoveGridUp();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
         private void BtnMoveDown_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.MoveGridDown();
+            presenter.MoveGridDown();
         }
 
         [RequirePermission(SequenceManagementPermissions.Update)]
         private void BtnDeleteGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.DeleteGrid();
+            presenter.DeleteGrid();
         }
 
         [RequirePermission(SequenceManagementPermissions.Create)]
@@ -68,12 +68,12 @@ namespace LiveView.Forms
         private void BtnAddOrUpdateSequence_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            sequentialChainsPresenter.AddOrMUpdateSequence();
+            presenter.AddOrMUpdateSequence();
         }
 
         private void SequentialChains_Shown(object sender, EventArgs e)
         {
-            sequentialChainsPresenter.Load();
+            presenter.Load();
         }
     }
 }

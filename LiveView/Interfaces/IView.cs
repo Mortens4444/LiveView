@@ -2,12 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
     public interface IView : IInvoker
     {
+        Point Location { get; set; }
+
+        Size Size { get; set; }
+
         void Close();
 
         Form GetSelf();

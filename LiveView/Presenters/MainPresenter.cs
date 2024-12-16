@@ -1,4 +1,6 @@
-﻿using LiveView.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
@@ -16,8 +18,8 @@ namespace LiveView.Presenters
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
 
-        public MainPresenter(FormFactory formFactory, IMainView mainView, ILogger<MainForm> logger)
-            : base(mainView, formFactory)
+        public MainPresenter(FormFactory formFactory, IMainView mainView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
+            : base(mainView, generalOptionsRepository, formFactory)
         {
             this.mainView = mainView;
             this.logger = logger;

@@ -13,31 +13,31 @@ namespace LiveView.Forms
 {
     public partial class ServerAndCameraProperties : BaseView, IServerAndCameraPropertiesView
     {
-        private readonly ServerAndCameraPropertiesPresenter serverAndCameraPropertiesPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly ServerAndCameraPropertiesPresenter presenter;
 
-        public ServerAndCameraProperties(PermissionManager permissionManager, ILogger<ServerAndCameraProperties> logger, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
+        public ServerAndCameraProperties(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<ServerAndCameraProperties> logger, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            serverAndCameraPropertiesPresenter = new ServerAndCameraPropertiesPresenter(this, serverRepository, cameraRepository, logger);
+            presenter = new ServerAndCameraPropertiesPresenter(this, generalOptionsRepository, serverRepository, cameraRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            serverAndCameraPropertiesPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         [RequirePermission(PasswordManagementPermissions.Select)]
         private void BtnShowPassword_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.ShowPassword();
+            presenter.ShowPassword();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
@@ -45,35 +45,35 @@ namespace LiveView.Forms
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.Refresh();
+            presenter.Refresh();
         }
 
         [RequirePermission(CameraManagementPermissions.ExportCameraList)]
         private void BtnExportCameraList_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.ExportCameraList();
+            presenter.ExportCameraList();
         }
 
         [RequirePermission(HardwareManagementPermissions.ExportInfo)]
         private void BtnExportHardwareInfo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.ExportHadwareInfo();
+            presenter.ExportHadwareInfo();
         }
 
         [RequirePermission(HardwareManagementPermissions.Select)]
         private void BtnGetHardwareInfo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.GetHardwareInfo();
+            presenter.GetHardwareInfo();
         }
 
         [RequirePermission(NetworkManagementPermissions.WakeOnLAN)]
         private void BtnWakeOnLan_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            serverAndCameraPropertiesPresenter.WakeOnLan();
+            presenter.WakeOnLan();
         }
     }
 }

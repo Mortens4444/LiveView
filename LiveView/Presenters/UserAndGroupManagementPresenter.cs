@@ -14,8 +14,8 @@ namespace LiveView.Presenters
         private readonly IGroupRepository<Group> groupRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
 
-        public UserAndGroupManagementPresenter(IUserAndGroupManagementView userAndGroupManagementView, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository, ILogger<UserAndGroupManagement> logger)
-            : base(userAndGroupManagementView)
+        public UserAndGroupManagementPresenter(IUserAndGroupManagementView userAndGroupManagementView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository, ILogger<UserAndGroupManagement> logger)
+            : base(userAndGroupManagementView, generalOptionsRepository)
         {
             this.userAndGroupManagementView = userAndGroupManagementView;
             this.userRepository = userRepository;

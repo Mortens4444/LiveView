@@ -15,9 +15,9 @@ namespace LiveView.Presenters
         private readonly IGridRepository<Grid> gridRepository;
         private readonly ILogger<AutoCreateWizard> logger;
 
-        public AutoCreateWizardPresenter(IAutoCreateWizardView autoCreateWizardView, ITemplateRepository<Template> templateRepository,
+        public AutoCreateWizardPresenter(IAutoCreateWizardView autoCreateWizardView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ITemplateRepository<Template> templateRepository,
             ISequenceRepository<Sequence> sequenceRepository, IGridRepository<Grid> gridRepository, ILogger<AutoCreateWizard> logger)
-            : base(autoCreateWizardView)
+            : base(autoCreateWizardView, generalOptionsRepository)
         {
             this.autoCreateWizardView = autoCreateWizardView;
             this.templateRepository = templateRepository;

@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
 
-        public PersonalOptionsPresenter(IPersonalOptionsView personalOptionsView, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository, ILogger<PersonalOptionsForm> logger)
-            : base(personalOptionsView)
+        public PersonalOptionsPresenter(IPersonalOptionsView personalOptionsView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository, ILogger<PersonalOptionsForm> logger)
+            : base(personalOptionsView, generalOptionsRepository)
         {
             this.personalOptionsView = personalOptionsView;
             this.personalOptionsRepository = personalOptionsRepository;

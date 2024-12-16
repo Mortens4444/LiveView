@@ -17,17 +17,17 @@ namespace LiveView.Forms
 {
     public partial class PersonalOptionsForm : BaseView, IPersonalOptionsView
     {
-        private readonly PersonalOptionsPresenter personalOptionsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly PersonalOptionsPresenter presenter;
 
-        public PersonalOptionsForm(PermissionManager permissionManager, ILogger<PersonalOptionsForm> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
+        public PersonalOptionsForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<PersonalOptionsForm> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            personalOptionsPresenter = new PersonalOptionsPresenter(this, personalOptionsRepository, logger);
+            presenter = new PersonalOptionsPresenter(this, generalOptionsRepository, personalOptionsRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -36,17 +36,17 @@ namespace LiveView.Forms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            personalOptionsPresenter.SaveSettings();
+            presenter.SaveSettings();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            personalOptionsPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void PersonalOptionsForm_Shown(object sender, EventArgs e)
         {
-            personalOptionsPresenter.Load();
+            presenter.Load();
             foreach (ImplementedLanguage language in Enum.GetValues(typeof(ImplementedLanguage)))
             {
                 var description = language.GetDescription();

@@ -1,7 +1,14 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
+using Database.Models;
+using LiveView.Dto;
+using LiveView.Interfaces;
 using LiveView.Services;
 using Mtf.MessageBoxes.Enums;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -10,11 +17,16 @@ namespace LiveView.Presenters
     {
         private readonly IView view;
         private readonly FormFactory formFactory;
+        private static IEnumerable<GeneralOptionDto> generalOptions;
 
-        public BasePresenter(IView view, FormFactory formFactory = null)
+        protected readonly IGeneralOptionsRepository<GeneralOption> generalOptionsRepository;
+
+        public BasePresenter(IView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory = null)
         {
             this.formFactory = formFactory;
+            this.generalOptionsRepository = generalOptionsRepository;
             this.view = view;
+            generalOptions = generalOptionsRepository.GetAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }
 
         public TFormType ShowForm<TFormType>(params object[] parameters)
@@ -85,6 +97,100 @@ namespace LiveView.Presenters
 
         public virtual void Load()
         {
+        }
+
+        public void OnResizeOrMoveEnd()
+        {
+            var viewName = view.GetType().Name;
+            var x = $"{viewName}_X";
+            var y = $"{viewName}_Y";
+            var width = $"{viewName}_Width";
+            var height = $"{viewName}_Height";
+
+            generalOptionsRepository.Update(new GeneralOption
+            {
+                Name = x,
+                Value = view.Location.X.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Update(new GeneralOption
+            {
+                Name = y,
+                Value = view.Location.Y.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Update(new GeneralOption
+            {
+                Name = width,
+                Value = view.Size.Width.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Update(new GeneralOption
+            {
+                Name = height,
+                Value = view.Size.Height.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+
+        }
+
+        public void InsertFormLocationAndSize()
+        {
+            var viewName = view.GetType().Name;
+            var x = $"{viewName}_X";
+            var y = $"{viewName}_Y";
+            var width = $"{viewName}_Width";
+            var height = $"{viewName}_Height";
+
+            generalOptionsRepository.Insert(new GeneralOption
+            {
+                Name = x,
+                Value = view.Location.X.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Insert(new GeneralOption
+            {
+                Name = y,
+                Value = view.Location.Y.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Insert(new GeneralOption
+            {
+                Name = width,
+                Value = view.Size.Width.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+            generalOptionsRepository.Insert(new GeneralOption
+            {
+                Name = height,
+                Value = view.Size.Height.ToString(),
+                Type = GeneralOptionType.Int32
+            });
+        }
+
+        public void SetLocationAndSize()
+        {
+            var viewName = view.GetType().Name;
+            var x = $"{viewName}_X";
+            var y = $"{viewName}_Y";
+            var width = $"{viewName}_Width";
+            var height = $"{viewName}_Height";
+
+            var filtered = generalOptions.Where(generalOption => generalOption.Name.StartsWith($"{viewName}_"));
+            var xLocation = filtered.FirstOrDefault(generalOption => generalOption.Name == x);
+            var yLocation = filtered.FirstOrDefault(generalOption => generalOption.Name == y);
+            var viewWidth = filtered.FirstOrDefault(generalOption => generalOption.Name == width);
+            var viewHeight = filtered.FirstOrDefault(generalOption => generalOption.Name == height);
+
+            if (xLocation != null)
+            {
+                view.Location = new Point(xLocation.GetValue<int>(), yLocation.GetValue<int>());
+                view.Size = new Size(viewWidth.GetValue<int>(), viewHeight.GetValue<int>());
+            }
+            else
+            {
+                InsertFormLocationAndSize();
+            }
         }
     }
 }

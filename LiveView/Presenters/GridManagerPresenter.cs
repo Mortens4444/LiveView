@@ -15,8 +15,8 @@ namespace LiveView.Presenters
         private readonly IGridRepository<Grid> gridRepository;
         private readonly ILogger<GridManager> logger;
 
-        public GridManagerPresenter(IGridManagerView gridManagerView, IGridRepository<Grid> gridRepository, ILogger<GridManager> logger, FormFactory formFactory)
-            : base(gridManagerView, formFactory)
+        public GridManagerPresenter(IGridManagerView gridManagerView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<GridManager> logger, FormFactory formFactory)
+            : base(gridManagerView, generalOptionsRepository, formFactory)
         {
             this.gridManagerView = gridManagerView;
             this.gridRepository = gridRepository;

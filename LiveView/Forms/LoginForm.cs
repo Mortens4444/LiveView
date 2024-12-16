@@ -10,29 +10,29 @@ namespace LiveView.Forms
 {
     public partial class LoginForm : BaseView, ILoginFormView
     {
-        private readonly LoginFormPresenter loginFormPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly LoginFormPresenter presenter;
 
-        public LoginForm(PermissionManager permissionManager, ILogger<LoginForm> logger, IUserRepository<User> userRepository)
+        public LoginForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LoginForm> logger, IUserRepository<User> userRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            loginFormPresenter = new LoginFormPresenter(this, userRepository, logger);
+            presenter = new LoginFormPresenter(this, generalOptionsRepository, userRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
 
         private void BtnOk_Click(object sender, System.EventArgs e)
         {
-            loginFormPresenter.Login();
+            presenter.Login();
         }
 
         private void BtnClose_Click(object sender, System.EventArgs e)
         {
-            loginFormPresenter.CloseForm();
+            presenter.CloseForm();
         }
     }
 }

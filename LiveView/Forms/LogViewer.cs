@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class LogViewer : BaseView, ILogViewerView
     {
-        private readonly LogViewerPresenter logViewerPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly LogViewerPresenter presenter;
 
-        public LogViewer(PermissionManager permissionManager, ILogger<LogViewer> logger, ILogRepository<Log> logRepository)
+        public LogViewer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LogViewer> logger, ILogRepository<Log> logRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            logViewerPresenter = new LogViewerPresenter(this, logRepository, logger);
+            presenter = new LogViewerPresenter(this, generalOptionsRepository, logRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,21 +32,21 @@ namespace LiveView.Forms
         private void LogViewer_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            logViewerPresenter.Load();
+            presenter.Load();
         }
 
         [RequirePermission(LogManagementPermissions.Select)]
         private void BtnGetLogs_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            logViewerPresenter.GetLogs();
+            presenter.GetLogs();
         }
 
         [RequirePermission(LogManagementPermissions.Delete)]
         private void BtnDeleteAllLogs_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            logViewerPresenter.DeleteAllLogs();
+            presenter.DeleteAllLogs();
         }
     }
 }

@@ -1,0 +1,1 @@
+﻿SELECT name as Name, type_id as Type, value as Value FROM Options;

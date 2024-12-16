@@ -1,4 +1,6 @@
-﻿using LiveView.Forms;
+﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,8 +12,8 @@ namespace LiveView.Presenters
         private readonly ILicenseFormView licenseFormView;
         private readonly ILogger<LicenseForm> logger;
 
-        public LicenseFormPresenter(ILicenseFormView licenseFormView, ILogger<LicenseForm> logger)
-            : base(licenseFormView)
+        public LicenseFormPresenter(ILicenseFormView licenseFormView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LicenseForm> logger)
+            : base(licenseFormView, generalOptionsRepository)
         {
             this.licenseFormView = licenseFormView;
             this.logger = logger;

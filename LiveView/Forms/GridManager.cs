@@ -14,17 +14,17 @@ namespace LiveView.Forms
 {
     public partial class GridManager : BaseView, IGridManagerView
     {
-        private readonly GridManagerPresenter gridManagerPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly GridManagerPresenter presenter;
 
-        public GridManager(PermissionManager permissionManager, ILogger<GridManager> logger, IGridRepository<Grid> gridRepository, FormFactory formFactory)
+        public GridManager(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<GridManager> logger, IGridRepository<Grid> gridRepository, FormFactory formFactory)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            gridManagerPresenter = new GridManagerPresenter(this, gridRepository, logger, formFactory);
+            presenter = new GridManagerPresenter(this, generalOptionsRepository, gridRepository, logger, formFactory);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -33,45 +33,45 @@ namespace LiveView.Forms
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            gridManagerPresenter.DeleteGrid();
+            presenter.DeleteGrid();
         }
 
         [RequirePermission(GridManagementPermissions.Create)]
         private void BtnNewGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            gridManagerPresenter.ShowDialogWithReload<AddGrid>();
+            presenter.ShowDialogWithReload<AddGrid>();
         }
 
         [RequirePermission(GridManagementPermissions.Create | GridManagementPermissions.Update)]
         private void BtnMoveUp_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            gridManagerPresenter.MoveUpCamera();
+            presenter.MoveUpCamera();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]
         private void BtnMoveDown_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            gridManagerPresenter.MoveDownCamera();
+            presenter.MoveDownCamera();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]
         private void BtnModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            gridManagerPresenter.ModifyGrid();
+            presenter.ModifyGrid();
         }
 
         private void GridManager_Shown(object sender, EventArgs e)
         {
-            gridManagerPresenter.Load();
+            presenter.Load();
         }
 
         private void CbGrids_SelectedIndexChanged(object sender, EventArgs e)
         {
-            gridManagerPresenter.SelectGrid();
+            presenter.SelectGrid();
         }
     }
 }

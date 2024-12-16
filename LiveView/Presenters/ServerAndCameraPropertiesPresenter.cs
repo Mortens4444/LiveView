@@ -14,8 +14,8 @@ namespace LiveView.Presenters
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
 
-        public ServerAndCameraPropertiesPresenter(IServerAndCameraPropertiesView serverAndCameraPropertiesView, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraProperties> logger)
-            : base(serverAndCameraPropertiesView)
+        public ServerAndCameraPropertiesPresenter(IServerAndCameraPropertiesView serverAndCameraPropertiesView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraProperties> logger)
+            : base(serverAndCameraPropertiesView, generalOptionsRepository)
         {
             this.serverAndCameraPropertiesView = serverAndCameraPropertiesView;
             this.serverRepository = serverRepository;

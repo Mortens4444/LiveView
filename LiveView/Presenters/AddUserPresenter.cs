@@ -13,8 +13,8 @@ namespace LiveView.Presenters
         private readonly IUserRepository<User> userRepository;
         private readonly ILogger<AddUser> logger;
 
-        public AddUserPresenter(IAddUserView addUserView, IUserRepository<User> userRepository, ILogger<AddUser> logger)
-            : base(addUserView)
+        public AddUserPresenter(IAddUserView addUserView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<AddUser> logger)
+            : base(addUserView, generalOptionsRepository)
         {
             this.addUserView = addUserView;
             this.userRepository = userRepository;

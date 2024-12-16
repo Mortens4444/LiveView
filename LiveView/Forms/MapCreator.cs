@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class MapCreator : BaseView, IMapCreatorView
     {
-        private readonly MapCreatorPresenter mapCreatorPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly MapCreatorPresenter presenter;
 
-        public MapCreator(PermissionManager permissionManager, ILogger<MapCreator> logger, IMapRepository<Map> mapRepository)
+        public MapCreator(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MapCreator> logger, IMapRepository<Map> mapRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            mapCreatorPresenter = new MapCreatorPresenter(this, mapRepository, logger);
+            presenter = new MapCreatorPresenter(this, generalOptionsRepository, mapRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,28 +31,28 @@ namespace LiveView.Forms
         private void BtnAddObject_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mapCreatorPresenter.AddObject();
+            presenter.AddObject();
         }
 
         [RequirePermission(MapManagementPermissions.Delete)]
         private void BtnDeleteMap_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mapCreatorPresenter.DeleteMap();
+            presenter.DeleteMap();
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
         private void BtnLoadImage_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mapCreatorPresenter.LoadMapImage();
+            presenter.LoadMapImage();
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
         private void BtnSaveMap_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            mapCreatorPresenter.SaveMap();
+            presenter.SaveMap();
         }
     }
 }

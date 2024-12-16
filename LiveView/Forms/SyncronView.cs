@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class SyncronView : BaseView, ISyncronViewView
     {
-        private readonly SyncronViewPresenter syncronViewPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly SyncronViewPresenter presenter;
 
-        public SyncronView(PermissionManager permissionManager, ILogger<SyncronView> logger, ICameraRepository<Camera> cameraRepository)
+        public SyncronView(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<SyncronView> logger, ICameraRepository<Camera> cameraRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            syncronViewPresenter = new SyncronViewPresenter(this, cameraRepository, logger);
+            presenter = new SyncronViewPresenter(this, generalOptionsRepository, cameraRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,47 +31,47 @@ namespace LiveView.Forms
         private void BtnStepBack_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.StepBack();
+            presenter.StepBack();
         }
 
         [RequirePermission(CameraManagementPermissions.Select)]
         private void BtnPause_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.Pause();
+            presenter.Pause();
         }
 
         [RequirePermission(CameraManagementPermissions.Select)]
         private void BtnPlay_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.Play();
+            presenter.Play();
         }
 
         [RequirePermission(CameraManagementPermissions.Select)]
         private void BtnStepNext_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.StepNext();
+            presenter.StepNext();
         }
 
         [RequirePermission(CameraManagementPermissions.Select)]
         private void BtnGoto_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.Goto();
+            presenter.Goto();
         }
 
         private void TbSpeed_Scroll(object sender, EventArgs e)
         {
-            syncronViewPresenter.SetSpeed();
+            presenter.SetSpeed();
         }
 
         [RequirePermission(CameraManagementPermissions.Select)]
         private void TsmiChangeCameraTo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            syncronViewPresenter.ConnectToCamera();
+            presenter.ConnectToCamera();
         }
     }
 }

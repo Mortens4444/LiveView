@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class IOPortSettings : BaseView, IIOPortSettingsView
     {
-        private readonly IOPortSettingsPresenter ioPortSettingsPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly IOPortSettingsPresenter presenter;
 
-        public IOPortSettings(PermissionManager permissionManager, ILogger<IOPortSettings> logger, IIOPortRepository<IOPort> ioPortRepository)
+        public IOPortSettings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<IOPortSettings> logger, IIOPortRepository<IOPort> ioPortRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            ioPortSettingsPresenter = new IOPortSettingsPresenter(this, ioPortRepository, logger);
+            presenter = new IOPortSettingsPresenter(this, generalOptionsRepository, ioPortRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,12 +32,12 @@ namespace LiveView.Forms
         private void BtnAddToRules_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            ioPortSettingsPresenter.AddRule();
+            presenter.AddRule();
         }
 
         private void IOPortSettings_Shown(object sender, EventArgs e)
         {
-            ioPortSettingsPresenter.Load();
+            presenter.Load();
         }
     }
 }

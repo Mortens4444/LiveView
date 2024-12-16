@@ -5,7 +5,6 @@ using LiveView.Interfaces;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
-using Mtf.Enums.Camera;
 using Mtf.LanguageService;
 using System;
 using System.Collections.Generic;
@@ -23,8 +22,8 @@ namespace LiveView.Presenters
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
-        public AddCamerasPresenter(IAddCamerasView addCamerasView, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, ILogger<AddCameras> logger)
-            : base(addCamerasView)
+        public AddCamerasPresenter(IAddCamerasView addCamerasView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, ILogger<AddCameras> logger)
+            : base(addCamerasView, generalOptionsRepository)
         {
             this.addCamerasView = addCamerasView;
             this.cameraRepository = cameraRepository;

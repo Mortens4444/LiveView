@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class AutoCreateWizard : BaseView, IAutoCreateWizardView
     {
-        private readonly AutoCreateWizardPresenter autoCreateWizardPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly AutoCreateWizardPresenter presenter;
 
-        public AutoCreateWizard(PermissionManager permissionManager, ILogger<AutoCreateWizard> logger, ITemplateRepository<Template> templateRepository, ISequenceRepository<Sequence> sequenceRepository, IGridRepository<Grid> gridRepository)
+        public AutoCreateWizard(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AutoCreateWizard> logger, ITemplateRepository<Template> templateRepository, ISequenceRepository<Sequence> sequenceRepository, IGridRepository<Grid> gridRepository)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            autoCreateWizardPresenter = new AutoCreateWizardPresenter(this, templateRepository, sequenceRepository, gridRepository, logger);
+            presenter = new AutoCreateWizardPresenter(this, generalOptionsRepository, templateRepository, sequenceRepository, gridRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -34,12 +34,12 @@ namespace LiveView.Forms
         private void BtnAutoCreate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            autoCreateWizardPresenter.AutoCreate();
+            presenter.AutoCreate();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         [RequirePermission(GridManagementPermissions.Create)]
@@ -47,7 +47,7 @@ namespace LiveView.Forms
         [RequirePermission(TemplateManagementPermissions.Create)]
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.AddSelected();
+            presenter.AddSelected();
         }
 
         [RequirePermission(GridManagementPermissions.Create)]
@@ -55,7 +55,7 @@ namespace LiveView.Forms
         [RequirePermission(TemplateManagementPermissions.Create)]
         private void BtnAddAll_Click(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.AddAll();
+            presenter.AddAll();
         }
 
         [RequirePermission(GridManagementPermissions.Delete)]
@@ -63,7 +63,7 @@ namespace LiveView.Forms
         [RequirePermission(TemplateManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.RemoveSelected();
+            presenter.RemoveSelected();
         }
 
         [RequirePermission(GridManagementPermissions.Delete)]
@@ -71,12 +71,12 @@ namespace LiveView.Forms
         [RequirePermission(TemplateManagementPermissions.Delete)]
         private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.RemoveAll();
+            presenter.RemoveAll();
         }
 
         private void AutoCreateWizard_Shown(object sender, EventArgs e)
         {
-            autoCreateWizardPresenter.Load();
+            presenter.Load();
         }
     }
 }

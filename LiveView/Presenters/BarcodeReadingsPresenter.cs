@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -11,8 +12,8 @@ namespace LiveView.Presenters
         private readonly IBarcodeReadingsView barcodeReadingsView;
         private readonly ILogger<BarcodeReadings> logger;
 
-        public BarcodeReadingsPresenter(IBarcodeReadingsView barcodeReadingsView, ILogger<BarcodeReadings> logger)
-            : base(barcodeReadingsView)
+        public BarcodeReadingsPresenter(IBarcodeReadingsView barcodeReadingsView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<BarcodeReadings> logger)
+            : base(barcodeReadingsView, generalOptionsRepository)
         {
             this.barcodeReadingsView = barcodeReadingsView;
             this.logger = logger;

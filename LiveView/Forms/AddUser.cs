@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class AddUser : BaseView, IAddUserView
     {
-        private readonly AddUserPresenter addUserPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly AddUserPresenter presenter;
 
-        public AddUser(PermissionManager permissionManager, ILogger<AddUser> logger, IUserRepository<User> userRepository)
+        public AddUser(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddUser> logger, IUserRepository<User> userRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            addUserPresenter = new AddUserPresenter(this, userRepository, logger);
+            presenter = new AddUserPresenter(this, generalOptionsRepository, userRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,12 +31,12 @@ namespace LiveView.Forms
         private void BtnCreate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addUserPresenter.CreateUser();
+            presenter.CreateUser();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            addUserPresenter.CloseForm();
+            presenter.CloseForm();
         }
     }
 }

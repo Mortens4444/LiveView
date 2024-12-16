@@ -24,8 +24,7 @@ namespace LiveView.Forms
 		private static Font font;
 		private static SolidBrush lbBrush, bcBrush, gcBrush, lgcBrush, mouseBrush;
 
-        private readonly ControlCenterPresenter controlCenterPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly ControlCenterPresenter presenter;
 
         private List<DisplayDto> cachedDisplays;
         private Dictionary<int, Rectangle> cachedBounds;
@@ -43,14 +42,15 @@ namespace LiveView.Forms
             mouseBrush = new SolidBrush(Color.Red);
         }
 
-        public ControlCenter(FormFactory formFactory, PermissionManager permissionManager, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository, DisplayManager displayManager)
+        public ControlCenter(FormFactory formFactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository, DisplayManager displayManager)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            controlCenterPresenter = new ControlCenterPresenter(this, formFactory, templateRepository, displayRepository, cameraRepository, displayManager, logger);
+            presenter = new ControlCenterPresenter(this, generalOptionsRepository, formFactory, templateRepository, displayRepository, cameraRepository, displayManager, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -82,188 +82,188 @@ namespace LiveView.Forms
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.CloseSequenceApplications();
+            presenter.CloseSequenceApplications();
         }
 
         [RequirePermission(CameraManagementPermissions.CloseFullScreen)]
         private void BtnCloseFullScreenCamera_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.CloseFullScreenCameraApplication();
+            presenter.CloseFullScreenCameraApplication();
         }
 
         [RequirePermission(DisplayManagementPermissions.Select)]
         private void BtnIdentify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.IdentifyDisplays();
+            presenter.IdentifyDisplays();
         }
 
         [RequirePermission(JoystickManagementPermissions.Calibrate)]
         private void BtnCalibrate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.CalibrateJoystick();
+            presenter.CalibrateJoystick();
         }
 
         [RequirePermission(GridManagementPermissions.Navigate)]
         private void BtnShowPreviousGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.ShowPreviousGrid();
+            presenter.ShowPreviousGrid();
         }
 
         [RequirePermission(GridManagementPermissions.Navigate)]
         private void BtnPlayOrPauseSequence_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.PlayOrPauseSequence();
+            presenter.PlayOrPauseSequence();
         }
 
         [RequirePermission(GridManagementPermissions.Navigate)]
         private void BtnShowNextGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.ShowNextGrid();
+            presenter.ShowNextGrid();
         }
 
         [RequirePermission(GridManagementPermissions.Rearrange)]
         private void BtnRearrangeGrid_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.RearrangeGrids();
+            presenter.RearrangeGrids();
         }
 
         [RequirePermission(CameraManagementPermissions.ZoomIn)]
         private void BtnZoomIn_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.ZoomIn();
+            presenter.ZoomIn();
         }
 
         private void BtnZoomIn_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopZoom();
+            presenter.StopZoom();
         }
 
         [RequirePermission(CameraManagementPermissions.ZoomOut)]
         private void BtnZoomOut_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.ZoomOut();
+            presenter.ZoomOut();
         }
 
         private void BtnZoomOut_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopZoom();
+            presenter.StopZoom();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
         private void BtnMoveCameraNorthWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToNorthWest();
+            presenter.MoveToNorthWest();
         }
 
         private void BtnMoveCameraNorthWest_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Tilt)]
         private void BtnMoveCameraNorth_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToNorth();
+            presenter.MoveToNorth();
         }
 
         private void BtnMoveCameraNorth_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
         private void BtnMoveCameraNorthEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToNorthEast();
+            presenter.MoveToNorthEast();
         }
 
         private void BtnMoveCameraNorthEast_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Pan)]
         private void BtnMoveCameraWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToWest();
+            presenter.MoveToWest();
         }
 
         private void BtnMoveCameraWest_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Preset)]
         private void BtnMoveCameraToPresetZero_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToPresetZero();
+            presenter.MoveToPresetZero();
         }
 
         [RequirePermission(CameraManagementPermissions.Pan)]
         private void BtnMoveCameraEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToEast();
+            presenter.MoveToEast();
         }
 
         private void BtnMoveCameraEast_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
         private void BtnMoveCameraSouthWest_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToSouthWest();
+            presenter.MoveToSouthWest();
         }
 
         private void BtnMoveCameraSouthWest_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.Tilt)]
         private void BtnMoveCameraSouth_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToSouth();
+            presenter.MoveToSouth();
         }
 
         private void BtnMoveCameraSouth_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         [RequirePermission(CameraManagementPermissions.PanTilt)]
         private void BtnMoveCameraSouthEast_MouseDown(object sender, MouseEventArgs e)
         {
             permissionManager.EnsurePermissions();
-            controlCenterPresenter.MoveToSouthEast();
+            presenter.MoveToSouthEast();
         }
 
         private void BtnMoveCameraSouthEast_MouseUp(object sender, MouseEventArgs e)
         {
-            controlCenterPresenter.StopMoving();
+            presenter.StopMoving();
         }
 
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
-            controlCenterPresenter.Load();
+            presenter.Load();
         }
 
         private void PDisplayDevices_Paint(object sender, PaintEventArgs e)
@@ -282,7 +282,7 @@ namespace LiveView.Forms
 
         private void DrawMouse(Graphics graphics)
         {
-            var mouseLocation = controlCenterPresenter.GetMouseLocation(pDisplayDevices.Size);
+            var mouseLocation = presenter.GetMouseLocation(pDisplayDevices.Size);
             graphics.FillEllipse(mouseBrush, mouseLocation.X, mouseLocation.Y, 3, 3);
         }
 
@@ -323,8 +323,8 @@ namespace LiveView.Forms
         {
             if (cachedDisplays == null || cachedBounds == null)
             {
-                cachedDisplays = controlCenterPresenter.GetDisplays();
-                cachedBounds = controlCenterPresenter.GetScaledDisplayBounds(cachedDisplays, pDisplayDevices.Size);
+                cachedDisplays = presenter.GetDisplays();
+                cachedBounds = presenter.GetScaledDisplayBounds(cachedDisplays, pDisplayDevices.Size);
             }
         }
 
@@ -345,7 +345,7 @@ namespace LiveView.Forms
         {
             try
             {
-                var starters = controlCenterPresenter.GetSequenceEnvironments();
+                var starters = presenter.GetSequenceEnvironments();
                 foreach (var starter in starters)
                 {
                     if (starter.Display.Id == display.Id)

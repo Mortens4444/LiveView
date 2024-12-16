@@ -1,15 +1,34 @@
 ﻿using LiveView.Interfaces;
-using Mtf.MessageBoxes.Enums;
+using LiveView.Presenters;
 using Mtf.MessageBoxes;
+using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
 using System;
-using System.Windows.Forms;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class BaseView : Form, IView
     {
+        private const int WM_EXITSIZEMOVE = 0x0232;
+        private const int WM_SYSCOMMAND = 0x0112;
+        private const int WM_CLOSE = 0x0010;
+        private const int SC_SIZE = 0xF000;
+        private const int SC_MOVE = 0xF010;
+
+        protected readonly PermissionManager permissionManager;
+
+        protected BasePresenter Presenter { get; private set; }
+
+        public BaseView(PermissionManager permissionManager)
+        {
+            this.permissionManager = permissionManager;
+            Load += BaseView_Load;
+        }
+
         public void InvokeAction(Action action)
         {
             Invoke(action);
@@ -120,6 +139,53 @@ namespace LiveView.Forms
         public TreeNode GetSelectedItem(TreeView treeView)
         {
             return treeView.SelectedNode;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                var command = m.WParam.ToInt32() & 0xFFF0;
+                if (command == SC_SIZE)
+                {
+                    if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Resize))
+                    {
+                        return;
+                    }
+                }
+                else if (command == SC_MOVE)
+                {
+                    if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Move))
+                    {
+                        return;
+                    }
+                }
+            }
+
+            if (m.Msg == WM_CLOSE)
+            {
+                if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close))
+                {
+                    return;
+                }
+            }
+
+            if (m.Msg == WM_EXITSIZEMOVE)
+            {
+                Presenter.OnResizeOrMoveEnd();
+            }
+
+            base.WndProc(ref m);
+        }
+
+        protected void SetPresenter(BasePresenter presenter)
+        {
+            Presenter = presenter;
+        }
+
+        private void BaseView_Load(object sender, EventArgs e)
+        {
+            Presenter.SetLocationAndSize();
         }
     }
 }

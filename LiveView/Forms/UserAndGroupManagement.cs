@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class UserAndGroupManagement : BaseView, IUserAndGroupManagementView
     {
-        private readonly UserAndGroupManagementPresenter userAndGroupManagementPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly UserAndGroupManagementPresenter presenter;
 
-        public UserAndGroupManagement(PermissionManager permissionManager, ILogger<UserAndGroupManagement> logger, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository)
+        public UserAndGroupManagement(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<UserAndGroupManagement> logger, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository)
+            : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            userAndGroupManagementPresenter = new UserAndGroupManagementPresenter(this, userRepository, groupRepository, logger);
+            presenter = new UserAndGroupManagementPresenter(this, generalOptionsRepository, userRepository, groupRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,14 +32,14 @@ namespace LiveView.Forms
         private void BtnNewGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            userAndGroupManagementPresenter.ShowDialogWithReload<AddGroup>();
+            presenter.ShowDialogWithReload<AddGroup>();
         }
 
         [RequirePermission(UserManagementPermissions.Create)]
         private void BtnNewUser_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            userAndGroupManagementPresenter.ShowDialogWithReload<AddUser>();
+            presenter.ShowDialogWithReload<AddUser>();
         }
 
         [RequirePermission(GroupManagementPermissions.Update)]
@@ -47,7 +47,7 @@ namespace LiveView.Forms
         private void BtnModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            userAndGroupManagementPresenter.Modify();
+            presenter.Modify();
         }
 
         [RequirePermission(GroupManagementPermissions.Delete)]
@@ -55,17 +55,17 @@ namespace LiveView.Forms
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            userAndGroupManagementPresenter.Delete();
+            presenter.Delete();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            userAndGroupManagementPresenter.CloseForm();
+            presenter.CloseForm();
         }
 
         private void UserAndGroupManagement_Shown(object sender, EventArgs e)
         {
-            userAndGroupManagementPresenter.Load();
+            presenter.Load();
         }
     }
 }

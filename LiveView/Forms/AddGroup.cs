@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class AddGroup : BaseView, IAddGroupView
     {
-        private readonly AddGroupPresenter addGroupPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly AddGroupPresenter presenter;
 
-        public AddGroup(PermissionManager permissionManager, ILogger<AddGroup> logger, IGroupRepository<Group> groupRepository)
+        public AddGroup(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddGroup> logger, IGroupRepository<Group> groupRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            addGroupPresenter = new AddGroupPresenter(this, groupRepository, logger);
+            presenter = new AddGroupPresenter(this, generalOptionsRepository, groupRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -33,38 +32,38 @@ namespace LiveView.Forms
         private void BtnCreateOrModifyGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.CreateOrModifyGroup();
+            presenter.CreateOrModifyGroup();
         }
 
         [RequirePermission(EventManagementPermissions.Create)]
         private void BtnCreateEvent_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.CreateEvent();
+            presenter.CreateEvent();
         }
 
         [RequirePermission(EventManagementPermissions.Update)]
         private void BtnModifyEvent_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.ModifyEvent();
+            presenter.ModifyEvent();
         }
 
         [RequirePermission(EventManagementPermissions.Delete)]
         private void BtnDeleteEvent_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.DeleteEvent();
+            presenter.DeleteEvent();
         }
 
         private void BtnSelectAllOperation_Click(object sender, EventArgs e)
         {
-            addGroupPresenter.SelectAllOperations();
+            presenter.SelectAllOperations();
         }
 
         private void BtnSelectAllCameras_Click(object sender, EventArgs e)
         {
-            addGroupPresenter.SelectAllCameras();
+            presenter.SelectAllCameras();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
@@ -72,7 +71,7 @@ namespace LiveView.Forms
         private void BtnAddSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.AddSelectedOperationsAndCameras();
+            presenter.AddSelectedOperationsAndCameras();
         }
 
         [RequirePermission(CameraManagementPermissions.Create)]
@@ -80,7 +79,7 @@ namespace LiveView.Forms
         private void BtnAddAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.AddAllOperationsAndCameras();
+            presenter.AddAllOperationsAndCameras();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
@@ -88,7 +87,7 @@ namespace LiveView.Forms
         private void BtnRemoveSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.RemoveSelectedOperationsAndCameras();
+            presenter.RemoveSelectedOperationsAndCameras();
         }
 
         [RequirePermission(CameraManagementPermissions.Delete)]
@@ -96,7 +95,7 @@ namespace LiveView.Forms
         private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.RemoveAllOperationsAndCameras();
+            presenter.RemoveAllOperationsAndCameras();
         }
 
         [RequirePermission(CameraManagementPermissions.FullControl)]
@@ -104,12 +103,12 @@ namespace LiveView.Forms
         private void BtnSavePermissions_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addGroupPresenter.SavePermissions();
+            presenter.SavePermissions();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            addGroupPresenter.CloseForm();
+            presenter.CloseForm();
         }
     }
 }

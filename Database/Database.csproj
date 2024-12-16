@@ -18,6 +18,7 @@
     <EmbeddedResource Include="Scripts\CreateStoredProcedures.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamera.sql" />
     <EmbeddedResource Include="Scripts\DeleteStaticOptions.sql" />
+    <EmbeddedResource Include="Scripts\InsertGeneralOption.sql" />
     <EmbeddedResource Include="Scripts\InsertCamera.sql" />
     <EmbeddedResource Include="Scripts\InsertServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
@@ -32,10 +33,10 @@
     <EmbeddedResource Include="Scripts\SelectNumberOfUsers.sql" />
     <EmbeddedResource Include="Scripts\SelectUserIdGroupId.sql" />
     <EmbeddedResource Include="Scripts\InsertDisplay.sql" />
-    <EmbeddedResource Include="Scripts\SelectStaticUserOptions.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGeneralOption.sql" />
     <EmbeddedResource Include="Scripts\InsertDatabase.sql" />
     <EmbeddedResource Include="Scripts\UpdateDatabase.sql" />
-    <EmbeddedResource Include="Scripts\UpdateOptions.sql" />
+    <EmbeddedResource Include="Scripts\UpdateGeneralOption.sql" />
     <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectUser.sql" />
     <EmbeddedResource Include="Scripts\SelectUserId.sql" />

@@ -1,0 +1,1 @@
+﻿UPDATE [Options] SET value = @Value, type_id = @Type WHERE name = @Name

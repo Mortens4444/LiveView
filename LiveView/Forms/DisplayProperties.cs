@@ -13,17 +13,16 @@ namespace LiveView.Forms
 {
     public partial class DisplayProperties : BaseView, IDisplayPropertiesView
     {
-        private readonly DisplayPropertiesPresenter displayPropertiesPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly DisplayPropertiesPresenter presenter;
 
-        public DisplayProperties(PermissionManager permissionManager, ILogger<DisplayProperties> logger, IDisplayRepository<Display> displayRepository)
+        public DisplayProperties(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<DisplayProperties> logger, IDisplayRepository<Display> displayRepository) : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            displayPropertiesPresenter = new DisplayPropertiesPresenter(this, displayRepository, logger);
+            presenter = new DisplayPropertiesPresenter(this, generalOptionsRepository, displayRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,7 +31,7 @@ namespace LiveView.Forms
         private void DisplayProperties_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            displayPropertiesPresenter.Load();
+            presenter.Load();
         }
     }
 }

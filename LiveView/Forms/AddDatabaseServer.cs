@@ -13,17 +13,17 @@ namespace LiveView.Forms
 {
     public partial class AddDatabaseServer : BaseView, IAddDatabaseServerView
     {
-        private readonly AddDatabaseServerPresenter addDatabaseServerPresenter;
-        private readonly PermissionManager permissionManager;
+        private readonly AddDatabaseServerPresenter presenter;
 
-        public AddDatabaseServer(PermissionManager permissionManager, ILogger<AddDatabaseServer> logger, IDatabaseServerRepository<DatabaseServer> databaseServerRepository)
+        public AddDatabaseServer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddDatabaseServer> logger, IDatabaseServerRepository<DatabaseServer> databaseServerRepository)
+             : base(permissionManager)
         {
             InitializeComponent();
-            this.permissionManager = permissionManager;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            addDatabaseServerPresenter = new AddDatabaseServerPresenter(this, databaseServerRepository, logger);
+            presenter = new AddDatabaseServerPresenter(this, generalOptionsRepository, databaseServerRepository, logger);
+            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,12 +32,12 @@ namespace LiveView.Forms
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            addDatabaseServerPresenter.AddDatabaseServer();
+            presenter.AddDatabaseServer();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
         {
-            addDatabaseServerPresenter.CloseForm();
+            presenter.CloseForm();
         }
     }
 }
