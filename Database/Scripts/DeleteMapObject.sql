@@ -1,0 +1,1 @@
+﻿DELETE FROM MapObjects WHERE Id = @Id;

@@ -9,14 +9,14 @@ namespace LiveView.Presenters
 {
     public class TemplatesPresenter : BasePresenter
     {
-        private readonly ITemplatesView templatesView;
+        private readonly ITemplatesView view;
         private readonly ITemplateRepository<Template> templateRepository;
         private readonly ILogger<Templates> logger;
 
-        public TemplatesPresenter(ITemplatesView templatesView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ITemplateRepository<Template> templateRepository, ILogger<Templates> logger)
-            : base(templatesView, generalOptionsRepository)
+        public TemplatesPresenter(ITemplatesView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ITemplateRepository<Template> templateRepository, ILogger<Templates> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.templatesView = templatesView;
+            this.view = view;
             this.templateRepository = templateRepository;
             this.logger = logger;
         }

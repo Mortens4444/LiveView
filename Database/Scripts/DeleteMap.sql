@@ -1,0 +1,1 @@
+﻿DELETE FROM Maps WHERE Id = @Id;

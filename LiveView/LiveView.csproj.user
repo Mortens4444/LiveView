@@ -43,7 +43,7 @@
     <Compile Update="Forms\DisplayDeviceIdentifier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\DisplayOptions.cs">
+    <Compile Update="Forms\DisplaySettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DisplayProperties.cs">

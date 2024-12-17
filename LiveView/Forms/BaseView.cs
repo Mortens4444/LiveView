@@ -23,10 +23,13 @@ namespace LiveView.Forms
 
         protected BasePresenter Presenter { get; private set; }
 
+        public BaseView() : this(null)
+        {
+        }
+
         public BaseView(PermissionManager permissionManager)
         {
             this.permissionManager = permissionManager;
-            Load += BaseView_Load;
         }
 
         public void InvokeAction(Action action)
@@ -104,6 +107,11 @@ namespace LiveView.Forms
             comboBox.SelectedIndex = 0;
         }
 
+        public void SetLabelText(Label label, string text)
+        {
+            label.Text = text;
+        }
+
         public void RemoveAllItem(ListView listView)
         {
             listView.Items.Clear();
@@ -143,36 +151,42 @@ namespace LiveView.Forms
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_SYSCOMMAND)
+            if (permissionManager != null)
             {
-                var command = m.WParam.ToInt32() & 0xFFF0;
-                if (command == SC_SIZE)
+                if (m.Msg == WM_SYSCOMMAND)
                 {
-                    if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Resize))
+                    var command = m.WParam.ToInt32() & 0xFFF0;
+                    if (command == SC_SIZE)
                     {
-                        return;
+                        if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Resize))
+                        {
+                            return;
+                        }
+                    }
+                    else if (command == SC_MOVE)
+                    {
+                        if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Move))
+                        {
+                            return;
+                        }
                     }
                 }
-                else if (command == SC_MOVE)
-                {
-                    if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Move))
-                    {
-                        return;
-                    }
-                }
-            }
 
-            if (m.Msg == WM_CLOSE)
-            {
-                if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close))
+                if (m.Msg == WM_CLOSE)
                 {
-                    return;
+                    if (!permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close))
+                    {
+                        return;
+                    }
                 }
             }
 
             if (m.Msg == WM_EXITSIZEMOVE)
             {
-                Presenter.OnResizeOrMoveEnd();
+                if (!DesignMode)
+                {
+                    Presenter.OnResizeOrMoveEnd();
+                }
             }
 
             base.WndProc(ref m);
@@ -183,9 +197,13 @@ namespace LiveView.Forms
             Presenter = presenter;
         }
 
-        private void BaseView_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            Presenter.SetLocationAndSize();
+            base.OnLoad(e);
+            if (!DesignMode)
+            {
+                Presenter.SetLocationAndSize();
+            }
         }
     }
 }

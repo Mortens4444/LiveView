@@ -9,14 +9,14 @@ namespace LiveView.Presenters
 {
     public class EnterPassPresenter : BasePresenter
     {
-        private readonly IEnterPassView enterPassView;
+        private readonly IEnterPassView view;
         private readonly IUserRepository<User> userRepository;
         private readonly ILogger<EnterPass> logger;
 
-        public EnterPassPresenter(IEnterPassView enterPassView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<EnterPass> logger)
-            : base(enterPassView, generalOptionsRepository)
+        public EnterPassPresenter(IEnterPassView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<EnterPass> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.enterPassView = enterPassView;
+            this.view = view;
             this.userRepository = userRepository;
             this.logger = logger;
         }

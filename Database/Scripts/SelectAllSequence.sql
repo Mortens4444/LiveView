@@ -1,1 +1,1 @@
-﻿SELECT id, name, active FROM Sequences ORDER BY name
+﻿SELECT Id, Name, Active, Priority, Checksum FROM Sequences;

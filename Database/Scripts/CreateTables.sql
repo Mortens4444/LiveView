@@ -311,6 +311,42 @@ BEGIN
     );
 END;
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Maps]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE Maps (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Name NVARCHAR(MAX) NOT NULL,
+        Comment NVARCHAR(MAX) NOT NULL,
+        OriginalWidth INT NOT NULL,
+        OriginalHeight INT NOT NULL,
+        MapImage VARBINARY(MAX) NOT NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MapObjects]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE MapObjects (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ActionType INT NOT NULL,
+        ActionReferencedId INT NOT NULL,
+        Comment NVARCHAR(MAX) NOT NULL,
+        X INT NOT NULL,
+        Y INT NOT NULL,
+        Width INT NOT NULL,
+        Height INT NOT NULL,
+        Image VARBINARY(MAX) NOT NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ObjectsInMaps]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE ObjectsInMaps (
+        MapObjectId INT NOT NULL,
+        MapId INT NOT NULL,
+        PRIMARY KEY (MapObjectId, MapId)
+    );
+END;
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Logs]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Logs (

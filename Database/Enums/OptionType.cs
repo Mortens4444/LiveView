@@ -1,6 +1,6 @@
 ﻿namespace Database.Enums
 {
-    public enum GeneralOptionType
+    public enum OptionType
     {
         Bool = 0,
         Int32 = 1,

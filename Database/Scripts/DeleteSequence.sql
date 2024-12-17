@@ -1,0 +1,1 @@
+﻿DELETE FROM Sequences WHERE ID = @Id;

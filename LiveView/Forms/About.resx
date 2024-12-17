@@ -120,4 +120,65 @@
   <data name="tbConditionsAndTerms.Text" xml:space="preserve">
     <value>You may not make any copies of this software. You may not reverse engineer, decompile, or disassemble this software. You may not rent, lease, lend, pledge, or directly or indirectly transfer or distribute this software. The distributor may terminate your rights to use this software if you fail to comply with these conditions and terms.</value>
   </data>
+  <data name="lblVendor.Font" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
+        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0ZW0uRHJh
+        d2luZy5Gb250BAAAAAROYW1lBFNpemUFU3R5bGUEVW5pdAEABAQLGFN5c3RlbS5EcmF3aW5nLkZvbnRT
+        dHlsZQIAAAAbU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AgAAAAIAAAAGAwAAABRNaWNyb3NvZnQg
+        U2FucyBTZXJpZgAABEEF/P///xhTeXN0ZW0uRHJhd2luZy5Gb250U3R5bGUBAAAAB3ZhbHVlX18ACAIA
+        AAABAAAABfv///8bU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AQAAAAd2YWx1ZV9fAAgCAAAAAwAA
+        AAs=
+</value>
+  </data>
+  <data name="lblProductName.Font" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
+        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0ZW0uRHJh
+        d2luZy5Gb250BAAAAAROYW1lBFNpemUFU3R5bGUEVW5pdAEABAQLGFN5c3RlbS5EcmF3aW5nLkZvbnRT
+        dHlsZQIAAAAbU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AgAAAAIAAAAGAwAAABRNaWNyb3NvZnQg
+        U2FucyBTZXJpZgAABEEF/P///xhTeXN0ZW0uRHJhd2luZy5Gb250U3R5bGUBAAAAB3ZhbHVlX18ACAIA
+        AAABAAAABfv///8bU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AQAAAAd2YWx1ZV9fAAgCAAAAAwAA
+        AAs=
+</value>
+  </data>
+  <data name="lblSupportContact.Font" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
+        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0ZW0uRHJh
+        d2luZy5Gb250BAAAAAROYW1lBFNpemUFU3R5bGUEVW5pdAEABAQLGFN5c3RlbS5EcmF3aW5nLkZvbnRT
+        dHlsZQIAAAAbU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AgAAAAIAAAAGAwAAABRNaWNyb3NvZnQg
+        U2FucyBTZXJpZgAABEEF/P///xhTeXN0ZW0uRHJhd2luZy5Gb250U3R5bGUBAAAAB3ZhbHVlX18ACAIA
+        AAABAAAABfv///8bU3lzdGVtLkRyYXdpbmcuR3JhcGhpY3NVbml0AQAAAAd2YWx1ZV9fAAgCAAAAAwAA
+        AAs=
+</value>
+  </data>
+  <data name="$this.Icon" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        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
+        QYABrEGAAaxBwAOsQeAHrEHwD6xB//+sQQs=
+</value>
+  </data>
 </root>

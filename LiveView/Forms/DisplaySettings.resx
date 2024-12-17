@@ -117,29 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="$this.Icon" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAMIOAADCDgAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAd3d3/3d3d/93d3f/d3d3/8aEXP/RfEr/d3d3/3d3d/8AAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIeHh//39/f/9/f3//f39//tyLL/5rOX/96bcv+Hh4f/AAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWlpb/lpaW/5aWlv/CwcP/5rKT/+m9pP/mtpr/3p13/wAA
-        AAAAAAAAAAAAAAAAAABvb2//b29v/29vb/9vb2//b29v/29vb/9vb2//b29v/29vb//mtpj/6b+m/+zI
-        sv++gmH/b29v/29vb/9vb2//c3Nz//Pz8//z8/P/8/Pz//Pz8//z8/P/8/Pz//Pz8//z8/P/8/Pz/+e4
-        m//YqIv/tLS0/4iIiP+Tk5P/c3Nz/3Z2dv/09PT/wWsr/8FrK//Bayv/wWsr/8FrK//Bayv/wWsr/8Fr
-        K//Bayv/tXdJ/9TU1P+7u7v/wcHB/4KCgv97e3v/9fX1/8RxM//EcTP/xHEz/8RxM//EcTP/xHEz/8Rx
-        M//EcTP/xHEz/8RxM//k5OT/nYl6/42Njf+JiYn/f39///X19f/Jejz/yXo8/8l6PP/Jejz/yXo8/8l6
-        PP/Jejz/yXo8/8l6PP/Jejz/nJmW/+7u7v/19fX/f39//4SEhP/29vb/zoJG/86CRv/Ogkb/zoJG/86C
-        Rv/Ogkb/zoJG/86CRv/Ogkb/zoJG/86CRv/Ogkb/9vb2/4SEhP+JiYn/9/f3/9OMUP/TjFD/04xQ/9OM
-        UP/TjFD/04xQ/9OMUP/TjFD/04xQ/9OMUP/TjFD/04xQ//f39/+JiYn/jo6O//j4+P/YlFr/2JRa/9iU
-        Wv/YlFr/2JRa/9iUWv/YlFr/2JRa/9iUWv/YlFr/2JRa/9iUWv/4+Pj/jo6O/5OTk//5+fn/3Z1j/92d
-        Y//dnWP/3Z1j/92dY//dnWP/3Z1j/92dY//dnWP/3Z1j/92dY//dnWP/+fn5/5OTk/+Xl5f/+fn5/+Cj
-        a//go2v/4KNr/+Cja//go2v/4KNr/+Cja//go2v/4KNr/+Cja//go2v/4KNr//n5+f+Xl5f/m5ub//r6
-        +v/jqHD/46hw/+OocP/jqHD/46hw/+OocP/jqHD/46hw/+OocP/jqHD/46hw/+OocP/6+vr/m5ub/56e
-        nv/6+vr/+vr6//r6+v/6+vr/+vr6//r6+v/6+vr/+vr6//r6+v/6+vr/+vr6//r6+v/6+vr/+vr6/56e
-        nv+hoaH/oaGh/6Ghof+hoaH/oaGh/6Ghof+hoaH/oaGh/6Ghof+hoaH/oaGh/6Ghof+hoaH/oaGh/6Gh
-        of+hoaH/8A8AAPAPAADwDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
+        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0ZW0uRHJh
+        d2luZy5JY29uAgAAAAhJY29uRGF0YQhJY29uU2l6ZQcEAhNTeXN0ZW0uRHJhd2luZy5TaXplAgAAAAIA
+        AAAJAwAAAAX8////E1N5c3RlbS5EcmF3aW5nLlNpemUCAAAABXdpZHRoBmhlaWdodAAACAgCAAAAAAAA
+        AAAAAAAPAwAAAH4EAAACAAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQA
+        AMIOAADCDgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd3d3/3d3d/93d3f/d3d3/8aEXP/RfEr/d3d3
+        /3d3d/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIeHh//39/f/9/f3//f39//tyLL/5rOX
+        /96bcv+Hh4f/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWlpb/lpaW/5aWlv/CwcP/5rKT
+        /+m9pP/mtpr/3p13/wAAAAAAAAAAAAAAAAAAAABvb2//b29v/29vb/9vb2//b29v/29vb/9vb2//b29v
+        /29vb//mtpj/6b+m/+zIsv++gmH/b29v/29vb/9vb2//c3Nz//Pz8//z8/P/8/Pz//Pz8//z8/P/8/Pz
+        //Pz8//z8/P/8/Pz/+e4m//YqIv/tLS0/4iIiP+Tk5P/c3Nz/3Z2dv/09PT/wWsr/8FrK//Bayv/wWsr
+        /8FrK//Bayv/wWsr/8FrK//Bayv/tXdJ/9TU1P+7u7v/wcHB/4KCgv97e3v/9fX1/8RxM//EcTP/xHEz
+        /8RxM//EcTP/xHEz/8RxM//EcTP/xHEz/8RxM//k5OT/nYl6/42Njf+JiYn/f39///X19f/Jejz/yXo8
+        /8l6PP/Jejz/yXo8/8l6PP/Jejz/yXo8/8l6PP/Jejz/nJmW/+7u7v/19fX/f39//4SEhP/29vb/zoJG
+        /86CRv/Ogkb/zoJG/86CRv/Ogkb/zoJG/86CRv/Ogkb/zoJG/86CRv/Ogkb/9vb2/4SEhP+JiYn/9/f3
+        /9OMUP/TjFD/04xQ/9OMUP/TjFD/04xQ/9OMUP/TjFD/04xQ/9OMUP/TjFD/04xQ//f39/+JiYn/jo6O
+        //j4+P/YlFr/2JRa/9iUWv/YlFr/2JRa/9iUWv/YlFr/2JRa/9iUWv/YlFr/2JRa/9iUWv/4+Pj/jo6O
+        /5OTk//5+fn/3Z1j/92dY//dnWP/3Z1j/92dY//dnWP/3Z1j/92dY//dnWP/3Z1j/92dY//dnWP/+fn5
+        /5OTk/+Xl5f/+fn5/+Cja//go2v/4KNr/+Cja//go2v/4KNr/+Cja//go2v/4KNr/+Cja//go2v/4KNr
+        //n5+f+Xl5f/m5ub//r6+v/jqHD/46hw/+OocP/jqHD/46hw/+OocP/jqHD/46hw/+OocP/jqHD/46hw
+        /+OocP/6+vr/m5ub/56env/6+vr/+vr6//r6+v/6+vr/+vr6//r6+v/6+vr/+vr6//r6+v/6+vr/+vr6
+        //r6+v/6+vr/+vr6/56env+hoaH/oaGh/6Ghof+hoaH/oaGh/6Ghof+hoaH/oaGh/6Ghof+hoaH/oaGh
+        /6Ghof+hoaH/oaGh/6Ghof+hoaH/8A8AAPAPAADwDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAs=
 </value>
   </data>
 </root>

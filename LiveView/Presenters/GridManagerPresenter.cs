@@ -4,21 +4,20 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Presenters
 {
     public class GridManagerPresenter : BasePresenter
     {
-        private readonly IGridManagerView gridManagerView;
+        private readonly IGridManagerView view;
         private readonly IGridRepository<Grid> gridRepository;
         private readonly ILogger<GridManager> logger;
 
-        public GridManagerPresenter(IGridManagerView gridManagerView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<GridManager> logger, FormFactory formFactory)
-            : base(gridManagerView, generalOptionsRepository, formFactory)
+        public GridManagerPresenter(IGridManagerView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<GridManager> logger, FormFactory formFactory)
+            : base(view, generalOptionsRepository, formFactory)
         {
-            this.gridManagerView = gridManagerView;
+            this.view = view;
             this.gridRepository = gridRepository;
             this.logger = logger;
         }

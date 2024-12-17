@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace Database.Models
+﻿namespace Database.Models
 {
     public class Map
     {

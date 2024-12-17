@@ -9,14 +9,14 @@ namespace LiveView.Presenters
 {
     public class ProfilePresenter : BasePresenter
     {
-        private readonly IProfileView profileView;
+        private readonly IProfileView view;
         private readonly IUserRepository<User> userRepository;
         private readonly ILogger<Profile> logger;
 
-        public ProfilePresenter(IProfileView profileView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<Profile> logger)
-            : base(profileView, generalOptionsRepository)
+        public ProfilePresenter(IProfileView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<Profile> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.profileView = profileView;
+            this.view = view;
             this.userRepository = userRepository;
             this.logger = logger;
         }

@@ -159,7 +159,7 @@ namespace LiveView.Forms
         private void TsmiDisplaySettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<DisplayOptions>();
+            presenter.ShowForm<DisplaySettings>();
         }
 
         [RequirePermission(LanguageManagementPermissions.Update)]

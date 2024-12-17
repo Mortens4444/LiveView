@@ -9,14 +9,14 @@ namespace LiveView.Presenters
 {
     public class SyncronViewPresenter : BasePresenter
     {
-        private readonly ISyncronViewView syncronViewView;
+        private readonly ISyncronViewView view;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<SyncronView> logger;
 
-        public SyncronViewPresenter(ISyncronViewView syncronViewView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<SyncronView> logger)
-            : base(syncronViewView, generalOptionsRepository)
+        public SyncronViewPresenter(ISyncronViewView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<SyncronView> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.syncronViewView = syncronViewView;
+            this.view = view;
             this.cameraRepository = cameraRepository;
             this.logger = logger;
         }

@@ -17,6 +17,8 @@ namespace LiveView.Interfaces
 
         Form GetSelf();
 
+        void SetLabelText(Label label, string text);
+
         bool ShowConfirm(string title, string message, Decide decide);
 
         void Show(Form form);

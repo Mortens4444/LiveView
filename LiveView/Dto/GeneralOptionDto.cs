@@ -10,29 +10,29 @@ namespace LiveView.Dto
 
         public string Value { get; set; }
 
-        public GeneralOptionType Type { get; set; }
+        public OptionType Type { get; set; }
 
         public T GetValue<T>()
         {
             try
             {
-                if (Type == GeneralOptionType.Bool && typeof(T) == typeof(bool))
+                if (Type == OptionType.Bool && typeof(T) == typeof(bool))
                 {
                     return (T)(object)Convert.ToBoolean(Value);
                 }
-                else if (Type == GeneralOptionType.Int32 && typeof(T) == typeof(int))
+                else if (Type == OptionType.Int32 && typeof(T) == typeof(int))
                 {
                     return (T)(object)Convert.ToInt32(Value);
                 }
-                else if (Type == GeneralOptionType.Int64 && typeof(T) == typeof(long))
+                else if (Type == OptionType.Int64 && typeof(T) == typeof(long))
                 {
                     return (T)(object)Convert.ToInt64(Value);
                 }
-                else if (Type == GeneralOptionType.Float && typeof(T) == typeof(float))
+                else if (Type == OptionType.Float && typeof(T) == typeof(float))
                 {
                     return (T)(object)Convert.ToSingle(Value);
                 }
-                else if (Type == GeneralOptionType.String && typeof(T) == typeof(string))
+                else if (Type == OptionType.String && typeof(T) == typeof(string))
                 {
                     return (T)(object)Value;
                 }

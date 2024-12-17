@@ -12,6 +12,46 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\DeleteGrid.sql" />
+    <EmbeddedResource Include="Scripts\DeleteTemplate.sql" />
+    <EmbeddedResource Include="Scripts\DeleteServer.sql" />
+    <EmbeddedResource Include="Scripts\DeleteSequence.sql" />
+    <EmbeddedResource Include="Scripts\DeleteMapObject.sql" />
+    <EmbeddedResource Include="Scripts\InsertPersonalOptions.sql" />
+    <EmbeddedResource Include="Scripts\InsertGrid.sql" />
+    <EmbeddedResource Include="Scripts\DeleteGridCameraList.sql" />
+    <EmbeddedResource Include="Scripts\DeleteGridsInSequences.sql" />
+    <EmbeddedResource Include="Scripts\DeleteGroup.sql" />
+    <EmbeddedResource Include="Scripts\DeleteIOPort.sql" />
+    <EmbeddedResource Include="Scripts\DeleteLog.sql" />
+    <EmbeddedResource Include="Scripts\InsertLog.sql" />
+    <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\InsertObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\UpdateTemplate.sql" />
+    <EmbeddedResource Include="Scripts\InsertTemplate.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllTemplate.sql" />
+    <EmbeddedResource Include="Scripts\UpdateSequence.sql" />
+    <EmbeddedResource Include="Scripts\InsertSequence.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\UpdatePersonalOptions.sql" />
+    <EmbeddedResource Include="Scripts\UpdateMapObject.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllLog.sql" />
+    <EmbeddedResource Include="Scripts\DeleteMap.sql" />
+    <EmbeddedResource Include="Scripts\InsertMapObject.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllMapObject.sql" />
+    <EmbeddedResource Include="Scripts\UpdateMap.sql" />
+    <EmbeddedResource Include="Scripts\InsertMap.sql" />
+    <EmbeddedResource Include="Scripts\UpdateIOPort.sql" />
+    <EmbeddedResource Include="Scripts\InsertIOPort.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllIOPort.sql" />
+    <EmbeddedResource Include="Scripts\UpdateGroup.sql" />
+    <EmbeddedResource Include="Scripts\InsertGroup.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGroup.sql" />
+    <EmbeddedResource Include="Scripts\UpdateGridsInSequences.sql" />
+    <EmbeddedResource Include="Scripts\InsertGridsInSequences.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGridsInSequences.sql" />
+    <EmbeddedResource Include="Scripts\UpdateGridCameraList.sql" />
+    <EmbeddedResource Include="Scripts\InsertUser.sql" />
     <EmbeddedResource Include="Scripts\CreateUser.sql" />
     <EmbeddedResource Include="Scripts\CreateTables.sql" />
     <EmbeddedResource Include="Scripts\CreateDatabase.sql" />
@@ -23,7 +63,11 @@
     <EmbeddedResource Include="Scripts\InsertServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />
+    <EmbeddedResource Include="Scripts\InsertGridCameraList.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGridCameraList.sql" />
     <EmbeddedResource Include="Scripts\SelectAllLanguage.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGrid.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllUser.sql" />
     <EmbeddedResource Include="Scripts\SelectMap.sql" />
     <EmbeddedResource Include="Scripts\SelectAllSequence.sql" />
     <EmbeddedResource Include="Scripts\UpdateServer.sql" />
@@ -42,7 +86,7 @@
     <EmbeddedResource Include="Scripts\SelectUserId.sql" />
     <EmbeddedResource Include="Scripts\SelectMapObject.sql" />
     <EmbeddedResource Include="Scripts\SelectAllMap.sql" />
-    <EmbeddedResource Include="Scripts\SelectUserOptions.sql" />
+    <EmbeddedResource Include="Scripts\SelectPersonalOptions.sql" />
     <EmbeddedResource Include="Scripts\DeletePersonalOptions.sql" />
     <EmbeddedResource Include="Scripts\GridCameraListReset.sql" />
     <EmbeddedResource Include="Scripts\GridCameraListSetOSDAndShowDateState.sql" />

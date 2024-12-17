@@ -110,7 +110,7 @@
             // lblEdition
             // 
             lblEdition.AutoSize = true;
-            lblEdition.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblEdition.Font = (System.Drawing.Font)resources.GetObject("lblEdition.Font");
             lblEdition.Location = new System.Drawing.Point(9, 18);
             lblEdition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblEdition.Name = "lblEdition";
@@ -121,7 +121,7 @@
             // lblIsVirtual
             // 
             lblIsVirtual.AutoSize = true;
-            lblIsVirtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblIsVirtual.Font = (System.Drawing.Font)resources.GetObject("lblIsVirtual.Font");
             lblIsVirtual.Location = new System.Drawing.Point(146, 125);
             lblIsVirtual.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblIsVirtual.Name = "lblIsVirtual";
@@ -132,7 +132,7 @@
             // 
             lblMaximumPerActual.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lblMaximumPerActual.AutoSize = true;
-            lblMaximumPerActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblMaximumPerActual.Font = (System.Drawing.Font)resources.GetObject("lblMaximumPerActual.Font");
             lblMaximumPerActual.Location = new System.Drawing.Point(475, 125);
             lblMaximumPerActual.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMaximumPerActual.Name = "lblMaximumPerActual";
@@ -166,7 +166,7 @@
             // lblLicenseID
             // 
             lblLicenseID.AutoSize = true;
-            lblLicenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblLicenseID.Font = (System.Drawing.Font)resources.GetObject("lblLicenseID.Font");
             lblLicenseID.Location = new System.Drawing.Point(9, 89);
             lblLicenseID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicenseID.Name = "lblLicenseID";
@@ -293,7 +293,7 @@
             // lblLicenseStatus
             // 
             lblLicenseStatus.AutoSize = true;
-            lblLicenseStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblLicenseStatus.Font = (System.Drawing.Font)resources.GetObject("lblLicenseStatus.Font");
             lblLicenseStatus.Location = new System.Drawing.Point(9, 68);
             lblLicenseStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicenseStatus.Name = "lblLicenseStatus";
@@ -304,7 +304,7 @@
             // lblLicenseDetails
             // 
             lblLicenseDetails.AutoSize = true;
-            lblLicenseDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
+            lblLicenseDetails.Font = (System.Drawing.Font)resources.GetObject("lblLicenseDetails.Font");
             lblLicenseDetails.Location = new System.Drawing.Point(9, 125);
             lblLicenseDetails.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicenseDetails.Name = "lblLicenseDetails";

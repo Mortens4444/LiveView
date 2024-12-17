@@ -1,1 +1,0 @@
-﻿SELECT name, type_id, value FROM Options WHERE user_id = @C

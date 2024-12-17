@@ -12,21 +12,21 @@ namespace LiveView.Presenters
 {
     public class AddVideoServerPresenter : BasePresenter
     {
-        private readonly IAddVideoServerView addVideoServerView;
+        private readonly IAddVideoServerView view;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<AddVideoServer> logger;
 
-        public AddVideoServerPresenter(IAddVideoServerView addVideoServerView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
-            : base(addVideoServerView, generalOptionsRepository)
+        public AddVideoServerPresenter(IAddVideoServerView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.addVideoServerView = addVideoServerView;
+            this.view = view;
             this.serverRepository = serverRepository;
             this.logger = logger;
         }
 
         public void AddOrModify(Server server)
         {
-            var serverDto = addVideoServerView.GetServerDto();
+            var serverDto = view.GetServerDto();
             var newServer = serverDto.ToModel();
             if (server == null)
             {
@@ -50,7 +50,7 @@ namespace LiveView.Presenters
 
         public void LoadData(Server server)
         {
-            addVideoServerView.LoadData(server);
+            view.LoadData(server);
         }
 
         public void Validate()
@@ -60,7 +60,7 @@ namespace LiveView.Presenters
 
         private void OnHostDiscovered(HostDiscoveryResult result)
         {
-            addVideoServerView.AddToServerSelector(result);
+            view.AddToServerSelector(result);
         }
     }
 }

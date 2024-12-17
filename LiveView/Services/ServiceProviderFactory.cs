@@ -67,7 +67,7 @@ namespace LiveView.Services
             services.AddTransient<CameraMotionOptions>();
             services.AddTransient<CameraProperties>();
             services.AddTransient<ControlCenter>();
-            services.AddTransient<DisplayOptions>();
+            services.AddTransient<DisplaySettings>();
             services.AddTransient<DisplayProperties>();
             services.AddTransient<EnterPass>();
             services.AddTransient<GridManager>();

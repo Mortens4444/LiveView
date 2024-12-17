@@ -127,7 +127,7 @@
             // lblVendor
             // 
             lblVendor.AutoSize = true;
-            lblVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            lblVendor.Font = (System.Drawing.Font)resources.GetObject("lblVendor.Font");
             lblVendor.Location = new System.Drawing.Point(398, 91);
             lblVendor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblVendor.MaximumSize = new System.Drawing.Size(163, 15);
@@ -181,7 +181,7 @@
             // lblProductName
             // 
             lblProductName.AutoSize = true;
-            lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            lblProductName.Font = (System.Drawing.Font)resources.GetObject("lblProductName.Font");
             lblProductName.Location = new System.Drawing.Point(7, 91);
             lblProductName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblProductName.MaximumSize = new System.Drawing.Size(198, 15);
@@ -193,7 +193,7 @@
             // lblSupportContact
             // 
             lblSupportContact.AutoSize = true;
-            lblSupportContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            lblSupportContact.Font = (System.Drawing.Font)resources.GetObject("lblSupportContact.Font");
             lblSupportContact.Location = new System.Drawing.Point(210, 91);
             lblSupportContact.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblSupportContact.Name = "lblSupportContact";
@@ -256,6 +256,7 @@
             ClientSize = new System.Drawing.Size(569, 257);
             Controls.Add(pMain);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "About";

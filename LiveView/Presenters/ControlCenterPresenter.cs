@@ -18,18 +18,18 @@ namespace LiveView.Presenters
 {
     public class ControlCenterPresenter : BasePresenter
     {
-        private readonly IControlCenterView controlCenterView;
+        private readonly IControlCenterView view;
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ITemplateRepository<Template> templateRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
 
-        public ControlCenterPresenter(IControlCenterView controlCenterView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
+        public ControlCenterPresenter(IControlCenterView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
             ICameraRepository<Camera> cameraRepository, DisplayManager displayManager, ILogger<ControlCenter> logger)
-            : base(controlCenterView, generalOptionsRepository, formFactory)
+            : base(view, generalOptionsRepository, formFactory)
         {
-            this.controlCenterView = controlCenterView;
+            this.view = view;
             this.templateRepository = templateRepository;
             this.displayRepository = displayRepository;
             this.cameraRepository = cameraRepository;
@@ -148,7 +148,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            controlCenterView.InitializeMouseUpdateTimer();
+            view.InitializeMouseUpdateTimer();
         }
 
         public List<DisplayDto> GetDisplays()

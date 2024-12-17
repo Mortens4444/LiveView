@@ -1,0 +1,1 @@
+﻿DELETE FROM Grid_cameralist WHERE ID = @Id;

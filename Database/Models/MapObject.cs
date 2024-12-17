@@ -1,5 +1,4 @@
 ﻿using Mtf.Enums;
-using System.Drawing;
 
 namespace Database.Models
 {

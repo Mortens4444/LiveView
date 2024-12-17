@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class DisplayOptions
+    partial class DisplaySettings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayOptions));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplaySettings));
             pMain = new System.Windows.Forms.Panel();
             btnResetDisplays = new System.Windows.Forms.Button();
             gbFullscreenViewBehavior = new System.Windows.Forms.GroupBox();
@@ -271,7 +271,7 @@
             pFunctionChooser.Size = new System.Drawing.Size(622, 190);
             pFunctionChooser.TabIndex = 0;
             // 
-            // DisplayOptions
+            // DisplaySettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -279,9 +279,9 @@
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "DisplayOptions";
+            Name = "DisplaySettings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Display options";
+            Text = "Display settings";
             TopMost = true;
             Shown += DisplayOptions_Shown;
             pMain.ResumeLayout(false);

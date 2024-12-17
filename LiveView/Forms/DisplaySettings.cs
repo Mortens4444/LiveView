@@ -11,11 +11,11 @@ using System;
 
 namespace LiveView.Forms
 {
-    public partial class DisplayOptions : BaseView, IDisplayOptionsView
+    public partial class DisplaySettings : BaseView, IDisplayOptionsView
     {
         private readonly DisplayOptionsPresenter presenter;
 
-        public DisplayOptions(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<DisplayOptions> logger, IDisplayRepository<Display> displayRepository) : base(permissionManager)
+        public DisplaySettings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<DisplaySettings> logger, IDisplayRepository<Display> displayRepository) : base(permissionManager)
         {
             InitializeComponent();
 

@@ -9,14 +9,14 @@ namespace LiveView.Presenters
 {
     public class DisplayOptionsPresenter : BasePresenter
     {
-        private readonly IDisplayOptionsView displayOptionsView;
+        private readonly IDisplayOptionsView view;
         private readonly IDisplayRepository<Display> displayRepository;
-        private readonly ILogger<DisplayOptions> logger;
+        private readonly ILogger<DisplaySettings> logger;
 
-        public DisplayOptionsPresenter(IDisplayOptionsView displayOptionsView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IDisplayRepository<Display> displayRepository, ILogger<DisplayOptions> logger)
-            : base(displayOptionsView, generalOptionsRepository)
+        public DisplayOptionsPresenter(IDisplayOptionsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IDisplayRepository<Display> displayRepository, ILogger<DisplaySettings> logger)
+            : base(view, generalOptionsRepository)
         {
-            this.displayOptionsView = displayOptionsView;
+            this.view = view;
             this.displayRepository = displayRepository;
             this.logger = logger;
         }

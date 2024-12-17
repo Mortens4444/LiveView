@@ -13,7 +13,7 @@ namespace LiveView.Presenters
 {
     public class ServerAndCameraManagementPresenter : BasePresenter
     {
-        private readonly IServerAndCameraManagementView serverAndCameraManagementView;
+        private readonly IServerAndCameraManagementView view;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ServerAndCameraManagement> logger;
@@ -26,10 +26,10 @@ namespace LiveView.Presenters
         private const int DeleteCameraIconIndex = 6;
         private const int DatabaseServerIconIndex = 7;
 
-        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView serverAndCameraManagementView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
-            : base(serverAndCameraManagementView, generalOptionsRepository, formFactory)
+        public ServerAndCameraManagementPresenter(FormFactory formFactory, IServerAndCameraManagementView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraManagement> logger)
+            : base(view, generalOptionsRepository, formFactory)
         {
-            this.serverAndCameraManagementView = serverAndCameraManagementView;
+            this.view = view;
             this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
             this.logger = logger;
@@ -37,7 +37,7 @@ namespace LiveView.Presenters
 
         public void CreateNewCameraForm()
         {
-            var node = serverAndCameraManagementView.GetSelectedItem(serverAndCameraManagementView.ServersAndCameras);
+            var node = view.GetSelectedItem(view.ServersAndCameras);
             if (node?.Tag is Server server)
             {
                 ShowForm<AddCameras>(server);
@@ -50,7 +50,7 @@ namespace LiveView.Presenters
 
         public void Modify()
         {
-            var node = serverAndCameraManagementView.GetSelectedItem(serverAndCameraManagementView.ServersAndCameras);
+            var node = view.GetSelectedItem(view.ServersAndCameras);
             if (node.Tag is Server server)
             {
                 ShowDialog<AddVideoServer>(server);
@@ -104,9 +104,9 @@ namespace LiveView.Presenters
                 videoServerTreeNodes.Add(serverTreeNode);
             }
 
-            var serversNode = serverAndCameraManagementView.ServersAndCameras.Nodes["Servers"];
-            serverAndCameraManagementView.AddNodes(serversNode, videoServerTreeNodes);
-            serverAndCameraManagementView.ExpandAll(serversNode);
+            var serversNode = view.ServersAndCameras.Nodes["Servers"];
+            view.AddNodes(serversNode, videoServerTreeNodes);
+            view.ExpandAll(serversNode);
         }
     }
 }

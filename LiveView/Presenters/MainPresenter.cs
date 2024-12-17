@@ -14,14 +14,14 @@ namespace LiveView.Presenters
 {
     public class MainPresenter : BasePresenter
     {
-        private readonly IMainView mainView;
+        private readonly IMainView view;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
 
-        public MainPresenter(FormFactory formFactory, IMainView mainView, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
-            : base(mainView, generalOptionsRepository, formFactory)
+        public MainPresenter(FormFactory formFactory, IMainView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
+            : base(view, generalOptionsRepository, formFactory)
         {
-            this.mainView = mainView;
+            this.view = view;
             this.logger = logger;
             uptime = new Uptime();
         }
@@ -29,7 +29,7 @@ namespace LiveView.Presenters
         public override void Load()
         {
             //MousePointer.ShowOnCtrlKey();
-            var handle = mainView.GetHandle();
+            var handle = view.GetHandle();
             WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
         }
 
@@ -50,10 +50,10 @@ namespace LiveView.Presenters
 
         public bool Exit()
         {
-            if (mainView.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
+            if (view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
             {
                 Environment.Exit(0);
-                var handle = mainView.GetHandle();
+                var handle = view.GetHandle();
                 WinAPI.UnregisterHotKey(handle, 1);
                 return true;
             }
@@ -62,7 +62,7 @@ namespace LiveView.Presenters
 
         public void SetCursorPosition()
         {
-            mainView.SetCursorPosition();
+            view.SetCursorPosition();
             SendKeys.Send("^");
         }
 
@@ -70,7 +70,7 @@ namespace LiveView.Presenters
         {
             var osUptime = uptime.GetOs();
             var appUptime = uptime.GetApp();
-            mainView.SetUptime(osUptime, appUptime);
+            view.SetUptime(osUptime, appUptime);
         }
     }
 }

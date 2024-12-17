@@ -1,1 +1,1 @@
-﻿SELECT ID, map, name, comment, original_width as OriginalWidth, original_height as OriginalHeight FROM Maps ORDER BY name
+﻿SELECT Id, Name, Comment, OriginalWidth, OriginalHeight, MapImage FROM Maps ORDER BY Name;

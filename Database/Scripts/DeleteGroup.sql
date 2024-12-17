@@ -1,0 +1,1 @@
+﻿DELETE FROM Groups WHERE ID = @Id;
