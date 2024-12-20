@@ -1,1 +1,1 @@
-﻿UPDATE Grid_cameralist SET [left] = NULL, [top] = NULL, [width] = NULL, [height] = NULL WHERE grid_id = @C
+﻿UPDATE GridCameralist SET [Left] = NULL, [Top] = NULL, [Width] = NULL, [Height] = NULL WHERE GridId = @GridId

@@ -1,1 +1,1 @@
-﻿DELETE FROM Grid_cameralist WHERE ID = @Id;
+﻿DELETE FROM GridCameralist WHERE Id = @Id;

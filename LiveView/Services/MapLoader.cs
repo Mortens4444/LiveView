@@ -8,12 +8,10 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-
 namespace LiveView.Services
 {
     public class MapLoader
     {
-        private MapDto loadedMap;
         private readonly MtfPictureBox mapContainer;
         private readonly ToolTip toolTip;
 
@@ -39,10 +37,10 @@ namespace LiveView.Services
             }
 
             mapContainer.Controls.Clear();
-            mapContainer.Image = loadedMap.MapImage;
-            mapContainer.OriginalSize = new Size(loadedMap.OriginalWidth, loadedMap.OriginalHeight);
+            mapContainer.Image = map.MapImage;
+            mapContainer.OriginalSize = new Size(map.OriginalWidth, map.OriginalHeight);
 
-            foreach (var mapObject in loadedMap.MapObjects)
+            foreach (var mapObject in map.MapObjects)
             {
                 var mapObjectPanel = new TransparentPanel
                 {

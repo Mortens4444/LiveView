@@ -1,2 +1,4 @@
-﻿INSERT INTO Sequences (name, active, priority, checksum)
-VALUES (@Name, @Active, @Priority, @Checksum);
+﻿INSERT INTO Sequences
+	(Name, Active, Priority)
+VALUES
+	(@Name, @Active, @Priority);

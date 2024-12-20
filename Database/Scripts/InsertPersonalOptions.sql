@@ -1,2 +1,4 @@
-﻿INSERT INTO Options (name, type_id, value, user_id)
-VALUES (@Name, @Type, @Value, @UserId);
+﻿INSERT INTO Options
+	(Name, TypeId, Value, UserId)
+VALUES
+	(@Name, @TypeId, @Value, @UserId);

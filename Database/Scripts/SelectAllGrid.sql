@@ -1,1 +1,1 @@
-﻿SELECT ID, rows, columns, pixelsfromright, pixelsfrombottom, name, priority, checksum FROM Users ORDER BY name
+﻿SELECT Id, Rows, Columns, PixelsFromRight, PixelsFromBottom, Name, Priority FROM Grids ORDER BY Name

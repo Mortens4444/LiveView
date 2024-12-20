@@ -1,1 +1,1 @@
-﻿DELETE FROM Groups WHERE ID = @Id;
+﻿DELETE FROM Groups WHERE Id = @Id;

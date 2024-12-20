@@ -1,1 +1,1 @@
-﻿SELECT ID FROM Users WHERE username = @user AND password = @pass
+﻿SELECT Id FROM Users WHERE Username = @Username AND Password = @Password

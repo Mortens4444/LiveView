@@ -1,8 +1,8 @@
 ﻿UPDATE GridsInSequences
 SET 
-    sequenceid = @SequenceId,
-    gridid = @GridId,
-    timetoshow = @TimeToShow,
-    number = @Number,
-    checksum = @Checksum
-WHERE ID = @Id;
+    SequenceId = @SequenceId,
+    GridId = @GridId,
+    TimeToShow = @TimeToShow,
+    Number = @Number,
+    Checksum = @Checksum
+WHERE Id = @Id;

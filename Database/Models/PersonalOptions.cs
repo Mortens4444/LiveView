@@ -8,9 +8,9 @@ namespace Database.Models
 
         public string Value { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
-        public OptionType Type { get; set; }
+        public OptionType TypeId { get; set; }
 
     }
 }

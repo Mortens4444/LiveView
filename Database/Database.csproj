@@ -12,6 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\InsertInitialData.sql" />
+    <EmbeddedResource Include="Scripts\InsertMigration.sql" />
+    <EmbeddedResource Include="Scripts\MigrationData.sql" />
+    <EmbeddedResource Include="Scripts\MigrationDropChecksums.sql" />
+    <EmbeddedResource Include="Scripts\MigrationRenameTables.sql" />
+    <EmbeddedResource Include="Scripts\MigrationRenameConstraints.sql" />
+    <EmbeddedResource Include="Scripts\MigrationRenameColumns.sql" />
+    <EmbeddedResource Include="Scripts\MigrationAddConstraints.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteTemplate.sql" />
     <EmbeddedResource Include="Scripts\DeleteServer.sql" />
@@ -27,6 +38,7 @@
     <EmbeddedResource Include="Scripts\InsertLog.sql" />
     <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
     <EmbeddedResource Include="Scripts\InsertObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllMigration.sql" />
     <EmbeddedResource Include="Scripts\UpdateTemplate.sql" />
     <EmbeddedResource Include="Scripts\InsertTemplate.sql" />
     <EmbeddedResource Include="Scripts\SelectAllTemplate.sql" />
@@ -105,7 +117,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="Mtf.Database" Version="1.0.10" />
+    <PackageReference Include="Mtf.Database" Version="1.0.20" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
   </ItemGroup>
 

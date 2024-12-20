@@ -1,2 +1,4 @@
-﻿INSERT INTO Cameras (serverid, cameraname, guid, priority, recorder_index)
-VALUES (@ServerId, @CameraName, @Guid, 0, @RecorderIndex);
+﻿INSERT INTO Cameras
+	(ServerId, CameraName, Guid, Priority, RecorderIndex)
+VALUES
+	(@ServerId, @CameraName, @Guid, 0, @RecorderIndex);

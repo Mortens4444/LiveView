@@ -1,23 +1,23 @@
 ﻿SELECT COALESCE(
-    (SELECT CONCAT(preset_name, ' - ', s.name) AS name
+    (SELECT CONCAT(PresetName, ' - ', s.Name) AS Name
      FROM CameraPresets AS cp
-     JOIN Cameras AS c ON cp.camera_id = c.ID
-     JOIN Servers AS s ON c.serverid = s.ID
-     WHERE c.guid = @C AND cp.preset = @preset_value),
-    (SELECT CONCAT(pattern_name, ' - ', s.name) AS name
+     JOIN Cameras AS c ON cp.CameraId = c.Id
+     JOIN Servers AS s ON c.ServerId = s.Id
+     WHERE c.Guid = @Guid AND cp.Preset = @PresetValue),
+    (SELECT CONCAT(PatternName, ' - ', s.Name) AS Name
      FROM CameraPatterns AS cp
-     JOIN Cameras AS c ON cp.camera_id = c.ID
-     JOIN Servers AS s ON c.serverid = s.ID
-     WHERE c.guid = @C AND cp.pattern = @pattern_value)
+     JOIN Cameras AS c ON cp.CameraId = c.Id
+     JOIN Servers AS s ON c.ServerId = s.Id
+     WHERE c.Guid = @Guid AND cp.Pattern = @PatternValue)
 ) AS name;
 
 --SELECT COALESCE(
---    (SELECT preset_name 
+--    (SELECT PresetName 
 --     FROM CameraPresets 
---     WHERE camera_id = (SELECT ID FROM Cameras WHERE guid = @C) 
---       AND preset = @preset_value),
---    (SELECT pattern_name 
+--     WHERE CameraId = (SELECT Id FROM Cameras WHERE Guid = @Guid) 
+--       AND Preset = @PresetValue),
+--    (SELECT PatternName 
 --     FROM CameraPatterns 
---     WHERE camera_id = (SELECT ID FROM Cameras WHERE guid = @C) 
---       AND pattern = @pattern_value)
+--     WHERE CameraId = (SELECT Id FROM Cameras WHERE Guid = @Guid) 
+--       AND Pattern = @PatternValue)
 --) AS name;

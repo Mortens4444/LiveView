@@ -1,1 +1,1 @@
-﻿SELECT ID, name FROM Languages ORDER BY name
+﻿SELECT Id, Name FROM Languages ORDER BY Name;

@@ -1,7 +1,7 @@
 ﻿UPDATE Sequences
 SET 
-    name = @Name,
-    active = @Active,
-    priority = @Priority,
-    checksum = @Checksum
-WHERE ID = @Id;
+    Name = @Name,
+    Active = @Active,
+    Priority = @Priority,
+    Checksum = @Checksum
+WHERE Id = @Id;

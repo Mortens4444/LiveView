@@ -1,1 +1,1 @@
-﻿DELETE FROM Templates WHERE ID = @Id;
+﻿DELETE FROM Templates WHERE Id = @Id;

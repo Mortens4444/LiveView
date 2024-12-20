@@ -1,10 +1,10 @@
 ﻿INSERT INTO Users (
-    username, password, fullname, address, email, telephone, carsign, 
-    barcode, other_information, picture, secondary_logon_priority, 
-    needed_secondary_logon_priority, checksum
+    Username, Password, Fullname, Address, Email, Phone, LicensePlate, 
+    Barcode, OtherInformation, Image, SecondaryLogonPriority, 
+    NeededSecondaryLogonPriority
 )
 VALUES (
-    @username, @password, @fullname, @address, @email, @telephone, @carsign, 
-    @barcode, @other_information, @picture, @secondary_logon_priority, 
-    @needed_secondary_logon_priority, @checksum
+    @Username, @Password, @Fullname, @Address, @Email, @Phone, @LicensePlate, 
+    @Barcode, @OtherInformation, @Image, @SecondaryLogonPriority, 
+    @NeededSecondaryLogonPriority
 );

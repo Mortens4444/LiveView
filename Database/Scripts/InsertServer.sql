@@ -1,2 +1,4 @@
-﻿INSERT INTO Servers (start_in_motion_popup, iporhost, username, password, displayed_name, dongle_sn, sziltech_sn, mac_address)
-VALUES (@StartInMotionPopup, @IpAddress, @Username, @Password, @Hostname, @DongleSn, @SerialNumber, @MacAddress);
+﻿INSERT INTO Servers
+	(StartInMotionPopup, IpOrHost, Username, Password, DisplayedName, DongleSn, SziltechSn, MacAddress)
+VALUES
+	(@StartInMotionPopup, @IpAddress, @Username, @Password, @Hostname, @DongleSn, @SerialNumber, @MacAddress);

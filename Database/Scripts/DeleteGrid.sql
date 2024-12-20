@@ -1,1 +1,1 @@
-﻿DELETE FROM Grids WHERE ID = @ID;
+﻿DELETE FROM Grids WHERE Id = @Id;

@@ -1,1 +1,7 @@
-﻿IF NOT EXISTS (SELECT * FROM Displays WHERE pnp_device_id = @C) BEGIN INSERT INTO Displays (pnp_device_id, shown_name, fullscreen_display, can_show_sequence, can_show_fullscreen) VALUES (@C, @C2, 'False', 'True', 'True'); END
+﻿IF NOT EXISTS (SELECT * FROM Displays WHERE PnpDeviceId = @PnpDeviceId)
+BEGIN
+	INSERT INTO Displays
+		(PnpDeviceId, ShownName, FullscreenDisplay, CanShowSequence, CanShowFullscreen)
+	VALUES
+		(@PnpDeviceId, @ShownName, 'False', 'True', 'True');
+END

@@ -1,1 +1,5 @@
-﻿UPDATE Displays SET can_show_sequence = @C, can_show_fullscreen = @C2, shown_name = @C3 WHERE id = @C4
+﻿UPDATE Displays SET
+	CanShowSequence = @CanShowSequence,
+	CanShowFullscreen = @CanShowFullscreen,
+	ShownName = @ShownName
+WHERE Id = @Id

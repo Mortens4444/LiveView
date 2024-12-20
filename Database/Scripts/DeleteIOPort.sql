@@ -1,1 +1,1 @@
-﻿DELETE FROM IOPorts WHERE ID = @Id;
+﻿DELETE FROM IOPorts WHERE Id = @Id;

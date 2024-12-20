@@ -111,25 +111,25 @@ namespace LiveView.Presenters
             {
                 Name = x,
                 Value = view.Location.X.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Update(new GeneralOption
             {
                 Name = y,
                 Value = view.Location.Y.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Update(new GeneralOption
             {
                 Name = width,
                 Value = view.Size.Width.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Update(new GeneralOption
             {
                 Name = height,
                 Value = view.Size.Height.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
 
         }
@@ -146,25 +146,25 @@ namespace LiveView.Presenters
             {
                 Name = x,
                 Value = view.Location.X.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Insert(new GeneralOption
             {
                 Name = y,
                 Value = view.Location.Y.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Insert(new GeneralOption
             {
                 Name = width,
                 Value = view.Size.Width.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
             generalOptionsRepository.Insert(new GeneralOption
             {
                 Name = height,
                 Value = view.Size.Height.ToString(),
-                Type = OptionType.Int32
+                TypeId = OptionType.Int32
             });
         }
 

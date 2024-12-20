@@ -1,1 +1,1 @@
-﻿DELETE FROM GridsInSequences WHERE ID = @Id;
+﻿DELETE FROM GridsInSequences WHERE Id = @Id;

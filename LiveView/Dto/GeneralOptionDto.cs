@@ -50,7 +50,7 @@ namespace LiveView.Dto
             return new GeneralOptionDto
             {
                 Name = generalOption.Name,
-                Type = generalOption.Type,
+                Type = generalOption.TypeId,
                 Value = generalOption.Value
             };
         }

@@ -1,1 +1,3 @@
-﻿SELECT Cameras.ID, Cameras.cameraname, Cameras.guid, Cameras.serverid FROM Cameras, Servers WHERE Cameras.serverid = Servers.ID ORDER BY Servers.displayed_name, Cameras.cameraname
+﻿SELECT c.Id, c.CameraName, c.Guid, c.ServerId FROM Cameras as c, Servers as s
+WHERE c.ServerId = s.Id
+ORDER BY s.DisplayedName, c.CameraName

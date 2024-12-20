@@ -1,1 +1,4 @@
-﻿INSERT INTO Templates (template_name) VALUES (@TemplateName);
+﻿UPDATE Templates
+SET 
+    TemplateName = @TemplateName
+WHERE Id = @Id;

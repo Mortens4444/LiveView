@@ -1,2 +1,4 @@
-﻿INSERT INTO GridsInSequences (sequenceid, gridid, timetoshow, number, checksum)
-VALUES (@SequenceId, @GridId, @TimeToShow, @Number, @Checksum);
+﻿INSERT INTO GridsInSequences
+	(SequenceId, GridId, TimeToShow, Number)
+VALUES
+	(@SequenceId, @GridId, @TimeToShow, @Number);

@@ -1,1 +1,5 @@
-﻿UPDATE Databases SET isactive = @U, isarchived = @U1, filename = @U2 WHERE name = @C
+﻿UPDATE Databases SET
+	IsActive = @IsActive,
+	IsArchived = @IsArchived,
+	Filename = @Filename
+WHERE Name = @Name

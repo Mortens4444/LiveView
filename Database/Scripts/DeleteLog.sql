@@ -1,1 +1,1 @@
-﻿DELETE FROM Logs WHERE ID = @Id;
+﻿DELETE FROM Logs WHERE Id = @Id;

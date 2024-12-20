@@ -1,2 +1,4 @@
-﻿INSERT INTO Grids (rows, columns, pixelsfromright, pixelsfrombottom, name, priority, checksum)
-VALUES (@Rows, @Columns, @PixelsFromRight, @PixelsFromBottom, @Name, @Priority, @Checksum);
+﻿INSERT INTO Grids
+	(Rows, Columns, PixelsFromRight, PixelsFromBottom, Name, Priority)
+VALUES
+	(@Rows, @Columns, @PixelsFromRight, @PixelsFromBottom, @Name, @Priority);

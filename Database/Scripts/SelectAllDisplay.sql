@@ -1,1 +1,1 @@
-﻿SELECT ID as Id, pnp_device_id as PnPDeviceId, shown_name as ShownName, fullscreen_display as FullscreenDisplay, can_show_sequence as CanShowSequence, can_show_fullscreen as CanShowFullscreen FROM Displays
+﻿SELECT Id, PnPDeviceId, ShownName, FullscreenDisplay, CanShowSequence, CanShowFullscreen FROM Displays

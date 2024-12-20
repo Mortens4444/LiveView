@@ -265,27 +265,10 @@ namespace LiveView.Forms
         protected override void WndProc(ref Message m)
         {
             const int WM_HOTKEY = 0x0312;
-            const int WM_SYSCOMMAND = 0x0112;
-            const int SC_MOVE = 0xF010;
-            const int SC_SIZE = 0xF000;
-
             switch (m.Msg)
             {
                 case WM_HOTKEY:
                     HandleHotkey(m);
-                    break;
-
-                case WM_SYSCOMMAND:
-                    //if (permissionManager.User.Id != 1 && permissionManager.User.Id != 2)
-                    //{
-                    //    int command = m.WParam.ToInt32() & 0xFFF0;
-                    //    if (command == SC_MOVE || command == SC_SIZE)
-                    //    {
-                    //        // Prevent the move/resize action
-                    //        return;
-                    //    }
-                    //}
-                    base.WndProc(ref m);
                     break;
 
                 default:
