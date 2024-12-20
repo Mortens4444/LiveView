@@ -2,28 +2,27 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
 
 namespace LiveView.Presenters
 {
-    public class DisplayOptionsPresenter : BasePresenter
+    public class DisplaySettingsPresenter : BaseDisplayPresenter
     {
-        private readonly IDisplayOptionsView view;
+        private readonly IDisplaySettingsView view;
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ILogger<DisplaySettings> logger;
+        private readonly DisplayManager displayManager;
 
-        public DisplayOptionsPresenter(IDisplayOptionsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IDisplayRepository<Display> displayRepository, ILogger<DisplaySettings> logger)
-            : base(view, generalOptionsRepository)
+        public DisplaySettingsPresenter(IDisplaySettingsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+            IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
+            : base(view, displayManager, generalOptionsRepository, formFactory)
         {
             this.view = view;
+            this.displayManager = displayManager;
             this.displayRepository = displayRepository;
             this.logger = logger;
-        }
-
-        public void IdentifyDisplays()
-        {
-            throw new NotImplementedException();
         }
 
         public void ResetDisplays()

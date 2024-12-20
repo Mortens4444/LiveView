@@ -185,7 +185,7 @@ namespace LiveView.Forms
             {
                 if (!DesignMode)
                 {
-                    Presenter.OnResizeOrMoveEnd();
+                    Presenter?.OnResizeOrMoveEnd();
                 }
             }
 
@@ -202,7 +202,7 @@ namespace LiveView.Forms
             base.OnLoad(e);
             if (!DesignMode)
             {
-                Presenter.SetLocationAndSize();
+                Presenter?.SetLocationAndSize();
             }
         }
     }

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
-    public class ControlCenterPresenter : BasePresenter
+    public class ControlCenterPresenter : BaseDisplayPresenter
     {
         private readonly IControlCenterView view;
         private readonly IDisplayRepository<Display> displayRepository;
@@ -27,7 +27,7 @@ namespace LiveView.Presenters
 
         public ControlCenterPresenter(IControlCenterView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
             ICameraRepository<Camera> cameraRepository, DisplayManager displayManager, ILogger<ControlCenter> logger)
-            : base(view, generalOptionsRepository, formFactory)
+            : base(view, displayManager, generalOptionsRepository, formFactory)
         {
             this.view = view;
             this.templateRepository = templateRepository;
@@ -50,15 +50,6 @@ namespace LiveView.Presenters
         public void CloseSequenceApplications()
         {
             throw new NotImplementedException();
-        }
-
-        public void IdentifyDisplays()
-        {
-            var displays = displayManager.GetAll();
-            foreach(var display in displays)
-            {
-                ShowForm<DisplayDeviceIdentifier>(display);
-            }
         }
 
         public void MoveToEast()
@@ -148,12 +139,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.InitializeMouseUpdateTimer();
-        }
-
-        public List<DisplayDto> GetDisplays()
-        {
-            return displayManager.GetAll();
+            view.InitializeMouseUpdateTimer(view.PDisplayDevices);
         }
 
         //public ReadOnlyCollection<Display> GetDisplays()
@@ -170,27 +156,5 @@ namespace LiveView.Presenters
         //    }
         //    return displays;
         //}
-
-        public List<SequenceEnvironment> GetSequenceEnvironments()
-        {
-            throw new NotImplementedException();
-            //return Display.GetSequenceEnvironments(displayId);
-        }
-
-        public Point GetMouseLocation(Size drawnSize)
-        {
-            var (screenBounds, deltaPoint) = displayManager.GetScreensBounds();
-            var diminutive = displayManager.GetScaleFactor(screenBounds, drawnSize);
-            var point = new POINT();
-            WinAPI.GetCursorPos(out point);
-            var mouseLeft = (int)(screenBounds.Left + point.X / diminutive + DisplayManager.FrameWidth / 2 + 1);
-            var mouseTop = (int)(screenBounds.Top + point.Y / diminutive + DisplayManager.FrameWidth / 2 + 1);
-            return new Point(mouseLeft + deltaPoint.X, mouseTop + deltaPoint.Y);
-        }
-
-        public Dictionary<int, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size)
-        {
-            return displayManager.GetScaledDisplayBounds(displays, size);
-        }
     }
 }

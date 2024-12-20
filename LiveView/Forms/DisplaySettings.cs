@@ -2,26 +2,30 @@
 using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class DisplaySettings : BaseView, IDisplayOptionsView
+    public partial class DisplaySettings : BaseDisplayView, IDisplaySettingsView
     {
-        private readonly DisplayOptionsPresenter presenter;
+        private readonly DisplaySettingsPresenter presenter;
 
-        public DisplaySettings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<DisplaySettings> logger, IDisplayRepository<Display> displayRepository) : base(permissionManager)
+        public DisplaySettings(FormFactory formFactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+            IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger) : base(displayManager, permissionManager)
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            presenter = new DisplayOptionsPresenter(this, generalOptionsRepository, displayRepository, logger);
+            presenter = new DisplaySettingsPresenter(this, generalOptionsRepository, displayRepository, displayManager, logger, formFactory);
             SetPresenter(presenter);
 
             Translator.Translate(this);
@@ -53,9 +57,32 @@ namespace LiveView.Forms
             presenter.CloseForm();
         }
 
-        private void DisplayOptions_Shown(object sender, EventArgs e)
+        private void DisplaySettings_Shown(object sender, EventArgs e)
         {
             presenter.Load();
+        }
+
+        private void PFunctionChooser_Paint(object sender, PaintEventArgs e)
+        {
+            PanelPaint(pFunctionChooser, e);
+        }
+
+        private void PFullscreenDisplay_Paint(object sender, PaintEventArgs e)
+        {
+            PanelPaint(pFullscreenDisplay, e);
+        }
+
+        private void PanelPaint(Panel panel, PaintEventArgs e)
+        {
+            try
+            {
+                GetAndCacheDisplays(panel);
+                DrawDisplays(e.Graphics);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
     }
 }

@@ -248,6 +248,7 @@
             pFullscreenDisplay.Name = "pFullscreenDisplay";
             pFullscreenDisplay.Size = new System.Drawing.Size(622, 190);
             pFullscreenDisplay.TabIndex = 0;
+            pFullscreenDisplay.Paint += PFullscreenDisplay_Paint;
             // 
             // gbFunctionChooser
             // 
@@ -270,6 +271,7 @@
             pFunctionChooser.Name = "pFunctionChooser";
             pFunctionChooser.Size = new System.Drawing.Size(622, 190);
             pFunctionChooser.TabIndex = 0;
+            pFunctionChooser.Paint += PFunctionChooser_Paint;
             // 
             // DisplaySettings
             // 
@@ -283,7 +285,7 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Display settings";
             TopMost = true;
-            Shown += DisplayOptions_Shown;
+            Shown += DisplaySettings_Shown;
             pMain.ResumeLayout(false);
             gbFullscreenViewBehavior.ResumeLayout(false);
             pRight.ResumeLayout(false);

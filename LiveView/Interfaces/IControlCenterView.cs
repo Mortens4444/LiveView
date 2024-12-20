@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
@@ -6,6 +7,8 @@ namespace LiveView.Interfaces
     {
         Point HomeLocation { get; }
 
-        void InitializeMouseUpdateTimer();
+        Panel PDisplayDevices { get; }
+
+        void InitializeMouseUpdateTimer(Panel panel);
     }
 }
