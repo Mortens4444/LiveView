@@ -149,6 +149,11 @@ namespace LiveView.Forms
             return treeView.SelectedNode;
         }
 
+        public void Invalidate(Control control)
+        {
+            control.Invalidate();
+        }
+
         protected override void WndProc(ref Message m)
         {
             if (permissionManager != null)

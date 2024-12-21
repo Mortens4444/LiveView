@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraProperties));
             btnExportHardwareInfo = new System.Windows.Forms.Button();
             tbReturnCode = new System.Windows.Forms.TextBox();
             lblReturnCode = new System.Windows.Forms.Label();
@@ -80,6 +79,7 @@
             gbAvailabilityTests = new System.Windows.Forms.GroupBox();
             lblRemoteVideoServerConnectionStatus = new System.Windows.Forms.Label();
             gbVideoServer = new System.Windows.Forms.GroupBox();
+            lblPassword = new System.Windows.Forms.Label();
             tpVideoServer = new System.Windows.Forms.TabPage();
             btnClose = new System.Windows.Forms.Button();
             gbWindowsCredentials = new System.Windows.Forms.GroupBox();
@@ -136,7 +136,6 @@
             chLicensePlateRecognition = new System.Windows.Forms.ColumnHeader();
             chEstimatedCapacity2 = new System.Windows.Forms.ColumnHeader();
             chGuid = new System.Windows.Forms.ColumnHeader();
-            lblPassword = new System.Windows.Forms.Label();
             gbMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).BeginInit();
             tpOtherData.SuspendLayout();
@@ -259,9 +258,9 @@
             lblDongleSerial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDongleSerial.MaximumSize = new System.Drawing.Size(191, 15);
             lblDongleSerial.Name = "lblDongleSerial";
-            lblDongleSerial.Size = new System.Drawing.Size(75, 15);
+            lblDongleSerial.Size = new System.Drawing.Size(120, 15);
             lblDongleSerial.TabIndex = 16;
-            lblDongleSerial.Text = "Dongle serial";
+            lblDongleSerial.Text = "Dongle serial number";
             // 
             // tbModel
             // 
@@ -469,7 +468,6 @@
             // 
             // pbWindowsConnectionStatus
             // 
-            pbWindowsConnectionStatus.Image = (System.Drawing.Image)resources.GetObject("pbWindowsConnectionStatus.Image");
             pbWindowsConnectionStatus.Location = new System.Drawing.Point(12, 74);
             pbWindowsConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbWindowsConnectionStatus.Name = "pbWindowsConnectionStatus";
@@ -592,9 +590,9 @@
             lblHost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblHost.MaximumSize = new System.Drawing.Size(191, 15);
             lblHost.Name = "lblHost";
-            lblHost.Size = new System.Drawing.Size(162, 15);
+            lblHost.Size = new System.Drawing.Size(159, 15);
             lblHost.TabIndex = 2;
-            lblHost.Text = "Hostname / IP address [:port]";
+            lblHost.Text = "Hostname / IP address[:port]";
             // 
             // btnRefresh
             // 
@@ -685,7 +683,6 @@
             // 
             // pbPingTestStatus
             // 
-            pbPingTestStatus.Image = (System.Drawing.Image)resources.GetObject("pbPingTestStatus.Image");
             pbPingTestStatus.Location = new System.Drawing.Point(10, 20);
             pbPingTestStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbPingTestStatus.Name = "pbPingTestStatus";
@@ -710,7 +707,6 @@
             // 
             // pbRemoteVideoServerConnectionStatus
             // 
-            pbRemoteVideoServerConnectionStatus.Image = (System.Drawing.Image)resources.GetObject("pbRemoteVideoServerConnectionStatus.Image");
             pbRemoteVideoServerConnectionStatus.Location = new System.Drawing.Point(10, 45);
             pbRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbRemoteVideoServerConnectionStatus.Name = "pbRemoteVideoServerConnectionStatus";
@@ -755,9 +751,9 @@
             lblRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRemoteVideoServerConnectionStatus.MaximumSize = new System.Drawing.Size(374, 15);
             lblRemoteVideoServerConnectionStatus.Name = "lblRemoteVideoServerConnectionStatus";
-            lblRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(238, 15);
+            lblRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(260, 15);
             lblRemoteVideoServerConnectionStatus.TabIndex = 1;
-            lblRemoteVideoServerConnectionStatus.Text = "Remote video server connection in progress";
+            lblRemoteVideoServerConnectionStatus.Text = "Remote video server connection test in progress";
             // 
             // gbVideoServer
             // 
@@ -779,6 +775,17 @@
             gbVideoServer.TabIndex = 0;
             gbVideoServer.TabStop = false;
             gbVideoServer.Text = "Video server";
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new System.Drawing.Point(7, 99);
+            lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblPassword.MaximumSize = new System.Drawing.Size(191, 15);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new System.Drawing.Size(57, 15);
+            lblPassword.TabIndex = 6;
+            lblPassword.Text = "Password";
             // 
             // tpVideoServer
             // 
@@ -1327,19 +1334,19 @@
             // 
             // chDiskUsageGbPerDay
             // 
-            chDiskUsageGbPerDay.Text = "Disk usage (GB/ day)";
+            chDiskUsageGbPerDay.Text = "Disk usage (GB/day)";
             // 
             // chEstimatedCapacity
             // 
-            chEstimatedCapacity.Text = "m_EstimatedCapacity";
+            chEstimatedCapacity.Text = "Estimated capacity";
             // 
             // chMotion
             // 
-            chMotion.Text = "nMotion";
+            chMotion.Text = "Motion";
             // 
             // chLight
             // 
-            chLight.Text = "nLight";
+            chLight.Text = "Light";
             // 
             // chAlarm
             // 
@@ -1355,30 +1362,19 @@
             // 
             // chVideoSignal
             // 
-            chVideoSignal.Text = "m_nVideoSignal";
+            chVideoSignal.Text = "Video signal";
             // 
             // chLicensePlateRecognition
             // 
-            chLicensePlateRecognition.Text = "CarSignReader";
+            chLicensePlateRecognition.Text = "License plate recognition";
             // 
             // chEstimatedCapacity2
             // 
-            chEstimatedCapacity2.Text = "EstimatedCapacity";
+            chEstimatedCapacity2.Text = "Estimated capacity";
             // 
             // chGuid
             // 
             chGuid.Text = "GUID";
-            // 
-            // lblPassword
-            // 
-            lblPassword.AutoSize = true;
-            lblPassword.Location = new System.Drawing.Point(7, 99);
-            lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblPassword.MaximumSize = new System.Drawing.Size(191, 15);
-            lblPassword.Name = "lblPassword";
-            lblPassword.Size = new System.Drawing.Size(57, 15);
-            lblPassword.TabIndex = 6;
-            lblPassword.Text = "Password";
             // 
             // ServerAndCameraProperties
             // 
@@ -1386,7 +1382,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(435, 466);
             Controls.Add(tcInfoPages);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(451, 505);
             Name = "ServerAndCameraProperties";

@@ -44,9 +44,9 @@
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
             gbFullscreenDisplay = new System.Windows.Forms.GroupBox();
-            pFullscreenDisplay = new System.Windows.Forms.Panel();
+            pFullscreenDisplay = new Mtf.Controls.TransparentPanel();
             gbFunctionChooser = new System.Windows.Forms.GroupBox();
-            pFunctionChooser = new System.Windows.Forms.Panel();
+            pFunctionChooser = new Mtf.Controls.TransparentPanel();
             pMain.SuspendLayout();
             gbFullscreenViewBehavior.SuspendLayout();
             pRight.SuspendLayout();
@@ -249,6 +249,7 @@
             pFullscreenDisplay.Size = new System.Drawing.Size(622, 190);
             pFullscreenDisplay.TabIndex = 0;
             pFullscreenDisplay.Paint += PFullscreenDisplay_Paint;
+            pFullscreenDisplay.MouseClick += PFullscreenDisplay_MouseClick;
             // 
             // gbFunctionChooser
             // 
@@ -272,6 +273,7 @@
             pFunctionChooser.Size = new System.Drawing.Size(622, 190);
             pFunctionChooser.TabIndex = 0;
             pFunctionChooser.Paint += PFunctionChooser_Paint;
+            pFunctionChooser.MouseClick += PFunctionChooser_MouseClick;
             // 
             // DisplaySettings
             // 
@@ -314,8 +316,8 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbFullscreenDisplay;
-        private System.Windows.Forms.Panel pFullscreenDisplay;
+        private Mtf.Controls.TransparentPanel pFullscreenDisplay;
         private System.Windows.Forms.GroupBox gbFunctionChooser;
-        private System.Windows.Forms.Panel pFunctionChooser;
+        private Mtf.Controls.TransparentPanel pFunctionChooser;
     }
 }

@@ -73,7 +73,6 @@
             // btnRemoveAll
             // 
             btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveAll.Image = (System.Drawing.Image)resources.GetObject("btnRemoveAll.Image");
             btnRemoveAll.Location = new System.Drawing.Point(306, 173);
             btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveAll.Name = "btnRemoveAll";
@@ -85,7 +84,6 @@
             // btnAdd
             // 
             btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAdd.Image = (System.Drawing.Image)resources.GetObject("btnAdd.Image");
             btnAdd.Location = new System.Drawing.Point(306, 73);
             btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
@@ -157,7 +155,6 @@
             // btnRemove
             // 
             btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemove.Image = (System.Drawing.Image)resources.GetObject("btnRemove.Image");
             btnRemove.Location = new System.Drawing.Point(306, 140);
             btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemove.Name = "btnRemove";
@@ -210,7 +207,6 @@
             // btnAddAll
             // 
             btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddAll.Image = (System.Drawing.Image)resources.GetObject("btnAddAll.Image");
             btnAddAll.Location = new System.Drawing.Point(306, 106);
             btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddAll.Name = "btnAddAll";
@@ -274,10 +270,10 @@
             chkCreateSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chkCreateSequences.MaximumSize = new System.Drawing.Size(321, 20);
             chkCreateSequences.Name = "chkCreateSequences";
-            chkCreateSequences.Size = new System.Drawing.Size(205, 19);
+            chkCreateSequences.Size = new System.Drawing.Size(230, 19);
             chkCreateSequences.TabIndex = 8;
             chkCreateSequences.Tag = "";
-            chkCreateSequences.Text = "Create sequence from every x grid";
+            chkCreateSequences.Text = "Create a sequence from every x-th grid";
             chkCreateSequences.UseVisualStyleBackColor = true;
             // 
             // chRightHeader
@@ -427,7 +423,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(657, 576);
             Controls.Add(gbMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(664, 559);
             Name = "AutoCreateWizard";

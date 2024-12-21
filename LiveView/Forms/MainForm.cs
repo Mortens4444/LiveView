@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
@@ -37,6 +38,9 @@ namespace LiveView.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static ControlCenter ControlCenter { get; private set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static DisplayDto FullScreenDisplay { get; set; }
+
         static MainForm()
         {
             HardwareKey = new VirtualSziltechHardwareKey();
@@ -54,9 +58,26 @@ namespace LiveView.Forms
                 Id = 1,
                 IndividualPermissions = new List<Permission>
                 {
+                    new Permission { PermissionGroup = typeof(GridManagementPermissions), PermissionValue = (long)GridManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(SequenceManagementPermissions), PermissionValue = (long)SequenceManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(LogManagementPermissions), PermissionValue = (long)LogManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(IODeviceManagementPermissions), PermissionValue = (long)IODeviceManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(MapManagementPermissions), PermissionValue = (long)MapManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(DatabaseServerManagementPermissions), PermissionValue = (long)DatabaseServerManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(GroupManagementPermissions), PermissionValue = (long)GroupManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(UserManagementPermissions), PermissionValue = (long)UserManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(PermissionManagementPermissions), PermissionValue = (long)PermissionManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(JoystickManagementPermissions), PermissionValue = (long)JoystickManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(NetworkManagementPermissions), PermissionValue = (long)NetworkManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(PasswordManagementPermissions), PermissionValue = (long)PasswordManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(SerialDeviceManagementPermissions), PermissionValue = (long)SerialDeviceManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(TemplateManagementPermissions), PermissionValue = (long)TemplateManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(LanguageManagementPermissions), PermissionValue = (long)LanguageManagementPermissions.FullControl },
+                    new Permission { PermissionGroup = typeof(HardwareManagementPermissions), PermissionValue = (long)HardwareManagementPermissions.FullControl },
+
                     new Permission { PermissionGroup = typeof(CameraManagementPermissions), PermissionValue = (long)CameraManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(ServerManagementPermissions), PermissionValue = (long)ServerManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.PersonalSettingsManagement },
+                    new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.FullControl },
                     new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit },
                     new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl},
                     new Permission { PermissionGroup = typeof(WindowManagementPermissions), PermissionValue = (long)WindowManagementPermissions.FullControl},
@@ -206,7 +227,7 @@ namespace LiveView.Forms
         private void TsmiMotionPopup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<CameraMotionOptions>();
+            presenter.ShowForm<CameraMotionSettings>();
         }
 
         [RequirePermission(MapManagementPermissions.FullControl)]

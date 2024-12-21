@@ -15,7 +15,7 @@ namespace LiveView.Forms
     {
         private readonly LogViewerPresenter presenter;
 
-        public LogViewer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LogViewer> logger, ILogRepository<Log> logRepository)
+        public LogViewer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LogViewer> logger, ILogRepository<LogEntry> logRepository)
             : base(permissionManager)
         {
             InitializeComponent();

@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class Log
+    public class LogEntry
     {
         public long Id { get; set; }
 

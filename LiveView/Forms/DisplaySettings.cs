@@ -18,6 +18,10 @@ namespace LiveView.Forms
     {
         private readonly DisplaySettingsPresenter presenter;
 
+        public Panel FullScreenDisplay => pFullscreenDisplay;
+
+        public Panel FunctionChooser => pFunctionChooser;
+
         public DisplaySettings(FormFactory formFactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger) : base(displayManager, permissionManager)
         {
@@ -83,6 +87,16 @@ namespace LiveView.Forms
             {
                 DebugErrorBox.Show(ex);
             }
+        }
+
+        private void PFunctionChooser_MouseClick(object sender, MouseEventArgs e)
+        {
+            presenter.ChangeDisplay(false, e.X, e.Y);
+        }
+
+        private void PFullscreenDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            presenter.ChangeDisplay(true, e.X, e.Y);
         }
     }
 }

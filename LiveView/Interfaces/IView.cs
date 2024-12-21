@@ -54,5 +54,7 @@ namespace LiveView.Interfaces
         void ExpandAll(TreeNode treeNode);
 
         TreeNode GetSelectedItem(TreeView treeView);
+
+        void Invalidate(Control control);
     }
 }

@@ -11,11 +11,11 @@ using System;
 
 namespace LiveView.Forms
 {
-    public partial class CameraMotionOptions : BaseView, ICameraMotionOptionsView
+    public partial class CameraMotionSettings : BaseView, ICameraMotionOptionsView
     {
         private readonly CameraMotionOptionsPresenter presenter;
 
-        public CameraMotionOptions(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<CameraMotionOptions> logger, ICameraRepository<Camera> cameraRepository)
+        public CameraMotionSettings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<CameraMotionSettings> logger, ICameraRepository<Camera> cameraRepository)
              : base(permissionManager)
         {
             InitializeComponent();

@@ -51,17 +51,20 @@ namespace LiveView.Presenters
         public void Modify()
         {
             var node = view.GetSelectedItem(view.ServersAndCameras);
-            if (node.Tag is Server server)
+            if (node != null)
             {
-                ShowDialog<AddVideoServer>(server);
-            }
-            else if (node.Tag is Camera)
-            {
-                throw new NotImplementedException();
-            }
-            else if (node.Tag is DatabaseServer)
-            {
-                throw new NotImplementedException();
+                if (node.Tag is Server server)
+                {
+                    ShowDialog<AddVideoServer>(server);
+                }
+                else if (node.Tag is Camera)
+                {
+                    throw new NotImplementedException();
+                }
+                else if (node.Tag is DatabaseServer)
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
 

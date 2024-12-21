@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(LogViewer));
-            this.chkMaximumRows = new System.Windows.Forms.CheckBox();
+            chkMaximumRows = new System.Windows.Forms.CheckBox();
             gbLogType = new System.Windows.Forms.GroupBox();
             rbOperations = new System.Windows.Forms.RadioButton();
             rbErrors = new System.Windows.Forms.RadioButton();
@@ -61,13 +61,13 @@
             ilImages = new System.Windows.Forms.ImageList(components);
             dtpTo = new System.Windows.Forms.DateTimePicker();
             pMain = new System.Windows.Forms.Panel();
-            this.lblResults = new System.Windows.Forms.Label();
-            this.lblResultsFound = new System.Windows.Forms.Label();
+            lblResults = new System.Windows.Forms.Label();
+            lblResultsFound = new System.Windows.Forms.Label();
             gbMessageFilter = new System.Windows.Forms.GroupBox();
-            this.lblOtherInformation = new System.Windows.Forms.Label();
-            this.tbOtherInformation = new System.Windows.Forms.TextBox();
+            lblOtherInformation = new System.Windows.Forms.Label();
+            tbOtherInformation = new System.Windows.Forms.TextBox();
             cbMessageFilter = new System.Windows.Forms.CheckBox();
-            this.cbMessage = new System.Windows.Forms.ComboBox();
+            cbMessage = new System.Windows.Forms.ComboBox();
             lblMessage = new System.Windows.Forms.Label();
             btnDeleteAllLogs = new System.Windows.Forms.Button();
             gbDates = new System.Windows.Forms.GroupBox();
@@ -91,16 +91,16 @@
             // 
             // chkMaximumRows
             // 
-            this.chkMaximumRows.AutoSize = true;
-            this.chkMaximumRows.Checked = true;
-            this.chkMaximumRows.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMaximumRows.Location = new System.Drawing.Point(13, -1);
-            this.chkMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.chkMaximumRows.Name = "cbMaximumRows";
-            this.chkMaximumRows.Size = new System.Drawing.Size(108, 19);
-            this.chkMaximumRows.TabIndex = 1;
-            this.chkMaximumRows.Text = "Maximum rows";
-            this.chkMaximumRows.UseVisualStyleBackColor = true;
+            chkMaximumRows.AutoSize = true;
+            chkMaximumRows.Checked = true;
+            chkMaximumRows.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkMaximumRows.Location = new System.Drawing.Point(13, -1);
+            chkMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkMaximumRows.Name = "chkMaximumRows";
+            chkMaximumRows.Size = new System.Drawing.Size(108, 19);
+            chkMaximumRows.TabIndex = 1;
+            chkMaximumRows.Text = "Maximum rows";
+            chkMaximumRows.UseVisualStyleBackColor = true;
             // 
             // gbLogType
             // 
@@ -414,8 +414,8 @@
             // 
             // pMain
             // 
-            pMain.Controls.Add(this.lblResults);
-            pMain.Controls.Add(this.lblResultsFound);
+            pMain.Controls.Add(lblResults);
+            pMain.Controls.Add(lblResultsFound);
             pMain.Controls.Add(gbMessageFilter);
             pMain.Controls.Add(btnDeleteAllLogs);
             pMain.Controls.Add(gbDates);
@@ -433,32 +433,32 @@
             // 
             // lblResults
             // 
-            this.lblResults.AutoSize = true;
-            this.lblResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
-            this.lblResults.Location = new System.Drawing.Point(816, 37);
-            this.lblResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblResults.Name = "lblResults";
-            this.lblResults.Size = new System.Drawing.Size(14, 13);
-            this.lblResults.TabIndex = 41;
-            this.lblResults.Text = "0";
+            lblResults.AutoSize = true;
+            lblResults.Font = (System.Drawing.Font)resources.GetObject("lblResults.Font");
+            lblResults.Location = new System.Drawing.Point(816, 37);
+            lblResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblResults.Name = "lblResults";
+            lblResults.Size = new System.Drawing.Size(14, 13);
+            lblResults.TabIndex = 41;
+            lblResults.Text = "0";
             // 
             // lblResultsFound
             // 
-            this.lblResultsFound.AutoSize = true;
-            this.lblResultsFound.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 238);
-            this.lblResultsFound.Location = new System.Drawing.Point(816, 14);
-            this.lblResultsFound.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblResultsFound.Name = "lblResultsFound";
-            this.lblResultsFound.Size = new System.Drawing.Size(93, 13);
-            this.lblResultsFound.TabIndex = 40;
-            this.lblResultsFound.Text = "Results found: ";
+            lblResultsFound.AutoSize = true;
+            lblResultsFound.Font = (System.Drawing.Font)resources.GetObject("lblResultsFound.Font");
+            lblResultsFound.Location = new System.Drawing.Point(816, 14);
+            lblResultsFound.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblResultsFound.Name = "lblResultsFound";
+            lblResultsFound.Size = new System.Drawing.Size(85, 13);
+            lblResultsFound.TabIndex = 40;
+            lblResultsFound.Text = "Results found";
             // 
             // gbMessageFilter
             // 
-            gbMessageFilter.Controls.Add(this.lblOtherInformation);
-            gbMessageFilter.Controls.Add(this.tbOtherInformation);
+            gbMessageFilter.Controls.Add(lblOtherInformation);
+            gbMessageFilter.Controls.Add(tbOtherInformation);
             gbMessageFilter.Controls.Add(cbMessageFilter);
-            gbMessageFilter.Controls.Add(this.cbMessage);
+            gbMessageFilter.Controls.Add(cbMessage);
             gbMessageFilter.Controls.Add(lblMessage);
             gbMessageFilter.Location = new System.Drawing.Point(0, 89);
             gbMessageFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -471,21 +471,21 @@
             // 
             // lblOtherInformation
             // 
-            this.lblOtherInformation.AutoSize = true;
-            this.lblOtherInformation.Location = new System.Drawing.Point(413, 20);
-            this.lblOtherInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblOtherInformation.Name = "lblOtherInformation";
-            this.lblOtherInformation.Size = new System.Drawing.Size(103, 15);
-            this.lblOtherInformation.TabIndex = 6;
-            this.lblOtherInformation.Text = "Other information";
+            lblOtherInformation.AutoSize = true;
+            lblOtherInformation.Location = new System.Drawing.Point(413, 20);
+            lblOtherInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblOtherInformation.Name = "lblOtherInformation";
+            lblOtherInformation.Size = new System.Drawing.Size(103, 15);
+            lblOtherInformation.TabIndex = 6;
+            lblOtherInformation.Text = "Other information";
             // 
             // tbOtherInformation
             // 
-            this.tbOtherInformation.Location = new System.Drawing.Point(413, 38);
-            this.tbOtherInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbOtherInformation.Name = "tbOtherInformation";
-            this.tbOtherInformation.Size = new System.Drawing.Size(391, 23);
-            this.tbOtherInformation.TabIndex = 5;
+            tbOtherInformation.Location = new System.Drawing.Point(413, 38);
+            tbOtherInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbOtherInformation.Name = "tbOtherInformation";
+            tbOtherInformation.Size = new System.Drawing.Size(391, 23);
+            tbOtherInformation.TabIndex = 5;
             // 
             // cbMessageFilter
             // 
@@ -500,13 +500,13 @@
             // 
             // cbMessage
             // 
-            this.cbMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMessage.FormattingEnabled = true;
-            this.cbMessage.Location = new System.Drawing.Point(14, 38);
-            this.cbMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cbMessage.Name = "cbMessage";
-            this.cbMessage.Size = new System.Drawing.Size(391, 23);
-            this.cbMessage.TabIndex = 1;
+            cbMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbMessage.FormattingEnabled = true;
+            cbMessage.Location = new System.Drawing.Point(14, 38);
+            cbMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbMessage.Name = "cbMessage";
+            cbMessage.Size = new System.Drawing.Size(391, 23);
+            cbMessage.TabIndex = 1;
             // 
             // lblMessage
             // 
@@ -603,7 +603,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1013, 549);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "LogViewer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -625,7 +624,6 @@
             gbDates.ResumeLayout(false);
             gbDates.PerformLayout();
             gbMaximumRows.ResumeLayout(false);
-            gbMaximumRows.PerformLayout();
             ResumeLayout(false);
         }
 

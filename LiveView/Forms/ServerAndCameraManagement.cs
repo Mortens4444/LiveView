@@ -85,7 +85,7 @@ namespace LiveView.Forms
         private void BtnMotionDetection_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<CameraMotionOptions>();
+            presenter.ShowForm<CameraMotionSettings>();
         }
 
         [RequirePermission(CameraManagementPermissions.Update)]

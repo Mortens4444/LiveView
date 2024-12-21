@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -14,8 +15,9 @@ namespace LiveView.Presenters
         private readonly IGroupRepository<Group> groupRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
 
-        public UserAndGroupManagementPresenter(IUserAndGroupManagementView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository, ILogger<UserAndGroupManagement> logger)
-            : base(view, generalOptionsRepository)
+        public UserAndGroupManagementPresenter(IUserAndGroupManagementView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+            IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository, ILogger<UserAndGroupManagement> logger, FormFactory formfactory)
+            : base(view, generalOptionsRepository, formfactory)
         {
             this.view = view;
             this.userRepository = userRepository;

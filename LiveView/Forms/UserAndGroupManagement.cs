@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
@@ -15,14 +16,14 @@ namespace LiveView.Forms
     {
         private readonly UserAndGroupManagementPresenter presenter;
 
-        public UserAndGroupManagement(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<UserAndGroupManagement> logger, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository)
+        public UserAndGroupManagement(FormFactory formfactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<UserAndGroupManagement> logger, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository)
             : base(permissionManager)
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            presenter = new UserAndGroupManagementPresenter(this, generalOptionsRepository, userRepository, groupRepository, logger);
+            presenter = new UserAndGroupManagementPresenter(this, generalOptionsRepository, userRepository, groupRepository, logger, formfactory);
             SetPresenter(presenter);
 
             Translator.Translate(this);

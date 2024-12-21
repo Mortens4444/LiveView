@@ -187,13 +187,13 @@
             // tsmiOpenMap
             // 
             tsmiOpenMap.Name = "tsmiOpenMap";
-            tsmiOpenMap.Size = new System.Drawing.Size(180, 22);
+            tsmiOpenMap.Size = new System.Drawing.Size(145, 22);
             tsmiOpenMap.Text = "Open map";
             // 
             // tsmiOpenCamera
             // 
             tsmiOpenCamera.Name = "tsmiOpenCamera";
-            tsmiOpenCamera.Size = new System.Drawing.Size(180, 22);
+            tsmiOpenCamera.Size = new System.Drawing.Size(145, 22);
             tsmiOpenCamera.Text = "Open camera";
             // 
             // tsmiAddFunctionality
@@ -206,22 +206,20 @@
             // tsmiBrowse
             // 
             tsmiBrowse.Name = "tsmiBrowse";
-            tsmiBrowse.Size = new System.Drawing.Size(180, 22);
+            tsmiBrowse.Size = new System.Drawing.Size(121, 22);
             tsmiBrowse.Text = "Browse...";
             // 
             // tsmiMapIcon
             // 
-            tsmiMapIcon.Image = (System.Drawing.Image)resources.GetObject("tsmiMapIcon.Image");
             tsmiMapIcon.Name = "tsmiMapIcon";
-            tsmiMapIcon.Size = new System.Drawing.Size(180, 22);
+            tsmiMapIcon.Size = new System.Drawing.Size(121, 22);
             tsmiMapIcon.Text = "Map";
             tsmiMapIcon.Visible = false;
             // 
             // tsmiCameraIcon
             // 
-            tsmiCameraIcon.Image = (System.Drawing.Image)resources.GetObject("tsmiCameraIcon.Image");
             tsmiCameraIcon.Name = "tsmiCameraIcon";
-            tsmiCameraIcon.Size = new System.Drawing.Size(180, 22);
+            tsmiCameraIcon.Size = new System.Drawing.Size(121, 22);
             tsmiCameraIcon.Text = "Camera";
             tsmiCameraIcon.Visible = false;
             // 
@@ -236,7 +234,7 @@
             // 
             cmsObjectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiAddImage, tsmiAddFunctionality, tsmiAddComment, tsmiDelete, tssSeparator, tsmiSetNewObjectsDefaultSize });
             cmsObjectMenu.Name = "cms_ObjectMenu";
-            cmsObjectMenu.Size = new System.Drawing.Size(219, 142);
+            cmsObjectMenu.Size = new System.Drawing.Size(219, 120);
             // 
             // pDefault
             // 
@@ -336,11 +334,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(691, 546);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(697, 571);
             Name = "MapCreator";
-            Text = "MapCreator";
+            Text = "Map creator";
             cmsObjectMenu.ResumeLayout(false);
             gbTools.ResumeLayout(false);
             gbTools.PerformLayout();

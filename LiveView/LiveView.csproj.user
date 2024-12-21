@@ -31,7 +31,7 @@
     <Compile Update="Forms\BaseView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\CameraMotionOptions.cs">
+    <Compile Update="Forms\CameraMotionSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\CameraProperties.cs">

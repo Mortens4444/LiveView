@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class CameraMotionOptions
+    partial class CameraMotionSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraMotionOptions));
             lblMotionSensitiveness = new System.Windows.Forms.Label();
             btnChange = new System.Windows.Forms.Button();
             pCameras = new System.Windows.Forms.Panel();
@@ -148,7 +147,7 @@
             // 
             // chMotionTrigger
             // 
-            chMotionTrigger.Text = "MotionTrigger";
+            chMotionTrigger.Text = "Motion trigger";
             chMotionTrigger.Width = 84;
             // 
             // chMotionTriggerMinimumLength
@@ -315,7 +314,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(918, 474);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CameraMotionOptions";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

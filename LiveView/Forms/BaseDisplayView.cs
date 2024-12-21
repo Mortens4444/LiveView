@@ -16,8 +16,6 @@ namespace LiveView.Forms
         private static Font font;
         private static SolidBrush lbBrush, bcBrush, gcBrush, lgcBrush, mouseBrush;
 
-        private readonly DisplayManager displayManager;
-
         private List<DisplayDto> cachedDisplays;
         private Dictionary<int, Rectangle> cachedBounds;
         private Timer mouseUpdateTimer;

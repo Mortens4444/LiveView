@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(SequentialChains));
             pMain = new System.Windows.Forms.Panel();
             tbSequenceName = new System.Windows.Forms.TextBox();
             cbGridIdentifier = new System.Windows.Forms.ComboBox();
@@ -207,26 +206,26 @@
             // tsmiDeleteGrid
             // 
             tsmiDeleteGrid.Name = "tsmiDeleteGrid";
-            tsmiDeleteGrid.Size = new System.Drawing.Size(180, 22);
+            tsmiDeleteGrid.Size = new System.Drawing.Size(137, 22);
             tsmiDeleteGrid.Text = "Delete";
             // 
             // tsmiMoveDown
             // 
             tsmiMoveDown.Name = "tsmiMoveDown";
-            tsmiMoveDown.Size = new System.Drawing.Size(180, 22);
+            tsmiMoveDown.Size = new System.Drawing.Size(137, 22);
             tsmiMoveDown.Text = "Move down";
             // 
             // tsmiMoveUp
             // 
             tsmiMoveUp.Name = "tsmiMoveUp";
-            tsmiMoveUp.Size = new System.Drawing.Size(180, 22);
+            tsmiMoveUp.Size = new System.Drawing.Size(137, 22);
             tsmiMoveUp.Text = "Move up";
             // 
             // cmsGridsContextMenu
             // 
             cmsGridsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGrid });
             cmsGridsContextMenu.Name = "cms_GridsContextMenu";
-            cmsGridsContextMenu.Size = new System.Drawing.Size(181, 92);
+            cmsGridsContextMenu.Size = new System.Drawing.Size(138, 70);
             // 
             // chGridName
             // 
@@ -287,7 +286,7 @@
             btnAddOrUpdateSequence.Name = "btnAddOrUpdateSequence";
             btnAddOrUpdateSequence.Size = new System.Drawing.Size(88, 27);
             btnAddOrUpdateSequence.TabIndex = 4;
-            btnAddOrUpdateSequence.Text = "Add/Update";
+            btnAddOrUpdateSequence.Text = "Save";
             btnAddOrUpdateSequence.UseVisualStyleBackColor = true;
             btnAddOrUpdateSequence.Click += BtnAddOrUpdateSequence_Click;
             // 
@@ -358,7 +357,6 @@
             Controls.Add(gbSequenceName);
             Controls.Add(gbSequenceStructure);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(498, 416);
             Name = "SequentialChains";

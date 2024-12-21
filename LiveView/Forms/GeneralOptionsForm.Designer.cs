@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneralOptionsForm));
             chkReduceSequenceUsageOfNetworkAndCPU = new System.Windows.Forms.CheckBox();
             lblFps = new System.Windows.Forms.Label();
             nudFPS = new System.Windows.Forms.NumericUpDown();
@@ -37,12 +36,12 @@
             lblKBD300ACOMPort = new System.Windows.Forms.Label();
             cbKBD300ACOMPort = new System.Windows.Forms.ComboBox();
             chkLiveView = new System.Windows.Forms.CheckBox();
-            this.chkThreading = new System.Windows.Forms.CheckBox();
-            this.chkOpenMotionPopupWhenProgramStarts = new System.Windows.Forms.CheckBox();
+            chkThreading = new System.Windows.Forms.CheckBox();
+            chkOpenMotionPopupWhenProgramStarts = new System.Windows.Forms.CheckBox();
             lblMinutes2 = new System.Windows.Forms.Label();
             nudRestartTemplate = new System.Windows.Forms.NumericUpDown();
             lblRestartTemplateAfterEvery = new System.Windows.Forms.Label();
-            this.cbUsers = new System.Windows.Forms.ComboBox();
+            cbUsers = new System.Windows.Forms.ComboBox();
             lblSeconds = new System.Windows.Forms.Label();
             gbDatabaseOptions = new System.Windows.Forms.GroupBox();
             tbDatabaseUsage = new System.Windows.Forms.TextBox();
@@ -66,10 +65,10 @@
             nudMaximumDeflectionBetweenLiveViewAndRecorder = new System.Windows.Forms.NumericUpDown();
             lblMaximumDeflectionBetweenLiveViewAndRecorder = new System.Windows.Forms.Label();
             lblAutologinIfLastStatisticMessageIsEarlierThan = new System.Windows.Forms.Label();
-            this.lblMinutes = new System.Windows.Forms.Label();
-            this.lblMilliseconds2 = new System.Windows.Forms.Label();
-            this.lblMilliseconds = new System.Windows.Forms.Label();
-            this.nudStatisticMessageAfterEveryMinutes = new System.Windows.Forms.NumericUpDown();
+            lblMinutes = new System.Windows.Forms.Label();
+            lblMilliseconds2 = new System.Windows.Forms.Label();
+            lblMilliseconds = new System.Windows.Forms.Label();
+            nudStatisticMessageAfterEveryMinutes = new System.Windows.Forms.NumericUpDown();
             lblStatisticMessageAfterEvery = new System.Windows.Forms.Label();
             btnStandard = new System.Windows.Forms.Button();
             btnDefault = new System.Windows.Forms.Button();
@@ -84,7 +83,7 @@
             chkVerboseDebugLogging = new System.Windows.Forms.CheckBox();
             gbTechnicalOptions = new System.Windows.Forms.GroupBox();
             chkUseWatchDog = new System.Windows.Forms.CheckBox();
-            this.nudTimeBetweenCheckVideoServers = new System.Windows.Forms.NumericUpDown();
+            nudTimeBetweenCheckVideoServers = new System.Windows.Forms.NumericUpDown();
             lblTimeBetweenCheckVideoServers = new System.Windows.Forms.Label();
             nudMaximumTimeToWaitForAVideoServerIs = new System.Windows.Forms.NumericUpDown();
             lblMaximumTimeToWaitForAVideoServerIs = new System.Windows.Forms.Label();
@@ -98,13 +97,13 @@
             ((System.ComponentModel.ISupportInitialize)pbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumTimeToWaitForNewPicture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumDeflectionBetweenLiveViewAndRecorder).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.nudStatisticMessageAfterEveryMinutes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudStatisticMessageAfterEveryMinutes).BeginInit();
             pMain.SuspendLayout();
             gbNoSignalImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbNoSignalImage).BeginInit();
             gbEventLogging.SuspendLayout();
             gbTechnicalOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)this.nudTimeBetweenCheckVideoServers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudTimeBetweenCheckVideoServers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumTimeToWaitForAVideoServerIs).BeginInit();
             SuspendLayout();
             // 
@@ -199,27 +198,27 @@
             // 
             // chkThreading
             // 
-            this.chkThreading.AutoSize = true;
-            this.chkThreading.Checked = true;
-            this.chkThreading.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkThreading.Location = new System.Drawing.Point(519, 20);
-            this.chkThreading.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.chkThreading.Name = "chkThreading";
-            this.chkThreading.Size = new System.Drawing.Size(80, 19);
-            this.chkThreading.TabIndex = 2;
-            this.chkThreading.Text = "Threading";
-            this.chkThreading.UseVisualStyleBackColor = true;
+            chkThreading.AutoSize = true;
+            chkThreading.Checked = true;
+            chkThreading.CheckState = System.Windows.Forms.CheckState.Checked;
+            chkThreading.Location = new System.Drawing.Point(519, 20);
+            chkThreading.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkThreading.Name = "chkThreading";
+            chkThreading.Size = new System.Drawing.Size(80, 19);
+            chkThreading.TabIndex = 2;
+            chkThreading.Text = "Threading";
+            chkThreading.UseVisualStyleBackColor = true;
             // 
             // chkOpenMotionPopupWhenProgramStarts
             // 
-            this.chkOpenMotionPopupWhenProgramStarts.AutoSize = true;
-            this.chkOpenMotionPopupWhenProgramStarts.Location = new System.Drawing.Point(210, 20);
-            this.chkOpenMotionPopupWhenProgramStarts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.chkOpenMotionPopupWhenProgramStarts.Name = "chkOpenMotionPopupWhenProgramStarts";
-            this.chkOpenMotionPopupWhenProgramStarts.Size = new System.Drawing.Size(247, 19);
-            this.chkOpenMotionPopupWhenProgramStarts.TabIndex = 1;
-            this.chkOpenMotionPopupWhenProgramStarts.Text = "Open Motion Popup when program starts";
-            this.chkOpenMotionPopupWhenProgramStarts.UseVisualStyleBackColor = true;
+            chkOpenMotionPopupWhenProgramStarts.AutoSize = true;
+            chkOpenMotionPopupWhenProgramStarts.Location = new System.Drawing.Point(210, 20);
+            chkOpenMotionPopupWhenProgramStarts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkOpenMotionPopupWhenProgramStarts.Name = "chkOpenMotionPopupWhenProgramStarts";
+            chkOpenMotionPopupWhenProgramStarts.Size = new System.Drawing.Size(247, 19);
+            chkOpenMotionPopupWhenProgramStarts.TabIndex = 1;
+            chkOpenMotionPopupWhenProgramStarts.Text = "Open Motion Popup when program starts";
+            chkOpenMotionPopupWhenProgramStarts.UseVisualStyleBackColor = true;
             // 
             // lblMinutes2
             // 
@@ -254,14 +253,14 @@
             // 
             // cbUsers
             // 
-            this.cbUsers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.cbUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUsers.FormattingEnabled = true;
-            this.cbUsers.Location = new System.Drawing.Point(463, 114);
-            this.cbUsers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cbUsers.Name = "cbUsers";
-            this.cbUsers.Size = new System.Drawing.Size(193, 23);
-            this.cbUsers.TabIndex = 14;
+            cbUsers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            cbUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbUsers.FormattingEnabled = true;
+            cbUsers.Location = new System.Drawing.Point(463, 114);
+            cbUsers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbUsers.Name = "cbUsers";
+            cbUsers.Size = new System.Drawing.Size(193, 23);
+            cbUsers.TabIndex = 14;
             // 
             // lblSeconds
             // 
@@ -277,7 +276,6 @@
             // gbDatabaseOptions
             // 
             gbDatabaseOptions.BackColor = System.Drawing.Color.Transparent;
-            gbDatabaseOptions.BackgroundImage = (System.Drawing.Image)resources.GetObject("gbDatabaseOptions.BackgroundImage");
             gbDatabaseOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             gbDatabaseOptions.Controls.Add(tbDatabaseUsage);
             gbDatabaseOptions.Controls.Add(btnChangeDatabaseDirectory);
@@ -530,47 +528,47 @@
             // 
             // lblMinutes
             // 
-            this.lblMinutes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.lblMinutes.AutoSize = true;
-            this.lblMinutes.Location = new System.Drawing.Point(552, 95);
-            this.lblMinutes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMinutes.Name = "lblMinutes";
-            this.lblMinutes.Size = new System.Drawing.Size(58, 15);
-            this.lblMinutes.TabIndex = 11;
-            this.lblMinutes.Text = "minute(s)";
+            lblMinutes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblMinutes.AutoSize = true;
+            lblMinutes.Location = new System.Drawing.Point(552, 95);
+            lblMinutes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMinutes.Name = "lblMinutes";
+            lblMinutes.Size = new System.Drawing.Size(58, 15);
+            lblMinutes.TabIndex = 11;
+            lblMinutes.Text = "minute(s)";
             // 
             // lblMilliseconds2
             // 
-            this.lblMilliseconds2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.lblMilliseconds2.AutoSize = true;
-            this.lblMilliseconds2.Location = new System.Drawing.Point(552, 69);
-            this.lblMilliseconds2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMilliseconds2.Name = "lblMilliseconds2";
-            this.lblMilliseconds2.Size = new System.Drawing.Size(81, 15);
-            this.lblMilliseconds2.TabIndex = 8;
-            this.lblMilliseconds2.Text = "millisecond(s)";
+            lblMilliseconds2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblMilliseconds2.AutoSize = true;
+            lblMilliseconds2.Location = new System.Drawing.Point(552, 69);
+            lblMilliseconds2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMilliseconds2.Name = "lblMilliseconds2";
+            lblMilliseconds2.Size = new System.Drawing.Size(81, 15);
+            lblMilliseconds2.TabIndex = 8;
+            lblMilliseconds2.Text = "millisecond(s)";
             // 
             // lblMilliseconds
             // 
-            this.lblMilliseconds.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.lblMilliseconds.AutoSize = true;
-            this.lblMilliseconds.Location = new System.Drawing.Point(552, 44);
-            this.lblMilliseconds.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMilliseconds.Name = "lblMilliseconds";
-            this.lblMilliseconds.Size = new System.Drawing.Size(81, 15);
-            this.lblMilliseconds.TabIndex = 5;
-            this.lblMilliseconds.Text = "millisecond(s)";
+            lblMilliseconds.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblMilliseconds.AutoSize = true;
+            lblMilliseconds.Location = new System.Drawing.Point(552, 44);
+            lblMilliseconds.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblMilliseconds.Name = "lblMilliseconds";
+            lblMilliseconds.Size = new System.Drawing.Size(81, 15);
+            lblMilliseconds.TabIndex = 5;
+            lblMilliseconds.Text = "millisecond(s)";
             // 
             // nudStatisticMessageAfterEveryMinutes
             // 
-            this.nudStatisticMessageAfterEveryMinutes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.nudStatisticMessageAfterEveryMinutes.Location = new System.Drawing.Point(463, 90);
-            this.nudStatisticMessageAfterEveryMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.nudStatisticMessageAfterEveryMinutes.Maximum = new decimal(new int[] { 35791, 0, 0, 0 });
-            this.nudStatisticMessageAfterEveryMinutes.Name = "nudStatisticMessageAfterEveryMinutes";
-            this.nudStatisticMessageAfterEveryMinutes.Size = new System.Drawing.Size(82, 23);
-            this.nudStatisticMessageAfterEveryMinutes.TabIndex = 10;
-            this.nudStatisticMessageAfterEveryMinutes.Value = new decimal(new int[] { 1440, 0, 0, 0 });
+            nudStatisticMessageAfterEveryMinutes.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            nudStatisticMessageAfterEveryMinutes.Location = new System.Drawing.Point(463, 90);
+            nudStatisticMessageAfterEveryMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudStatisticMessageAfterEveryMinutes.Maximum = new decimal(new int[] { 35791, 0, 0, 0 });
+            nudStatisticMessageAfterEveryMinutes.Name = "nudStatisticMessageAfterEveryMinutes";
+            nudStatisticMessageAfterEveryMinutes.Size = new System.Drawing.Size(82, 23);
+            nudStatisticMessageAfterEveryMinutes.TabIndex = 10;
+            nudStatisticMessageAfterEveryMinutes.Value = new decimal(new int[] { 1440, 0, 0, 0 });
             // 
             // lblStatisticMessageAfterEvery
             // 
@@ -645,9 +643,9 @@
             chkUseCustomNoSignalImage.Location = new System.Drawing.Point(13, 1);
             chkUseCustomNoSignalImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chkUseCustomNoSignalImage.Name = "chkUseCustomNoSignalImage";
-            chkUseCustomNoSignalImage.Size = new System.Drawing.Size(220, 19);
+            chkUseCustomNoSignalImage.Size = new System.Drawing.Size(216, 19);
             chkUseCustomNoSignalImage.TabIndex = 0;
-            chkUseCustomNoSignalImage.Text = "\"No signal or no connection\" picture";
+            chkUseCustomNoSignalImage.Text = "\"No signal or no connection\" image";
             chkUseCustomNoSignalImage.UseVisualStyleBackColor = true;
             // 
             // pbNoSignalImage
@@ -740,12 +738,12 @@
             gbTechnicalOptions.Controls.Add(lblKBD300ACOMPort);
             gbTechnicalOptions.Controls.Add(cbKBD300ACOMPort);
             gbTechnicalOptions.Controls.Add(chkLiveView);
-            gbTechnicalOptions.Controls.Add(this.chkThreading);
-            gbTechnicalOptions.Controls.Add(this.chkOpenMotionPopupWhenProgramStarts);
+            gbTechnicalOptions.Controls.Add(chkThreading);
+            gbTechnicalOptions.Controls.Add(chkOpenMotionPopupWhenProgramStarts);
             gbTechnicalOptions.Controls.Add(lblMinutes2);
             gbTechnicalOptions.Controls.Add(nudRestartTemplate);
             gbTechnicalOptions.Controls.Add(lblRestartTemplateAfterEvery);
-            gbTechnicalOptions.Controls.Add(this.cbUsers);
+            gbTechnicalOptions.Controls.Add(cbUsers);
             gbTechnicalOptions.Controls.Add(lblSeconds);
             gbTechnicalOptions.Controls.Add(lblMilliseconds3);
             gbTechnicalOptions.Controls.Add(nudMaximumTimeToWaitForNewPicture);
@@ -753,13 +751,13 @@
             gbTechnicalOptions.Controls.Add(nudMaximumDeflectionBetweenLiveViewAndRecorder);
             gbTechnicalOptions.Controls.Add(lblMaximumDeflectionBetweenLiveViewAndRecorder);
             gbTechnicalOptions.Controls.Add(lblAutologinIfLastStatisticMessageIsEarlierThan);
-            gbTechnicalOptions.Controls.Add(this.lblMinutes);
-            gbTechnicalOptions.Controls.Add(this.lblMilliseconds2);
-            gbTechnicalOptions.Controls.Add(this.lblMilliseconds);
-            gbTechnicalOptions.Controls.Add(this.nudStatisticMessageAfterEveryMinutes);
+            gbTechnicalOptions.Controls.Add(lblMinutes);
+            gbTechnicalOptions.Controls.Add(lblMilliseconds2);
+            gbTechnicalOptions.Controls.Add(lblMilliseconds);
+            gbTechnicalOptions.Controls.Add(nudStatisticMessageAfterEveryMinutes);
             gbTechnicalOptions.Controls.Add(lblStatisticMessageAfterEvery);
             gbTechnicalOptions.Controls.Add(chkUseWatchDog);
-            gbTechnicalOptions.Controls.Add(this.nudTimeBetweenCheckVideoServers);
+            gbTechnicalOptions.Controls.Add(nudTimeBetweenCheckVideoServers);
             gbTechnicalOptions.Controls.Add(lblTimeBetweenCheckVideoServers);
             gbTechnicalOptions.Controls.Add(nudMaximumTimeToWaitForAVideoServerIs);
             gbTechnicalOptions.Controls.Add(lblMaximumTimeToWaitForAVideoServerIs);
@@ -786,15 +784,15 @@
             // 
             // nudTimeBetweenCheckVideoServers
             // 
-            this.nudTimeBetweenCheckVideoServers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.nudTimeBetweenCheckVideoServers.Location = new System.Drawing.Point(463, 39);
-            this.nudTimeBetweenCheckVideoServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.nudTimeBetweenCheckVideoServers.Maximum = new decimal(new int[] { 600000, 0, 0, 0 });
-            this.nudTimeBetweenCheckVideoServers.Minimum = new decimal(new int[] { 1000, 0, 0, 0 });
-            this.nudTimeBetweenCheckVideoServers.Name = "nudTimeBetweenCheckVideoServers";
-            this.nudTimeBetweenCheckVideoServers.Size = new System.Drawing.Size(82, 23);
-            this.nudTimeBetweenCheckVideoServers.TabIndex = 4;
-            this.nudTimeBetweenCheckVideoServers.Value = new decimal(new int[] { 3000, 0, 0, 0 });
+            nudTimeBetweenCheckVideoServers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            nudTimeBetweenCheckVideoServers.Location = new System.Drawing.Point(463, 39);
+            nudTimeBetweenCheckVideoServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudTimeBetweenCheckVideoServers.Maximum = new decimal(new int[] { 600000, 0, 0, 0 });
+            nudTimeBetweenCheckVideoServers.Minimum = new decimal(new int[] { 1000, 0, 0, 0 });
+            nudTimeBetweenCheckVideoServers.Name = "nudTimeBetweenCheckVideoServers";
+            nudTimeBetweenCheckVideoServers.Size = new System.Drawing.Size(82, 23);
+            nudTimeBetweenCheckVideoServers.TabIndex = 4;
+            nudTimeBetweenCheckVideoServers.Value = new decimal(new int[] { 3000, 0, 0, 0 });
             // 
             // lblTimeBetweenCheckVideoServers
             // 
@@ -860,12 +858,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(701, 653);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(708, 678);
             Name = "GeneralOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "System options";
+            Text = "General options";
             Shown += GeneralOptionsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)nudFPS).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudRestartTemplate).EndInit();
@@ -875,7 +872,7 @@
             ((System.ComponentModel.ISupportInitialize)pbStatus).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumTimeToWaitForNewPicture).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumDeflectionBetweenLiveViewAndRecorder).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.nudStatisticMessageAfterEveryMinutes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudStatisticMessageAfterEveryMinutes).EndInit();
             pMain.ResumeLayout(false);
             gbNoSignalImage.ResumeLayout(false);
             gbNoSignalImage.PerformLayout();
@@ -884,7 +881,7 @@
             gbEventLogging.PerformLayout();
             gbTechnicalOptions.ResumeLayout(false);
             gbTechnicalOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)this.nudTimeBetweenCheckVideoServers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudTimeBetweenCheckVideoServers).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudMaximumTimeToWaitForAVideoServerIs).EndInit();
             ResumeLayout(false);
         }

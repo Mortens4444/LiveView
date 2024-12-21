@@ -131,7 +131,6 @@
             // btnSelectAllCameras
             // 
             btnSelectAllCameras.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnSelectAllCameras.Image = (System.Drawing.Image)resources.GetObject("btnSelectAllCameras.Image");
             btnSelectAllCameras.Location = new System.Drawing.Point(316, 172);
             btnSelectAllCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSelectAllCameras.Name = "btnSelectAllCameras";
@@ -155,7 +154,6 @@
             // btnSelectAllOperation
             // 
             btnSelectAllOperation.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnSelectAllOperation.Image = (System.Drawing.Image)resources.GetObject("btnSelectAllOperation.Image");
             btnSelectAllOperation.Location = new System.Drawing.Point(316, 138);
             btnSelectAllOperation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSelectAllOperation.Name = "btnSelectAllOperation";
@@ -257,7 +255,7 @@
             // 
             // chExecuteableOperationsAndVisibleCameras
             // 
-            chExecuteableOperationsAndVisibleCameras.Text = "Executeable operations and visible cameras";
+            chExecuteableOperationsAndVisibleCameras.Text = "Executable operations and visible cameras";
             chExecuteableOperationsAndVisibleCameras.Width = 270;
             // 
             // lblNote2
@@ -295,7 +293,6 @@
             // btnRemoveAll
             // 
             btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveAll.Image = (System.Drawing.Image)resources.GetObject("btnRemoveAll.Image");
             btnRemoveAll.Location = new System.Drawing.Point(316, 323);
             btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveAll.Name = "btnRemoveAll";
@@ -307,7 +304,6 @@
             // btnRemoveSelected
             // 
             btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveSelected.Image = (System.Drawing.Image)resources.GetObject("btnRemoveSelected.Image");
             btnRemoveSelected.Location = new System.Drawing.Point(316, 290);
             btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveSelected.Name = "btnRemoveSelected";
@@ -319,7 +315,6 @@
             // btnAddAll
             // 
             btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddAll.Image = (System.Drawing.Image)resources.GetObject("btnAddAll.Image");
             btnAddAll.Location = new System.Drawing.Point(316, 256);
             btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddAll.Name = "btnAddAll";
@@ -331,7 +326,6 @@
             // btnAddSelected
             // 
             btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddSelected.Image = (System.Drawing.Image)resources.GetObject("btnAddSelected.Image");
             btnAddSelected.Location = new System.Drawing.Point(316, 223);
             btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddSelected.Name = "btnAddSelected";
@@ -433,13 +427,12 @@
             lblGroupname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblGroupname.MaximumSize = new System.Drawing.Size(136, 15);
             lblGroupname.Name = "lblGroupname";
-            lblGroupname.Size = new System.Drawing.Size(70, 15);
+            lblGroupname.Size = new System.Drawing.Size(73, 15);
             lblGroupname.TabIndex = 0;
-            lblGroupname.Text = "Groupname";
+            lblGroupname.Text = "Group name";
             // 
             // niModifyIcon
             // 
-            niModifyIcon.Icon = (System.Drawing.Icon)resources.GetObject("niModifyIcon.Icon");
             niModifyIcon.Text = "ModifyIcon";
             // 
             // AddGroup
@@ -448,12 +441,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(664, 500);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(670, 525);
             Name = "AddGroup";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Create group";
+            Text = "Add group";
             TopMost = true;
             pMain.ResumeLayout(false);
             gbPermissions.ResumeLayout(false);

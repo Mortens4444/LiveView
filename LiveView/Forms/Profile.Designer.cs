@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
             tbCurrentPassword = new Mtf.Controls.PasswordBox();
             lblCurrentPassword = new System.Windows.Forms.Label();
             tbConfirmNewPassword = new Mtf.Controls.PasswordBox();
@@ -347,7 +346,7 @@
             btnSelectPicture.Name = "btnSelectPicture";
             btnSelectPicture.Size = new System.Drawing.Size(110, 27);
             btnSelectPicture.TabIndex = 2;
-            btnSelectPicture.Text = "Select picture";
+            btnSelectPicture.Text = "Select image";
             btnSelectPicture.UseVisualStyleBackColor = true;
             btnSelectPicture.Click += BtnSelectPicture_Click;
             // 
@@ -436,7 +435,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(654, 458);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(661, 432);
             Name = "Profile";

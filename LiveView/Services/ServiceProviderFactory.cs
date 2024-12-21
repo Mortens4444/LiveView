@@ -44,6 +44,7 @@ namespace LiveView.Services
             services.AddSingleton(typeof(IGroupRepository<>), typeof(GroupRepository<>));
             services.AddSingleton(typeof(IIOPortRepository<>), typeof(IOPortRepository<>));
             services.AddSingleton(typeof(ILanguageRepository<>), typeof(LanguageRepository<>));
+            services.AddSingleton(typeof(ILogRepository<>), typeof(LogRepository<>));
             services.AddSingleton(typeof(IMapObjectRepository<>), typeof(MapObjectRepository<>));
             services.AddSingleton(typeof(IMapRepository<>), typeof(MapRepository<>));
             services.AddSingleton(typeof(IPersonalOptionsRepository<>), typeof(PersonalOptionsRepository<>));
@@ -64,7 +65,7 @@ namespace LiveView.Services
             services.AddTransient<AddVideoServer>();
             services.AddTransient<AutoCreateWizard>();
             services.AddTransient<BarcodeReadings>();
-            services.AddTransient<CameraMotionOptions>();
+            services.AddTransient<CameraMotionSettings>();
             services.AddTransient<CameraProperties>();
             services.AddTransient<ControlCenter>();
             services.AddTransient<DisplaySettings>();

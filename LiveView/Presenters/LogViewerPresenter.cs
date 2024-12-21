@@ -10,10 +10,10 @@ namespace LiveView.Presenters
     public class LogViewerPresenter : BasePresenter
     {
         private readonly ILogViewerView view;
-        private readonly ILogRepository<Log> logRepository;
+        private readonly ILogRepository<LogEntry> logRepository;
         private readonly ILogger<LogViewer> logger;
 
-        public LogViewerPresenter(ILogViewerView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogRepository<Log> logRepository, ILogger<LogViewer> logger)
+        public LogViewerPresenter(ILogViewerView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogRepository<LogEntry> logRepository, ILogger<LogViewer> logger)
             : base(view, generalOptionsRepository)
         {
             this.view = view;

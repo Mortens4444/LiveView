@@ -180,9 +180,9 @@
             lblNumberOfCamerasRecordedByNotValidatedServers.Location = new System.Drawing.Point(9, 228);
             lblNumberOfCamerasRecordedByNotValidatedServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblNumberOfCamerasRecordedByNotValidatedServers.Name = "lblNumberOfCamerasRecordedByNotValidatedServers";
-            lblNumberOfCamerasRecordedByNotValidatedServers.Size = new System.Drawing.Size(292, 15);
+            lblNumberOfCamerasRecordedByNotValidatedServers.Size = new System.Drawing.Size(289, 15);
             lblNumberOfCamerasRecordedByNotValidatedServers.TabIndex = 48;
-            lblNumberOfCamerasRecordedByNotValidatedServers.Text = "Number of cameras recorded by not validated servers:";
+            lblNumberOfCamerasRecordedByNotValidatedServers.Text = "Number of cameras recorded by not validated servers";
             // 
             // lblNumberOfNotValidatedServers
             // 
@@ -190,9 +190,9 @@
             lblNumberOfNotValidatedServers.Location = new System.Drawing.Point(9, 208);
             lblNumberOfNotValidatedServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblNumberOfNotValidatedServers.Name = "lblNumberOfNotValidatedServers";
-            lblNumberOfNotValidatedServers.Size = new System.Drawing.Size(179, 15);
+            lblNumberOfNotValidatedServers.Size = new System.Drawing.Size(176, 15);
             lblNumberOfNotValidatedServers.TabIndex = 47;
-            lblNumberOfNotValidatedServers.Text = "Number of not validated servers:";
+            lblNumberOfNotValidatedServers.Text = "Number of not validated servers";
             // 
             // lblNotValidatedCamerasMaxPerAct
             // 
@@ -222,9 +222,9 @@
             lblNumberOfCamerasRecordedByValidatedServers.Location = new System.Drawing.Point(9, 187);
             lblNumberOfCamerasRecordedByValidatedServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblNumberOfCamerasRecordedByValidatedServers.Name = "lblNumberOfCamerasRecordedByValidatedServers";
-            lblNumberOfCamerasRecordedByValidatedServers.Size = new System.Drawing.Size(271, 15);
+            lblNumberOfCamerasRecordedByValidatedServers.Size = new System.Drawing.Size(268, 15);
             lblNumberOfCamerasRecordedByValidatedServers.TabIndex = 42;
-            lblNumberOfCamerasRecordedByValidatedServers.Text = "Number of cameras recorded by validated servers:";
+            lblNumberOfCamerasRecordedByValidatedServers.Text = "Number of cameras recorded by validated servers";
             // 
             // lblNumberOfValidatedServers
             // 
@@ -232,9 +232,9 @@
             lblNumberOfValidatedServers.Location = new System.Drawing.Point(9, 166);
             lblNumberOfValidatedServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblNumberOfValidatedServers.Name = "lblNumberOfValidatedServers";
-            lblNumberOfValidatedServers.Size = new System.Drawing.Size(158, 15);
+            lblNumberOfValidatedServers.Size = new System.Drawing.Size(155, 15);
             lblNumberOfValidatedServers.TabIndex = 41;
-            lblNumberOfValidatedServers.Text = "Number of validated servers:";
+            lblNumberOfValidatedServers.Text = "Number of validated servers";
             // 
             // lblValidatedCamerasMaxPerAct
             // 
@@ -275,9 +275,9 @@
             lblNumberOfUsers.Location = new System.Drawing.Point(9, 145);
             lblNumberOfUsers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblNumberOfUsers.Name = "lblNumberOfUsers";
-            lblNumberOfUsers.Size = new System.Drawing.Size(98, 15);
+            lblNumberOfUsers.Size = new System.Drawing.Size(95, 15);
             lblNumberOfUsers.TabIndex = 37;
-            lblNumberOfUsers.Text = "Number of users:";
+            lblNumberOfUsers.Text = "Number of users";
             // 
             // lblLicenseStatusResult
             // 
@@ -297,9 +297,9 @@
             lblLicenseStatus.Location = new System.Drawing.Point(9, 68);
             lblLicenseStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicenseStatus.Name = "lblLicenseStatus";
-            lblLicenseStatus.Size = new System.Drawing.Size(93, 13);
+            lblLicenseStatus.Size = new System.Drawing.Size(89, 13);
             lblLicenseStatus.TabIndex = 35;
-            lblLicenseStatus.Text = "License status:";
+            lblLicenseStatus.Text = "License status";
             // 
             // lblLicenseDetails
             // 
@@ -308,9 +308,9 @@
             lblLicenseDetails.Location = new System.Drawing.Point(9, 125);
             lblLicenseDetails.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicenseDetails.Name = "lblLicenseDetails";
-            lblLicenseDetails.Size = new System.Drawing.Size(96, 13);
+            lblLicenseDetails.Size = new System.Drawing.Size(92, 13);
             lblLicenseDetails.TabIndex = 34;
-            lblLicenseDetails.Text = "License details:";
+            lblLicenseDetails.Text = "License details";
             // 
             // LicenseForm
             // 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalOptionsForm));
             fdFontPicker = new System.Windows.Forms.FontDialog();
             cdColorPicker = new System.Windows.Forms.ColorDialog();
             lblSelectedLanguage = new System.Windows.Forms.Label();
@@ -304,12 +303,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(645, 205);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(652, 231);
             Name = "PersonalOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "PersonalOptions";
+            Text = "Personal options";
             Shown += PersonalOptionsForm_Shown;
             ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).EndInit();

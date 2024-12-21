@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BarcodeReadings));
             chkStoreDates = new System.Windows.Forms.CheckBox();
             lblMinute = new System.Windows.Forms.Label();
             cbSlPort = new System.Windows.Forms.CheckBox();
@@ -123,7 +122,7 @@
             // 
             lblMinute.AutoSize = true;
             lblMinute.Enabled = false;
-            lblMinute.Location = new System.Drawing.Point(359, 23);
+            lblMinute.Location = new System.Drawing.Point(368, 23);
             lblMinute.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMinute.Name = "lblMinute";
             lblMinute.Size = new System.Drawing.Size(18, 15);
@@ -198,7 +197,7 @@
             // 
             lblMinute2.AutoSize = true;
             lblMinute2.Enabled = false;
-            lblMinute2.Location = new System.Drawing.Point(359, 50);
+            lblMinute2.Location = new System.Drawing.Point(368, 50);
             lblMinute2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMinute2.Name = "lblMinute2";
             lblMinute2.Size = new System.Drawing.Size(18, 15);
@@ -209,7 +208,7 @@
             // 
             lblHour2.AutoSize = true;
             lblHour2.Enabled = false;
-            lblHour2.Location = new System.Drawing.Point(285, 50);
+            lblHour2.Location = new System.Drawing.Point(294, 50);
             lblHour2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblHour2.Name = "lblHour2";
             lblHour2.Size = new System.Drawing.Size(14, 15);
@@ -220,7 +219,7 @@
             // 
             lblHour.AutoSize = true;
             lblHour.Enabled = false;
-            lblHour.Location = new System.Drawing.Point(285, 23);
+            lblHour.Location = new System.Drawing.Point(294, 23);
             lblHour.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblHour.Name = "lblHour";
             lblHour.Size = new System.Drawing.Size(14, 15);
@@ -230,7 +229,7 @@
             // nudToMinutes
             // 
             nudToMinutes.Enabled = false;
-            nudToMinutes.Location = new System.Drawing.Point(304, 45);
+            nudToMinutes.Location = new System.Drawing.Point(313, 45);
             nudToMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudToMinutes.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
             nudToMinutes.Name = "nudToMinutes";
@@ -241,7 +240,7 @@
             // nudToHour
             // 
             nudToHour.Enabled = false;
-            nudToHour.Location = new System.Drawing.Point(230, 45);
+            nudToHour.Location = new System.Drawing.Point(239, 45);
             nudToHour.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudToHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
             nudToHour.Name = "nudToHour";
@@ -252,7 +251,7 @@
             // nudFromMinutes
             // 
             nudFromMinutes.Enabled = false;
-            nudFromMinutes.Location = new System.Drawing.Point(304, 18);
+            nudFromMinutes.Location = new System.Drawing.Point(313, 18);
             nudFromMinutes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFromMinutes.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
             nudFromMinutes.Name = "nudFromMinutes";
@@ -262,7 +261,7 @@
             // nudFromHour
             // 
             nudFromHour.Enabled = false;
-            nudFromHour.Location = new System.Drawing.Point(230, 18);
+            nudFromHour.Location = new System.Drawing.Point(239, 18);
             nudFromHour.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFromHour.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
             nudFromHour.Name = "nudFromHour";
@@ -272,7 +271,7 @@
             // dtpToDate
             // 
             dtpToDate.Enabled = false;
-            dtpToDate.Location = new System.Drawing.Point(68, 45);
+            dtpToDate.Location = new System.Drawing.Point(77, 45);
             dtpToDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dtpToDate.Name = "dtpToDate";
             dtpToDate.Size = new System.Drawing.Size(154, 23);
@@ -281,7 +280,7 @@
             // dtpFromDate
             // 
             dtpFromDate.Enabled = false;
-            dtpFromDate.Location = new System.Drawing.Point(68, 18);
+            dtpFromDate.Location = new System.Drawing.Point(77, 18);
             dtpFromDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dtpFromDate.Name = "dtpFromDate";
             dtpFromDate.Size = new System.Drawing.Size(154, 23);
@@ -294,9 +293,9 @@
             lblFrom.Location = new System.Drawing.Point(9, 23);
             lblFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFrom.Name = "lblFrom";
-            lblFrom.Size = new System.Drawing.Size(35, 15);
+            lblFrom.Size = new System.Drawing.Size(61, 15);
             lblFrom.TabIndex = 0;
-            lblFrom.Text = "From";
+            lblFrom.Text = "From date";
             // 
             // gbMaximumRows
             // 
@@ -394,9 +393,9 @@
             lblTo.Location = new System.Drawing.Point(9, 50);
             lblTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblTo.Name = "lblTo";
-            lblTo.Size = new System.Drawing.Size(20, 15);
+            lblTo.Size = new System.Drawing.Size(46, 15);
             lblTo.TabIndex = 6;
-            lblTo.Text = "To";
+            lblTo.Text = "To date";
             // 
             // pMain
             // 
@@ -522,7 +521,7 @@
             // 
             lblMinute4.AutoSize = true;
             lblMinute4.Enabled = false;
-            lblMinute4.Location = new System.Drawing.Point(359, 50);
+            lblMinute4.Location = new System.Drawing.Point(366, 50);
             lblMinute4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMinute4.Name = "lblMinute4";
             lblMinute4.Size = new System.Drawing.Size(18, 15);
@@ -533,7 +532,7 @@
             // 
             lblMinute3.AutoSize = true;
             lblMinute3.Enabled = false;
-            lblMinute3.Location = new System.Drawing.Point(359, 23);
+            lblMinute3.Location = new System.Drawing.Point(366, 23);
             lblMinute3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMinute3.Name = "lblMinute3";
             lblMinute3.Size = new System.Drawing.Size(18, 15);
@@ -544,7 +543,7 @@
             // 
             lblHour4.AutoSize = true;
             lblHour4.Enabled = false;
-            lblHour4.Location = new System.Drawing.Point(285, 50);
+            lblHour4.Location = new System.Drawing.Point(292, 50);
             lblHour4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblHour4.Name = "lblHour4";
             lblHour4.Size = new System.Drawing.Size(14, 15);
@@ -555,7 +554,7 @@
             // 
             lblHour3.AutoSize = true;
             lblHour3.Enabled = false;
-            lblHour3.Location = new System.Drawing.Point(285, 23);
+            lblHour3.Location = new System.Drawing.Point(292, 23);
             lblHour3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblHour3.Name = "lblHour3";
             lblHour3.Size = new System.Drawing.Size(14, 15);
@@ -565,7 +564,7 @@
             // nudToMinutes2
             // 
             nudToMinutes2.Enabled = false;
-            nudToMinutes2.Location = new System.Drawing.Point(304, 45);
+            nudToMinutes2.Location = new System.Drawing.Point(311, 45);
             nudToMinutes2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudToMinutes2.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
             nudToMinutes2.Name = "nudToMinutes2";
@@ -576,7 +575,7 @@
             // nudToHour2
             // 
             nudToHour2.Enabled = false;
-            nudToHour2.Location = new System.Drawing.Point(230, 45);
+            nudToHour2.Location = new System.Drawing.Point(237, 45);
             nudToHour2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudToHour2.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
             nudToHour2.Name = "nudToHour2";
@@ -587,7 +586,7 @@
             // nudFromMinutes2
             // 
             nudFromMinutes2.Enabled = false;
-            nudFromMinutes2.Location = new System.Drawing.Point(304, 18);
+            nudFromMinutes2.Location = new System.Drawing.Point(311, 18);
             nudFromMinutes2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFromMinutes2.Maximum = new decimal(new int[] { 59, 0, 0, 0 });
             nudFromMinutes2.Name = "nudFromMinutes2";
@@ -597,7 +596,7 @@
             // nudFromHour2
             // 
             nudFromHour2.Enabled = false;
-            nudFromHour2.Location = new System.Drawing.Point(230, 18);
+            nudFromHour2.Location = new System.Drawing.Point(237, 18);
             nudFromHour2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFromHour2.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
             nudFromHour2.Name = "nudFromHour2";
@@ -607,7 +606,7 @@
             // dtpToDate2
             // 
             dtpToDate2.Enabled = false;
-            dtpToDate2.Location = new System.Drawing.Point(68, 45);
+            dtpToDate2.Location = new System.Drawing.Point(75, 45);
             dtpToDate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dtpToDate2.Name = "dtpToDate2";
             dtpToDate2.Size = new System.Drawing.Size(154, 23);
@@ -616,7 +615,7 @@
             // dtpFromDate2
             // 
             dtpFromDate2.Enabled = false;
-            dtpFromDate2.Location = new System.Drawing.Point(68, 18);
+            dtpFromDate2.Location = new System.Drawing.Point(75, 18);
             dtpFromDate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dtpFromDate2.Name = "dtpFromDate2";
             dtpFromDate2.Size = new System.Drawing.Size(154, 23);
@@ -629,9 +628,9 @@
             lblTo2.Location = new System.Drawing.Point(9, 50);
             lblTo2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblTo2.Name = "lblTo2";
-            lblTo2.Size = new System.Drawing.Size(20, 15);
+            lblTo2.Size = new System.Drawing.Size(46, 15);
             lblTo2.TabIndex = 6;
-            lblTo2.Text = "To";
+            lblTo2.Text = "To date";
             // 
             // lblFrom2
             // 
@@ -640,9 +639,9 @@
             lblFrom2.Location = new System.Drawing.Point(9, 23);
             lblFrom2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFrom2.Name = "lblFrom2";
-            lblFrom2.Size = new System.Drawing.Size(35, 15);
+            lblFrom2.Size = new System.Drawing.Size(61, 15);
             lblFrom2.TabIndex = 0;
-            lblFrom2.Text = "From";
+            lblFrom2.Text = "From date";
             // 
             // gbDatabaseServer
             // 
@@ -734,11 +733,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(979, 549);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "BarcodeReadings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "BarcodeReadings";
+            Text = "Barcode readings";
             Shown += BarcodeReadings_Shown;
             ((System.ComponentModel.ISupportInitialize)nudSlPort).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudToMinutes).EndInit();

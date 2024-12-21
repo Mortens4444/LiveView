@@ -12,6 +12,7 @@ namespace LiveView.Services
     public class DisplayManager
     {
         public const int FrameWidth = 3;
+        private const int Delta = 5;
 
         /// <summary>
         /// Retrieves all connected display devices.
@@ -212,9 +213,9 @@ namespace LiveView.Services
 
                 result.Add(display.Id, new Rectangle(
                     (int)Math.Round(scaledX),
-                    (int)Math.Round(scaledY),
-                    (int)Math.Round((display.Width / scale)),
-                    (int)Math.Round((display.Height / scale))
+                    (int)Math.Round(scaledY) + Delta,
+                    (int)Math.Round(display.Width / scale),
+                    (int)Math.Round(display.Height / scale) + Delta
                 ));
             }
             return result;
