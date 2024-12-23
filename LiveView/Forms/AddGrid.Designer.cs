@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGrid));
             pMain = new System.Windows.Forms.Panel();
             ssStatusStrip = new System.Windows.Forms.StatusStrip();
             tsbPrevious = new System.Windows.Forms.ToolStripButton();
@@ -149,7 +148,6 @@
             // tsbPrevious
             // 
             tsbPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            tsbPrevious.Image = (System.Drawing.Image)resources.GetObject("tsbPrevious.Image");
             tsbPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             tsbPrevious.Name = "tsbPrevious";
             tsbPrevious.Size = new System.Drawing.Size(23, 20);
@@ -158,7 +156,6 @@
             // tsbPlayOrPause
             // 
             tsbPlayOrPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            tsbPlayOrPause.Image = (System.Drawing.Image)resources.GetObject("tsbPlayOrPause.Image");
             tsbPlayOrPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             tsbPlayOrPause.Name = "tsbPlayOrPause";
             tsbPlayOrPause.Size = new System.Drawing.Size(23, 20);
@@ -167,7 +164,6 @@
             // tsbNext
             // 
             tsbNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            tsbNext.Image = (System.Drawing.Image)resources.GetObject("tsbNext.Image");
             tsbNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             tsbNext.Name = "tsbNext";
             tsbNext.Size = new System.Drawing.Size(23, 20);
@@ -233,14 +229,12 @@
             // tsbRearrangeGrid
             // 
             tsbRearrangeGrid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            tsbRearrangeGrid.Image = (System.Drawing.Image)resources.GetObject("tsbRearrangeGrid.Image");
             tsbRearrangeGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             tsbRearrangeGrid.Name = "tsbRearrangeGrid";
             tsbRearrangeGrid.Size = new System.Drawing.Size(23, 20);
             // 
             // pbNoSignal
             // 
-            pbNoSignal.Image = (System.Drawing.Image)resources.GetObject("pbNoSignal.Image");
             pbNoSignal.Location = new System.Drawing.Point(222, 72);
             pbNoSignal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbNoSignal.Name = "pbNoSignal";
@@ -341,7 +335,6 @@
             // 
             // btnTemplate12
             // 
-            btnTemplate12.Image = (System.Drawing.Image)resources.GetObject("btnTemplate12.Image");
             btnTemplate12.Location = new System.Drawing.Point(131, 84);
             btnTemplate12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate12.Name = "btnTemplate12";
@@ -352,7 +345,6 @@
             // 
             // btnTemplate11
             // 
-            btnTemplate11.Image = (System.Drawing.Image)resources.GetObject("btnTemplate11.Image");
             btnTemplate11.Location = new System.Drawing.Point(93, 84);
             btnTemplate11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate11.Name = "btnTemplate11";
@@ -363,7 +355,6 @@
             // 
             // btnTemplate10
             // 
-            btnTemplate10.Image = (System.Drawing.Image)resources.GetObject("btnTemplate10.Image");
             btnTemplate10.Location = new System.Drawing.Point(56, 84);
             btnTemplate10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate10.Name = "btnTemplate10";
@@ -374,7 +365,6 @@
             // 
             // btnTemplate9
             // 
-            btnTemplate9.Image = (System.Drawing.Image)resources.GetObject("btnTemplate9.Image");
             btnTemplate9.Location = new System.Drawing.Point(19, 84);
             btnTemplate9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate9.Name = "btnTemplate9";
@@ -385,7 +375,6 @@
             // 
             // btnTemplate8
             // 
-            btnTemplate8.Image = (System.Drawing.Image)resources.GetObject("btnTemplate8.Image");
             btnTemplate8.Location = new System.Drawing.Point(131, 51);
             btnTemplate8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate8.Name = "btnTemplate8";
@@ -396,7 +385,6 @@
             // 
             // btnTemplate7
             // 
-            btnTemplate7.Image = (System.Drawing.Image)resources.GetObject("btnTemplate7.Image");
             btnTemplate7.Location = new System.Drawing.Point(93, 51);
             btnTemplate7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate7.Name = "btnTemplate7";
@@ -407,7 +395,6 @@
             // 
             // btnTemplate6
             // 
-            btnTemplate6.Image = (System.Drawing.Image)resources.GetObject("btnTemplate6.Image");
             btnTemplate6.Location = new System.Drawing.Point(56, 51);
             btnTemplate6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate6.Name = "btnTemplate6";
@@ -418,7 +405,6 @@
             // 
             // btnTemplate5
             // 
-            btnTemplate5.Image = (System.Drawing.Image)resources.GetObject("btnTemplate5.Image");
             btnTemplate5.Location = new System.Drawing.Point(19, 51);
             btnTemplate5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate5.Name = "btnTemplate5";
@@ -429,7 +415,6 @@
             // 
             // btnTemplate4
             // 
-            btnTemplate4.Image = (System.Drawing.Image)resources.GetObject("btnTemplate4.Image");
             btnTemplate4.Location = new System.Drawing.Point(131, 18);
             btnTemplate4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate4.Name = "btnTemplate4";
@@ -440,7 +425,6 @@
             // 
             // btnTemplate3
             // 
-            btnTemplate3.Image = (System.Drawing.Image)resources.GetObject("btnTemplate3.Image");
             btnTemplate3.Location = new System.Drawing.Point(93, 18);
             btnTemplate3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate3.Name = "btnTemplate3";
@@ -451,7 +435,6 @@
             // 
             // btnTemplate2
             // 
-            btnTemplate2.Image = (System.Drawing.Image)resources.GetObject("btnTemplate2.Image");
             btnTemplate2.Location = new System.Drawing.Point(56, 18);
             btnTemplate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate2.Name = "btnTemplate2";
@@ -462,7 +445,6 @@
             // 
             // btnTemplate1
             // 
-            btnTemplate1.Image = (System.Drawing.Image)resources.GetObject("btnTemplate1.Image");
             btnTemplate1.Location = new System.Drawing.Point(19, 18);
             btnTemplate1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate1.Name = "btnTemplate1";
@@ -511,7 +493,6 @@
             // 
             // btnEastRight
             // 
-            btnEastRight.Image = (System.Drawing.Image)resources.GetObject("btnEastRight.Image");
             btnEastRight.Location = new System.Drawing.Point(145, 105);
             btnEastRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnEastRight.Name = "btnEastRight";
@@ -522,7 +503,6 @@
             // 
             // btnEastLeft
             // 
-            btnEastLeft.Image = (System.Drawing.Image)resources.GetObject("btnEastLeft.Image");
             btnEastLeft.Location = new System.Drawing.Point(145, 72);
             btnEastLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnEastLeft.Name = "btnEastLeft";
@@ -533,7 +513,6 @@
             // 
             // btnWestRight
             // 
-            btnWestRight.Image = (System.Drawing.Image)resources.GetObject("btnWestRight.Image");
             btnWestRight.Location = new System.Drawing.Point(9, 105);
             btnWestRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnWestRight.Name = "btnWestRight";
@@ -544,7 +523,6 @@
             // 
             // btnWestLeft
             // 
-            btnWestLeft.Image = (System.Drawing.Image)resources.GetObject("btnWestLeft.Image");
             btnWestLeft.Location = new System.Drawing.Point(9, 72);
             btnWestLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnWestLeft.Name = "btnWestLeft";
@@ -555,7 +533,6 @@
             // 
             // btnSouthDown
             // 
-            btnSouthDown.Image = (System.Drawing.Image)resources.GetObject("btnSouthDown.Image");
             btnSouthDown.Location = new System.Drawing.Point(94, 158);
             btnSouthDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSouthDown.Name = "btnSouthDown";
@@ -566,7 +543,6 @@
             // 
             // btnSouthUp
             // 
-            btnSouthUp.Image = (System.Drawing.Image)resources.GetObject("btnSouthUp.Image");
             btnSouthUp.Location = new System.Drawing.Point(59, 158);
             btnSouthUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSouthUp.Name = "btnSouthUp";
@@ -577,7 +553,6 @@
             // 
             // btnNorthDown
             // 
-            btnNorthDown.Image = (System.Drawing.Image)resources.GetObject("btnNorthDown.Image");
             btnNorthDown.Location = new System.Drawing.Point(93, 27);
             btnNorthDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnNorthDown.Name = "btnNorthDown";
@@ -588,7 +563,6 @@
             // 
             // btnNorthUp
             // 
-            btnNorthUp.Image = (System.Drawing.Image)resources.GetObject("btnNorthUp.Image");
             btnNorthUp.Location = new System.Drawing.Point(58, 27);
             btnNorthUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnNorthUp.Name = "btnNorthUp";
@@ -728,7 +702,6 @@
             // 
             // btn16_10_FixedRight
             // 
-            btn16_10_FixedRight.Image = (System.Drawing.Image)resources.GetObject("btn16_10_FixedRight.Image");
             btn16_10_FixedRight.Location = new System.Drawing.Point(148, 102);
             btn16_10_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_10_FixedRight.Name = "btn16_10_FixedRight";
@@ -740,7 +713,6 @@
             // 
             // btn16_9_FixedRight
             // 
-            btn16_9_FixedRight.Image = (System.Drawing.Image)resources.GetObject("btn16_9_FixedRight.Image");
             btn16_9_FixedRight.Location = new System.Drawing.Point(118, 102);
             btn16_9_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_9_FixedRight.Name = "btn16_9_FixedRight";
@@ -752,7 +724,6 @@
             // 
             // btn4_3_FixedRight
             // 
-            btn4_3_FixedRight.Image = (System.Drawing.Image)resources.GetObject("btn4_3_FixedRight.Image");
             btn4_3_FixedRight.Location = new System.Drawing.Point(88, 102);
             btn4_3_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn4_3_FixedRight.Name = "btn4_3_FixedRight";
@@ -764,7 +735,6 @@
             // 
             // btn16_10
             // 
-            btn16_10.Image = (System.Drawing.Image)resources.GetObject("btn16_10.Image");
             btn16_10.Location = new System.Drawing.Point(148, 173);
             btn16_10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_10.Name = "btn16_10";
@@ -775,7 +745,6 @@
             // 
             // btn16_9
             // 
-            btn16_9.Image = (System.Drawing.Image)resources.GetObject("btn16_9.Image");
             btn16_9.Location = new System.Drawing.Point(118, 173);
             btn16_9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_9.Name = "btn16_9";
@@ -786,7 +755,6 @@
             // 
             // btn4_3
             // 
-            btn4_3.Image = (System.Drawing.Image)resources.GetObject("btn4_3.Image");
             btn4_3.Location = new System.Drawing.Point(88, 173);
             btn4_3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn4_3.Name = "btn4_3";
@@ -967,11 +935,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(742, 835);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddGrid";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "New grid";
+            Shown += AddGrid_Shown;
             pMain.ResumeLayout(false);
             pMain.PerformLayout();
             ssStatusStrip.ResumeLayout(false);

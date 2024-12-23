@@ -1,15 +1,12 @@
 ﻿using AxVIDEOCONTROL4Lib;
-using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Models.VideoServer;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
 
@@ -21,7 +18,7 @@ namespace LiveView.Forms
         private readonly bool cameraLicenseRunnedOut;
         private readonly bool isSziltech;
 
-        private readonly AddCamerasPresenter presenter;
+        private AddCamerasPresenter presenter;
 
         public ListView ServerCameras => lvCamerasOfServer;
 
@@ -29,17 +26,13 @@ namespace LiveView.Forms
 
         public ComboBox Servers => cbServers;
 
-        public AddCameras(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddCameras> logger, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, Server server = null)
-             : base(permissionManager)
+        public AddCameras(IServiceProvider serviceProvider, Server server = null) : base(serviceProvider, typeof(AddCamerasPresenter))
         {
             InitializeComponent();
             this.server = server;
             cameraLicenseRunnedOut = false;
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new AddCamerasPresenter(this, generalOptionsRepository, cameraRepository, serverRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -91,6 +84,7 @@ namespace LiveView.Forms
 
         private void AddCameras_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as AddCamerasPresenter;
             presenter.LoadServers();
         }
 

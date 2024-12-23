@@ -11,21 +11,26 @@ namespace LiveView.Presenters
 {
     public class LicenseFormPresenter : BasePresenter
     {
-        private readonly ILicenseFormView view;
+        private ILicenseFormView view;
         private readonly ILogger<LicenseForm> logger;
         private readonly IUserRepository<User> userRepository;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
 
-        public LicenseFormPresenter(ILicenseFormView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository,
+        public LicenseFormPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository,
             IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<LicenseForm> logger)
-            : base(view, generalOptionsRepository)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.logger = logger;
             this.userRepository = userRepository;
             this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as ILicenseFormView;
         }
 
         public void Upgrade()

@@ -1,30 +1,26 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class GridManager : BaseView, IGridManagerView
     {
-        private readonly GridManagerPresenter presenter;
+        private GridManagerPresenter presenter;
 
-        public GridManager(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<GridManager> logger, IGridRepository<Grid> gridRepository, FormFactory formFactory)
-             : base(permissionManager)
+        public ComboBox CbGrids => cbGrids;
+
+        public ListView LvGridCameras => lvGridCameras;
+
+        public GridManager(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GridManagerPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new GridManagerPresenter(this, generalOptionsRepository, gridRepository, logger, formFactory);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -66,6 +62,7 @@ namespace LiveView.Forms
 
         private void GridManager_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as GridManagerPresenter;
             presenter.Load();
         }
 

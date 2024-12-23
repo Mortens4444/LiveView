@@ -1,28 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class EnterPass : BaseView, IEnterPassView
     {
-        private readonly EnterPassPresenter presenter;
+        private EnterPassPresenter presenter;
 
-        public EnterPass(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<EnterPass> logger, IUserRepository<User> userRepository) : base(permissionManager)
+        public EnterPass(IServiceProvider serviceProvider) : base(serviceProvider, typeof(EnterPassPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new EnterPassPresenter(this, generalOptionsRepository, userRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -32,6 +25,11 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.Login();
+        }
+
+        private void EnterPass_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as EnterPassPresenter;
         }
     }
 }

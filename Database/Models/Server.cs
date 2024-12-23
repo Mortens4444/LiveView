@@ -2,7 +2,7 @@
 {
     public class Server
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string IpAddress { get; set; }
 

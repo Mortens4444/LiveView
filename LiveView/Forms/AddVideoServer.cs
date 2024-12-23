@@ -1,14 +1,11 @@
-﻿using Database.Interfaces;
-using Database.Models;
+﻿using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
@@ -16,18 +13,14 @@ namespace LiveView.Forms
     public partial class AddVideoServer : BaseView, IAddVideoServerView
     {
         private readonly Server server;
-        private readonly AddVideoServerPresenter presenter;
+        private AddVideoServerPresenter presenter;
 
-        public AddVideoServer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<AddVideoServer> logger, IServerRepository<Server> serverRepository, Server server = null)
-             : base(permissionManager)
+        public AddVideoServer(IServiceProvider serviceProvider, Server server = null) : base(serviceProvider, typeof(AddVideoServerPresenter))
         {
             InitializeComponent();
             this.server = server;
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new AddVideoServerPresenter(this, generalOptionsRepository, serverRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -52,6 +45,7 @@ namespace LiveView.Forms
         [RequirePermission(ServerManagementPermissions.Select)]
         private async void AddVideoServer_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as AddVideoServerPresenter;
             permissionManager.EnsurePermissions();
             presenter.LoadData(server);
             await presenter.SearchForHostsAsync();

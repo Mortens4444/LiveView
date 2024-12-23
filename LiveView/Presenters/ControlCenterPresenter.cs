@@ -18,23 +18,28 @@ namespace LiveView.Presenters
 {
     public class ControlCenterPresenter : BaseDisplayPresenter
     {
-        private readonly IControlCenterView view;
+        private IControlCenterView view;
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ITemplateRepository<Template> templateRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
 
-        public ControlCenterPresenter(IControlCenterView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
+        public ControlCenterPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
             ICameraRepository<Camera> cameraRepository, DisplayManager displayManager, ILogger<ControlCenter> logger)
-            : base(view, displayManager, generalOptionsRepository, formFactory)
+            : base(displayManager, generalOptionsRepository, formFactory)
         {
-            this.view = view;
             this.templateRepository = templateRepository;
             this.displayRepository = displayRepository;
             this.cameraRepository = cameraRepository;
             this.displayManager = displayManager;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IControlCenterView;
         }
 
         public void CalibrateJoystick()

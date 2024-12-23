@@ -1,29 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
-    public partial class CameraMotionSettings : BaseView, ICameraMotionOptionsView
+    public partial class CameraMotionSettings : BaseView, ICameraMotionSettingsView
     {
-        private readonly CameraMotionOptionsPresenter presenter;
+        private CameraMotionOptionsPresenter presenter;
 
-        public CameraMotionSettings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<CameraMotionSettings> logger, ICameraRepository<Camera> cameraRepository)
-             : base(permissionManager)
+        public CameraMotionSettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(CameraMotionOptionsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new CameraMotionOptionsPresenter(this, generalOptionsRepository, cameraRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -37,6 +29,7 @@ namespace LiveView.Forms
 
         private void CameraMotionOptions_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as CameraMotionOptionsPresenter;
             presenter.Load();
         }
     }

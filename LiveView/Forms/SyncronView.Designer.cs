@@ -390,10 +390,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(782, 660);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Name = "SyncronView";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Syncron view";
+            Shown += SyncronView_Shown;
             pMain.ResumeLayout(false);
             gbControls.ResumeLayout(false);
             gbControls.PerformLayout();

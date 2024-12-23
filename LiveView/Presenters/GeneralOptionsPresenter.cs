@@ -9,14 +9,19 @@ namespace LiveView.Presenters
 {
     public class GeneralOptionsPresenter : BasePresenter
     {
-        private readonly IGeneralOptionsView view;
+        private IGeneralOptionsView view;
         private readonly ILogger<GeneralOptionsForm> logger;
 
-        public GeneralOptionsPresenter(IGeneralOptionsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<GeneralOptionsForm> logger)
-            : base(view, generalOptionsRepository)
+        public GeneralOptionsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<GeneralOptionsForm> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IGeneralOptionsView;
         }
 
         public void LoadDefaultSettings()

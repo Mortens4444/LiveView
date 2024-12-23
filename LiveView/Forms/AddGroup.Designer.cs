@@ -447,6 +447,7 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Add group";
             TopMost = true;
+            Shown += AddGroup_Shown;
             pMain.ResumeLayout(false);
             gbPermissions.ResumeLayout(false);
             gbPermissions.PerformLayout();

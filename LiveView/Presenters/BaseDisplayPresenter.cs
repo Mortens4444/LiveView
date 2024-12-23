@@ -14,8 +14,8 @@ namespace LiveView.Presenters
     {
         private readonly DisplayManager displayManager;
 
-        public BaseDisplayPresenter(IView view, DisplayManager displayManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory)
-            : base(view, generalOptionsRepository, formFactory)
+        public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory)
+            : base(generalOptionsRepository, formFactory)
         {
             this.displayManager = displayManager;
         }

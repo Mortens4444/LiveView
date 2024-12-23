@@ -9,16 +9,21 @@ namespace LiveView.Presenters
 {
     public class MapCreatorPresenter : BasePresenter
     {
-        private readonly IMapCreatorView view;
+        private IMapCreatorView view;
         private readonly IMapRepository<Map> mapRepository;
         private readonly ILogger<MapCreator> logger;
 
-        public MapCreatorPresenter(IMapCreatorView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IMapRepository<Map> mapRepository, ILogger<MapCreator> logger)
-            : base(view, generalOptionsRepository)
+        public MapCreatorPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IMapRepository<Map> mapRepository, ILogger<MapCreator> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.mapRepository = mapRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IMapCreatorView;
         }
 
         public void AddObject()

@@ -1,28 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class Templates : BaseView, ITemplatesView
     {
-        private readonly TemplatesPresenter presenter;
+        private TemplatesPresenter presenter;
 
-        public Templates(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<Templates> logger, ITemplateRepository<Template> templateRepository) : base(permissionManager)
+        public Templates(IServiceProvider serviceProvider) : base(serviceProvider, typeof(TemplatesPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new TemplatesPresenter(this, generalOptionsRepository, templateRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -48,6 +41,7 @@ namespace LiveView.Forms
 
         private void Templates_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as TemplatesPresenter;
             presenter.Load();
         }
     }

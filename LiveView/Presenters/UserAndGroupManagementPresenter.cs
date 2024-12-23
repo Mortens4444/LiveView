@@ -10,19 +10,24 @@ namespace LiveView.Presenters
 {
     public class UserAndGroupManagementPresenter : BasePresenter
     {
-        private readonly IUserAndGroupManagementView view;
+        private IUserAndGroupManagementView view;
         private readonly IUserRepository<User> userRepository;
         private readonly IGroupRepository<Group> groupRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
 
-        public UserAndGroupManagementPresenter(IUserAndGroupManagementView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+        public UserAndGroupManagementPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository, ILogger<UserAndGroupManagement> logger, FormFactory formfactory)
-            : base(view, generalOptionsRepository, formfactory)
+            : base(generalOptionsRepository, formfactory)
         {
-            this.view = view;
             this.userRepository = userRepository;
             this.groupRepository = groupRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IUserAndGroupManagementView;
         }
 
         public void Delete()

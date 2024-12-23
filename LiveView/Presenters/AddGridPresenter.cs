@@ -9,16 +9,21 @@ namespace LiveView.Presenters
 {
     public class AddGridPresenter : BasePresenter
     {
-        private readonly IAddGridView view;
+        private IAddGridView view;
         private readonly IGridRepository<Grid> gridRepository;
         private readonly ILogger<AddGrid> logger;
 
-        public AddGridPresenter(IAddGridView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<AddGrid> logger)
-            : base(view, generalOptionsRepository)
+        public AddGridPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGridRepository<Grid> gridRepository, ILogger<AddGrid> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.gridRepository = gridRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IAddGridView;
         }
 
         public void AdjustLeftEdgeLeftwards()

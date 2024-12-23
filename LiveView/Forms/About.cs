@@ -1,11 +1,7 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Presenters;
-using Mtf.LanguageService;
+﻿using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -14,7 +10,7 @@ namespace LiveView.Forms
 {
     public partial class About : BaseView
     {
-        public About(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository) : base(permissionManager)
+        public About(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BasePresenter))
         {
             InitializeComponent();
             
@@ -22,7 +18,6 @@ namespace LiveView.Forms
             lblVersion.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));
 
             Translator.Translate(this);
-            SetPresenter(new BasePresenter(this, generalOptionsRepository));
         }
 
         private void BtnOk_Click(object sender, EventArgs e)

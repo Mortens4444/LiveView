@@ -751,9 +751,9 @@
             lblRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRemoteVideoServerConnectionStatus.MaximumSize = new System.Drawing.Size(374, 15);
             lblRemoteVideoServerConnectionStatus.Name = "lblRemoteVideoServerConnectionStatus";
-            lblRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(260, 15);
+            lblRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(262, 15);
             lblRemoteVideoServerConnectionStatus.TabIndex = 1;
-            lblRemoteVideoServerConnectionStatus.Text = "Remote video server connection test in progress";
+            lblRemoteVideoServerConnectionStatus.Text = "Remote Video Server connection test in progress";
             // 
             // gbVideoServer
             // 
@@ -1387,6 +1387,7 @@
             Name = "ServerAndCameraProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Server and camera properties";
+            Shown += ServerAndCameraProperties_Shown;
             gbMisc.ResumeLayout(false);
             gbMisc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).EndInit();

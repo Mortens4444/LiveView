@@ -9,16 +9,21 @@ namespace LiveView.Presenters
 {
     public class PersonalOptionsPresenter : BasePresenter
     {
-        private readonly IPersonalOptionsView view;
+        private IPersonalOptionsView view;
         private readonly IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
 
-        public PersonalOptionsPresenter(IPersonalOptionsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository, ILogger<PersonalOptionsForm> logger)
-            : base(view, generalOptionsRepository)
+        public PersonalOptionsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository, ILogger<PersonalOptionsForm> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.personalOptionsRepository = personalOptionsRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IPersonalOptionsView;
         }
 
         public void SaveSettings()

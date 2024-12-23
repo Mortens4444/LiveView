@@ -1,10 +1,6 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
-using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
 
@@ -12,16 +8,11 @@ namespace LiveView.Forms
 {
     public partial class LicenseForm : BaseView, ILicenseFormView
     {
-        private readonly LicenseFormPresenter presenter;
+        private LicenseFormPresenter presenter;
 
-        public LicenseForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository,
-            IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<LicenseForm> logger)
-            : base(permissionManager)
+        public LicenseForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LicenseFormPresenter))
         {
             InitializeComponent();
-
-            presenter = new LicenseFormPresenter(this, generalOptionsRepository, userRepository, serverRepository, cameraRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -47,6 +38,7 @@ namespace LiveView.Forms
 
         private void LicenseForm_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as LicenseFormPresenter;
             presenter.Load();
         }
     }

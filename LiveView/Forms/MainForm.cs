@@ -1,10 +1,7 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Dto;
+﻿using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
@@ -13,7 +10,6 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Models;
-using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +23,7 @@ namespace LiveView.Forms
 {
     public partial class MainForm : BaseView, IMainView
     {
-        private readonly MainPresenter presenter;
+        private MainPresenter presenter;
 
         private static string Uptime;
         private static string Day;
@@ -48,7 +44,7 @@ namespace LiveView.Forms
             HardwareKey.GetDescription();
         }
 
-        public MainForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger, FormFactory formFactory) : base(permissionManager)
+        public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))
         {
             InitializeComponent();
 
@@ -84,9 +80,6 @@ namespace LiveView.Forms
                 }
             });
 
-            presenter = new MainPresenter(formFactory, this, generalOptionsRepository, logger);
-            SetPresenter(presenter);
-
             Translator.Translate(this);
 
             Uptime = Lng.Elem("Uptime");
@@ -96,7 +89,7 @@ namespace LiveView.Forms
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
         {
-            if (ControlCenter == null)
+            if (ControlCenter == null || ControlCenter.IsDisposed)
             {
                 ControlCenter = presenter.ShowForm<ControlCenter>();
             }
@@ -276,6 +269,7 @@ namespace LiveView.Forms
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as MainPresenter;
             presenter.Load();
         }
 
@@ -303,7 +297,7 @@ namespace LiveView.Forms
             switch (m.WParam.ToInt32())
             {
                 case 1:
-                    presenter.SetCursorPosition();
+                    presenter?.SetCursorPosition();
                     break;
 
                 default:

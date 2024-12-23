@@ -14,16 +14,21 @@ namespace LiveView.Presenters
 {
     public class MainPresenter : BasePresenter
     {
-        private readonly IMainView view;
+        private IMainView view;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
 
-        public MainPresenter(FormFactory formFactory, IMainView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
-            : base(view, generalOptionsRepository, formFactory)
+        public MainPresenter(FormFactory formFactory, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
+            : base(generalOptionsRepository, formFactory)
         {
-            this.view = view;
             this.logger = logger;
             uptime = new Uptime();
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IMainView;
         }
 
         public override void Load()

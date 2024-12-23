@@ -1,29 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class SequentialChains : BaseView, ISequentialChainsView
     {
-        private readonly SequentialChainsPresenter presenter;
+        private SequentialChainsPresenter presenter;
 
-        public SequentialChains(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<SequentialChains> logger, ISequenceRepository<Sequence> sequenceRepository)
-            : base(permissionManager)
+        public SequentialChains(IServiceProvider serviceProvider) : base(serviceProvider, typeof(SequentialChainsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new SequentialChainsPresenter(this, generalOptionsRepository, sequenceRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -73,6 +65,7 @@ namespace LiveView.Forms
 
         private void SequentialChains_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as SequentialChainsPresenter;
             presenter.Load();
         }
     }

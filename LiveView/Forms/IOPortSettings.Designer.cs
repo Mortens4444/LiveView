@@ -29,20 +29,19 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(IOPortSettings));
             pMain = new System.Windows.Forms.Panel();
             lblIODevice = new System.Windows.Forms.Label();
             chkZeroSignalled = new System.Windows.Forms.CheckBox();
             lvIOPortRules = new Mtf.Controls.MtfListView();
-            this.chRuleIODevice = new System.Windows.Forms.ColumnHeader();
-            this.chOutputIOPort = new System.Windows.Forms.ColumnHeader();
-            this.chOperationOrEvent = new System.Windows.Forms.ColumnHeader();
-            this.chZeroSignaled = new System.Windows.Forms.ColumnHeader();
+            chRuleIODevice = new System.Windows.Forms.ColumnHeader();
+            chOutputIOPort = new System.Windows.Forms.ColumnHeader();
+            chOperationOrEvent = new System.Windows.Forms.ColumnHeader();
+            chZeroSignaled = new System.Windows.Forms.ColumnHeader();
             cmdDeleteRules = new System.Windows.Forms.ContextMenuStrip(components);
             deleteRulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             lblOutputIOPort = new System.Windows.Forms.Label();
             btnAddToRules = new System.Windows.Forms.Button();
-            this.cbOutputIOPort = new System.Windows.Forms.ComboBox();
+            cbOutputIOPort = new System.Windows.Forms.ComboBox();
             lblOperationOrEvent = new System.Windows.Forms.Label();
             cbIODevice = new System.Windows.Forms.ComboBox();
             cbOperationOrEvent = new System.Windows.Forms.ComboBox();
@@ -103,7 +102,7 @@
             lvIOPortRules.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvIOPortRules.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvIOPortRules.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvIOPortRules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.chRuleIODevice, this.chOutputIOPort, this.chOperationOrEvent, this.chZeroSignaled });
+            lvIOPortRules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chRuleIODevice, chOutputIOPort, chOperationOrEvent, chZeroSignaled });
             lvIOPortRules.CompactView = false;
             lvIOPortRules.ContextMenuStrip = cmdDeleteRules;
             lvIOPortRules.EnsureLastItemIsVisible = false;
@@ -123,34 +122,34 @@
             // 
             // chRuleIODevice
             // 
-            this.chRuleIODevice.Text = "I/O Device";
-            this.chRuleIODevice.Width = 102;
+            chRuleIODevice.Text = "I/O Device";
+            chRuleIODevice.Width = 102;
             // 
             // chOutputIOPort
             // 
-            this.chOutputIOPort.Text = "Output I/O port";
-            this.chOutputIOPort.Width = 183;
+            chOutputIOPort.Text = "Output I/O port";
+            chOutputIOPort.Width = 183;
             // 
             // chOperationOrEvent
             // 
-            this.chOperationOrEvent.Text = "Operation or event";
-            this.chOperationOrEvent.Width = 184;
+            chOperationOrEvent.Text = "Operation or event";
+            chOperationOrEvent.Width = 184;
             // 
             // chZeroSignaled
             // 
-            this.chZeroSignaled.Text = "Zero signaled";
-            this.chZeroSignaled.Width = 81;
+            chZeroSignaled.Text = "Zero signaled";
+            chZeroSignaled.Width = 81;
             // 
             // cmdDeleteRules
             // 
             cmdDeleteRules.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteRulesToolStripMenuItem });
             cmdDeleteRules.Name = "contextMenuStrip2";
-            cmdDeleteRules.Size = new System.Drawing.Size(181, 48);
+            cmdDeleteRules.Size = new System.Drawing.Size(136, 26);
             // 
             // deleteRulesToolStripMenuItem
             // 
             deleteRulesToolStripMenuItem.Name = "deleteRulesToolStripMenuItem";
-            deleteRulesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            deleteRulesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             deleteRulesToolStripMenuItem.Text = "Delete rules";
             // 
             // lblOutputIOPort
@@ -175,6 +174,15 @@
             btnAddToRules.UseVisualStyleBackColor = true;
             btnAddToRules.Click += BtnAddToRules_Click;
             // 
+            // cbOutputIOPort
+            // 
+            cbOutputIOPort.FormattingEnabled = true;
+            cbOutputIOPort.Location = new System.Drawing.Point(122, 46);
+            cbOutputIOPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbOutputIOPort.Name = "cbOutputIOPort";
+            cbOutputIOPort.Size = new System.Drawing.Size(207, 23);
+            cbOutputIOPort.TabIndex = 1;
+            // 
             // lblOperationOrEvent
             // 
             lblOperationOrEvent.AutoSize = true;
@@ -184,15 +192,6 @@
             lblOperationOrEvent.Size = new System.Drawing.Size(106, 15);
             lblOperationOrEvent.TabIndex = 3;
             lblOperationOrEvent.Text = "Operation or event";
-            // 
-            // cbOutputIOPort
-            // 
-            this.cbOutputIOPort.FormattingEnabled = true;
-            this.cbOutputIOPort.Location = new System.Drawing.Point(122, 46);
-            this.cbOutputIOPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cbOutputIOPort.Name = "cbOutputIOPort";
-            this.cbOutputIOPort.Size = new System.Drawing.Size(207, 23);
-            this.cbOutputIOPort.TabIndex = 1;
             // 
             // cbIODevice
             // 
@@ -230,7 +229,7 @@
             gbIORules.Controls.Add(lvIOPortRules);
             gbIORules.Controls.Add(btnAddToRules);
             gbIORules.Controls.Add(lblOperationOrEvent);
-            gbIORules.Controls.Add(this.cbOutputIOPort);
+            gbIORules.Controls.Add(cbOutputIOPort);
             gbIORules.Controls.Add(lblOutputIOPort);
             gbIORules.Controls.Add(cbOperationOrEvent);
             gbIORules.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -330,11 +329,10 @@
             Controls.Add(pLower);
             Controls.Add(pUpper);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "IOPortSettings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "I/O ports' settings";
+            Text = "I/O ports’ settings";
             Shown += IOPortSettings_Shown;
             cmdDeleteRules.ResumeLayout(false);
             pLower.ResumeLayout(false);

@@ -17,5 +17,10 @@
         public int? Priority { get; set; }
 
         public string Checksum { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

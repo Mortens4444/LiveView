@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABELAAARCwAAAAAAAAAA
-        AADW29r/1drZ/97h4P/b3dz/ko2D/8TDvv/09fX/pqKa/6qnn//09PT/uLax/5WRiP/e4eD/3eDg/9TY
-        1//O09L/1dva/9nc3P/s7/D/0tLQ/ycZBf+MhXn//////0o/Lv9WSjr//////3hxZf8xIg7/3t3c/+ns
-        7f/Y3Nv/0NXU/9Xa2f/f4+P/0dDK/8XCtv9eUkD/oJmN/9XSx/94b1//f3Zn/9XSx/+Ujn7/ZVpL/8vH
-        vP/a2tT/4OPj/9TY1//X3dz/3ODf/11TRf8/MRz/T0Mu/0w/K/9OQS7/TkEt/01BLf9MPyz/TD8r/05D
-        L/86LRn/eHBj/+ns7P/Z3dz/2d/e/9DS0f9DNyb/uLOm/8fEuv/Z183/1dLI/9TSx//T0MX/1tPI/9TR
-        xv/Myb//lY5+/05EM//m6ej/3ODg/9nf3v/R0tH/T0Mz/+jn5f+UjYT/5OLe/5+Wi/+YkYX/k4t//7Co
-        n//S0Mv/opyS/8TAuf9TSDf/5+rq/93i4f/Z397/0dPS/05CMv/n5uT/2NXS/4B4bP9IPCv/Oi4c/zww
-        Hv8yJBH/i4N2/+Hf2//Bvbf/VUo4/+vt7P/f4uL/2d/e/9HT0v9NQTH/7ezo/7q1r/9lW03/joZ7/0g7
-        Kf9TRjP/Oy4c/11TRP/NycP/xcG8/1NIN//p6+v/3uLi/9nf3v/Q0tH/TEEx/+zr5/++urP/bGNU/42F
-        ev9DNiT/T0Et/zkrGv9iWUv/0c7H/8fEv/9SRzf/6Orq/97h4f/a397/ztHP/0o/L//p5+P/1dPO/3Jp
-        XP+HfnH/ioFz/4yEdv9RRTT/cmpe/+Lg2//Fwrz/UEY2/+Xn5//c39//2t/f/8zPzv9MQTH/5ePf/4qE
-        e//Kx8L/gXhq/4F4av93bmD/joZ4/766s/+WkIf/yca//1FGNv/i5OT/2Nzb/9rf3//Lzsz/Rjop/9/d
-        1//Rz8v/+Pj1/+zr5//n5uL/4+Ld//Dv6//x8e7/2NXS/725sf9MQTD/3uHg/9XZ2f/Y3t3/1dnY/1dN
-        Pf9NQjH/YVhJ/1pQQP9bUUL/XVNE/19URP9bUUH/W1FB/2BWR/9EOCf/aWBS/97h4P/R1tX/1tva/9fd
-        3P/S1NL/ycrH/11URv+loJn/3dzZ/3dwZf97dGn/3dvY/5aRif9cU0b/y8vH/9PV0//W2tn/ztLR/9bb
-        2v/Q1dT/3ePj/8zOzP8pHAn/iYJ3//z///9JPzH/Ukg4//7///93cGX/LR8M/9HT0f/b4OD/ztPR/8rP
-        zf/X3Nv/z9TT/9DV1P/O0tH/j4uC/7i4s//i6Oj/oJ6X/6Shmv/j6Oj/r7Cr/4+Mg//P09L/z9XT/8zR
-        z//Jzs3/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
-</value>
-  </data>
 </root>

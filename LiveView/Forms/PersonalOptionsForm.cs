@@ -1,15 +1,11 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Extensions;
+﻿using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 using Language = Mtf.LanguageService.Enums.Language;
 
@@ -17,17 +13,13 @@ namespace LiveView.Forms
 {
     public partial class PersonalOptionsForm : BaseView, IPersonalOptionsView
     {
-        private readonly PersonalOptionsPresenter presenter;
+        private PersonalOptionsPresenter presenter;
 
-        public PersonalOptionsForm(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<PersonalOptionsForm> logger, IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository)
-            : base(permissionManager)
+        public PersonalOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(PersonalOptionsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new PersonalOptionsPresenter(this, generalOptionsRepository, personalOptionsRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -46,6 +38,7 @@ namespace LiveView.Forms
 
         private void PersonalOptionsForm_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as PersonalOptionsPresenter;
             presenter.Load();
             foreach (ImplementedLanguage language in Enum.GetValues(typeof(ImplementedLanguage)))
             {

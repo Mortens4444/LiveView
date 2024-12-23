@@ -1,15 +1,12 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,17 +14,13 @@ namespace LiveView.Forms
 {
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
-        private readonly ControlCenterPresenter presenter;
+        private ControlCenterPresenter presenter;
 
-        public ControlCenter(FormFactory formFactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<ControlCenter> logger, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository, ICameraRepository<Camera> cameraRepository, DisplayManager displayManager)
-             : base(displayManager, permissionManager)
+        public ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new ControlCenterPresenter(this, generalOptionsRepository, formFactory, templateRepository, displayRepository, cameraRepository, displayManager, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -232,6 +225,7 @@ namespace LiveView.Forms
 
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as ControlCenterPresenter;
             presenter.Load();
         }
 

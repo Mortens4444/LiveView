@@ -13,19 +13,24 @@ namespace LiveView.Presenters
 {
     public class DisplaySettingsPresenter : BaseDisplayPresenter
     {
-        private readonly IDisplaySettingsView view;
+        private IDisplaySettingsView view;
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ILogger<DisplaySettings> logger;
         private readonly DisplayManager displayManager;
 
-        public DisplaySettingsPresenter(IDisplaySettingsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+        public DisplaySettingsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
-            : base(view, displayManager, generalOptionsRepository, formFactory)
+            : base(displayManager, generalOptionsRepository, formFactory)
         {
-            this.view = view;
             this.displayManager = displayManager;
             this.displayRepository = displayRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IDisplaySettingsView;
         }
 
         public void ResetDisplays()

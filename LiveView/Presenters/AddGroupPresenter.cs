@@ -9,16 +9,21 @@ namespace LiveView.Presenters
 {
     public class AddGroupPresenter : BasePresenter
     {
-        private readonly IAddGroupView view;
+        private IAddGroupView view;
         private readonly IGroupRepository<Group> groupRepository;
         private readonly ILogger<AddGroup> logger;
 
-        public AddGroupPresenter(IAddGroupView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGroupRepository<Group> groupRepository, ILogger<AddGroup> logger)
-            : base(view, generalOptionsRepository)
+        public AddGroupPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGroupRepository<Group> groupRepository, ILogger<AddGroup> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.groupRepository = groupRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IAddGroupView;
         }
 
         public void CreateOrModifyGroup()

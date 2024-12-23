@@ -238,7 +238,7 @@
             // lblMotionTriggerMinimumLength
             // 
             lblMotionTriggerMinimumLength.AutoSize = true;
-            lblMotionTriggerMinimumLength.Location = new System.Drawing.Point(410, 22);
+            lblMotionTriggerMinimumLength.Location = new System.Drawing.Point(203, 22);
             lblMotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMotionTriggerMinimumLength.Name = "lblMotionTriggerMinimumLength";
             lblMotionTriggerMinimumLength.Size = new System.Drawing.Size(231, 15);
@@ -247,7 +247,7 @@
             // 
             // nudMotionTriggerMinimumLength
             // 
-            nudMotionTriggerMinimumLength.Location = new System.Drawing.Point(644, 20);
+            nudMotionTriggerMinimumLength.Location = new System.Drawing.Point(471, 20);
             nudMotionTriggerMinimumLength.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMotionTriggerMinimumLength.Maximum = new decimal(new int[] { 6000, 0, 0, 0 });
             nudMotionTriggerMinimumLength.Name = "nudMotionTriggerMinimumLength";
@@ -308,14 +308,14 @@
             pMain.Size = new System.Drawing.Size(918, 474);
             pMain.TabIndex = 1;
             // 
-            // CameraMotionOptions
+            // CameraMotionSettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(918, 474);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "CameraMotionOptions";
+            Name = "CameraMotionSettings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Camera motion options";
             Shown += CameraMotionOptions_Shown;

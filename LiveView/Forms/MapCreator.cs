@@ -1,28 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class MapCreator : BaseView, IMapCreatorView
     {
-        private readonly MapCreatorPresenter presenter;
+        private MapCreatorPresenter presenter;
 
-        public MapCreator(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MapCreator> logger, IMapRepository<Map> mapRepository) : base(permissionManager)
+        public MapCreator(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MapCreatorPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new MapCreatorPresenter(this, generalOptionsRepository, mapRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -53,6 +46,11 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.SaveMap();
+        }
+
+        private void MapCreator_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as MapCreatorPresenter;
         }
     }
 }

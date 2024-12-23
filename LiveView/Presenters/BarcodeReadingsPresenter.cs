@@ -9,14 +9,19 @@ namespace LiveView.Presenters
 {
     public class BarcodeReadingsPresenter : BasePresenter
     {
-        private readonly IBarcodeReadingsView view;
+        private IBarcodeReadingsView view;
         private readonly ILogger<BarcodeReadings> logger;
 
-        public BarcodeReadingsPresenter(IBarcodeReadingsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<BarcodeReadings> logger)
-            : base(view, generalOptionsRepository)
+        public BarcodeReadingsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<BarcodeReadings> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IBarcodeReadingsView;
         }
 
         public void Query()

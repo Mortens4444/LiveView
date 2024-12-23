@@ -4,6 +4,8 @@ namespace Database.Interfaces
 {
     public interface IRepository<TModel>
     {
+        TModel Get(long id);
+
         TModel Get(int id);
 
         ReadOnlyCollection<TModel> GetAll();
@@ -15,6 +17,8 @@ namespace Database.Interfaces
         void Update(TModel model);
 
         void Delete(int id);
+
+        void Delete(long id);
 
         void DeleteWhere(object param);
     }

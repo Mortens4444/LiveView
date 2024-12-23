@@ -1,14 +1,9 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
 
@@ -16,21 +11,17 @@ namespace LiveView.Forms
 {
     public partial class DisplaySettings : BaseDisplayView, IDisplaySettingsView
     {
-        private readonly DisplaySettingsPresenter presenter;
+        private DisplaySettingsPresenter presenter;
 
         public Panel FullScreenDisplay => pFullscreenDisplay;
 
         public Panel FunctionChooser => pFunctionChooser;
 
-        public DisplaySettings(FormFactory formFactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger) : base(displayManager, permissionManager)
+        public DisplaySettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(DisplaySettingsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new DisplaySettingsPresenter(this, generalOptionsRepository, displayRepository, displayManager, logger, formFactory);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -63,6 +54,7 @@ namespace LiveView.Forms
 
         private void DisplaySettings_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as DisplaySettingsPresenter;
             presenter.Load();
         }
 

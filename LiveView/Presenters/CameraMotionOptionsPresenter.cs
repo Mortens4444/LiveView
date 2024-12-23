@@ -9,16 +9,21 @@ namespace LiveView.Presenters
 {
     public class CameraMotionOptionsPresenter : BasePresenter
     {
-        private readonly ICameraMotionOptionsView view;
+        private ICameraMotionSettingsView view;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<CameraMotionSettings> logger;
 
-        public CameraMotionOptionsPresenter(ICameraMotionOptionsView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<CameraMotionSettings> logger)
-            : base(view, generalOptionsRepository)
+        public CameraMotionOptionsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<CameraMotionSettings> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.cameraRepository = cameraRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as ICameraMotionSettingsView;
         }
 
         public void SaveSettings()

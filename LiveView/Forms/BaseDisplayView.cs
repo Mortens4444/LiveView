@@ -2,7 +2,6 @@
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
-using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,18 +32,12 @@ namespace LiveView.Forms
             mouseBrush = new SolidBrush(Color.Red);
         }
 
-        public BaseDisplayView() : this(new DisplayManager(), new PermissionManager())
+        public BaseDisplayView() : this(null, typeof(BasePresenter))
         {
         }
 
-        public BaseDisplayView(DisplayManager displayManager, PermissionManager permissionManager) : base(permissionManager)
+        public BaseDisplayView(IServiceProvider serviceProvider, Type presenterType) : base(serviceProvider, presenterType)
         {
-        }
-
-        protected new void SetPresenter(BasePresenter presenter)
-        {
-            base.SetPresenter(presenter);
-            displayPresenter = presenter as IDisplayPresenter;
         }
 
         public void InitializeMouseUpdateTimer(Panel panel)
@@ -59,6 +52,7 @@ namespace LiveView.Forms
 
         protected void DrawMouse(Graphics graphics, Size size)
         {
+            displayPresenter = (IDisplayPresenter)Presenter;
             var mouseLocation = displayPresenter.GetMouseLocation(size);
             graphics.FillEllipse(mouseBrush, mouseLocation.X, mouseLocation.Y, 3, 3);
         }
@@ -75,6 +69,7 @@ namespace LiveView.Forms
         {
             if (cachedDisplays == null || cachedBounds == null)
             {
+                displayPresenter = (IDisplayPresenter)Presenter;
                 cachedDisplays = displayPresenter.GetDisplays();
                 cachedBounds = displayPresenter.GetScaledDisplayBounds(cachedDisplays, panel.Size);
             }

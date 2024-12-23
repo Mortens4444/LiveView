@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUser));
             niIcon = new System.Windows.Forms.NotifyIcon(components);
             tbPasswordAgain = new System.Windows.Forms.TextBox();
             lblConfirmPassword = new System.Windows.Forms.Label();
@@ -283,13 +282,13 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(348, 240);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(354, 265);
             Name = "AddUser";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Add user";
             TopMost = true;
+            Shown += AddUser_Shown;
             ((System.ComponentModel.ISupportInitialize)nudLoginSupervisorsRequiredPriority).EndInit();
             gbLoginSupervisorsRequiredPriority.ResumeLayout(false);
             gbLoginSupervisorsRequiredPriority.PerformLayout();

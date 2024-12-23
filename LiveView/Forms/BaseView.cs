@@ -1,5 +1,8 @@
-﻿using LiveView.Interfaces;
+﻿#define SET_PRESENTER_WITH_DYNAMIC
+
+using LiveView.Interfaces;
 using LiveView.Presenters;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
@@ -19,17 +22,24 @@ namespace LiveView.Forms
         private const int SC_SIZE = 0xF000;
         private const int SC_MOVE = 0xF010;
 
-        protected readonly PermissionManager permissionManager;
+        private readonly IServiceProvider serviceProvider;
+        protected PermissionManager permissionManager;
 
         protected BasePresenter Presenter { get; private set; }
+        private Type presenterType;
 
-        public BaseView() : this(null)
+        public BaseView() : this(null, typeof(BasePresenter))
         {
         }
 
-        public BaseView(PermissionManager permissionManager)
+        public BaseView(IServiceProvider serviceProvider, Type presenterType)
         {
-            this.permissionManager = permissionManager;
+            if (!DesignMode)
+            {
+                permissionManager = serviceProvider?.GetRequiredService<PermissionManager>();
+            }
+            this.presenterType = presenterType;
+            this.serviceProvider = serviceProvider;
         }
 
         public void InvokeAction(Action action)
@@ -96,6 +106,7 @@ namespace LiveView.Forms
 
         public void AddItems<TType>(ComboBox comboBox, ReadOnlyCollection<TType> items)
         {
+            comboBox.Items.Clear();
             foreach (var item in items)
             {
                 comboBox.Items.Add(item);
@@ -104,7 +115,10 @@ namespace LiveView.Forms
 
         public void SelectByIndex(ComboBox comboBox, int index = 0)
         {
-            comboBox.SelectedIndex = 0;
+            if (comboBox.Items.Count > 0)
+            {
+                comboBox.SelectedIndex = index;
+            }
         }
 
         public void SetLabelText(Label label, string text)
@@ -197,18 +211,42 @@ namespace LiveView.Forms
             base.WndProc(ref m);
         }
 
-        protected void SetPresenter(BasePresenter presenter)
-        {
-            Presenter = presenter;
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if (!DesignMode)
             {
+#if SET_PRESENTER_WITH_DYNAMIC
+                SetPresenterWithDynamic();
+#else
+                SetPresenterWithReflection();
+#endif
+
                 Presenter?.SetLocationAndSize();
             }
+        }
+
+#if SET_PRESENTER_WITH_DYNAMIC
+        private void SetPresenterWithDynamic()
+        {
+            dynamic presenter = serviceProvider?.GetRequiredService(presenterType);
+            Presenter = presenter as BasePresenter;
+            presenter.SetView(this);
+        }
+#else
+        private void SetPresenterWithReflection()
+        {
+            var presenter = serviceProvider?.GetRequiredService(presenterType);
+            Presenter = presenter as BasePresenter;
+            var setViewMethod = presenterType.GetMethod(nameof(Presenter.SetView));
+            setViewMethod?.Invoke(presenter, new object[] { this });
+        }
+#endif
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            Presenter?.SetLocationAndSize();
         }
     }
 }

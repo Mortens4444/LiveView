@@ -1,28 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class SyncronView : BaseView, ISyncronViewView
     {
-        private readonly SyncronViewPresenter presenter;
+        private SyncronViewPresenter presenter;
 
-        public SyncronView(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<SyncronView> logger, ICameraRepository<Camera> cameraRepository) : base(permissionManager)
+        public SyncronView(IServiceProvider serviceProvider) : base(serviceProvider, typeof(SyncronViewPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new SyncronViewPresenter(this, generalOptionsRepository, cameraRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -72,6 +65,11 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.ConnectToCamera();
+        }
+
+        private void SyncronView_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as SyncronViewPresenter;
         }
     }
 }

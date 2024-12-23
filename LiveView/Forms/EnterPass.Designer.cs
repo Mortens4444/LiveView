@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterPass));
             gbPleaseEnterMSSQLAdministratorPasswordOrSSC = new System.Windows.Forms.GroupBox();
             btnOK = new System.Windows.Forms.Button();
             tbSziltechSecurityCode = new System.Windows.Forms.TextBox();
@@ -119,11 +118,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(341, 173);
             Controls.Add(gbPleaseEnterMSSQLAdministratorPasswordOrSSC);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "EnterPass";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Please enter password";
+            Shown += EnterPass_Shown;
             gbPleaseEnterMSSQLAdministratorPasswordOrSSC.ResumeLayout(false);
             gbPleaseEnterMSSQLAdministratorPasswordOrSSC.PerformLayout();
             ResumeLayout(false);

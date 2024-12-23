@@ -1,29 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class GeneralOptionsForm : BaseView, IGeneralOptionsView
     {
-        private readonly GeneralOptionsPresenter presenter;
+        private GeneralOptionsPresenter presenter;
 
-        public GeneralOptionsForm(PermissionManager permissionManager, ILogger<GeneralOptionsForm> logger, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository)
-             : base(permissionManager)
+        public GeneralOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GeneralOptionsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new GeneralOptionsPresenter(this, generalOptionsRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -70,6 +62,7 @@ namespace LiveView.Forms
         [RequirePermission(SettingsManagementPermissions.SelectStatic)]
         private void GeneralOptionsForm_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as GeneralOptionsPresenter;
             permissionManager.EnsurePermissions();
             presenter.Load();
         }

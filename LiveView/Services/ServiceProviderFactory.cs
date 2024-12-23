@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Repositories;
 using LiveView.Forms;
+using LiveView.Presenters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
@@ -20,9 +21,46 @@ namespace LiveView.Services
             
             RegisterSingletons(services);
             RegisterRepositories(services);
+            RegisterPresenters(services);
             RegisterForms(services);
 
             return services.BuildServiceProvider();
+        }
+
+        private static void RegisterPresenters(ServiceCollection services)
+        {
+            services.AddTransient<AddCamerasPresenter>();
+            services.AddTransient<AddDatabaseServerPresenter>();
+            services.AddTransient<AddGridPresenter>();
+            services.AddTransient<AddGroupPresenter>();
+            services.AddTransient<AddUserPresenter>();
+            services.AddTransient<AddVideoServerPresenter>();
+            services.AddTransient<AutoCreateWizardPresenter>();
+            services.AddTransient<BarcodeReadingsPresenter>();
+            services.AddTransient<BasePresenter>();
+            services.AddTransient<CameraMotionOptionsPresenter>();
+            services.AddTransient<CameraPropertiesPresenter>();
+            services.AddTransient<ControlCenterPresenter>();
+            services.AddTransient<DisplayPropertiesPresenter>();
+            services.AddTransient<DisplaySettingsPresenter>();
+            services.AddTransient<EnterPassPresenter>();
+            services.AddTransient<GeneralOptionsPresenter>();
+            services.AddTransient<GridManagerPresenter>();
+            services.AddTransient<IOPortEditorPresenter>();
+            services.AddTransient<IOPortSettingsPresenter>();
+            services.AddTransient<LicenseFormPresenter>();
+            services.AddTransient<LoginFormPresenter>();
+            services.AddTransient<LogViewerPresenter>();
+            services.AddTransient<MainPresenter>();
+            services.AddTransient<MapCreatorPresenter>();
+            services.AddTransient<PersonalOptionsPresenter>();
+            services.AddTransient<ProfilePresenter>();
+            services.AddTransient<SequentialChainsPresenter>();
+            services.AddTransient<ServerAndCameraManagementPresenter>();
+            services.AddTransient<ServerAndCameraPropertiesPresenter>();
+            services.AddTransient<SyncronViewPresenter>();
+            services.AddTransient<TemplatesPresenter>();
+            services.AddTransient<UserAndGroupManagementPresenter>();
         }
 
         private static void RegisterSingletons(ServiceCollection services)

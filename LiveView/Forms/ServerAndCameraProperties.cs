@@ -1,29 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class ServerAndCameraProperties : BaseView, IServerAndCameraPropertiesView
     {
-        private readonly ServerAndCameraPropertiesPresenter presenter;
+        private ServerAndCameraPropertiesPresenter presenter;
 
-        public ServerAndCameraProperties(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<ServerAndCameraProperties> logger, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
-            : base(permissionManager)
+        public ServerAndCameraProperties(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new ServerAndCameraPropertiesPresenter(this, generalOptionsRepository, serverRepository, cameraRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -74,6 +66,11 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.WakeOnLan();
+        }
+
+        private void ServerAndCameraProperties_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as ServerAndCameraPropertiesPresenter;
         }
     }
 }

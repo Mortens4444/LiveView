@@ -1,10 +1,10 @@
 using Database.Models;
 using Database.Repositories;
 using LiveView.Forms;
+using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Database;
-using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Configuration;
@@ -43,8 +43,9 @@ namespace LiveView
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
             BaseRepository.Execute("CreateTables");
-            var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns", "MigrationDropChecksums", "InsertInitialData", "MigrationData" };
-            // "MigrationRenameConstraints"
+            var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
+                "MigrationDropChecksums", "InsertInitialData", "MigrationData" /*"MigrationRenameConstraints"*/ };
+
             var migrationRepository = new MigrationRepository<Migration>();
             var migrations = migrationRepository.GetAll();
             foreach (var migrationToExecute in migrationsToExecute)
@@ -55,13 +56,6 @@ namespace LiveView
                     migrationRepository.Insert(new Migration { Name = migrationToExecute });
                 }
             }
-            //BaseRepository.Execute("MigrationRenameTables");
-            //BaseRepository.Execute("MigrationRenameColumns");
-            //BaseRepository.Execute("MigrationAddConstraints");
-            ////BaseRepository.Execute("MigrationRenameConstraints");
-            //BaseRepository.Execute("MigrationDropChecksums");
-            //BaseRepository.Execute("MigrationData");
-            //BaseRepository.Execute("InsertInitialData");
 
             LiveViewTranslator.Translate();
 

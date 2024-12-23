@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraManagement));
-            var treeNode3 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
-            var treeNode4 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
+            var treeNode1 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
+            var treeNode2 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
             ttHint = new System.Windows.Forms.ToolTip(components);
             ilImages = new System.Windows.Forms.ImageList(components);
             btnMotionDetection = new System.Windows.Forms.Button();
@@ -72,7 +72,6 @@
             // btnMotionDetection
             // 
             btnMotionDetection.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnMotionDetection.Image = (System.Drawing.Image)resources.GetObject("btnMotionDetection.Image");
             btnMotionDetection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnMotionDetection.Location = new System.Drawing.Point(495, 220);
             btnMotionDetection.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -86,7 +85,6 @@
             // btnNewDbServer
             // 
             btnNewDbServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewDbServer.Image = (System.Drawing.Image)resources.GetObject("btnNewDbServer.Image");
             btnNewDbServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNewDbServer.Location = new System.Drawing.Point(495, 53);
             btnNewDbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -110,11 +108,10 @@
             // rbCameraName
             // 
             rbCameraName.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rbCameraName.AutoSize = true;
             rbCameraName.Location = new System.Drawing.Point(500, 408);
             rbCameraName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbCameraName.Name = "rbCameraName";
-            rbCameraName.Size = new System.Drawing.Size(99, 19);
+            rbCameraName.Size = new System.Drawing.Size(170, 19);
             rbCameraName.TabIndex = 3;
             rbCameraName.Text = "Camera name";
             rbCameraName.UseVisualStyleBackColor = true;
@@ -133,11 +130,10 @@
             // rbRecorderIndex
             // 
             rbRecorderIndex.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rbRecorderIndex.AutoSize = true;
             rbRecorderIndex.Location = new System.Drawing.Point(500, 383);
             rbRecorderIndex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbRecorderIndex.Name = "rbRecorderIndex";
-            rbRecorderIndex.Size = new System.Drawing.Size(103, 19);
+            rbRecorderIndex.Size = new System.Drawing.Size(170, 19);
             rbRecorderIndex.TabIndex = 2;
             rbRecorderIndex.Text = "Recorder index";
             rbRecorderIndex.UseVisualStyleBackColor = true;
@@ -159,7 +155,6 @@
             // 
             btnProperties.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnProperties.Enabled = false;
-            btnProperties.Image = (System.Drawing.Image)resources.GetObject("btnProperties.Image");
             btnProperties.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnProperties.Location = new System.Drawing.Point(495, 187);
             btnProperties.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -173,12 +168,11 @@
             // rbGuid
             // 
             rbGuid.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            rbGuid.AutoSize = true;
             rbGuid.Checked = true;
             rbGuid.Location = new System.Drawing.Point(500, 358);
             rbGuid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbGuid.Name = "rbGuid";
-            rbGuid.Size = new System.Drawing.Size(52, 19);
+            rbGuid.Size = new System.Drawing.Size(170, 19);
             rbGuid.TabIndex = 1;
             rbGuid.TabStop = true;
             rbGuid.Text = "GUID";
@@ -210,15 +204,15 @@
             tvServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tvServersAndCameras.MultiSelect = false;
             tvServersAndCameras.Name = "tvServersAndCameras";
-            treeNode3.ImageIndex = 0;
-            treeNode3.Name = "Servers";
-            treeNode3.SelectedImageIndex = 0;
-            treeNode3.Text = "Servers";
-            treeNode4.ImageIndex = 7;
-            treeNode4.Name = "DBServers";
-            treeNode4.SelectedImageIndex = 7;
-            treeNode4.Text = "DB servers";
-            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode3, treeNode4 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "Servers";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "Servers";
+            treeNode2.ImageIndex = 7;
+            treeNode2.Name = "DBServers";
+            treeNode2.SelectedImageIndex = 7;
+            treeNode2.Text = "DB servers";
+            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2 });
             tvServersAndCameras.SelectedImageIndex = 0;
             tvServersAndCameras.ShowNodeToolTips = true;
             tvServersAndCameras.ShowPlusMinusOnRootNodes = true;
@@ -227,11 +221,11 @@
             tvServersAndCameras.StateImageOrCheckBoxOnLeft = false;
             tvServersAndCameras.TabIndex = 0;
             tvServersAndCameras.TickColor = System.Drawing.Color.Green;
+            tvServersAndCameras.AfterSelect += TvServersAndCameras_AfterSelect;
             // 
             // btnNewVideoServer
             // 
             btnNewVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewVideoServer.Image = (System.Drawing.Image)resources.GetObject("btnNewVideoServer.Image");
             btnNewVideoServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNewVideoServer.Location = new System.Drawing.Point(495, 20);
             btnNewVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -245,7 +239,6 @@
             // btnModify
             // 
             btnModify.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnModify.Image = (System.Drawing.Image)resources.GetObject("btnModify.Image");
             btnModify.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnModify.Location = new System.Drawing.Point(495, 120);
             btnModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -259,7 +252,6 @@
             // btnRemove
             // 
             btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnRemove.Image = (System.Drawing.Image)resources.GetObject("btnRemove.Image");
             btnRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnRemove.Location = new System.Drawing.Point(495, 153);
             btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -273,7 +265,6 @@
             // btnNewCamera
             // 
             btnNewCamera.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewCamera.Image = (System.Drawing.Image)resources.GetObject("btnNewCamera.Image");
             btnNewCamera.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNewCamera.Location = new System.Drawing.Point(495, 87);
             btnNewCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -327,7 +318,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(681, 515);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(541, 396);
             Name = "ServerAndCameraManagement";

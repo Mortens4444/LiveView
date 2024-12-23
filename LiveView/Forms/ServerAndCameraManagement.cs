@@ -1,13 +1,9 @@
-﻿using Database.Interfaces;
-using Database.Models;
+﻿using Database.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 using System.Windows.Forms;
 
@@ -15,21 +11,25 @@ namespace LiveView.Forms
 {
     public partial class ServerAndCameraManagement : BaseView, IServerAndCameraManagementView
     {
-        private readonly ServerAndCameraManagementPresenter presenter;
+        private ServerAndCameraManagementPresenter presenter;
 
         public TreeView ServersAndCameras => tvServersAndCameras;
 
-        public ServerAndCameraManagement(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<ServerAndCameraManagement> logger, FormFactory formFactory, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository)
-            : base(permissionManager)
+        public Button BtnModify => btnModify;
+
+        public Button BtnRemove => btnRemove;
+
+        public Button BtnProperties => btnProperties;
+
+        public Button BtnMotionDetection => btnMotionDetection;
+
+        public Button BtnSyncronize => btnSyncronize;
+
+        public ServerAndCameraManagement(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ServerAndCameraManagementPresenter))
         {
             InitializeComponent();
 
-            btnNewCamera.Tag = nameof(BtnNewCamera_Click);
-            btnNewVideoServer.Tag = nameof(BtnNewVideoServer_Click);
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new ServerAndCameraManagementPresenter(formFactory, this, generalOptionsRepository, serverRepository, cameraRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -60,17 +60,13 @@ namespace LiveView.Forms
             presenter.ShowDialogWithReload<AddDatabaseServer>();
         }
 
-        [RequirePermission(ServerManagementPermissions.Update)]
         private void BtnModify_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
             presenter.Modify();
         }
 
-        [RequirePermission(ServerManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
             presenter.Remove();
         }
 
@@ -89,18 +85,45 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.Update)]
-        private void BtnSyncronize_Click(object sender, EventArgs e)
+        private async void BtnSyncronize_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.Syncronize();
+            await presenter.SyncronizeAsync();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
         [RequirePermission(CameraManagementPermissions.Select)]
         private void ServerAndCameraManagement_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as ServerAndCameraManagementPresenter;
+            presenter.ChangeButtonStates(null);
             permissionManager.EnsurePermissions();
             presenter.Load();
+        }
+
+        private void TvServersAndCameras_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            presenter.ChangeButtonStates(e.Node);
+        }
+
+        public SyncronizationMode GetSyncronizationMode()
+        {
+            if (rbGuid.Checked)
+            {
+                return SyncronizationMode.Guid;
+            }
+
+            if (rbRecorderIndex.Checked)
+            {
+                return SyncronizationMode.RecorderIndex;
+            }
+
+            if (rbCameraName.Checked)
+            {
+                return SyncronizationMode.CameraName;
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Database.Models;
 using Mtf.Enums.Camera;
+using System.Data.Common;
 
 namespace LiveView.Dto
 {
@@ -23,7 +24,9 @@ namespace LiveView.Dto
 
         public ServerConnection ServerConnection { get; set; }
 
-        public int ServerId { get; set; }
+        public long Id { get; set; }
+
+        public long ServerId { get; set; }
 
         public int RecorderIndex { get; set; }
 
@@ -31,6 +34,7 @@ namespace LiveView.Dto
         {
             return new CameraDto
             {
+                Id = camera.Id,
                 Guid = camera.Guid,
                 ServerId = camera.ServerId,
                 StreamId = camera.StreamId,

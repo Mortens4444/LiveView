@@ -1,28 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class BarcodeReadings : BaseView, IBarcodeReadingsView
     {
-        private readonly BarcodeReadingsPresenter presenter;
+        private BarcodeReadingsPresenter presenter;
 
-        public BarcodeReadings(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<BarcodeReadings> logger) : base(permissionManager)
+        public BarcodeReadings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BarcodeReadingsPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new BarcodeReadingsPresenter(this, generalOptionsRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -36,6 +29,7 @@ namespace LiveView.Forms
 
         private void BarcodeReadings_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as BarcodeReadingsPresenter;
             presenter.Load();
         }
     }

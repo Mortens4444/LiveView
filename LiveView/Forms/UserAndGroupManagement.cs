@@ -1,30 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class UserAndGroupManagement : BaseView, IUserAndGroupManagementView
     {
-        private readonly UserAndGroupManagementPresenter presenter;
+        private UserAndGroupManagementPresenter presenter;
 
-        public UserAndGroupManagement(FormFactory formfactory, PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<UserAndGroupManagement> logger, IUserRepository<User> userRepository, IGroupRepository<Group> groupRepository)
-            : base(permissionManager)
+        public UserAndGroupManagement(IServiceProvider serviceProvider) : base(serviceProvider, typeof(UserAndGroupManagementPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new UserAndGroupManagementPresenter(this, generalOptionsRepository, userRepository, groupRepository, logger, formfactory);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -66,6 +57,7 @@ namespace LiveView.Forms
 
         private void UserAndGroupManagement_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as UserAndGroupManagementPresenter;
             presenter.Load();
         }
     }

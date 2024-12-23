@@ -12,16 +12,21 @@ namespace LiveView.Presenters
 {
     public class AddVideoServerPresenter : BasePresenter
     {
-        private readonly IAddVideoServerView view;
+        private IAddVideoServerView view;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<AddVideoServer> logger;
 
-        public AddVideoServerPresenter(IAddVideoServerView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
-            : base(view, generalOptionsRepository)
+        public AddVideoServerPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ILogger<AddVideoServer> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.serverRepository = serverRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IAddVideoServerView;
         }
 
         public void AddOrModify(Server server)

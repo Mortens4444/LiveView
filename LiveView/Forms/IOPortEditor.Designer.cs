@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(IOPortEditor));
             pMain = new System.Windows.Forms.Panel();
             lblMs = new System.Windows.Forms.Label();
             nudMinTriggerTime = new System.Windows.Forms.NumericUpDown();
@@ -165,11 +164,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(341, 167);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "IOPortEditor";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Change I/O port settings";
+            Shown += IOPortEditor_Shown;
             pMain.ResumeLayout(false);
             pMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudMinTriggerTime).EndInit();

@@ -434,22 +434,20 @@
             // lblResults
             // 
             lblResults.AutoSize = true;
-            lblResults.Font = (System.Drawing.Font)resources.GetObject("lblResults.Font");
             lblResults.Location = new System.Drawing.Point(816, 37);
             lblResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblResults.Name = "lblResults";
-            lblResults.Size = new System.Drawing.Size(14, 13);
+            lblResults.Size = new System.Drawing.Size(13, 15);
             lblResults.TabIndex = 41;
             lblResults.Text = "0";
             // 
             // lblResultsFound
             // 
             lblResultsFound.AutoSize = true;
-            lblResultsFound.Font = (System.Drawing.Font)resources.GetObject("lblResultsFound.Font");
             lblResultsFound.Location = new System.Drawing.Point(816, 14);
             lblResultsFound.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblResultsFound.Name = "lblResultsFound";
-            lblResultsFound.Size = new System.Drawing.Size(85, 13);
+            lblResultsFound.Size = new System.Drawing.Size(79, 15);
             lblResultsFound.TabIndex = 40;
             lblResultsFound.Text = "Results found";
             // 
@@ -570,9 +568,9 @@
             lblTo.Location = new System.Drawing.Point(7, 51);
             lblTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblTo.Name = "lblTo";
-            lblTo.Size = new System.Drawing.Size(20, 15);
+            lblTo.Size = new System.Drawing.Size(46, 15);
             lblTo.TabIndex = 6;
-            lblTo.Text = "To";
+            lblTo.Text = "To date";
             // 
             // lblFrom
             // 
@@ -581,9 +579,9 @@
             lblFrom.Location = new System.Drawing.Point(7, 24);
             lblFrom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFrom.Name = "lblFrom";
-            lblFrom.Size = new System.Drawing.Size(35, 15);
+            lblFrom.Size = new System.Drawing.Size(61, 15);
             lblFrom.TabIndex = 0;
-            lblFrom.Text = "From";
+            lblFrom.Text = "From date";
             // 
             // gbMaximumRows
             // 

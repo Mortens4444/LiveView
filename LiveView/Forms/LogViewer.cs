@@ -1,29 +1,21 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Services;
 using System;
 
 namespace LiveView.Forms
 {
     public partial class LogViewer : BaseView, ILogViewerView
     {
-        private readonly LogViewerPresenter presenter;
+        private LogViewerPresenter presenter;
 
-        public LogViewer(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<LogViewer> logger, ILogRepository<LogEntry> logRepository)
-            : base(permissionManager)
+        public LogViewer(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LogViewerPresenter))
         {
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
-            presenter = new LogViewerPresenter(this, generalOptionsRepository, logRepository, logger);
-            SetPresenter(presenter);
 
             Translator.Translate(this);
         }
@@ -31,6 +23,7 @@ namespace LiveView.Forms
         [RequirePermission(LogManagementPermissions.Select)]
         private void LogViewer_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as LogViewerPresenter;
             permissionManager.EnsurePermissions();
             presenter.Load();
         }

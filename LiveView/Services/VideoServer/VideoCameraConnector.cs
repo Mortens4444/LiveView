@@ -13,6 +13,7 @@ namespace LiveView.Services.VideoServer
             {
                 result.Add(new VideoServerCamera
                 {
+                    Index = i,
                     Guid = axVideoServer.GetCameraID(i),
                     Name = axVideoServer.GetCameraName(i),
                     Status = axVideoServer.GetCameraStatus(i)

@@ -207,7 +207,7 @@
             // 
             tsmiBrowse.Name = "tsmiBrowse";
             tsmiBrowse.Size = new System.Drawing.Size(121, 22);
-            tsmiBrowse.Text = "Browse...";
+            tsmiBrowse.Text = "Browse…";
             // 
             // tsmiMapIcon
             // 
@@ -338,6 +338,7 @@
             MinimumSize = new System.Drawing.Size(697, 571);
             Name = "MapCreator";
             Text = "Map creator";
+            Shown += MapCreator_Shown;
             cmsObjectMenu.ResumeLayout(false);
             gbTools.ResumeLayout(false);
             gbTools.PerformLayout();

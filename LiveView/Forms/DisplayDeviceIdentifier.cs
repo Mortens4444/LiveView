@@ -1,6 +1,6 @@
 ﻿using LiveView.Dto;
+using LiveView.Presenters;
 using Mtf.LanguageService;
-using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 
@@ -10,7 +10,7 @@ namespace LiveView.Forms
     {
         private const int secondsToShow = 5;
 
-        public DisplayDeviceIdentifier(PermissionManager permissionManager, DisplayDto display) : base(permissionManager)
+        public DisplayDeviceIdentifier(IServiceProvider serviceProvider, DisplayDto display) : base(serviceProvider, typeof(BasePresenter))
         {
             InitializeComponent();
 

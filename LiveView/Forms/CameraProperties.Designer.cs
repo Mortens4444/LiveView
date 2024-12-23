@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraProperties));
             pMain = new System.Windows.Forms.Panel();
             gbProperties = new System.Windows.Forms.GroupBox();
             tbHttpStream = new System.Windows.Forms.TextBox();
@@ -362,12 +361,11 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(348, 321);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CameraProperties";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Camera properties";
-            Load += CameraProperties_Load;
+            Shown += CameraProperties_Shown;
             pMain.ResumeLayout(false);
             gbProperties.ResumeLayout(false);
             gbProperties.PerformLayout();

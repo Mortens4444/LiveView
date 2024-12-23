@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             pMain = new System.Windows.Forms.Panel();
             gbSecondaryLogin = new System.Windows.Forms.GroupBox();
             chkSecondaryLogin = new System.Windows.Forms.CheckBox();
@@ -227,12 +226,12 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(400, 310);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "LoginForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Change user";
             TopMost = true;
+            Shown += LoginForm_Shown;
             pMain.ResumeLayout(false);
             gbSecondaryLogin.ResumeLayout(false);
             gbSecondaryLogin.PerformLayout();

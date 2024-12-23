@@ -4,6 +4,8 @@ namespace LiveView.Models.VideoServer
 {
     public class VideoServerCamera : IHaveGuid
     {
+        public int Index { get; set; }
+
         public string Guid { get; set; }
 
         public string Name { get; set; }

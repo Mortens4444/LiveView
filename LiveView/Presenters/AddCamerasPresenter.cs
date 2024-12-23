@@ -16,19 +16,24 @@ namespace LiveView.Presenters
 {
     public class AddCamerasPresenter : BasePresenter
     {
-        private readonly IAddCamerasView view;
+        private IAddCamerasView view;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
-        public AddCamerasPresenter(IAddCamerasView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, ILogger<AddCameras> logger)
-            : base(view, generalOptionsRepository)
+        public AddCamerasPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository, ILogger<AddCameras> logger)
+            : base(generalOptionsRepository)
         {
-            this.view = view;
             this.cameraRepository = cameraRepository;
             this.serverRepository = serverRepository;
             this.logger = logger;
+        }
+
+        public new void SetView(IView view)
+        {
+            base.SetView(view);
+            this.view = view as IAddCamerasView;
         }
 
         public void AddAllCamera()

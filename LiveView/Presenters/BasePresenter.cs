@@ -15,24 +15,29 @@ namespace LiveView.Presenters
 {
     public class BasePresenter
     {
-        private readonly IView view;
+        private IView view;
         private readonly FormFactory formFactory;
         private static IEnumerable<GeneralOptionDto> generalOptions;
 
         protected readonly IGeneralOptionsRepository<GeneralOption> generalOptionsRepository;
 
-        public BasePresenter(IView view, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory = null)
+        public BasePresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory = null)
         {
             this.formFactory = formFactory;
             this.generalOptionsRepository = generalOptionsRepository;
+            LoadOptoins();
+        }
+
+        public void SetView(IView view)
+        {
             this.view = view;
-            generalOptions = generalOptionsRepository.GetAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }
 
         public TFormType ShowForm<TFormType>(params object[] parameters)
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
+            form.FormClosed += (s, e) => form.Dispose();
             view.Show(form);
             return form;
         }
@@ -56,6 +61,7 @@ namespace LiveView.Presenters
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
+            form.FormClosed += (s, e) => form.Dispose();
             return view.ShowDialog(form);
         }
 
@@ -63,6 +69,7 @@ namespace LiveView.Presenters
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
+            form.FormClosed += (s, e) => form.Dispose();
             if (view.ShowDialog(form))
             {
                 Load();
@@ -83,7 +90,6 @@ namespace LiveView.Presenters
         {
             view.ShowInfo(title, message);
         }
-
 
         public void ShowError(string title, string message)
         {
@@ -131,7 +137,7 @@ namespace LiveView.Presenters
                 Value = view.Size.Height.ToString(),
                 TypeId = OptionType.Int32
             });
-
+            LoadOptoins();
         }
 
         public void InsertFormLocationAndSize()
@@ -166,6 +172,7 @@ namespace LiveView.Presenters
                 Value = view.Size.Height.ToString(),
                 TypeId = OptionType.Int32
             });
+            LoadOptoins();
         }
 
         public void SetLocationAndSize()
@@ -191,6 +198,11 @@ namespace LiveView.Presenters
             {
                 InsertFormLocationAndSize();
             }
+        }
+
+        private void LoadOptoins()
+        {
+            generalOptions = generalOptionsRepository.GetAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }
     }
 }

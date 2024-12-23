@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDatabaseServer));
             pMain = new System.Windows.Forms.Panel();
             btnCancel = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
@@ -282,12 +281,12 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(315, 392);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddDatabaseServer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New database server";
             TopMost = true;
+            Shown += AddDatabaseServer_Shown;
             pMain.ResumeLayout(false);
             gbNetwork.ResumeLayout(false);
             gbNetwork.PerformLayout();

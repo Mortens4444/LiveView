@@ -5,6 +5,8 @@ namespace Database.Models
 {
     public class Camera : IHaveGuid
     {
+        public long Id { get; set; }
+
         public string Guid { get; set; }
 
         public string CameraName { get; set; }
@@ -23,7 +25,7 @@ namespace Database.Models
 
         public ServerConnection ServerConnection { get; set; }
 
-        public int ServerId { get; set; }
+        public long ServerId { get; set; }
 
         public int RecorderIndex { get; set; }
     }
