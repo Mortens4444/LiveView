@@ -3,7 +3,7 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GridCameraListRepository<TModel> : BaseRepository<TModel>, IGridCameraListRepository<TModel>
+    public sealed class GridCameraRepository<TModel> : BaseRepository<TModel>, IGridCameraRepository<TModel>
     {
         public string GridCameraListSetShowMethod(int cameraId)
         {

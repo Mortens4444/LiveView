@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, Active, Priority, Checksum FROM Sequences;
+﻿SELECT Id, Name, Active, Priority FROM Sequences;

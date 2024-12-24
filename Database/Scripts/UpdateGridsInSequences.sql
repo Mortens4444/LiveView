@@ -3,6 +3,5 @@ SET
     SequenceId = @SequenceId,
     GridId = @GridId,
     TimeToShow = @TimeToShow,
-    Number = @Number,
-    Checksum = @Checksum
+    Number = @Number
 WHERE Id = @Id;

@@ -1,4 +1,5 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
@@ -35,6 +36,18 @@ namespace LiveView.Forms
         private void AddUser_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as AddUserPresenter;
+        }
+
+        public User GetUser()
+        {
+            return new User
+            {
+                Username = tbUsername.Text,
+                Password = tbPassword.Password,
+                Email = tbEmail.Text,
+                NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,
+                SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value
+            };
         }
     }
 }

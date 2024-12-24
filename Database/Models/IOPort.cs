@@ -19,7 +19,5 @@
         public int MinTriggerTime { get; set; }
 
         public int MaxCount { get; set; }
-
-        public string Checksum { get; set; }
     }
 }

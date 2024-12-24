@@ -49,7 +49,7 @@ namespace LiveView.Forms
             InitializeComponent();
 
             //permissionManager.ApplyPermissionsOnControls(this);
-            permissionManager.SetUser(this, new User
+            var user = new User
             {
                 Id = 1,
                 IndividualPermissions = new List<Permission>
@@ -78,7 +78,8 @@ namespace LiveView.Forms
                     new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl},
                     new Permission { PermissionGroup = typeof(WindowManagementPermissions), PermissionValue = (long)WindowManagementPermissions.FullControl},
                 }
-            });
+            };
+            permissionManager.SetUser(this, user);
 
             Translator.Translate(this);
 

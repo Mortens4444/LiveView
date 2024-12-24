@@ -2,6 +2,5 @@
 SET 
     Name = @Name,
     OtherInformation = @OtherInformation,
-    ParentGroupId = @ParentGroupId,
-    Checksum = @Checksum
+    ParentGroupId = @ParentGroupId
 WHERE Id = @Id;

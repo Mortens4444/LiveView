@@ -30,27 +30,27 @@
         {
             components = new System.ComponentModel.Container();
             niIcon = new System.Windows.Forms.NotifyIcon(components);
-            tbPasswordAgain = new System.Windows.Forms.TextBox();
-            lblConfirmPassword = new System.Windows.Forms.Label();
+            tbEmail = new System.Windows.Forms.TextBox();
+            lblEmail = new System.Windows.Forms.Label();
             tbPassword = new Mtf.Controls.PasswordBox();
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
             btnCreate = new System.Windows.Forms.Button();
-            nudLoginSupervisorsRequiredPriority = new System.Windows.Forms.NumericUpDown();
+            nudNeededSecondaryLogonPriority = new System.Windows.Forms.NumericUpDown();
             lblPriority = new System.Windows.Forms.Label();
             btnClose = new System.Windows.Forms.Button();
             chkLoginSupervisorsRequiredPriority = new System.Windows.Forms.CheckBox();
             gbLoginSupervisorsRequiredPriority = new System.Windows.Forms.GroupBox();
-            nudLoginSupervisingPriority = new System.Windows.Forms.NumericUpDown();
+            nudSecondaryLogonPriority = new System.Windows.Forms.NumericUpDown();
             lblPriority2 = new System.Windows.Forms.Label();
             chkLoginSupervisingPriority = new System.Windows.Forms.CheckBox();
             gbLoginSupervisingPriority = new System.Windows.Forms.GroupBox();
             pMain = new System.Windows.Forms.Panel();
             gbLoginDetails = new System.Windows.Forms.GroupBox();
             lblUsername = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)nudLoginSupervisorsRequiredPriority).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudNeededSecondaryLogonPriority).BeginInit();
             gbLoginSupervisorsRequiredPriority.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudLoginSupervisingPriority).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudSecondaryLogonPriority).BeginInit();
             gbLoginSupervisingPriority.SuspendLayout();
             pMain.SuspendLayout();
             gbLoginDetails.SuspendLayout();
@@ -60,26 +60,26 @@
             // 
             niIcon.Text = "ni_Icon";
             // 
-            // tbPasswordAgain
+            // tbEmail
             // 
-            tbPasswordAgain.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbPasswordAgain.Location = new System.Drawing.Point(158, 68);
-            tbPasswordAgain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbPasswordAgain.MaxLength = 100;
-            tbPasswordAgain.Name = "tbPasswordAgain";
-            tbPasswordAgain.PasswordChar = '*';
-            tbPasswordAgain.Size = new System.Drawing.Size(182, 23);
-            tbPasswordAgain.TabIndex = 5;
+            tbEmail.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbEmail.Location = new System.Drawing.Point(158, 68);
+            tbEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbEmail.MaxLength = 100;
+            tbEmail.Name = "tbEmail";
+            tbEmail.PasswordChar = '*';
+            tbEmail.Size = new System.Drawing.Size(182, 23);
+            tbEmail.TabIndex = 5;
             // 
-            // lblConfirmPassword
+            // lblEmail
             // 
-            lblConfirmPassword.AutoSize = true;
-            lblConfirmPassword.Location = new System.Drawing.Point(14, 72);
-            lblConfirmPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblConfirmPassword.Name = "lblConfirmPassword";
-            lblConfirmPassword.Size = new System.Drawing.Size(104, 15);
-            lblConfirmPassword.TabIndex = 4;
-            lblConfirmPassword.Text = "Confirm password";
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new System.Drawing.Point(14, 72);
+            lblEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new System.Drawing.Size(84, 15);
+            lblEmail.TabIndex = 4;
+            lblEmail.Text = "E-mail address";
             // 
             // tbPassword
             // 
@@ -127,15 +127,15 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += BtnCreate_Click;
             // 
-            // nudLoginSupervisorsRequiredPriority
+            // nudNeededSecondaryLogonPriority
             // 
-            nudLoginSupervisorsRequiredPriority.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            nudLoginSupervisorsRequiredPriority.Enabled = false;
-            nudLoginSupervisorsRequiredPriority.Location = new System.Drawing.Point(158, 22);
-            nudLoginSupervisorsRequiredPriority.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudLoginSupervisorsRequiredPriority.Name = "nudLoginSupervisorsRequiredPriority";
-            nudLoginSupervisorsRequiredPriority.Size = new System.Drawing.Size(183, 23);
-            nudLoginSupervisorsRequiredPriority.TabIndex = 2;
+            nudNeededSecondaryLogonPriority.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            nudNeededSecondaryLogonPriority.Enabled = false;
+            nudNeededSecondaryLogonPriority.Location = new System.Drawing.Point(158, 22);
+            nudNeededSecondaryLogonPriority.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudNeededSecondaryLogonPriority.Name = "nudNeededSecondaryLogonPriority";
+            nudNeededSecondaryLogonPriority.Size = new System.Drawing.Size(183, 23);
+            nudNeededSecondaryLogonPriority.TabIndex = 2;
             // 
             // lblPriority
             // 
@@ -174,7 +174,7 @@
             // 
             // gbLoginSupervisorsRequiredPriority
             // 
-            gbLoginSupervisorsRequiredPriority.Controls.Add(nudLoginSupervisorsRequiredPriority);
+            gbLoginSupervisorsRequiredPriority.Controls.Add(nudNeededSecondaryLogonPriority);
             gbLoginSupervisorsRequiredPriority.Controls.Add(lblPriority);
             gbLoginSupervisorsRequiredPriority.Controls.Add(chkLoginSupervisorsRequiredPriority);
             gbLoginSupervisorsRequiredPriority.Dock = System.Windows.Forms.DockStyle.Top;
@@ -187,15 +187,15 @@
             gbLoginSupervisorsRequiredPriority.TabStop = false;
             gbLoginSupervisorsRequiredPriority.Text = " ";
             // 
-            // nudLoginSupervisingPriority
+            // nudSecondaryLogonPriority
             // 
-            nudLoginSupervisingPriority.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            nudLoginSupervisingPriority.Enabled = false;
-            nudLoginSupervisingPriority.Location = new System.Drawing.Point(158, 22);
-            nudLoginSupervisingPriority.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudLoginSupervisingPriority.Name = "nudLoginSupervisingPriority";
-            nudLoginSupervisingPriority.Size = new System.Drawing.Size(183, 23);
-            nudLoginSupervisingPriority.TabIndex = 3;
+            nudSecondaryLogonPriority.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            nudSecondaryLogonPriority.Enabled = false;
+            nudSecondaryLogonPriority.Location = new System.Drawing.Point(158, 22);
+            nudSecondaryLogonPriority.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudSecondaryLogonPriority.Name = "nudSecondaryLogonPriority";
+            nudSecondaryLogonPriority.Size = new System.Drawing.Size(183, 23);
+            nudSecondaryLogonPriority.TabIndex = 3;
             // 
             // lblPriority2
             // 
@@ -221,7 +221,7 @@
             // 
             // gbLoginSupervisingPriority
             // 
-            gbLoginSupervisingPriority.Controls.Add(nudLoginSupervisingPriority);
+            gbLoginSupervisingPriority.Controls.Add(nudSecondaryLogonPriority);
             gbLoginSupervisingPriority.Controls.Add(lblPriority2);
             gbLoginSupervisingPriority.Controls.Add(chkLoginSupervisingPriority);
             gbLoginSupervisingPriority.Dock = System.Windows.Forms.DockStyle.Top;
@@ -250,8 +250,8 @@
             // 
             // gbLoginDetails
             // 
-            gbLoginDetails.Controls.Add(tbPasswordAgain);
-            gbLoginDetails.Controls.Add(lblConfirmPassword);
+            gbLoginDetails.Controls.Add(tbEmail);
+            gbLoginDetails.Controls.Add(lblEmail);
             gbLoginDetails.Controls.Add(tbPassword);
             gbLoginDetails.Controls.Add(lblPassword);
             gbLoginDetails.Controls.Add(tbUsername);
@@ -289,10 +289,10 @@
             Text = "Add user";
             TopMost = true;
             Shown += AddUser_Shown;
-            ((System.ComponentModel.ISupportInitialize)nudLoginSupervisorsRequiredPriority).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudNeededSecondaryLogonPriority).EndInit();
             gbLoginSupervisorsRequiredPriority.ResumeLayout(false);
             gbLoginSupervisorsRequiredPriority.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudLoginSupervisingPriority).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudSecondaryLogonPriority).EndInit();
             gbLoginSupervisingPriority.ResumeLayout(false);
             gbLoginSupervisingPriority.PerformLayout();
             pMain.ResumeLayout(false);
@@ -304,18 +304,18 @@
         #endregion
 
         private System.Windows.Forms.NotifyIcon niIcon;
-        private System.Windows.Forms.TextBox tbPasswordAgain;
-        private System.Windows.Forms.Label lblConfirmPassword;
+        private System.Windows.Forms.TextBox tbEmail;
+        private System.Windows.Forms.Label lblEmail;
         private Mtf.Controls.PasswordBox tbPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.NumericUpDown nudLoginSupervisorsRequiredPriority;
+        private System.Windows.Forms.NumericUpDown nudNeededSecondaryLogonPriority;
         private System.Windows.Forms.Label lblPriority;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox chkLoginSupervisorsRequiredPriority;
         private System.Windows.Forms.GroupBox gbLoginSupervisorsRequiredPriority;
-        private System.Windows.Forms.NumericUpDown nudLoginSupervisingPriority;
+        private System.Windows.Forms.NumericUpDown nudSecondaryLogonPriority;
         private System.Windows.Forms.Label lblPriority2;
         private System.Windows.Forms.CheckBox chkLoginSupervisingPriority;
         private System.Windows.Forms.GroupBox gbLoginSupervisingPriority;

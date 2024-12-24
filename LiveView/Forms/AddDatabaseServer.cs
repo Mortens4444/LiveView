@@ -1,4 +1,5 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
@@ -35,6 +36,23 @@ namespace LiveView.Forms
         private void AddDatabaseServer_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as AddDatabaseServerPresenter;
+        }
+
+        public DatabaseServerDto GetServerDto()
+        {
+            return new DatabaseServerDto
+            {
+                IpAddress = cbIpAddress.Text,
+                Hostname = tbDisplayedName.Text,
+                MacAddress = tbMacAddress.Text,
+                DatabaseName = tbDatabaseName.Text,
+                DatabaseServerPort = (int)nudDatabaseServerPort.Value,
+                DatabaseServerCredentials = new Credentials
+                {
+                    UserName = tbUsername.Text,
+                    Password = tbPassword.Password
+                }
+            };
         }
     }
 }

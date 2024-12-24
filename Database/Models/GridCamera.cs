@@ -1,6 +1,6 @@
 ﻿namespace Database.Models
 {
-    public class GridCameraList
+    public class GridCamera
     {
         public long Id { get; set; }
 
@@ -27,8 +27,6 @@
         public int? Width { get; set; }
 
         public int? Height { get; set; }
-
-        public string Checksum { get; set; }
 
         public bool Ptz { get; set; }
 

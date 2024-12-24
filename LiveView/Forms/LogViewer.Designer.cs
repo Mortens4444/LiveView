@@ -45,7 +45,7 @@
             nudToHour = new System.Windows.Forms.NumericUpDown();
             nudFromMinutes = new System.Windows.Forms.NumericUpDown();
             nudFromHour = new System.Windows.Forms.NumericUpDown();
-            nudMaximumRows = new System.Windows.Forms.NumericUpDown();
+            nudMaxRows = new System.Windows.Forms.NumericUpDown();
             btnClose = new System.Windows.Forms.Button();
             btnGetLogs = new System.Windows.Forms.Button();
             gbOperations = new System.Windows.Forms.GroupBox();
@@ -65,9 +65,9 @@
             lblResultsFound = new System.Windows.Forms.Label();
             gbMessageFilter = new System.Windows.Forms.GroupBox();
             lblOtherInformation = new System.Windows.Forms.Label();
-            tbOtherInformation = new System.Windows.Forms.TextBox();
+            tbOtherInformationPart = new System.Windows.Forms.TextBox();
             cbMessageFilter = new System.Windows.Forms.CheckBox();
-            cbMessage = new System.Windows.Forms.ComboBox();
+            cbMessagePart = new System.Windows.Forms.ComboBox();
             lblMessage = new System.Windows.Forms.Label();
             btnDeleteAllLogs = new System.Windows.Forms.Button();
             gbDates = new System.Windows.Forms.GroupBox();
@@ -80,7 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)nudToHour).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudFromMinutes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudFromHour).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudMaximumRows).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaxRows).BeginInit();
             gbOperations.SuspendLayout();
             cmsMenu.SuspendLayout();
             pMain.SuspendLayout();
@@ -260,17 +260,17 @@
             nudFromHour.Size = new System.Drawing.Size(54, 23);
             nudFromHour.TabIndex = 2;
             // 
-            // nudMaximumRows
+            // nudMaxRows
             // 
-            nudMaximumRows.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            nudMaximumRows.Location = new System.Drawing.Point(7, 22);
-            nudMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudMaximumRows.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-            nudMaximumRows.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudMaximumRows.Name = "nudMaximumRows";
-            nudMaximumRows.Size = new System.Drawing.Size(160, 23);
-            nudMaximumRows.TabIndex = 0;
-            nudMaximumRows.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            nudMaxRows.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            nudMaxRows.Location = new System.Drawing.Point(7, 22);
+            nudMaxRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMaxRows.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            nudMaxRows.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudMaxRows.Name = "nudMaxRows";
+            nudMaxRows.Size = new System.Drawing.Size(160, 23);
+            nudMaxRows.TabIndex = 0;
+            nudMaxRows.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // btnClose
             // 
@@ -454,9 +454,9 @@
             // gbMessageFilter
             // 
             gbMessageFilter.Controls.Add(lblOtherInformation);
-            gbMessageFilter.Controls.Add(tbOtherInformation);
+            gbMessageFilter.Controls.Add(tbOtherInformationPart);
             gbMessageFilter.Controls.Add(cbMessageFilter);
-            gbMessageFilter.Controls.Add(cbMessage);
+            gbMessageFilter.Controls.Add(cbMessagePart);
             gbMessageFilter.Controls.Add(lblMessage);
             gbMessageFilter.Location = new System.Drawing.Point(0, 89);
             gbMessageFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -477,13 +477,13 @@
             lblOtherInformation.TabIndex = 6;
             lblOtherInformation.Text = "Other information";
             // 
-            // tbOtherInformation
+            // tbOtherInformationPart
             // 
-            tbOtherInformation.Location = new System.Drawing.Point(413, 38);
-            tbOtherInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbOtherInformation.Name = "tbOtherInformation";
-            tbOtherInformation.Size = new System.Drawing.Size(391, 23);
-            tbOtherInformation.TabIndex = 5;
+            tbOtherInformationPart.Location = new System.Drawing.Point(413, 38);
+            tbOtherInformationPart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbOtherInformationPart.Name = "tbOtherInformationPart";
+            tbOtherInformationPart.Size = new System.Drawing.Size(391, 23);
+            tbOtherInformationPart.TabIndex = 5;
             // 
             // cbMessageFilter
             // 
@@ -496,15 +496,15 @@
             cbMessageFilter.Text = "Message filter";
             cbMessageFilter.UseVisualStyleBackColor = true;
             // 
-            // cbMessage
+            // cbMessagePart
             // 
-            cbMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbMessage.FormattingEnabled = true;
-            cbMessage.Location = new System.Drawing.Point(14, 38);
-            cbMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbMessage.Name = "cbMessage";
-            cbMessage.Size = new System.Drawing.Size(391, 23);
-            cbMessage.TabIndex = 1;
+            cbMessagePart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbMessagePart.FormattingEnabled = true;
+            cbMessagePart.Location = new System.Drawing.Point(14, 38);
+            cbMessagePart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbMessagePart.Name = "cbMessagePart";
+            cbMessagePart.Size = new System.Drawing.Size(391, 23);
+            cbMessagePart.TabIndex = 1;
             // 
             // lblMessage
             // 
@@ -585,7 +585,7 @@
             // 
             // gbMaximumRows
             // 
-            gbMaximumRows.Controls.Add(nudMaximumRows);
+            gbMaximumRows.Controls.Add(nudMaxRows);
             gbMaximumRows.Location = new System.Drawing.Point(638, 3);
             gbMaximumRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbMaximumRows.Name = "gbMaximumRows";
@@ -593,7 +593,7 @@
             gbMaximumRows.Size = new System.Drawing.Size(174, 78);
             gbMaximumRows.TabIndex = 1;
             gbMaximumRows.TabStop = false;
-            gbMaximumRows.Text = " ";
+            gbMaximumRows.Text = " Maximum rows";
             // 
             // LogViewer
             // 
@@ -612,7 +612,7 @@
             ((System.ComponentModel.ISupportInitialize)nudToHour).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudFromMinutes).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudFromHour).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudMaximumRows).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaxRows).EndInit();
             gbOperations.ResumeLayout(false);
             cmsMenu.ResumeLayout(false);
             pMain.ResumeLayout(false);
@@ -642,7 +642,7 @@
         private System.Windows.Forms.NumericUpDown nudToHour;
         private System.Windows.Forms.NumericUpDown nudFromMinutes;
         private System.Windows.Forms.NumericUpDown nudFromHour;
-        private System.Windows.Forms.NumericUpDown nudMaximumRows;
+        private System.Windows.Forms.NumericUpDown nudMaxRows;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnGetLogs;
         private System.Windows.Forms.GroupBox gbOperations;
@@ -662,9 +662,9 @@
         private System.Windows.Forms.Label lblResultsFound;
         private System.Windows.Forms.GroupBox gbMessageFilter;
         private System.Windows.Forms.Label lblOtherInformation;
-        private System.Windows.Forms.TextBox tbOtherInformation;
+        private System.Windows.Forms.TextBox tbOtherInformationPart;
         private System.Windows.Forms.CheckBox cbMessageFilter;
-        private System.Windows.Forms.ComboBox cbMessage;
+        private System.Windows.Forms.ComboBox cbMessagePart;
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Button btnDeleteAllLogs;
         private System.Windows.Forms.GroupBox gbDates;

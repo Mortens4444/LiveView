@@ -9,7 +9,5 @@
         public bool Active { get; set; }
 
         public int? Priority { get; set; }
-
-        public string Checksum { get; set; }
     }
 }

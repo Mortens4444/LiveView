@@ -155,7 +155,7 @@
             // btnAddAll
             // 
             btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddAll.Image = (System.Drawing.Image)resources.GetObject("btnAddAll.Image");
+            btnAddAll.Image = Properties.Resources.summa_add;
             btnAddAll.Location = new System.Drawing.Point(198, 106);
             btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddAll.Name = "btnAddAll";
@@ -167,7 +167,7 @@
             // btnRemoveAll
             // 
             btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveAll.Image = (System.Drawing.Image)resources.GetObject("btnRemoveAll.Image");
+            btnRemoveAll.Image = Properties.Resources.summa_del;
             btnRemoveAll.Location = new System.Drawing.Point(198, 173);
             btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveAll.Name = "btnRemoveAll";
@@ -179,7 +179,7 @@
             // btnAddSelected
             // 
             btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddSelected.Image = (System.Drawing.Image)resources.GetObject("btnAddSelected.Image");
+            btnAddSelected.Image = Properties.Resources.add;
             btnAddSelected.Location = new System.Drawing.Point(198, 73);
             btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddSelected.Name = "btnAddSelected";
@@ -239,7 +239,7 @@
             // btnRemoveSelected
             // 
             btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveSelected.Image = (System.Drawing.Image)resources.GetObject("btnRemoveSelected.Image");
+            btnRemoveSelected.Image = Properties.Resources.del;
             btnRemoveSelected.Location = new System.Drawing.Point(198, 140);
             btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveSelected.Name = "btnRemoveSelected";
@@ -317,7 +317,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(436, 519);
             Controls.Add(gbMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddCameras";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -4,6 +4,7 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,6 +22,26 @@ namespace LiveView.Forms
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
+            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.PanTilt))
+            {
+                btnMoveCameraNorthWest.Image = Properties.Resources.nw_g;
+                btnMoveCameraNorthEast.Image = Properties.Resources.ne_g;
+                btnMoveCameraSouthWest.Image = Properties.Resources.sw_g;
+                btnMoveCameraSouthEast.Image = Properties.Resources.se_g;
+                btnMoveCameraToPresetZero.Image = Properties.Resources.house_g;
+            }
+
+            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Pan))
+            {
+                btnMoveCameraEast.Image = Properties.Resources.e_g;
+                btnMoveCameraSouth.Image = Properties.Resources.s_g;
+            }
+
+            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Tilt))
+            {
+                btnMoveCameraNorth.Image = Properties.Resources.n_g;
+                btnMoveCameraWest.Image = Properties.Resources.w_g;
+            }
 
             Translator.Translate(this);
         }

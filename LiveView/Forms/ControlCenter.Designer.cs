@@ -54,14 +54,12 @@
             lvCameras = new Mtf.Controls.MtfListView();
             gbCameras = new System.Windows.Forms.GroupBox();
             splitter3 = new System.Windows.Forms.Splitter();
-            ilGrayCameraImages = new System.Windows.Forms.ImageList(components);
             cmDisplayDeviceContextMenu = new System.Windows.Forms.ContextMenuStrip(components);
             pTemplates = new System.Windows.Forms.Panel();
             gbTemplates = new System.Windows.Forms.GroupBox();
             lvTemplates = new Mtf.Controls.MtfListView();
             chTemplateName = new System.Windows.Forms.ColumnHeader();
             ttHint = new System.Windows.Forms.ToolTip(components);
-            ilImages = new System.Windows.Forms.ImageList(components);
             bwSequenceWatcher = new System.ComponentModel.BackgroundWorker();
             splitter4 = new System.Windows.Forms.Splitter();
             pFullScreenCameraController = new System.Windows.Forms.Panel();
@@ -79,7 +77,6 @@
             rbNoFrames = new System.Windows.Forms.RadioButton();
             rbDefaultStyle = new System.Windows.Forms.RadioButton();
             btnMoveCameraSouthWest = new System.Windows.Forms.Button();
-            ilCameraImages = new System.Windows.Forms.ImageList(components);
             btnMoveCameraSouthEast = new System.Windows.Forms.Button();
             btnMoveCameraSouth = new System.Windows.Forms.Button();
             btnMoveCameraWest = new System.Windows.Forms.Button();
@@ -97,6 +94,7 @@
             pMoveCameraNorth = new System.Windows.Forms.Panel();
             pMoveCameraWest = new System.Windows.Forms.Panel();
             pMoveCameraNorthWest = new System.Windows.Forms.Panel();
+            ilCameraImages = new System.Windows.Forms.ImageList(components);
             ilBigImages = new System.Windows.Forms.ImageList(components);
             chSequenceName = new System.Windows.Forms.ColumnHeader();
             btnCloseSequenceApplications = new System.Windows.Forms.Button();
@@ -140,9 +138,7 @@
             // 
             // btnPlayOrPauseSequence
             // 
-            btnPlayOrPauseSequence.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            btnPlayOrPauseSequence.ImageIndex = 2;
-            btnPlayOrPauseSequence.ImageList = ilSequenceControllers;
+            btnPlayOrPauseSequence.Image = (System.Drawing.Image)resources.GetObject("btnPlayOrPauseSequence.Image");
             btnPlayOrPauseSequence.Location = new System.Drawing.Point(48, 125);
             btnPlayOrPauseSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnPlayOrPauseSequence.Name = "btnPlayOrPauseSequence";
@@ -162,8 +158,7 @@
             // 
             // btnShowPreviousGrid
             // 
-            btnShowPreviousGrid.ImageIndex = 0;
-            btnShowPreviousGrid.ImageList = ilSequenceControllers;
+            btnShowPreviousGrid.Image = (System.Drawing.Image)resources.GetObject("btnShowPreviousGrid.Image");
             btnShowPreviousGrid.Location = new System.Drawing.Point(13, 125);
             btnShowPreviousGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnShowPreviousGrid.Name = "btnShowPreviousGrid";
@@ -327,9 +322,7 @@
             // 
             // btnShowNextGrid
             // 
-            btnShowNextGrid.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            btnShowNextGrid.ImageIndex = 1;
-            btnShowNextGrid.ImageList = ilSequenceControllers;
+            btnShowNextGrid.Image = (System.Drawing.Image)resources.GetObject("btnShowNextGrid.Image");
             btnShowNextGrid.Location = new System.Drawing.Point(83, 125);
             btnShowNextGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnShowNextGrid.Name = "btnShowNextGrid";
@@ -414,21 +407,6 @@
             splitter3.TabIndex = 68;
             splitter3.TabStop = false;
             // 
-            // ilGrayCameraImages
-            // 
-            ilGrayCameraImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilGrayCameraImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilGrayCameraImages.ImageStream");
-            ilGrayCameraImages.TransparentColor = System.Drawing.Color.Transparent;
-            ilGrayCameraImages.Images.SetKeyName(0, "nw_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(1, "n_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(2, "ne_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(3, "w_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(4, "house_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(5, "e_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(6, "sw_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(7, "s_g.ico");
-            ilGrayCameraImages.Images.SetKeyName(8, "se_g.ico");
-            // 
             // cmDisplayDeviceContextMenu
             // 
             cmDisplayDeviceContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiProperties });
@@ -488,17 +466,6 @@
             // 
             chTemplateName.Text = "Template name";
             chTemplateName.Width = 271;
-            // 
-            // ilImages
-            // 
-            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
-            ilImages.TransparentColor = System.Drawing.Color.Transparent;
-            ilImages.Images.SetKeyName(0, "cam 0.ico");
-            ilImages.Images.SetKeyName(1, "sequential.ico");
-            ilImages.Images.SetKeyName(2, "bell.ico");
-            ilImages.Images.SetKeyName(3, "monitor-16.ico");
-            ilImages.Images.SetKeyName(4, "templates.ico");
             // 
             // splitter4
             // 
@@ -701,8 +668,7 @@
             // btnMoveCameraSouthWest
             // 
             btnMoveCameraSouthWest.Enabled = false;
-            btnMoveCameraSouthWest.ImageIndex = 6;
-            btnMoveCameraSouthWest.ImageList = ilCameraImages;
+            btnMoveCameraSouthWest.Image = Properties.Resources.sw;
             btnMoveCameraSouthWest.Location = new System.Drawing.Point(178, 121);
             btnMoveCameraSouthWest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraSouthWest.Name = "btnMoveCameraSouthWest";
@@ -712,26 +678,10 @@
             btnMoveCameraSouthWest.MouseDown += BtnMoveCameraSouthWest_MouseDown;
             btnMoveCameraSouthWest.MouseUp += BtnMoveCameraSouthWest_MouseUp;
             // 
-            // ilCameraImages
-            // 
-            ilCameraImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilCameraImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilCameraImages.ImageStream");
-            ilCameraImages.TransparentColor = System.Drawing.Color.Transparent;
-            ilCameraImages.Images.SetKeyName(0, "nw.ico");
-            ilCameraImages.Images.SetKeyName(1, "arrow_up.png");
-            ilCameraImages.Images.SetKeyName(2, "ne.ico");
-            ilCameraImages.Images.SetKeyName(3, "arrow_left.png");
-            ilCameraImages.Images.SetKeyName(4, "house.ico");
-            ilCameraImages.Images.SetKeyName(5, "arrow_right.png");
-            ilCameraImages.Images.SetKeyName(6, "sw.ico");
-            ilCameraImages.Images.SetKeyName(7, "arrow_down.png");
-            ilCameraImages.Images.SetKeyName(8, "se.ico");
-            // 
             // btnMoveCameraSouthEast
             // 
             btnMoveCameraSouthEast.Enabled = false;
-            btnMoveCameraSouthEast.ImageIndex = 8;
-            btnMoveCameraSouthEast.ImageList = ilCameraImages;
+            btnMoveCameraSouthEast.Image = Properties.Resources.se;
             btnMoveCameraSouthEast.Location = new System.Drawing.Point(274, 121);
             btnMoveCameraSouthEast.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraSouthEast.Name = "btnMoveCameraSouthEast";
@@ -744,8 +694,7 @@
             // btnMoveCameraSouth
             // 
             btnMoveCameraSouth.Enabled = false;
-            btnMoveCameraSouth.ImageIndex = 7;
-            btnMoveCameraSouth.ImageList = ilCameraImages;
+            btnMoveCameraSouth.Image = Properties.Resources.arrow_down;
             btnMoveCameraSouth.Location = new System.Drawing.Point(226, 121);
             btnMoveCameraSouth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraSouth.Name = "btnMoveCameraSouth";
@@ -758,8 +707,7 @@
             // btnMoveCameraWest
             // 
             btnMoveCameraWest.Enabled = false;
-            btnMoveCameraWest.ImageIndex = 3;
-            btnMoveCameraWest.ImageList = ilCameraImages;
+            btnMoveCameraWest.Image = Properties.Resources.arrow_left;
             btnMoveCameraWest.Location = new System.Drawing.Point(178, 95);
             btnMoveCameraWest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraWest.Name = "btnMoveCameraWest";
@@ -772,8 +720,7 @@
             // btnMoveCameraEast
             // 
             btnMoveCameraEast.Enabled = false;
-            btnMoveCameraEast.ImageIndex = 5;
-            btnMoveCameraEast.ImageList = ilCameraImages;
+            btnMoveCameraEast.Image = Properties.Resources.arrow_right;
             btnMoveCameraEast.Location = new System.Drawing.Point(274, 95);
             btnMoveCameraEast.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraEast.Name = "btnMoveCameraEast";
@@ -786,8 +733,7 @@
             // btnMoveCameraToPresetZero
             // 
             btnMoveCameraToPresetZero.Enabled = false;
-            btnMoveCameraToPresetZero.ImageIndex = 4;
-            btnMoveCameraToPresetZero.ImageList = ilCameraImages;
+            btnMoveCameraToPresetZero.Image = Properties.Resources.house;
             btnMoveCameraToPresetZero.Location = new System.Drawing.Point(226, 95);
             btnMoveCameraToPresetZero.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraToPresetZero.Name = "btnMoveCameraToPresetZero";
@@ -799,8 +745,7 @@
             // btnMoveCameraNorthWest
             // 
             btnMoveCameraNorthWest.Enabled = false;
-            btnMoveCameraNorthWest.ImageIndex = 0;
-            btnMoveCameraNorthWest.ImageList = ilCameraImages;
+            btnMoveCameraNorthWest.Image = Properties.Resources.nw;
             btnMoveCameraNorthWest.Location = new System.Drawing.Point(178, 68);
             btnMoveCameraNorthWest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraNorthWest.Name = "btnMoveCameraNorthWest";
@@ -813,8 +758,7 @@
             // btnMoveCameraNorthEast
             // 
             btnMoveCameraNorthEast.Enabled = false;
-            btnMoveCameraNorthEast.ImageIndex = 2;
-            btnMoveCameraNorthEast.ImageList = ilCameraImages;
+            btnMoveCameraNorthEast.Image = Properties.Resources.ne;
             btnMoveCameraNorthEast.Location = new System.Drawing.Point(274, 68);
             btnMoveCameraNorthEast.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraNorthEast.Name = "btnMoveCameraNorthEast";
@@ -827,8 +771,7 @@
             // btnMoveCameraNorth
             // 
             btnMoveCameraNorth.Enabled = false;
-            btnMoveCameraNorth.ImageIndex = 1;
-            btnMoveCameraNorth.ImageList = ilCameraImages;
+            btnMoveCameraNorth.Image = Properties.Resources.arrow_up;
             btnMoveCameraNorth.Location = new System.Drawing.Point(226, 68);
             btnMoveCameraNorth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnMoveCameraNorth.Name = "btnMoveCameraNorth";
@@ -936,6 +879,21 @@
             pMoveCameraNorthWest.Size = new System.Drawing.Size(21, 23);
             pMoveCameraNorthWest.TabIndex = 58;
             pMoveCameraNorthWest.Visible = false;
+            // 
+            // ilCameraImages
+            // 
+            ilCameraImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            ilCameraImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilCameraImages.ImageStream");
+            ilCameraImages.TransparentColor = System.Drawing.Color.Transparent;
+            ilCameraImages.Images.SetKeyName(0, "nw.ico");
+            ilCameraImages.Images.SetKeyName(1, "arrow_up.png");
+            ilCameraImages.Images.SetKeyName(2, "ne.ico");
+            ilCameraImages.Images.SetKeyName(3, "arrow_left.png");
+            ilCameraImages.Images.SetKeyName(4, "house.ico");
+            ilCameraImages.Images.SetKeyName(5, "arrow_right.png");
+            ilCameraImages.Images.SetKeyName(6, "sw.ico");
+            ilCameraImages.Images.SetKeyName(7, "arrow_down.png");
+            ilCameraImages.Images.SetKeyName(8, "se.ico");
             // 
             // ilBigImages
             // 
@@ -1183,14 +1141,12 @@
         private Mtf.Controls.MtfListView lvCameras;
         private System.Windows.Forms.GroupBox gbCameras;
         private System.Windows.Forms.Splitter splitter3;
-        private System.Windows.Forms.ImageList ilGrayCameraImages;
         private System.Windows.Forms.ContextMenuStrip cmDisplayDeviceContextMenu;
         private System.Windows.Forms.Panel pTemplates;
         private System.Windows.Forms.GroupBox gbTemplates;
         private Mtf.Controls.MtfListView lvTemplates;
         private System.Windows.Forms.ColumnHeader chTemplateName;
         private System.Windows.Forms.ToolTip ttHint;
-        private System.Windows.Forms.ImageList ilImages;
         private System.ComponentModel.BackgroundWorker bwSequenceWatcher;
         private System.Windows.Forms.Splitter splitter4;
         private System.Windows.Forms.Panel pFullScreenCameraController;

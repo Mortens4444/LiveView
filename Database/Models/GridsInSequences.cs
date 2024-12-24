@@ -11,7 +11,5 @@
         public int TimeToShow { get; set; }
 
         public int Number { get; set; }
-
-        public string Checksum { get; set; }
     }
 }

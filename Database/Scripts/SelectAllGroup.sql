@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, OtherInformation, ParentGroupId, Checksum FROM Groups;
+﻿SELECT Id, Name, OtherInformation, ParentGroupId FROM Groups;

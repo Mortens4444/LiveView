@@ -131,6 +131,7 @@
             // btnSelectAllCameras
             // 
             btnSelectAllCameras.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnSelectAllCameras.Image = Properties.Resources.summa_cam;
             btnSelectAllCameras.Location = new System.Drawing.Point(316, 172);
             btnSelectAllCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSelectAllCameras.Name = "btnSelectAllCameras";
@@ -154,6 +155,7 @@
             // btnSelectAllOperation
             // 
             btnSelectAllOperation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnSelectAllOperation.Image = Properties.Resources.summa_right;
             btnSelectAllOperation.Location = new System.Drawing.Point(316, 138);
             btnSelectAllOperation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSelectAllOperation.Name = "btnSelectAllOperation";
@@ -293,6 +295,7 @@
             // btnRemoveAll
             // 
             btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveAll.Image = Properties.Resources.summa_del;
             btnRemoveAll.Location = new System.Drawing.Point(316, 323);
             btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveAll.Name = "btnRemoveAll";
@@ -304,6 +307,7 @@
             // btnRemoveSelected
             // 
             btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveSelected.Image = Properties.Resources.del;
             btnRemoveSelected.Location = new System.Drawing.Point(316, 290);
             btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveSelected.Name = "btnRemoveSelected";
@@ -315,6 +319,7 @@
             // btnAddAll
             // 
             btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddAll.Image = Properties.Resources.summa_add;
             btnAddAll.Location = new System.Drawing.Point(316, 256);
             btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddAll.Name = "btnAddAll";
@@ -326,6 +331,7 @@
             // btnAddSelected
             // 
             btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddSelected.Image = Properties.Resources.add;
             btnAddSelected.Location = new System.Drawing.Point(316, 223);
             btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddSelected.Name = "btnAddSelected";

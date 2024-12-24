@@ -73,6 +73,7 @@
             // btnRemoveAll
             // 
             btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveAll.Image = Properties.Resources.summa_del;
             btnRemoveAll.Location = new System.Drawing.Point(306, 173);
             btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemoveAll.Name = "btnRemoveAll";
@@ -84,6 +85,7 @@
             // btnAdd
             // 
             btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAdd.Image = Properties.Resources.add;
             btnAdd.Location = new System.Drawing.Point(306, 73);
             btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
@@ -155,6 +157,7 @@
             // btnRemove
             // 
             btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemove.Image = Properties.Resources.del;
             btnRemove.Location = new System.Drawing.Point(306, 140);
             btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRemove.Name = "btnRemove";
@@ -207,6 +210,7 @@
             // btnAddAll
             // 
             btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddAll.Image = Properties.Resources.summa_add;
             btnAddAll.Location = new System.Drawing.Point(306, 106);
             btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddAll.Name = "btnAddAll";

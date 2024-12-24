@@ -1,1 +1,1 @@
-﻿SELECT Id, SequenceId, GridId, TimeToShow, Number, Checksum FROM GridsInSequences;
+﻿SELECT Id, SequenceId, GridId, TimeToShow, Number FROM GridsInSequences;

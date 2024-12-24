@@ -32,14 +32,14 @@
             btnCancel = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
             gbNetwork = new System.Windows.Forms.GroupBox();
-            tbDatabaseServerMacAddress = new System.Windows.Forms.TextBox();
+            tbMacAddress = new System.Windows.Forms.TextBox();
             lblMacAddress = new System.Windows.Forms.Label();
             gbDatabaseServer = new System.Windows.Forms.GroupBox();
             lblServerPort = new System.Windows.Forms.Label();
             nudDatabaseServerPort = new System.Windows.Forms.NumericUpDown();
             tbDatabaseName = new System.Windows.Forms.TextBox();
             lblDatabaseName = new System.Windows.Forms.Label();
-            cbHost = new System.Windows.Forms.ComboBox();
+            cbIpAddress = new System.Windows.Forms.ComboBox();
             tbDisplayedName = new System.Windows.Forms.TextBox();
             lblDisplayedName = new System.Windows.Forms.Label();
             tbPassword = new Mtf.Controls.PasswordBox();
@@ -47,6 +47,8 @@
             tbUsername = new System.Windows.Forms.TextBox();
             lblUsername = new System.Windows.Forms.Label();
             lblIpAddress = new System.Windows.Forms.Label();
+            lblManufacturer = new System.Windows.Forms.Label();
+            tbManufacturer = new System.Windows.Forms.TextBox();
             pMain.SuspendLayout();
             gbNetwork.SuspendLayout();
             gbDatabaseServer.SuspendLayout();
@@ -94,7 +96,9 @@
             // 
             // gbNetwork
             // 
-            gbNetwork.Controls.Add(tbDatabaseServerMacAddress);
+            gbNetwork.Controls.Add(lblManufacturer);
+            gbNetwork.Controls.Add(tbManufacturer);
+            gbNetwork.Controls.Add(tbMacAddress);
             gbNetwork.Controls.Add(lblMacAddress);
             gbNetwork.Dock = System.Windows.Forms.DockStyle.Top;
             gbNetwork.Location = new System.Drawing.Point(0, 286);
@@ -106,15 +110,14 @@
             gbNetwork.TabStop = false;
             gbNetwork.Text = "Network";
             // 
-            // tbDatabaseServerMacAddress
+            // tbMacAddress
             // 
-            tbDatabaseServerMacAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbDatabaseServerMacAddress.Location = new System.Drawing.Point(10, 35);
-            tbDatabaseServerMacAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbDatabaseServerMacAddress.MaxLength = 20;
-            tbDatabaseServerMacAddress.Name = "tbDatabaseServerMacAddress";
-            tbDatabaseServerMacAddress.Size = new System.Drawing.Size(294, 23);
-            tbDatabaseServerMacAddress.TabIndex = 1;
+            tbMacAddress.Location = new System.Drawing.Point(10, 35);
+            tbMacAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbMacAddress.MaxLength = 20;
+            tbMacAddress.Name = "tbMacAddress";
+            tbMacAddress.Size = new System.Drawing.Size(138, 23);
+            tbMacAddress.TabIndex = 1;
             // 
             // lblMacAddress
             // 
@@ -132,7 +135,7 @@
             gbDatabaseServer.Controls.Add(nudDatabaseServerPort);
             gbDatabaseServer.Controls.Add(tbDatabaseName);
             gbDatabaseServer.Controls.Add(lblDatabaseName);
-            gbDatabaseServer.Controls.Add(cbHost);
+            gbDatabaseServer.Controls.Add(cbIpAddress);
             gbDatabaseServer.Controls.Add(tbDisplayedName);
             gbDatabaseServer.Controls.Add(lblDisplayedName);
             gbDatabaseServer.Controls.Add(tbPassword);
@@ -192,15 +195,15 @@
             lblDatabaseName.TabIndex = 8;
             lblDatabaseName.Text = "Database name";
             // 
-            // cbHost
+            // cbIpAddress
             // 
-            cbHost.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cbHost.FormattingEnabled = true;
-            cbHost.Location = new System.Drawing.Point(10, 37);
-            cbHost.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbHost.Name = "cbHost";
-            cbHost.Size = new System.Drawing.Size(294, 23);
-            cbHost.TabIndex = 1;
+            cbIpAddress.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbIpAddress.FormattingEnabled = true;
+            cbIpAddress.Location = new System.Drawing.Point(10, 37);
+            cbIpAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbIpAddress.Name = "cbIpAddress";
+            cbIpAddress.Size = new System.Drawing.Size(294, 23);
+            cbIpAddress.TabIndex = 1;
             // 
             // tbDisplayedName
             // 
@@ -275,6 +278,27 @@
             lblIpAddress.TabIndex = 0;
             lblIpAddress.Text = "DNS name or IP address";
             // 
+            // lblManufacturer
+            // 
+            lblManufacturer.AutoSize = true;
+            lblManufacturer.Location = new System.Drawing.Point(156, 17);
+            lblManufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblManufacturer.Name = "lblManufacturer";
+            lblManufacturer.Size = new System.Drawing.Size(79, 15);
+            lblManufacturer.TabIndex = 5;
+            lblManufacturer.Text = "Manufacturer";
+            // 
+            // tbManufacturer
+            // 
+            tbManufacturer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbManufacturer.Location = new System.Drawing.Point(156, 35);
+            tbManufacturer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbManufacturer.MaxLength = 20;
+            tbManufacturer.Name = "tbManufacturer";
+            tbManufacturer.ReadOnly = true;
+            tbManufacturer.Size = new System.Drawing.Size(153, 23);
+            tbManufacturer.TabIndex = 4;
+            // 
             // AddDatabaseServer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -302,14 +326,14 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.GroupBox gbNetwork;
-        private System.Windows.Forms.TextBox tbDatabaseServerMacAddress;
+        private System.Windows.Forms.TextBox tbMacAddress;
         private System.Windows.Forms.Label lblMacAddress;
         private System.Windows.Forms.GroupBox gbDatabaseServer;
         private System.Windows.Forms.Label lblServerPort;
         private System.Windows.Forms.NumericUpDown nudDatabaseServerPort;
         private System.Windows.Forms.TextBox tbDatabaseName;
         private System.Windows.Forms.Label lblDatabaseName;
-        private System.Windows.Forms.ComboBox cbHost;
+        private System.Windows.Forms.ComboBox cbIpAddress;
         private System.Windows.Forms.TextBox tbDisplayedName;
         private System.Windows.Forms.Label lblDisplayedName;
         private Mtf.Controls.PasswordBox tbPassword;
@@ -317,5 +341,7 @@
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblIpAddress;
+        private System.Windows.Forms.Label lblManufacturer;
+        private System.Windows.Forms.TextBox tbManufacturer;
     }
 }

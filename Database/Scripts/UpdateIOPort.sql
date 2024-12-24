@@ -7,6 +7,5 @@ SET
     Direction = @Direction,
     State = @State,
     MinTriggerTime = @MinTriggerTime,
-    MaxCount = @MaxCount,
-    Checksum = @Checksum
+    MaxCount = @MaxCount
 WHERE Id = @Id;

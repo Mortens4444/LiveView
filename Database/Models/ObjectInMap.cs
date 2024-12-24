@@ -1,6 +1,6 @@
 ﻿namespace Database.Models
 {
-    public class ObjectsInMaps
+    public class ObjectInMap
     {
         public int MapObjectId { get; set; }
 

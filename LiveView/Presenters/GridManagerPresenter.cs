@@ -14,19 +14,19 @@ namespace LiveView.Presenters
     {
         private IGridManagerView view;
         private readonly IGridRepository<Grid> gridRepository;
-        private readonly IGridCameraListRepository<GridCameraList> gridCameraListRepository;
+        private readonly IGridCameraRepository<GridCamera> gridCameraRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<GridManager> logger;
 
         public GridManagerPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IGridRepository<Grid> gridRepository, IGridCameraListRepository<GridCameraList> gridCameraListRepository,
+            IGridRepository<Grid> gridRepository, IGridCameraRepository<GridCamera> gridCameraRepository,
             ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository,
             ILogger<GridManager> logger, FormFactory formFactory)
             : base(generalOptionsRepository, formFactory)
         {
             this.gridRepository = gridRepository;
-            this.gridCameraListRepository = gridCameraListRepository;
+            this.gridCameraRepository = gridCameraRepository;
             this.cameraRepository = cameraRepository;
             this.serverRepository = serverRepository;
             this.logger = logger;
@@ -72,7 +72,7 @@ namespace LiveView.Presenters
             var selectedGrid = view.CbGrids.SelectedItem;
             if (selectedGrid is Grid grid)
             {
-                var gridCameras = gridCameraListRepository.GetWhere(new { GridId = grid.Id });
+                var gridCameras = gridCameraRepository.GetWhere(new { GridId = grid.Id });
                 view.LvGridCameras.Items.Clear();
                 foreach (var gridCamera in gridCameras)
                 {

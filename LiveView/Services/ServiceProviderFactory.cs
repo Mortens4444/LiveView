@@ -76,7 +76,7 @@ namespace LiveView.Services
             services.AddSingleton(typeof(IDatabaseServerRepository<>), typeof(DatabaseServerRepository<>));
             services.AddSingleton(typeof(IDisplayRepository<>), typeof(DisplayRepository<>));
             services.AddSingleton(typeof(IGeneralOptionsRepository<>), typeof(GeneralOptionsRepository<>));
-            services.AddSingleton(typeof(IGridCameraListRepository<>), typeof(GridCameraListRepository<>));
+            services.AddSingleton(typeof(IGridCameraRepository<>), typeof(GridCameraRepository<>));
             services.AddSingleton(typeof(IGridRepository<>), typeof(GridRepository<>));
             services.AddSingleton(typeof(IGridsInSequencesRepository<>), typeof(GridsInSequencesRepository<>));
             services.AddSingleton(typeof(IGroupRepository<>), typeof(GroupRepository<>));

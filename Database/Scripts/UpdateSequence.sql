@@ -2,6 +2,5 @@
 SET 
     Name = @Name,
     Active = @Active,
-    Priority = @Priority,
-    Checksum = @Checksum
+    Priority = @Priority
 WHERE Id = @Id;

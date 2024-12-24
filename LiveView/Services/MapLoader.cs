@@ -19,13 +19,19 @@ namespace LiveView.Services
         public event CameraObjectClickedEventHandler CameraObjectClicked;
 
         private readonly IMapRepository<Map> mapRepository;
+        private readonly IMapObjectRepository<MapObject> mapObjectRepository;
+        private readonly IObjectInMapRepositoryRepository<ObjectInMap> objectInMapRepositoryRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
 
-        public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, IMapRepository<Map> mapRepository, ICameraRepository<Camera> cameraRepository)
+        public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, IMapRepository<Map> mapRepository,
+            ICameraRepository<Camera> cameraRepository, IMapObjectRepository<MapObject> mapObjectRepository,
+            IObjectInMapRepositoryRepository<ObjectInMap> objectInMapRepositoryRepository)
         {
             this.mapContainer = mapContainer;
             this.toolTip = toolTip;
             this.mapRepository = mapRepository;
+            this.mapObjectRepository = mapObjectRepository;
+            this.objectInMapRepositoryRepository = objectInMapRepositoryRepository;
             this.cameraRepository = cameraRepository;
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database.Enums;
+using System;
 
 namespace Database.Models
 {
@@ -18,6 +19,20 @@ namespace Database.Models
 
         public string OtherInformation { get; set; }
 
-        public string Checksum { get; set; }
+        public LogType LogType
+        {
+            get
+            {
+                if (OperationId != null)
+                {
+                    return LogType.Operation;
+                }
+                if (EventId != null)
+                {
+                    return LogType.Event;
+                }
+                return LogType.Error;
+            }
+        }
     }
 }

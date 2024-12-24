@@ -3,7 +3,6 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace LiveView.Presenters
 {
@@ -28,7 +27,8 @@ namespace LiveView.Presenters
 
         public void CreateUser()
         {
-            throw new NotImplementedException();
+            var user = view.GetUser();
+            userRepository.Insert(user);
         }
     }
 }

@@ -12,7 +12,6 @@ SET
     [Top] = @Top,
     Width = @Width,
     Height = @Height,
-    Checksum = @Checksum,
     Ptz = @Ptz,
     MotionSaveImages = @MotionSaveImages,
     MotionNumberOfPhotos = @MotionNumberOfPhotos,
