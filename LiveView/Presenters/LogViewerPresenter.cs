@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.Permissions.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,11 +21,11 @@ namespace LiveView.Presenters
         private readonly ILogger<LogViewer> logger;
         private readonly int currentUserId;
 
-        public LogViewerPresenter(int currentUserId, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+        public LogViewerPresenter(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             ILogRepository<LogEntry> logRepository, IUserRepository<User> userRepository, ILogger<LogViewer> logger)
             : base(generalOptionsRepository)
         {
-            this.currentUserId = currentUserId;
+            this.currentUserId = permissionManager.CurrentUser.Id;
             this.logRepository = logRepository;
             this.logger = logger;
             users = userRepository.GetAll();
@@ -39,6 +40,7 @@ namespace LiveView.Presenters
         public void DeleteAllLogs()
         {
             logRepository.DeleteAll();
+            //logger
             logRepository.Insert(new LogEntry
             {
                 Date = DateTime.UtcNow,
@@ -68,7 +70,7 @@ namespace LiveView.Presenters
         private ListViewItem ToListViewItem(LogEntry entry)
         {
             var result = new ListViewItem(Lng.Elem(entry.LogType.ToString()));
-            result.SubItems.Add(entry.Date.ToString());
+            result.SubItems.Add(entry.Date.ToLocalTime().ToString());
             result.SubItems.Add(users.FirstOrDefault(user => user.Id == entry.UserId)?.Username ?? String.Empty);
             result.SubItems.Add("Code");
             result.SubItems.Add(entry.LanguageElementId.ToString());

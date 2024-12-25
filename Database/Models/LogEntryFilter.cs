@@ -7,9 +7,9 @@ namespace Database.Models
     {
         public LogType LogType { get; set; }
 
-        public DateTimeOffset From { get; set; }
+        public DateTime From { get; set; }
 
-        public DateTimeOffset To { get; set; }
+        public DateTime To { get; set; }
         
         public ushort MaxRows { get; set; }
 

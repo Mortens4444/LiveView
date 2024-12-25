@@ -1,9 +1,12 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Database.Repositories;
 using LiveView.Forms;
 using LiveView.Presenters;
+using LiveView.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.MessageBoxes.Exceptions;
 using Mtf.Permissions.Services;
 
 namespace LiveView.Services
@@ -14,16 +17,20 @@ namespace LiveView.Services
         {
             var services = new ServiceCollection();
 
-            services.AddLogging(builder =>
-            {
-                builder.AddConsole();
-            });
-            
             RegisterSingletons(services);
             RegisterRepositories(services);
             RegisterPresenters(services);
             RegisterForms(services);
 
+            services.AddLogging(builder =>
+            {
+                builder.ClearProviders();
+                builder.AddConsole();
+                builder.Services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
+                    sp.GetRequiredService<PermissionManager>(),
+                    sp.GetRequiredService<ILogRepository<LogEntry>>()
+                ));
+            });
             return services.BuildServiceProvider();
         }
 

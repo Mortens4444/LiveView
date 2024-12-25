@@ -38,7 +38,7 @@ namespace LiveView.Forms
             presenter = Presenter as AddDatabaseServerPresenter;
         }
 
-        public DatabaseServerDto GetServerDto()
+        public DatabaseServerDto GetDatabaseServerDto()
         {
             return new DatabaseServerDto
             {

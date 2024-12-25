@@ -9,7 +9,7 @@ namespace Database.Repositories
     {
         public ReadOnlyCollection<TModel> FilterLogs(LogEntryFilter logEntryFilter)
         {
-            return Query("DeleteAllLogEntry", logEntryFilter);
+            return Query("SelectLogEntry", logEntryFilter);
         }
 
         public void DeleteAll()

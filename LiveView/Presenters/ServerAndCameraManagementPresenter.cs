@@ -76,30 +76,41 @@ namespace LiveView.Presenters
                 {
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update))
                     {
-                        ShowDialog<AddVideoServer>(server);
+                        if (ShowDialog<AddVideoServer>(server))
+                        {
+                            logger.LogInformation($"Videoserver '{server}' has been modified.");
+                        }
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to modify video server.");
                         throw new UnauthorizedAccessException();
                     }
                 }
-                else if (node.Tag is Camera)
+                else if (node.Tag is Camera camera)
                 {
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
                     {
+                        //logger.LogInformation($"Camera '{camera}' has been modified.");
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to modify camera.");
                         throw new UnauthorizedAccessException();
                     }
                 }
-                else if (node.Tag is DatabaseServer)
+                else if (node.Tag is DatabaseServer databaseServer)
                 {
                     if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Update))
                     {
+                        if (ShowDialog<AddDatabaseServer>(databaseServer))
+                        {
+                            logger.LogInformation($"Database server '{databaseServer}' has been modified.");
+                        }
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to modify database server.");
                         throw new UnauthorizedAccessException();
                     }
                 }
@@ -122,9 +133,11 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete))
                     {
                         serverRepository.Delete(server.Id);
+                        logger.LogInformation($"Videoserver '{server}' has been deleted.");
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to delete video server.");
                         throw new UnauthorizedAccessException();
                     }
                 }
@@ -133,9 +146,11 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete))
                     {
                         cameraRepository.Delete(camera.Id);
+                        logger.LogInformation($"Camera '{camera}' has been deleted.");
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to delete camera.");
                         throw new UnauthorizedAccessException();
                     }
                 }
@@ -144,9 +159,11 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Delete))
                     {
                         databaseServerRepository.Delete(databaseServer.Id);
+                        logger.LogInformation($"Database server '{databaseServer}' has been deleted.");
                     }
                     else
                     {
+                        logger.LogError($"User '{permissionManager.CurrentUser}' has no permission to delete database server.");
                         throw new UnauthorizedAccessException();
                     }
                 }
@@ -177,6 +194,7 @@ namespace LiveView.Presenters
                                         actualCamera.CameraName = camera.Name;
                                         actualCamera.RecorderIndex = camera.Index;
                                         cameraRepository.Update(actualCamera);
+                                        logger.LogInformation($"Camera '{actualCamera}' syncronized by GUID.");
                                     }
                                     break;
                                 case SyncronizationMode.RecorderIndex:
@@ -186,6 +204,7 @@ namespace LiveView.Presenters
                                         actualCamera2.CameraName = camera.Name;
                                         actualCamera2.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera2);
+                                        logger.LogInformation($"Camera '{actualCamera2}' syncronized by recorder index.");
                                     }
                                     break;
                                 case SyncronizationMode.CameraName:
@@ -195,6 +214,7 @@ namespace LiveView.Presenters
                                         actualCamera3.RecorderIndex = camera.Index;
                                         actualCamera3.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera3);
+                                        logger.LogInformation($"Camera '{actualCamera3}' syncronized by camera name.");
                                     }
                                     break;
                                 default:

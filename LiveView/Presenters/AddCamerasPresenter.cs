@@ -117,13 +117,15 @@ namespace LiveView.Presenters
             foreach (ListViewItem camera in orderedCameras)
             {
                 var videoServerCamera = (VideoServerCamera)camera.Tag;
-                cameraRepository.Insert(new Camera
+                var newCamera = new Camera
                 {
                     CameraName = videoServerCamera.Name,
                     ServerId = server.Id,
                     Guid = videoServerCamera.Guid,
-                    RecorderIndex = AddCamerasPresenter.GetRecorderIndex(items, videoServerCamera.Name)
-                });
+                    RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
+                };
+                cameraRepository.Insert(newCamera);
+                logger.LogInformation($"Camera '{newCamera}' has been added.");
             }
             view.Close();
         }

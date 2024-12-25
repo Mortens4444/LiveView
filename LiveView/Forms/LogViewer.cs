@@ -47,10 +47,12 @@ namespace LiveView.Forms
 
         public LogEntryFilter GetLogEntryFilter()
         {
+            var fromDate = dtpFrom.Value.ToUniversalTime();
+            var toDate = dtpTo.Value.ToUniversalTime();
             return new LogEntryFilter
             {
-                From = new DateTimeOffset(dtpFrom.Value, new TimeSpan((int)nudFromHour.Value, (int)nudFromMinutes.Value, 0)),
-                To = new DateTimeOffset(dtpTo.Value, new TimeSpan((int)nudToHour.Value, (int)nudToMinutes.Value, 0)),
+                From = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day, (int)nudFromHour.Value, (int)nudFromMinutes.Value, 0),
+                To = new DateTime(toDate.Year, toDate.Month, toDate.Day, (int)nudToHour.Value, (int)nudToMinutes.Value, 59),
                 LogType = rbAll.Checked ? LogType.Any : rbOperations.Checked ? LogType.Operation : rbEvents.Checked ? LogType.Event : LogType.Error,
                 MaxRows = (ushort)nudMaxRows.Value,
                 MessagePart = cbMessagePart.Text,

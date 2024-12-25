@@ -3,6 +3,7 @@ using Database.Repositories;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
 using System;
@@ -14,6 +15,8 @@ namespace LiveView
 {
     internal static class Program
     {
+        public static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -55,10 +58,10 @@ namespace LiveView
                     migrationRepository.Insert(new Migration { Name = migrationToExecute });
                 }
             }
-
             LiveViewTranslator.Translate();
 
             var serviceProvider = ServiceProviderFactory.Create();
+            ExceptionHandler.SetLogger(serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>());
             Application.Run(serviceProvider.GetRequiredService<MainForm>());
         }
     }

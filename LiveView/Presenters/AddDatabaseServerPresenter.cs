@@ -3,7 +3,6 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace LiveView.Presenters
 {
@@ -26,9 +25,21 @@ namespace LiveView.Presenters
             this.view = view as IAddDatabaseServerView;
         }
 
-        public void AddDatabaseServer()
+        public void AddDatabaseServer(DatabaseServer server = null)
         {
-            throw new NotImplementedException();
+            var serverDto = view.GetDatabaseServerDto();
+            var newServer = serverDto.ToModel();
+            if (server == null)
+            {
+                databaseServerRepository.Insert(newServer);
+            }
+            else
+            {
+                newServer.Id = server.Id;
+                databaseServerRepository.Update(newServer);
+            }
+
+            logger.LogInformation($"Database server '{serverDto}' has been created.");
         }
     }
 }

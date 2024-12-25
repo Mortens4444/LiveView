@@ -6,8 +6,8 @@ BEGIN
     (
         NAME = LiveView_Data,
         FILENAME = 'C:\Databases\LiveView2.mdf',
-        SIZE = 4GB,
-        MAXSIZE = 4GB,
+        SIZE = 10GB,
+        MAXSIZE = 10GB,
         FILEGROWTH = 10%
     )
     LOG ON

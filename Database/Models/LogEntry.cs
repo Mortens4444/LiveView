@@ -19,20 +19,6 @@ namespace Database.Models
 
         public string OtherInformation { get; set; }
 
-        public LogType LogType
-        {
-            get
-            {
-                if (OperationId != null)
-                {
-                    return LogType.Operation;
-                }
-                if (EventId != null)
-                {
-                    return LogType.Event;
-                }
-                return LogType.Error;
-            }
-        }
+        public LogType LogType => OperationId.HasValue ? LogType.Operation : EventId.HasValue ? LogType.Event : LogType.Error;
     }
 }
