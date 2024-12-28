@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class Migration
+    public class Migration : IHaveId<long>
     {
         public long Id { get; private set; }
 

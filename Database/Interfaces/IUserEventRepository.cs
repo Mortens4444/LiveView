@@ -2,7 +2,7 @@
 
 namespace Database.Interfaces
 {
-    public interface IDisplayRepository<TModel> : IRepository<TModel>
+    public interface IUserEventRepository<TModel> : IRepository<TModel>
     {
     }
 }

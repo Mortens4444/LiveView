@@ -33,12 +33,12 @@ namespace LiveView.Presenters
 
         public void AddAll()
         {
-            throw new NotImplementedException();
+            AddAllItemsFromListViewToAnother(view.LeftSide, view.RightSide, (item) => view.HasItemWithId(view.RightSide, ((IHaveId<long>)item.Tag).Id));
         }
 
         public void AddSelected()
         {
-            throw new NotImplementedException();
+            AddSelectedItemsFromListViewToAnother(view.LeftSide, view.RightSide, (item) => view.HasItemWithId(view.RightSide, ((IHaveId<long>)item.Tag).Id));
         }
 
         public void AutoCreate()
@@ -48,12 +48,12 @@ namespace LiveView.Presenters
 
         public void RemoveAll()
         {
-            throw new NotImplementedException();
+            view.RemoveAllItem(view.RightSide);
         }
 
         public void RemoveSelected()
         {
-            throw new NotImplementedException();
+            view.RemoveSelectedItems(view.RightSide);
         }
 
         public override void Load()

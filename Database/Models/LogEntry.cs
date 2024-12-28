@@ -1,9 +1,10 @@
 ﻿using Database.Enums;
+using Database.Interfaces;
 using System;
 
 namespace Database.Models
 {
-    public class LogEntry
+    public class LogEntry : IHaveId<long>
     {
         public long Id { get; set; }
 

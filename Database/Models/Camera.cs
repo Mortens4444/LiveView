@@ -3,7 +3,7 @@ using Mtf.Enums.Camera;
 
 namespace Database.Models
 {
-    public class Camera : IHaveGuid
+    public class Camera : IHaveGuid, IHaveId<long>
     {
         public long Id { get; set; }
 

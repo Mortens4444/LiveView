@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class DatabaseServer
+    public class DatabaseServer : IHaveId<long>
     {
         public long Id { get; set; }
 

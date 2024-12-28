@@ -5,6 +5,7 @@ using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
@@ -88,17 +89,22 @@ namespace LiveView.Presenters
 
         public bool ShowConfirm(string title, string message, Decide decide = Decide.No)
         {
-            return view.ShowConfirm(title, message, decide);
+            return view.ShowConfirm(Lng.Elem(title), Lng.Elem(message), decide);
         }
 
         public void ShowInfo(string title, string message)
         {
-            view.ShowInfo(title, message);
+            view.ShowInfo(Lng.Elem(title), Lng.Elem(message));
         }
 
         public void ShowError(string title, string message)
         {
-            view.ShowError(title, message);
+            view.ShowError(Lng.Elem(title), Lng.Elem(message));
+        }
+
+        public void ShowError(string message)
+        {
+            view.ShowError(Lng.Elem("General error"), Lng.Elem(message));
         }
 
         public void ShowError(Exception exception)
@@ -207,6 +213,36 @@ namespace LiveView.Presenters
             {
                 InsertFormLocationAndSize();
             }
+        }
+
+        protected void AddSelectedItemsFromListViewToAnother(ListView sourceListView, ListView destinationListView, Func<ListViewItem, bool> isItemInDestinationListView)
+        {
+            var itemsToView = new List<ListViewItem>();
+            var items = view.GetSelectedItems(sourceListView);
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (!isItemInDestinationListView(items[i]))
+                {
+                    var item = (ListViewItem)items[i].Clone();
+                    itemsToView.Add(item);
+                }
+            }
+            view.AddToItems(destinationListView, itemsToView.ToArray());
+        }
+
+        protected void AddAllItemsFromListViewToAnother(ListView sourceListView, ListView destinationListView, Func<ListViewItem, bool> isItemInDestinationListView)
+        {
+            var itemsToView = new List<ListViewItem>();
+            var items = view.GetItems(sourceListView);
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (!isItemInDestinationListView(items[i]))
+                {
+                    var item = (ListViewItem)items[i].Clone();
+                    itemsToView.Add(item);
+                }
+            }
+            view.AddToItems(destinationListView, itemsToView.ToArray());
         }
 
         private void LoadOptoins()

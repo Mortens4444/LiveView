@@ -46,7 +46,7 @@
             chExecuteableOperationsAndVisibleCameras = new System.Windows.Forms.ColumnHeader();
             lblNote2 = new System.Windows.Forms.Label();
             lblEventName = new System.Windows.Forms.Label();
-            cbEventName = new System.Windows.Forms.ComboBox();
+            cbEvents = new System.Windows.Forms.ComboBox();
             btnRemoveAll = new System.Windows.Forms.Button();
             btnRemoveSelected = new System.Windows.Forms.Button();
             btnAddAll = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@
             btnSavePermissions = new System.Windows.Forms.Button();
             gbGeneralDetails = new System.Windows.Forms.GroupBox();
             btnCreateOrModifyGroup = new System.Windows.Forms.Button();
-            tbNote = new System.Windows.Forms.TextBox();
+            tbGroupNote = new System.Windows.Forms.TextBox();
             lblNote = new System.Windows.Forms.Label();
             tbGroupname = new System.Windows.Forms.TextBox();
             lblGroupname = new System.Windows.Forms.Label();
@@ -92,7 +92,7 @@
             gbPermissions.Controls.Add(lvExecuteableOperationsAndVisibleCameras);
             gbPermissions.Controls.Add(lblNote2);
             gbPermissions.Controls.Add(lblEventName);
-            gbPermissions.Controls.Add(cbEventName);
+            gbPermissions.Controls.Add(cbEvents);
             gbPermissions.Controls.Add(btnRemoveAll);
             gbPermissions.Controls.Add(btnRemoveSelected);
             gbPermissions.Controls.Add(btnAddAll);
@@ -282,15 +282,15 @@
             lblEventName.TabIndex = 0;
             lblEventName.Text = "Event name";
             // 
-            // cbEventName
+            // cbEvents
             // 
-            cbEventName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cbEventName.FormattingEnabled = true;
-            cbEventName.Location = new System.Drawing.Point(158, 39);
-            cbEventName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbEventName.Name = "cbEventName";
-            cbEventName.Size = new System.Drawing.Size(394, 23);
-            cbEventName.TabIndex = 1;
+            cbEvents.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbEvents.FormattingEnabled = true;
+            cbEvents.Location = new System.Drawing.Point(158, 39);
+            cbEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbEvents.Name = "cbEvents";
+            cbEvents.Size = new System.Drawing.Size(394, 23);
+            cbEvents.TabIndex = 1;
             // 
             // btnRemoveAll
             // 
@@ -368,7 +368,7 @@
             // gbGeneralDetails
             // 
             gbGeneralDetails.Controls.Add(btnCreateOrModifyGroup);
-            gbGeneralDetails.Controls.Add(tbNote);
+            gbGeneralDetails.Controls.Add(tbGroupNote);
             gbGeneralDetails.Controls.Add(lblNote);
             gbGeneralDetails.Controls.Add(tbGroupname);
             gbGeneralDetails.Controls.Add(lblGroupname);
@@ -394,16 +394,16 @@
             btnCreateOrModifyGroup.UseVisualStyleBackColor = true;
             btnCreateOrModifyGroup.Click += BtnCreateOrModifyGroup_Click;
             // 
-            // tbNote
+            // tbGroupNote
             // 
-            tbNote.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbNote.Location = new System.Drawing.Point(158, 42);
-            tbNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbNote.MaxLength = 5000;
-            tbNote.Multiline = true;
-            tbNote.Name = "tbNote";
-            tbNote.Size = new System.Drawing.Size(394, 54);
-            tbNote.TabIndex = 3;
+            tbGroupNote.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbGroupNote.Location = new System.Drawing.Point(158, 42);
+            tbGroupNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbGroupNote.MaxLength = 5000;
+            tbGroupNote.Multiline = true;
+            tbGroupNote.Name = "tbGroupNote";
+            tbGroupNote.Size = new System.Drawing.Size(394, 54);
+            tbGroupNote.TabIndex = 3;
             // 
             // lblNote
             // 
@@ -480,7 +480,7 @@
         private System.Windows.Forms.ColumnHeader chExecuteableOperationsAndVisibleCameras;
         private System.Windows.Forms.Label lblNote2;
         private System.Windows.Forms.Label lblEventName;
-        private System.Windows.Forms.ComboBox cbEventName;
+        private System.Windows.Forms.ComboBox cbEvents;
         private System.Windows.Forms.Button btnRemoveAll;
         private System.Windows.Forms.Button btnRemoveSelected;
         private System.Windows.Forms.Button btnAddAll;
@@ -489,7 +489,7 @@
         private System.Windows.Forms.Button btnSavePermissions;
         private System.Windows.Forms.GroupBox gbGeneralDetails;
         private System.Windows.Forms.Button btnCreateOrModifyGroup;
-        private System.Windows.Forms.TextBox tbNote;
+        private System.Windows.Forms.TextBox tbGroupNote;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.TextBox tbGroupname;
         private System.Windows.Forms.Label lblGroupname;

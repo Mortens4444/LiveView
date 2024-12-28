@@ -1,7 +1,16 @@
-﻿namespace LiveView.Interfaces
+﻿using Database.Models;
+using System.Windows.Forms;
+
+namespace LiveView.Interfaces
 {
     public interface IAddGroupView : IView
     {
-        //string GroupName { get; }
+        ComboBox CbEvents { get; }
+
+        ListView LvAvaialableOperationsAndCameras { get; }
+
+        ListView LvOperationsAndCameras { get; }
+
+        Group GetGroup();
     }
 }

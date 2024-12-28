@@ -1,8 +1,10 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class Map
+    public class Map : IHaveId<int>
     {
-        public long Id { get; private set; }
+        public int Id { get; private set; }
 
         public string Name { get; set; }
 

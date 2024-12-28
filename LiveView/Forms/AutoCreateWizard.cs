@@ -4,12 +4,17 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class AutoCreateWizard : BaseView, IAutoCreateWizardView
     {
         private AutoCreateWizardPresenter presenter;
+
+        public ListView LeftSide => lvLeftSide;
+
+        public ListView RightSide => lvRightSide;
 
         public AutoCreateWizard(IServiceProvider serviceProvider) : base(serviceProvider, typeof(AutoCreateWizardPresenter))
         {

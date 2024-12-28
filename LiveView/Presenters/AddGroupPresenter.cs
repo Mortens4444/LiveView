@@ -1,8 +1,11 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using System;
 
 namespace LiveView.Presenters
@@ -11,13 +14,17 @@ namespace LiveView.Presenters
     {
         private IAddGroupView view;
         private readonly IGroupRepository<Group> groupRepository;
+        private readonly IUserEventRepository<UserEvent> userEventRepository;
+        private readonly IOperationRepository<Operation> operationRepository;
         private readonly ILogger<AddGroup> logger;
 
-        public AddGroupPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IGroupRepository<Group> groupRepository, ILogger<AddGroup> logger)
-            : base(generalOptionsRepository)
+        public AddGroupPresenter(AddGroupPresenterDependencies addGroupPresenterDependencies)
+            : base(addGroupPresenterDependencies)
         {
-            this.groupRepository = groupRepository;
-            this.logger = logger;
+            groupRepository = addGroupPresenterDependencies.GroupRepository;
+            userEventRepository = addGroupPresenterDependencies.UserEventRepository;
+            operationRepository = addGroupPresenterDependencies.OperationRepository;
+            logger = addGroupPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -28,35 +35,38 @@ namespace LiveView.Presenters
 
         public void CreateOrModifyGroup()
         {
-            //try
-            //{
-            //    var groupName = addGroupView.GroupName;
+            try
+            {
+                var group = view.GetGroup();
+                if (String.IsNullOrWhiteSpace(group.Name))
+                {
+                    ShowError("The group name cannot be empty.");
+                    return;
+                }
 
-            //    if (string.IsNullOrWhiteSpace(groupName))
-            //    {
-            //        addGroupView.ShowError("The group name cannot be empty.");
-            //        return;
-            //    }
+                var existingGroup = groupRepository.GetByName(group.Name);
+                if (existingGroup != null)
+                {
+                    existingGroup.OtherInformation = group.OtherInformation;
+                    groupRepository.Update(existingGroup);
+                }
+                else
+                {
+                    groupRepository.Insert(group);
+                }
 
-            //    var existingGroup = groupRepository.GetByName(groupName);
-            //    if (existingGroup != null)
-            //    {
-            //        existingGroup.Name = groupName;
-            //        groupRepository.Update(existingGroup);
-            //    }
-            //    else
-            //    {
-            //        var newGroup = new Group { Name = groupName };
-            //        groupRepository.Add(newGroup);
-            //    }
+                view.Close();
+            }
+            catch (Exception ex)
+            {
+                logger.LogExceptionAndShowErrorBox(ex, "An error occurred while saving the group.");
+            }
+        }
 
-            //    addGroupView.CloseForm();
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.LogError(ex, "Failed to create or modify group.");
-            //    addGroupView.ShowError("An error occurred while saving the group.");
-            //}
+        public override void Load()
+        {
+            view.AddItems(view.CbEvents, userEventRepository.GetAll());
+            view.SelectByIndex(view.CbEvents);
         }
 
         public void AddAllOperationsAndCameras()

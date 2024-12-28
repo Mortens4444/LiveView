@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.VideoServer;
@@ -38,32 +39,12 @@ namespace LiveView.Presenters
 
         public void AddAllCamera()
         {
-            var itemsToView = new List<ListViewItem>();
-            var items = view.GetItems(view.ServerCameras);
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (!view.CamerasToViewHasElementWithGuid(((VideoServerCamera)items[i].Tag).Guid))
-                {
-                    var item = (ListViewItem)items[i].Clone();
-                    itemsToView.Add(item);
-                }
-            }
-            view.AddToItems(view.CamerasToView, itemsToView.ToArray());
+            AddAllItemsFromListViewToAnother(view.ServerCameras, view.CamerasToView, (item) => view.CamerasToViewHasElementWithGuid(((VideoServerCamera)item.Tag).Guid));
         }
 
         public void AddSelectedCamera()
         {
-            var itemsToView = new List<ListViewItem>();
-            var items = view.GetSelectedItems(view.ServerCameras);
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (!view.CamerasToViewHasElementWithGuid(((VideoServerCamera)items[i].Tag).Guid))
-                {
-                    var item = (ListViewItem)items[i].Clone();
-                    itemsToView.Add(item);
-                }
-            }
-            view.AddToItems(view.CamerasToView, itemsToView.ToArray());
+            AddSelectedItemsFromListViewToAnother(view.ServerCameras, view.CamerasToView, (item) => view.CamerasToViewHasElementWithGuid(((VideoServerCamera)item.Tag).Guid));
         }
 
         public void RemoveAllCamera()
@@ -76,11 +57,12 @@ namespace LiveView.Presenters
             view.RemoveSelectedItems(view.CamerasToView);
         }
 
-        public void LoadServers()
+        public void LoadServers(Server server)
         {
             var servers = serverRepository.GetAll();
             view.AddItems(view.Servers, servers);
-            view.SelectByIndex(view.Servers);
+            var index = servers.IndexOf(server);
+            view.SelectByIndex(view.Servers, index);
         }
 
         public async Task GetCamerasAsync()
@@ -102,7 +84,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                view.ShowError(Lng.Elem("Connection failed"), VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
+                ShowError("Connection failed", VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
             }
         }
 
@@ -125,7 +107,7 @@ namespace LiveView.Presenters
                     RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
                 };
                 cameraRepository.Insert(newCamera);
-                logger.LogInformation($"Camera '{newCamera}' has been added.");
+                logger.LogInfo("Camera '{0}' has been added.", newCamera);
             }
             view.Close();
         }

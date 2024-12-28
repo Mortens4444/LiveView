@@ -20,12 +20,12 @@ namespace LiveView.Services
 
         private readonly IMapRepository<Map> mapRepository;
         private readonly IMapObjectRepository<MapObject> mapObjectRepository;
-        private readonly IObjectInMapRepositoryRepository<ObjectInMap> objectInMapRepositoryRepository;
+        private readonly IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
 
         public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, IMapRepository<Map> mapRepository,
             ICameraRepository<Camera> cameraRepository, IMapObjectRepository<MapObject> mapObjectRepository,
-            IObjectInMapRepositoryRepository<ObjectInMap> objectInMapRepositoryRepository)
+            IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository)
         {
             this.mapContainer = mapContainer;
             this.toolTip = toolTip;

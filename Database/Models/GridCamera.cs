@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class GridCamera
+    public class GridCamera : IHaveId<long>
     {
         public long Id { get; set; }
 

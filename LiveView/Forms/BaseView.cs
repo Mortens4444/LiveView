@@ -1,5 +1,6 @@
 ﻿#define SET_PRESENTER_WITH_DYNAMIC
 
+using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Microsoft.Extensions.DependencyInjection;
@@ -115,6 +116,11 @@ namespace LiveView.Forms
             {
                 comboBox.Items.Add(item);
             }
+        }
+
+        public bool HasItemWithId(ListView listview, long id)
+        {
+            return listview.HasElementWithId(id);
         }
 
         public void SelectByIndex(ComboBox comboBox, int index = 0)

@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class Display
+    public class Display : IHaveId<int>
     {
         public int Id { get; set; }
 

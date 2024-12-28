@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,7 @@ namespace LiveView.Presenters
                 databaseServerRepository.Update(newServer);
             }
 
-            logger.LogInformation($"Database server '{serverDto}' has been created.");
+            logger.LogInfo("Database server '{0}' has been created.", serverDto);
         }
     }
 }

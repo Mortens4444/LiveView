@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class Template
+    public class Template : IHaveId<long>
     {
         public long Id { get; set; }
 

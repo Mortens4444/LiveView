@@ -617,7 +617,7 @@ namespace LiveView.Presenters
                 }
             }
 
-            logger.LogInformation(Lng.Elem($"Grid ({view.TbGridName.Text}) has been saved."));
+            logger.LogInfo("Grid '{0}' has been saved.", view.TbGridName.Text);
         }
 
         public void SetHeightForAspect16_10()

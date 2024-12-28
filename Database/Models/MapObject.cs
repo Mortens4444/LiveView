@@ -1,8 +1,9 @@
-﻿using Mtf.Enums;
+﻿using Database.Interfaces;
+using Mtf.Enums;
 
 namespace Database.Models
 {
-    public class MapObject
+    public class MapObject : IHaveId<int>
     {
         public int Id { get; private set; }
 

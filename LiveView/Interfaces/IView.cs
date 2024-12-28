@@ -1,4 +1,5 @@
-﻿using Mtf.MessageBoxes.Enums;
+﻿using Database.Interfaces;
+using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,6 +46,8 @@ namespace LiveView.Interfaces
         void ShowDebugError(Exception exception);
 
         void ShowError(Exception exception);
+
+        bool HasItemWithId(ListView listview, long id);
 
         ListView.ListViewItemCollection GetItems(ListView listView);
 

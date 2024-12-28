@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
@@ -43,7 +44,7 @@ namespace LiveView.Presenters
                 serverRepository.Update(newServer);
             }
 
-            logger.LogInformation($"Videoserver '{serverDto}' has been created.");
+            logger.LogInfo("Video server '{0}' has been created.", serverDto);
         }
 
         public async Task SearchForHostsAsync()

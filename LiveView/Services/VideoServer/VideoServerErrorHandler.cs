@@ -23,19 +23,19 @@ namespace LiveView.Services.VideoServer
         {
             switch (errorCode)
             {
-                case Success: return Lng.Elem("Operation successful");
-                case WrongCameraName: return Lng.Elem("Wrong camera name");
-                case LowVirtualMemory: return Lng.Elem("Virtual memory is too low");
-                case ConnectionLost: return Lng.Elem("Connection has been lost");
-                case HardwareError: return Lng.Elem("Hardware error");
-                case WrongCredentials: return Lng.Elem("Wrong username or password");
-                case NetworkError: return Lng.Elem("Network (RPC) error");
-                case ConnectionFailed: return Lng.Elem("Remote Video Server appplication is not responding");
-                case PermissionError: return Lng.Elem("Security permission error / Invalid version");
-                case TimeoutErrorCode: return Lng.Elem("Connection timed out");
-                case NoVideoServerCredentialsFound: return Lng.Elem("No video server credentials found");
-                case UnknownErrorOccurred: return Lng.Elem("Unknown error occurred during connection");
-                case NoResult: return Lng.Elem("No result");
+                case Success: return "Operation successful";
+                case WrongCameraName: return "Wrong camera name";
+                case LowVirtualMemory: return "Virtual memory is too low";
+                case ConnectionLost: return "Connection has been lost";
+                case HardwareError: return "Hardware error";
+                case WrongCredentials: return "Wrong username or password";
+                case NetworkError: return "Network (RPC) error";
+                case ConnectionFailed: return "Remote Video Server appplication is not responding";
+                case PermissionError: return "Security permission error / Invalid version";
+                case TimeoutErrorCode: return "Connection timed out";
+                case NoVideoServerCredentialsFound: return "No video server credentials found";
+                case UnknownErrorOccurred: return "Unknown error occurred during connection";
+                case NoResult: return "No result";
                 default: return $"{Lng.Elem("Unknown error")}: {errorCode}";
             }
         }

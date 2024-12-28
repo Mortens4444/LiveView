@@ -1,6 +1,9 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+using System;
+
+namespace Database.Models
 {
-    public class Server
+    public class Server : IHaveId<long>, IEquatable<Server>
     {
         public long Id { get; set; }
 
@@ -20,6 +23,20 @@
 
         public bool StartInMotionPopup { get; set; }
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Server other && Equals(other);
+        }
+
+        public bool Equals(Server other)
+        {
+            return other == null ? false : Id == other.Id;
+        }
         public override string ToString()
         {
             return Hostname;

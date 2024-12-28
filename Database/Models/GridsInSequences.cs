@@ -1,6 +1,8 @@
-﻿namespace Database.Models
+﻿using Database.Interfaces;
+
+namespace Database.Models
 {
-    public class GridsInSequences
+    public class GridsInSequences : IHaveId<long>
     {
         public long Id { get; set; }
 
