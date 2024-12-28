@@ -87,6 +87,11 @@ namespace LiveView.Presenters
             view.Close();
         }
 
+        public bool ShowConfirm(string message, Decide decide = Decide.No)
+        {
+            return view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem(message), decide);
+        }
+
         public bool ShowConfirm(string title, string message, Decide decide = Decide.No)
         {
             return view.ShowConfirm(Lng.Elem(title), Lng.Elem(message), decide);

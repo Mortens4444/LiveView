@@ -124,10 +124,24 @@ namespace LiveView.Forms
         {
             return new Group
             {
-                Name = tbGroupname.Text,
+                Name = tbGroupName.Text,
                 OtherInformation = tbGroupNote.Text,
                 ParentGroupId = parentGroup?.Id
             };
+        }
+
+        public UserEvent GetUserEvent()
+        {
+            return new UserEvent
+            {
+                Name = cbEvents.Text,
+                Note = tbUserEventNote.Text,
+            };
+        }
+
+        private void CbEvents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

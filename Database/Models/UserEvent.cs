@@ -9,5 +9,7 @@ namespace Database.Models
         public long LanguageElementId { get; set; }
 
         public string Note { get; set; }
+
+        public string Name { get; set; }
     }
 }

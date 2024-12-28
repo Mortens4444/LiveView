@@ -41,7 +41,7 @@
             lvSelectableOperationsAndCameras = new Mtf.Controls.MtfListView();
             chSelectableOperationsAndCameras = new System.Windows.Forms.ColumnHeader();
             ilImages = new System.Windows.Forms.ImageList(components);
-            tbNote2 = new System.Windows.Forms.TextBox();
+            tbUserEventNote = new System.Windows.Forms.TextBox();
             lvExecuteableOperationsAndVisibleCameras = new Mtf.Controls.MtfListView();
             chExecuteableOperationsAndVisibleCameras = new System.Windows.Forms.ColumnHeader();
             lblNote2 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             btnCreateOrModifyGroup = new System.Windows.Forms.Button();
             tbGroupNote = new System.Windows.Forms.TextBox();
             lblNote = new System.Windows.Forms.Label();
-            tbGroupname = new System.Windows.Forms.TextBox();
+            tbGroupName = new System.Windows.Forms.TextBox();
             lblGroupname = new System.Windows.Forms.Label();
             niModifyIcon = new System.Windows.Forms.NotifyIcon(components);
             pMain.SuspendLayout();
@@ -88,7 +88,7 @@
             gbPermissions.Controls.Add(btnSelectAllOperation);
             gbPermissions.Controls.Add(btnCreateEvent);
             gbPermissions.Controls.Add(lvSelectableOperationsAndCameras);
-            gbPermissions.Controls.Add(tbNote2);
+            gbPermissions.Controls.Add(tbUserEventNote);
             gbPermissions.Controls.Add(lvExecuteableOperationsAndVisibleCameras);
             gbPermissions.Controls.Add(lblNote2);
             gbPermissions.Controls.Add(lblEventName);
@@ -217,16 +217,16 @@
             ilImages.Images.SetKeyName(0, "key.ico");
             ilImages.Images.SetKeyName(1, "cam 0.ico");
             // 
-            // tbNote2
+            // tbUserEventNote
             // 
-            tbNote2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbNote2.Location = new System.Drawing.Point(158, 70);
-            tbNote2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbNote2.MaxLength = 5000;
-            tbNote2.Multiline = true;
-            tbNote2.Name = "tbNote2";
-            tbNote2.Size = new System.Drawing.Size(394, 55);
-            tbNote2.TabIndex = 3;
+            tbUserEventNote.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbUserEventNote.Location = new System.Drawing.Point(158, 70);
+            tbUserEventNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbUserEventNote.MaxLength = 5000;
+            tbUserEventNote.Multiline = true;
+            tbUserEventNote.Name = "tbUserEventNote";
+            tbUserEventNote.Size = new System.Drawing.Size(394, 55);
+            tbUserEventNote.TabIndex = 3;
             // 
             // lvExecuteableOperationsAndVisibleCameras
             // 
@@ -291,6 +291,7 @@
             cbEvents.Name = "cbEvents";
             cbEvents.Size = new System.Drawing.Size(394, 23);
             cbEvents.TabIndex = 1;
+            cbEvents.SelectedIndexChanged += CbEvents_SelectedIndexChanged;
             // 
             // btnRemoveAll
             // 
@@ -370,7 +371,7 @@
             gbGeneralDetails.Controls.Add(btnCreateOrModifyGroup);
             gbGeneralDetails.Controls.Add(tbGroupNote);
             gbGeneralDetails.Controls.Add(lblNote);
-            gbGeneralDetails.Controls.Add(tbGroupname);
+            gbGeneralDetails.Controls.Add(tbGroupName);
             gbGeneralDetails.Controls.Add(lblGroupname);
             gbGeneralDetails.Dock = System.Windows.Forms.DockStyle.Top;
             gbGeneralDetails.Location = new System.Drawing.Point(0, 0);
@@ -416,15 +417,15 @@
             lblNote.TabIndex = 2;
             lblNote.Text = "Note";
             // 
-            // tbGroupname
+            // tbGroupName
             // 
-            tbGroupname.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbGroupname.Location = new System.Drawing.Point(158, 15);
-            tbGroupname.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbGroupname.MaxLength = 100;
-            tbGroupname.Name = "tbGroupname";
-            tbGroupname.Size = new System.Drawing.Size(394, 23);
-            tbGroupname.TabIndex = 1;
+            tbGroupName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbGroupName.Location = new System.Drawing.Point(158, 15);
+            tbGroupName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbGroupName.MaxLength = 100;
+            tbGroupName.Name = "tbGroupName";
+            tbGroupName.Size = new System.Drawing.Size(394, 23);
+            tbGroupName.TabIndex = 1;
             // 
             // lblGroupname
             // 
@@ -475,7 +476,7 @@
         private Mtf.Controls.MtfListView lvSelectableOperationsAndCameras;
         private System.Windows.Forms.ColumnHeader chSelectableOperationsAndCameras;
         private System.Windows.Forms.ImageList ilImages;
-        private System.Windows.Forms.TextBox tbNote2;
+        private System.Windows.Forms.TextBox tbUserEventNote;
         private Mtf.Controls.MtfListView lvExecuteableOperationsAndVisibleCameras;
         private System.Windows.Forms.ColumnHeader chExecuteableOperationsAndVisibleCameras;
         private System.Windows.Forms.Label lblNote2;
@@ -491,7 +492,7 @@
         private System.Windows.Forms.Button btnCreateOrModifyGroup;
         private System.Windows.Forms.TextBox tbGroupNote;
         private System.Windows.Forms.Label lblNote;
-        private System.Windows.Forms.TextBox tbGroupname;
+        private System.Windows.Forms.TextBox tbGroupName;
         private System.Windows.Forms.Label lblGroupname;
         private System.Windows.Forms.NotifyIcon niModifyIcon;
     }

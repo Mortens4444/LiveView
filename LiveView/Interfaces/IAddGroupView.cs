@@ -12,5 +12,7 @@ namespace LiveView.Interfaces
         ListView LvOperationsAndCameras { get; }
 
         Group GetGroup();
+
+        UserEvent GetUserEvent();
     }
 }

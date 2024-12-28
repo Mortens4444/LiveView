@@ -6,6 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.MessageBoxes.Enums;
 using System;
 
 namespace LiveView.Presenters
@@ -81,12 +82,43 @@ namespace LiveView.Presenters
 
         public void CreateEvent()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userEvent = view.GetUserEvent();
+                if (String.IsNullOrWhiteSpace(userEvent.Name))
+                {
+                    ShowError("The event name cannot be empty.");
+                    return;
+                }
+
+                var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
+                if (existingUserEvent != null)
+                {
+                    existingUserEvent.Note = userEvent.Note;
+                    userEventRepository.Update(existingUserEvent);
+                }
+                else
+                {
+                    userEventRepository.Insert(userEvent);
+                }
+
+                view.Close();
+            }
+            catch (Exception ex)
+            {
+                logger.LogExceptionAndShowErrorBox(ex, "An error occurred while saving the event.");
+            }
         }
 
         public void DeleteEvent()
         {
-            throw new NotImplementedException();
+            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
+            {
+                return;
+            }
+
+            var userEvent = view.GetUserEvent();
+            userEventRepository.DeleteWhere(new { Name = userEvent.Name });
         }
 
         public void ModifyEvent()
