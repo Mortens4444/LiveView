@@ -590,8 +590,7 @@ namespace LiveView.Presenters
 
         public void SaveGrid()
         {
-            //Use InsertAndReturnIdAsBigint
-            var gridId = gridRepository.InsertAndReturnId(new Grid
+            var gridId = gridRepository.InsertAndReturnIdAsBigint(new Grid
             {
                 Name = view.TbGridName.Text,
                 PixelsFromBottom = (int)view.NudPixelsFromBottom.Value,
@@ -617,6 +616,8 @@ namespace LiveView.Presenters
                     gridCameraRepository.Insert(gridCamera);
                 }
             }
+
+            logger.LogInformation(Lng.Elem($"Grid ({view.TbGridName.Text}) has been saved."));
         }
 
         public void SetHeightForAspect16_10()
@@ -752,7 +753,6 @@ namespace LiveView.Presenters
                 view.NudPixelsFromRight.Value = menuSize.Width;
                 view.NudPixelsFromBottom.Value = menuSize.Height;
 
-                //ResizeAndRelocate();
                 var (widthAspect, heightAspect) = GetNativeAspectRatio(displaySize);
                 SetAspectRatio(widthAspect, heightAspect, true);
             }

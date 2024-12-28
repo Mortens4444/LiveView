@@ -14,7 +14,7 @@ namespace Database.Interfaces
 
         void Insert(TModel model);
         
-        int InsertAndReturnId(TModel model);
+        int InsertAndReturnIdAsBigint(TModel model);
 
         void Update(TModel model);
 
