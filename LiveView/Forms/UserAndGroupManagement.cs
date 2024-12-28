@@ -4,12 +4,15 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class UserAndGroupManagement : BaseView, IUserAndGroupManagementView
     {
         private UserAndGroupManagementPresenter presenter;
+
+        public TreeView TvUsersAndGroups => tvUsersAndGroups;
 
         public UserAndGroupManagement(IServiceProvider serviceProvider) : base(serviceProvider, typeof(UserAndGroupManagementPresenter))
         {
@@ -34,16 +37,12 @@ namespace LiveView.Forms
             presenter.ShowDialogWithReload<AddUser>();
         }
 
-        [RequirePermission(GroupManagementPermissions.Update)]
-        [RequirePermission(UserManagementPermissions.Update)]
         private void BtnModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.Modify();
         }
 
-        [RequirePermission(GroupManagementPermissions.Delete)]
-        [RequirePermission(UserManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

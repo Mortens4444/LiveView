@@ -43,7 +43,9 @@
     <EmbeddedResource Include="Scripts\InsertLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
     <EmbeddedResource Include="Scripts\InsertObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\SelectGroupByName.sql" />
     <EmbeddedResource Include="Scripts\SelectGridCamera.sql" />
+    <EmbeddedResource Include="Scripts\SelectUserEventByName.sql" />
     <EmbeddedResource Include="Scripts\SelectLogEntry.sql" />
     <EmbeddedResource Include="Scripts\SelectAllMigration.sql" />
     <EmbeddedResource Include="Scripts\SelectCombinedGridCamera.sql" />

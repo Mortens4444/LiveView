@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using System;
 
 namespace Database.Models
 {
@@ -32,7 +33,29 @@ namespace Database.Models
 
         public override string ToString()
         {
-            return Username;
+            var result = string.Empty;
+
+            if (!String.IsNullOrWhiteSpace(Username))
+            {
+                result += $"{Username}{Environment.NewLine}";
+            }
+
+            if (!String.IsNullOrWhiteSpace(Phone))
+            {
+                result += $"{Phone}{Environment.NewLine}";
+            }
+
+            if (!String.IsNullOrWhiteSpace(Email))
+            {
+                result += $"{Email}{Environment.NewLine}";
+            }
+
+            if (!String.IsNullOrWhiteSpace(Address))
+            {
+                result += $"{Address}{Environment.NewLine}";
+            }
+
+            return result.TrimEnd(Environment.NewLine.ToCharArray());
         }
     }
 }

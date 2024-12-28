@@ -5,6 +5,6 @@ namespace Database.Interfaces
 {
     public interface IUserEventRepository<TModel> : IRepository<TModel>
     {
-        UserEvent GetByName(string name);
+        TModel GetByName(string name);
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            var treeNode1 = new System.Windows.Forms.TreeNode("Groups", 0, 0);
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(UserAndGroupManagement));
             gbUsersAndGroups = new System.Windows.Forms.GroupBox();
             tvUsersAndGroups = new Mtf.Controls.MtfTreeView();
@@ -74,6 +75,11 @@
             tvUsersAndGroups.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tvUsersAndGroups.MultiSelect = false;
             tvUsersAndGroups.Name = "tvUsersAndGroups";
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "Groups";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "Groups";
+            tvUsersAndGroups.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1 });
             tvUsersAndGroups.SelectedImageIndex = 0;
             tvUsersAndGroups.ShowPlusMinusOnRootNodes = true;
             tvUsersAndGroups.ShowRootLines = false;
@@ -97,7 +103,6 @@
             // btnNewGroup
             // 
             btnNewGroup.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewGroup.Image = (System.Drawing.Image)resources.GetObject("btnNewGroup.Image");
             btnNewGroup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNewGroup.Location = new System.Drawing.Point(597, 20);
             btnNewGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -111,7 +116,6 @@
             // btnModify
             // 
             btnModify.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnModify.Image = (System.Drawing.Image)resources.GetObject("btnModify.Image");
             btnModify.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnModify.Location = new System.Drawing.Point(597, 87);
             btnModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -125,7 +129,6 @@
             // btnRemove
             // 
             btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnRemove.Image = (System.Drawing.Image)resources.GetObject("btnRemove.Image");
             btnRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnRemove.Location = new System.Drawing.Point(597, 120);
             btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -139,7 +142,6 @@
             // btnNewUser
             // 
             btnNewUser.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnNewUser.Image = (System.Drawing.Image)resources.GetObject("btnNewUser.Image");
             btnNewUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNewUser.Location = new System.Drawing.Point(597, 53);
             btnNewUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -180,7 +182,6 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(750, 459);
             Controls.Add(pMain);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(473, 216);
             Name = "UserAndGroupManagement";

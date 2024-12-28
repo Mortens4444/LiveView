@@ -1,0 +1,1 @@
+﻿SELECT Id, LanguageElementId, Note, Name FROM Events WHERE Name = @Name;

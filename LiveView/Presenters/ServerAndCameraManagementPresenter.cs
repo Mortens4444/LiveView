@@ -134,7 +134,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete))
                     {
                         serverRepository.Delete(server.Id);
-                        logger.LogInfo("Videoserver '{0}' has been deleted.", server);
+                        logger.LogInfo("Video server '{0}' has been deleted.", server);
                     }
                     else
                     {
