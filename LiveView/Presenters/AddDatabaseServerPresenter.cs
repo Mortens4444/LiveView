@@ -25,7 +25,7 @@ namespace LiveView.Presenters
             this.view = view as IAddDatabaseServerView;
         }
 
-        public void AddDatabaseServer(DatabaseServer server = null)
+        public void AddDatabaseOrModifyServer(DatabaseServer server = null)
         {
             var serverDto = view.GetDatabaseServerDto();
             var newServer = serverDto.ToModel();

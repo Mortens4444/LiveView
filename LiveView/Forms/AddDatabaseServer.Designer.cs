@@ -30,8 +30,10 @@
         {
             pMain = new System.Windows.Forms.Panel();
             btnCancel = new System.Windows.Forms.Button();
-            btnAdd = new System.Windows.Forms.Button();
+            btnAddOrModify = new System.Windows.Forms.Button();
             gbNetwork = new System.Windows.Forms.GroupBox();
+            lblManufacturer = new System.Windows.Forms.Label();
+            tbManufacturer = new System.Windows.Forms.TextBox();
             tbMacAddress = new System.Windows.Forms.TextBox();
             lblMacAddress = new System.Windows.Forms.Label();
             gbDatabaseServer = new System.Windows.Forms.GroupBox();
@@ -47,8 +49,6 @@
             tbUsername = new System.Windows.Forms.TextBox();
             lblUsername = new System.Windows.Forms.Label();
             lblIpAddress = new System.Windows.Forms.Label();
-            lblManufacturer = new System.Windows.Forms.Label();
-            tbManufacturer = new System.Windows.Forms.TextBox();
             pMain.SuspendLayout();
             gbNetwork.SuspendLayout();
             gbDatabaseServer.SuspendLayout();
@@ -58,7 +58,7 @@
             // pMain
             // 
             pMain.Controls.Add(btnCancel);
-            pMain.Controls.Add(btnAdd);
+            pMain.Controls.Add(btnAddOrModify);
             pMain.Controls.Add(gbNetwork);
             pMain.Controls.Add(gbDatabaseServer);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -81,18 +81,18 @@
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += BtnClose_Click;
             // 
-            // btnAdd
+            // btnAddOrModify
             // 
-            btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnAdd.Location = new System.Drawing.Point(127, 359);
-            btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new System.Drawing.Size(88, 27);
-            btnAdd.TabIndex = 12;
-            btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += BtnAdd_Click;
+            btnAddOrModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnAddOrModify.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnAddOrModify.Location = new System.Drawing.Point(127, 359);
+            btnAddOrModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddOrModify.Name = "btnAddOrModify";
+            btnAddOrModify.Size = new System.Drawing.Size(88, 27);
+            btnAddOrModify.TabIndex = 12;
+            btnAddOrModify.Text = "Add";
+            btnAddOrModify.UseVisualStyleBackColor = true;
+            btnAddOrModify.Click += BtnAddOrModify_Click;
             // 
             // gbNetwork
             // 
@@ -109,6 +109,27 @@
             gbNetwork.TabIndex = 11;
             gbNetwork.TabStop = false;
             gbNetwork.Text = "Network";
+            // 
+            // lblManufacturer
+            // 
+            lblManufacturer.AutoSize = true;
+            lblManufacturer.Location = new System.Drawing.Point(156, 17);
+            lblManufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblManufacturer.Name = "lblManufacturer";
+            lblManufacturer.Size = new System.Drawing.Size(79, 15);
+            lblManufacturer.TabIndex = 5;
+            lblManufacturer.Text = "Manufacturer";
+            // 
+            // tbManufacturer
+            // 
+            tbManufacturer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbManufacturer.Location = new System.Drawing.Point(156, 35);
+            tbManufacturer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbManufacturer.MaxLength = 20;
+            tbManufacturer.Name = "tbManufacturer";
+            tbManufacturer.ReadOnly = true;
+            tbManufacturer.Size = new System.Drawing.Size(153, 23);
+            tbManufacturer.TabIndex = 4;
             // 
             // tbMacAddress
             // 
@@ -278,27 +299,6 @@
             lblIpAddress.TabIndex = 0;
             lblIpAddress.Text = "DNS name or IP address";
             // 
-            // lblManufacturer
-            // 
-            lblManufacturer.AutoSize = true;
-            lblManufacturer.Location = new System.Drawing.Point(156, 17);
-            lblManufacturer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblManufacturer.Name = "lblManufacturer";
-            lblManufacturer.Size = new System.Drawing.Size(79, 15);
-            lblManufacturer.TabIndex = 5;
-            lblManufacturer.Text = "Manufacturer";
-            // 
-            // tbManufacturer
-            // 
-            tbManufacturer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbManufacturer.Location = new System.Drawing.Point(156, 35);
-            tbManufacturer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbManufacturer.MaxLength = 20;
-            tbManufacturer.Name = "tbManufacturer";
-            tbManufacturer.ReadOnly = true;
-            tbManufacturer.Size = new System.Drawing.Size(153, 23);
-            tbManufacturer.TabIndex = 4;
-            // 
             // AddDatabaseServer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -324,7 +324,7 @@
 
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnAddOrModify;
         private System.Windows.Forms.GroupBox gbNetwork;
         private System.Windows.Forms.TextBox tbMacAddress;
         private System.Windows.Forms.Label lblMacAddress;

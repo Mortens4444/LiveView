@@ -27,5 +27,10 @@
         public int SecondaryLogonPriority { get; set; }
 
         public int NeededSecondaryLogonPriority { get; set; }
+
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }

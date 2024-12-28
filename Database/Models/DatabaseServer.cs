@@ -19,5 +19,10 @@
         public string DbName { get; set; }
 
         public int DbPort { get; set; }
+
+        public override string ToString()
+        {
+            return Hostname;
+        }
     }
 }

@@ -96,7 +96,7 @@ namespace LiveView.Services
                         Removable = removable,
                         AttachedToDesktop = attachedToDesktop,
                         MainForm = mainForm,
-                        Fullscreen = fullscreen
+                        Fullscreen = fullscreen,
                     });
                 }
 

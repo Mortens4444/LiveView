@@ -77,7 +77,7 @@ namespace LiveView.Dto
 
         public override string ToString()
         {
-            return $"DeviceID: {DeviceId}, Location: ({X}, {Y}), Size: {MaxWidth}x{MaxHeight}, Sziltech ID: {SziltechId}";
+            return SziltechId;
         }
 
         public Display ToDisplay()

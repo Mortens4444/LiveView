@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Dto;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Mtf.MessageBoxes.Enums;
 using System;
@@ -20,6 +21,10 @@ namespace LiveView.Presenters
         private static IEnumerable<GeneralOptionDto> generalOptions;
 
         protected readonly IGeneralOptionsRepository<GeneralOption> generalOptionsRepository;
+
+        public BasePresenter(BasePresenterDependencies basePresenterDependencies) :
+            this (basePresenterDependencies.GeneralOptionsRepository, basePresenterDependencies.FormFactory)
+        { }
 
         public BasePresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory = null)
         {
@@ -98,7 +103,11 @@ namespace LiveView.Presenters
 
         public void ShowError(Exception exception)
         {
+#if DEBUG
+            view.ShowDebugError(exception);
+#else
             view.ShowError(exception);
+#endif
         }
 
         public virtual void Load()

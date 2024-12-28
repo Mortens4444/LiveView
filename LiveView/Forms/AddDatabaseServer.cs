@@ -1,6 +1,7 @@
 ﻿using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -10,22 +11,29 @@ namespace LiveView.Forms
 {
     public partial class AddDatabaseServer : BaseView, IAddDatabaseServerView
     {
+        private readonly DatabaseServer databaseServer;
         private AddDatabaseServerPresenter presenter;
 
-        public AddDatabaseServer(IServiceProvider serviceProvider) : base(serviceProvider, typeof(AddDatabaseServerPresenter))
+        public AddDatabaseServer(IServiceProvider serviceProvider, DatabaseServer databaseServer = null) : base(serviceProvider, typeof(AddDatabaseServerPresenter))
         {
             InitializeComponent();
+            this.databaseServer = databaseServer;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
+            if (databaseServer != null)
+            {
+                Text = Lng.Elem("Add Video Server");
+                btnAddOrModify.Text = "Modify";
+            }
             Translator.Translate(this);
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.AddDatabaseServer();
+            presenter.AddDatabaseOrModifyServer(databaseServer);
         }
 
         private void BtnClose_Click(object sender, EventArgs e)

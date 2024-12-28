@@ -1,7 +1,6 @@
 ﻿using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,9 +8,23 @@ namespace LiveView.Interfaces
 {
     public interface IView : IInvoker
     {
+        Control.ControlCollection Controls { get; }
+
+        Color BackColor { get; set; }
+
         Point Location { get; set; }
 
         Size Size { get; set; }
+
+        int Width { get; set; }
+
+        int Height { get; set; }
+
+        void Invalidate(bool invalidateChildren);
+
+        void Invalidate();
+
+        void Update();
 
         void Close();
 
@@ -29,6 +42,8 @@ namespace LiveView.Interfaces
 
         void ShowError(string title, string message);
 
+        void ShowDebugError(Exception exception);
+
         void ShowError(Exception exception);
 
         ListView.ListViewItemCollection GetItems(ListView listView);
@@ -39,7 +54,7 @@ namespace LiveView.Interfaces
 
         TType GetSelectedItem<TType>(ComboBox comboBox);
 
-        void AddItems<TType>(ComboBox comboBox, ReadOnlyCollection<TType> items);
+        void AddItems<TType>(ComboBox comboBox, IEnumerable<TType> items);
 
         void SelectByIndex(ComboBox comboBox, int index = 0);
 
@@ -56,5 +71,7 @@ namespace LiveView.Interfaces
         TreeNode GetSelectedItem(TreeView treeView);
 
         void Invalidate(Control control);
+
+        void RefreshUI();
     }
 }

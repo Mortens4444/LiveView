@@ -19,5 +19,10 @@
         public string SerialNumber { get; set; }
 
         public bool StartInMotionPopup { get; set; }
+
+        public override string ToString()
+        {
+            return Hostname;
+        }
     }
 }

@@ -43,5 +43,13 @@
         public int CsrValue { get; set; }
 
         public bool ShowDateTime { get; set; } = false;
+
+        public MatrixRegion MatrixRegion => new MatrixRegion
+        {
+            FromRow = InitRow,
+            FromColumn = InitCol,
+            ToRow = EndRow ?? InitRow,
+            ToColumn = EndCol ?? InitCol
+        };
     }
 }

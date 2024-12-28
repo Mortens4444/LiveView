@@ -1,0 +1,1 @@
+﻿SELECT InitRow, InitCol, EndRow, EndCol FROM GridCameralist WHERE (EndRow IS NOT NULL) AND (GridId = @GridId);

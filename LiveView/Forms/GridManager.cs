@@ -21,7 +21,7 @@ namespace LiveView.Forms
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
+            
             Translator.Translate(this);
         }
 
@@ -43,14 +43,14 @@ namespace LiveView.Forms
         private void BtnMoveUp_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.MoveUpCamera();
+            presenter.MoveUpCameras();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]
         private void BtnMoveDown_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.MoveDownCamera();
+            presenter.MoveDownCameras();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGrid));
             pMain = new System.Windows.Forms.Panel();
+            axVideoPlayerWindow = new Mtf.Controls.x86.AxVideoPlayerWindow();
             ssStatusStrip = new System.Windows.Forms.StatusStrip();
             tsbPrevious = new System.Windows.Forms.ToolStripButton();
             tsbPlayOrPause = new System.Windows.Forms.ToolStripButton();
@@ -44,13 +46,11 @@
             tsslSpaceHolder2 = new System.Windows.Forms.ToolStripStatusLabel();
             tsslSequence0 = new System.Windows.Forms.ToolStripStatusLabel();
             tsbRearrangeGrid = new System.Windows.Forms.ToolStripButton();
-            pbNoSignal = new Mtf.Controls.MtfPictureBox();
-            pEditor = new System.Windows.Forms.Panel();
-            gbMonitors = new System.Windows.Forms.GroupBox();
-            cbDisplayDevices = new System.Windows.Forms.ComboBox();
+            pEditor = new Mtf.Controls.MovablePanel();
+            gbDisplays = new System.Windows.Forms.GroupBox();
+            cbDisplays = new System.Windows.Forms.ComboBox();
             gbTemplateGrids = new System.Windows.Forms.GroupBox();
-            cbGridIdentifiers = new System.Windows.Forms.ComboBox();
-            cbGridNames = new System.Windows.Forms.ComboBox();
+            cbGrids = new System.Windows.Forms.ComboBox();
             btnTemplate12 = new System.Windows.Forms.Button();
             btnTemplate11 = new System.Windows.Forms.Button();
             btnTemplate10 = new System.Windows.Forms.Button();
@@ -64,7 +64,7 @@
             btnTemplate2 = new System.Windows.Forms.Button();
             btnTemplate1 = new System.Windows.Forms.Button();
             gbCombine = new System.Windows.Forms.GroupBox();
-            pMiniDesign = new System.Windows.Forms.Panel();
+            pMiniDesign = new Mtf.Controls.TransparentPanel();
             btnEastRight = new System.Windows.Forms.Button();
             btnEastLeft = new System.Windows.Forms.Button();
             btnWestRight = new System.Windows.Forms.Button();
@@ -75,11 +75,11 @@
             btnNorthUp = new System.Windows.Forms.Button();
             btnCombine = new System.Windows.Forms.Button();
             nudClosingRow = new System.Windows.Forms.NumericUpDown();
-            nudClosingColoumn = new System.Windows.Forms.NumericUpDown();
+            nudClosingColumn = new System.Windows.Forms.NumericUpDown();
             lblClosingColoumn = new System.Windows.Forms.Label();
             lblClosingRow = new System.Windows.Forms.Label();
             nudInitialRow = new System.Windows.Forms.NumericUpDown();
-            nudInitialColoumn = new System.Windows.Forms.NumericUpDown();
+            nudInitialColumn = new System.Windows.Forms.NumericUpDown();
             lblInitialColoumn = new System.Windows.Forms.Label();
             lblInitialRow = new System.Windows.Forms.Label();
             gbAuxiliaryGrid = new System.Windows.Forms.GroupBox();
@@ -106,15 +106,14 @@
             btnClose = new System.Windows.Forms.Button();
             pMain.SuspendLayout();
             ssStatusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbNoSignal).BeginInit();
             pEditor.SuspendLayout();
-            gbMonitors.SuspendLayout();
+            gbDisplays.SuspendLayout();
             gbTemplateGrids.SuspendLayout();
             gbCombine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudClosingRow).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudClosingColoumn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudClosingColumn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudInitialRow).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudInitialColoumn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudInitialColumn).BeginInit();
             gbAuxiliaryGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudPixelsFromBottom).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudPixelsFromRight).BeginInit();
@@ -125,8 +124,9 @@
             // 
             // pMain
             // 
+            pMain.BackColor = System.Drawing.Color.Gray;
+            pMain.Controls.Add(axVideoPlayerWindow);
             pMain.Controls.Add(ssStatusStrip);
-            pMain.Controls.Add(pbNoSignal);
             pMain.Controls.Add(pEditor);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
@@ -134,6 +134,19 @@
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(742, 835);
             pMain.TabIndex = 0;
+            pMain.Paint += PMain_Paint;
+            // 
+            // axVideoPlayerWindow
+            // 
+            axVideoPlayerWindow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            axVideoPlayerWindow.Location = new System.Drawing.Point(220, 12);
+            axVideoPlayerWindow.Name = "axVideoPlayerWindow";
+            axVideoPlayerWindow.OverlayFont = (System.Drawing.Font)resources.GetObject("axVideoPlayerWindow.OverlayFont");
+            axVideoPlayerWindow.OverlayLocation = new System.Drawing.Point(10, 10);
+            axVideoPlayerWindow.OverlayText = "";
+            axVideoPlayerWindow.Size = new System.Drawing.Size(114, 76);
+            axVideoPlayerWindow.TabIndex = 7;
+            axVideoPlayerWindow.Visible = false;
             // 
             // ssStatusStrip
             // 
@@ -233,24 +246,12 @@
             tsbRearrangeGrid.Name = "tsbRearrangeGrid";
             tsbRearrangeGrid.Size = new System.Drawing.Size(23, 20);
             // 
-            // pbNoSignal
-            // 
-            pbNoSignal.Location = new System.Drawing.Point(222, 72);
-            pbNoSignal.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pbNoSignal.Name = "pbNoSignal";
-            pbNoSignal.OriginalSize = new System.Drawing.Size(100, 50);
-            pbNoSignal.RepositioningAndResizingControlsOnResize = false;
-            pbNoSignal.Size = new System.Drawing.Size(117, 65);
-            pbNoSignal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pbNoSignal.TabIndex = 5;
-            pbNoSignal.TabStop = false;
-            pbNoSignal.Visible = false;
-            // 
             // pEditor
             // 
             pEditor.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             pEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pEditor.Controls.Add(gbMonitors);
+            pEditor.CanMove = true;
+            pEditor.Controls.Add(gbDisplays);
             pEditor.Controls.Add(gbTemplateGrids);
             pEditor.Controls.Add(gbCombine);
             pEditor.Controls.Add(gbAuxiliaryGrid);
@@ -263,35 +264,39 @@
             pEditor.Name = "pEditor";
             pEditor.Size = new System.Drawing.Size(200, 821);
             pEditor.TabIndex = 4;
+            pEditor.TransparentColor = System.Drawing.Color.Black;
+            pEditor.UseTransparentColor = false;
+            pEditor.LocationChanged += PEditor_LocationChanged;
+            pEditor.Resize += PEditor_Resize;
             // 
-            // gbMonitors
+            // gbDisplays
             // 
-            gbMonitors.BackColor = System.Drawing.SystemColors.Control;
-            gbMonitors.Controls.Add(cbDisplayDevices);
-            gbMonitors.Location = new System.Drawing.Point(7, 3);
-            gbMonitors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbMonitors.Name = "gbMonitors";
-            gbMonitors.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbMonitors.Size = new System.Drawing.Size(182, 58);
-            gbMonitors.TabIndex = 0;
-            gbMonitors.TabStop = false;
-            gbMonitors.Text = "Monitor";
+            gbDisplays.BackColor = System.Drawing.SystemColors.Control;
+            gbDisplays.Controls.Add(cbDisplays);
+            gbDisplays.Location = new System.Drawing.Point(7, 3);
+            gbDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDisplays.Name = "gbDisplays";
+            gbDisplays.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbDisplays.Size = new System.Drawing.Size(182, 58);
+            gbDisplays.TabIndex = 0;
+            gbDisplays.TabStop = false;
+            gbDisplays.Text = "Display";
             // 
-            // cbDisplayDevices
+            // cbDisplays
             // 
-            cbDisplayDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbDisplayDevices.FormattingEnabled = true;
-            cbDisplayDevices.Location = new System.Drawing.Point(10, 22);
-            cbDisplayDevices.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbDisplayDevices.Name = "cbDisplayDevices";
-            cbDisplayDevices.Size = new System.Drawing.Size(164, 23);
-            cbDisplayDevices.TabIndex = 0;
+            cbDisplays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbDisplays.FormattingEnabled = true;
+            cbDisplays.Location = new System.Drawing.Point(10, 22);
+            cbDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbDisplays.Name = "cbDisplays";
+            cbDisplays.Size = new System.Drawing.Size(164, 23);
+            cbDisplays.TabIndex = 0;
+            cbDisplays.SelectedIndexChanged += CbDisplays_SelectedIndexChanged;
             // 
             // gbTemplateGrids
             // 
             gbTemplateGrids.BackColor = System.Drawing.SystemColors.Control;
-            gbTemplateGrids.Controls.Add(cbGridIdentifiers);
-            gbTemplateGrids.Controls.Add(cbGridNames);
+            gbTemplateGrids.Controls.Add(cbGrids);
             gbTemplateGrids.Controls.Add(btnTemplate12);
             gbTemplateGrids.Controls.Add(btnTemplate11);
             gbTemplateGrids.Controls.Add(btnTemplate10);
@@ -313,28 +318,20 @@
             gbTemplateGrids.TabStop = false;
             gbTemplateGrids.Text = "Template grids";
             // 
-            // cbGridIdentifiers
+            // cbGrids
             // 
-            cbGridIdentifiers.FormattingEnabled = true;
-            cbGridIdentifiers.Location = new System.Drawing.Point(9, 118);
-            cbGridIdentifiers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbGridIdentifiers.Name = "cbGridIdentifiers";
-            cbGridIdentifiers.Size = new System.Drawing.Size(140, 23);
-            cbGridIdentifiers.TabIndex = 13;
-            cbGridIdentifiers.Visible = false;
-            // 
-            // cbGridNames
-            // 
-            cbGridNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbGridNames.FormattingEnabled = true;
-            cbGridNames.Location = new System.Drawing.Point(10, 118);
-            cbGridNames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbGridNames.Name = "cbGridNames";
-            cbGridNames.Size = new System.Drawing.Size(164, 23);
-            cbGridNames.TabIndex = 12;
+            cbGrids.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbGrids.FormattingEnabled = true;
+            cbGrids.Location = new System.Drawing.Point(10, 118);
+            cbGrids.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbGrids.Name = "cbGrids";
+            cbGrids.Size = new System.Drawing.Size(164, 23);
+            cbGrids.TabIndex = 12;
+            cbGrids.SelectedIndexChanged += CbGrids_SelectedIndexChanged;
             // 
             // btnTemplate12
             // 
+            btnTemplate12.Image = Properties.Resources._64;
             btnTemplate12.Location = new System.Drawing.Point(131, 84);
             btnTemplate12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate12.Name = "btnTemplate12";
@@ -345,6 +342,7 @@
             // 
             // btnTemplate11
             // 
+            btnTemplate11.Image = Properties.Resources._49;
             btnTemplate11.Location = new System.Drawing.Point(93, 84);
             btnTemplate11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate11.Name = "btnTemplate11";
@@ -355,6 +353,7 @@
             // 
             // btnTemplate10
             // 
+            btnTemplate10.Image = Properties.Resources._36;
             btnTemplate10.Location = new System.Drawing.Point(56, 84);
             btnTemplate10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate10.Name = "btnTemplate10";
@@ -365,6 +364,7 @@
             // 
             // btnTemplate9
             // 
+            btnTemplate9.Image = Properties.Resources._25;
             btnTemplate9.Location = new System.Drawing.Point(19, 84);
             btnTemplate9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate9.Name = "btnTemplate9";
@@ -375,6 +375,7 @@
             // 
             // btnTemplate8
             // 
+            btnTemplate8.Image = Properties.Resources._16_way;
             btnTemplate8.Location = new System.Drawing.Point(131, 51);
             btnTemplate8.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate8.Name = "btnTemplate8";
@@ -385,6 +386,7 @@
             // 
             // btnTemplate7
             // 
+            btnTemplate7.Image = Properties.Resources._10_way;
             btnTemplate7.Location = new System.Drawing.Point(93, 51);
             btnTemplate7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate7.Name = "btnTemplate7";
@@ -395,6 +397,7 @@
             // 
             // btnTemplate6
             // 
+            btnTemplate6.Image = Properties.Resources._9_way;
             btnTemplate6.Location = new System.Drawing.Point(56, 51);
             btnTemplate6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate6.Name = "btnTemplate6";
@@ -405,6 +408,7 @@
             // 
             // btnTemplate5
             // 
+            btnTemplate5.Image = Properties.Resources._8_way;
             btnTemplate5.Location = new System.Drawing.Point(19, 51);
             btnTemplate5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate5.Name = "btnTemplate5";
@@ -415,6 +419,7 @@
             // 
             // btnTemplate4
             // 
+            btnTemplate4.Image = Properties.Resources._7_way;
             btnTemplate4.Location = new System.Drawing.Point(131, 18);
             btnTemplate4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate4.Name = "btnTemplate4";
@@ -425,6 +430,7 @@
             // 
             // btnTemplate3
             // 
+            btnTemplate3.Image = Properties.Resources._6_way;
             btnTemplate3.Location = new System.Drawing.Point(93, 18);
             btnTemplate3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate3.Name = "btnTemplate3";
@@ -435,6 +441,7 @@
             // 
             // btnTemplate2
             // 
+            btnTemplate2.Image = Properties.Resources._4_way;
             btnTemplate2.Location = new System.Drawing.Point(56, 18);
             btnTemplate2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate2.Name = "btnTemplate2";
@@ -445,6 +452,7 @@
             // 
             // btnTemplate1
             // 
+            btnTemplate1.Image = Properties.Resources._1_way;
             btnTemplate1.Location = new System.Drawing.Point(19, 18);
             btnTemplate1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnTemplate1.Name = "btnTemplate1";
@@ -467,11 +475,11 @@
             gbCombine.Controls.Add(btnNorthUp);
             gbCombine.Controls.Add(btnCombine);
             gbCombine.Controls.Add(nudClosingRow);
-            gbCombine.Controls.Add(nudClosingColoumn);
+            gbCombine.Controls.Add(nudClosingColumn);
             gbCombine.Controls.Add(lblClosingColoumn);
             gbCombine.Controls.Add(lblClosingRow);
             gbCombine.Controls.Add(nudInitialRow);
-            gbCombine.Controls.Add(nudInitialColoumn);
+            gbCombine.Controls.Add(nudInitialColumn);
             gbCombine.Controls.Add(lblInitialColoumn);
             gbCombine.Controls.Add(lblInitialRow);
             gbCombine.Location = new System.Drawing.Point(7, 555);
@@ -485,14 +493,18 @@
             // 
             // pMiniDesign
             // 
-            pMiniDesign.Location = new System.Drawing.Point(48, 62);
+            pMiniDesign.Location = new System.Drawing.Point(45, 60);
             pMiniDesign.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMiniDesign.Name = "pMiniDesign";
-            pMiniDesign.Size = new System.Drawing.Size(88, 85);
+            pMiniDesign.Size = new System.Drawing.Size(92, 92);
             pMiniDesign.TabIndex = 16;
+            pMiniDesign.TransparentColor = System.Drawing.Color.Black;
+            pMiniDesign.UseTransparentColor = false;
+            pMiniDesign.Paint += MiniDesign_Paint;
             // 
             // btnEastRight
             // 
+            btnEastRight.Image = Properties.Resources.arrow_right;
             btnEastRight.Location = new System.Drawing.Point(145, 105);
             btnEastRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnEastRight.Name = "btnEastRight";
@@ -503,6 +515,7 @@
             // 
             // btnEastLeft
             // 
+            btnEastLeft.Image = Properties.Resources.arrow_left;
             btnEastLeft.Location = new System.Drawing.Point(145, 72);
             btnEastLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnEastLeft.Name = "btnEastLeft";
@@ -513,6 +526,7 @@
             // 
             // btnWestRight
             // 
+            btnWestRight.Image = Properties.Resources.arrow_right;
             btnWestRight.Location = new System.Drawing.Point(9, 105);
             btnWestRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnWestRight.Name = "btnWestRight";
@@ -523,6 +537,7 @@
             // 
             // btnWestLeft
             // 
+            btnWestLeft.Image = Properties.Resources.arrow_left;
             btnWestLeft.Location = new System.Drawing.Point(9, 72);
             btnWestLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnWestLeft.Name = "btnWestLeft";
@@ -533,6 +548,7 @@
             // 
             // btnSouthDown
             // 
+            btnSouthDown.Image = Properties.Resources.arrow_down;
             btnSouthDown.Location = new System.Drawing.Point(94, 158);
             btnSouthDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSouthDown.Name = "btnSouthDown";
@@ -543,6 +559,7 @@
             // 
             // btnSouthUp
             // 
+            btnSouthUp.Image = Properties.Resources.arrow_up;
             btnSouthUp.Location = new System.Drawing.Point(59, 158);
             btnSouthUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSouthUp.Name = "btnSouthUp";
@@ -553,6 +570,7 @@
             // 
             // btnNorthDown
             // 
+            btnNorthDown.Image = Properties.Resources.arrow_down;
             btnNorthDown.Location = new System.Drawing.Point(93, 27);
             btnNorthDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnNorthDown.Name = "btnNorthDown";
@@ -563,6 +581,7 @@
             // 
             // btnNorthUp
             // 
+            btnNorthUp.Image = Properties.Resources.arrow_up;
             btnNorthUp.Location = new System.Drawing.Point(58, 27);
             btnNorthUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnNorthUp.Name = "btnNorthUp";
@@ -586,7 +605,7 @@
             // 
             nudClosingRow.Location = new System.Drawing.Point(118, 39);
             nudClosingRow.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudClosingRow.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+            nudClosingRow.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             nudClosingRow.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudClosingRow.Name = "nudClosingRow";
             nudClosingRow.Size = new System.Drawing.Size(55, 23);
@@ -594,17 +613,17 @@
             nudClosingRow.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudClosingRow.Visible = false;
             // 
-            // nudClosingColoumn
+            // nudClosingColumn
             // 
-            nudClosingColoumn.Location = new System.Drawing.Point(119, 170);
-            nudClosingColoumn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudClosingColoumn.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            nudClosingColoumn.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudClosingColoumn.Name = "nudClosingColoumn";
-            nudClosingColoumn.Size = new System.Drawing.Size(55, 23);
-            nudClosingColoumn.TabIndex = 13;
-            nudClosingColoumn.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            nudClosingColoumn.Visible = false;
+            nudClosingColumn.Location = new System.Drawing.Point(119, 170);
+            nudClosingColumn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudClosingColumn.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            nudClosingColumn.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudClosingColumn.Name = "nudClosingColumn";
+            nudClosingColumn.Size = new System.Drawing.Size(55, 23);
+            nudClosingColumn.TabIndex = 13;
+            nudClosingColumn.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudClosingColumn.Visible = false;
             // 
             // lblClosingColoumn
             // 
@@ -632,7 +651,7 @@
             // 
             nudInitialRow.Location = new System.Drawing.Point(118, 16);
             nudInitialRow.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudInitialRow.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+            nudInitialRow.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             nudInitialRow.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudInitialRow.Name = "nudInitialRow";
             nudInitialRow.Size = new System.Drawing.Size(55, 23);
@@ -640,17 +659,17 @@
             nudInitialRow.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudInitialRow.Visible = false;
             // 
-            // nudInitialColoumn
+            // nudInitialColumn
             // 
-            nudInitialColoumn.Location = new System.Drawing.Point(119, 145);
-            nudInitialColoumn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudInitialColoumn.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            nudInitialColoumn.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudInitialColoumn.Name = "nudInitialColoumn";
-            nudInitialColoumn.Size = new System.Drawing.Size(55, 23);
-            nudInitialColoumn.TabIndex = 11;
-            nudInitialColoumn.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            nudInitialColoumn.Visible = false;
+            nudInitialColumn.Location = new System.Drawing.Point(119, 145);
+            nudInitialColumn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudInitialColumn.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            nudInitialColumn.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudInitialColumn.Name = "nudInitialColumn";
+            nudInitialColumn.Size = new System.Drawing.Size(55, 23);
+            nudInitialColumn.TabIndex = 11;
+            nudInitialColumn.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudInitialColumn.Visible = false;
             // 
             // lblInitialColoumn
             // 
@@ -702,39 +721,40 @@
             // 
             // btn16_10_FixedRight
             // 
+            btn16_10_FixedRight.Image = Properties.Resources._16_10;
             btn16_10_FixedRight.Location = new System.Drawing.Point(148, 102);
             btn16_10_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_10_FixedRight.Name = "btn16_10_FixedRight";
             btn16_10_FixedRight.Size = new System.Drawing.Size(28, 20);
             btn16_10_FixedRight.TabIndex = 13;
             btn16_10_FixedRight.UseVisualStyleBackColor = true;
-            btn16_10_FixedRight.Visible = false;
             btn16_10_FixedRight.Click += Btn16_10_FixedRight_Click;
             // 
             // btn16_9_FixedRight
             // 
+            btn16_9_FixedRight.Image = Properties.Resources._16_9;
             btn16_9_FixedRight.Location = new System.Drawing.Point(118, 102);
             btn16_9_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_9_FixedRight.Name = "btn16_9_FixedRight";
             btn16_9_FixedRight.Size = new System.Drawing.Size(26, 20);
             btn16_9_FixedRight.TabIndex = 12;
             btn16_9_FixedRight.UseVisualStyleBackColor = true;
-            btn16_9_FixedRight.Visible = false;
             btn16_9_FixedRight.Click += Btn16_9_FixedRight_Click;
             // 
             // btn4_3_FixedRight
             // 
+            btn4_3_FixedRight.Image = Properties.Resources._4_3;
             btn4_3_FixedRight.Location = new System.Drawing.Point(88, 102);
             btn4_3_FixedRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn4_3_FixedRight.Name = "btn4_3_FixedRight";
             btn4_3_FixedRight.Size = new System.Drawing.Size(26, 20);
             btn4_3_FixedRight.TabIndex = 11;
             btn4_3_FixedRight.UseVisualStyleBackColor = true;
-            btn4_3_FixedRight.Visible = false;
             btn4_3_FixedRight.Click += Btn4_3_FixedRight_Click;
             // 
             // btn16_10
             // 
+            btn16_10.Image = Properties.Resources._16_10;
             btn16_10.Location = new System.Drawing.Point(148, 173);
             btn16_10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_10.Name = "btn16_10";
@@ -745,6 +765,7 @@
             // 
             // btn16_9
             // 
+            btn16_9.Image = Properties.Resources._16_9;
             btn16_9.Location = new System.Drawing.Point(118, 173);
             btn16_9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn16_9.Name = "btn16_9";
@@ -755,6 +776,7 @@
             // 
             // btn4_3
             // 
+            btn4_3.Image = Properties.Resources._4_3;
             btn4_3.Location = new System.Drawing.Point(88, 173);
             btn4_3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btn4_3.Name = "btn4_3";
@@ -771,6 +793,7 @@
             nudPixelsFromBottom.Name = "nudPixelsFromBottom";
             nudPixelsFromBottom.Size = new System.Drawing.Size(70, 23);
             nudPixelsFromBottom.TabIndex = 10;
+            nudPixelsFromBottom.ValueChanged += NudPixelsFromBottom_ValueChanged;
             // 
             // lblPixelsFromBottom
             // 
@@ -778,9 +801,9 @@
             lblPixelsFromBottom.Location = new System.Drawing.Point(7, 153);
             lblPixelsFromBottom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblPixelsFromBottom.Name = "lblPixelsFromBottom";
-            lblPixelsFromBottom.Size = new System.Drawing.Size(108, 15);
+            lblPixelsFromBottom.Size = new System.Drawing.Size(163, 15);
             lblPixelsFromBottom.TabIndex = 9;
-            lblPixelsFromBottom.Text = "Pixels from bottom";
+            lblPixelsFromBottom.Text = "Pixels cropped on the bottom";
             // 
             // nudPixelsFromRight
             // 
@@ -790,6 +813,7 @@
             nudPixelsFromRight.Name = "nudPixelsFromRight";
             nudPixelsFromRight.Size = new System.Drawing.Size(70, 23);
             nudPixelsFromRight.TabIndex = 5;
+            nudPixelsFromRight.ValueChanged += NudPixelsFromRight_ValueChanged;
             // 
             // lblPixelsFromRight
             // 
@@ -797,31 +821,33 @@
             lblPixelsFromRight.Location = new System.Drawing.Point(7, 83);
             lblPixelsFromRight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblPixelsFromRight.Name = "lblPixelsFromRight";
-            lblPixelsFromRight.Size = new System.Drawing.Size(93, 15);
+            lblPixelsFromRight.Size = new System.Drawing.Size(148, 15);
             lblPixelsFromRight.TabIndex = 4;
-            lblPixelsFromRight.Text = "Pixels from right";
+            lblPixelsFromRight.Text = "Pixels cropped on the right";
             // 
             // nudNumberOfRows
             // 
             nudNumberOfRows.Location = new System.Drawing.Point(92, 16);
             nudNumberOfRows.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudNumberOfRows.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+            nudNumberOfRows.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             nudNumberOfRows.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudNumberOfRows.Name = "nudNumberOfRows";
             nudNumberOfRows.Size = new System.Drawing.Size(83, 23);
             nudNumberOfRows.TabIndex = 1;
             nudNumberOfRows.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudNumberOfRows.ValueChanged += NudNumberOfRows_ValueChanged;
             // 
             // nudNumberOfColumns
             // 
             nudNumberOfColumns.Location = new System.Drawing.Point(92, 46);
             nudNumberOfColumns.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudNumberOfColumns.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
+            nudNumberOfColumns.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             nudNumberOfColumns.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudNumberOfColumns.Name = "nudNumberOfColumns";
             nudNumberOfColumns.Size = new System.Drawing.Size(83, 23);
             nudNumberOfColumns.TabIndex = 3;
             nudNumberOfColumns.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudNumberOfColumns.ValueChanged += NudNumberOfColumns_ValueChanged;
             // 
             // lblColumns
             // 
@@ -869,7 +895,7 @@
             chkCreateSequence.Name = "chkCreateSequence";
             chkCreateSequence.Size = new System.Drawing.Size(143, 19);
             chkCreateSequence.TabIndex = 3;
-            chkCreateSequence.Text = "Create a sequnece too";
+            chkCreateSequence.Text = "Create a sequence too";
             chkCreateSequence.UseVisualStyleBackColor = true;
             // 
             // chkConnectToCamera
@@ -944,16 +970,15 @@
             pMain.PerformLayout();
             ssStatusStrip.ResumeLayout(false);
             ssStatusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbNoSignal).EndInit();
             pEditor.ResumeLayout(false);
-            gbMonitors.ResumeLayout(false);
+            gbDisplays.ResumeLayout(false);
             gbTemplateGrids.ResumeLayout(false);
             gbCombine.ResumeLayout(false);
             gbCombine.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudClosingRow).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudClosingColoumn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudClosingColumn).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudInitialRow).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudInitialColoumn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudInitialColumn).EndInit();
             gbAuxiliaryGrid.ResumeLayout(false);
             gbAuxiliaryGrid.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudPixelsFromBottom).EndInit();
@@ -983,13 +1008,11 @@
         private System.Windows.Forms.ToolStripStatusLabel tsslSpaceHolder2;
         private System.Windows.Forms.ToolStripStatusLabel tsslSequence0;
         private System.Windows.Forms.ToolStripButton tsbRearrangeGrid;
-        private Mtf.Controls.MtfPictureBox pbNoSignal;
-        private System.Windows.Forms.Panel pEditor;
-        private System.Windows.Forms.GroupBox gbMonitors;
-        private System.Windows.Forms.ComboBox cbDisplayDevices;
+        private Mtf.Controls.MovablePanel pEditor;
+        private System.Windows.Forms.GroupBox gbDisplays;
+        private System.Windows.Forms.ComboBox cbDisplays;
         private System.Windows.Forms.GroupBox gbTemplateGrids;
-        private System.Windows.Forms.ComboBox cbGridIdentifiers;
-        private System.Windows.Forms.ComboBox cbGridNames;
+        private System.Windows.Forms.ComboBox cbGrids;
         private System.Windows.Forms.Button btnTemplate12;
         private System.Windows.Forms.Button btnTemplate11;
         private System.Windows.Forms.Button btnTemplate10;
@@ -1003,7 +1026,7 @@
         private System.Windows.Forms.Button btnTemplate2;
         private System.Windows.Forms.Button btnTemplate1;
         private System.Windows.Forms.GroupBox gbCombine;
-        private System.Windows.Forms.Panel pMiniDesign;
+        private Mtf.Controls.TransparentPanel pMiniDesign;
         private System.Windows.Forms.Button btnEastRight;
         private System.Windows.Forms.Button btnEastLeft;
         private System.Windows.Forms.Button btnWestRight;
@@ -1014,11 +1037,11 @@
         private System.Windows.Forms.Button btnNorthUp;
         private System.Windows.Forms.Button btnCombine;
         private System.Windows.Forms.NumericUpDown nudClosingRow;
-        private System.Windows.Forms.NumericUpDown nudClosingColoumn;
+        private System.Windows.Forms.NumericUpDown nudClosingColumn;
         private System.Windows.Forms.Label lblClosingColoumn;
         private System.Windows.Forms.Label lblClosingRow;
         private System.Windows.Forms.NumericUpDown nudInitialRow;
-        private System.Windows.Forms.NumericUpDown nudInitialColoumn;
+        private System.Windows.Forms.NumericUpDown nudInitialColumn;
         private System.Windows.Forms.Label lblInitialColoumn;
         private System.Windows.Forms.Label lblInitialRow;
         private System.Windows.Forms.GroupBox gbAuxiliaryGrid;
@@ -1043,5 +1066,6 @@
         private System.Windows.Forms.Label lblGridName;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
+        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
     }
 }

@@ -9,7 +9,6 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -74,6 +73,11 @@ namespace LiveView.Forms
             ErrorBox.Show(title, message);
         }
 
+        public void ShowDebugError(Exception exception)
+        {
+            DebugErrorBox.Show(exception);
+        }
+
         public void ShowError(Exception exception)
         {
             ErrorBox.Show(exception);
@@ -104,7 +108,7 @@ namespace LiveView.Forms
             return (TType)comboBox.SelectedItem;
         }
 
-        public void AddItems<TType>(ComboBox comboBox, ReadOnlyCollection<TType> items)
+        public void AddItems<TType>(ComboBox comboBox, IEnumerable<TType> items)
         {
             comboBox.Items.Clear();
             foreach (var item in items)
@@ -247,6 +251,12 @@ namespace LiveView.Forms
         {
             base.OnShown(e);
             Presenter?.SetLocationAndSize();
+        }
+
+        public void RefreshUI()
+        {
+            Invalidate(true);
+            Update();
         }
     }
 }

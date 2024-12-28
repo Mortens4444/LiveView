@@ -1,15 +1,52 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls.x86;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class AddGrid : BaseView, IAddGridView
     {
         private AddGridPresenter presenter;
+
+        public NumericUpDown NudNumberOfRows => nudNumberOfRows;
+
+        public NumericUpDown NudNumberOfColumns => nudNumberOfColumns;
+
+        public NumericUpDown NudPixelsFromRight => nudPixelsFromRight;
+
+        public NumericUpDown NudPixelsFromBottom => nudPixelsFromBottom;
+
+        public NumericUpDown NudInitialRow => nudInitialRow;
+
+        public NumericUpDown NudClosingRow => nudClosingRow;
+
+        public NumericUpDown NudInitialColumn => nudInitialColumn;
+
+        public NumericUpDown NudClosingColumn => nudClosingColumn;
+
+        public ComboBox CbDisplays => cbDisplays;
+
+        public ComboBox CbGrids => cbGrids;
+
+        public TextBox TbGridName => tbGridName;
+
+        public ToolStripStatusLabel TsslNumberOfCameras => tsslNumberOfCameras;
+
+        public Panel PMain => pMain;
+
+        public Panel PMiniDesign => pMiniDesign;
+
+        public CheckBox ChkConnectToCamera => chkConnectToCamera;
+
+        public bool IsVideoConnected => axVideoPlayerWindow.AxVideoPicture.IsConnected();
+
+        public AxVideoPlayerWindow AxVideoPlayerWindow => axVideoPlayerWindow;
 
         public AddGrid(IServiceProvider serviceProvider) : base(serviceProvider, typeof(AddGridPresenter))
         {
@@ -171,6 +208,72 @@ namespace LiveView.Forms
         private void AddGrid_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as AddGridPresenter;
+            presenter.Load();
+        }
+
+        private void CbDisplays_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presenter.DisplaySelected();
+        }
+
+        private void NudPixelsFromBottom_ValueChanged(object sender, EventArgs e)
+        {
+            presenter.SetBottomBorder();
+        }
+
+        private void NudPixelsFromRight_ValueChanged(object sender, EventArgs e)
+        {
+            presenter.SetRightBorder();
+        }
+
+        private void MiniDesign_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                presenter.DrawMiniDesign(e.Graphics);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
+        }
+
+        private void PMain_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                presenter.DrawGrid(e.Graphics);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
+        }
+
+        private void CbGrids_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presenter.LoadGrid();
+        }
+
+        private void PEditor_Resize(object sender, EventArgs e)
+        {
+            pEditor.Invalidate();
+        }
+
+        private void NudNumberOfRows_ValueChanged(object sender, EventArgs e)
+        {
+            presenter.CalculateMetrics();
+        }
+
+        private void NudNumberOfColumns_ValueChanged(object sender, EventArgs e)
+        {
+            presenter.CalculateMetrics();
+        }
+
+        private void PEditor_LocationChanged(object sender, EventArgs e)
+        {
+            Invalidate(true);
+            PMiniDesign.Invalidate(true);
         }
     }
 }

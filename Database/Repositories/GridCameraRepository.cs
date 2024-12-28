@@ -1,10 +1,16 @@
 ﻿using Database.Interfaces;
 using Mtf.Database;
+using System.Collections.ObjectModel;
 
 namespace Database.Repositories
 {
     public sealed class GridCameraRepository<TModel> : BaseRepository<TModel>, IGridCameraRepository<TModel>
     {
+        public ReadOnlyCollection<TModel> GetCombinedGridCameras(long gridId)
+        {
+            return Query("SelectCombinedGridCamera", new { GridId = gridId });
+        }
+
         public string GridCameraListSetShowMethod(int cameraId)
         {
             return ExecuteScalar<string>("GridCameraListSetShowMethod", new { cid = cameraId });

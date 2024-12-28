@@ -14,6 +14,8 @@ namespace Database.Interfaces
 
         void Insert(TModel model);
         
+        int InsertAndReturnId(TModel model);
+
         void Update(TModel model);
 
         void Delete(int id);

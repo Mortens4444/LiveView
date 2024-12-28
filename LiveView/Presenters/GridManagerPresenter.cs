@@ -6,6 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -57,14 +58,53 @@ namespace LiveView.Presenters
             throw new NotImplementedException();
         }
 
-        public void MoveDownCamera()
+        public void MoveDownCameras()
         {
-            throw new NotImplementedException();
+            var selectedItems = view.LvGridCameras.SelectedItems.Cast<ListViewItem>()
+                .OrderByDescending(item => item.Index)
+                .ToList();
+
+            if (selectedItems.Count == 0 || selectedItems.Last().Index == view.LvGridCameras.Items.Count - 1)
+            {
+                return;
+            }
+
+            foreach (var item in selectedItems)
+            {
+                int currentIndex = item.Index;
+
+                view.LvGridCameras.Items.Remove(item);
+                view.LvGridCameras.Items.Insert(currentIndex + 1, item);
+            }
+
+            foreach (var item in selectedItems)
+            {
+                item.Selected = true;
+            }
         }
 
-        public void MoveUpCamera()
+        public void MoveUpCameras()
         {
-            throw new NotImplementedException();
+            var selectedItems = view.LvGridCameras.SelectedItems.Cast<ListViewItem>()
+                .OrderBy(item => item.Index)
+                .ToList();
+
+            if (selectedItems.Count == 0 || selectedItems.First().Index == 0)
+            {
+                return;
+            }
+
+            foreach (var item in selectedItems)
+            {
+                int currentIndex = item.Index;
+                view.LvGridCameras.Items.Remove(item);
+                view.LvGridCameras.Items.Insert(currentIndex - 1, item);
+            }
+
+            foreach (var item in selectedItems)
+            {
+                item.Selected = true;
+            }
         }
 
         public void SelectGrid()

@@ -22,6 +22,11 @@ namespace LiveView.Forms
 
             permissionManager.ApplyPermissionsOnControls(this);
 
+            if (server != null)
+            {
+                Text = Lng.Elem("Add Video Server");
+                btnAddOrModify.Text = "Modify";
+            }
             Translator.Translate(this);
         }
 

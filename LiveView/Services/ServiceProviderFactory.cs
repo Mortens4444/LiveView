@@ -2,12 +2,13 @@
 using Database.Models;
 using Database.Repositories;
 using LiveView.Forms;
+using LiveView.Models.Dependencies;
 using LiveView.Presenters;
 using LiveView.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mtf.MessageBoxes.Exceptions;
 using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Services
 {
@@ -21,6 +22,7 @@ namespace LiveView.Services
             RegisterRepositories(services);
             RegisterPresenters(services);
             RegisterForms(services);
+            RegisterPresenterDependencies(services);
 
             services.AddLogging(builder =>
             {
@@ -32,6 +34,12 @@ namespace LiveView.Services
                 ));
             });
             return services.BuildServiceProvider();
+        }
+
+        private static void RegisterPresenterDependencies(ServiceCollection services)
+        {
+            services.AddTransient<AddGridPresenterDependencies>();
+            //services.AddTransient<BasePresenterDependencies>();
         }
 
         private static void RegisterPresenters(ServiceCollection services)
