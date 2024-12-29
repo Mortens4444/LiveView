@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -13,11 +14,11 @@ namespace LiveView.Presenters
         private readonly IUserRepository<User> userRepository;
         private readonly ILogger<EnterPass> logger;
 
-        public EnterPassPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository, ILogger<EnterPass> logger)
-            : base(generalOptionsRepository)
+        public EnterPassPresenter(EnterPassPresenterDependencies enterPassPresenterDependencies)
+            : base(enterPassPresenterDependencies)
         {
-            this.userRepository = userRepository;
-            this.logger = logger;
+            userRepository = enterPassPresenterDependencies.UserRepository;
+            logger = enterPassPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

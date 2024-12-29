@@ -1,7 +1,6 @@
-﻿using Database.Interfaces;
-using Database.Models;
-using LiveView.Forms;
+﻿using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -12,10 +11,10 @@ namespace LiveView.Presenters
         private IGeneralOptionsView view;
         private readonly ILogger<GeneralOptionsForm> logger;
 
-        public GeneralOptionsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<GeneralOptionsForm> logger)
-            : base(generalOptionsRepository)
+        public GeneralOptionsPresenter(GeneralOptionsPresenterDependencies generalOptionsPresenterDependencies)
+            : base(generalOptionsPresenterDependencies)
         {
-            this.logger = logger;
+            logger = generalOptionsPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

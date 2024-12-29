@@ -1,11 +1,12 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
-using Mtf.Permissions.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,14 +22,13 @@ namespace LiveView.Presenters
         private readonly ILogger<LogViewer> logger;
         private readonly int currentUserId;
 
-        public LogViewerPresenter(PermissionManager permissionManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            ILogRepository<LogEntry> logRepository, IUserRepository<User> userRepository, ILogger<LogViewer> logger)
-            : base(generalOptionsRepository)
+        public LogViewerPresenter(LogViewerPresenterDependencies logViewerPresenterDependencies)
+            : base(logViewerPresenterDependencies)
         {
-            this.currentUserId = permissionManager.CurrentUser.Id;
-            this.logRepository = logRepository;
-            this.logger = logger;
-            users = userRepository.GetAll();
+            currentUserId = logViewerPresenterDependencies.PermissionManager.CurrentUser.Id;
+            logRepository = logViewerPresenterDependencies.LogRepository;
+            logger = logViewerPresenterDependencies.Logger;
+            users = logViewerPresenterDependencies.UserRepository.GetAll();
         }
 
         public new void SetView(IView view)
@@ -40,7 +40,7 @@ namespace LiveView.Presenters
         public void DeleteAllLogs()
         {
             logRepository.DeleteAll();
-            //logger
+            //logger.LogInfo();
             logRepository.Insert(new LogEntry
             {
                 Date = DateTime.UtcNow,

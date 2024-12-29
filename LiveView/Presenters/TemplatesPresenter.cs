@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -13,11 +14,11 @@ namespace LiveView.Presenters
         private readonly ITemplateRepository<Template> templateRepository;
         private readonly ILogger<Templates> logger;
 
-        public TemplatesPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ITemplateRepository<Template> templateRepository, ILogger<Templates> logger)
-            : base(generalOptionsRepository)
+        public TemplatesPresenter(TemplatesPresenterDependencies templatesPresenterDependencies)
+            : base(templatesPresenterDependencies)
         {
-            this.templateRepository = templateRepository;
-            this.logger = logger;
+            templateRepository = templatesPresenterDependencies.TemplateRepository;
+            logger = templatesPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

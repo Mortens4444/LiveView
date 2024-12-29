@@ -5,18 +5,25 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
     public class AddGroupPresenter : BasePresenter
     {
+        private const int CameraIconIndex = 1;
+        private const int OperationIconIndex = 0;
+
         private IAddGroupView view;
         private readonly IGroupRepository<Group> groupRepository;
         private readonly IUserEventRepository<UserEvent> userEventRepository;
         private readonly IOperationRepository<Operation> operationRepository;
+        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly IRightRepository<Right> rightRepository;
+        private readonly ICameraRightRepository<CameraRight> cameraRightRepository;
         private readonly ILogger<AddGroup> logger;
 
         public AddGroupPresenter(AddGroupPresenterDependencies addGroupPresenterDependencies)
@@ -25,6 +32,9 @@ namespace LiveView.Presenters
             groupRepository = addGroupPresenterDependencies.GroupRepository;
             userEventRepository = addGroupPresenterDependencies.UserEventRepository;
             operationRepository = addGroupPresenterDependencies.OperationRepository;
+            cameraRepository = addGroupPresenterDependencies.CameraRepository;
+            rightRepository = addGroupPresenterDependencies.RightRepository;
+            cameraRightRepository = addGroupPresenterDependencies.CameraRightRepository;
             logger = addGroupPresenterDependencies.Logger;
         }
 
@@ -68,16 +78,29 @@ namespace LiveView.Presenters
         {
             view.AddItems(view.CbEvents, userEventRepository.GetAll());
             view.SelectByIndex(view.CbEvents);
+
+            view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Cameras"].Items,
+                cameraRepository.GetAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+                {
+                    Tag = camera,
+                    ToolTipText = camera.Guid
+                }).ToArray());
+            view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Operations"].Items,
+                operationRepository.GetAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
+                {
+                    Tag = operation,
+                    ToolTipText = operation.Note
+                }).ToArray());
         }
 
         public void AddAllOperationsAndCameras()
         {
-            throw new NotImplementedException();
+            AddAllItemsFromListViewToAnother(view.LvAvaialableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
         }
 
         public void AddSelectedOperationsAndCameras()
         {
-            throw new NotImplementedException();
+            AddSelectedItemsFromListViewToAnother(view.LvAvaialableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
         }
 
         public void CreateEvent()
@@ -92,17 +115,10 @@ namespace LiveView.Presenters
                 }
 
                 var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
-                if (existingUserEvent != null)
-                {
-                    existingUserEvent.Note = userEvent.Note;
-                    userEventRepository.Update(existingUserEvent);
-                }
-                else
+                if (existingUserEvent == null)
                 {
                     userEventRepository.Insert(userEvent);
                 }
-
-                view.Close();
             }
             catch (Exception ex)
             {
@@ -123,32 +139,87 @@ namespace LiveView.Presenters
 
         public void ModifyEvent()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userEvent = view.GetUserEvent();
+                if (String.IsNullOrWhiteSpace(userEvent.Name))
+                {
+                    ShowError("The event name cannot be empty.");
+                    return;
+                }
+
+                var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
+                if (existingUserEvent != null)
+                {
+                    existingUserEvent.Note = userEvent.Note;
+                    userEventRepository.Update(existingUserEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogExceptionAndShowErrorBox(ex, "An error occurred while saving the event.");
+            }
         }
 
         public void RemoveAllOperationsAndCameras()
         {
-            throw new NotImplementedException();
+            view.RemoveAllItem(view.LvOperationsAndCameras);
         }
 
         public void RemoveSelectedOperationsAndCameras()
         {
-            throw new NotImplementedException();
+            view.RemoveSelectedItems(view.LvOperationsAndCameras);
         }
 
         public void SavePermissions()
         {
-            throw new NotImplementedException();
+            var group = view.GetGroup();
+            var existingGroup = groupRepository.GetByName(group.Name);
+            if (existingGroup == null)
+            {
+                ShowError("The group not exists.");
+                return;
+            }
+
+            var userEvent = view.GetUserEvent();
+            var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
+            if (existingUserEvent == null)
+            {
+                ShowError("The event not exists.");
+                return;
+            }
+
+            foreach (ListViewItem item in view.LvOperationsAndCameras.Items)
+            {
+                if (item.Tag is Operation operation)
+                {
+                    rightRepository.Insert(new Right
+                    {
+                        GroupId = existingGroup.Id,
+                        OperationId = operation.Id,
+                        UserEventId = existingUserEvent.Id
+                    });
+                }
+                else if (item.Tag is Camera camera)
+                {
+                    cameraRightRepository.Insert(new CameraRight
+                    {
+                        GroupId = existingGroup.Id,
+                        CameraId = camera.Id,
+                        UserEventId = existingUserEvent.Id
+                    });
+                }
+            }
         }
 
         public void SelectAllCameras()
         {
-            throw new NotImplementedException();
+            view.LvAvaialableOperationsAndCameras.Groups["Cameras"].SelectAll();
         }
 
         public void SelectAllOperations()
         {
-            throw new NotImplementedException();
+            view.LvAvaialableOperationsAndCameras.Groups["Operations"].SelectAll();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -14,12 +15,12 @@ namespace LiveView.Presenters
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
 
-        public ServerAndCameraPropertiesPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<ServerAndCameraProperties> logger)
-            : base(generalOptionsRepository)
+        public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies serverAndCameraPropertiesPresenterDependencies)
+            : base(serverAndCameraPropertiesPresenterDependencies)
         {
-            this.serverRepository = serverRepository;
-            this.cameraRepository = cameraRepository;
-            this.logger = logger;
+            serverRepository = serverAndCameraPropertiesPresenterDependencies.ServerRepository;
+            cameraRepository = serverAndCameraPropertiesPresenterDependencies.CameraRepository;
+            logger = serverAndCameraPropertiesPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

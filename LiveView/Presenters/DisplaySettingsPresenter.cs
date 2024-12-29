@@ -6,6 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace LiveView.Presenters
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ILogger<DisplaySettings> logger;
         private readonly DisplayManager displayManager;
+        private readonly List<DisplayDto> displays;
 
         public DisplaySettingsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
@@ -25,6 +27,7 @@ namespace LiveView.Presenters
             this.displayManager = displayManager;
             this.displayRepository = displayRepository;
             this.logger = logger;
+            displays = GetDisplays();
         }
 
         public new void SetView(IView view)
@@ -52,8 +55,6 @@ namespace LiveView.Presenters
         {
             //DisplayDto fs = null;
             var panel = fullscreen ? view.FullScreenDisplay : view.FunctionChooser;
-
-            var displays = GetDisplays();
             var bounds = GetScaledDisplayBounds(displays, panel.Size);
             
             foreach (var display in displays)

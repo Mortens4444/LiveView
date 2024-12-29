@@ -1,5 +1,4 @@
-﻿using Database.Interfaces;
-using Mtf.MessageBoxes.Enums;
+﻿using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -54,6 +53,8 @@ namespace LiveView.Interfaces
         ListView.SelectedListViewItemCollection GetSelectedItems(ListView listView);
 
         void AddToItems(ListView listView, params ListViewItem[] itemsToView);
+
+        void AddToItems(ListView.ListViewItemCollection items, params ListViewItem[] itemsToView);
 
         TType GetSelectedItem<TType>(ComboBox comboBox);
 

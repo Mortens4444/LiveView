@@ -10,6 +10,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -102,6 +103,11 @@ namespace LiveView.Forms
         public void AddToItems(ListView listView, params ListViewItem[] itemsToView)
         {
             listView.Items.AddRange(itemsToView);
+        }
+
+        public void AddToItems(ListView.ListViewItemCollection items, params ListViewItem[] itemsToView)
+        {
+            items.AddRange(itemsToView);
         }
 
         public TType GetSelectedItem<TType>(ComboBox comboBox)
@@ -263,6 +269,32 @@ namespace LiveView.Forms
         {
             Invalidate(true);
             Update();
+        }
+
+        public static void MoveSelectedItems(ListView listView, bool moveDown)
+        {
+            var selectedItems = listView.SelectedItems.Cast<ListViewItem>()
+                .OrderBy(item => moveDown ? -item.Index : item.Index)
+                .ToList();
+
+            if (selectedItems.Count == 0 ||
+                (moveDown && selectedItems.Last().Index == listView.Items.Count - 1) ||
+                (!moveDown && selectedItems.First().Index == 0))
+            {
+                return;
+            }
+
+            foreach (var item in selectedItems)
+            {
+                int currentIndex = item.Index;
+                listView.Items.Remove(item);
+                listView.Items.Insert(currentIndex + (moveDown ? 1 : -1), item);
+            }
+
+            foreach (var item in selectedItems)
+            {
+                item.Selected = true;
+            }
         }
     }
 }

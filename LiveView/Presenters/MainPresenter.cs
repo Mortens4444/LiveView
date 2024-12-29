@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Enums.Keyboard;
@@ -17,11 +18,17 @@ namespace LiveView.Presenters
         private IMainView view;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
+        private readonly IGroupRepository<Group> groupRepository;
+        private readonly IUserRepository<User> userRepository;
+        private readonly IUsersInGroupsRepository<UserGroup> userGroupRepository;
 
-        public MainPresenter(FormFactory formFactory, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<MainForm> logger)
-            : base(generalOptionsRepository, formFactory)
+        public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
+            : base(mainPresenterDependencies)
         {
-            this.logger = logger;
+            logger = mainPresenterDependencies.Logger;
+            groupRepository = mainPresenterDependencies.GroupRepository;
+            userRepository = mainPresenterDependencies.UserRepository;
+            userGroupRepository = mainPresenterDependencies.UserGroupRepository;
             uptime = new Uptime();
         }
 

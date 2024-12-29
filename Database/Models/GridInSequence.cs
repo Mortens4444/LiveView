@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class GridsInSequences : IHaveId<long>
+    public class GridInSequence : IHaveId<long>
     {
         public long Id { get; set; }
 

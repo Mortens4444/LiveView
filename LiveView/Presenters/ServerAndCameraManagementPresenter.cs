@@ -4,10 +4,9 @@ using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
-using LiveView.Services;
+using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
@@ -36,17 +35,14 @@ namespace LiveView.Presenters
         private const int DeleteCameraIconIndex = 6;
         private const int DatabaseServerIconIndex = 7;
 
-        public ServerAndCameraManagementPresenter(FormFactory formFactory,
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IServerRepository<Server> serverRepository,
-            IDatabaseServerRepository<DatabaseServer> databaseServerRepository, ICameraRepository<Camera> cameraRepository,
-            ILogger<ServerAndCameraManagement> logger, PermissionManager permissionManager)
-            : base(generalOptionsRepository, formFactory)
+        public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies serverAndCameraManagementPresenterDependencies)
+            : base(serverAndCameraManagementPresenterDependencies)
         {
-            this.serverRepository = serverRepository;
-            this.databaseServerRepository = databaseServerRepository;
-            this.cameraRepository = cameraRepository;
-            this.logger = logger;
-            this.permissionManager = permissionManager;
+            serverRepository = serverAndCameraManagementPresenterDependencies.ServerRepository;
+            databaseServerRepository = serverAndCameraManagementPresenterDependencies.DatabaseServerRepository;
+            cameraRepository = serverAndCameraManagementPresenterDependencies.CameraRepository;
+            logger = serverAndCameraManagementPresenterDependencies.Logger;
+            permissionManager = serverAndCameraManagementPresenterDependencies.PermissionManager;
         }
 
         public new void SetView(IView view)

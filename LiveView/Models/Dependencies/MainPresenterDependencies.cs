@@ -7,16 +7,16 @@ using Mtf.Permissions.Services;
 
 namespace LiveView.Models.Dependencies
 {
-    public class UserAndGroupManagementPresenterDependencies : BasePresenterDependencies
+    public class MainPresenterDependencies : BasePresenterDependencies
     {
-        public UserAndGroupManagementPresenterDependencies(
+        public MainPresenterDependencies(
             PermissionManager permissionManager,
             FormFactory formfactory,
             IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IGroupRepository<Group> groupRepository,
             IUserRepository<User> userRepository,
             IUsersInGroupsRepository<UserGroup> userGroupRepository,
-            ILogger<UserAndGroupManagement> logger)
+            ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
             GroupRepository = groupRepository;
@@ -29,10 +29,8 @@ namespace LiveView.Models.Dependencies
 
         public IUserRepository<User> UserRepository { get; private set; }
 
-        public PermissionManager PermissionManager { get; private set; }
-
-        public ILogger<UserAndGroupManagement> Logger { get; private set; }
-
+        public ILogger<MainForm> Logger { get; private set; }
+        
         public IUsersInGroupsRepository<UserGroup> UserGroupRepository { get; private set; }
     }
 }

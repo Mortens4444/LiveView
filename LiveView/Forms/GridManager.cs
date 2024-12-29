@@ -43,14 +43,14 @@ namespace LiveView.Forms
         private void BtnMoveUp_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.MoveUpCameras();
+            presenter.MoveCamerasUp();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]
         private void BtnMoveDown_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.MoveDownCameras();
+            presenter.MoveCamerasDown();
         }
 
         [RequirePermission(GridManagementPermissions.Update)]

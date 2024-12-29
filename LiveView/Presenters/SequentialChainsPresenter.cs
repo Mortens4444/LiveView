@@ -2,22 +2,28 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
     public class SequentialChainsPresenter : BasePresenter
     {
         private ISequentialChainsView view;
+        private readonly IGridRepository<Grid> gridRepository;
         private readonly ISequenceRepository<Sequence> sequenceRepository;
+        private readonly IGridInSequenceRepository<GridInSequence> gridInSequenceRepository;
         private readonly ILogger<SequentialChains> logger;
 
-        public SequentialChainsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ISequenceRepository<Sequence> sequenceRepository, ILogger<SequentialChains> logger)
-            : base(generalOptionsRepository)
+        public SequentialChainsPresenter(SequentialChainsPresenterDependencies sequentialChainsPresenterDependencies)
+            : base(sequentialChainsPresenterDependencies)
         {
-            this.sequenceRepository = sequenceRepository;
-            this.logger = logger;
+            gridRepository = sequentialChainsPresenterDependencies.GridRepository;
+            sequenceRepository = sequentialChainsPresenterDependencies.SequenceRepository;
+            gridInSequenceRepository = sequentialChainsPresenterDependencies.GridInSequenceRepository;
+            logger = sequentialChainsPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -26,39 +32,64 @@ namespace LiveView.Presenters
             this.view = view as ISequentialChainsView;
         }
 
-        public void AddGrid()
+        public void AddGridToSequence()
+        {
+            var gridInSequence = view.GetGridInSequence();
+            var item = new ListViewItem(gridInSequence.Number.ToString())
+            {
+                Tag = gridInSequence
+            };
+            item.SubItems.Add(gridInSequence.TimeToShow.ToString());
+            var grid = gridRepository.Get(gridInSequence.GridId);
+            item.SubItems.Add(grid.Name);
+            view.LvGrids.Items.Add(item);
+        }
+
+        public void SaveSequence()
         {
             throw new NotImplementedException();
         }
 
-        public void AddOrMUpdateSequence()
+        public void RemoveGridFromSequence()
         {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteGrid()
-        {
-            throw new NotImplementedException();
+            view.RemoveSelectedItems(view.LvGrids);
         }
 
         public void DeleteSequence()
         {
-            throw new NotImplementedException();
+            if (view.CbSequences.SelectedItem is Sequence sequence)
+            {
+                sequenceRepository.Delete(sequence.Id);
+            }
         }
 
-        public void MoveGridDown()
+        public void MoveGridsDown()
         {
-            throw new NotImplementedException();
+            BaseView.MoveSelectedItems(view.LvGrids, true);
         }
 
-        public void MoveGridUp()
+        public void MoveGridsUp()
         {
-            throw new NotImplementedException();
+            BaseView.MoveSelectedItems(view.LvGrids, false);
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            var sequences = sequenceRepository.GetAll();
+            view.AddItems(view.CbSequences, sequences);
+            view.SelectByIndex(view.CbSequences);
+
+            var grids = gridRepository.GetAll();
+            view.AddItems(view.CbGrids, grids);
+            view.SelectByIndex(view.CbGrids);
+        }
+
+        public void GetSequenceGrids()
+        {
+            if (view.CbSequences.SelectedItem is Sequence sequence)
+            {
+                var grids = gridInSequenceRepository.GetWhere(new { SequenceId = sequence.Id });
+            }
         }
     }
 }

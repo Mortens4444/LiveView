@@ -1,0 +1,1 @@
+﻿SELECT Id, SequenceId, GridId, TimeToShow, Number FROM GridsInSequences WHERE SequenceId = @SequenceId ORDER BY Number;

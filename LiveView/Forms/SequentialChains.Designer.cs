@@ -31,15 +31,14 @@
             components = new System.ComponentModel.Container();
             pMain = new System.Windows.Forms.Panel();
             tbSequenceName = new System.Windows.Forms.TextBox();
-            cbGridIdentifier = new System.Windows.Forms.ComboBox();
             nudSecondsToShow = new System.Windows.Forms.NumericUpDown();
             lblSecondsToShow = new System.Windows.Forms.Label();
-            btnAddGrid = new System.Windows.Forms.Button();
-            cbGridName = new System.Windows.Forms.ComboBox();
+            btnAddGridToSequence = new System.Windows.Forms.Button();
+            cbGrids = new System.Windows.Forms.ComboBox();
             lblGridName = new System.Windows.Forms.Label();
             gbAddGrid = new System.Windows.Forms.GroupBox();
             btnDeleteSequence = new System.Windows.Forms.Button();
-            cbSequenceName = new System.Windows.Forms.ComboBox();
+            cbSequences = new System.Windows.Forms.ComboBox();
             gbSequences = new System.Windows.Forms.GroupBox();
             tsmiDeleteGrid = new System.Windows.Forms.ToolStripMenuItem();
             tsmiMoveDown = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,10 +47,10 @@
             chGridName = new System.Windows.Forms.ColumnHeader();
             chSecondsToShow = new System.Windows.Forms.ColumnHeader();
             chNumber = new System.Windows.Forms.ColumnHeader();
-            btnDeleteGrid = new System.Windows.Forms.Button();
+            btnRemoveGridFromSequence = new System.Windows.Forms.Button();
             btnMoveDown = new System.Windows.Forms.Button();
             btnMoveUp = new System.Windows.Forms.Button();
-            btnAddOrUpdateSequence = new System.Windows.Forms.Button();
+            btnSaveSequence = new System.Windows.Forms.Button();
             lvGrids = new Mtf.Controls.MtfListView();
             gbSequenceName = new System.Windows.Forms.GroupBox();
             gbSequenceStructure = new System.Windows.Forms.GroupBox();
@@ -82,16 +81,6 @@
             tbSequenceName.Size = new System.Drawing.Size(476, 23);
             tbSequenceName.TabIndex = 0;
             // 
-            // cbGridIdentifier
-            // 
-            cbGridIdentifier.FormattingEnabled = true;
-            cbGridIdentifier.Location = new System.Drawing.Point(164, 9);
-            cbGridIdentifier.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbGridIdentifier.Name = "cbGridIdentifier";
-            cbGridIdentifier.Size = new System.Drawing.Size(88, 23);
-            cbGridIdentifier.TabIndex = 5;
-            cbGridIdentifier.Visible = false;
-            // 
             // nudSecondsToShow
             // 
             nudSecondsToShow.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
@@ -115,28 +104,28 @@
             lblSecondsToShow.TabIndex = 2;
             lblSecondsToShow.Text = "Seconds to show";
             // 
-            // btnAddGrid
+            // btnAddGridToSequence
             // 
-            btnAddGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnAddGrid.Location = new System.Drawing.Point(397, 35);
-            btnAddGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAddGrid.Name = "btnAddGrid";
-            btnAddGrid.Size = new System.Drawing.Size(88, 27);
-            btnAddGrid.TabIndex = 4;
-            btnAddGrid.Text = "Add";
-            btnAddGrid.UseVisualStyleBackColor = true;
-            btnAddGrid.Click += BtnAddGrid_Click;
+            btnAddGridToSequence.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnAddGridToSequence.Location = new System.Drawing.Point(397, 35);
+            btnAddGridToSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddGridToSequence.Name = "btnAddGridToSequence";
+            btnAddGridToSequence.Size = new System.Drawing.Size(88, 27);
+            btnAddGridToSequence.TabIndex = 4;
+            btnAddGridToSequence.Text = "Add";
+            btnAddGridToSequence.UseVisualStyleBackColor = true;
+            btnAddGridToSequence.Click += BtnAddGridToSequence_Click;
             // 
-            // cbGridName
+            // cbGrids
             // 
-            cbGridName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cbGridName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbGridName.FormattingEnabled = true;
-            cbGridName.Location = new System.Drawing.Point(7, 37);
-            cbGridName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbGridName.Name = "cbGridName";
-            cbGridName.Size = new System.Drawing.Size(245, 23);
-            cbGridName.TabIndex = 1;
+            cbGrids.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbGrids.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbGrids.FormattingEnabled = true;
+            cbGrids.Location = new System.Drawing.Point(7, 37);
+            cbGrids.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbGrids.Name = "cbGrids";
+            cbGrids.Size = new System.Drawing.Size(245, 23);
+            cbGrids.TabIndex = 1;
             // 
             // lblGridName
             // 
@@ -151,11 +140,10 @@
             // gbAddGrid
             // 
             gbAddGrid.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gbAddGrid.Controls.Add(cbGridIdentifier);
             gbAddGrid.Controls.Add(nudSecondsToShow);
             gbAddGrid.Controls.Add(lblSecondsToShow);
-            gbAddGrid.Controls.Add(btnAddGrid);
-            gbAddGrid.Controls.Add(cbGridName);
+            gbAddGrid.Controls.Add(btnAddGridToSequence);
+            gbAddGrid.Controls.Add(cbGrids);
             gbAddGrid.Controls.Add(lblGridName);
             gbAddGrid.Location = new System.Drawing.Point(0, 105);
             gbAddGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -178,21 +166,22 @@
             btnDeleteSequence.UseVisualStyleBackColor = true;
             btnDeleteSequence.Click += BtnDeleteSequence_Click;
             // 
-            // cbSequenceName
+            // cbSequences
             // 
-            cbSequenceName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cbSequenceName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbSequenceName.FormattingEnabled = true;
-            cbSequenceName.Location = new System.Drawing.Point(7, 22);
-            cbSequenceName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbSequenceName.Name = "cbSequenceName";
-            cbSequenceName.Size = new System.Drawing.Size(374, 23);
-            cbSequenceName.TabIndex = 0;
+            cbSequences.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbSequences.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbSequences.FormattingEnabled = true;
+            cbSequences.Location = new System.Drawing.Point(7, 22);
+            cbSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbSequences.Name = "cbSequences";
+            cbSequences.Size = new System.Drawing.Size(374, 23);
+            cbSequences.TabIndex = 0;
+            cbSequences.SelectedIndexChanged += CbSequences_SelectedIndexChanged;
             // 
             // gbSequences
             // 
             gbSequences.Controls.Add(btnDeleteSequence);
-            gbSequences.Controls.Add(cbSequenceName);
+            gbSequences.Controls.Add(cbSequences);
             gbSequences.Dock = System.Windows.Forms.DockStyle.Top;
             gbSequences.Location = new System.Drawing.Point(0, 0);
             gbSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -242,17 +231,17 @@
             chNumber.Text = "Number";
             chNumber.Width = 50;
             // 
-            // btnDeleteGrid
+            // btnRemoveGridFromSequence
             // 
-            btnDeleteGrid.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnDeleteGrid.Location = new System.Drawing.Point(192, 181);
-            btnDeleteGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnDeleteGrid.Name = "btnDeleteGrid";
-            btnDeleteGrid.Size = new System.Drawing.Size(88, 27);
-            btnDeleteGrid.TabIndex = 3;
-            btnDeleteGrid.Text = "Delete";
-            btnDeleteGrid.UseVisualStyleBackColor = true;
-            btnDeleteGrid.Click += BtnDeleteGrid_Click;
+            btnRemoveGridFromSequence.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnRemoveGridFromSequence.Location = new System.Drawing.Point(192, 181);
+            btnRemoveGridFromSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveGridFromSequence.Name = "btnRemoveGridFromSequence";
+            btnRemoveGridFromSequence.Size = new System.Drawing.Size(88, 27);
+            btnRemoveGridFromSequence.TabIndex = 3;
+            btnRemoveGridFromSequence.Text = "Delete";
+            btnRemoveGridFromSequence.UseVisualStyleBackColor = true;
+            btnRemoveGridFromSequence.Click += BtnRemoveGridFromSequence_Click;
             // 
             // btnMoveDown
             // 
@@ -278,17 +267,17 @@
             btnMoveUp.UseVisualStyleBackColor = true;
             btnMoveUp.Click += BtnMoveUp_Click;
             // 
-            // btnAddOrUpdateSequence
+            // btnSaveSequence
             // 
-            btnAddOrUpdateSequence.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnAddOrUpdateSequence.Location = new System.Drawing.Point(397, 181);
-            btnAddOrUpdateSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAddOrUpdateSequence.Name = "btnAddOrUpdateSequence";
-            btnAddOrUpdateSequence.Size = new System.Drawing.Size(88, 27);
-            btnAddOrUpdateSequence.TabIndex = 4;
-            btnAddOrUpdateSequence.Text = "Save";
-            btnAddOrUpdateSequence.UseVisualStyleBackColor = true;
-            btnAddOrUpdateSequence.Click += BtnAddOrUpdateSequence_Click;
+            btnSaveSequence.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveSequence.Location = new System.Drawing.Point(397, 181);
+            btnSaveSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSaveSequence.Name = "btnSaveSequence";
+            btnSaveSequence.Size = new System.Drawing.Size(88, 27);
+            btnSaveSequence.TabIndex = 4;
+            btnSaveSequence.Text = "Save";
+            btnSaveSequence.UseVisualStyleBackColor = true;
+            btnSaveSequence.Click += BtnSaveSequence_Click;
             // 
             // lvGrids
             // 
@@ -333,10 +322,10 @@
             // gbSequenceStructure
             // 
             gbSequenceStructure.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gbSequenceStructure.Controls.Add(btnDeleteGrid);
+            gbSequenceStructure.Controls.Add(btnRemoveGridFromSequence);
             gbSequenceStructure.Controls.Add(btnMoveDown);
             gbSequenceStructure.Controls.Add(btnMoveUp);
-            gbSequenceStructure.Controls.Add(btnAddOrUpdateSequence);
+            gbSequenceStructure.Controls.Add(btnSaveSequence);
             gbSequenceStructure.Controls.Add(lvGrids);
             gbSequenceStructure.Location = new System.Drawing.Point(0, 177);
             gbSequenceStructure.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -382,12 +371,12 @@
         private System.Windows.Forms.ComboBox cbGridIdentifier;
         private System.Windows.Forms.NumericUpDown nudSecondsToShow;
         private System.Windows.Forms.Label lblSecondsToShow;
-        private System.Windows.Forms.Button btnAddGrid;
-        private System.Windows.Forms.ComboBox cbGridName;
+        private System.Windows.Forms.Button btnAddGridToSequence;
+        private System.Windows.Forms.ComboBox cbGrids;
         private System.Windows.Forms.Label lblGridName;
         private System.Windows.Forms.GroupBox gbAddGrid;
         private System.Windows.Forms.Button btnDeleteSequence;
-        private System.Windows.Forms.ComboBox cbSequenceName;
+        private System.Windows.Forms.ComboBox cbSequences;
         private System.Windows.Forms.GroupBox gbSequences;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteGrid;
         private System.Windows.Forms.ToolStripMenuItem tsmiMoveDown;
@@ -396,10 +385,10 @@
         private System.Windows.Forms.ColumnHeader chGridName;
         private System.Windows.Forms.ColumnHeader chSecondsToShow;
         private System.Windows.Forms.ColumnHeader chNumber;
-        private System.Windows.Forms.Button btnDeleteGrid;
+        private System.Windows.Forms.Button btnRemoveGridFromSequence;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
-        private System.Windows.Forms.Button btnAddOrUpdateSequence;
+        private System.Windows.Forms.Button btnSaveSequence;
         private Mtf.Controls.MtfListView lvGrids;
         private System.Windows.Forms.GroupBox gbSequenceName;
         private System.Windows.Forms.GroupBox gbSequenceStructure;

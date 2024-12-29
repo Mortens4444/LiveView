@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -15,15 +16,13 @@ namespace LiveView.Presenters
         private readonly IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository;
         private readonly ILogger<MapCreator> logger;
 
-        public MapCreatorPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IMapRepository<Map> mapRepository,
-            IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository, IMapObjectRepository<MapObject> mapObjectRepository,
-            ILogger<MapCreator> logger)
-            : base(generalOptionsRepository)
+        public MapCreatorPresenter(MapCreatorPresenterDependencies mapCreatorPresenterDependencies)
+            : base(mapCreatorPresenterDependencies)
         {
-            this.mapRepository = mapRepository;
-            this.mapObjectRepository = mapObjectRepository;
-            this.objectInMapRepositoryRepository = objectInMapRepositoryRepository;
-            this.logger = logger;
+            mapRepository = mapCreatorPresenterDependencies.MapRepository;
+            mapObjectRepository = mapCreatorPresenterDependencies.MapObjectRepository;
+            objectInMapRepositoryRepository = mapCreatorPresenterDependencies.ObjectInMapRepositoryRepository;
+            logger = mapCreatorPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

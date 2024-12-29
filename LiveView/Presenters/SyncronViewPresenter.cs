@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -13,11 +14,11 @@ namespace LiveView.Presenters
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<SyncronView> logger;
 
-        public SyncronViewPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<SyncronView> logger)
-            : base(generalOptionsRepository)
+        public SyncronViewPresenter(SyncronViewPresenterDependencies syncronViewPresenterDependencies)
+            : base(syncronViewPresenterDependencies)
         {
-            this.cameraRepository = cameraRepository;
-            this.logger = logger;
+            cameraRepository = syncronViewPresenterDependencies.CameraRepository;
+            logger = syncronViewPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

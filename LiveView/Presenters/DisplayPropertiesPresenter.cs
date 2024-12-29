@@ -2,8 +2,10 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace LiveView.Presenters
 {
@@ -13,11 +15,11 @@ namespace LiveView.Presenters
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ILogger<DisplayProperties> logger;
 
-        public DisplayPropertiesPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IDisplayRepository<Display> displayRepository, ILogger<DisplayProperties> logger)
-            : base(generalOptionsRepository)
+        public DisplayPropertiesPresenter(DisplayPropertiesPresenterDependencies displayPropertiesPresenterDependencies)
+            : base(displayPropertiesPresenterDependencies)
         {
-            this.displayRepository = displayRepository;
-            this.logger = logger;
+            displayRepository = displayPropertiesPresenterDependencies.DisplayRepository;
+            logger = displayPropertiesPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -28,7 +30,19 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            var display = displayRepository.GetWhere(new { PnPDeviceId = view.Display.PnPDeviceId }).FirstOrDefault();
+
+            view.TbDisplayDeviceSziltechID.Text = view.Display.SziltechId;
+            view.TbDisplayDeviceIdentifier.Text = view.Display.DeviceId;
+            view.TbDisplayName.Text = view.Display.DeviceName;
+            view.TbAdapterName.Text = view.Display.AdapterName;
+            view.TbTopLeftCoordinate.Text = $"{view.Display.X}, {view.Display.Y}";
+            view.TbResolution.Text = $"{view.Display.MaxWidth}, {view.Display.MaxHeight}"; ;
+            view.TbWorkPlaceArea.Text = $"{view.Display.Width}, {view.Display.Height}";
+            view.ChkShowSequences.Checked = display.CanShowSequence;
+            view.ChkRemovable.Checked = view.Display.Removable;
+            view.ChkAttachedToDesktop.Checked = view.Display.AttachedToDesktop;
+            view.ChkDefaultFullScreenDevice.Checked = display.FullscreenDisplay;
         }
     }
 }

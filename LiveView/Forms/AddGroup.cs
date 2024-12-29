@@ -1,4 +1,6 @@
-﻿using Database.Models;
+﻿using Database.Interfaces;
+using Database.Models;
+using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
@@ -142,6 +144,26 @@ namespace LiveView.Forms
         private void CbEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public bool OperationsAndCamerasHasElementWithId(IHaveId<long> item)
+        {
+            if (item is Operation operation)
+            {
+                if (LvOperationsAndCameras.Items.Any(i => i.Tag is Operation op && op.Id == operation.Id))
+                {
+                    return true;
+                }
+            }
+            else if (item is Camera camera)
+            {
+                if (LvOperationsAndCameras.Items.Any(i => i.Tag is Camera cam && cam.Id == camera.Id))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

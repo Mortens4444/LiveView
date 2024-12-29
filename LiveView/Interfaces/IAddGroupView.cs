@@ -1,4 +1,5 @@
-﻿using Database.Models;
+﻿using Database.Interfaces;
+using Database.Models;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces
@@ -14,5 +15,7 @@ namespace LiveView.Interfaces
         Group GetGroup();
 
         UserEvent GetUserEvent();
+
+        bool OperationsAndCamerasHasElementWithId(IHaveId<long> item);
     }
 }

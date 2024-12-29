@@ -4,6 +4,8 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
@@ -43,7 +45,10 @@ namespace LiveView.Presenters
 
         public void AutoCreate()
         {
-            throw new NotImplementedException();
+            foreach (ListViewItem item in view.RightSide.Items)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void RemoveAll()
@@ -58,7 +63,8 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            var grids = gridRepository.GetAll();
+            view.AddToItems(view.LeftSide, grids.Select(grid => new ListViewItem(grid.Name) { Tag = grid }).ToArray());
         }
     }
 }
