@@ -1,15 +1,77 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class GeneralOptionsForm : BaseView, IGeneralOptionsView
     {
         private GeneralOptionsPresenter presenter;
+
+        public NumericUpDown NudFPS => nudFPS;
+
+        public NumericUpDown NudRestartTemplate => nudRestartTemplate;
+
+        public NumericUpDown NudDatabasePort => nudDatabasePort;
+
+        public NumericUpDown NudMaximumTimeToWaitForNewPicture => nudMaximumTimeToWaitForNewPicture;
+
+        public NumericUpDown NudMaximumDeflectionBetweenLiveViewAndRecorder => nudMaximumDeflectionBetweenLiveViewAndRecorder;
+
+        public NumericUpDown NudStatisticMessageAfterEveryMinutes => nudStatisticMessageAfterEveryMinutes;
+
+        public NumericUpDown NudTimeBetweenCheckVideoServers => nudTimeBetweenCheckVideoServers;
+
+        public NumericUpDown NudMaximumTimeToWaitForAVideoServerIs => nudMaximumTimeToWaitForAVideoServerIs;
+
+        public CheckBox ChkReduceSequenceUsageOfNetworkAndCPU => chkReduceSequenceUsageOfNetworkAndCPU;
+
+        public CheckBox ChkDeblock => chkDeblock;
+
+        public CheckBox ChkCloseSequenceApplicationOnFullScreenDisplayDevice => chkCloseSequenceApplicationOnFullScreenDisplayDevice;
+
+        public CheckBox ChkLiveView => chkLiveView;
+
+        public CheckBox ChkThreading => chkThreading;
+
+        public CheckBox ChkOpenMotionPopupWhenProgramStarts => chkOpenMotionPopupWhenProgramStarts;
+
+        public CheckBox ChkUseCustomNoSignalImage => chkUseCustomNoSignalImage;
+
+        public CheckBox ChkVerboseDebugLogging => chkVerboseDebugLogging;
+
+        public CheckBox ChkUseWatchDog => chkUseWatchDog;
+
+        public ComboBox CbKBD300ACOMPort => cbKBD300ACOMPort;
+
+        public ComboBox CbUsers => cbUsers;
+
+        public TextBox TbDatabaseUsage => tbDatabaseUsage;
+
+        public TextBox TbDatabaseFolder => tbDatabaseFolder;
+
+        public TextBox TbDatabaseServerIp => tbDatabaseServerIp;
+
+        public TextBox TbPassword => tbPassword;
+
+        public TextBox TbUsername => tbUsername;
+
+        public TextBox TbDatabaseName => tbDatabaseName;
+
+        public MtfPictureBox PbStatus => pbStatus;
+
+        public MtfPictureBox PbNoSignalImage => pbNoSignalImage;
+
+        public RadioButton RbVerboseLogEveryEvents => rbVerboseLogEveryEvents;
+
+        public RadioButton RbVerboseLogOnlyErrors => rbVerboseLogOnlyErrors;
+
+        public FolderBrowserDialog FolderBrowserDialog => folderBrowserDialog;
 
         public GeneralOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GeneralOptionsPresenter))
         {

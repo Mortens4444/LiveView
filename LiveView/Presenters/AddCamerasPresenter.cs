@@ -90,7 +90,7 @@ namespace LiveView.Presenters
         public void SaveCameras()
         {
             var server = view.GetSelectedItem<Server>(view.Servers);
-            cameraRepository.DeleteWhere(new { ServerId = server.Id });
+            cameraRepository.DeleteCamerasOfServer(server.Id);
             var cameras = view.GetItems(view.CamerasToView);
             var orderedCameras = cameras.Cast<ListViewItem>().OrderBy(camera => camera.Text).ToList();
 

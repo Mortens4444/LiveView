@@ -11,7 +11,7 @@ namespace Database.Models
 
         private SecureString password;
 
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         public string Password
         {
@@ -54,7 +54,7 @@ namespace Database.Models
 
         public Credentials(string username, string password)
         {
-            UserName = username;
+            Username = username;
             Password = password;
         }
 

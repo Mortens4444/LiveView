@@ -10,6 +10,7 @@ namespace LiveView.Models.Dependencies
             IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             FormFactory formFactory = null)
         {
+            FormFactory = formFactory;
             GeneralOptionsRepository = generalOptionsRepository;
         }
 

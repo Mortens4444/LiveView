@@ -54,13 +54,9 @@ namespace LiveView.Presenters
         public void CreateNewCameraForm()
         {
             var node = view.GetSelectedItem(view.ServersAndCameras);
-            if (node?.Tag is Server server)
+            if (ShowDialog<AddCameras>(node?.Tag as Server))
             {
-                ShowForm<AddCameras>(server);
-            }
-            else
-            {
-                ShowForm<AddCameras>();
+                Load();
             }
         }
 

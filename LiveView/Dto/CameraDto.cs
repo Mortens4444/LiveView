@@ -1,6 +1,5 @@
 ﻿using Database.Models;
 using Mtf.Enums.Camera;
-using System.Data.Common;
 
 namespace LiveView.Dto
 {
@@ -22,7 +21,7 @@ namespace LiveView.Dto
 
         public bool Actual { get; set; }
 
-        public ServerConnection ServerConnection { get; set; }
+        public ServerDto Server { get; set; }
 
         public long Id { get; set; }
 
@@ -30,8 +29,13 @@ namespace LiveView.Dto
 
         public int RecorderIndex { get; set; }
 
-        public static CameraDto FromModel(Camera camera)
+        public static CameraDto FromModel(Camera camera, Server server = null)
         {
+            if (camera == null)
+            {
+                return null;
+            }
+
             return new CameraDto
             {
                 Id = camera.Id,
@@ -45,8 +49,18 @@ namespace LiveView.Dto
                 Actual = camera.Actual,
                 CameraName = camera.CameraName,
                 FullscreenMode = camera.FullscreenMode,
-                ServerConnection = camera.ServerConnection
+                Server = ServerDto.FromModel(server)
             };
+        }
+
+        public override string ToString()
+        {
+            if (Server == null)
+            {
+                return CameraName;
+            }
+
+            return $"{Server.Hostname} - {CameraName}";
         }
     }
 }

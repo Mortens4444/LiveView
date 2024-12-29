@@ -57,7 +57,7 @@ namespace LiveView.Forms
                 DatabaseServerPort = (int)nudDatabaseServerPort.Value,
                 DatabaseServerCredentials = new Credentials
                 {
-                    UserName = tbUsername.Text,
+                    Username = tbUsername.Text,
                     Password = tbPassword.Password
                 }
             };

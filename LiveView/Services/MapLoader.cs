@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.CustomEventArgs;
 using LiveView.Dto;
+using LiveView.Models.Dependencies;
 using Mtf.Controls;
 using Mtf.Enums;
 using System;
@@ -21,18 +22,18 @@ namespace LiveView.Services
         private readonly IMapRepository<Map> mapRepository;
         private readonly IMapObjectRepository<MapObject> mapObjectRepository;
         private readonly IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository;
+        private readonly IServerRepository<Server> serverRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
 
-        public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, IMapRepository<Map> mapRepository,
-            ICameraRepository<Camera> cameraRepository, IMapObjectRepository<MapObject> mapObjectRepository,
-            IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository)
+        public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {
             this.mapContainer = mapContainer;
             this.toolTip = toolTip;
-            this.mapRepository = mapRepository;
-            this.mapObjectRepository = mapObjectRepository;
-            this.objectInMapRepositoryRepository = objectInMapRepositoryRepository;
-            this.cameraRepository = cameraRepository;
+            mapRepository = mapLoaderDependencies.MapRepository;
+            mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
+            objectInMapRepositoryRepository = mapLoaderDependencies.ObjectInMapRepositoryRepository;
+            cameraRepository = mapLoaderDependencies.CameraRepository;
+            serverRepository = mapLoaderDependencies.ServerRepository;
         }
 
         public void LoadMap(MapDto map)
@@ -109,7 +110,8 @@ namespace LiveView.Services
             {
                 case MapActionType.OpenCamera:
                     var camera = cameraRepository.Get(mapObject.ActionReferencedId);
-                    OnCameraObjectClicked(new CameraObjectClickedEventArgs(CameraDto.FromModel(camera)));
+                    var server = serverRepository.Get(camera.ServerId);
+                    OnCameraObjectClicked(new CameraObjectClickedEventArgs(CameraDto.FromModel(camera, server)));
                     break;
                 case MapActionType.OpenMap:
                     var map = mapRepository.Get(mapObject.ActionReferencedId);

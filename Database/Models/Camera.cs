@@ -23,8 +23,6 @@ namespace Database.Models
 
         public bool Actual { get; set; }
 
-        public ServerConnection ServerConnection { get; set; }
-
         public long ServerId { get; set; }
 
         public int RecorderIndex { get; set; }

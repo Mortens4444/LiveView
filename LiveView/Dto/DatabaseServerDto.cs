@@ -22,7 +22,7 @@
             {
                 IpOrHost = IpAddress,
                 DisplayedName = Hostname,
-                Username = DatabaseServerCredentials.UserName,
+                Username = DatabaseServerCredentials.Username,
                 Password = DatabaseServerCredentials.Password,
                 MacAddress = MacAddress,
                 Hostname = Hostname,

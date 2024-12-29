@@ -39,6 +39,22 @@ namespace LiveView.Services
         private static void RegisterPresenterDependencies(ServiceCollection services)
         {
             services.AddTransient<AddGridPresenterDependencies>();
+            services.AddTransient<AddGroupPresenterDependencies>();
+            services.AddTransient<DisplayPropertiesPresenterDependencies>();
+            services.AddTransient<EnterPassPresenterDependencies>();
+            services.AddTransient<GeneralOptionsPresenterDependencies>();
+            services.AddTransient<LogViewerPresenterDependencies>();
+            services.AddTransient<MainPresenterDependencies>();
+            services.AddTransient<MapCreatorPresenterDependencies>();
+            services.AddTransient<MapLoaderDependencies>();            
+            services.AddTransient<PersonalOptionsPresenterDependencies>();
+            services.AddTransient<ProfilePresenterDependencies>();
+            services.AddTransient<SequentialChainsPresenterDependencies>();
+            services.AddTransient<ServerAndCameraManagementPresenterDependencies>();
+            services.AddTransient<ServerAndCameraPropertiesPresenterDependencies>();
+            services.AddTransient<SyncronViewPresenterDependencies>();
+            services.AddTransient<TemplatesPresenterDependencies>();
+            services.AddTransient<UserAndGroupManagementPresenterDependencies>();
             //services.AddTransient<BasePresenterDependencies>();
         }
 

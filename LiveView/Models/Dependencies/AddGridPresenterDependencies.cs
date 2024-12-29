@@ -12,6 +12,7 @@ namespace LiveView.Models.Dependencies
             DisplayManager displayManager,
             IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
             IGridRepository<Grid> gridRepository,
+            IServerRepository<Server> serverRepository,
             ICameraRepository<Camera> cameraRepository,
             IGridCameraRepository<GridCamera> gridCameraRepository,
             ILogger<AddGrid> logger)
@@ -19,6 +20,7 @@ namespace LiveView.Models.Dependencies
         {
             DisplayManager = displayManager;
             GridRepository = gridRepository;
+            ServerRepository = serverRepository;
             CameraRepository = cameraRepository;
             GridCameraRepository = gridCameraRepository;
             Logger = logger;
@@ -27,6 +29,8 @@ namespace LiveView.Models.Dependencies
         public DisplayManager DisplayManager { get; private set; }
 
         public IGridRepository<Grid> GridRepository { get; private set; }
+
+        public IServerRepository<Server> ServerRepository { get; private set; }
 
         public ICameraRepository<Camera> CameraRepository { get; private set; }
 

@@ -21,13 +21,36 @@
             return new Server
             {
                 IpAddress = IpAddress,
-                Username = VideoServerCredentials.UserName,
+                Username = VideoServerCredentials.Username,
                 Password = VideoServerCredentials.Password,
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
                 StartInMotionPopup = false
+            };
+        }
+
+        public static ServerDto FromModel(Server server)
+        {
+            if (server == null)
+            {
+                return null;
+            }
+
+            return new ServerDto
+            {
+                Id = server.Id,
+                DongleSerialNumber = server.DongleSn,
+                Hostname = server.Hostname,
+                IpAddress = server.IpAddress,
+                MacAddress = server.MacAddress,
+                SerialNumber = server.SerialNumber,
+                VideoServerCredentials = new Credentials
+                {
+                    Username = server.Username,
+                    Password = server.Password
+                }
             };
         }
 

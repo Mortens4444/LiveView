@@ -89,7 +89,7 @@
             lblMaximumTimeToWaitForAVideoServerIs = new System.Windows.Forms.Label();
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
-            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)nudFPS).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudRestartTemplate).BeginInit();
             gbDatabaseOptions.SuspendLayout();
@@ -949,6 +949,6 @@
         private System.Windows.Forms.Label lblMaximumTimeToWaitForAVideoServerIs;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }

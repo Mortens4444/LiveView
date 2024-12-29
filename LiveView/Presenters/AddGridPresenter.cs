@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -32,7 +33,8 @@ namespace LiveView.Presenters
         private readonly IGridCameraRepository<GridCamera> gridCameraRepository;
         private readonly ILogger<AddGrid> logger;
         private readonly DisplayManager displayManager;
-        private readonly ReadOnlyCollection<Camera> cameras;
+        private readonly List<CameraDto> cameras;
+        private readonly ReadOnlyCollection<Server> servers;
 
         private Size displaySize;
         private Size menuSize;
@@ -49,7 +51,8 @@ namespace LiveView.Presenters
             gridRepository = addGridPresenterDependencies.GridRepository;
             gridCameraRepository = addGridPresenterDependencies.GridCameraRepository;
             logger = addGridPresenterDependencies.Logger;
-            cameras = addGridPresenterDependencies.CameraRepository.GetAll();
+            servers = addGridPresenterDependencies.ServerRepository.GetAll();
+            cameras = addGridPresenterDependencies.CameraRepository.GetAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
         }
 
         public new void SetView(IView view)
@@ -152,6 +155,8 @@ namespace LiveView.Presenters
 
                 RemoveOldControls(controls);
                 AddGridControls();
+                var matchingComboBox = view.PMain.Controls.OfType<ComboBox>().FirstOrDefault(cb => cb.Tag is MatrixRegion);
+                SetComboboxSelectedIndexes(matchingComboBox);
 
                 gridSettingsChanged = false;
                 gridSelectionMatrixChanged = true;
@@ -290,8 +295,8 @@ namespace LiveView.Presenters
 
             foreach (var camera in cameras)
             {
-                //result.Items.Add(camera);
-                result.Items.Add($"{camera.ServerConnection.IpOrHost} - {camera.CameraName}");
+                result.Items.Add(camera);
+                //result.Items.Add($"{camera.ServerConnection.IpOrHost} - {camera.CameraName}");
             }
             result.SelectedIndex = result.Items.Count > 0 ? 0 : -1;
 
@@ -441,27 +446,35 @@ namespace LiveView.Presenters
 
         private void CbGrids_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (sender is ComboBox comboBox)
+            SetComboboxSelectedIndexes(sender as ComboBox);
+        }
+
+        private void SetComboboxSelectedIndexes(ComboBox comboBox)
+        {
+            if (comboBox != null)
             {
                 var selectedIndex = comboBox.SelectedIndex;
                 Connect(comboBox);
 
                 foreach (Control control in GetControls())
                 {
-                    if (control is ComboBox cb && !ReferenceEquals(sender, cb))
+                    if (control is ComboBox cb && !ReferenceEquals(comboBox, cb))
                     {
-                        cb.SelectedIndexChanged -= CbGrids_Connect;
-                        try
+                        //if ()
                         {
-                            cb.SelectedIndex = ++selectedIndex;
+                            cb.SelectedIndexChanged -= CbGrids_Connect;
+                            try
+                            {
+                                cb.SelectedIndex = (++selectedIndex % cb.Items.Count);
+                            }
+                            catch (Exception ex)
+                            {
+                                cb.SelectedIndex = 0;
+                                selectedIndex = 0;
+                                DebugErrorBox.Show(ex);
+                            }
+                            cb.SelectedIndexChanged += CbGrids_Connect;
                         }
-                        catch (Exception ex)
-                        {
-                            cb.SelectedIndex = 0;
-                            selectedIndex = 0;
-                            DebugErrorBox.Show(ex);
-                        }
-                        cb.SelectedIndexChanged += CbGrids_Connect;
                     }
                 }
             }
@@ -477,10 +490,10 @@ namespace LiveView.Presenters
 
         private void Connect(ComboBox comboBox)
         {
-            if (view.ChkConnectToCamera.Checked && comboBox.SelectedItem is Camera camera)
+            if (view.ChkConnectToCamera.Checked && comboBox.SelectedItem is CameraDto camera)
             {
                 view.AxVideoPlayerWindow.Visible = true;
-                view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.ServerConnection.IpOrHost, camera.Guid, camera.ServerConnection.VideoServerUsername, camera.ServerConnection.VideoServerEncryptedPassword);
+                view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.Server.IpAddress, camera.Guid, camera.Server.VideoServerCredentials.Username, camera.Server.VideoServerCredentials.Password);
                 var matrixRegion = comboBox.Tag as MatrixRegion;
                 view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
                 view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));

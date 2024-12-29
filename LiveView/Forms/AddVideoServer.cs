@@ -74,7 +74,7 @@ namespace LiveView.Forms
                 SerialNumber = tbSziltechSerialNumber.Text,
                 VideoServerCredentials = new Credentials
                 {
-                    UserName = tbUsername.Text,
+                    Username = tbUsername.Text,
                     Password = tbPassword.Password
                 }
             };
