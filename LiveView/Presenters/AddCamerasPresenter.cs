@@ -58,7 +58,7 @@ namespace LiveView.Presenters
 
         public void LoadServers(Server server)
         {
-            var servers = serverRepository.GetAll();
+            var servers = serverRepository.SelectAll();
             view.AddItems(view.Servers, servers);
             var index = servers.IndexOf(server);
             view.SelectByIndex(view.Servers, index);
@@ -106,7 +106,7 @@ namespace LiveView.Presenters
                     RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
                 };
                 cameraRepository.Insert(newCamera);
-                logger.LogInfo("Camera '{0}' has been added.", newCamera);
+                logger.LogInfo("Camera '{0}' has been added to the grid.", newCamera);
             }
             view.Close();
         }

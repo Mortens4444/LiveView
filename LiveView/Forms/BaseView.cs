@@ -1,5 +1,7 @@
 ﻿#define SET_PRESENTER_WITH_DYNAMIC
 
+using Database.Interfaces;
+using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -294,6 +296,16 @@ namespace LiveView.Forms
             foreach (var item in selectedItems)
             {
                 item.Selected = true;
+            }
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                var number = item.Index + 1;
+                item.Text = number.ToString();
+                if (item.Tag is IHaveNumber haveNumber)
+                {
+                    haveNumber.Number = number;
+                }
             }
         }
     }

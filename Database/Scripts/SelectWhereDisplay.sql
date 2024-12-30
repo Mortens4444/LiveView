@@ -1,0 +1,1 @@
+﻿SELECT Id, PnPDeviceId, ShownName, FullscreenDisplay, CanShowSequence, CanShowFullscreen FROM Displays WHERE PnPDeviceId = @PnPDeviceId;

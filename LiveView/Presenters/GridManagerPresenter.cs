@@ -3,8 +3,9 @@ using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
-using LiveView.Services;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.MessageBoxes.Enums;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,17 +21,14 @@ namespace LiveView.Presenters
         private readonly IServerRepository<Server> serverRepository;
         private readonly ILogger<GridManager> logger;
 
-        public GridManagerPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IGridRepository<Grid> gridRepository, IGridCameraRepository<GridCamera> gridCameraRepository,
-            ICameraRepository<Camera> cameraRepository, IServerRepository<Server> serverRepository,
-            ILogger<GridManager> logger, FormFactory formFactory)
-            : base(generalOptionsRepository, formFactory)
+        public GridManagerPresenter(GridManagerPresenterDependencies gridManagerPresenterDependencies)
+            : base(gridManagerPresenterDependencies)
         {
-            this.gridRepository = gridRepository;
-            this.gridCameraRepository = gridCameraRepository;
-            this.cameraRepository = cameraRepository;
-            this.serverRepository = serverRepository;
-            this.logger = logger;
+            gridRepository = gridManagerPresenterDependencies.GridRepository;
+            gridCameraRepository = gridManagerPresenterDependencies.GridCameraRepository;
+            cameraRepository = gridManagerPresenterDependencies.CameraRepository;
+            serverRepository = gridManagerPresenterDependencies.ServerRepository;
+            logger = gridManagerPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -41,21 +39,115 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var grids = gridRepository.GetAll();
+            var grids = gridRepository.SelectAll();
             view.CbGrids.AddItemsAndSelectFirst(grids);
+
+            FillChangeCameraMenuItem();
+        }
+
+        private void FillChangeCameraMenuItem()
+        {
+            if (view.TsmiChangeCameraTo.DropDownItems.Count > 0)
+            {
+                return;
+            }
+
+            var cameras = cameraRepository.SelectAll();
+            var servers = serverRepository.SelectAll();
+            foreach (var server in servers)
+            {
+                var serverToolStripMenuItem = new ToolStripMenuItem(server.Hostname)
+                {
+                    Tag = server
+                };
+                foreach (var camera in cameras.Where(c => c.ServerId == server.Id))
+                {
+                    var cameraToolStripMenuItem = new ToolStripMenuItem(camera.CameraName)
+                    {
+                        Tag = camera
+                    };
+                    cameraToolStripMenuItem.Click += CameraToolStripMenuItem_Click;
+                    serverToolStripMenuItem.DropDownItems.Add(cameraToolStripMenuItem);
+                }
+                view.TsmiChangeCameraTo.DropDownItems.Add(serverToolStripMenuItem);
+            }
+        }
+
+        private void CameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem toolStripMenuItem && toolStripMenuItem.Tag is Camera camera)
+            {
+                foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
+                {
+                    var serverToolStripMenuItem = toolStripMenuItem.OwnerItem as ToolStripMenuItem;
+                    if (serverToolStripMenuItem.Tag is Server server)
+                    {
+                        var gridCamera = item.Tag as GridCamera;
+                        gridCamera.CameraId = camera.Id;
+                        var lvItem = CreateListViewItem(gridCamera, camera, server);
+                        var index = view.LvGridCameras.Items.IndexOf(item);
+                        if (index >= 0)
+                        {
+                            view.LvGridCameras.Items[index] = lvItem;
+                        }
+                    }
+                }
+            }
         }
 
         public void DeleteGrid()
         {
+            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
+            {
+                return;
+            }
+
             if (view.CbGrids.SelectedItem is Grid grid)
             {
                 gridRepository.Delete(grid.Id);
+                Load();
             }
         }
 
         public void ModifyGrid()
         {
-            throw new NotImplementedException();
+            var selectedGrid = view.CbGrids.SelectedItem;
+            if (selectedGrid is Grid grid)
+            {
+                grid.Name = view.TbGridName.Text;
+                gridRepository.Update(grid);
+                gridCameraRepository.DeleteCamerasOfGrid(grid.Id);
+                foreach (ListViewItem item in view.LvGridCameras.Items)
+                {
+                    if (item.Tag is GridCamera gridCamera)
+                    {
+                        gridCameraRepository.Insert(gridCamera);
+                        logger.LogInfo("Camera '{0}' has been added to the grid.", gridCamera);
+                    }
+                }
+
+                //var server = view.GetSelectedItem<Server>(view.Servers);
+                //cameraRepository.DeleteCamerasOfServer(server.Id);
+                //var cameras = view.GetItems(view.CamerasToView);
+                //var orderedCameras = cameras.Cast<ListViewItem>().OrderBy(camera => camera.Text).ToList();
+
+                //var items = view.GetItems(view.ServerCameras);
+                //foreach (ListViewItem camera in orderedCameras)
+                //{
+                //    var videoServerCamera = (VideoServerCamera)camera.Tag;
+                //    var newCamera = new Camera
+                //    {
+                //        CameraName = videoServerCamera.Name,
+                //        ServerId = server.Id,
+                //        Guid = videoServerCamera.Guid,
+                //        RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
+                //    };
+                //    cameraRepository.Insert(newCamera);
+                //    logger.LogInfo("Camera '{0}' has been added.", newCamera);
+                //}
+                //view.Close();
+
+            }
         }
 
         public void MoveCamerasDown()
@@ -73,20 +165,29 @@ namespace LiveView.Presenters
             var selectedGrid = view.CbGrids.SelectedItem;
             if (selectedGrid is Grid grid)
             {
-                var gridCameras = gridCameraRepository.GetWhere(new { GridId = grid.Id });
+                view.TbGridName.Text = grid.Name;
+                var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
                 view.LvGridCameras.Items.Clear();
                 foreach (var gridCamera in gridCameras)
                 {
-                    var camera = cameraRepository.Get(gridCamera.CameraId);
-                    var server = serverRepository.Get(camera.ServerId);
-                    
-                    var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString());
-                    item.SubItems.Add(camera.CameraName);
-                    item.SubItems.Add(server.Hostname);
-                    item.SubItems.Add(camera.Guid);
+                    var camera = cameraRepository.Select(gridCamera.CameraId);
+                    var server = serverRepository.Select(camera.ServerId);
+                    var item = CreateListViewItem(gridCamera, camera, server);
                     view.LvGridCameras.Items.Add(item);
                 }
             }
+        }
+
+        private ListViewItem CreateListViewItem(GridCamera gridCamera, Camera camera, Server server)
+        {
+            var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
+            {
+                Tag = gridCamera
+            };
+            item.SubItems.Add(camera.CameraName);
+            item.SubItems.Add(server.Hostname);
+            item.SubItems.Add(camera.Guid);
+            return item;
         }
     }
 }

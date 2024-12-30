@@ -1,1 +1,1 @@
-﻿SELECT IpAddress, FullscreenMode, StreamId, Username, Password, CameraName FROM Cameras WHERE guid = @Guid;
+﻿SELECT IpAddress, FullscreenMode, StreamId, Username, Password, CameraName, Guid, ServerId FROM Cameras WHERE Id = @Id;

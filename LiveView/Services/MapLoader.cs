@@ -109,12 +109,12 @@ namespace LiveView.Services
             switch (mapObject.ActionType)
             {
                 case MapActionType.OpenCamera:
-                    var camera = cameraRepository.Get(mapObject.ActionReferencedId);
-                    var server = serverRepository.Get(camera.ServerId);
+                    var camera = cameraRepository.Select(mapObject.ActionReferencedId);
+                    var server = serverRepository.Select(camera.ServerId);
                     OnCameraObjectClicked(new CameraObjectClickedEventArgs(CameraDto.FromModel(camera, server)));
                     break;
                 case MapActionType.OpenMap:
-                    var map = mapRepository.Get(mapObject.ActionReferencedId);
+                    var map = mapRepository.Select(mapObject.ActionReferencedId);
                     LoadMap(MapDto.FromModel(map));
                     break;
             }

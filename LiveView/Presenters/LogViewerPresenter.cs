@@ -28,7 +28,7 @@ namespace LiveView.Presenters
             currentUserId = logViewerPresenterDependencies.PermissionManager.CurrentUser.Id;
             logRepository = logViewerPresenterDependencies.LogRepository;
             logger = logViewerPresenterDependencies.Logger;
-            users = logViewerPresenterDependencies.UserRepository.GetAll();
+            users = logViewerPresenterDependencies.UserRepository.SelectAll();
         }
 
         public new void SetView(IView view)
@@ -54,7 +54,7 @@ namespace LiveView.Presenters
         {
             var filter = view.GetLogEntryFilter();
             view.ClearLogItems();
-            var entries = logRepository.GetWhere(filter);
+            var entries = logRepository.SelectWhere(filter);
             foreach (var entry in entries)
             {
                 var item = ToListViewItem(entry);

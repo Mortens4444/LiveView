@@ -3,6 +3,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Database;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -28,8 +29,8 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var options = generalOptionsRepository.GetAll();
-            var usage = DatabaseStatistics.GetDatabaseUsagePercentageWithLimit();
+            var options = generalOptionsRepository.SelectAll();
+            var usage = BaseRepository.GetDatabaseUsagePercentageWithLimit();
             view.TbDatabaseUsage.Text = usage == -1 ? "N/A" : $"{usage}%";
         }
 

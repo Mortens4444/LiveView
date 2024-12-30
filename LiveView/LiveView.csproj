@@ -49,7 +49,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
     <PackageReference Include="Mtf.Controls" Version="1.0.17" />
-    <PackageReference Include="Mtf.Database" Version="1.0.24" />
+    <PackageReference Include="Mtf.Database" Version="2.0.25" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.8" />
     <PackageReference Include="Mtf.Joystick" Version="1.0.0" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />

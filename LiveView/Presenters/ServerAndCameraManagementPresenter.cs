@@ -172,7 +172,7 @@ namespace LiveView.Presenters
 
                 if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
                 {
-                    var camerasInDatabase = cameraRepository.GetWhere(new { ServerId = server.Id });
+                    var camerasInDatabase = cameraRepository.SelectWhere(new { ServerId = server.Id });
                     var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf() as IVideoServerView, server);
                     if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
                     {
@@ -230,9 +230,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var servers = serverRepository.GetAll();
-            var cameras = cameraRepository.GetAll();
-            var dbServers = databaseServerRepository.GetAll();
+            var servers = serverRepository.SelectAll();
+            var cameras = cameraRepository.SelectAll();
+            var dbServers = databaseServerRepository.SelectAll();
 
             var videoServerTreeNodes = new List<TreeNode>();
             var dbServerTreeNodes = new List<TreeNode>();

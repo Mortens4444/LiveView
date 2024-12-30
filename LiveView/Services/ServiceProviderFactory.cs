@@ -43,6 +43,7 @@ namespace LiveView.Services
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<EnterPassPresenterDependencies>();
             services.AddTransient<GeneralOptionsPresenterDependencies>();
+            services.AddTransient<GridManagerPresenterDependencies>();
             services.AddTransient<LogViewerPresenterDependencies>();
             services.AddTransient<MainPresenterDependencies>();
             services.AddTransient<MapCreatorPresenterDependencies>();

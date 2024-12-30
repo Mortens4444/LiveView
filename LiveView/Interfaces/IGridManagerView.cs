@@ -7,5 +7,9 @@ namespace LiveView.Interfaces
         ComboBox CbGrids { get; }
 
         ListView LvGridCameras { get; }
+
+        TextBox TbGridName { get; }
+
+        ToolStripMenuItem TsmiChangeCameraTo { get; }
     }
 }

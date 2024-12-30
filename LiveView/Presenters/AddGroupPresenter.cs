@@ -76,17 +76,16 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.AddItems(view.CbEvents, userEventRepository.GetAll());
-            view.SelectByIndex(view.CbEvents);
+            view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
 
             view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Cameras"].Items,
-                cameraRepository.GetAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+                cameraRepository.SelectAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
                 {
                     Tag = camera,
                     ToolTipText = camera.Guid
                 }).ToArray());
             view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Operations"].Items,
-                operationRepository.GetAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
+                operationRepository.SelectAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
                 {
                     Tag = operation,
                     ToolTipText = operation.Note

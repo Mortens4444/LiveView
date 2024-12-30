@@ -40,9 +40,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var users = userRepository.GetAll();
-            var servers = serverRepository.GetAll();
-            var cameras = cameraRepository.GetAll();
+            var users = userRepository.SelectAll();
+            var servers = serverRepository.SelectAll();
+            var cameras = cameraRepository.SelectAll();
             var dedicatedServerIds = servers.Where(server => server.SerialNumber != null).Select(server => server.Id).ToList();
             var notDedicatedServerIds = servers.Where(server => server.SerialNumber == null).Select(server => server.Id).ToList();
 

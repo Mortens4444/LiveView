@@ -85,9 +85,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var groups = groupRepository.GetAll();
-            var users = userRepository.GetAll();
-            var usersInGroups = userGroupRepository.GetAll();
+            var groups = groupRepository.SelectAll();
+            var users = userRepository.SelectAll();
+            var usersInGroups = userGroupRepository.SelectAll();
 
             var groupTreeNodes = new List<TreeNode>();
             foreach (var group in groups)

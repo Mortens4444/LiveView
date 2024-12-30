@@ -50,5 +50,10 @@ namespace Database.Repositories
         {
             return ExecuteScalar<string>("GridCameraListSetShowDateTimeState", new { cid = cameraId });
         }
+
+        public void DeleteCamerasOfGrid(long gridId)
+        {
+            Execute("DeleteCamerasOfGrid", new { GridId = gridId });
+        }
     }
 }

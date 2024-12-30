@@ -49,7 +49,7 @@ namespace LiveView
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData" /*"MigrationRenameConstraints"*/ };
 
             var migrationRepository = new MigrationRepository<Migration>();
-            var migrations = migrationRepository.GetAll();
+            var migrations = migrationRepository.SelectAll();
             foreach (var migrationToExecute in migrationsToExecute)
             {
                 if (!migrations.Any(migration => migration.Name == migrationToExecute))

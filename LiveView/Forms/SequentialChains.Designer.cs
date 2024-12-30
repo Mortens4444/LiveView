@@ -368,7 +368,6 @@
 
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.TextBox tbSequenceName;
-        private System.Windows.Forms.ComboBox cbGridIdentifier;
         private System.Windows.Forms.NumericUpDown nudSecondsToShow;
         private System.Windows.Forms.Label lblSecondsToShow;
         private System.Windows.Forms.Button btnAddGridToSequence;

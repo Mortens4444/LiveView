@@ -16,6 +16,10 @@ namespace LiveView.Forms
 
         public ListView LvGridCameras => lvGridCameras;
 
+        public TextBox TbGridName => tbGridName;
+
+        public ToolStripMenuItem TsmiChangeCameraTo => tsmiChangeCameraTo;
+
         public GridManager(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GridManagerPresenter))
         {
             InitializeComponent();

@@ -81,13 +81,17 @@ namespace LiveView.Forms
 
         public GridInSequence GetGridInSequence()
         {
-            return new GridInSequence
+            var result = new GridInSequence
             {
-                SequenceId = ((Sequence)CbSequences.SelectedItem).Id,
                 TimeToShow = (int)nudSecondsToShow.Value,
                 GridId = ((Grid)CbGrids.SelectedItem).Id,
-                Number = lvGrids.Items.Count,
+                Number = lvGrids.Items.Count + 1,
             };
+            if (CbSequences.SelectedItem is Sequence sequence)
+            {
+                result.SequenceId = sequence.Id;
+            }
+            return result;
         }
 
         [RequirePermission(SequenceManagementPermissions.Select)]
@@ -95,6 +99,21 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.GetSequenceGrids();
+        }
+
+        public Sequence GetSequence()
+        {
+            var result = new Sequence
+            {
+                Name = TbSequenceName.Text,
+                Active = true
+            };
+            if (CbSequences.SelectedItem is Sequence sequence)
+            {
+                result.Id = sequence.Id;
+            }
+
+            return result;
         }
     }
 }

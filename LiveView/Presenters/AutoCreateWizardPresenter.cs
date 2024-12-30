@@ -63,7 +63,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var grids = gridRepository.GetAll();
+            var grids = gridRepository.SelectAll();
             view.AddToItems(view.LeftSide, grids.Select(grid => new ListViewItem(grid.Name) { Tag = grid }).ToArray());
         }
     }

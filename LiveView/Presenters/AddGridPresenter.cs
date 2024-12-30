@@ -51,8 +51,8 @@ namespace LiveView.Presenters
             gridRepository = addGridPresenterDependencies.GridRepository;
             gridCameraRepository = addGridPresenterDependencies.GridCameraRepository;
             logger = addGridPresenterDependencies.Logger;
-            servers = addGridPresenterDependencies.ServerRepository.GetAll();
-            cameras = addGridPresenterDependencies.CameraRepository.GetAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
+            servers = addGridPresenterDependencies.ServerRepository.SelectAll();
+            cameras = addGridPresenterDependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
         }
 
         public new void SetView(IView view)
@@ -69,9 +69,8 @@ namespace LiveView.Presenters
             view.NudInitialColumn.ValueChanged += (s, e) => HandleNumericUpDownValueChanged(view.NudInitialColumn, view.NudClosingColumn, view.NudNumberOfColumns);
             view.NudClosingColumn.ValueChanged += (s, e) => HandleNumericUpDownValueChanged(view.NudInitialColumn, view.NudClosingColumn, view.NudNumberOfColumns);
 
-            view.AddItems(view.CbDisplays, displayManager.GetAll());
-            view.SelectByIndex(view.CbDisplays);
-            view.AddItems(view.CbGrids, gridRepository.GetAll());
+            view.CbDisplays.AddItemsAndSelectFirst(displayManager.GetAll());
+            view.CbGrids.AddItemsAndSelectFirst(gridRepository.SelectAll());
             CalculateMetrics();
         }
 
@@ -248,7 +247,7 @@ namespace LiveView.Presenters
 
         private void LoadGridCameras(long gridId)
         {
-            var gridCameras = gridCameraRepository.GetWhere(new { GridId = gridId });
+            var gridCameras = gridCameraRepository.SelectWhere(new { GridId = gridId });
             foreach (var gridCamera in gridCameras)
             {
                 var index = cameras.IndexOf(cameras.FirstOrDefault(camera => camera.Id == gridCamera.CameraId));
@@ -460,21 +459,18 @@ namespace LiveView.Presenters
                 {
                     if (control is ComboBox cb && !ReferenceEquals(comboBox, cb))
                     {
-                        //if ()
+                        cb.SelectedIndexChanged -= CbGrids_Connect;
+                        try
                         {
-                            cb.SelectedIndexChanged -= CbGrids_Connect;
-                            try
-                            {
-                                cb.SelectedIndex = (++selectedIndex % cb.Items.Count);
-                            }
-                            catch (Exception ex)
-                            {
-                                cb.SelectedIndex = 0;
-                                selectedIndex = 0;
-                                DebugErrorBox.Show(ex);
-                            }
-                            cb.SelectedIndexChanged += CbGrids_Connect;
+                            cb.SelectedIndex = (++selectedIndex % cb.Items.Count);
                         }
+                        catch (Exception ex)
+                        {
+                            cb.SelectedIndex = 0;
+                            selectedIndex = 0;
+                            DebugErrorBox.Show(ex);
+                        }
+                        cb.SelectedIndexChanged += CbGrids_Connect;
                     }
                 }
             }
@@ -603,7 +599,7 @@ namespace LiveView.Presenters
 
         public void SaveGrid()
         {
-            var gridId = gridRepository.InsertAndReturnIdAsBigint(new Grid
+            var gridId = gridRepository.InsertAndReturnId<long>(new Grid
             {
                 Name = view.TbGridName.Text,
                 PixelsFromBottom = (int)view.NudPixelsFromBottom.Value,
@@ -624,7 +620,7 @@ namespace LiveView.Presenters
                         EndRow = matrixRegion.ToRow,
                         EndCol = matrixRegion.FromColumn,
                         GridId = gridId,
-                        CameraId = ((Camera)comboBox.SelectedItem).Id
+                        CameraId = ((CameraDto)comboBox.SelectedItem).Id
                     };
                     gridCameraRepository.Insert(gridCamera);
                 }

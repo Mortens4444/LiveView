@@ -252,7 +252,7 @@ namespace LiveView.Presenters
 
         private void LoadOptoins()
         {
-            generalOptions = generalOptionsRepository.GetAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
+            generalOptions = generalOptionsRepository.SelectAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }
     }
 }

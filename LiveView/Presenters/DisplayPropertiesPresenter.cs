@@ -30,7 +30,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var display = displayRepository.GetWhere(new { PnPDeviceId = view.Display.PnPDeviceId }).FirstOrDefault();
+            var display = displayRepository.SelectWhere(new { PnPDeviceId = view.Display.PnPDeviceId }).FirstOrDefault();
 
             view.TbDisplayDeviceSziltechID.Text = view.Display.SziltechId;
             view.TbDisplayDeviceIdentifier.Text = view.Display.DeviceId;
