@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 
 namespace Database.Repositories
 {
-    public sealed class LogRepository <TModel> : BaseRepository<TModel>, ILogRepository<TModel>
+    public sealed class LogRepository : BaseRepository<LogEntry>, ILogRepository
     {
-        public ReadOnlyCollection<TModel> FilterLogs(LogEntryFilter logEntryFilter)
+        public ReadOnlyCollection<LogEntry> FilterLogs(LogEntryFilter logEntryFilter)
         {
             return Query("SelectLogEntry", logEntryFilter);
         }

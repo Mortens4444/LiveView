@@ -11,7 +11,7 @@ namespace LiveView.Presenters
     public class ProfilePresenter : BasePresenter
     {
         private IProfileView view;
-        private readonly IUserRepository<User> userRepository;
+        private readonly IUserRepository userRepository;
         private readonly ILogger<Profile> logger;
 
         public ProfilePresenter(ProfilePresenterDependencies profilePresenterDependencies)

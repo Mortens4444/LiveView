@@ -10,10 +10,10 @@ namespace LiveView.Presenters
     public class IOPortEditorPresenter : BasePresenter
     {
         private IIOPortEditorView view;
-        private readonly IIOPortRepository<IOPort> ioPortRepository;
+        private readonly IIOPortRepository ioPortRepository;
         private readonly ILogger<IOPortEditor> logger;
 
-        public IOPortEditorPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IIOPortRepository<IOPort> ioPortRepository, ILogger<IOPortEditor> logger)
+        public IOPortEditorPresenter(IGeneralOptionsRepository generalOptionsRepository, IIOPortRepository ioPortRepository, ILogger<IOPortEditor> logger)
             : base(generalOptionsRepository)
         {
             this.ioPortRepository = ioPortRepository;

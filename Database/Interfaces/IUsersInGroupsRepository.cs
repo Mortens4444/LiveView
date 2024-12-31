@@ -1,8 +1,9 @@
-﻿using Mtf.Database.Interfaces;
+﻿using Database.Models;
+using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IUsersInGroupsRepository<TModel> : IRepository<TModel>
+    public interface IUsersInGroupsRepository : IRepository<UserGroup>
     {
     }
 }

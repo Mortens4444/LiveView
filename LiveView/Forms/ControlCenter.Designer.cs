@@ -379,6 +379,7 @@
             lvCameras.TabIndex = 1;
             lvCameras.UseCompatibleStateImageBehavior = false;
             lvCameras.View = System.Windows.Forms.View.Details;
+            lvCameras.ItemSelectionChanged += LvCameras_ItemSelectionChanged;
             // 
             // gbCameras
             // 
@@ -950,6 +951,7 @@
             lvSequences.TabIndex = 1;
             lvSequences.UseCompatibleStateImageBehavior = false;
             lvSequences.View = System.Windows.Forms.View.Details;
+            lvSequences.ItemSelectionChanged += LvSequences_ItemSelectionChanged;
             // 
             // gbSequences
             // 

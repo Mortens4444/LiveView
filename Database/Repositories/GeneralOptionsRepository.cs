@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GeneralOptionsRepository<TModel> : BaseRepository<TModel>, IGeneralOptionsRepository<TModel>
+    public sealed class GeneralOptionsRepository : BaseRepository<GeneralOption>, IGeneralOptionsRepository
     {
     }
 }

@@ -1,9 +1,10 @@
-﻿using Mtf.Database.Interfaces;
+﻿using Database.Models;
+using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IGroupRepository<TModel> : IRepository<TModel>
+    public interface IGroupRepository : IRepository<Group>
     {
-        TModel GetByName(string name);
+        Group GetByName(string name);
     }
 }

@@ -1,8 +1,9 @@
-﻿using Mtf.Database.Interfaces;
+﻿using Database.Models;
+using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IUserRepository<TModel> : IRepository<TModel>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

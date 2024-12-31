@@ -11,7 +11,7 @@ namespace LiveView.Presenters
     public class PersonalOptionsPresenter : BasePresenter
     {
         private IPersonalOptionsView view;
-        private readonly IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
 
         public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies personalOptionsPresenterDependencies)

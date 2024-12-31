@@ -12,13 +12,13 @@ namespace LiveView.Presenters
     public class AutoCreateWizardPresenter : BasePresenter
     {
         private IAutoCreateWizardView view;
-        private readonly ITemplateRepository<Template> templateRepository;
-        private readonly ISequenceRepository<Sequence> sequenceRepository;
-        private readonly IGridRepository<Grid> gridRepository;
+        private readonly ITemplateRepository templateRepository;
+        private readonly ISequenceRepository sequenceRepository;
+        private readonly IGridRepository gridRepository;
         private readonly ILogger<AutoCreateWizard> logger;
 
-        public AutoCreateWizardPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ITemplateRepository<Template> templateRepository,
-            ISequenceRepository<Sequence> sequenceRepository, IGridRepository<Grid> gridRepository, ILogger<AutoCreateWizard> logger)
+        public AutoCreateWizardPresenter(IGeneralOptionsRepository generalOptionsRepository, ITemplateRepository templateRepository,
+            ISequenceRepository sequenceRepository, IGridRepository gridRepository, ILogger<AutoCreateWizard> logger)
             : base(generalOptionsRepository)
         {
             this.templateRepository = templateRepository;

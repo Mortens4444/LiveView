@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
@@ -12,10 +11,10 @@ namespace LiveView.Models.Dependencies
         public ServerAndCameraManagementPresenterDependencies(
             FormFactory formFactory,
             PermissionManager permissionManager,
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IDatabaseServerRepository<DatabaseServer> databaseServerRepository,
-            IServerRepository<Server> serverRepository,
-            ICameraRepository<Camera> cameraRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            IDatabaseServerRepository databaseServerRepository,
+            IServerRepository serverRepository,
+            ICameraRepository cameraRepository,
             ILogger<ServerAndCameraManagement> logger)
             : base(generalOptionsRepository, formFactory)
         {
@@ -28,11 +27,11 @@ namespace LiveView.Models.Dependencies
 
         public PermissionManager PermissionManager { get; private set; }
 
-        public IDatabaseServerRepository<DatabaseServer> DatabaseServerRepository { get; private set; }
+        public IDatabaseServerRepository DatabaseServerRepository { get; private set; }
 
-        public IServerRepository<Server> ServerRepository { get; private set; }
+        public IServerRepository ServerRepository { get; private set; }
 
-        public ICameraRepository<Camera> CameraRepository { get; private set; }
+        public ICameraRepository CameraRepository { get; private set; }
         
         public ILogger<ServerAndCameraManagement> Logger { get; private set; }
     }

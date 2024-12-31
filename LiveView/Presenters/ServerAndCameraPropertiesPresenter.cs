@@ -11,8 +11,8 @@ namespace LiveView.Presenters
     public class ServerAndCameraPropertiesPresenter : BasePresenter
     {
         private IServerAndCameraPropertiesView view;
-        private readonly IServerRepository<Server> serverRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly IServerRepository serverRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
 
         public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies serverAndCameraPropertiesPresenterDependencies)

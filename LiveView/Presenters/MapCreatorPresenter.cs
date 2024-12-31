@@ -11,9 +11,9 @@ namespace LiveView.Presenters
     public class MapCreatorPresenter : BasePresenter
     {
         private IMapCreatorView view;
-        private readonly IMapRepository<Map> mapRepository;
-        private readonly IMapObjectRepository<MapObject> mapObjectRepository;
-        private readonly IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository;
+        private readonly IMapRepository mapRepository;
+        private readonly IMapObjectRepository mapObjectRepository;
+        private readonly IObjectInMapRepository objectInMapRepositoryRepository;
         private readonly ILogger<MapCreator> logger;
 
         public MapCreatorPresenter(MapCreatorPresenterDependencies mapCreatorPresenterDependencies)

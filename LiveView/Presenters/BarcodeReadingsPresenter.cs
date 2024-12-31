@@ -12,7 +12,7 @@ namespace LiveView.Presenters
         private IBarcodeReadingsView view;
         private readonly ILogger<BarcodeReadings> logger;
 
-        public BarcodeReadingsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ILogger<BarcodeReadings> logger)
+        public BarcodeReadingsPresenter(IGeneralOptionsRepository generalOptionsRepository, ILogger<BarcodeReadings> logger)
             : base(generalOptionsRepository)
         {
             this.logger = logger;

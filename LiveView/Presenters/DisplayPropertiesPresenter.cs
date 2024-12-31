@@ -12,7 +12,7 @@ namespace LiveView.Presenters
     public class DisplayPropertiesPresenter : BasePresenter
     {
         private IDisplayPropertiesView view;
-        private readonly IDisplayRepository<Display> displayRepository;
+        private readonly IDisplayRepository displayRepository;
         private readonly ILogger<DisplayProperties> logger;
 
         public DisplayPropertiesPresenter(DisplayPropertiesPresenterDependencies displayPropertiesPresenterDependencies)
@@ -42,7 +42,7 @@ namespace LiveView.Presenters
             view.ChkShowSequences.Checked = display.CanShowSequence;
             view.ChkRemovable.Checked = view.Display.Removable;
             view.ChkAttachedToDesktop.Checked = view.Display.AttachedToDesktop;
-            view.ChkDefaultFullScreenDevice.Checked = display.FullscreenDisplay;
+            view.ChkDefaultFullScreenDevice.Checked = display.Fullscreen;
         }
     }
 }

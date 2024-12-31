@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mtf.Enums.Keyboard
+namespace LiveView.Core.Enums.Keyboard
 {
     [Flags]
     public enum ModifierKeys : uint

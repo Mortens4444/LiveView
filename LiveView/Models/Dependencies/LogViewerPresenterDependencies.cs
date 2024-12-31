@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
@@ -10,9 +9,9 @@ namespace LiveView.Models.Dependencies
     {
         public LogViewerPresenterDependencies(
             PermissionManager permissionManager,
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            ILogRepository<LogEntry> logRepository,
-            IUserRepository<User> userRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            ILogRepository logRepository,
+            IUserRepository userRepository,
             ILogger<LogViewer> logger)
             : base(generalOptionsRepository)
         {
@@ -24,9 +23,9 @@ namespace LiveView.Models.Dependencies
 
         public PermissionManager PermissionManager { get; private set; }
 
-        public ILogRepository<LogEntry> LogRepository { get; private set; }
+        public ILogRepository LogRepository { get; private set; }
 
-        public IUserRepository<User> UserRepository { get; private set; }
+        public IUserRepository UserRepository { get; private set; }
         
         public ILogger<LogViewer> Logger { get; private set; }
     }

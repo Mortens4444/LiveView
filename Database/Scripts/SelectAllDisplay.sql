@@ -1,1 +1,1 @@
-﻿SELECT Id, PnPDeviceId, ShownName, FullscreenDisplay, CanShowSequence, CanShowFullscreen FROM Displays
+﻿SELECT Id, SziltechId, MonitorName, AdapterName, Fullscreen, CanShowSequence, CanShowFullscreen FROM Displays

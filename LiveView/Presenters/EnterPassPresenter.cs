@@ -11,7 +11,7 @@ namespace LiveView.Presenters
     public class EnterPassPresenter : BasePresenter
     {
         private IEnterPassView view;
-        private readonly IUserRepository<User> userRepository;
+        private readonly IUserRepository userRepository;
         private readonly ILogger<EnterPass> logger;
 
         public EnterPassPresenter(EnterPassPresenterDependencies enterPassPresenterDependencies)

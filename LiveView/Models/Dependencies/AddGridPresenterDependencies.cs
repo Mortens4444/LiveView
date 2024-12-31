@@ -1,7 +1,6 @@
 ﻿using Database.Interfaces;
-using Database.Models;
+using LiveView.Core.Services;
 using LiveView.Forms;
-using LiveView.Services;
 using Microsoft.Extensions.Logging;
 
 namespace LiveView.Models.Dependencies
@@ -10,11 +9,11 @@ namespace LiveView.Models.Dependencies
     {
         public AddGridPresenterDependencies(
             DisplayManager displayManager,
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IGridRepository<Grid> gridRepository,
-            IServerRepository<Server> serverRepository,
-            ICameraRepository<Camera> cameraRepository,
-            IGridCameraRepository<GridCamera> gridCameraRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            IGridRepository gridRepository,
+            IServerRepository serverRepository,
+            ICameraRepository cameraRepository,
+            IGridCameraRepository gridCameraRepository,
             ILogger<AddGrid> logger)
             : base(generalOptionsRepository)
         {
@@ -28,13 +27,13 @@ namespace LiveView.Models.Dependencies
 
         public DisplayManager DisplayManager { get; private set; }
 
-        public IGridRepository<Grid> GridRepository { get; private set; }
+        public IGridRepository GridRepository { get; private set; }
 
-        public IServerRepository<Server> ServerRepository { get; private set; }
+        public IServerRepository ServerRepository { get; private set; }
 
-        public ICameraRepository<Camera> CameraRepository { get; private set; }
+        public ICameraRepository CameraRepository { get; private set; }
 
-        public IGridCameraRepository<GridCamera> GridCameraRepository { get; private set; }
+        public IGridCameraRepository GridCameraRepository { get; private set; }
         
         public ILogger<AddGrid> Logger { get; private set; }
     }

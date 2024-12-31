@@ -13,12 +13,12 @@ namespace LiveView.Presenters
     {
         private ILicenseFormView view;
         private readonly ILogger<LicenseForm> logger;
-        private readonly IUserRepository<User> userRepository;
-        private readonly IServerRepository<Server> serverRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IServerRepository serverRepository;
+        private readonly ICameraRepository cameraRepository;
 
-        public LicenseFormPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IUserRepository<User> userRepository,
-            IServerRepository<Server> serverRepository, ICameraRepository<Camera> cameraRepository, ILogger<LicenseForm> logger)
+        public LicenseFormPresenter(IGeneralOptionsRepository generalOptionsRepository, IUserRepository userRepository,
+            IServerRepository serverRepository, ICameraRepository cameraRepository, ILogger<LicenseForm> logger)
             : base(generalOptionsRepository)
         {
             this.logger = logger;

@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class TemplateRepository <TModel> : BaseRepository<TModel>, ITemplateRepository<TModel>
+    public sealed class TemplateRepository : BaseRepository<Template>, ITemplateRepository
     {
     }
 }

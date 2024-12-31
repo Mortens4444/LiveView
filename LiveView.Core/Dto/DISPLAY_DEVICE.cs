@@ -1,7 +1,7 @@
-﻿using Mtf.Enums.Display;
+﻿using LiveView.Core.Enums.Display;
 using System.Runtime.InteropServices;
 
-namespace LiveView.Dto
+namespace LiveView.Core.Dto
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct DISPLAY_DEVICE

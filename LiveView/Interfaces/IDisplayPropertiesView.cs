@@ -1,4 +1,4 @@
-﻿using LiveView.Dto;
+﻿using LiveView.Core.Dto;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces

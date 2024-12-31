@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +7,8 @@ namespace LiveView.Models.Dependencies
     public class DisplayPropertiesPresenterDependencies : BasePresenterDependencies
     {
         public DisplayPropertiesPresenterDependencies(
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IDisplayRepository<Display> displayRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            IDisplayRepository displayRepository,
             ILogger<DisplayProperties> logger)
             : base(generalOptionsRepository)
         {
@@ -17,7 +16,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public IDisplayRepository<Display> DisplayRepository { get; private set; }
+        public IDisplayRepository DisplayRepository { get; private set; }
 
         public ILogger<DisplayProperties> Logger { get; private set; }
     }

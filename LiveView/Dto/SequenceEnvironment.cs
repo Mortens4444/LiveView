@@ -1,4 +1,6 @@
-﻿namespace LiveView.Dto
+﻿using LiveView.Core.Dto;
+
+namespace LiveView.Dto
 {
     public class SequenceEnvironment
     {

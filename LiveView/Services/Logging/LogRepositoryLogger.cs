@@ -8,11 +8,11 @@ namespace LiveView.Services.Logging
 {
     public class LogRepositoryLogger : ILogger
     {
-        private readonly ILogRepository<LogEntry> logRepository;
+        private readonly ILogRepository logRepository;
         private readonly string categoryName;
         private readonly int currentUserId;
 
-        public LogRepositoryLogger(PermissionManager permissionManager, ILogRepository<LogEntry> logRepository, string categoryName)
+        public LogRepositoryLogger(PermissionManager permissionManager, ILogRepository logRepository, string categoryName)
         {
             this.logRepository = logRepository ?? throw new ArgumentNullException(nameof(logRepository));
             this.categoryName = categoryName ?? throw new ArgumentNullException(nameof(categoryName));

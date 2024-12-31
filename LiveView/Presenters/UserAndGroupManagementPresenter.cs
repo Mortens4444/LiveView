@@ -18,9 +18,9 @@ namespace LiveView.Presenters
     public class UserAndGroupManagementPresenter : BasePresenter
     {
         private IUserAndGroupManagementView view;
-        private readonly IUserRepository<User> userRepository;
-        private readonly IGroupRepository<Group> groupRepository;
-        private readonly IUsersInGroupsRepository<UserGroup> userGroupRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IGroupRepository groupRepository;
+        private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
         private readonly PermissionManager permissionManager;
         

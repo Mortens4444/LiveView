@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums
+﻿namespace LiveView.Core.Enums.Display
 {
     public enum EDSFlags : uint
     {

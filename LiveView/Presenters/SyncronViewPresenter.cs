@@ -11,7 +11,7 @@ namespace LiveView.Presenters
     public class SyncronViewPresenter : BasePresenter
     {
         private ISyncronViewView view;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly ILogger<SyncronView> logger;
 
         public SyncronViewPresenter(SyncronViewPresenterDependencies syncronViewPresenterDependencies)

@@ -1,13 +1,12 @@
-﻿using LiveView.Dto;
+﻿using LiveView.Core.Dto;
+using LiveView.Core.Enums.Display;
 using Microsoft.Win32;
-using Mtf.Enums;
-using Mtf.Enums.Display;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace LiveView.Services
+namespace LiveView.Core.Services
 {
     public class DisplayManager
     {

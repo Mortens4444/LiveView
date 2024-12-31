@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +7,8 @@ namespace LiveView.Models.Dependencies
     public class SyncronViewPresenterDependencies : BasePresenterDependencies
     {
         public SyncronViewPresenterDependencies(
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            ICameraRepository<Camera> cameraRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            ICameraRepository cameraRepository,
             ILogger<SyncronView> logger)
             : base(generalOptionsRepository)
         {
@@ -17,7 +16,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public ICameraRepository<Camera> CameraRepository { get; private set; }
+        public ICameraRepository CameraRepository { get; private set; }
         
         public ILogger<SyncronView> Logger { get; private set; }
     }

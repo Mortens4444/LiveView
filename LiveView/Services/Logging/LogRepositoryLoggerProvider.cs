@@ -8,9 +8,9 @@ namespace LiveView.Services.Logging
     public class LogRepositoryLoggerProvider : ILoggerProvider
     {
         private readonly PermissionManager permissionManager;
-        private readonly ILogRepository<LogEntry> logRepository;
+        private readonly ILogRepository logRepository;
 
-        public LogRepositoryLoggerProvider(PermissionManager permissionManager, ILogRepository<LogEntry> logRepository)
+        public LogRepositoryLoggerProvider(PermissionManager permissionManager, ILogRepository logRepository)
         {
             this.permissionManager = permissionManager;
             this.logRepository = logRepository;

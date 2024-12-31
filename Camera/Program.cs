@@ -4,6 +4,7 @@ using Mtf.Database;
 using Mtf.MessageBoxes;
 using System;
 using System.Configuration;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace CameraApp
@@ -27,15 +28,17 @@ namespace CameraApp
             //#endif
 
             BaseRepository.CommandTimeout = 240;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository<>).Assembly;
+            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
             BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
 
             try
             {
-                long cameraId = Convert.ToInt64(args[0]);
-                using (var form = new FullScreenCamera(cameraId))
+                long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+                long? displayId = args.Length > 2 ? Convert.ToInt64(args[2], CultureInfo.InvariantCulture) : (long?)null;
+                using (var form = new FullScreenCamera(userId, cameraId, displayId))
                 {
                     Application.Run(form);
                 }

@@ -1,8 +1,9 @@
-﻿using Mtf.Database;
+﻿using Database.Models;
+using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class MigrationRepository<TModel> : BaseRepository<TModel>
+    public sealed class MigrationRepository : BaseRepository<Migration>
     {
     }
 }

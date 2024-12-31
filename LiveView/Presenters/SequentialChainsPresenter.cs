@@ -13,9 +13,9 @@ namespace LiveView.Presenters
     public class SequentialChainsPresenter : BasePresenter
     {
         private ISequentialChainsView view;
-        private readonly IGridRepository<Grid> gridRepository;
-        private readonly ISequenceRepository<Sequence> sequenceRepository;
-        private readonly IGridInSequenceRepository<GridInSequence> gridInSequenceRepository;
+        private readonly IGridRepository gridRepository;
+        private readonly ISequenceRepository sequenceRepository;
+        private readonly IGridInSequenceRepository gridInSequenceRepository;
         private readonly ILogger<SequentialChains> logger;
 
         public SequentialChainsPresenter(SequentialChainsPresenterDependencies sequentialChainsPresenterDependencies)

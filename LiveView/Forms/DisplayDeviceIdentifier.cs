@@ -1,4 +1,5 @@
-﻿using LiveView.Dto;
+﻿using LiveView.Core.Dto;
+using LiveView.Dto;
 using LiveView.Presenters;
 using Mtf.LanguageService;
 using System;

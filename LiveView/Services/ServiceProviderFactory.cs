@@ -1,6 +1,6 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using Database.Repositories;
+using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Models.Dependencies;
 using LiveView.Presenters;
@@ -30,7 +30,7 @@ namespace LiveView.Services
                 builder.AddConsole();
                 builder.Services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
                     sp.GetRequiredService<PermissionManager>(),
-                    sp.GetRequiredService<ILogRepository<LogEntry>>()
+                    sp.GetRequiredService<ILogRepository>()
                 ));
             });
             return services.BuildServiceProvider();
@@ -104,25 +104,26 @@ namespace LiveView.Services
 
         private static void RegisterRepositories(ServiceCollection services)
         {
-            services.AddSingleton(typeof(ICameraRepository<>), typeof(CameraRepository<>));
-            services.AddSingleton(typeof(IDatabaseServerRepository<>), typeof(DatabaseServerRepository<>));
-            services.AddSingleton(typeof(IDisplayRepository<>), typeof(DisplayRepository<>));
-            services.AddSingleton(typeof(IGeneralOptionsRepository<>), typeof(GeneralOptionsRepository<>));
-            services.AddSingleton(typeof(IGridCameraRepository<>), typeof(GridCameraRepository<>));
-            services.AddSingleton(typeof(IGridRepository<>), typeof(GridRepository<>));
-            services.AddSingleton(typeof(IGridInSequenceRepository<>), typeof(GridInSequenceRepository<>));
-            services.AddSingleton(typeof(IGroupRepository<>), typeof(GroupRepository<>));
-            services.AddSingleton(typeof(IIOPortRepository<>), typeof(IOPortRepository<>));
-            services.AddSingleton(typeof(ILanguageRepository<>), typeof(LanguageRepository<>));
-            services.AddSingleton(typeof(ILogRepository<>), typeof(LogRepository<>));
-            services.AddSingleton(typeof(IMapObjectRepository<>), typeof(MapObjectRepository<>));
-            services.AddSingleton(typeof(IMapRepository<>), typeof(MapRepository<>));
-            services.AddSingleton(typeof(IPersonalOptionsRepository<>), typeof(PersonalOptionsRepository<>));
-            services.AddSingleton(typeof(ISequenceRepository<>), typeof(SequenceRepository<>));
-            services.AddSingleton(typeof(IServerRepository<>), typeof(ServerRepository<>));
-            services.AddSingleton(typeof(ITemplateRepository<>), typeof(TemplateRepository<>));
-            services.AddSingleton(typeof(IUserRepository<>), typeof(UserRepository<>));
-            services.AddSingleton(typeof(IUsersInGroupsRepository<>), typeof(UsersInGroupsRepository<>));
+            services.AddScoped<ICameraRepository, CameraRepository>();
+            services.AddScoped<ICameraRightRepository, CameraRightRepository>();
+            services.AddScoped<IDatabaseServerRepository, DatabaseServerRepository>();
+            services.AddScoped<IDisplayRepository, DisplayRepository>();
+            services.AddScoped<IGeneralOptionsRepository, GeneralOptionsRepository>();
+            services.AddScoped<IGridCameraRepository, GridCameraRepository>();
+            services.AddScoped<IGridRepository, GridRepository>();
+            services.AddScoped<IGridInSequenceRepository, GridInSequenceRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IIOPortRepository, IOPortRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
+            services.AddScoped<IMapObjectRepository, MapObjectRepository>();
+            services.AddScoped<IMapRepository, MapRepository>();
+            services.AddScoped<IPersonalOptionsRepository, PersonalOptionsRepository>();
+            services.AddScoped<ISequenceRepository, SequenceRepository>();
+            services.AddScoped<IServerRepository, ServerRepository>();
+            services.AddScoped<ITemplateRepository, TemplateRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUsersInGroupsRepository, UsersInGroupsRepository>();
         }
 
         private static void RegisterForms(ServiceCollection services)

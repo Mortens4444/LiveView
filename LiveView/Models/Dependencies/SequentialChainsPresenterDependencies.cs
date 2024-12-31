@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 
@@ -8,10 +7,10 @@ namespace LiveView.Models.Dependencies
     public class SequentialChainsPresenterDependencies : BasePresenterDependencies
     {
         public SequentialChainsPresenterDependencies(
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IGridRepository<Grid> gridRepository,
-            IGridInSequenceRepository<GridInSequence> gridInSequenceRepository,
-            ISequenceRepository<Sequence> sequenceRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            IGridRepository gridRepository,
+            IGridInSequenceRepository gridInSequenceRepository,
+            ISequenceRepository sequenceRepository,
             ILogger<SequentialChains> logger)
             : base(generalOptionsRepository)
         {
@@ -21,11 +20,11 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public IGridRepository<Grid> GridRepository { get; private set; }
+        public IGridRepository GridRepository { get; private set; }
 
-        public ISequenceRepository<Sequence> SequenceRepository { get; private set; }
+        public ISequenceRepository SequenceRepository { get; private set; }
 
-        public IGridInSequenceRepository<GridInSequence> GridInSequenceRepository { get; private set; }
+        public IGridInSequenceRepository GridInSequenceRepository { get; private set; }
 
         public ILogger<SequentialChains> Logger { get; private set; }
     }

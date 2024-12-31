@@ -15,10 +15,10 @@ namespace LiveView.Presenters
     public class GridManagerPresenter : BasePresenter
     {
         private IGridManagerView view;
-        private readonly IGridRepository<Grid> gridRepository;
-        private readonly IGridCameraRepository<GridCamera> gridCameraRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
-        private readonly IServerRepository<Server> serverRepository;
+        private readonly IGridRepository gridRepository;
+        private readonly IGridCameraRepository gridCameraRepository;
+        private readonly ICameraRepository cameraRepository;
+        private readonly IServerRepository serverRepository;
         private readonly ILogger<GridManager> logger;
 
         public GridManagerPresenter(GridManagerPresenterDependencies gridManagerPresenterDependencies)

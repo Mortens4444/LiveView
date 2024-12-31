@@ -4,9 +4,9 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class UserEventRepository<TModel> : BaseRepository<TModel>, IUserEventRepository<TModel>
+    public sealed class UserEventRepository : BaseRepository<UserEvent>, IUserEventRepository
     {
-        public TModel GetByName(string name)
+        public UserEvent GetByName(string name)
         {
             return QuerySingleOrDefault("SelectUserEventByName", new { Name = name });
         }

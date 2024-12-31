@@ -10,10 +10,10 @@ namespace LiveView.Presenters
     public class AddDatabaseServerPresenter : BasePresenter
     {
         private IAddDatabaseServerView view;
-        private readonly IDatabaseServerRepository<DatabaseServer> databaseServerRepository;
+        private readonly IDatabaseServerRepository databaseServerRepository;
         private readonly ILogger<AddDatabaseServer> logger;
 
-        public AddDatabaseServerPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, IDatabaseServerRepository<DatabaseServer> databaseServerRepository, ILogger<AddDatabaseServer> logger)
+        public AddDatabaseServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IDatabaseServerRepository databaseServerRepository, ILogger<AddDatabaseServer> logger)
             : base(generalOptionsRepository)
         {
             this.databaseServerRepository = databaseServerRepository;

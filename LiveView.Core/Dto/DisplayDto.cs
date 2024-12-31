@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace LiveView.Dto
+namespace LiveView.Core.Dto
 {
     public class DisplayDto
     {
@@ -87,9 +87,11 @@ namespace LiveView.Dto
                 Id = Id,
                 CanShowFullscreen = CanShowFullscreen,
                 CanShowSequence = CanShowSequence,
-                FullscreenDisplay = Fullscreen,
+                Fullscreen = Fullscreen,
                 PnPDeviceId = PnPDeviceId,
-                ShownName = MonitorName
+                MonitorName = MonitorName,
+                AdapterName = AdapterName,
+                SziltechId = SziltechId
             };
         }
     }

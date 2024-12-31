@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums.Display
+﻿namespace LiveView.Core.Enums.Display
 {
     public enum MonitorOptions : uint
     {

@@ -19,11 +19,11 @@ namespace LiveView.Services
         public delegate void CameraObjectClickedEventHandler(CameraObjectClickedEventArgs e);
         public event CameraObjectClickedEventHandler CameraObjectClicked;
 
-        private readonly IMapRepository<Map> mapRepository;
-        private readonly IMapObjectRepository<MapObject> mapObjectRepository;
-        private readonly IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository;
-        private readonly IServerRepository<Server> serverRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly IMapRepository mapRepository;
+        private readonly IMapObjectRepository mapObjectRepository;
+        private readonly IObjectInMapRepository objectInMapRepositoryRepository;
+        private readonly IServerRepository serverRepository;
+        private readonly ICameraRepository cameraRepository;
 
         public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {

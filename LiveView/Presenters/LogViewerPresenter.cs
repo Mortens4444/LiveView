@@ -17,7 +17,7 @@ namespace LiveView.Presenters
     public class LogViewerPresenter : BasePresenter
     {
         private ILogViewerView view;
-        private readonly ILogRepository<LogEntry> logRepository;
+        private readonly ILogRepository logRepository;
         private readonly ReadOnlyCollection<User> users;
         private readonly ILogger<LogViewer> logger;
         private readonly int currentUserId;

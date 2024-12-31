@@ -1,16 +1,15 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 
 namespace LiveView.Models.Dependencies
 {
     public class MapLoaderDependencies
     {
         public MapLoaderDependencies(
-            IMapRepository<Map> mapRepository,
-            IServerRepository<Server> serverRepository,
-            ICameraRepository<Camera> cameraRepository,
-            IMapObjectRepository<MapObject> mapObjectRepository,
-            IObjectInMapRepository<ObjectInMap> objectInMapRepositoryRepository)
+            IMapRepository mapRepository,
+            IServerRepository serverRepository,
+            ICameraRepository cameraRepository,
+            IMapObjectRepository mapObjectRepository,
+            IObjectInMapRepository objectInMapRepositoryRepository)
         {
             ServerRepository = serverRepository;
             CameraRepository = cameraRepository;
@@ -19,14 +18,14 @@ namespace LiveView.Models.Dependencies
             ObjectInMapRepositoryRepository = objectInMapRepositoryRepository;
         }
 
-        public IMapRepository<Map> MapRepository { get; private set; }
+        public IMapRepository MapRepository { get; private set; }
 
-        public IServerRepository<Server> ServerRepository { get; private set; }
+        public IServerRepository ServerRepository { get; private set; }
 
-        public ICameraRepository<Camera> CameraRepository { get; private set; }
+        public ICameraRepository CameraRepository { get; private set; }
 
-        public IMapObjectRepository<MapObject> MapObjectRepository { get; private set; }
+        public IMapObjectRepository MapObjectRepository { get; private set; }
 
-        public IObjectInMapRepository<ObjectInMap> ObjectInMapRepositoryRepository { get; private set; }
+        public IObjectInMapRepository ObjectInMapRepositoryRepository { get; private set; }
     }
 }

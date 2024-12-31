@@ -8,9 +8,13 @@ namespace Database.Models
 
         public string PnPDeviceId { get; set; }
 
-        public string ShownName { get; set; }
+        public string MonitorName { get; set; }
 
-        public bool FullscreenDisplay { get; set; }
+        public string AdapterName { get; set; }
+
+        public string SziltechId { get; set; }
+
+        public bool Fullscreen { get; set; }
         
         public bool CanShowSequence { get; set; }
 

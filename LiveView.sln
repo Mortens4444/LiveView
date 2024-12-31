@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView", "LiveView\LiveView.csproj", "{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20AC2A7B-3D31-4891-B335-914E0FD6E208} = {20AC2A7B-3D31-4891-B335-914E0FD6E208}
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2} = {9809F222-B010-4EFC-ACD4-23E18788E5F2}
 		{CF46705B-BC31-45A3-8512-FC23BE84392C} = {CF46705B-BC31-45A3-8512-FC23BE84392C}
 		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A} = {F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}
 	EndProjectSection
@@ -24,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		ToDo.txt = ToDo.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Core", "LiveView.Core\LiveView.Core.csproj", "{615A060D-7516-4A6C-B76B-7D30C50F5383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +58,10 @@ Global
 		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615A060D-7516-4A6C-B76B-7D30C50F5383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615A060D-7516-4A6C-B76B-7D30C50F5383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615A060D-7516-4A6C-B76B-7D30C50F5383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615A060D-7516-4A6C-B76B-7D30C50F5383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

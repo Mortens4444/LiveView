@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
@@ -10,8 +9,8 @@ namespace LiveView.Models.Dependencies
     {
         public PersonalOptionsPresenterDependencies(
             PermissionManager permissionManager,
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IPersonalOptionsRepository<PersonalOptions> personalOptionsRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
+            IPersonalOptionsRepository personalOptionsRepository,
             ILogger<PersonalOptionsForm> logger)
             : base(generalOptionsRepository)
         {
@@ -22,7 +21,7 @@ namespace LiveView.Models.Dependencies
 
         public PermissionManager PermissionManager { get; private set; }
 
-        public IPersonalOptionsRepository<PersonalOptions> PersonalOptionsRepository { get; private set; }
+        public IPersonalOptionsRepository PersonalOptionsRepository { get; private set; }
 
         public ILogger<PersonalOptionsForm> Logger { get; private set; }
     }

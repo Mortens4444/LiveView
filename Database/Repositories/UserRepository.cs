@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class UserRepository <TModel> : BaseRepository<TModel>, IUserRepository<TModel>
+    public sealed class UserRepository : BaseRepository<User>, IUserRepository
     {
         public long GetUserCount()
         {

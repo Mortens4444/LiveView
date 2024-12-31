@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace Database.Interfaces
 {
-    public interface ILogRepository<TModel> : IRepository<TModel>
+    public interface ILogRepository : IRepository<LogEntry>
     {
-        ReadOnlyCollection<TModel> FilterLogs(LogEntryFilter logEntryFilter);
+        ReadOnlyCollection<LogEntry> FilterLogs(LogEntryFilter logEntryFilter);
 
         void DeleteAll();
     }

@@ -11,7 +11,7 @@ namespace LiveView.Presenters
     public class TemplatesPresenter : BasePresenter
     {
         private ITemplatesView view;
-        private readonly ITemplateRepository<Template> templateRepository;
+        private readonly ITemplateRepository templateRepository;
         private readonly ILogger<Templates> logger;
 
         public TemplatesPresenter(TemplatesPresenterDependencies templatesPresenterDependencies)

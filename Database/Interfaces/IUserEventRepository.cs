@@ -3,8 +3,8 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IUserEventRepository<TModel> : IRepository<TModel>
+    public interface IUserEventRepository : IRepository<UserEvent>
     {
-        TModel GetByName(string name);
+        UserEvent GetByName(string name);
     }
 }

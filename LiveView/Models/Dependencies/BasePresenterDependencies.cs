@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Services;
 
 namespace LiveView.Models.Dependencies
@@ -7,7 +6,7 @@ namespace LiveView.Models.Dependencies
     public class BasePresenterDependencies
     {
         public BasePresenterDependencies(
-            IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
             FormFactory formFactory = null)
         {
             FormFactory = formFactory;
@@ -16,6 +15,6 @@ namespace LiveView.Models.Dependencies
 
         public FormFactory FormFactory { get; private set; }
 
-        public IGeneralOptionsRepository<GeneralOption> GeneralOptionsRepository { get; private set; }
+        public IGeneralOptionsRepository GeneralOptionsRepository { get; private set; }
     }
 }

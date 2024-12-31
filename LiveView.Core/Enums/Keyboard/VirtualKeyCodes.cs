@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums.Keyboard
+﻿namespace LiveView.Core.Enums.Keyboard
 {
     public enum VirtualKeyCodes : uint
     {

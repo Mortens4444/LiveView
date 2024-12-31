@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class MapRepository<TModel> : BaseRepository<TModel>, IMapRepository<TModel>
+    public sealed class MapRepository : BaseRepository<Map>, IMapRepository
     {
     }
 }

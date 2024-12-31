@@ -10,10 +10,10 @@ namespace LiveView.Presenters
     public class CameraPropertiesPresenter : BasePresenter
     {
         private ICameraPropertiesView view;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly ILogger<CameraProperties> logger;
 
-        public CameraPropertiesPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, ICameraRepository<Camera> cameraRepository, ILogger<CameraProperties> logger)
+        public CameraPropertiesPresenter(IGeneralOptionsRepository generalOptionsRepository, ICameraRepository cameraRepository, ILogger<CameraProperties> logger)
             : base(generalOptionsRepository)
         {
             this.cameraRepository = cameraRepository;

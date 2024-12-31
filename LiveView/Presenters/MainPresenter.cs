@@ -1,5 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Enums.Keyboard;
+using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -18,9 +20,9 @@ namespace LiveView.Presenters
         private IMainView view;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
-        private readonly IGroupRepository<Group> groupRepository;
-        private readonly IUserRepository<User> userRepository;
-        private readonly IUsersInGroupsRepository<UserGroup> userGroupRepository;
+        private readonly IGroupRepository groupRepository;
+        private readonly IUserRepository userRepository;
+        private readonly IUsersInGroupsRepository userGroupRepository;
 
         public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
             : base(mainPresenterDependencies)

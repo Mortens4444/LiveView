@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class PersonalOptions
+    public class PersonalOption
     {
         public string Name { get; set; }
 

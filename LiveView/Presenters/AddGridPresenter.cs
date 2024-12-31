@@ -1,5 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dto;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Extensions;
@@ -29,8 +31,8 @@ namespace LiveView.Presenters
 
         private GridType gridType = GridType.OneWay;
         private IAddGridView view;
-        private readonly IGridRepository<Grid> gridRepository;
-        private readonly IGridCameraRepository<GridCamera> gridCameraRepository;
+        private readonly IGridRepository gridRepository;
+        private readonly IGridCameraRepository gridCameraRepository;
         private readonly ILogger<AddGrid> logger;
         private readonly DisplayManager displayManager;
         private readonly List<CameraDto> cameras;

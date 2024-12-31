@@ -36,7 +36,7 @@ namespace LiveView
             //#endif
 
             BaseRepository.CommandTimeout = 240;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository<>).Assembly;
+            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
             BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"]?.ConnectionString;
@@ -48,7 +48,7 @@ namespace LiveView
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData" /*"MigrationRenameConstraints"*/ };
 
-            var migrationRepository = new MigrationRepository<Migration>();
+            var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();
             foreach (var migrationToExecute in migrationsToExecute)
             {

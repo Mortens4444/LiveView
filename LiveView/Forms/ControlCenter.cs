@@ -1,5 +1,7 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
+using LiveView.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
@@ -16,6 +18,7 @@ namespace LiveView.Forms
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
         private ControlCenterPresenter presenter;
+        private Process cameraProcess;
 
         public ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
@@ -267,6 +270,26 @@ namespace LiveView.Forms
             catch (Exception ex)
             {
                 DebugErrorBox.Show(ex);
+            }
+        }
+
+        private void LvSequences_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected && e.Item.Tag is Sequence sequence)
+            {
+                AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id}");
+            }
+        }
+
+        private void LvCameras_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected && e.Item.Tag is Camera camera)
+            {
+                if (cameraProcess != null)
+                {
+                    cameraProcess.Kill();
+                }
+                cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
             }
         }
     }

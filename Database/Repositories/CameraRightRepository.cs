@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class CameraRightRepository<TModel> : BaseRepository<TModel>, ICameraRightRepository<TModel>
+    public sealed class CameraRightRepository : BaseRepository<CameraRight>, ICameraRightRepository
     {
     }
 }

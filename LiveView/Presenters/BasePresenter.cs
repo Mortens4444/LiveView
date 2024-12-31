@@ -21,13 +21,13 @@ namespace LiveView.Presenters
         private readonly FormFactory formFactory;
         private static IEnumerable<GeneralOptionDto> generalOptions;
 
-        protected readonly IGeneralOptionsRepository<GeneralOption> generalOptionsRepository;
+        protected readonly IGeneralOptionsRepository generalOptionsRepository;
 
         public BasePresenter(BasePresenterDependencies basePresenterDependencies) :
             this (basePresenterDependencies.GeneralOptionsRepository, basePresenterDependencies.FormFactory)
         { }
 
-        public BasePresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory = null)
+        public BasePresenter(IGeneralOptionsRepository generalOptionsRepository, FormFactory formFactory = null)
         {
             this.formFactory = formFactory;
             this.generalOptionsRepository = generalOptionsRepository;

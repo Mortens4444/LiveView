@@ -18,12 +18,12 @@ namespace LiveView.Presenters
         private const int OperationIconIndex = 0;
 
         private IAddGroupView view;
-        private readonly IGroupRepository<Group> groupRepository;
-        private readonly IUserEventRepository<UserEvent> userEventRepository;
-        private readonly IOperationRepository<Operation> operationRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
-        private readonly IRightRepository<Right> rightRepository;
-        private readonly ICameraRightRepository<CameraRight> cameraRightRepository;
+        private readonly IGroupRepository groupRepository;
+        private readonly IUserEventRepository userEventRepository;
+        private readonly IOperationRepository operationRepository;
+        private readonly ICameraRepository cameraRepository;
+        private readonly IRightRepository rightRepository;
+        private readonly ICameraRightRepository cameraRightRepository;
         private readonly ILogger<AddGroup> logger;
 
         public AddGroupPresenter(AddGroupPresenterDependencies addGroupPresenterDependencies)

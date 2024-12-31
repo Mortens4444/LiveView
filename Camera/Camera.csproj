@@ -21,6 +21,7 @@
     <PackageReference Include="Mtf.Controls" Version="1.0.17" />
     <PackageReference Include="Mtf.Database" Version="2.0.25" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.12" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
@@ -28,7 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
-    <ProjectReference Include="..\Mtf.Enums\Mtf.Enums.csproj" />
+    <ProjectReference Include="..\LiveView.Core\LiveView.Core.csproj" />
   </ItemGroup>
 
 </Project>

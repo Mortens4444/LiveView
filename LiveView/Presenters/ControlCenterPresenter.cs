@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -20,10 +21,10 @@ namespace LiveView.Presenters
     public class ControlCenterPresenter : BaseDisplayPresenter
     {
         private IControlCenterView view;
-        private readonly IDisplayRepository<Display> displayRepository;
-        private readonly ITemplateRepository<Template> templateRepository;
-        private readonly ISequenceRepository<Sequence> sequenceRepository;
-        private readonly ICameraRepository<Camera> cameraRepository;
+        private readonly IDisplayRepository displayRepository;
+        private readonly ITemplateRepository templateRepository;
+        private readonly ISequenceRepository sequenceRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
 

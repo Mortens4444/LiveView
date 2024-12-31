@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace LiveView.Dto
+namespace LiveView.Core.Dto
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct DEVMODE

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mtf.Enums.Display
+namespace LiveView.Core.Enums.Display
 {
     [Flags]
     public enum DisplayDeviceStateFlags : int

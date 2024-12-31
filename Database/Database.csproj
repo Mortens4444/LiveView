@@ -18,6 +18,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectGrid.sql" />
     <EmbeddedResource Include="Scripts\UpdateGrid.sql" />
     <EmbeddedResource Include="Scripts\InsertInitialData.sql" />

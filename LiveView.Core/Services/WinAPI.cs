@@ -1,12 +1,11 @@
-﻿using LiveView.Dto;
-using Mtf.Enums;
-using Mtf.Enums.Display;
-using Mtf.Enums.Keyboard;
+﻿using LiveView.Core.Dto;
+using LiveView.Core.Enums.Display;
+using LiveView.Core.Enums.Keyboard;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace LiveView.Services
+namespace LiveView.Core.Services
 {
     public static class WinAPI
     {

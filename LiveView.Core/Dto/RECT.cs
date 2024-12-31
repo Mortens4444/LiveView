@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace LiveView.Dto
+namespace LiveView.Core.Dto
 {
     /// <summary>
     /// The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.

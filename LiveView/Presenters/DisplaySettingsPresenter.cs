@@ -1,5 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dto;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -15,13 +17,13 @@ namespace LiveView.Presenters
     public class DisplaySettingsPresenter : BaseDisplayPresenter
     {
         private IDisplaySettingsView view;
-        private readonly IDisplayRepository<Display> displayRepository;
+        private readonly IDisplayRepository displayRepository;
         private readonly ILogger<DisplaySettings> logger;
         private readonly DisplayManager displayManager;
         private readonly List<DisplayDto> displays;
 
-        public DisplaySettingsPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository,
-            IDisplayRepository<Display> displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
+        public DisplaySettingsPresenter(IGeneralOptionsRepository generalOptionsRepository,
+            IDisplayRepository displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
             : base(displayManager, generalOptionsRepository, formFactory)
         {
             this.displayManager = displayManager;

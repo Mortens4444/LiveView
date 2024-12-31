@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace LiveView.Dto
+namespace LiveView.Core.Dto
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct MONITORINFO

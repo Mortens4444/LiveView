@@ -4,9 +4,9 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GroupRepository<TModel> : BaseRepository<TModel>, IGroupRepository<TModel>
+    public sealed class GroupRepository : BaseRepository<Group>, IGroupRepository
     {
-        public TModel GetByName(string name)
+        public Group GetByName(string name)
         {
             return QuerySingleOrDefault("SelectGroupByName", new { Name = name });
         }

@@ -1,9 +1,10 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class MapObjectRepository<TModel> : BaseRepository<TModel>, IMapObjectRepository<TModel>
+    public sealed class MapObjectRepository : BaseRepository<MapObject>, IMapObjectRepository
     {
         public string SelectCameraName(int cameraId)
         {

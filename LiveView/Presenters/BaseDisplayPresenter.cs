@@ -4,10 +4,12 @@ using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services;
+using LiveView.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using LiveView.Core.Dto;
+using LiveView.Services;
 
 namespace LiveView.Presenters
 {
@@ -21,7 +23,7 @@ namespace LiveView.Presenters
             displayManager = controlCenterPresenterDependencies.DisplayManager;
         }
 
-        public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory)
+        public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository generalOptionsRepository, FormFactory formFactory)
             : base(generalOptionsRepository, formFactory)
         {
             this.displayManager = displayManager;
