@@ -1,0 +1,19 @@
+.camera-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+  
+    video {
+      width: 100%;
+      max-width: 600px;
+      border: 2px solid white;
+    }
+  }
+  
+  p {
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+  }

@@ -317,6 +317,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(436, 519);
             Controls.Add(gbMain);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddCameras";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

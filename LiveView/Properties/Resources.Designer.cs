@@ -313,6 +313,16 @@ namespace LiveView.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap grid_manager {
+            get {
+                object obj = ResourceManager.GetObject("grid_manager", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap house {
             get {
                 object obj = ResourceManager.GetObject("house", resourceCulture);
@@ -326,6 +336,16 @@ namespace LiveView.Properties {
         internal static System.Drawing.Bitmap house_g {
             get {
                 object obj = ResourceManager.GetObject("house_g", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IPVS37 {
+            get {
+                object obj = ResourceManager.GetObject("IPVS37", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -456,6 +476,26 @@ namespace LiveView.Properties {
         internal static System.Drawing.Bitmap se_g {
             get {
                 object obj = ResourceManager.GetObject("se_g", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sequential_chains {
+            get {
+                object obj = ResourceManager.GetObject("sequential_chains", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap server_and_camera_management {
+            get {
+                object obj = ResourceManager.GetObject("server_and_camera_management", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

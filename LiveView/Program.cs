@@ -32,7 +32,7 @@ namespace LiveView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //#else
-            //            ApplicationConfiguration.Initialize();
+            //ApplicationConfiguration.Initialize();
             //#endif
 
             BaseRepository.CommandTimeout = 240;

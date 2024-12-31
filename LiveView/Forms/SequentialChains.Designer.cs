@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(SequentialChains));
             pMain = new System.Windows.Forms.Panel();
             tbSequenceName = new System.Windows.Forms.TextBox();
             nudSecondsToShow = new System.Windows.Forms.NumericUpDown();
@@ -346,6 +347,7 @@
             Controls.Add(gbSequenceName);
             Controls.Add(gbSequenceStructure);
             Controls.Add(pMain);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(498, 416);
             Name = "SequentialChains";

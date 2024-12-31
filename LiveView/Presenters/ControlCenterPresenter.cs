@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
@@ -21,19 +22,20 @@ namespace LiveView.Presenters
         private IControlCenterView view;
         private readonly IDisplayRepository<Display> displayRepository;
         private readonly ITemplateRepository<Template> templateRepository;
+        private readonly ISequenceRepository<Sequence> sequenceRepository;
         private readonly ICameraRepository<Camera> cameraRepository;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
 
-        public ControlCenterPresenter(IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory, ITemplateRepository<Template> templateRepository, IDisplayRepository<Display> displayRepository,
-            ICameraRepository<Camera> cameraRepository, DisplayManager displayManager, ILogger<ControlCenter> logger)
-            : base(displayManager, generalOptionsRepository, formFactory)
+        public ControlCenterPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
+            : base(controlCenterPresenterDependencies)
         {
-            this.templateRepository = templateRepository;
-            this.displayRepository = displayRepository;
-            this.cameraRepository = cameraRepository;
-            this.displayManager = displayManager;
-            this.logger = logger;
+            templateRepository = controlCenterPresenterDependencies.TemplateRepository;
+            displayRepository = controlCenterPresenterDependencies.DisplayRepository;
+            sequenceRepository = controlCenterPresenterDependencies.SequenceRepository;
+            cameraRepository = controlCenterPresenterDependencies.CameraRepository;
+            displayManager = controlCenterPresenterDependencies.DisplayManager;
+            logger = controlCenterPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -145,6 +147,27 @@ namespace LiveView.Presenters
         public override void Load()
         {
             view.InitializeMouseUpdateTimer(view.PDisplayDevices);
+
+            var sequences = sequenceRepository.SelectAll();
+            view.LvSequences.Items.Clear();
+            foreach (var sequence in sequences)
+            {
+                view.AddToItems(view.LvSequences, new ListViewItem(sequence.Name) { Tag = sequence });
+            }
+
+            var cameras = cameraRepository.SelectAll();
+            view.LvCameras.Items.Clear();
+            foreach (var camera in cameras)
+            {
+                view.AddToItems(view.LvCameras, new ListViewItem(camera.CameraName) { Tag = camera });
+            }
+
+            var templates = templateRepository.SelectAll();
+            view.LvTemplates.Items.Clear();
+            foreach (var template in templates)
+            {
+                view.AddToItems(view.LvTemplates, new ListViewItem(template.TemplateName) { Tag = template });
+            }
         }
 
         //public ReadOnlyCollection<Display> GetDisplays()

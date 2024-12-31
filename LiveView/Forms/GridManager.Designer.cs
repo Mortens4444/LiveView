@@ -150,7 +150,7 @@
             // 
             contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo });
             contextMenuStrip.Name = "contextMenuStrip1";
-            contextMenuStrip.Size = new System.Drawing.Size(193, 120);
+            contextMenuStrip.Size = new System.Drawing.Size(193, 98);
             // 
             // chGuid
             // 

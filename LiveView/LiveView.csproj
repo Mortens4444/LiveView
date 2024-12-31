@@ -13,6 +13,7 @@
     <InformationalVersion>$(Version)</InformationalVersion>
     <PlatformTarget>x86</PlatformTarget>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <ApplicationIcon>Resources\eye.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +39,10 @@
       <Isolated>false</Isolated>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\eye.ico" />
   </ItemGroup>
 
   <ItemGroup>

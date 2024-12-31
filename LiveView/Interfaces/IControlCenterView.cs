@@ -10,5 +10,11 @@ namespace LiveView.Interfaces
         Panel PDisplayDevices { get; }
 
         void InitializeMouseUpdateTimer(Panel panel);
+
+        ListView LvCameras { get; }
+
+        ListView LvSequences { get; }
+
+        ListView LvTemplates { get; }
     }
 }

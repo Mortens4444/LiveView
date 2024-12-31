@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using LiveView.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace LiveView.Presenters
     public class BaseDisplayPresenter : BasePresenter, IDisplayPresenter
     {
         private readonly DisplayManager displayManager;
+
+        public BaseDisplayPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
+            : base(controlCenterPresenterDependencies.GeneralOptionsRepository, controlCenterPresenterDependencies.FormFactory)
+        {
+            displayManager = controlCenterPresenterDependencies.DisplayManager;
+        }
 
         public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository<GeneralOption> generalOptionsRepository, FormFactory formFactory)
             : base(generalOptionsRepository, formFactory)

@@ -961,6 +961,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(742, 835);
             Controls.Add(pMain);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "AddGrid";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;

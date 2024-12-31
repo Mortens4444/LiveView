@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -134,7 +134,7 @@ namespace LiveView.Forms
             // 
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -149,7 +149,7 @@ namespace LiveView.Forms
             // 
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -158,7 +158,7 @@ namespace LiveView.Forms
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = Properties.Resources.display_settings;
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
@@ -219,6 +219,7 @@ namespace LiveView.Forms
             // tsmiSequentialChains
             // 
             tsmiSequentialChains.Enabled = false;
+            tsmiSequentialChains.Image = Properties.Resources.sequential_chains;
             tsmiSequentialChains.Name = "tsmiSequentialChains";
             tsmiSequentialChains.Size = new System.Drawing.Size(245, 22);
             tsmiSequentialChains.Text = "Sequential chains";
@@ -227,6 +228,7 @@ namespace LiveView.Forms
             // tsmiGridManagement
             // 
             tsmiGridManagement.Enabled = false;
+            tsmiGridManagement.Image = Properties.Resources.grid_manager;
             tsmiGridManagement.Name = "tsmiGridManagement";
             tsmiGridManagement.Size = new System.Drawing.Size(245, 22);
             tsmiGridManagement.Text = "Grid management";
@@ -240,6 +242,7 @@ namespace LiveView.Forms
             // tsmiServerAndCameraManagement
             // 
             tsmiServerAndCameraManagement.Enabled = false;
+            tsmiServerAndCameraManagement.Image = Properties.Resources.server_and_camera_management;
             tsmiServerAndCameraManagement.Name = "tsmiServerAndCameraManagement";
             tsmiServerAndCameraManagement.Size = new System.Drawing.Size(245, 22);
             tsmiServerAndCameraManagement.Text = "Server and camera management";
@@ -361,8 +364,8 @@ namespace LiveView.Forms
             // 
             tsslOsUptime.Alignment = ToolStripItemAlignment.Right;
             tsslOsUptime.Name = "tsslOsUptime";
-            tsslOsUptime.Size = new System.Drawing.Size(125, 17);
-            tsslOsUptime.Text = "Uptime: 0 day 00:00:00";
+            tsslOsUptime.Size = new System.Drawing.Size(165, 17);
+            tsslOsUptime.Text = "System uptime: 0 day 00:00:00";
             // 
             // tsmiExit
             // 
@@ -376,7 +379,7 @@ namespace LiveView.Forms
             // 
             tsmiLicense.Image = Properties.Resources.license_form;
             tsmiLicense.Name = "tsmiLicense";
-            tsmiLicense.Size = new System.Drawing.Size(180, 22);
+            tsmiLicense.Size = new System.Drawing.Size(113, 22);
             tsmiLicense.Text = "License";
             tsmiLicense.Click += TsmiLicense_Click;
             // 
@@ -391,7 +394,7 @@ namespace LiveView.Forms
             // 
             tsmiAbout.Image = Properties.Resources.about;
             tsmiAbout.Name = "tsmiAbout";
-            tsmiAbout.Size = new System.Drawing.Size(180, 22);
+            tsmiAbout.Size = new System.Drawing.Size(113, 22);
             tsmiAbout.Text = "About";
             tsmiAbout.Click += TsmiAbout_Click;
             // 
@@ -593,11 +596,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "IO_Devices";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -858,7 +861,9 @@ namespace LiveView.Forms
             // pbMap
             // 
             pbMap.BackColor = System.Drawing.Color.Silver;
+            pbMap.BackgroundImageLayout = ImageLayout.Zoom;
             pbMap.Dock = DockStyle.Fill;
+            pbMap.Image = Properties.Resources.IPVS37;
             pbMap.Location = new System.Drawing.Point(0, 0);
             pbMap.Margin = new Padding(4, 3, 4, 3);
             pbMap.Name = "pbMap";
@@ -919,6 +924,7 @@ namespace LiveView.Forms
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1186, 697);
             Controls.Add(pMain);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
             Name = "MainForm";
             StartPosition = FormStartPosition.Manual;

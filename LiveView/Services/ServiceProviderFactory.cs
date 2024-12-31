@@ -40,6 +40,7 @@ namespace LiveView.Services
         {
             services.AddTransient<AddGridPresenterDependencies>();
             services.AddTransient<AddGroupPresenterDependencies>();
+            services.AddTransient<ControlCenterPresenterDependencies>();            
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<EnterPassPresenterDependencies>();
             services.AddTransient<GeneralOptionsPresenterDependencies>();
@@ -56,7 +57,6 @@ namespace LiveView.Services
             services.AddTransient<SyncronViewPresenterDependencies>();
             services.AddTransient<TemplatesPresenterDependencies>();
             services.AddTransient<UserAndGroupManagementPresenterDependencies>();
-            //services.AddTransient<BasePresenterDependencies>();
         }
 
         private static void RegisterPresenters(ServiceCollection services)

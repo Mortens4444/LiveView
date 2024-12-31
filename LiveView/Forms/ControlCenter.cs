@@ -61,6 +61,12 @@ namespace LiveView.Forms
 
         public Panel PDisplayDevices => pDisplayDevices;
 
+        public ListView LvCameras => lvCameras;
+
+        public ListView LvSequences => lvSequences;
+
+        public ListView LvTemplates => lvTemplates;
+
         [RequirePermission(SequenceManagementPermissions.Close)]
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
