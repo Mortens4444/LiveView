@@ -19,6 +19,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropDisplaysTableColumns.sql" />
     <EmbeddedResource Include="Scripts\DeleteDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectDisplay.sql" />
@@ -116,7 +117,6 @@
     <EmbeddedResource Include="Scripts\InsertDatabase.sql" />
     <EmbeddedResource Include="Scripts\UpdateDatabase.sql" />
     <EmbeddedResource Include="Scripts\UpdateGeneralOption.sql" />
-    <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectUser.sql" />
     <EmbeddedResource Include="Scripts\SelectUserId.sql" />
     <EmbeddedResource Include="Scripts\SelectMapObject.sql" />

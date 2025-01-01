@@ -1,4 +1,5 @@
-﻿using LiveView.Interfaces;
+﻿using LiveView.Enums;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
@@ -55,25 +56,27 @@ namespace LiveView.Forms
         private void DisplaySettings_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as DisplaySettingsPresenter;
+            GetAndCacheDisplays(pFunctionChooser.Size);
             presenter.Load();
         }
 
         private void PFunctionChooser_Paint(object sender, PaintEventArgs e)
         {
-            PanelPaint(pFunctionChooser, e);
+            try
+            {
+                DrawDisplays(e.Graphics, DisplayDrawingTools.Functions);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void PFullscreenDisplay_Paint(object sender, PaintEventArgs e)
         {
-            PanelPaint(pFullscreenDisplay, e);
-        }
-
-        private void PanelPaint(Panel panel, PaintEventArgs e)
-        {
             try
             {
-                GetAndCacheDisplays(panel);
-                DrawDisplays(e.Graphics);
+                DrawDisplays(e.Graphics, DisplayDrawingTools.Fullscreen);
             }
             catch (Exception ex)
             {
@@ -83,12 +86,12 @@ namespace LiveView.Forms
 
         private void PFunctionChooser_MouseClick(object sender, MouseEventArgs e)
         {
-            presenter.ChangeDisplay(false, e.X, e.Y);
+            presenter.ChangeDisplayFunction(e.Location);
         }
 
         private void PFullscreenDisplay_MouseClick(object sender, MouseEventArgs e)
         {
-            presenter.ChangeDisplay(true, e.X, e.Y);
+            presenter.SelectFullscreenDisplay(e.Location);
         }
     }
 }

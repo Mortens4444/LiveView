@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using LiveView.Core.Services;
 using LiveView.Forms;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 
 namespace LiveView.Models.Dependencies
@@ -14,8 +15,9 @@ namespace LiveView.Models.Dependencies
             ISequenceRepository sequenceRepository,
             ICameraRepository cameraRepository,
             DisplayManager displayManager,
+            FormFactory formFactory,
             ILogger<ControlCenter> logger)
-            : base(generalOptionsRepository)
+            : base(generalOptionsRepository, formFactory)
         {
             TemplateRepository = templateRepository;
             CameraRepository = cameraRepository;

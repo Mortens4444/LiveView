@@ -9,10 +9,7 @@ BEGIN
         (@Id, @X, @Y, @Width, @Height, @MaxWidth, @MaxHeight, @DeviceName, @SziltechId, 
          @MonitorName, @AdapterName, @IsPrimary, @Removable, @AttachedToDesktop, 
          @Fullscreen, @CanShowSequence, @CanShowFullscreen);
-    --INSERT INTO Displays
-    --    (Id, SziltechId, MonitorName, AdapterName, Fullscreen, CanShowSequence, CanShowFullscreen)
-    --VALUES
-    --    (@Id, @SziltechId, @MonitorName, @AdapterName, 'False', 'True', 'True');
+
 END
 ELSE
 BEGIN
@@ -30,9 +27,6 @@ BEGIN
         DeviceName = @DeviceName,
         IsPrimary = @IsPrimary,
         Removable = @Removable,
-        AttachedToDesktop = @AttachedToDesktop,
-        Fullscreen = @Fullscreen,
-        CanShowSequence = @CanShowSequence,
-        CanShowFullscreen = @CanShowFullscreen
+        AttachedToDesktop = @AttachedToDesktop
     WHERE Id = @Id;
 END

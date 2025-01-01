@@ -288,6 +288,7 @@
             pDisplayDevices.TransparentColor = System.Drawing.Color.Black;
             pDisplayDevices.UseTransparentColor = false;
             pDisplayDevices.Paint += PDisplayDevices_Paint;
+            pDisplayDevices.MouseClick += PDisplayDevices_MouseClick;
             // 
             // btnRearrangeGrid
             // 

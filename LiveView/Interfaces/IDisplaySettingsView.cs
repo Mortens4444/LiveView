@@ -2,7 +2,7 @@
 
 namespace LiveView.Interfaces
 {
-    public interface IDisplaySettingsView : IView
+    public interface IDisplaySettingsView : IBaseDisplayView
     {
         Panel FullScreenDisplay { get; }
 

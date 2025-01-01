@@ -1,5 +1,7 @@
-﻿UPDATE Displays SET
-	CanShowSequence = @CanShowSequence,
-	CanShowFullscreen = @CanShowFullscreen,
-	ShownName = @ShownName
-WHERE Id = @Id
+﻿UPDATE Displays
+SET 
+    Fullscreen = @Fullscreen,
+    CanShowSequence = @CanShowSequence,
+    CanShowFullscreen = @CanShowFullscreen,
+    SziltechId = @SziltechId
+WHERE Id = @Id;

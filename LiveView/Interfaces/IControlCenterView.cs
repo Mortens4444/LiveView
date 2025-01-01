@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
-    public interface IControlCenterView : IView
+    public interface IControlCenterView : IBaseDisplayView
     {
         Point HomeLocation { get; }
 

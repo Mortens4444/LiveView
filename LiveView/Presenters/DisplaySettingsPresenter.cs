@@ -1,16 +1,15 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LiveView.Core.Dto;
 using LiveView.Core.Services;
-using LiveView.Dto;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Linq;
 
 namespace LiveView.Presenters
 {
@@ -19,17 +18,15 @@ namespace LiveView.Presenters
         private IDisplaySettingsView view;
         private readonly IDisplayRepository displayRepository;
         private readonly ILogger<DisplaySettings> logger;
-        private readonly DisplayManager displayManager;
-        private readonly List<DisplayDto> displays;
+        private readonly ReadOnlyCollection<Display> displays;
 
         public DisplaySettingsPresenter(IGeneralOptionsRepository generalOptionsRepository,
             IDisplayRepository displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
             : base(displayManager, generalOptionsRepository, formFactory)
         {
-            this.displayManager = displayManager;
             this.displayRepository = displayRepository;
             this.logger = logger;
-            displays = GetDisplays();
+            displays = displayRepository.SelectAll();
         }
 
         public new void SetView(IView view)
@@ -40,81 +37,83 @@ namespace LiveView.Presenters
 
         public void ResetDisplays()
         {
-            throw new NotImplementedException();
+            foreach (var display in view.CachedDisplays)
+            {
+                display.Fullscreen = false;
+                display.CanShowFullscreen = true;
+                display.CanShowSequence = true;
+                display.SziltechId = $"M-{display.Id}";
+            }
         }
 
         public void SaveDisplaySettings()
         {
-            throw new NotImplementedException();
+            foreach (var display in view.CachedDisplays)
+            {
+                displayRepository.Update(display.ToModel());
+            }
+            logger.LogInfo("Display settings saved.");
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            foreach (var cachedDisplay in view.CachedDisplays)
+            {
+                var display = displays.FirstOrDefault(d => d.Id == cachedDisplay.Id);
+                if (display != null)
+                {
+                    cachedDisplay.Fullscreen = display.Fullscreen;
+                    cachedDisplay.CanShowFullscreen = display.CanShowFullscreen;
+                    cachedDisplay.CanShowSequence = display.CanShowSequence;
+                    cachedDisplay.SziltechId = display.SziltechId;
+                }
+            }
         }
 
-        public void ChangeDisplay(bool fullscreen, int ex, int ey)
+        public void ChangeDisplayFunction(Point location)
         {
-            //DisplayDto fs = null;
-            var panel = fullscreen ? view.FullScreenDisplay : view.FunctionChooser;
-            var bounds = GetScaledDisplayBounds(displays, panel.Size);
-            
-            foreach (var display in displays)
+            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
             {
-                //if (display.Fullscreen)
-                //{
-                //    fs = display;
-                //}
-
-                var r2 = bounds[display.Id];
-                if (r2.Contains(ex, ey))
+                if (bounds.Value.Contains(location))
                 {
-                    if (fullscreen)
+                    var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
+                    if (display != null)
                     {
-                        MainForm.FullScreenDisplay = display;
-                    }
-                    else
-                    {
-                        AdjustDisplayCapabilities(display);
-                        UpdateFunctionChooserControls(display);
+                        if (display.CanShowSequence && display.CanShowFullscreen)
+                        {
+                            display.CanShowFullscreen = false;
+                        }
+                        else if (display.CanShowSequence)
+                        {
+                            display.CanShowSequence = false;
+                            display.CanShowFullscreen = true;
+                        }
+                        else if (display.CanShowFullscreen)
+                        {
+                            display.CanShowFullscreen = false;
+                        }
+                        else
+                        {
+                            display.CanShowFullscreen = true;
+                            display.CanShowSequence = true;
+                        }
                     }
                 }
             }
-
-            view.Invalidate(panel);
+            view.Invalidate(view.FunctionChooser);
         }
 
-        private void AdjustDisplayCapabilities(DisplayDto display)
+        public void SelectFullscreenDisplay(Point location)
         {
-            if (display.CanShowSequence && display.CanShowFullscreen)
+            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
             {
-                display.CanShowFullscreen = false;
-            }
-            else if (display.CanShowSequence)
-            {
-                display.CanShowSequence = false;
-                display.CanShowFullscreen = true;
-            }
-            else if (display.CanShowFullscreen)
-            {
-                display.CanShowFullscreen = false;
-            }
-            else
-            {
-                display.CanShowSequence = true;
-                display.CanShowFullscreen = true;
-            }
-        }
-
-        private void UpdateFunctionChooserControls(DisplayDto display)
-        {
-            foreach (Control control in view.FunctionChooser.Controls)
-            {
-                if (control is CheckBox checkBox && control.Tag is Display tagDisplay && tagDisplay.Id == display.Id)
+                var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
+                if (display != null)
                 {
-                    checkBox.Checked = checkBox.Name.StartsWith("cb_seq") ? display.CanShowSequence : display.CanShowFullscreen;
+                    display.Fullscreen = bounds.Value.Contains(location);
                 }
             }
+            view.Invalidate(view.FullScreenDisplay);
         }
     }
 }

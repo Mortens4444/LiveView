@@ -65,7 +65,6 @@ namespace LiveView
             }
             LiveViewTranslator.Translate();
 
-
             var serviceProvider = ServiceProviderFactory.Create();
             ExceptionHandler.SetLogger(serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>());
 

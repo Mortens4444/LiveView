@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services;
@@ -254,6 +255,7 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
+            GetAndCacheDisplays(PDisplayDevices.Size);
             presenter.Load();
         }
 
@@ -261,8 +263,7 @@ namespace LiveView.Forms
         {
             try
             {
-                GetAndCacheDisplays(PDisplayDevices);
-                DrawDisplays(e.Graphics);
+                DrawDisplays(e.Graphics, DisplayDrawingTools.Selected);
                 DrawMouse(e.Graphics, PDisplayDevices.Size);
             }
             catch (Exception ex)
@@ -289,6 +290,11 @@ namespace LiveView.Forms
                 }
                 cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
             }
+        }
+
+        private void PDisplayDevices_MouseClick(object sender, MouseEventArgs e)
+        {
+            presenter.SelectDisplay(e.Location);
         }
     }
 }

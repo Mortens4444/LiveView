@@ -1,19 +1,13 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Core.Services;
-using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.MessageBoxes;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Reflection;
-using System.Threading;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -171,19 +165,16 @@ namespace LiveView.Presenters
             }
         }
 
-        //public ReadOnlyCollection<Display> GetDisplays()
-        //{
-        //    var displays = displayRepository.GetAll();
-        //    if (displays.Count == 0)
-        //    {
-        //        var displayDtos = displayManager.GetAll();
-        //        foreach (var displayDto in displayDtos)
-        //        {
-        //            displayRepository.Insert(displayDto.ToDisplay());
-        //        }
-        //        displays = displayRepository.GetAll();
-        //    }
-        //    return displays;
-        //}
+        public void SelectDisplay(Point location)
+        {
+            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
+            {
+                var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
+                if (display != null)
+                {
+                    display.Selected = bounds.Value.Contains(location);
+                }
+            }
+        }
     }
 }
