@@ -187,7 +187,7 @@ namespace LiveView.Forms
             }
             catch (Exception ex)
             {
-                DebugErrorBox.Show(ex);
+                //DebugErrorBox.Show(ex);
             }
         }
     }
