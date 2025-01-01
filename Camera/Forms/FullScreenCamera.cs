@@ -38,7 +38,7 @@ namespace CameraApp.Forms
             }
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
-            var display = displays.FirstOrDefault(d => d.SziltechId == fullScreenDisplay.SziltechId);
+            var display = displays.FirstOrDefault(d => d.Id == fullScreenDisplay.Id);
             if (display == null)
             {
                 throw new InvalidOperationException("Choose another fullscreen display.");

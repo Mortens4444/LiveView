@@ -1,6 +1,5 @@
 ﻿using Database.Models;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Dto
@@ -27,15 +26,9 @@ namespace LiveView.Core.Dto
 
         public Screen Screen { get; set; }
 
-        public object Tag { get; set; }
-
         public int X { get; set; }
 
         public int Y { get; set; }
-
-        public Rectangle Bounds { get; set; }
-
-        public Rectangle WorkingArea { get; set; }
 
         public int Width { get; set; }
 
@@ -45,14 +38,6 @@ namespace LiveView.Core.Dto
 
         public int MaxHeight { get; set; }
 
-        public int LittleX { get; set; }
-
-        public int LittleY { get; set; }
-
-        public int LittleWidth { get; set; }
-
-        public int LittleHeight { get; set; }
-
         public string MonitorName { get; set; }
 
         public string AdapterName { get; set; }
@@ -61,7 +46,7 @@ namespace LiveView.Core.Dto
 
         public bool Selected { get; set; }
 
-        public bool Primary { get; set; }
+        public bool IsPrimary { get; set; }
 
         public bool Removable { get; set; }
 
@@ -80,15 +65,24 @@ namespace LiveView.Core.Dto
             return SziltechId;
         }
 
-        public Display ToDisplay()
+        public Display ToModel()
         {
             return new Display
             {
                 Id = Id,
+                X = X,
+                Y = Y,
+                Width = Width,
+                MaxWidth = MaxWidth,
+                Height = Height,
+                MaxHeight = MaxHeight,
+                IsPrimary = IsPrimary,
+                Removable = Removable,
                 CanShowFullscreen = CanShowFullscreen,
                 CanShowSequence = CanShowSequence,
                 Fullscreen = Fullscreen,
-                PnPDeviceId = PnPDeviceId,
+                AttachedToDesktop = AttachedToDesktop,
+                DeviceName = DeviceName,
                 MonitorName = MonitorName,
                 AdapterName = AdapterName,
                 SziltechId = SziltechId

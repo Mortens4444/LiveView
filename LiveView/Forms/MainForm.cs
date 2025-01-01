@@ -1,9 +1,7 @@
 ﻿using LiveView.Core.Dto;
 using LiveView.Core.Services;
-using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;

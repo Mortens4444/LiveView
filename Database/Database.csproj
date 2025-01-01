@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+    <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\MigrationDropDisplaysTableColumns.sql" />
+    <EmbeddedResource Include="Scripts\DeleteDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectGrid.sql" />
     <EmbeddedResource Include="Scripts\UpdateGrid.sql" />

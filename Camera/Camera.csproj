@@ -10,7 +10,7 @@
     <RootNamespace>CameraApp</RootNamespace>
     <PlatformTarget>x86</PlatformTarget>
     <ApplicationIcon>Resources\bigcam.ico</ApplicationIcon>
-
+    <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

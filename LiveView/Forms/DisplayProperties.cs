@@ -1,5 +1,4 @@
 ﻿using LiveView.Core.Dto;
-using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;

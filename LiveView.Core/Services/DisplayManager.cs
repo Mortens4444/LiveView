@@ -91,7 +91,7 @@ namespace LiveView.Core.Services
                         AdapterName = adapter.DeviceString,
                         DeviceName = adapter.DeviceName,
                         SziltechId = $"M-{deviceIndex + 1}",
-                        Primary = primary,
+                        IsPrimary = primary,
                         Removable = removable,
                         AttachedToDesktop = attachedToDesktop,
                         MainForm = mainForm,
