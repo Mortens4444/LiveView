@@ -30,8 +30,6 @@
         {
             tbCurrentPassword = new Mtf.Controls.PasswordBox();
             lblCurrentPassword = new System.Windows.Forms.Label();
-            tbConfirmNewPassword = new Mtf.Controls.PasswordBox();
-            lblConfirmNewPassword = new System.Windows.Forms.Label();
             tbNewPassword = new System.Windows.Forms.TextBox();
             lblNewPassword = new System.Windows.Forms.Label();
             lblUsername = new System.Windows.Forms.Label();
@@ -58,6 +56,7 @@
             gbPicture = new System.Windows.Forms.GroupBox();
             gbPersonalDetails = new System.Windows.Forms.GroupBox();
             pMain = new System.Windows.Forms.Panel();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
             gbCredentials.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
             gbPicture.SuspendLayout();
@@ -88,30 +87,6 @@
             lblCurrentPassword.Size = new System.Drawing.Size(100, 15);
             lblCurrentPassword.TabIndex = 2;
             lblCurrentPassword.Text = "Current password";
-            // 
-            // tbConfirmNewPassword
-            // 
-            tbConfirmNewPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbConfirmNewPassword.Location = new System.Drawing.Point(197, 95);
-            tbConfirmNewPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbConfirmNewPassword.MaxLength = 100;
-            tbConfirmNewPassword.Name = "tbConfirmNewPassword";
-            tbConfirmNewPassword.Password = "";
-            tbConfirmNewPassword.PasswordChar = '*';
-            tbConfirmNewPassword.ShowRealPasswordLength = false;
-            tbConfirmNewPassword.Size = new System.Drawing.Size(176, 23);
-            tbConfirmNewPassword.TabIndex = 7;
-            // 
-            // lblConfirmNewPassword
-            // 
-            lblConfirmNewPassword.AutoSize = true;
-            lblConfirmNewPassword.Location = new System.Drawing.Point(10, 98);
-            lblConfirmNewPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblConfirmNewPassword.MaximumSize = new System.Drawing.Size(176, 15);
-            lblConfirmNewPassword.Name = "lblConfirmNewPassword";
-            lblConfirmNewPassword.Size = new System.Drawing.Size(129, 15);
-            lblConfirmNewPassword.TabIndex = 6;
-            lblConfirmNewPassword.Text = "Confirm new password";
             // 
             // tbNewPassword
             // 
@@ -150,8 +125,6 @@
             // 
             gbCredentials.Controls.Add(tbCurrentPassword);
             gbCredentials.Controls.Add(lblCurrentPassword);
-            gbCredentials.Controls.Add(tbConfirmNewPassword);
-            gbCredentials.Controls.Add(lblConfirmNewPassword);
             gbCredentials.Controls.Add(tbNewPassword);
             gbCredentials.Controls.Add(lblNewPassword);
             gbCredentials.Controls.Add(tbUsername);
@@ -160,7 +133,7 @@
             gbCredentials.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbCredentials.Name = "gbCredentials";
             gbCredentials.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCredentials.Size = new System.Drawing.Size(380, 125);
+            gbCredentials.Size = new System.Drawing.Size(380, 102);
             gbCredentials.TabIndex = 0;
             gbCredentials.TabStop = false;
             gbCredentials.Text = "Credentials";
@@ -215,7 +188,7 @@
             tbOtherInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbOtherInformation.Multiline = true;
             tbOtherInformation.Name = "tbOtherInformation";
-            tbOtherInformation.Size = new System.Drawing.Size(366, 104);
+            tbOtherInformation.Size = new System.Drawing.Size(366, 128);
             tbOtherInformation.TabIndex = 9;
             // 
             // tbTelephoneNumber
@@ -406,11 +379,11 @@
             gbPersonalDetails.Controls.Add(lblAddress);
             gbPersonalDetails.Controls.Add(tbFullName);
             gbPersonalDetails.Controls.Add(lblFullName);
-            gbPersonalDetails.Location = new System.Drawing.Point(0, 135);
+            gbPersonalDetails.Location = new System.Drawing.Point(0, 111);
             gbPersonalDetails.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbPersonalDetails.Name = "gbPersonalDetails";
             gbPersonalDetails.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbPersonalDetails.Size = new System.Drawing.Size(380, 285);
+            gbPersonalDetails.Size = new System.Drawing.Size(380, 309);
             gbPersonalDetails.TabIndex = 1;
             gbPersonalDetails.TabStop = false;
             gbPersonalDetails.Text = "Personal details";
@@ -428,6 +401,11 @@
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(654, 458);
             pMain.TabIndex = 1;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "ProfilePicture.jpg";
+            openFileDialog.Filter = "BMP files|*.bmp|JPG files|*.jpg";
             // 
             // Profile
             // 
@@ -485,5 +463,6 @@
         private System.Windows.Forms.GroupBox gbPicture;
         private System.Windows.Forms.GroupBox gbPersonalDetails;
         private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

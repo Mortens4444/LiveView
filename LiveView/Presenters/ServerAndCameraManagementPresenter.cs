@@ -130,7 +130,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError($"User '{0}' has no permission to delete video server.", permissionManager.CurrentUser);
+                        logger.LogError("User '{0}' has no permission to delete video server.", permissionManager.CurrentUser);
                         throw new UnauthorizedAccessException();
                     }
                 }

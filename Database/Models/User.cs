@@ -33,7 +33,7 @@ namespace Database.Models
 
         public override string ToString()
         {
-            var result = string.Empty;
+            var result = String.Empty;
 
             if (!String.IsNullOrWhiteSpace(Username))
             {

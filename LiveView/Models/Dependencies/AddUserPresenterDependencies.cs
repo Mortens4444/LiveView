@@ -1,28 +1,23 @@
 ﻿using Database.Interfaces;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
-using Mtf.Permissions.Services;
 
 namespace LiveView.Models.Dependencies
 {
-    public class ProfilePresenterDependencies : BasePresenterDependencies
+    public class AddUserPresenterDependencies : BasePresenterDependencies
     {
-        public ProfilePresenterDependencies(
-            PermissionManager permissionManager,
+        public AddUserPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             IUserRepository userRepository,
-            ILogger<Profile> logger)
+            ILogger<AddUser> logger)
             : base(generalOptionsRepository)
         {
-            PermissionManager = permissionManager;
             UserRepository = userRepository;
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
-
         public IUserRepository UserRepository { get; private set; }
 
-        public ILogger<Profile> Logger { get; private set; }
+        public ILogger<AddUser> Logger { get; private set; }
     }
 }

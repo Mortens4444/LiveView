@@ -1,0 +1,1 @@
+﻿SELECT Id, UserId, GroupId FROM UsersInGroups;

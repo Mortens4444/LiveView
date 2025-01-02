@@ -19,6 +19,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllUserGroup.sql" />
     <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropDisplaysTableColumns.sql" />
     <EmbeddedResource Include="Scripts\DeleteDisplay.sql" />

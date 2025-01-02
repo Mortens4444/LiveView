@@ -1,7 +1,8 @@
 ﻿using Database.Interfaces;
-using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 
 namespace LiveView.Presenters
@@ -12,11 +13,11 @@ namespace LiveView.Presenters
         private readonly IUserRepository userRepository;
         private readonly ILogger<AddUser> logger;
 
-        public AddUserPresenter(IGeneralOptionsRepository generalOptionsRepository, IUserRepository userRepository, ILogger<AddUser> logger)
-            : base(generalOptionsRepository)
+        public AddUserPresenter(AddUserPresenterDependencies addUserPresenterDependencies)
+            : base(addUserPresenterDependencies)
         {
-            this.userRepository = userRepository;
-            this.logger = logger;
+            userRepository = addUserPresenterDependencies.UserRepository;
+            logger = addUserPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -29,6 +30,7 @@ namespace LiveView.Presenters
         {
             var user = view.GetUser();
             userRepository.Insert(user);
+            logger.LogInfo("User {0} has been created.", user.Username);
         }
     }
 }

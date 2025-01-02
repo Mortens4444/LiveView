@@ -117,29 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAANHR0dbOzs7/y8vL/wAAAADExMT/wsLC/7+/v/+9vb3/urq6/7i4uP+2trb/tLS0/wAA
-        AACxsbH/r6+v/6+vr9bU1NT//////+Li4v/MzMz/39/f/////////////////////////////////9XV
-        1f+0tLT/0tLS//////+vr6//19fX///////////////////////19fX/7u7u/+zs7P/q6ur/6enp//Dw
-        8P//////////////////////sbGx/9ra2v//////xbWT/+SoaP//umP//7tk//etXP/PrID/2NjY/+vr
-        6//q6ur/6Ojo/+jo6P/o6Oj//////7Ozs//d3d3//////9SqeP/vu43//79l//mkU///pVv/5K5z/9jY
-        2P/u7u7/tra2/7a2tv+2trb/tra2//////+1tbX/39/f///////6yIj/zZp+/6G0uP+vwsT/q5OJ//O5
-        d//Y2Nj/8fHx/+/v7//t7e3/6+vr/+rq6v//////uLi4/+Li4v///////MyN/7KwtP+cyPP/oM74/3SZ
-        vP/7zI3/2NjY//T09P+2trb/tra2/7a2tv+2trb//////7u7u//k5OT///////zMjf+Bmbn/TH+1/y9i
-        lv8lTXb/+MmM/9jY2P/39/f/9fX1//Pz8//x8fH/7+/v//////++vr7/5eXl///////8zI3/78GH/7Ca
-        dv+llXX/z6p3//zMjf/Y2Nj//Pz8/+y1c//mrWn/4KRf/9ucVf//////wcHB/+bm5vz6+vr/+vr6//n5
-        +f/5+fn/+fn5//j4+P/4+Pj/9/f3//f39//29vb/9vb2//X19f/09PT/9PT0/8TExPzm5uZ45ubmzObm
-        5szk5OTM4+PjzOHh4czf39/M3d3dzNvb28zY2NjM1tbWzNPT08zR0dHMzs7OzMvLy8zIyMhvAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAA//+sQf//rEEQCKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQf//
-        rEH//6xB//+sQQ==
-</value>
-  </data>
+  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
