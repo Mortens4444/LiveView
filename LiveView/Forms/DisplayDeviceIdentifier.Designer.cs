@@ -129,8 +129,8 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DisplayDeviceIdentifier";
-            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             TopMost = true;
+            Load += DisplayDeviceIdentifier_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
