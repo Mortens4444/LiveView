@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Services;
 using LiveView.Extensions;
@@ -52,6 +53,13 @@ namespace LiveView.Presenters
             {
                 displayRepository.Update(display.ToModel());
             }
+
+            generalOptionsRepository.Set<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter, view.RbShowOnControlCentersSelectedDisplay.Checked);
+            generalOptionsRepository.Set<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, view.RbShowOnFullscreenDisplay.Checked);
+
+            generalOptionsRepository.Set<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, view.RbShowOnControlCentersSelectedDisplay2.Checked);
+            generalOptionsRepository.Set<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence, view.RbShowOnFullscreenDisplay2.Checked);
+
             logger.LogInfo("Display settings saved.");
         }
 
@@ -68,6 +76,12 @@ namespace LiveView.Presenters
                     cachedDisplay.SziltechId = display.SziltechId;
                 }
             }
+
+            view.RbShowOnControlCentersSelectedDisplay.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter);
+            view.RbShowOnFullscreenDisplay.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true);
+
+            view.RbShowOnControlCentersSelectedDisplay2.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, true);
+            view.RbShowOnFullscreenDisplay2.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence);
         }
 
         public void ChangeDisplayFunction(Point location)

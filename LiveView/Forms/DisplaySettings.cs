@@ -18,6 +18,14 @@ namespace LiveView.Forms
 
         public Panel FunctionChooser => pFunctionChooser;
 
+        public RadioButton RbShowOnControlCentersSelectedDisplay => rbShowOnControlCentersSelectedDisplay;
+
+        public RadioButton RbShowOnFullscreenDisplay => rbShowOnFullscreenDisplay;
+
+        public RadioButton RbShowOnControlCentersSelectedDisplay2 => rbShowOnControlCentersSelectedDisplay2;
+
+        public RadioButton RbShowOnFullscreenDisplay2 => rbShowOnFullscreenDisplay2;
+
         public DisplaySettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(DisplaySettingsPresenter))
         {
             InitializeComponent();

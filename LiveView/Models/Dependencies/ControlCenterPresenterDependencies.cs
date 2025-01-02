@@ -3,6 +3,7 @@ using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 
 namespace LiveView.Models.Dependencies
 {
@@ -14,11 +15,13 @@ namespace LiveView.Models.Dependencies
             ITemplateRepository templateRepository,
             ISequenceRepository sequenceRepository,
             ICameraRepository cameraRepository,
+            PermissionManager permissionManager,
             DisplayManager displayManager,
             FormFactory formFactory,
             ILogger<ControlCenter> logger)
             : base(generalOptionsRepository, formFactory)
         {
+            PermissionManager = permissionManager;
             TemplateRepository = templateRepository;
             CameraRepository = cameraRepository;
             DisplayManager = displayManager;
@@ -26,6 +29,8 @@ namespace LiveView.Models.Dependencies
             SequenceRepository = sequenceRepository;
             Logger = logger;
         }
+
+        public PermissionManager PermissionManager { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
         

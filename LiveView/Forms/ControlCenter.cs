@@ -8,7 +8,6 @@ using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,7 +16,6 @@ namespace LiveView.Forms
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
         private ControlCenterPresenter presenter;
-        private Process cameraProcess;
 
         public ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
@@ -284,11 +282,8 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
-                if (cameraProcess != null)
-                {
-                    cameraProcess.Kill();
-                }
-                cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
+                presenter.StartCameraApp(camera);
+                e.Item.Selected = false;
             }
         }
 

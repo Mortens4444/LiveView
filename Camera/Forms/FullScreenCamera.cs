@@ -1,4 +1,5 @@
 ﻿using Database.Repositories;
+using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using Mtf.LanguageService;
 using Mtf.Permissions.Services;
@@ -11,6 +12,7 @@ namespace CameraApp.Forms
 {
     public partial class FullScreenCamera : Form
     {
+        private readonly DisplayDto display;
         private readonly long cameraId;
         private readonly PermissionManager permissionManager;
 
@@ -26,7 +28,7 @@ namespace CameraApp.Forms
             permissionManager = new PermissionManager();
             permissionManager.SetUser(this, new Mtf.Permissions.Models.User
             {
-                
+
             });
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
@@ -38,11 +40,16 @@ namespace CameraApp.Forms
             }
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
-            var display = displays.FirstOrDefault(d => d.Id == fullScreenDisplay.Id);
+
+            display = displays.FirstOrDefault(d => d.Id == fullScreenDisplay.Id);
             if (display == null)
             {
                 throw new InvalidOperationException("Choose another fullscreen display.");
             }
+        }
+
+        private void FullScreenCamera_Load(object sender, EventArgs e)
+        {
             Location = new Point(display.X, display.Y);
             Size = new Size(display.MaxWidth, display.MaxHeight);
         }

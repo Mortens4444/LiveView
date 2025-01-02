@@ -7,5 +7,13 @@ namespace LiveView.Interfaces
         Panel FullScreenDisplay { get; }
 
         Panel FunctionChooser { get; }
+
+        RadioButton RbShowOnControlCentersSelectedDisplay { get; }
+
+        RadioButton RbShowOnFullscreenDisplay { get; }
+
+        RadioButton RbShowOnControlCentersSelectedDisplay2 { get; }
+
+        RadioButton RbShowOnFullscreenDisplay2 { get; }
     }
 }

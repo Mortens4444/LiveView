@@ -1,11 +1,16 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
+using Database.Models;
 using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,8 +24,10 @@ namespace LiveView.Presenters
         private readonly ITemplateRepository templateRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly PermissionManager permissionManager;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
+        private Process cameraProcess;
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
             : base(controlCenterPresenterDependencies)
@@ -30,6 +37,7 @@ namespace LiveView.Presenters
             sequenceRepository = controlCenterPresenterDependencies.SequenceRepository;
             cameraRepository = controlCenterPresenterDependencies.CameraRepository;
             displayManager = controlCenterPresenterDependencies.DisplayManager;
+            permissionManager = controlCenterPresenterDependencies.PermissionManager;
             logger = controlCenterPresenterDependencies.Logger;
         }
 
@@ -173,6 +181,34 @@ namespace LiveView.Presenters
                 if (display != null)
                 {
                     display.Selected = bounds.Value.Contains(location);
+                }
+            }
+        }
+
+        public void StartCameraApp(Camera camera)
+        {
+            if (cameraProcess != null)
+            {
+                cameraProcess.Kill();
+            }
+
+            if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
+            {
+                var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+                if (selectedDisplay != null)
+                {
+                    cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                }
+                else
+                {
+                    ShowError("Select a display first.");
+                }
+            }
+            else
+            {
+                if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
+                {
+                    cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
                 }
             }
         }
