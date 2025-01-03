@@ -3,11 +3,13 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 using System;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
+using ImageConverter = LiveView.Services.ImageConverter;
 
 namespace LiveView.Presenters
 {
@@ -55,11 +57,20 @@ namespace LiveView.Presenters
             user.OtherInformation = view.TbOtherInformation.Text;
             user.Phone = view.TbTelephoneNumber.Text;
             user.Image = ImageConverter.ImageToByteArray(view.PbPicture.Image, ImageFormat.Bmp);
+            if (view.TbCurrentPassword.Password == user.Password && !String.IsNullOrEmpty(view.TbNewPassword.Password))
+            {
+                user.Password = view.TbNewPassword.Password;
+            }
+            userRepository.Update(user);
+            CloseForm();
         }
 
         public void SelectProfilePicture()
         {
-            throw new NotImplementedException();
+            if (view.OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                view.PbPicture.Image = Image.FromFile(view.OpenFileDialog.FileName);
+            }
         }
     }
 }

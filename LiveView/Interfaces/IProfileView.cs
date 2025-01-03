@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Mtf.Controls;
+using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
@@ -18,9 +19,9 @@ namespace LiveView.Interfaces
 
         TextBox TbUsername { get; }
 
-        TextBox TbNewPassword { get; }
+        PasswordBox TbCurrentPassword { get; }
 
-        ComboBox CbSizeMode { get; }
+        PasswordBox TbNewPassword { get; }
 
         PictureBox PbPicture { get; }
 

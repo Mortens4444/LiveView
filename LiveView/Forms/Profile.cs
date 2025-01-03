@@ -1,5 +1,6 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -26,13 +27,13 @@ namespace LiveView.Forms
 
         public TextBox TbUsername => tbUsername;
 
-        public TextBox TbNewPassword => tbNewPassword;
-
-        public ComboBox CbSizeMode => cbSizeMode;
-
         public PictureBox PbPicture => pbPicture;
 
-        public OpenFileDialog OpenFileDialog => throw new NotImplementedException();
+        public OpenFileDialog OpenFileDialog => openFileDialog;
+
+        public PasswordBox TbCurrentPassword => tbCurrentPassword;
+
+        public PasswordBox TbNewPassword => tbNewPassword;
 
         public Profile(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ProfilePresenter))
         {

@@ -134,7 +134,7 @@ namespace LiveView.Forms
             // 
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -149,7 +149,7 @@ namespace LiveView.Forms
             // 
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -158,13 +158,14 @@ namespace LiveView.Forms
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = Properties.Resources.display_settings;
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
             // tsmiProfile
             // 
             tsmiProfile.Enabled = false;
+            tsmiProfile.Image = Properties.Resources.profile;
             tsmiProfile.Name = "tsmiProfile";
             tsmiProfile.Size = new System.Drawing.Size(229, 22);
             tsmiProfile.Text = "Profile";
@@ -379,7 +380,7 @@ namespace LiveView.Forms
             // 
             tsmiLicense.Image = Properties.Resources.license_form;
             tsmiLicense.Name = "tsmiLicense";
-            tsmiLicense.Size = new System.Drawing.Size(113, 22);
+            tsmiLicense.Size = new System.Drawing.Size(180, 22);
             tsmiLicense.Text = "License";
             tsmiLicense.Click += TsmiLicense_Click;
             // 
@@ -394,7 +395,7 @@ namespace LiveView.Forms
             // 
             tsmiAbout.Image = Properties.Resources.about;
             tsmiAbout.Name = "tsmiAbout";
-            tsmiAbout.Size = new System.Drawing.Size(113, 22);
+            tsmiAbout.Size = new System.Drawing.Size(180, 22);
             tsmiAbout.Text = "About";
             tsmiAbout.Click += TsmiAbout_Click;
             // 

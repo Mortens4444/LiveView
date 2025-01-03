@@ -18,6 +18,7 @@ namespace LiveView.Models.Dependencies
             ILogger<UserAndGroupManagement> logger)
             : base(generalOptionsRepository, formfactory)
         {
+            PermissionManager = permissionManager;
             GroupRepository = groupRepository;
             UserRepository = userRepository;
             UserGroupRepository = userGroupRepository;
