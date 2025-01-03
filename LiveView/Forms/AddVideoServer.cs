@@ -2,7 +2,6 @@
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
-using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -24,7 +23,7 @@ namespace LiveView.Forms
 
             if (server != null)
             {
-                Text = Lng.Elem("Add Video Server");
+                Text = "Modify video server";
                 btnAddOrModify.Text = "Modify";
             }
             Translator.Translate(this);
@@ -101,8 +100,6 @@ namespace LiveView.Forms
             tbSziltechSerialNumber.Text = server.SerialNumber;
             tbUsername.Text = server.Username;
             tbPassword.Text = server.Password;
-
-            btnAddOrModify.Text = Lng.Elem("Modify");
         }
     }
 }

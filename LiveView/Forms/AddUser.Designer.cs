@@ -35,7 +35,7 @@
             tbPassword = new Mtf.Controls.PasswordBox();
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
-            btnCreate = new System.Windows.Forms.Button();
+            btnAddOrModify = new System.Windows.Forms.Button();
             nudNeededSecondaryLogonPriority = new System.Windows.Forms.NumericUpDown();
             lblPriority = new System.Windows.Forms.Label();
             btnClose = new System.Windows.Forms.Button();
@@ -114,18 +114,18 @@
             tbUsername.Size = new System.Drawing.Size(182, 23);
             tbUsername.TabIndex = 1;
             // 
-            // btnCreate
+            // btnAddOrModify
             // 
-            btnCreate.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnCreate.Location = new System.Drawing.Point(158, 209);
-            btnCreate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnCreate.Name = "btnCreate";
-            btnCreate.Size = new System.Drawing.Size(88, 27);
-            btnCreate.TabIndex = 1;
-            btnCreate.Text = "Add";
-            btnCreate.UseVisualStyleBackColor = true;
-            btnCreate.Click += BtnCreate_Click;
+            btnAddOrModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnAddOrModify.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnAddOrModify.Location = new System.Drawing.Point(158, 209);
+            btnAddOrModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddOrModify.Name = "btnAddOrModify";
+            btnAddOrModify.Size = new System.Drawing.Size(88, 27);
+            btnAddOrModify.TabIndex = 1;
+            btnAddOrModify.Text = "Add";
+            btnAddOrModify.UseVisualStyleBackColor = true;
+            btnAddOrModify.Click += BtnAddOrModify_Click;
             // 
             // nudNeededSecondaryLogonPriority
             // 
@@ -239,7 +239,7 @@
             pMain.Controls.Add(gbLoginSupervisingPriority);
             pMain.Controls.Add(gbLoginSupervisorsRequiredPriority);
             pMain.Controls.Add(btnClose);
-            pMain.Controls.Add(btnCreate);
+            pMain.Controls.Add(btnAddOrModify);
             pMain.Controls.Add(gbLoginDetails);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
@@ -309,7 +309,7 @@
         private Mtf.Controls.PasswordBox tbPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;
-        private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Button btnAddOrModify;
         private System.Windows.Forms.NumericUpDown nudNeededSecondaryLogonPriority;
         private System.Windows.Forms.Label lblPriority;
         private System.Windows.Forms.Button btnClose;

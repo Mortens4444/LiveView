@@ -40,6 +40,7 @@ namespace LiveView.Services
         {
             services.AddTransient<AddGridPresenterDependencies>();
             services.AddTransient<AddGroupPresenterDependencies>();
+            services.AddTransient<AddUserPresenterDependencies>();
             services.AddTransient<ControlCenterPresenterDependencies>();            
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<EnterPassPresenterDependencies>();

@@ -247,9 +247,16 @@ namespace LiveView.Forms
 #if SET_PRESENTER_WITH_DYNAMIC
         private void SetPresenterWithDynamic()
         {
-            dynamic presenter = serviceProvider?.GetRequiredService(presenterType);
-            Presenter = presenter as BasePresenter;
-            presenter.SetView(this);
+            try
+            {
+                dynamic presenter = serviceProvider?.GetRequiredService(presenterType);
+                Presenter = presenter as BasePresenter;
+                presenter.SetView(this);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 #else
         private void SetPresenterWithReflection()

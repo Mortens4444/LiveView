@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -31,6 +32,11 @@ namespace LiveView.Presenters
             var user = view.GetUser();
             userRepository.Insert(user);
             logger.LogInfo("User {0} has been created.", user.Username);
+        }
+
+        public void LoadData(User user)
+        {
+            view.LoadData(user);
         }
     }
 }
