@@ -47,7 +47,14 @@ namespace LiveView.Presenters
         {
             foreach (ListViewItem item in view.RightSide.Items)
             {
-                throw new NotImplementedException();
+                if (item.Tag is Grid grid)
+                {
+                    sequenceRepository.Insert(new Sequence
+                    {
+                        Active = true,
+
+                    });
+                }
             }
         }
 

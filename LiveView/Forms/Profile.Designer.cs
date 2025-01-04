@@ -394,7 +394,7 @@
             // openFileDialog
             // 
             openFileDialog.FileName = "ProfilePicture.jpg";
-            openFileDialog.Filter = "BMP files|*.bmp|JPG files|*.jpg|PNG files|*.png";
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.ico;*.tiff;*.emf;*.wmf|BMP files|*.bmp|JPEG files|*.jpg;*.jpeg|PNG files|*.png";
             // 
             // Profile
             // 

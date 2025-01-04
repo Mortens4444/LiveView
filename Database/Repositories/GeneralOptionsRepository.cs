@@ -40,7 +40,7 @@ namespace Database.Repositories
                         case OptionType.String:
                             return (T)Convert.ChangeType(setting.Value, typeof(T));
                         default:
-                            throw new NotImplementedException();
+                            throw new NotImplementedException($"Type '{setting.TypeId}' is not supported.");
                     }
                 }
                 catch (InvalidCastException)

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Sequence": {
+      "commandName": "Project",
+      "commandLineArgs": "1 3 1"
+    }
+  }
+}

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-namespace LiveView.Services
+namespace LiveView.Core.Services
 {
     public static class AppStarter
     {

@@ -50,6 +50,15 @@ namespace LiveView.Presenters
 
         public void Save()
         {
+            if (view.TbCurrentPassword.Password == user.Password && !String.IsNullOrEmpty(view.TbNewPassword.Password))
+            {
+                user.Password = view.TbNewPassword.Password;
+            }
+            else
+            {
+                ShowError("The current password does not match.");
+                return;
+            }
             user.FullName = view.TbFullName.Text;
             user.Address = view.TbAddress.Text;
             user.Email = view.TbEmailAddress.Text;
@@ -57,10 +66,6 @@ namespace LiveView.Presenters
             user.OtherInformation = view.TbOtherInformation.Text;
             user.Phone = view.TbTelephoneNumber.Text;
             user.Image = ImageConverter.ImageToByteArray(view.PbPicture.Image, ImageFormat.Bmp);
-            if (view.TbCurrentPassword.Password == user.Password && !String.IsNullOrEmpty(view.TbNewPassword.Password))
-            {
-                user.Password = view.TbNewPassword.Password;
-            }
             userRepository.Update(user);
             CloseForm();
         }
