@@ -212,5 +212,18 @@ namespace LiveView.Presenters
                 }
             }
         }
+
+        public void StartSequenceApp(Sequence sequence)
+        {
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            if (selectedDisplay != null)
+            {
+                AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} True");
+            }
+            else
+            {
+                ShowError("Select a display first.");
+            }
+        }
     }
 }

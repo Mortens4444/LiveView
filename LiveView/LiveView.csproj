@@ -59,6 +59,7 @@
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.8" />
     <PackageReference Include="Mtf.Joystick" Version="1.0.0" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
+    <PackageReference Include="Mtf.Network" Version="1.0.5" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.12" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />

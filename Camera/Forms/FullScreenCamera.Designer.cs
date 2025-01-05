@@ -73,6 +73,7 @@
             MinimizeBox = false;
             Name = "FullScreenCamera";
             ShowIcon = false;
+            ShowInTaskbar = false;
             Text = "FullScreenCamera";
             TopMost = true;
             Load += FullScreenCamera_Load;

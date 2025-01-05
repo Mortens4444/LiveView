@@ -11,14 +11,12 @@ namespace Sequence.Forms
         private readonly Server server;
         private readonly Database.Models.Camera camera;
         private readonly PermissionManager permissionManager;
-        private readonly Point location;
-        private readonly Size size;
+        private readonly Rectangle rectangle;
 
-        public Camera(PermissionManager permissionManager, Database.Models.Camera camera, Server server, Point location, Size size)
+        public Camera(PermissionManager permissionManager, Database.Models.Camera camera, Server server, Rectangle rectangle)
         {
             InitializeComponent();
-            this.location = location;
-            this.size = size;
+            this.rectangle = rectangle;
             this.server = server;
             this.camera = camera;
             this.permissionManager = permissionManager;
@@ -26,8 +24,8 @@ namespace Sequence.Forms
 
         private void Camera_Load(object sender, EventArgs e)
         {
-            Location = new Point(location.X, location.Y);
-            Size = new Size(size.Width, size.Height);
+            Location = new Point(rectangle.X, rectangle.Y);
+            Size = new Size(rectangle.Width, rectangle.Height);
         }
 
         private void Camera_Shown(object sender, EventArgs e)

@@ -1,4 +1,7 @@
-﻿namespace Sequence.Forms
+﻿using System;
+using System.Windows.Forms;
+
+namespace Sequence.Forms
 {
     partial class MainForm
     {
@@ -16,6 +19,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                DisposeCameraWindows();
             }
             base.Dispose(disposing);
         }
@@ -41,8 +45,8 @@
             MinimizeBox = false;
             Name = "MainForm";
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Load += this.MainForm_Load;
-            Shown += this.MainForm_Shown;
+            Load += MainForm_Load;
+            Shown += MainForm_Shown;
             ResumeLayout(false);
         }
 

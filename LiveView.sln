@@ -30,6 +30,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Core", "LiveView.Core\LiveView.Core.csproj", "{615A060D-7516-4A6C-B76B-7D30C50F5383}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequence", "Sequence\Sequence.csproj", "{AF6521C6-F1F1-4393-87E6-E3A8194388D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2} = {9809F222-B010-4EFC-ACD4-23E18788E5F2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

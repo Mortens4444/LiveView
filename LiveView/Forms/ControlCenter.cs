@@ -3,7 +3,6 @@ using LiveView.Core.Services;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
@@ -275,7 +274,7 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Sequence sequence)
             {
-                AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id}");
+                presenter.StartSequenceApp(sequence);
             }
         }
 

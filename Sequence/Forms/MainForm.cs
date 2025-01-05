@@ -1,15 +1,20 @@
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
+using LiveView.Core.Enums.Display;
+using LiveView.Core.Enums.Window;
 using LiveView.Core.Services;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
+using Sequence.Dto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +23,7 @@ namespace Sequence.Forms
     public partial class MainForm : Form
     {
         private readonly DisplayDto display;
+        private bool running = true;
         private readonly bool isMdi;
         private readonly long sequenceId;
         private readonly PermissionManager permissionManager;
@@ -25,8 +31,20 @@ namespace Sequence.Forms
         private readonly ReadOnlyCollection<Database.Models.Camera> allCameras;
         private readonly ReadOnlyCollection<GridCamera> gridCameras;
 
+        private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
+        private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
+
         public MainForm(long userId, long sequenceId, long displayId, bool isMdi)
         {
+            Application.ApplicationExit += OnExit;
+            AppDomain.CurrentDomain.ProcessExit += OnExit;
+            FormClosing += OnExit;
+            Console.CancelKeyPress += (sender, e) =>
+            {
+                e.Cancel = true;
+                DisposeCameraWindows();
+                Application.Exit();
+            };
             InitializeComponent();
             //closeToolStripMenuItem.Text = Lng.Elem("Close");
             this.isMdi = isMdi;
@@ -82,6 +100,7 @@ namespace Sequence.Forms
                 .SelectMany(grid => gridsInSequene
                 .Where(gridInSequence => gridInSequence.GridId == grid.Id)
                 .Select(gridInSequence => (grid, gridInSequence)))
+                .OrderBy(gridInSequence => gridInSequence.gridInSequence.Number)
                 .ToList();
 
             if (grids.Count > 1)
@@ -98,47 +117,150 @@ namespace Sequence.Forms
             }
         }
 
-        private void ShowGrid(List<(Grid grid, GridInSequence)> grids, (Grid, GridInSequence) gridInSequence)
+        private void OnExit(object sender, EventArgs e)
         {
-            var cameras = gridCameras
-                .Where(gridCamera => grids.Any(g => g.grid.Id == gridCamera.GridId))
-                .Join(allCameras,
-                    gridCamera => gridCamera.CameraId,
-                    camera => camera.Id,
-                    (gridCamera, camera) => new { GridCamera = gridCamera, Camera = camera, Server = servers.First(s => s.Id == camera.ServerId ) })
-                .ToList();
-            throw new NotImplementedException();
+            DisposeCameraWindows();
+        }
+
+        private List<Form> ShowGridInWindow(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
+        {
+            var result = new List<Form>();
+            var cameras = GetCameras(gridInSequence);
 
             foreach (var camera in cameras)
             {
-                if (isMdi)
+                var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
+
+                Camera cameraForm = null;
+                Invoke((Action)(() =>
                 {
-                    var location = new Point();
-                    var size = new Size();
-                    var cameraForm = new Camera(permissionManager, camera.Camera, camera.Server, location, size)
+                    cameraForm = new Camera(permissionManager, camera.Camera, camera.Server, rectangle)
                     {
                         MdiParent = this
                     };
                     cameraForm.Show();
-                }
-                else
+                }));
+                result.Add(cameraForm);
+            }
+            return result;
+        }
+
+        private List<Process> ShowGridOnScreen(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
+        {
+            var result = new List<Process>();
+            var cameras = GetCameras(gridInSequence);
+
+            foreach (var camera in cameras)
+            {
+                var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
+                result.Add(AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
+            }
+            return result;
+        }
+
+        private List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
+        {
+            return gridCameras
+                .Where(gc => gc.GridId == grid.grid.Id)
+                .Join(allCameras,
+                    gridCamera => gridCamera.CameraId,
+                    camera => camera.Id,
+                    (gridCamera, camera) => new CameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Camera = camera,
+                        Server = servers.First(s => s.Id == camera.ServerId)
+                    })
+                .ToList();
+        }
+        //private List<CameraInfo> GetCameras(List<(Grid grid, GridInSequence gridInSequence)> grids)
+        //{
+        //    var relevantGridIds = grids.Select(g => g.grid.Id).ToHashSet();
+        //    return gridCameras
+        //        .Where(gc => relevantGridIds.Contains(gc.GridId))
+        //        .Join(allCameras,
+        //            gridCamera => gridCamera.CameraId,
+        //            camera => camera.Id,
+        //            (gridCamera, camera) => new CameraInfo
+        //            {
+        //                GridCamera = gridCamera,
+        //                Camera = camera,
+        //                Server = servers.First(s => s.Id == camera.ServerId)
+        //            })
+        //        .ToList();
+        //}
+
+        private async Task ShowGridsAsync(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids)
+        {
+            while (running)
+            {
+                foreach (var grid in sequenceGrids)
                 {
-                    //cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                    ShowGrid(sequenceGrids, grid);
+                    await Task.Delay(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
+                    HideCameraWindows(grid.grid.Id);
                 }
             }
         }
-        
-        private async Task ShowGridsAsync(List<(Grid, GridInSequence gridInSequence)> sequenceGrids)
+
+        private void HideCameraWindows(long gridId)
         {
-            foreach (var grid in sequenceGrids)
+            if (isMdi)
             {
-                ShowGrid(sequenceGrids, grid);
-                await Task.Delay(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
+                FormUtils.HideMdiChildForms(this, cameraForms[gridId]);
+            }
+            else
+            {
+                ProcessUtils.ChangeExternalProcessesVisibility(processes[gridId], CmdShow.Hide);
+            }
+        }
+
+        int disposed;
+
+        private void DisposeCameraWindows()
+        {
+            if (Interlocked.Exchange(ref disposed, 1) == 0)
+            {
+                if (isMdi)
+                {
+                    FormUtils.DisposeMdiChildForms(this, cameraForms.Values.SelectMany(forms => forms).ToList());
+                }
+                else
+                {
+                    ProcessUtils.KillExternalProcesses(processes.Values.SelectMany(windows => windows).ToList());
+                }
+            }
+        }
+
+        private void ShowGrid(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids, (Grid grid, GridInSequence gridInSequence) grid)
+        {
+            if (isMdi)
+            {
+                if (cameraForms.TryGetValue(grid.grid.Id, out var value))
+                {
+                    FormUtils.ShowMdiChildForms(this, value);
+                }
+                else
+                {
+                    cameraForms[grid.grid.Id] = ShowGridInWindow(sequenceGrids, grid);
+                }
+            }
+            else
+            {
+                if (processes.TryGetValue(grid.grid.Id, out var value))
+                {
+                    ProcessUtils.ChangeExternalProcessesVisibility(value, CmdShow.Show);
+                }
+                else
+                {
+                    processes[grid.grid.Id] = ShowGridOnScreen(sequenceGrids, grid);
+                }
             }
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            running = false;
             Application.Exit();
         }
     }

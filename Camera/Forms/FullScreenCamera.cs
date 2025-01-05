@@ -13,24 +13,28 @@ namespace CameraApp.Forms
     public partial class FullScreenCamera : Form
     {
         private readonly DisplayDto display;
+        private readonly Point location;
+        private readonly Size size;
         private readonly long cameraId;
         private readonly PermissionManager permissionManager;
+
+        public FullScreenCamera(long userId, long cameraId, Point location, Size size)
+        {
+            InitializeComponent();
+            this.cameraId = cameraId;
+            permissionManager = new PermissionManager();
+            Initialize(userId, cameraId);
+            this.location = location;
+            this.size = size;
+            axVideoPlayerWindow.ContextMenuStrip = null;
+        }
 
         public FullScreenCamera(long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
-            closeToolStripMenuItem.Text = Lng.Elem("Close");
             this.cameraId = cameraId;
-
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-
             permissionManager = new PermissionManager();
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User
-            {
-
-            });
-            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+            Initialize(userId, cameraId);
 
             var displayRepository = new DisplayRepository();
             var fullScreenDisplay = displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay();
@@ -48,10 +52,32 @@ namespace CameraApp.Forms
             }
         }
 
+        private void Initialize(long userId, long cameraId)
+        {
+            closeToolStripMenuItem.Text = Lng.Elem("Close");
+
+            var userRepository = new UserRepository();
+            var user = userRepository.Select(userId);
+
+            permissionManager.SetUser(this, new Mtf.Permissions.Models.User
+            {
+
+            });
+            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+        }
+
         private void FullScreenCamera_Load(object sender, EventArgs e)
         {
-            Location = new Point(display.X, display.Y);
-            Size = new Size(display.MaxWidth, display.MaxHeight);
+            if (display != null)
+            {
+                Location = new Point(display.X, display.Y);
+                Size = new Size(display.MaxWidth, display.MaxHeight);
+            }
+            else
+            {
+                Location = location;
+                Size = size;
+            }
         }
 
         private void FullScreenCamera_Shown(object sender, EventArgs e)

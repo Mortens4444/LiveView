@@ -4,6 +4,7 @@ using Mtf.Database;
 using Mtf.MessageBoxes;
 using System;
 using System.Configuration;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -35,12 +36,28 @@ namespace CameraApp
 
             try
             {
-                long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
-                long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-                long? displayId = args.Length > 2 ? Convert.ToInt64(args[2], CultureInfo.InvariantCulture) : (long?)null;
-                using (var form = new FullScreenCamera(userId, cameraId, displayId))
+                if (args.Length <= 3)
                 {
-                    Application.Run(form);
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+                    long? displayId = args.Length == 3 ? Convert.ToInt64(args[2], CultureInfo.InvariantCulture) : (long?)null;
+                    using (var form = new FullScreenCamera(userId, cameraId, displayId))
+                    {
+                        Application.Run(form);
+                    }
+                }
+                else
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+                    int x = Convert.ToInt32(args[2], CultureInfo.InvariantCulture);
+                    int y = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+                    int width = Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    int height = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
+                    using (var form = new FullScreenCamera(userId, cameraId, new Point(x, y), new Size(width, height)))
+                    {
+                        Application.Run(form);
+                    }
                 }
             }
             catch (Exception ex)
