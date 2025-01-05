@@ -55,6 +55,7 @@
             MinimizeBox = false;
             Name = "Camera";
             ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
             Load += Camera_Load;

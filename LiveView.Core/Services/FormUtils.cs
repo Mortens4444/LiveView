@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-
 namespace LiveView.Core.Services
 {
     public static class FormUtils
