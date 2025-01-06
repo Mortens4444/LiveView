@@ -96,7 +96,7 @@ namespace LiveView.Presenters
                 return;
             }
 
-            if (view.CbSequences.SelectedItem is Sequence sequence)
+            if (view.CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 sequenceRepository.Delete(sequence.Id);
                 Load();
@@ -121,7 +121,7 @@ namespace LiveView.Presenters
 
         public void GetSequenceGrids()
         {
-            if (view.CbSequences.SelectedItem is Sequence sequence)
+            if (view.CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 view.TbSequenceName.Text = sequence.Name;
                 var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });

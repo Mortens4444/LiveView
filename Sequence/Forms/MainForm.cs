@@ -173,22 +173,6 @@ namespace Sequence.Forms
                     })
                 .ToList();
         }
-        //private List<CameraInfo> GetCameras(List<(Grid grid, GridInSequence gridInSequence)> grids)
-        //{
-        //    var relevantGridIds = grids.Select(g => g.grid.Id).ToHashSet();
-        //    return gridCameras
-        //        .Where(gc => relevantGridIds.Contains(gc.GridId))
-        //        .Join(allCameras,
-        //            gridCamera => gridCamera.CameraId,
-        //            camera => camera.Id,
-        //            (gridCamera, camera) => new CameraInfo
-        //            {
-        //                GridCamera = gridCamera,
-        //                Camera = camera,
-        //                Server = servers.First(s => s.Id == camera.ServerId)
-        //            })
-        //        .ToList();
-        //}
 
         private async Task ShowGridsAsync(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids)
         {

@@ -49,7 +49,7 @@ namespace LiveView.Presenters
             {
                 if (item.Tag is Grid grid)
                 {
-                    sequenceRepository.Insert(new Sequence
+                    sequenceRepository.Insert(new Database.Models.Sequence
                     {
                         Active = true,
 

@@ -87,7 +87,7 @@ namespace LiveView.Forms
                 GridId = ((Grid)CbGrids.SelectedItem).Id,
                 Number = lvGrids.Items.Count + 1,
             };
-            if (CbSequences.SelectedItem is Sequence sequence)
+            if (CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 result.SequenceId = sequence.Id;
             }
@@ -101,14 +101,14 @@ namespace LiveView.Forms
             presenter.GetSequenceGrids();
         }
 
-        public Sequence GetSequence()
+        public Database.Models.Sequence GetSequence()
         {
-            var result = new Sequence
+            var result = new Database.Models.Sequence
             {
                 Name = TbSequenceName.Text,
                 Active = true
             };
-            if (CbSequences.SelectedItem is Sequence sequence)
+            if (CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 result.Id = sequence.Id;
             }

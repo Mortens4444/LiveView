@@ -14,6 +14,7 @@ namespace LiveView.Interfaces
         TextBox TbSequenceName { get; }
 
         GridInSequence GetGridInSequence();
-        Sequence GetSequence();
+
+        Database.Models.Sequence GetSequence();
     }
 }

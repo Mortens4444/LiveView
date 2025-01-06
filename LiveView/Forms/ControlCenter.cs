@@ -9,6 +9,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -272,17 +273,18 @@ namespace LiveView.Forms
 
         private void LvSequences_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (e.IsSelected && e.Item.Tag is Sequence sequence)
+            if (e.IsSelected && e.Item.Tag is Database.Models.Sequence sequence)
             {
                 presenter.StartSequenceApp(sequence);
             }
         }
 
-        private void LvCameras_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        private async  void LvCameras_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
                 presenter.StartCameraApp(camera);
+                await Task.Delay(1000);
                 e.Item.Selected = false;
             }
         }

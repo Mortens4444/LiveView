@@ -38,6 +38,8 @@ namespace LiveView.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static DisplayDto FullScreenDisplay { get; set; }
 
+        public ToolStripStatusLabel TsslServerData => tsslServerData;
+
         static MainForm()
         {
             HardwareKey = new VirtualSziltechHardwareKey();

@@ -5,7 +5,6 @@ using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 using System;
@@ -213,7 +212,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void StartSequenceApp(Sequence sequence)
+        public void StartSequenceApp(Database.Models.Sequence sequence)
         {
             var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
             if (selectedDisplay != null)

@@ -30,6 +30,7 @@ namespace Sequence.Forms
 
         private void Camera_Shown(object sender, EventArgs e)
         {
+            axVideoPlayerWindow.AxVideoPicture.Visible = false;
             axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
             axVideoPlayerWindow.OverlayText = $"{server.IpAddress} - {camera.CameraName}";
         }

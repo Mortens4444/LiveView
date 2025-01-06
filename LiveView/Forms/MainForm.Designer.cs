@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -61,6 +61,7 @@ namespace LiveView.Forms
             tsslSpaceHolder = new ToolStripStatusLabel();
             tsslLoggedOnUser = new ToolStripStatusLabel();
             ssStatusStrip = new StatusStrip();
+            tsslServerData = new ToolStripStatusLabel();
             tsslOsUptime = new ToolStripStatusLabel();
             tsmiExit = new ToolStripMenuItem();
             tsmiLicense = new ToolStripMenuItem();
@@ -134,7 +135,7 @@ namespace LiveView.Forms
             // 
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -149,7 +150,7 @@ namespace LiveView.Forms
             // 
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -158,7 +159,7 @@ namespace LiveView.Forms
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = Properties.Resources.display_settings;
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
@@ -351,7 +352,7 @@ namespace LiveView.Forms
             // 
             // ssStatusStrip
             // 
-            ssStatusStrip.Items.AddRange(new ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage, tsslOsUptime });
+            ssStatusStrip.Items.AddRange(new ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage, tsslServerData, tsslOsUptime });
             ssStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             ssStatusStrip.Location = new System.Drawing.Point(0, 675);
             ssStatusStrip.Name = "ssStatusStrip";
@@ -360,6 +361,12 @@ namespace LiveView.Forms
             ssStatusStrip.Size = new System.Drawing.Size(1186, 22);
             ssStatusStrip.TabIndex = 3;
             ssStatusStrip.Text = "statusStrip1";
+            // 
+            // tsslServerData
+            // 
+            tsslServerData.Name = "tsslServerData";
+            tsslServerData.Size = new System.Drawing.Size(85, 17);
+            tsslServerData.Text = "IP address:Port";
             // 
             // tsslOsUptime
             // 
@@ -380,7 +387,7 @@ namespace LiveView.Forms
             // 
             tsmiLicense.Image = Properties.Resources.license_form;
             tsmiLicense.Name = "tsmiLicense";
-            tsmiLicense.Size = new System.Drawing.Size(180, 22);
+            tsmiLicense.Size = new System.Drawing.Size(113, 22);
             tsmiLicense.Text = "License";
             tsmiLicense.Click += TsmiLicense_Click;
             // 
@@ -395,7 +402,7 @@ namespace LiveView.Forms
             // 
             tsmiAbout.Image = Properties.Resources.about;
             tsmiAbout.Name = "tsmiAbout";
-            tsmiAbout.Size = new System.Drawing.Size(180, 22);
+            tsmiAbout.Size = new System.Drawing.Size(113, 22);
             tsmiAbout.Text = "About";
             tsmiAbout.Click += TsmiAbout_Click;
             // 
@@ -597,11 +604,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "IO_Devices";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "IO_Devices";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -1037,5 +1044,6 @@ namespace LiveView.Forms
         private System.ComponentModel.BackgroundWorker bwCreateStatisticsMessage;
         private System.Windows.Forms.ToolStripStatusLabel tsslOsUptime;
         private Timer timer;
+        private ToolStripStatusLabel tsslServerData;
     }
 }
