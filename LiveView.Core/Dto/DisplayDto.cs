@@ -1,12 +1,22 @@
 ﻿using Database.Models;
 using System;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Dto
 {
     public class DisplayDto
     {
-        public int Id => Convert.ToInt32(DeviceName.Replace("\\\\.\\DISPLAY", String.Empty));
+        public string Id => String.Concat(GetId(), Host ?? String.Empty);
+
+        public bool IsRemote => !String.IsNullOrEmpty(Host);
+
+        public int GetId()
+        {
+            return Convert.ToInt32(DeviceName.Replace("\\\\.\\DISPLAY", String.Empty));
+        }
+
+        public string Host { get; set; }
 
         public string DeviceName { get; set; }
 
@@ -65,11 +75,16 @@ namespace LiveView.Core.Dto
             return SziltechId;
         }
 
+        public string Serialize()
+        {
+            return JsonSerializer.Serialize(this);
+        }
+
         public Display ToModel()
         {
             return new Display
             {
-                Id = Id,
+                Id = GetId(),
                 X = X,
                 Y = Y,
                 Width = Width,

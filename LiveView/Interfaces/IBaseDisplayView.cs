@@ -8,6 +8,6 @@ namespace LiveView.Interfaces
     {
         List<DisplayDto> CachedDisplays { get; }
 
-        Dictionary<int, Rectangle> CachedBounds { get; }
+        Dictionary<string, Rectangle> CachedBounds { get; }
     }
 }

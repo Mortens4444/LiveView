@@ -1,15 +1,14 @@
 ﻿using Database.Interfaces;
-using Database.Models;
+using LiveView.Core.Dto;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Core.Services;
+using LiveView.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using LiveView.Core.Dto;
-using LiveView.Services;
 
 namespace LiveView.Presenters
 {
@@ -54,7 +53,7 @@ namespace LiveView.Presenters
             return new Point(mouseLeft + deltaPoint.X, mouseTop + deltaPoint.Y);
         }
 
-        public Dictionary<int, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size)
+        public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size)
         {
             return displayManager.GetScaledDisplayBounds(displays, size);
         }

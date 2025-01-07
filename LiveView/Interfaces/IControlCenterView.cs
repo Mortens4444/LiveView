@@ -16,5 +16,7 @@ namespace LiveView.Interfaces
         ListView LvSequences { get; }
 
         ListView LvTemplates { get; }
+
+        ComboBox CbAgents { get; }
     }
 }

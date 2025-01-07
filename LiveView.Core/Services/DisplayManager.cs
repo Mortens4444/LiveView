@@ -4,6 +4,8 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Services
@@ -12,6 +14,8 @@ namespace LiveView.Core.Services
     {
         public const int FrameWidth = 3;
         private const int Delta = 5;
+
+        public static List<DisplayDto> RemoteDisplays = new List<DisplayDto>();
 
         /// <summary>
         /// Retrieves all connected display devices.
@@ -102,9 +106,18 @@ namespace LiveView.Core.Services
                 deviceIndex++;
             }
 
+            var localIps = NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork).ToList();
+            foreach (var remoteDisplay in RemoteDisplays)
+            {
+                var hostAndPort = remoteDisplay.Host.Split(':');
+                if (!localIps.Contains(hostAndPort[0]))
+                {
+                    result.Add(remoteDisplay);
+                }
+            }            
+
             return result;
         }
-
 
         /// <summary>
         /// Creates a Display from device name
@@ -196,9 +209,9 @@ namespace LiveView.Core.Services
             return (new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
         }
 
-        public Dictionary<int, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size drawnSize)
+        public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size drawnSize)
         {
-            var result = new Dictionary<int, Rectangle>();
+            var result = new Dictionary<string, Rectangle>();
             var (screenBounds, deltaPoint) = GetScreensBounds();
             var scale = GetScaleFactor(screenBounds, drawnSize);
 

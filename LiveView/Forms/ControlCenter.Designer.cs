@@ -100,6 +100,7 @@
             btnCloseSequenceApplications = new System.Windows.Forms.Button();
             lvSequences = new Mtf.Controls.MtfListView();
             gbSequences = new System.Windows.Forms.GroupBox();
+            cbAgents = new System.Windows.Forms.ComboBox();
             pbSziltechLogo = new Mtf.Controls.MtfPictureBox();
             pCameras = new System.Windows.Forms.Panel();
             spitter1 = new System.Windows.Forms.Splitter();
@@ -139,7 +140,7 @@
             // btnPlayOrPauseSequence
             // 
             btnPlayOrPauseSequence.Image = (System.Drawing.Image)resources.GetObject("btnPlayOrPauseSequence.Image");
-            btnPlayOrPauseSequence.Location = new System.Drawing.Point(48, 125);
+            btnPlayOrPauseSequence.Location = new System.Drawing.Point(50, 105);
             btnPlayOrPauseSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnPlayOrPauseSequence.Name = "btnPlayOrPauseSequence";
             btnPlayOrPauseSequence.Size = new System.Drawing.Size(28, 28);
@@ -159,7 +160,7 @@
             // btnShowPreviousGrid
             // 
             btnShowPreviousGrid.Image = (System.Drawing.Image)resources.GetObject("btnShowPreviousGrid.Image");
-            btnShowPreviousGrid.Location = new System.Drawing.Point(13, 125);
+            btnShowPreviousGrid.Location = new System.Drawing.Point(15, 105);
             btnShowPreviousGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnShowPreviousGrid.Name = "btnShowPreviousGrid";
             btnShowPreviousGrid.Size = new System.Drawing.Size(28, 28);
@@ -223,7 +224,7 @@
             gbDisplayDevices.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbDisplayDevices.Name = "gbDisplayDevices";
             gbDisplayDevices.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbDisplayDevices.Size = new System.Drawing.Size(328, 189);
+            gbDisplayDevices.Size = new System.Drawing.Size(328, 183);
             gbDisplayDevices.TabIndex = 0;
             gbDisplayDevices.TabStop = false;
             gbDisplayDevices.Text = "Primary display";
@@ -233,7 +234,7 @@
             pCrossHair.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             pCrossHair.BackColor = System.Drawing.SystemColors.Control;
             pCrossHair.Controls.Add(pbCrossHair);
-            pCrossHair.Location = new System.Drawing.Point(6, 156);
+            pCrossHair.Location = new System.Drawing.Point(6, 150);
             pCrossHair.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pCrossHair.Name = "pCrossHair";
             pCrossHair.Size = new System.Drawing.Size(29, 29);
@@ -267,7 +268,7 @@
             // 
             btnIdentify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnIdentify.BackColor = System.Drawing.SystemColors.Control;
-            btnIdentify.Location = new System.Drawing.Point(237, 156);
+            btnIdentify.Location = new System.Drawing.Point(237, 150);
             btnIdentify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnIdentify.Name = "btnIdentify";
             btnIdentify.Size = new System.Drawing.Size(88, 29);
@@ -283,7 +284,7 @@
             pDisplayDevices.Location = new System.Drawing.Point(4, 18);
             pDisplayDevices.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pDisplayDevices.Name = "pDisplayDevices";
-            pDisplayDevices.Size = new System.Drawing.Size(321, 130);
+            pDisplayDevices.Size = new System.Drawing.Size(321, 124);
             pDisplayDevices.TabIndex = 0;
             pDisplayDevices.TransparentColor = System.Drawing.Color.Black;
             pDisplayDevices.UseTransparentColor = false;
@@ -292,7 +293,7 @@
             // 
             // btnRearrangeGrid
             // 
-            btnRearrangeGrid.Location = new System.Drawing.Point(118, 125);
+            btnRearrangeGrid.Location = new System.Drawing.Point(120, 105);
             btnRearrangeGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRearrangeGrid.Name = "btnRearrangeGrid";
             btnRearrangeGrid.Size = new System.Drawing.Size(28, 28);
@@ -316,7 +317,7 @@
             gbActiveSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbActiveSequence.Name = "gbActiveSequence";
             gbActiveSequence.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbActiveSequence.Size = new System.Drawing.Size(328, 159);
+            gbActiveSequence.Size = new System.Drawing.Size(328, 137);
             gbActiveSequence.TabIndex = 0;
             gbActiveSequence.TabStop = false;
             gbActiveSequence.Text = "Active sequence";
@@ -324,7 +325,7 @@
             // btnShowNextGrid
             // 
             btnShowNextGrid.Image = (System.Drawing.Image)resources.GetObject("btnShowNextGrid.Image");
-            btnShowNextGrid.Location = new System.Drawing.Point(83, 125);
+            btnShowNextGrid.Location = new System.Drawing.Point(85, 105);
             btnShowNextGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnShowNextGrid.Name = "btnShowNextGrid";
             btnShowNextGrid.Size = new System.Drawing.Size(28, 28);
@@ -376,7 +377,7 @@
             lvCameras.ReadonlyCheckboxes = false;
             lvCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvCameras.Size = new System.Drawing.Size(320, 111);
+            lvCameras.Size = new System.Drawing.Size(320, 130);
             lvCameras.TabIndex = 1;
             lvCameras.UseCompatibleStateImageBehavior = false;
             lvCameras.View = System.Windows.Forms.View.Details;
@@ -391,7 +392,7 @@
             gbCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbCameras.Name = "gbCameras";
             gbCameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCameras.Size = new System.Drawing.Size(328, 144);
+            gbCameras.Size = new System.Drawing.Size(328, 162);
             gbCameras.TabIndex = 0;
             gbCameras.TabStop = false;
             gbCameras.Text = "Select a camera to view";
@@ -400,7 +401,7 @@
             // 
             splitter3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             splitter3.Dock = System.Windows.Forms.DockStyle.Top;
-            splitter3.Location = new System.Drawing.Point(0, 513);
+            splitter3.Location = new System.Drawing.Point(0, 540);
             splitter3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             splitter3.MaximumSize = new System.Drawing.Size(0, 3);
             splitter3.MinimumSize = new System.Drawing.Size(0, 3);
@@ -419,10 +420,10 @@
             // 
             pTemplates.Controls.Add(gbTemplates);
             pTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
-            pTemplates.Location = new System.Drawing.Point(0, 675);
+            pTemplates.Location = new System.Drawing.Point(0, 700);
             pTemplates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pTemplates.Name = "pTemplates";
-            pTemplates.Size = new System.Drawing.Size(328, 106);
+            pTemplates.Size = new System.Drawing.Size(328, 103);
             pTemplates.TabIndex = 71;
             // 
             // gbTemplates
@@ -433,7 +434,7 @@
             gbTemplates.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbTemplates.Name = "gbTemplates";
             gbTemplates.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbTemplates.Size = new System.Drawing.Size(328, 106);
+            gbTemplates.Size = new System.Drawing.Size(328, 103);
             gbTemplates.TabIndex = 0;
             gbTemplates.TabStop = false;
             gbTemplates.Text = "Templates";
@@ -459,7 +460,7 @@
             lvTemplates.ReadonlyCheckboxes = false;
             lvTemplates.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvTemplates.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvTemplates.Size = new System.Drawing.Size(320, 84);
+            lvTemplates.Size = new System.Drawing.Size(320, 81);
             lvTemplates.TabIndex = 0;
             lvTemplates.UseCompatibleStateImageBehavior = false;
             lvTemplates.View = System.Windows.Forms.View.Details;
@@ -473,7 +474,7 @@
             // 
             splitter4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             splitter4.Dock = System.Windows.Forms.DockStyle.Top;
-            splitter4.Location = new System.Drawing.Point(0, 672);
+            splitter4.Location = new System.Drawing.Point(0, 697);
             splitter4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             splitter4.MaximumSize = new System.Drawing.Size(0, 3);
             splitter4.MinimumSize = new System.Drawing.Size(0, 3);
@@ -486,10 +487,10 @@
             // 
             pFullScreenCameraController.Controls.Add(gbFullScreenCameraController);
             pFullScreenCameraController.Dock = System.Windows.Forms.DockStyle.Top;
-            pFullScreenCameraController.Location = new System.Drawing.Point(0, 516);
+            pFullScreenCameraController.Location = new System.Drawing.Point(0, 543);
             pFullScreenCameraController.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pFullScreenCameraController.Name = "pFullScreenCameraController";
-            pFullScreenCameraController.Size = new System.Drawing.Size(328, 156);
+            pFullScreenCameraController.Size = new System.Drawing.Size(328, 154);
             pFullScreenCameraController.TabIndex = 69;
             // 
             // gbFullScreenCameraController
@@ -523,7 +524,7 @@
             gbFullScreenCameraController.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbFullScreenCameraController.Name = "gbFullScreenCameraController";
             gbFullScreenCameraController.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbFullScreenCameraController.Size = new System.Drawing.Size(328, 156);
+            gbFullScreenCameraController.Size = new System.Drawing.Size(328, 154);
             gbFullScreenCameraController.TabIndex = 0;
             gbFullScreenCameraController.TabStop = false;
             gbFullScreenCameraController.Text = "Full screen camera controller";
@@ -918,7 +919,7 @@
             btnCloseSequenceApplications.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCloseSequenceApplications.BackColor = System.Drawing.SystemColors.Control;
             btnCloseSequenceApplications.Image = Properties.Resources.btn_CloseSequenceApplications_Image;
-            btnCloseSequenceApplications.Location = new System.Drawing.Point(303, 8);
+            btnCloseSequenceApplications.Location = new System.Drawing.Point(300, 17);
             btnCloseSequenceApplications.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCloseSequenceApplications.Name = "btnCloseSequenceApplications";
             btnCloseSequenceApplications.Size = new System.Drawing.Size(21, 21);
@@ -940,7 +941,7 @@
             lvSequences.EnsureLastItemIsVisible = false;
             lvSequences.FirstItemIsGray = false;
             lvSequences.FullRowSelect = true;
-            lvSequences.Location = new System.Drawing.Point(4, 32);
+            lvSequences.Location = new System.Drawing.Point(4, 41);
             lvSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvSequences.MultiSelect = false;
             lvSequences.Name = "lvSequences";
@@ -948,7 +949,7 @@
             lvSequences.ReadonlyCheckboxes = false;
             lvSequences.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvSequences.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvSequences.Size = new System.Drawing.Size(321, 84);
+            lvSequences.Size = new System.Drawing.Size(321, 90);
             lvSequences.TabIndex = 1;
             lvSequences.UseCompatibleStateImageBehavior = false;
             lvSequences.View = System.Windows.Forms.View.Details;
@@ -956,6 +957,7 @@
             // 
             // gbSequences
             // 
+            gbSequences.Controls.Add(cbAgents);
             gbSequences.Controls.Add(btnCloseSequenceApplications);
             gbSequences.Controls.Add(lvSequences);
             gbSequences.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -963,10 +965,19 @@
             gbSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbSequences.Name = "gbSequences";
             gbSequences.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbSequences.Size = new System.Drawing.Size(328, 122);
+            gbSequences.Size = new System.Drawing.Size(328, 137);
             gbSequences.TabIndex = 0;
             gbSequences.TabStop = false;
             gbSequences.Text = "Select a sequence to view";
+            // 
+            // cbAgents
+            // 
+            cbAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbAgents.FormattingEnabled = true;
+            cbAgents.Location = new System.Drawing.Point(6, 16);
+            cbAgents.Name = "cbAgents";
+            cbAgents.Size = new System.Drawing.Size(289, 23);
+            cbAgents.TabIndex = 2;
             // 
             // pbSziltechLogo
             // 
@@ -986,17 +997,17 @@
             // 
             pCameras.Controls.Add(gbCameras);
             pCameras.Dock = System.Windows.Forms.DockStyle.Top;
-            pCameras.Location = new System.Drawing.Point(0, 369);
+            pCameras.Location = new System.Drawing.Point(0, 378);
             pCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pCameras.Name = "pCameras";
-            pCameras.Size = new System.Drawing.Size(328, 144);
+            pCameras.Size = new System.Drawing.Size(328, 162);
             pCameras.TabIndex = 67;
             // 
             // spitter1
             // 
             spitter1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             spitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            spitter1.Location = new System.Drawing.Point(0, 174);
+            spitter1.Location = new System.Drawing.Point(0, 189);
             spitter1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             spitter1.MaximumSize = new System.Drawing.Size(0, 3);
             spitter1.MinimumSize = new System.Drawing.Size(0, 3);
@@ -1012,7 +1023,7 @@
             pSequences.Location = new System.Drawing.Point(0, 52);
             pSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pSequences.Name = "pSequences";
-            pSequences.Size = new System.Drawing.Size(328, 122);
+            pSequences.Size = new System.Drawing.Size(328, 137);
             pSequences.TabIndex = 1;
             // 
             // pLogo
@@ -1049,17 +1060,17 @@
             // 
             pActiveSequence.Controls.Add(gbActiveSequence);
             pActiveSequence.Dock = System.Windows.Forms.DockStyle.Bottom;
-            pActiveSequence.Location = new System.Drawing.Point(0, 781);
+            pActiveSequence.Location = new System.Drawing.Point(0, 803);
             pActiveSequence.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pActiveSequence.Name = "pActiveSequence";
-            pActiveSequence.Size = new System.Drawing.Size(328, 159);
+            pActiveSequence.Size = new System.Drawing.Size(328, 137);
             pActiveSequence.TabIndex = 65;
             // 
             // splitter2
             // 
             splitter2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-            splitter2.Location = new System.Drawing.Point(0, 366);
+            splitter2.Location = new System.Drawing.Point(0, 375);
             splitter2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             splitter2.MaximumSize = new System.Drawing.Size(0, 3);
             splitter2.MinimumSize = new System.Drawing.Size(0, 3);
@@ -1072,10 +1083,10 @@
             // 
             pDisplays.Controls.Add(gbDisplayDevices);
             pDisplays.Dock = System.Windows.Forms.DockStyle.Top;
-            pDisplays.Location = new System.Drawing.Point(0, 177);
+            pDisplays.Location = new System.Drawing.Point(0, 192);
             pDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pDisplays.Name = "pDisplays";
-            pDisplays.Size = new System.Drawing.Size(328, 189);
+            pDisplays.Size = new System.Drawing.Size(328, 183);
             pDisplays.TabIndex = 5;
             // 
             // ControlCenter
@@ -1199,5 +1210,6 @@
         private System.Windows.Forms.Panel pActiveSequence;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Panel pDisplays;
+        private System.Windows.Forms.ComboBox cbAgents;
     }
 }

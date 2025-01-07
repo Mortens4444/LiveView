@@ -1,5 +1,9 @@
 ﻿using Database.Interfaces;
+using Database.Models;
+using Database.Repositories;
+using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -15,6 +19,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Text.Json;
 using System.Windows.Forms;
 using NetworkServer = Mtf.Network.Server;
 
@@ -23,17 +29,20 @@ namespace LiveView.Presenters
     public class MainPresenter : BasePresenter
     {
         private IMainView view;
-        private NetworkServer server;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
+        private readonly IDisplayRepository displayRepository;
         private readonly IGroupRepository groupRepository;
         private readonly IUserRepository userRepository;
         private readonly IUsersInGroupsRepository userGroupRepository;
+
+        public static NetworkServer Server;
 
         public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
             : base(mainPresenterDependencies)
         {
             logger = mainPresenterDependencies.Logger;
+            displayRepository = mainPresenterDependencies.DisplayRepository;
             groupRepository = mainPresenterDependencies.GroupRepository;
             userRepository = mainPresenterDependencies.UserRepository;
             userGroupRepository = mainPresenterDependencies.UserGroupRepository;
@@ -55,30 +64,42 @@ namespace LiveView.Presenters
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var port))
             {
-                server = new NetworkServer(listenerPort: port);
-                server.DataArrived += DataArrivedEventHandler;
-                server.Start();
+                Server = new NetworkServer(listenerPort: port);
+                Server.DataArrived += DataArrivedEventHandler;
+                Server.Start();
 
-                view.TsslServerData.Text = $"{server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", GetLocalIPAddresses())})";
+                view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }
-        }
-
-        private IEnumerable<string> GetLocalIPAddresses()
-        {
-            return Dns.GetHostEntry(Dns.GetHostName())
-                      .AddressList
-                      .Where(ip => ip.AddressFamily == server.AddressFamily)
-                      .Select(ip => ip.ToString());
         }
 
         private void DataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
-            var message = $"{server?.Encoding.GetString(e.Data)}";
-            switch (message)
+            var message = $"{Server?.Encoding.GetString(e.Data)}";
+            var messageParts = message.Split('|');
+
+            if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
             {
-                default:
-                    DebugErrorBox.Show("Message arrived", message);
-                    break;
+                ControlCenterPresenter.Agents.Add(messageParts[1]);
+                MainForm.ControlCenter?.RefreshAgents();
+            }
+            else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
+            {
+                ControlCenterPresenter.Agents.Remove(messageParts[1]);
+                MainForm.ControlCenter?.RefreshAgents();
+            }
+            else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
+            {
+                var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+                DisplayManager.RemoteDisplays.Add(display);
+            }
+            else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
+            {
+                var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+                DisplayManager.RemoteDisplays.Remove(display);
+            }
+            else
+            {
+                DebugErrorBox.Show("Unknown message arrived", message);
             }
         }
 

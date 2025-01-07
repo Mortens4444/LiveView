@@ -3,7 +3,6 @@ using LiveView.Core.Services;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using Mtf.MessageBoxes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +24,7 @@ namespace LiveView.Forms
         public List<DisplayDto> CachedDisplays { get; private set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Dictionary<int, Rectangle> CachedBounds { get; private set; }
+        public Dictionary<string, Rectangle> CachedBounds { get; private set; }
 
         static BaseDisplayView()
         {

@@ -69,7 +69,7 @@ namespace Sequence.Forms
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
 
-            display = displays.FirstOrDefault(d => d.Id == sequenceDisplay.Id);
+            display = displays.FirstOrDefault(d => d.GetId() == sequenceDisplay.Id);
             if (display == null)
             {
                 throw new InvalidOperationException($"Display does not found with Id '{displayId}'.");

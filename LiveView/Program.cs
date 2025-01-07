@@ -92,7 +92,7 @@ namespace LiveView
         {
             foreach (var display in displays)
             {
-                if (currentDisplays.FirstOrDefault(d => d.Id == display.Id) == null)
+                if (currentDisplays.FirstOrDefault(d => !d.IsRemote && d.GetId() == display.Id) == null)
                 {
                     displayRepository.Delete(display.Id);
                 }

@@ -11,6 +11,7 @@ namespace LiveView.Models.Dependencies
         public MainPresenterDependencies(
             PermissionManager permissionManager,
             FormFactory formfactory,
+            IDisplayRepository displayRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IGroupRepository groupRepository,
             IUserRepository userRepository,
@@ -18,11 +19,14 @@ namespace LiveView.Models.Dependencies
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
+            DisplayRepository = displayRepository;
             GroupRepository = groupRepository;
             UserRepository = userRepository;
             UserGroupRepository = userGroupRepository;
             Logger = logger;
         }
+
+        public IDisplayRepository DisplayRepository { get; private set; }
 
         public IGroupRepository GroupRepository { get; private set; }
 

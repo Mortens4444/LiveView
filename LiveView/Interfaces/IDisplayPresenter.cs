@@ -11,7 +11,7 @@ namespace LiveView.Interfaces
 
         List<DisplayDto> GetDisplays();
 
-        Dictionary<int, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size);
+        Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size);
 
         List<SequenceEnvironment> GetSequenceEnvironments();
     }

@@ -65,9 +65,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            foreach (var cachedDisplay in view.CachedDisplays)
+            foreach (var cachedDisplay in view.CachedDisplays.Where(d => !d.IsRemote))
             {
-                var display = displays.FirstOrDefault(d => d.Id == cachedDisplay.Id);
+                var display = displays.FirstOrDefault(d => d.Id == cachedDisplay.GetId());
                 if (display != null)
                 {
                     cachedDisplay.Fullscreen = display.Fullscreen;
@@ -86,7 +86,7 @@ namespace LiveView.Presenters
 
         public void ChangeDisplayFunction(Point location)
         {
-            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
+            foreach (KeyValuePair<string, Rectangle> bounds in view.CachedBounds)
             {
                 if (bounds.Value.Contains(location))
                 {
@@ -119,7 +119,7 @@ namespace LiveView.Presenters
 
         public void SelectFullscreenDisplay(Point location)
         {
-            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
+            foreach (KeyValuePair<string, Rectangle> bounds in view.CachedBounds)
             {
                 var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
                 if (display != null)

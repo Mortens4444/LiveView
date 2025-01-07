@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Network" Version="1.0.5" />
+    <PackageReference Include="Mtf.Network" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>

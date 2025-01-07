@@ -6,12 +6,16 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -27,6 +31,8 @@ namespace LiveView.Presenters
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
         private Process cameraProcess;
+
+        public static BindingList<string> Agents { get; } = new BindingList<string>();
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
             : base(controlCenterPresenterDependencies)
@@ -56,7 +62,7 @@ namespace LiveView.Presenters
             throw new NotImplementedException();
         }
 
-        public void CloseSequenceApplications()
+        public void CloseSequenceApplication()
         {
             throw new NotImplementedException();
         }
@@ -170,11 +176,38 @@ namespace LiveView.Presenters
             {
                 view.AddToItems(view.LvTemplates, new ListViewItem(template.TemplateName) { Tag = template });
             }
+
+            RefreshAgents();
+        }
+
+        public void RefreshAgents()
+        {
+            if (!view.GetSelf().IsDisposed)
+            {
+                view.CbAgents.Invoke((Action)(() =>
+                {
+                    var selected = view.CbAgents.SelectedItem;
+                    view.CbAgents.Items.Clear();
+                    view.CbAgents.Items.Add(Lng.Elem("Localhost"));
+                    view.CbAgents.Items.AddRange(Agents.OrderBy(agent => agent).ToArray());
+                    view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
+                }));
+            }
+        }
+
+        private int GetSelectedIndex(object selected)
+        {
+            if (selected == null)
+            {
+                return 0;
+            }
+            var index = view.CbAgents.Items.IndexOf(selected);
+            return index == -1 ? 0 : index;
         }
 
         public void SelectDisplay(Point location)
         {
-            foreach (KeyValuePair<int, Rectangle> bounds in view.CachedBounds)
+            foreach (KeyValuePair<string, Rectangle> bounds in view.CachedBounds)
             {
                 var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
                 if (display != null)
@@ -186,30 +219,77 @@ namespace LiveView.Presenters
 
         public void StartCameraApp(Camera camera)
         {
-            if (cameraProcess != null)
+            if (view.CbAgents.SelectedIndex == 0)
             {
-                cameraProcess.Kill();
-            }
-
-            if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
-            {
-                var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-                if (selectedDisplay != null)
+                if (cameraProcess != null)
                 {
-                    cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                    cameraProcess.Kill();
+                }
+
+                if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
+                {
+                    var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+                    if (selectedDisplay != null)
+                    {
+                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                    }
+                    else
+                    {
+                        ShowError("Select a display first.");
+                    }
                 }
                 else
                 {
-                    ShowError("Select a display first.");
+                    if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
+                    {
+                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
+                    }
                 }
             }
             else
             {
-                if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
+                if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
                 {
-                    cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
+                    var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+                    if (selectedDisplay != null)
+                    {
+
+                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                    }
+                    else
+                    {
+                        ShowError("Select a display first.");
+                    }
+                }
+                else
+                {
+                    if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
+                    {
+                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id}");
+                    }
                 }
             }
+        }
+
+        private static void SentToClient(string clientAddress, string message)
+        {
+            using (var clientSocket = CreateSocket(clientAddress))
+            {
+                MainPresenter.Server.SendMessageToClient(clientSocket, message);
+            }
+        }
+
+        private static Socket CreateSocket(string clientAddress)
+        {
+            var parts = clientAddress.Split(':');
+            string ipString = parts[0];
+            int port = int.Parse(parts[1]);
+
+            var ipAddress = IPAddress.Parse(ipString);
+            var endPoint = new IPEndPoint(ipAddress, port);
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(endPoint);
+            return socket;
         }
 
         public void StartSequenceApp(Database.Models.Sequence sequence)

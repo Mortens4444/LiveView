@@ -1,5 +1,4 @@
 ﻿using Database.Models;
-using LiveView.Core.Services;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -68,11 +67,13 @@ namespace LiveView.Forms
 
         public ListView LvTemplates => lvTemplates;
 
+        public ComboBox CbAgents => cbAgents;
+
         [RequirePermission(SequenceManagementPermissions.Close)]
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.CloseSequenceApplications();
+            presenter.CloseSequenceApplication();
         }
 
         [RequirePermission(CameraManagementPermissions.CloseFullScreen)]
@@ -292,6 +293,11 @@ namespace LiveView.Forms
         private void PDisplayDevices_MouseClick(object sender, MouseEventArgs e)
         {
             presenter.SelectDisplay(e.Location);
+        }
+
+        public void RefreshAgents()
+        {
+            presenter.RefreshAgents();
         }
     }
 }
