@@ -2,6 +2,7 @@
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Dto;
+using LiveView.Enums;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -15,6 +16,25 @@ namespace LiveView.Presenters
     public class BaseDisplayPresenter : BasePresenter, IDisplayPresenter
     {
         private readonly DisplayManager displayManager;
+        private static Pen blackPen, bluePen;
+        private static SolidBrush cornflowerBlueBrush, lightBlueBrush, darkGreenBrush, grayBrush, darkGrayBrush, lightGreenBrush,
+            lightGoldenrodYellowBrush, darkGoldenrodBrush, silverBrush, darkSlateBlueBrush;
+
+        static BaseDisplayPresenter()
+        {
+            blackPen = new Pen(Color.Black, 2);
+            bluePen = new Pen(Color.Blue, 2);
+            cornflowerBlueBrush = new SolidBrush(Color.CornflowerBlue);
+            darkSlateBlueBrush = new SolidBrush(Color.DarkSlateBlue);
+            lightBlueBrush = new SolidBrush(Color.LightBlue);
+            grayBrush = new SolidBrush(Color.Gray);
+            darkGrayBrush = new SolidBrush(Color.DarkGray);
+            lightGreenBrush = new SolidBrush(Color.LightGreen);
+            darkGreenBrush = new SolidBrush(Color.DarkGreen);
+            lightGoldenrodYellowBrush = new SolidBrush(Color.LightGoldenrodYellow);
+            darkGoldenrodBrush = new SolidBrush(Color.DarkGoldenrod);
+            silverBrush = new SolidBrush(Color.Silver);
+        }
 
         public BaseDisplayPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
             : base(controlCenterPresenterDependencies.GeneralOptionsRepository, controlCenterPresenterDependencies.FormFactory)
@@ -62,6 +82,108 @@ namespace LiveView.Presenters
         {
             throw new NotImplementedException();
             //return Display.GetSequenceEnvironments(displayId);
+        }
+
+        public (Pen, SolidBrush) GetDrawingTools(DisplayDto display, DisplayDrawingTools displayDrawingTools)
+        {
+            if (display.IsRemote)
+            {
+                if (displayDrawingTools == DisplayDrawingTools.Functions)
+                {
+                    if (display.CanShowSequence && display.CanShowFullscreen)
+                    {
+                        return (blackPen, silverBrush);
+                    }
+                    else if (display.CanShowSequence)
+                    {
+                        return (blackPen, darkGoldenrodBrush);
+                    }
+                    else if (display.CanShowFullscreen)
+                    {
+                        return (blackPen, darkGreenBrush);
+                    }
+
+                    return (blackPen, darkGrayBrush);
+                }
+
+                if (displayDrawingTools == DisplayDrawingTools.Selected)
+                {
+                    if (display.Selected)
+                    {
+                        return (bluePen, darkSlateBlueBrush);
+                    }
+
+                    return (blackPen, silverBrush);
+                }
+
+                if (displayDrawingTools == DisplayDrawingTools.Fullscreen)
+                {
+                    if (display.Fullscreen)
+                    {
+                        return (blackPen, darkGreenBrush);
+                    }
+                    return (blackPen, silverBrush);
+                }
+
+                if (displayDrawingTools == DisplayDrawingTools.Sequence)
+                {
+                    if (display.Selected)
+                    {
+                        return (blackPen, darkGreenBrush);
+                    }
+                    return (blackPen, darkGrayBrush);
+                }
+
+                throw new NotImplementedException($"Remoted isplay drawing tools ({displayDrawingTools}) are not implemented.");
+            }
+
+            if (displayDrawingTools == DisplayDrawingTools.Functions)
+            {
+                if (display.CanShowSequence && display.CanShowFullscreen)
+                {
+                    return (blackPen, lightBlueBrush);
+                }
+                else if (display.CanShowSequence)
+                {
+                    return (blackPen, lightGoldenrodYellowBrush);
+                }
+                else if (display.CanShowFullscreen)
+                {
+                    return (blackPen, lightGreenBrush);
+                }
+
+                return (blackPen, grayBrush);
+            }
+
+            if (displayDrawingTools == DisplayDrawingTools.Selected)
+            {
+                if (display.Selected)
+                {
+                    return (bluePen, cornflowerBlueBrush);
+                }
+
+                return (blackPen, lightBlueBrush);
+            }
+
+            if (displayDrawingTools == DisplayDrawingTools.Fullscreen)
+            {
+                if (display.Fullscreen)
+                {
+                    return (blackPen, lightGreenBrush);
+                }
+                return (blackPen, lightBlueBrush);
+            }
+
+            if (displayDrawingTools == DisplayDrawingTools.Sequence)
+            {
+                if (display.Selected)
+                {
+                    return (blackPen, lightGreenBrush);
+                }
+                return (blackPen, grayBrush);
+            }
+
+            throw new NotImplementedException($"Display drawing tools ({displayDrawingTools}) are not implemented.");
         }
     }
 }

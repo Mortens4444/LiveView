@@ -4,6 +4,7 @@
     {
         Selected,
         Functions,
-        Fullscreen
+        Fullscreen,
+        Sequence
     }
 }

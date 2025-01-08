@@ -78,9 +78,9 @@ namespace LiveView.Presenters
             }
 
             view.RbShowOnControlCentersSelectedDisplay.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter);
-            view.RbShowOnFullscreenDisplay.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true);
+            view.RbShowOnFullscreenDisplay.Checked = generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true);
 
-            view.RbShowOnControlCentersSelectedDisplay2.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, true);
+            view.RbShowOnControlCentersSelectedDisplay2.Checked = generalOptionsRepository.Get(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, true);
             view.RbShowOnFullscreenDisplay2.Checked = generalOptionsRepository.Get<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence);
         }
 

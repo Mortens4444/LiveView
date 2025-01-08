@@ -95,7 +95,8 @@ namespace ConsoleApp
 
                 if (message.StartsWith("Camera.exe|", StringComparison.InvariantCulture))
                 {
-                    StartProcess(messageParts, cameraProcesses);
+                    var cameraProcessId = StartProcess(messageParts, cameraProcesses);
+                    client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}");
                 }
                 else if (message.StartsWith("Sequence.exe|", StringComparison.InvariantCulture))
                 {
@@ -107,30 +108,19 @@ namespace ConsoleApp
                     switch (messageParts[1])
                     {
                         case "Camera.exe":
-                            cameraProcesses[id].Kill();
+                            ProcessUtils.Kill(cameraProcesses[id]);
+                            cameraProcesses.Remove(id);
                             break;
                         case "Sequence.exe":
-                            sequenceProcesses[id].Kill();
+                            ProcessUtils.Kill(sequenceProcesses[id]);
+                            sequenceProcesses.Remove(id);
                             break;
                     }
                 }
                 else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
                 {
-                    switch (messageParts[1])
-                    {
-                        case "Camera.exe":
-                            foreach (var process in cameraProcesses.Values)
-                            {
-                                process.Kill();
-                            }
-                            break;
-                        case "Sequence.exe":
-                            foreach (var process in sequenceProcesses.Values)
-                            {
-                                process.Kill();
-                            }
-                            break;
-                    }
+                    var processes = messageParts[1] == "Camera.exe" ? cameraProcesses.Values : sequenceProcesses.Values;
+                    ProcessUtils.Kill(processes);
                 }
             }
             catch (Exception ex)
@@ -139,12 +129,13 @@ namespace ConsoleApp
             }
         }
 
-        private static void StartProcess(string[] messageParts, Dictionary<long, Process> processes)
+        private static int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
         {
             var process = AppStarter.Start(messageParts[0], messageParts[1]);
             var parameters = messageParts[1].Split();
-            var id = Convert.ToInt64(parameters[1], CultureInfo.InvariantCulture);
-            processes.Add(id, process);
+            var entityId = Convert.ToInt64(parameters[1], CultureInfo.InvariantCulture);
+            processes.Add(entityId, process);
+            return process.Id;
         }
     }
 }

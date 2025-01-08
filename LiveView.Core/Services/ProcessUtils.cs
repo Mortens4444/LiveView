@@ -19,15 +19,29 @@ namespace LiveView.Core.Services
             }
         }
 
-        public static void KillExternalProcesses(List<Process> processes)
+        public static void Kill(IEnumerable<Process> processes)
         {
             foreach (var process in processes)
             {
-                process.CloseMainWindow();
-                if (!process.HasExited)
-                {
-                    process.Kill();
-                }
+                Kill(process);
+            }
+        }
+
+        public static void Kill(Process process)
+        {
+            if (process == null)
+            {
+                return;
+            }
+
+            process.CloseMainWindow();
+            if (!process.HasExited)
+            {
+#if NET481
+                process.Kill();
+#else
+                process.Kill(true);
+#endif
             }
         }
     }

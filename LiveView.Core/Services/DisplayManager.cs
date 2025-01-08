@@ -110,7 +110,7 @@ namespace LiveView.Core.Services
             foreach (var remoteDisplay in RemoteDisplays)
             {
                 var hostAndPort = remoteDisplay.Host.Split(':');
-                if (!localIps.Contains(hostAndPort[0]))
+                //if (!localIps.Contains(hostAndPort[0]))
                 {
                     result.Add(remoteDisplay);
                 }

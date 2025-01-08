@@ -73,7 +73,7 @@ namespace LiveView.Forms
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.CloseSequenceApplication();
+            presenter.CloseSequenceApplications();
         }
 
         [RequirePermission(CameraManagementPermissions.CloseFullScreen)]
@@ -255,7 +255,7 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
-            GetAndCacheDisplays(PDisplayDevices.Size);
+            //GetAndCacheDisplays(PDisplayDevices.Size);
             presenter.Load();
         }
 
@@ -263,7 +263,12 @@ namespace LiveView.Forms
         {
             try
             {
-                DrawDisplays(e.Graphics, DisplayDrawingTools.Selected);
+                if (CachedDisplays == null)
+                {
+                    GetAndCacheDisplays(PDisplayDevices.Size);
+                }
+
+                DrawDisplays(e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text);
                 DrawMouse(e.Graphics, PDisplayDevices.Size);
             }
             catch (Exception ex)

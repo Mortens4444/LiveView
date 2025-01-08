@@ -1,6 +1,5 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
@@ -17,8 +16,6 @@ using Mtf.Network.EventArg;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -35,6 +32,8 @@ namespace LiveView.Presenters
         private readonly IGroupRepository groupRepository;
         private readonly IUserRepository userRepository;
         private readonly IUsersInGroupsRepository userGroupRepository;
+
+        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
 
         public static NetworkServer Server;
 
@@ -91,11 +90,18 @@ namespace LiveView.Presenters
             {
                 var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
                 DisplayManager.RemoteDisplays.Add(display);
+                MainForm.ControlCenter.CachedDisplays = null;
             }
             else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
             {
                 var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
                 DisplayManager.RemoteDisplays.Remove(display);
+                MainForm.ControlCenter.CachedDisplays = null;
+            }
+            else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
+            {
+                var cameraProcessId = Convert.ToInt32(messageParts[1]);
+                CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
             }
             else
             {

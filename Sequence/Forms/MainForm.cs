@@ -211,7 +211,7 @@ namespace Sequence.Forms
                 }
                 else
                 {
-                    ProcessUtils.KillExternalProcesses(processes.Values.SelectMany(windows => windows).ToList());
+                    ProcessUtils.Kill(processes.Values.SelectMany(windows => windows).ToList());
                 }
             }
         }

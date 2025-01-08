@@ -70,6 +70,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Camera\Camera.csproj" />
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\LiveView.Agent\LiveView.Agent.csproj" />
     <ProjectReference Include="..\LiveView.Core\LiveView.Core.csproj" />
     <ProjectReference Include="..\Sequence\Sequence.csproj" />
   </ItemGroup>

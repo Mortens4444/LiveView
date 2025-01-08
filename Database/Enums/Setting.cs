@@ -6,5 +6,6 @@
         ShowOnFullscreenDisplayWhenOpenedFromControlCenter,
         ShowOnSelectedDisplayWhenOpenedFromSequence,
         ShowOnFullscreenDisplayWhenOpenedFromSequence,
+        StartSequenceAsAnMdiParent
     }
 }

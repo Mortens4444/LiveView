@@ -215,6 +215,7 @@
             // 
             // gbDisplayDevices
             // 
+            gbDisplayDevices.Controls.Add(cbAgents);
             gbDisplayDevices.Controls.Add(pCrossHair);
             gbDisplayDevices.Controls.Add(lblDisplayDeviceName);
             gbDisplayDevices.Controls.Add(btnIdentify);
@@ -919,7 +920,7 @@
             btnCloseSequenceApplications.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCloseSequenceApplications.BackColor = System.Drawing.SystemColors.Control;
             btnCloseSequenceApplications.Image = Properties.Resources.btn_CloseSequenceApplications_Image;
-            btnCloseSequenceApplications.Location = new System.Drawing.Point(300, 17);
+            btnCloseSequenceApplications.Location = new System.Drawing.Point(303, 6);
             btnCloseSequenceApplications.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCloseSequenceApplications.Name = "btnCloseSequenceApplications";
             btnCloseSequenceApplications.Size = new System.Drawing.Size(21, 21);
@@ -941,7 +942,7 @@
             lvSequences.EnsureLastItemIsVisible = false;
             lvSequences.FirstItemIsGray = false;
             lvSequences.FullRowSelect = true;
-            lvSequences.Location = new System.Drawing.Point(4, 41);
+            lvSequences.Location = new System.Drawing.Point(4, 29);
             lvSequences.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvSequences.MultiSelect = false;
             lvSequences.Name = "lvSequences";
@@ -949,7 +950,7 @@
             lvSequences.ReadonlyCheckboxes = false;
             lvSequences.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvSequences.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvSequences.Size = new System.Drawing.Size(321, 90);
+            lvSequences.Size = new System.Drawing.Size(321, 105);
             lvSequences.TabIndex = 1;
             lvSequences.UseCompatibleStateImageBehavior = false;
             lvSequences.View = System.Windows.Forms.View.Details;
@@ -957,7 +958,6 @@
             // 
             // gbSequences
             // 
-            gbSequences.Controls.Add(cbAgents);
             gbSequences.Controls.Add(btnCloseSequenceApplications);
             gbSequences.Controls.Add(lvSequences);
             gbSequences.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -974,9 +974,9 @@
             // 
             cbAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbAgents.FormattingEnabled = true;
-            cbAgents.Location = new System.Drawing.Point(6, 16);
+            cbAgents.Location = new System.Drawing.Point(42, 154);
             cbAgents.Name = "cbAgents";
-            cbAgents.Size = new System.Drawing.Size(289, 23);
+            cbAgents.Size = new System.Drawing.Size(188, 23);
             cbAgents.TabIndex = 2;
             // 
             // pbSziltechLogo

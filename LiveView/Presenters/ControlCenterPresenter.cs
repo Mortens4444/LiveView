@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -30,6 +31,7 @@ namespace LiveView.Presenters
         private readonly PermissionManager permissionManager;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
+        private readonly List<Process> sequenceProcesses;
         private Process cameraProcess;
 
         public static BindingList<string> Agents { get; } = new BindingList<string>();
@@ -44,6 +46,7 @@ namespace LiveView.Presenters
             displayManager = controlCenterPresenterDependencies.DisplayManager;
             permissionManager = controlCenterPresenterDependencies.PermissionManager;
             logger = controlCenterPresenterDependencies.Logger;
+            sequenceProcesses = new List<Process>();
         }
 
         public new void SetView(IView view)
@@ -59,12 +62,32 @@ namespace LiveView.Presenters
 
         public void CloseFullScreenCameraApplication()
         {
-            throw new NotImplementedException();
+            if (view.CbAgents.SelectedIndex == 0)
+            {
+                ProcessUtils.Kill(cameraProcess);
+                cameraProcess = null;
+            }
+            else
+            {
+                if (MainPresenter.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
+                {
+                    SentToClient(view.CbAgents.Text, $"{NetworkCommand.Kill}|Camera.exe|{cameraProcessId}");
+                    MainPresenter.CameraProcesses.Remove(view.CbAgents.Text);
+                }
+            }
         }
 
-        public void CloseSequenceApplication()
+        public void CloseSequenceApplications()
         {
-            throw new NotImplementedException();
+            if (view.CbAgents.SelectedIndex == 0)
+            {
+                ProcessUtils.Kill(sequenceProcesses);
+                sequenceProcesses.Clear();
+            }
+            else
+            {
+                SentToClient(view.CbAgents.Text, $"{NetworkCommand.KillAll}|Sequence.exe");
+            }
         }
 
         public void MoveToEast()
@@ -207,6 +230,11 @@ namespace LiveView.Presenters
 
         public void SelectDisplay(Point location)
         {
+            if (view.CachedDisplays == null)
+            {
+                return;
+            }
+
             foreach (KeyValuePair<string, Rectangle> bounds in view.CachedBounds)
             {
                 var display = view.CachedDisplays.FirstOrDefault(d => d.Id == bounds.Key);
@@ -219,51 +247,36 @@ namespace LiveView.Presenters
 
         public void StartCameraApp(Camera camera)
         {
-            if (view.CbAgents.SelectedIndex == 0)
-            {
-                if (cameraProcess != null)
-                {
-                    cameraProcess.Kill();
-                }
+            ProcessUtils.Kill(cameraProcess);
 
-                if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
+            if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
+            {
+                var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+                if (selectedDisplay != null)
                 {
-                    var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-                    if (selectedDisplay != null)
+                    if (view.CbAgents.SelectedIndex == 0)
                     {
                         cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
                     }
                     else
                     {
-                        ShowError("Select a display first.");
+                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
                     }
                 }
                 else
                 {
-                    if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
-                    {
-                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
-                    }
+                    ShowError("Select a display first.");
                 }
             }
             else
             {
-                if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
+                if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
                 {
-                    var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-                    if (selectedDisplay != null)
+                    if (view.CbAgents.SelectedIndex == 0)
                     {
-
-                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
                     }
                     else
-                    {
-                        ShowError("Select a display first.");
-                    }
-                }
-                else
-                {
-                    if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
                     {
                         SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id}");
                     }
@@ -297,7 +310,15 @@ namespace LiveView.Presenters
             var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
             if (selectedDisplay != null)
             {
-                AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} True");
+                var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
+                if (view.CbAgents.SelectedIndex == 0)
+                {
+                    sequenceProcesses.Add(AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
+                }
+                else
+                {
+                    SentToClient(view.CbAgents.Text, $"Sequence.exe|{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}");
+                }
             }
             else
             {

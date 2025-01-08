@@ -14,29 +14,19 @@ namespace LiveView.Forms
     public partial class BaseDisplayView : BaseView, IBaseDisplayView
     {
         private static Font font;
-        private static Pen blackPen, bluePen;
-        private static SolidBrush cornflowerBlueBrush, lightBlueBrush, grayBrush, lightGreenBrush, redBrush, lightGoldenrodYellowBrush;
 
         private Timer mouseUpdateTimer;
         private IDisplayPresenter displayPresenter;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public List<DisplayDto> CachedDisplays { get; private set; }
+        public List<DisplayDto> CachedDisplays { get; set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, Rectangle> CachedBounds { get; private set; }
 
         static BaseDisplayView()
         {
-            blackPen = new Pen(Color.Black, 2);
-            bluePen = new Pen(Color.Blue, 2);
             font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-            cornflowerBlueBrush = new SolidBrush(Color.CornflowerBlue);
-            lightBlueBrush = new SolidBrush(Color.LightBlue);
-            grayBrush = new SolidBrush(Color.Gray);
-            lightGreenBrush = new SolidBrush(Color.LightGreen);
-            lightGoldenrodYellowBrush = new SolidBrush(Color.LightGoldenrodYellow);
-            redBrush = new SolidBrush(Color.Red);
         }
 
         public BaseDisplayView() : this(null, typeof(BasePresenter))
@@ -61,14 +51,26 @@ namespace LiveView.Forms
         {
             displayPresenter = (IDisplayPresenter)Presenter;
             var mouseLocation = displayPresenter.GetMouseLocation(size);
-            graphics.FillEllipse(redBrush, mouseLocation.X, mouseLocation.Y, 3, 3);
+
+            using (var redBrush = new SolidBrush(Color.Red))
+            {
+                graphics.FillEllipse(redBrush, mouseLocation.X, mouseLocation.Y, 3, 3);
+            }
         }
 
-        protected void DrawDisplays(Graphics graphics, DisplayDrawingTools displayDrawingTools)
+        protected void DrawDisplays(Graphics graphics, DisplayDrawingTools displayDrawingTools, string hostname)
         {
+            if (CachedDisplays == null)
+            {
+                return;
+            }
+
             foreach (var display in CachedDisplays)
             {
-                DrawDisplay(graphics, display, displayDrawingTools);
+                if (display.Host == hostname)
+                {
+                    DrawDisplay(graphics, display, displayDrawingTools);
+                }
             }
         }
 
@@ -90,7 +92,7 @@ namespace LiveView.Forms
             }
 
             var adjustedBounds = GetAdjustedBounds(bounds);
-            var (drawingPen, drawingBrush) = GetDrawingTools(display, displayDrawingTools);
+            var (drawingPen, drawingBrush) = displayPresenter.GetDrawingTools(display, displayDrawingTools);
             Draw(graphics, display, bounds, adjustedBounds, drawingPen, drawingBrush);
         }
 
@@ -112,48 +114,6 @@ namespace LiveView.Forms
 
             ShowSeqence(graphics, display, adjustedBounds);
             ShowDisplayName(graphics, display, adjustedBounds);
-        }
-
-        private (Pen, SolidBrush) GetDrawingTools(DisplayDto display, DisplayDrawingTools displayDrawingTools)
-        {
-            if (displayDrawingTools == DisplayDrawingTools.Functions)
-            {
-                if (display.CanShowSequence && display.CanShowFullscreen)
-                {
-                    return (blackPen, lightBlueBrush);
-                }
-                else if (display.CanShowSequence)
-                {
-                    return (blackPen, lightGoldenrodYellowBrush);
-                }
-                else if (display.CanShowFullscreen)
-                {
-                    return (blackPen, lightGreenBrush);
-                }
-
-                return (blackPen, grayBrush);
-            }
-
-            if (displayDrawingTools == DisplayDrawingTools.Selected)
-            {
-                if (display.Selected)
-                {
-                    return (bluePen, cornflowerBlueBrush);
-                }
-
-                return (blackPen, lightBlueBrush);
-            }
-
-            if (displayDrawingTools == DisplayDrawingTools.Fullscreen)
-            {
-                if (display.Fullscreen)
-                {
-                    return (blackPen, lightGreenBrush);
-                }
-                return (blackPen, lightBlueBrush);
-            }
-
-            throw new NotImplementedException($"Display drawing tools ({displayDrawingTools}) are not implemented.");
         }
 
         private static void ShowDisplayName(Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
@@ -178,7 +138,7 @@ namespace LiveView.Forms
                 {
                     if (starter.Display.Id == display.Id)
                     {
-                        var sequenceBrush = display.Selected ? lightGreenBrush : grayBrush;
+                        var (drawingPen, sequenceBrush) = displayPresenter.GetDrawingTools(display, DisplayDrawingTools.Sequence);
                         graphics.FillRectangle(sequenceBrush, adjustedBounds);
                         break;
                     }
