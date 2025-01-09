@@ -118,18 +118,22 @@ namespace LiveView.Services
             services.AddScoped<IDisplayRepository, DisplayRepository>();
             services.AddScoped<IGeneralOptionsRepository, GeneralOptionsRepository>();
             services.AddScoped<IGridCameraRepository, GridCameraRepository>();
-            services.AddScoped<IGridRepository, GridRepository>();
             services.AddScoped<IGridInSequenceRepository, GridInSequenceRepository>();
+            services.AddScoped<IGridRepository, GridRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IIOPortRepository, IOPortRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IMapObjectRepository, MapObjectRepository>();
             services.AddScoped<IMapRepository, MapRepository>();
+            services.AddScoped<IObjectInMapRepository, ObjectInMapRepository>();
+            services.AddScoped<IOperationRepository, OperationRepository>();
             services.AddScoped<IPersonalOptionsRepository, PersonalOptionsRepository>();
+            services.AddScoped<IRightRepository, RightRepository>();
             services.AddScoped<ISequenceRepository, SequenceRepository>();
             services.AddScoped<IServerRepository, ServerRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
+            services.AddScoped<IUserEventRepository, UserEventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUsersInGroupsRepository, UsersInGroupsRepository>();
         }

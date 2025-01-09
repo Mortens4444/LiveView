@@ -1,4 +1,5 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
@@ -27,7 +28,14 @@ namespace LiveView.Forms
         private void BtnNewGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowDialogWithReload<AddGroup>();
+            if (TvUsersAndGroups.SelectedNode.Tag is Group group)
+            {
+                presenter.ShowDialogWithReload<AddGroup>(group);
+            }
+            else
+            {
+                presenter.ShowError("Groups can only be added within other groups.");
+            }
         }
 
         [RequirePermission(UserManagementPermissions.Create)]

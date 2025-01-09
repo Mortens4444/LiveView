@@ -11,6 +11,7 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Services;
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using Language = Mtf.LanguageService.Enums.Language;
 
 namespace LiveView.Presenters
@@ -39,6 +40,7 @@ namespace LiveView.Presenters
         public void SaveSettings()
         {
             personalOptionsRepository.Set(Setting.Language, permissionManager.CurrentUser.Id, view.CbLanguages.SelectedIndex);
+            personalOptionsRepository.Set(Setting.UseCustomControlColors, permissionManager.CurrentUser.Id, view.ChkUseCustomColors.Checked);
         }
 
         public override void Load()
@@ -46,9 +48,12 @@ namespace LiveView.Presenters
             var languages = Enum.GetValues(typeof(ImplementedLanguage))
                 .Cast<ImplementedLanguage>()
                 .Select(language => $"{language} ({language.GetDescription()})");
+
             view.AddItems(view.CbLanguages, languages);
             int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
             view.SelectByIndex(view.CbLanguages, selectedLanguage);
+            
+            view.ChkUseCustomColors.Checked = personalOptionsRepository.Get(Setting.UseCustomControlColors, permissionManager.CurrentUser.Id, false);
         }
 
         public void ChangeLanguage()

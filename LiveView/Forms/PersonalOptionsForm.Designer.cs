@@ -52,6 +52,7 @@
             lblShadowColor = new System.Windows.Forms.Label();
             pMain = new System.Windows.Forms.Panel();
             gbLanguage = new System.Windows.Forms.GroupBox();
+            chkUseCustomColors = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbShadowColor).BeginInit();
@@ -167,7 +168,7 @@
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(551, 243);
+            btnClose.Location = new System.Drawing.Point(551, 268);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -180,7 +181,7 @@
             // 
             btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnSave.Location = new System.Drawing.Point(455, 243);
+            btnSave.Location = new System.Drawing.Point(455, 268);
             btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(88, 27);
@@ -237,6 +238,7 @@
             // 
             // gbTexts
             // 
+            gbTexts.Controls.Add(chkUseCustomColors);
             gbTexts.Controls.Add(lblFontSizeSmall);
             gbTexts.Controls.Add(lblFontSizeBig);
             gbTexts.Controls.Add(nudFontSizeSmall);
@@ -255,7 +257,7 @@
             gbTexts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbTexts.Name = "gbTexts";
             gbTexts.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbTexts.Size = new System.Drawing.Size(645, 190);
+            gbTexts.Size = new System.Drawing.Size(645, 215);
             gbTexts.TabIndex = 1;
             gbTexts.TabStop = false;
             gbTexts.Text = "Texts";
@@ -280,7 +282,7 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(645, 273);
+            pMain.Size = new System.Drawing.Size(645, 298);
             pMain.TabIndex = 1;
             // 
             // gbLanguage
@@ -297,11 +299,21 @@
             gbLanguage.TabStop = false;
             gbLanguage.Text = "Language";
             // 
+            // chkUseCustomColors
+            // 
+            chkUseCustomColors.AutoSize = true;
+            chkUseCustomColors.Location = new System.Drawing.Point(18, 190);
+            chkUseCustomColors.Name = "chkUseCustomColors";
+            chkUseCustomColors.Size = new System.Drawing.Size(123, 19);
+            chkUseCustomColors.TabIndex = 15;
+            chkUseCustomColors.Text = "Use custom colors";
+            chkUseCustomColors.UseVisualStyleBackColor = true;
+            // 
             // PersonalOptionsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(645, 273);
+            ClientSize = new System.Drawing.Size(645, 298);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "PersonalOptionsForm";
@@ -345,5 +357,6 @@
         private System.Windows.Forms.Label lblShadowColor;
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.GroupBox gbLanguage;
+        private System.Windows.Forms.CheckBox chkUseCustomColors;
     }
 }

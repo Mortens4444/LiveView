@@ -16,6 +16,7 @@ namespace LiveView.Forms
 
         public ComboBox CbLanguages => cbLanguages;
 
+        public CheckBox ChkUseCustomColors => chkUseCustomColors;
 
         public PersonalOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(PersonalOptionsPresenter))
         {

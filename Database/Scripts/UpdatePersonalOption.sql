@@ -1,5 +1,4 @@
 ﻿UPDATE [Options] SET
 	Value = @Value,
-	TypeId = @TypeId,
-	UserId = @UserId
-WHERE Name = @Name
+	TypeId = @TypeId	
+WHERE Name = @Name AND UserId = @UserId

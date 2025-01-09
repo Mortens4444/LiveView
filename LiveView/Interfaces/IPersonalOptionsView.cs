@@ -6,6 +6,8 @@ namespace LiveView.Interfaces
     {
         ComboBox CbLanguages { get; }
 
+        CheckBox ChkUseCustomColors { get; }
+
         void SetOriginalTexts();
     }
 }

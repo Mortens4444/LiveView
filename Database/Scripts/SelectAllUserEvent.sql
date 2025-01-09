@@ -1,0 +1,1 @@
+﻿SELECT Id, Name, Note FROM UserEvents;

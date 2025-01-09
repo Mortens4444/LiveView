@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            var listViewGroup1 = new System.Windows.Forms.ListViewGroup("Operations", System.Windows.Forms.HorizontalAlignment.Left);
+            var listViewGroup2 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGroup));
+            var listViewGroup3 = new System.Windows.Forms.ListViewGroup("Operations", System.Windows.Forms.HorizontalAlignment.Left);
+            var listViewGroup4 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
             pMain = new System.Windows.Forms.Panel();
             gbPermissions = new System.Windows.Forms.GroupBox();
             lblUserEvents = new System.Windows.Forms.Label();
@@ -190,6 +194,11 @@
             lvSelectableOperationsAndCameras.EnsureLastItemIsVisible = false;
             lvSelectableOperationsAndCameras.FirstItemIsGray = false;
             lvSelectableOperationsAndCameras.FullRowSelect = true;
+            listViewGroup1.Header = "Operations";
+            listViewGroup1.Name = "Operations";
+            listViewGroup2.Header = "Cameras";
+            listViewGroup2.Name = "Cameras";
+            lvSelectableOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2 });
             lvSelectableOperationsAndCameras.Location = new System.Drawing.Point(4, 138);
             lvSelectableOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvSelectableOperationsAndCameras.Name = "lvSelectableOperationsAndCameras";
@@ -241,6 +250,11 @@
             lvExecuteableOperationsAndVisibleCameras.EnsureLastItemIsVisible = false;
             lvExecuteableOperationsAndVisibleCameras.FirstItemIsGray = false;
             lvExecuteableOperationsAndVisibleCameras.FullRowSelect = true;
+            listViewGroup3.Header = "Operations";
+            listViewGroup3.Name = "Operations2";
+            listViewGroup4.Header = "Cameras";
+            listViewGroup4.Name = "Cameras2";
+            lvExecuteableOperationsAndVisibleCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup3, listViewGroup4 });
             lvExecuteableOperationsAndVisibleCameras.Location = new System.Drawing.Point(358, 138);
             lvExecuteableOperationsAndVisibleCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvExecuteableOperationsAndVisibleCameras.Name = "lvExecuteableOperationsAndVisibleCameras";

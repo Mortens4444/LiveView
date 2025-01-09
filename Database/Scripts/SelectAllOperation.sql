@@ -1,0 +1,1 @@
+﻿SELECT Id, LanguageElementId, Note FROM Operations;

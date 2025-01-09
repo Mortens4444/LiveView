@@ -143,7 +143,10 @@ namespace LiveView.Forms
 
         private void CbEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (CbEvents.SelectedItem is UserEvent userEvent)
+            {
+                tbUserEventNote.Text = userEvent.Note;
+            }
         }
 
         public bool OperationsAndCamerasHasElementWithId(IHaveId<long> item)

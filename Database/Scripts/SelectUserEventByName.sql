@@ -1,1 +1,1 @@
-﻿SELECT Id, LanguageElementId, Note, Name FROM Events WHERE Name = @Name;
+﻿SELECT Id, Name, Note FROM UserEvents WHERE Name = @Name;
