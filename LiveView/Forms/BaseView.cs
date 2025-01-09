@@ -42,17 +42,21 @@ namespace LiveView.Forms
             if (!DesignMode)
             {
                 permissionManager = serviceProvider?.GetRequiredService<PermissionManager>();
+                Load += BaseView_Load;
             }
             this.presenterType = presenterType;
             this.serviceProvider = serviceProvider;
-
-            Load += BaseView_Load;
         }
 
         private void BaseView_Load(object sender, EventArgs e)
         {
+            Colorize();
+        }
+
+        private void Colorize()
+        {
             var generalOptionsRepository = serviceProvider?.GetRequiredService<IGeneralOptionsRepository>();
-            var useCustomColors = generalOptionsRepository.Get(Setting.UseCustomControlColors, false);
+            var useCustomColors = generalOptionsRepository?.Get(Setting.UseCustomControlColors, false) ?? false;
             if (useCustomColors)
             {
                 var colorizeControlsService = serviceProvider?.GetRequiredService<ColorizeControlsService>();
