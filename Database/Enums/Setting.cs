@@ -32,5 +32,6 @@
         TextBoxBackgroundColor,
         TextBoxForeColor,
         UseCustomControlColors,
+        Language,
     }
 }

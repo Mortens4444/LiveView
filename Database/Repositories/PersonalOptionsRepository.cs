@@ -1,14 +1,80 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
-using Mtf.Database;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Database.Repositories
 {
-    public sealed class PersonalOptionsRepository : BaseRepository<PersonalOption>, IPersonalOptionsRepository
+    public sealed class PersonalOptionsRepository : BaseOptionsRepository<PersonalOption>, IPersonalOptionsRepository
     {
+        private readonly Dictionary<(string settingName, long userId), PersonalOption> cachedUserSettings = new Dictionary<(string settingName, long userId), PersonalOption>();
+
         public void DeletePersonalOptions()
         {
             Execute("DeletePersonalOptions");
+        }
+
+        public void ResetCache()
+        {
+            cachedUserSettings.Clear();
+        }
+
+        public T Get<T>(Setting settingName, long userId, T defaultValue = default)
+        {
+            if (cachedUserSettings.Count == 0)
+            {
+                var repositorySettings = SelectAll();
+                foreach (var repositorySetting in repositorySettings)
+                {
+                    cachedUserSettings[(repositorySetting.Name, userId)] = repositorySetting;
+                }
+            }
+
+            if (cachedUserSettings.TryGetValue((settingName.ToString(), userId), out var setting))
+            {
+                return GetValue<T>(settingName, setting);
+            }
+
+            return defaultValue;
+        }
+
+        public void Set<T>(Setting settingName, long userId, T value)
+        {
+            if (cachedUserSettings.Count == 0)
+            {
+                var repositorySettings = SelectAll();
+                foreach (var repositorySetting in repositorySettings)
+                {
+                    cachedUserSettings[(repositorySetting.Name, repositorySetting.UserId)] = repositorySetting;
+                }
+            }
+
+            var stringValue = Convert.ToString(value, CultureInfo.InvariantCulture);
+            var settingKey = (settingName.ToString(), userId);
+            if (cachedUserSettings.TryGetValue(settingKey, out var setting))
+            {
+                setting.Value = stringValue;
+                Update(setting);
+            }
+            else
+            {
+                var newSetting = CreateOption(settingName.ToString(), userId, stringValue, value);
+                cachedUserSettings[settingKey] = newSetting;
+                Insert(newSetting);
+            }
+        }
+
+        private PersonalOption CreateOption<T>(string settingName, long userId, string settingValue, T value)
+        {
+            return new PersonalOption
+            {
+                Name = settingName.ToString(),
+                TypeId = GetOptionType(value),
+                Value = settingValue,
+                UserId = userId
+            };
         }
     }
 }

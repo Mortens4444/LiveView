@@ -1,22 +1,33 @@
-﻿using Database.Interfaces;
-using Database.Models;
+﻿using Database.Enums;
+using Database.Interfaces;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
+using Mtf.LanguageService.Enums;
+using Mtf.LanguageService.Windows.Forms;
+using Mtf.Permissions.Services;
 using System;
+using System.Linq;
+using Language = Mtf.LanguageService.Enums.Language;
 
 namespace LiveView.Presenters
 {
     public class PersonalOptionsPresenter : BasePresenter
     {
+        private const int HungarianLanguageIndex = 9;
+
         private IPersonalOptionsView view;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
+        private readonly PermissionManager permissionManager;
 
         public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies personalOptionsPresenterDependencies)
             : base(personalOptionsPresenterDependencies)
         {
+            permissionManager = personalOptionsPresenterDependencies.PermissionManager;
             personalOptionsRepository = personalOptionsPresenterDependencies.PersonalOptionsRepository;
             logger = personalOptionsPresenterDependencies.Logger;
         }
@@ -29,12 +40,31 @@ namespace LiveView.Presenters
 
         public void SaveSettings()
         {
-            throw new NotImplementedException();
+            personalOptionsRepository.Set(Setting.Language, permissionManager.CurrentUser.Id, view.CbLanguages.SelectedIndex);
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            var languages = Enum.GetValues(typeof(ImplementedLanguage))
+                .Cast<ImplementedLanguage>()
+                .Select(language => $"{language} ({language.GetDescription()})");
+            view.AddItems(view.CbLanguages, languages);
+            int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, HungarianLanguageIndex);
+            view.SelectByIndex(view.CbLanguages, 9);
+        }
+
+        public void ChangeLanguage()
+        {
+            var selectedItem = view.CbLanguages.SelectedItem?.ToString();
+            if (!String.IsNullOrEmpty(selectedItem))
+            {
+                var lngParts = selectedItem.Split(' ');
+                var languageEnum = EnumExtensions.GetFromDescription<Language>(lngParts[0]);
+                Lng.DefaultLanguage = languageEnum;
+                view.SetOriginalTexts();
+                Translator.Translate(view.GetSelf());
+                view.CbLanguages.SelectedItem = selectedItem;
+            }
         }
     }
 }

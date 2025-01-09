@@ -1,19 +1,21 @@
-﻿using LiveView.Extensions;
-using LiveView.Interfaces;
+﻿using LiveView.Interfaces;
 using LiveView.Presenters;
-using Mtf.LanguageService;
-using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
-using Language = Mtf.LanguageService.Enums.Language;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class PersonalOptionsForm : BaseView, IPersonalOptionsView
     {
         private PersonalOptionsPresenter presenter;
+        private readonly Dictionary<object, string> originalTexts;
+
+        public ComboBox CbLanguages => cbLanguages;
+
 
         public PersonalOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(PersonalOptionsPresenter))
         {
@@ -21,7 +23,12 @@ namespace LiveView.Forms
 
             permissionManager.ApplyPermissionsOnControls(this);
 
-            Translator.Translate(this);
+            originalTexts = Translator.Translate(this);
+        }
+
+        public void SetOriginalTexts()
+        {
+            Translator.SetOriginalTexts(originalTexts);
         }
 
         [RequirePermission(SettingsManagementPermissions.UpdatePersonal)]
@@ -40,21 +47,13 @@ namespace LiveView.Forms
         {
             presenter = Presenter as PersonalOptionsPresenter;
             presenter.Load();
-            foreach (ImplementedLanguage language in Enum.GetValues(typeof(ImplementedLanguage)))
-            {
-                var description = language.GetDescription();
-                cbLanguages.Items.Add($"{language} ({description})");
-            }
         }
 
         private void CbLanguages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = cbLanguages.SelectedItem?.ToString();
-            if (!String.IsNullOrEmpty(selectedItem))
-            {
-                var languageEnum = EnumExtensions.GetFromDescription<Language>(selectedItem);
-                Lng.DefaultLanguage = languageEnum;
-            }
+            CbLanguages.SelectedIndexChanged -= CbLanguages_SelectedIndexChanged;
+            presenter.ChangeLanguage();
+            CbLanguages.SelectedIndexChanged += CbLanguages_SelectedIndexChanged;
         }
     }
 }

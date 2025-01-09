@@ -1,16 +1,8 @@
-﻿using Database.Enums;
-
-namespace Database.Models
+﻿namespace Database.Models
 {
-    public class PersonalOption
+    public class PersonalOption : GeneralOption
     {
-        public string Name { get; set; }
-
-        public string Value { get; set; }
-
         public long UserId { get; set; }
-
-        public OptionType TypeId { get; set; }
 
         public override string ToString()
         {

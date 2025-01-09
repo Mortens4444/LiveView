@@ -1,0 +1,1 @@
+﻿SELECT Name, TypeId, Value, UserId FROM Options;

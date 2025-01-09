@@ -19,6 +19,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\InsertPersonalOption.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\SelectSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectAllUserGroup.sql" />
     <EmbeddedResource Include="Scripts\UpdateUser.sql" />
@@ -44,7 +46,6 @@
     <EmbeddedResource Include="Scripts\DeleteServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteSequence.sql" />
     <EmbeddedResource Include="Scripts\DeleteMapObject.sql" />
-    <EmbeddedResource Include="Scripts\InsertPersonalOptions.sql" />
     <EmbeddedResource Include="Scripts\InsertGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteGridInSequence.sql" />
@@ -72,7 +73,7 @@
     <EmbeddedResource Include="Scripts\UpdateSequence.sql" />
     <EmbeddedResource Include="Scripts\InsertSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectAllObjectsInMaps.sql" />
-    <EmbeddedResource Include="Scripts\UpdatePersonalOptions.sql" />
+    <EmbeddedResource Include="Scripts\UpdatePersonalOption.sql" />
     <EmbeddedResource Include="Scripts\UpdateMapObject.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteMap.sql" />

@@ -74,7 +74,7 @@
             // lblFontSizeSmall
             // 
             lblFontSizeSmall.AutoSize = true;
-            lblFontSizeSmall.Location = new System.Drawing.Point(451, 93);
+            lblFontSizeSmall.Location = new System.Drawing.Point(18, 162);
             lblFontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFontSizeSmall.Name = "lblFontSizeSmall";
             lblFontSizeSmall.Size = new System.Drawing.Size(83, 15);
@@ -84,7 +84,7 @@
             // lblFontSizeBig
             // 
             lblFontSizeBig.AutoSize = true;
-            lblFontSizeBig.Location = new System.Drawing.Point(451, 63);
+            lblFontSizeBig.Location = new System.Drawing.Point(18, 132);
             lblFontSizeBig.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFontSizeBig.Name = "lblFontSizeBig";
             lblFontSizeBig.Size = new System.Drawing.Size(83, 15);
@@ -93,18 +93,18 @@
             // 
             // nudFontSizeSmall
             // 
-            nudFontSizeSmall.Location = new System.Drawing.Point(551, 91);
+            nudFontSizeSmall.Location = new System.Drawing.Point(243, 160);
             nudFontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFontSizeSmall.Name = "nudFontSizeSmall";
-            nudFontSizeSmall.Size = new System.Drawing.Size(88, 23);
+            nudFontSizeSmall.Size = new System.Drawing.Size(65, 23);
             nudFontSizeSmall.TabIndex = 10;
             // 
             // nudFontSizeBig
             // 
-            nudFontSizeBig.Location = new System.Drawing.Point(551, 61);
+            nudFontSizeBig.Location = new System.Drawing.Point(243, 130);
             nudFontSizeBig.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudFontSizeBig.Name = "nudFontSizeBig";
-            nudFontSizeBig.Size = new System.Drawing.Size(88, 23);
+            nudFontSizeBig.Size = new System.Drawing.Size(65, 23);
             nudFontSizeBig.TabIndex = 8;
             // 
             // btnFontType
@@ -167,7 +167,7 @@
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(551, 175);
+            btnClose.Location = new System.Drawing.Point(551, 243);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -180,7 +180,7 @@
             // 
             btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnSave.Location = new System.Drawing.Point(455, 175);
+            btnSave.Location = new System.Drawing.Point(455, 243);
             btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(88, 27);
@@ -204,7 +204,7 @@
             // pbShadowColor
             // 
             pbShadowColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pbShadowColor.Location = new System.Drawing.Point(220, 82);
+            pbShadowColor.Location = new System.Drawing.Point(325, 161);
             pbShadowColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbShadowColor.Name = "pbShadowColor";
             pbShadowColor.OriginalSize = new System.Drawing.Size(100, 50);
@@ -216,7 +216,7 @@
             // pbFontColor
             // 
             pbFontColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pbFontColor.Location = new System.Drawing.Point(220, 48);
+            pbFontColor.Location = new System.Drawing.Point(325, 127);
             pbFontColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbFontColor.Name = "pbFontColor";
             pbFontColor.OriginalSize = new System.Drawing.Size(100, 50);
@@ -228,7 +228,7 @@
             // lblFontColor
             // 
             lblFontColor.AutoSize = true;
-            lblFontColor.Location = new System.Drawing.Point(261, 54);
+            lblFontColor.Location = new System.Drawing.Point(366, 133);
             lblFontColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFontColor.Name = "lblFontColor";
             lblFontColor.Size = new System.Drawing.Size(61, 15);
@@ -255,7 +255,7 @@
             gbTexts.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbTexts.Name = "gbTexts";
             gbTexts.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbTexts.Size = new System.Drawing.Size(645, 122);
+            gbTexts.Size = new System.Drawing.Size(645, 190);
             gbTexts.TabIndex = 1;
             gbTexts.TabStop = false;
             gbTexts.Text = "Texts";
@@ -263,7 +263,7 @@
             // lblShadowColor
             // 
             lblShadowColor.AutoSize = true;
-            lblShadowColor.Location = new System.Drawing.Point(258, 88);
+            lblShadowColor.Location = new System.Drawing.Point(363, 167);
             lblShadowColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblShadowColor.Name = "lblShadowColor";
             lblShadowColor.Size = new System.Drawing.Size(79, 15);
@@ -280,7 +280,7 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(645, 205);
+            pMain.Size = new System.Drawing.Size(645, 273);
             pMain.TabIndex = 1;
             // 
             // gbLanguage
@@ -301,10 +301,9 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(645, 205);
+            ClientSize = new System.Drawing.Size(645, 273);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(652, 231);
             Name = "PersonalOptionsForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "Personal options";

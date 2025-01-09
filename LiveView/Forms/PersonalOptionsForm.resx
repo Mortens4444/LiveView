@@ -126,29 +126,4 @@
   <metadata name="ttHint.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>152, 20</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYkGV92pNp+NaJXOPTgVA7AAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA36J+8+e6n//mtJj/2ZBkyNF8SCkAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOKtjO7pv6b/5bSX/+W1mP7ZkWfP04BOGwAA
-        AAAAAAAAAAAAAAAAAABXmNYWbY+0L6BfRHetTyXatFMp97VTKfvHd1H847KX/um/pv/mtpr/5raa/9eM
-        X63VglAYAAAAAAAAAAAAAAAAVJTTsFx5pfyyblH+9Kha//2zXv/9sV3//bBd//Gucf/muqH/6cCo/+nB
-        qP/Tl3PtrYVtOAAAAAAAAAAAAAAAADiH1f6Nnrr/159y//2wYf/9qVv//aJW//6fU//8m1D/5qF4/+a+
-        pv/hs5X/vqyi/oyMjKmFhYV9gYGBYX9/fxVranuzpJSW/++9iv/+v2v//bZi//2uXf/9pVf//ZxR//ah
-        Zv/PoIn/qpWM98TExP++vr7/tra2/qmpqfKGhoaUokobNLRaMb/qs5L//dqa//7KbP/+v2P//rRd//60
-        bP/yt5X/vVkw15NXN2Stra3+xsbG/KampuS6urr8n5+f76dHEQWnSBNFu1ovz+zJrv9wi5z/b4iZ/3CG
-        mf/awq//wVs06J9BE1+XPw8MsrKy+8vLy/iTk5ODmJiY2ZGRke0AAAAApEgUBYBCI2tObpPumsfx/6bN
-        8f+hyvD/WI6+/3JALJOZQhMJAAAAAKurq8za2tr+r6+v/5OTkyAAAAAAAAAAAAAAAAAlWpN7lLjd9aXK
-        7P+gyvH/ocfq/6vO7P8vZ6GpaZ/SAQAAAACbm5tPrKys1KWlpfyWlpYgAAAAAAAAAAAAAAAAFlCSkpm0
-        0v2OvOn/c57J/1+Ktv+JpcD/KWOaxF2PvgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1D
-        jZk9baX/TYC2/y9hlf8URXn/GUNw/xg/acVMd6ECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAQPHtoEUyS7hBRkv8QUI//EEuI/w9Adf8RLlGLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAEjFlExI6dIYRS5D5EEyP/xBFg/sSN2a1Ei1JHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAATM2kNEUeMIQ9IjCIQQ4EhEjhpFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAA/D+sQfwfrEH8D6xBAAesQQAHrEEAAKxBAACsQQAArEEAAKxBgCGsQcAhrEHAP6xBwD+sQcB/
-        rEHAf6xB4P+sQQ==
-</value>
-  </data>
 </root>
