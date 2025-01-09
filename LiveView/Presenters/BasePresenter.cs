@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LibVLCSharp.Shared;
 using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -9,6 +10,7 @@ using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -95,6 +97,11 @@ namespace LiveView.Presenters
         public bool ShowConfirm(string title, string message, Decide decide = Decide.No)
         {
             return view.ShowConfirm(Lng.Elem(title), Lng.Elem(message), decide);
+        }
+
+        public void ShowInfo(string message)
+        {
+            ShowInfo(Lng.Elem("Information"), message);
         }
 
         public void ShowInfo(string title, string message)
@@ -253,6 +260,15 @@ namespace LiveView.Presenters
         private void LoadOptoins()
         {
             generalOptions = generalOptionsRepository.SelectAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
+        }
+
+        public void StartWithShellExecute(string fileName)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = fileName,
+                UseShellExecute = true
+            });
         }
     }
 }

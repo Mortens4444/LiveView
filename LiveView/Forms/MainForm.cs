@@ -2,6 +2,7 @@
 using LiveView.Core.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using LiveView.Services;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
@@ -185,7 +186,7 @@ namespace LiveView.Forms
         private void TsmiLanguageEditor_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            Process.Start(Path.Combine(Application.StartupPath, "Languages.ods"));
+            presenter.StartWithShellExecute(Path.Combine(Application.StartupPath, "Languages.ods"));
         }
 
         [RequirePermission(LogManagementPermissions.Select)]

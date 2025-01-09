@@ -16,6 +16,7 @@ using Mtf.Network.EventArg;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -68,6 +69,17 @@ namespace LiveView.Presenters
                 Server.Start();
 
                 view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
+            }
+
+            CheckLanguageFile();
+        }
+
+        private void CheckLanguageFile()
+        {
+            var hash = Hasher.GetFileSha256Hash(Path.Combine(Application.StartupPath, "Languages.ods"));
+            if (hash != "2c31421f94e6c7928028481e1b640c8c2cf714310981b2dea23774721803a8a9")
+            {
+                ShowInfo("The language file has been tampered.");
             }
         }
 
