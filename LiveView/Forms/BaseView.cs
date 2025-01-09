@@ -1,10 +1,11 @@
 ﻿#define SET_PRESENTER_WITH_DYNAMIC
 
+using Database.Enums;
 using Database.Interfaces;
-using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using LiveView.Services.Coloring;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
@@ -12,6 +13,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,7 +27,7 @@ namespace LiveView.Forms
         private const int SC_SIZE = 0xF000;
         private const int SC_MOVE = 0xF010;
 
-        private readonly IServiceProvider serviceProvider;
+        protected readonly IServiceProvider serviceProvider;
         protected PermissionManager permissionManager;
 
         protected BasePresenter Presenter { get; private set; }
@@ -43,6 +45,19 @@ namespace LiveView.Forms
             }
             this.presenterType = presenterType;
             this.serviceProvider = serviceProvider;
+
+            Load += BaseView_Load;
+        }
+
+        private void BaseView_Load(object sender, EventArgs e)
+        {
+            var generalOptionsRepository = serviceProvider?.GetRequiredService<IGeneralOptionsRepository>();
+            var useCustomColors = generalOptionsRepository.Get(Setting.UseCustomControlColors, false);
+            if (useCustomColors)
+            {
+                var colorizeControlsService = serviceProvider?.GetRequiredService<ColorizeControlsService>();
+                colorizeControlsService.ColorizeControls(Controls);
+            }
         }
 
         public void InvokeAction(Action action)

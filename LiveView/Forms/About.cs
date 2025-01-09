@@ -4,6 +4,7 @@ using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -13,7 +14,7 @@ namespace LiveView.Forms
         public About(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BasePresenter))
         {
             InitializeComponent();
-            
+
             lblProductName.Text = Application.ProductName;
             lblVersion.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));
 
@@ -37,6 +38,11 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             Process.Start(llWebPage.Text);
+        }
+
+        private void About_Load(object sender, EventArgs e)
+        {
+            pbLogo.BackColor = Color.WhiteSmoke;
         }
     }
 }

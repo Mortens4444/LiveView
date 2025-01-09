@@ -285,7 +285,7 @@ namespace LiveView.Forms
             }
         }
 
-        private async  void LvCameras_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        private async void LvCameras_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
@@ -303,6 +303,11 @@ namespace LiveView.Forms
         public void RefreshAgents()
         {
             presenter.RefreshAgents();
+        }
+
+        private void ControlCenter_Load(object sender, EventArgs e)
+        {
+            pbSziltechLogo.BackColor = Color.WhiteSmoke;
         }
     }
 }

@@ -4,6 +4,7 @@ using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Models.Dependencies;
 using LiveView.Presenters;
+using LiveView.Services.Coloring;
 using LiveView.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,7 @@ namespace LiveView.Services
             RegisterPresenters(services);
             RegisterForms(services);
             RegisterPresenterDependencies(services);
+            RegisterServices(services);
 
             services.AddLogging(builder =>
             {
@@ -34,6 +36,11 @@ namespace LiveView.Services
                 ));
             });
             return services.BuildServiceProvider();
+        }
+
+        private static void RegisterServices(ServiceCollection services)
+        {
+            services.AddTransient<ColorizeControlsService>();
         }
 
         private static void RegisterPresenterDependencies(ServiceCollection services)

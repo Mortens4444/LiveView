@@ -76,7 +76,6 @@
             // tbConditionsAndTerms
             // 
             tbConditionsAndTerms.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbConditionsAndTerms.Enabled = false;
             tbConditionsAndTerms.Location = new System.Drawing.Point(9, 186);
             tbConditionsAndTerms.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbConditionsAndTerms.MaxLength = 5000;
@@ -255,13 +254,13 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(569, 257);
             Controls.Add(pMain);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "About";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "About";
+            Load += About_Load;
             pMain.ResumeLayout(false);
             pMain.PerformLayout();
             gbLogo.ResumeLayout(false);

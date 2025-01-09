@@ -1,4 +1,8 @@
-﻿namespace LiveView.Forms
+﻿using Database.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Mtf.Permissions.Services;
+
+namespace LiveView.Forms
 {
     partial class UserAndGroupManagement
     {

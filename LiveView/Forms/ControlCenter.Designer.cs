@@ -40,6 +40,7 @@
             lblGridName = new System.Windows.Forms.Label();
             lblSequenceName = new System.Windows.Forms.Label();
             gbDisplayDevices = new System.Windows.Forms.GroupBox();
+            cbAgents = new System.Windows.Forms.ComboBox();
             pCrossHair = new System.Windows.Forms.Panel();
             pbCrossHair = new Mtf.Controls.MtfPictureBox();
             lblDisplayDeviceName = new System.Windows.Forms.Label();
@@ -100,7 +101,6 @@
             btnCloseSequenceApplications = new System.Windows.Forms.Button();
             lvSequences = new Mtf.Controls.MtfListView();
             gbSequences = new System.Windows.Forms.GroupBox();
-            cbAgents = new System.Windows.Forms.ComboBox();
             pbSziltechLogo = new Mtf.Controls.MtfPictureBox();
             pCameras = new System.Windows.Forms.Panel();
             spitter1 = new System.Windows.Forms.Splitter();
@@ -229,6 +229,15 @@
             gbDisplayDevices.TabIndex = 0;
             gbDisplayDevices.TabStop = false;
             gbDisplayDevices.Text = "Primary display";
+            // 
+            // cbAgents
+            // 
+            cbAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbAgents.FormattingEnabled = true;
+            cbAgents.Location = new System.Drawing.Point(43, 154);
+            cbAgents.Name = "cbAgents";
+            cbAgents.Size = new System.Drawing.Size(188, 23);
+            cbAgents.TabIndex = 2;
             // 
             // pCrossHair
             // 
@@ -926,7 +935,6 @@
             btnCloseSequenceApplications.Size = new System.Drawing.Size(21, 21);
             btnCloseSequenceApplications.TabIndex = 0;
             btnCloseSequenceApplications.UseVisualStyleBackColor = false;
-            btnCloseSequenceApplications.Visible = false;
             btnCloseSequenceApplications.Click += BtnCloseSequenceApplications_Click;
             // 
             // lvSequences
@@ -969,15 +977,6 @@
             gbSequences.TabIndex = 0;
             gbSequences.TabStop = false;
             gbSequences.Text = "Select a sequence to view";
-            // 
-            // cbAgents
-            // 
-            cbAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbAgents.FormattingEnabled = true;
-            cbAgents.Location = new System.Drawing.Point(42, 154);
-            cbAgents.Name = "cbAgents";
-            cbAgents.Size = new System.Drawing.Size(188, 23);
-            cbAgents.TabIndex = 2;
             // 
             // pbSziltechLogo
             // 
@@ -1102,6 +1101,7 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "Control center";
             TopMost = true;
+            Load += ControlCenter_Load;
             Shown += ControlCenter_Shown;
             gbDisplayDevices.ResumeLayout(false);
             gbDisplayDevices.PerformLayout();

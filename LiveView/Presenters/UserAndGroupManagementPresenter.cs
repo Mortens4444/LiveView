@@ -89,36 +89,64 @@ namespace LiveView.Presenters
             var users = userRepository.SelectAll();
             var usersInGroups = userGroupRepository.SelectAll();
 
-            var groupTreeNodes = new List<TreeNode>();
-            foreach (var group in groups)
-            {
-                var groupTreeNode = new TreeNode(group.Name, GroupIconIndex, GroupIconIndex)
-                {
-                    Name = group.Id.ToString(),
-                    Tag = group,
-                    ToolTipText = group.OtherInformation
-                };
+            var userInGroupIds = usersInGroups
+                .Where(ug => ug.UserId == permissionManager.CurrentUser.Id)
+                .Select(ug => ug.GroupId);
 
-                var usersOfGroup = usersInGroups.Where(user => user.GroupId == group.Id);
-                foreach (var userOfGroup in usersOfGroup)
-                {
-                    var user = users.FirstOrDefault(u => u.Id == userOfGroup.UserId);
-                    var userTreeNode = new TreeNode(user.Username, UserIconIndex, UserIconIndex)
-                    {
-                        Name = $"User_{user.Id}",
-                        Tag = user,
-                        ToolTipText = user.ToString()
-                    };
-                    groupTreeNode.Nodes.Add(userTreeNode);
-                }
+            var userGroups = groups.Where(g => userInGroupIds.Contains(g.Id)).ToList();
 
-                groupTreeNodes.Add(groupTreeNode);
-            }
+            var groupTreeNodes = userGroups
+                .Select(group => CreateGroupTreeNode(group, groups, users, usersInGroups))
+                .ToList();
 
             var groupsNode = view.TvUsersAndGroups.Nodes["Groups"];
             groupsNode.Nodes.Clear();
             view.AddNodes(groupsNode, groupTreeNodes);
             view.ExpandAll(groupsNode);
+        }
+
+        private TreeNode CreateGroupTreeNode(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups)
+        {
+            var groupNode = new TreeNode(group.Name, GroupIconIndex, GroupIconIndex)
+            {
+                Name = group.Id.ToString(),
+                Tag = group,
+                ToolTipText = group.OtherInformation
+            };
+
+            AddUsersToGroupNode(group, allUsers, allUsersInGroups, groupNode);
+            AddChildGroups(group, allGroups, allUsers, allUsersInGroups, groupNode);
+
+            return groupNode;
+        }
+
+        private void AddChildGroups(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups, TreeNode groupNode)
+        {
+            var childGroups = allGroups.Where(g => g.ParentGroupId == group.Id);
+            foreach (var childGroup in childGroups)
+            {
+                var childGroupNode = CreateGroupTreeNode(childGroup, allGroups, allUsers, allUsersInGroups);
+                groupNode.Nodes.Add(childGroupNode);
+            }
+        }
+
+        private static void AddUsersToGroupNode(Group group, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups, TreeNode groupNode)
+        {
+            var usersOfGroup = allUsersInGroups.Where(ug => ug.GroupId == group.Id);
+            foreach (var userOfGroup in usersOfGroup)
+            {
+                var user = allUsers.FirstOrDefault(u => u.Id == userOfGroup.UserId);
+                if (user != null)
+                {
+                    var userNode = new TreeNode(user.Username, UserIconIndex, UserIconIndex)
+                    {
+                        Name = $"User_{user.Id}",
+                        Tag = user,
+                        ToolTipText = user.ToString()
+                    };
+                    groupNode.Nodes.Add(userNode);
+                }
+            }
         }
 
         public void Modify()

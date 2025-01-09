@@ -54,7 +54,7 @@ namespace LiveView.Forms
             //permissionManager.ApplyPermissionsOnControls(this);
             var user = new User
             {
-                Id = 1,
+                Id = 2,
                 IndividualPermissions = new List<Permission>
                 {
                     new Permission { PermissionGroup = typeof(GridManagementPermissions), PermissionValue = (long)GridManagementPermissions.FullControl },
