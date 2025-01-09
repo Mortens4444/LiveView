@@ -134,23 +134,26 @@ namespace LiveView.Forms
             // tsmiGeneralOptions
             // 
             tsmiGeneralOptions.Enabled = false;
+            tsmiGeneralOptions.Image = Properties.Resources.system_options;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
             // tsmiOptions
             // 
             tsmiOptions.DropDownItems.AddRange(new ToolStripItem[] { tsmiPersonalOptions, tsmiGeneralOptions, tsmiDisplaySettings });
+            tsmiOptions.Image = Properties.Resources.gear1;
             tsmiOptions.Name = "tsmiOptions";
-            tsmiOptions.Size = new System.Drawing.Size(61, 19);
+            tsmiOptions.Size = new System.Drawing.Size(77, 20);
             tsmiOptions.Text = "Options";
             // 
             // tsmiPersonalOptions
             // 
             tsmiPersonalOptions.Enabled = false;
+            tsmiPersonalOptions.Image = Properties.Resources.personal_options;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -180,6 +183,7 @@ namespace LiveView.Forms
             // tsmiUserAndGroupManagement
             // 
             tsmiUserAndGroupManagement.Enabled = false;
+            tsmiUserAndGroupManagement.Image = Properties.Resources.user_and_group_management;
             tsmiUserAndGroupManagement.Name = "tsmiUserAndGroupManagement";
             tsmiUserAndGroupManagement.Size = new System.Drawing.Size(229, 22);
             tsmiUserAndGroupManagement.Text = "User and group management";
@@ -188,13 +192,15 @@ namespace LiveView.Forms
             // tsmiUsers
             // 
             tsmiUsers.DropDownItems.AddRange(new ToolStripItem[] { tsmiUserAndGroupManagement, tssSeparator4, tsmiProfile });
+            tsmiUsers.Image = Properties.Resources.user_and_group_management1;
             tsmiUsers.Name = "tsmiUsers";
-            tsmiUsers.Size = new System.Drawing.Size(47, 19);
+            tsmiUsers.Size = new System.Drawing.Size(63, 20);
             tsmiUsers.Text = "Users";
             // 
             // tsmiTemplates
             // 
             tsmiTemplates.Enabled = false;
+            tsmiTemplates.Image = Properties.Resources.templates;
             tsmiTemplates.Name = "tsmiTemplates";
             tsmiTemplates.Size = new System.Drawing.Size(245, 22);
             tsmiTemplates.Text = "Templates";
@@ -208,6 +214,7 @@ namespace LiveView.Forms
             // tsmiAutoCreateWizard
             // 
             tsmiAutoCreateWizard.Enabled = false;
+            tsmiAutoCreateWizard.Image = Properties.Resources.auto_create_wizard;
             tsmiAutoCreateWizard.Name = "tsmiAutoCreateWizard";
             tsmiAutoCreateWizard.Size = new System.Drawing.Size(245, 22);
             tsmiAutoCreateWizard.Text = "Auto create wizard";
@@ -299,8 +306,9 @@ namespace LiveView.Forms
             // 
             // tsmiControlCenter
             // 
+            tsmiControlCenter.Image = Properties.Resources.control_center;
             tsmiControlCenter.Name = "tsmiControlCenter";
-            tsmiControlCenter.Size = new System.Drawing.Size(95, 19);
+            tsmiControlCenter.Size = new System.Drawing.Size(111, 20);
             tsmiControlCenter.Text = "Control center";
             tsmiControlCenter.Click += TsmiControlCenter_Click;
             // 
@@ -378,8 +386,9 @@ namespace LiveView.Forms
             // tsmiExit
             // 
             tsmiExit.Alignment = ToolStripItemAlignment.Right;
+            tsmiExit.Image = Properties.Resources.exit;
             tsmiExit.Name = "tsmiExit";
-            tsmiExit.Size = new System.Drawing.Size(37, 19);
+            tsmiExit.Size = new System.Drawing.Size(53, 20);
             tsmiExit.Text = "Exit";
             tsmiExit.Click += TsmiExit_Click;
             // 
@@ -394,8 +403,9 @@ namespace LiveView.Forms
             // tsmiMain
             // 
             tsmiMain.DropDownItems.AddRange(new ToolStripItem[] { tsmiServerAndCameraManagement, tssSeparator, tsmiGridManagement, tsmiSequentialChains, tssSeparator2, tsmiAutoCreateWizard, tssSeparator3, tsmiTemplates });
+            tsmiMain.Image = Properties.Resources.eye;
             tsmiMain.Name = "tsmiMain";
-            tsmiMain.Size = new System.Drawing.Size(46, 19);
+            tsmiMain.Size = new System.Drawing.Size(62, 20);
             tsmiMain.Text = "Main";
             // 
             // tsmiAbout
@@ -408,6 +418,7 @@ namespace LiveView.Forms
             // 
             // tsmiMapCreator
             // 
+            tsmiMapCreator.Image = Properties.Resources.map_creator;
             tsmiMapCreator.Name = "tsmiMapCreator";
             tsmiMapCreator.Size = new System.Drawing.Size(215, 22);
             tsmiMapCreator.Text = "Map creator";
@@ -416,6 +427,7 @@ namespace LiveView.Forms
             // tsmiMotionPopup
             // 
             tsmiMotionPopup.Enabled = false;
+            tsmiMotionPopup.Image = Properties.Resources.camera_motion_options;
             tsmiMotionPopup.Name = "tsmiMotionPopup";
             tsmiMotionPopup.Size = new System.Drawing.Size(215, 22);
             tsmiMotionPopup.Text = "Motion popup";
@@ -424,6 +436,7 @@ namespace LiveView.Forms
             // tsmiIOPortsSettings
             // 
             tsmiIOPortsSettings.Enabled = false;
+            tsmiIOPortsSettings.Image = Properties.Resources.io_port_settings;
             tsmiIOPortsSettings.Name = "tsmiIOPortsSettings";
             tsmiIOPortsSettings.Size = new System.Drawing.Size(215, 22);
             tsmiIOPortsSettings.Text = "I/O ports' settings";
@@ -432,6 +445,7 @@ namespace LiveView.Forms
             // tsmiSyncronView
             // 
             tsmiSyncronView.Enabled = false;
+            tsmiSyncronView.Image = Properties.Resources.syncron_view;
             tsmiSyncronView.Name = "tsmiSyncronView";
             tsmiSyncronView.Size = new System.Drawing.Size(215, 22);
             tsmiSyncronView.Text = "Syncron view";
@@ -440,6 +454,7 @@ namespace LiveView.Forms
             // tsmiBarCodeReadings
             // 
             tsmiBarCodeReadings.Enabled = false;
+            tsmiBarCodeReadings.Image = Properties.Resources.barcode_readings;
             tsmiBarCodeReadings.Name = "tsmiBarCodeReadings";
             tsmiBarCodeReadings.Size = new System.Drawing.Size(215, 22);
             tsmiBarCodeReadings.Text = "Bar code readings";
@@ -447,6 +462,7 @@ namespace LiveView.Forms
             // 
             // tsmiPositioningMousePointer
             // 
+            tsmiPositioningMousePointer.Image = (System.Drawing.Image)resources.GetObject("tsmiPositioningMousePointer.Image");
             tsmiPositioningMousePointer.Name = "tsmiPositioningMousePointer";
             tsmiPositioningMousePointer.ShortcutKeyDisplayString = "Home";
             tsmiPositioningMousePointer.Size = new System.Drawing.Size(215, 22);
@@ -456,6 +472,7 @@ namespace LiveView.Forms
             // tsmiLogViewer
             // 
             tsmiLogViewer.Enabled = false;
+            tsmiLogViewer.Image = Properties.Resources.log_viewer;
             tsmiLogViewer.Name = "tsmiLogViewer";
             tsmiLogViewer.Size = new System.Drawing.Size(215, 22);
             tsmiLogViewer.Text = "Log viewer";
@@ -464,6 +481,7 @@ namespace LiveView.Forms
             // tsmiLanguageEditor
             // 
             tsmiLanguageEditor.Enabled = false;
+            tsmiLanguageEditor.Image = Properties.Resources.table;
             tsmiLanguageEditor.Name = "tsmiLanguageEditor";
             tsmiLanguageEditor.Size = new System.Drawing.Size(215, 22);
             tsmiLanguageEditor.Text = "Language editor";
@@ -472,15 +490,17 @@ namespace LiveView.Forms
             // tsmiHelp
             // 
             tsmiHelp.DropDownItems.AddRange(new ToolStripItem[] { tsmiAbout, tsmiLicense });
+            tsmiHelp.Image = Properties.Resources.help;
             tsmiHelp.Name = "tsmiHelp";
-            tsmiHelp.Size = new System.Drawing.Size(44, 19);
+            tsmiHelp.Size = new System.Drawing.Size(60, 20);
             tsmiHelp.Text = "Help";
             // 
             // tsmiTools
             // 
             tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator });
+            tsmiTools.Image = (System.Drawing.Image)resources.GetObject("tsmiTools.Image");
             tsmiTools.Name = "tsmiTools";
-            tsmiTools.Size = new System.Drawing.Size(47, 19);
+            tsmiTools.Size = new System.Drawing.Size(63, 20);
             tsmiTools.Text = "Tools";
             // 
             // lblUsername
@@ -501,7 +521,7 @@ namespace LiveView.Forms
             gbUserEvents.Margin = new Padding(4, 3, 4, 3);
             gbUserEvents.Name = "gbUserEvents";
             gbUserEvents.Padding = new Padding(4, 3, 4, 3);
-            gbUserEvents.Size = new System.Drawing.Size(253, 171);
+            gbUserEvents.Size = new System.Drawing.Size(253, 170);
             gbUserEvents.TabIndex = 14;
             gbUserEvents.TabStop = false;
             gbUserEvents.Text = "Choose the active event";
@@ -529,7 +549,7 @@ namespace LiveView.Forms
             lvUserEvents.ReadonlyCheckboxes = false;
             lvUserEvents.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvUserEvents.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvUserEvents.Size = new System.Drawing.Size(245, 149);
+            lvUserEvents.Size = new System.Drawing.Size(245, 148);
             lvUserEvents.TabIndex = 0;
             lvUserEvents.UseCompatibleStateImageBehavior = false;
             lvUserEvents.View = View.Details;
@@ -547,10 +567,10 @@ namespace LiveView.Forms
             // splitter
             // 
             splitter.BackColor = System.Drawing.SystemColors.ControlDark;
-            splitter.Location = new System.Drawing.Point(253, 23);
+            splitter.Location = new System.Drawing.Point(253, 24);
             splitter.Margin = new Padding(4, 3, 4, 3);
             splitter.Name = "splitter";
-            splitter.Size = new System.Drawing.Size(4, 652);
+            splitter.Size = new System.Drawing.Size(4, 651);
             splitter.TabIndex = 6;
             splitter.TabStop = false;
             // 
@@ -560,10 +580,10 @@ namespace LiveView.Forms
             pLeft.Controls.Add(gbSecondaryLogon);
             pLeft.Controls.Add(gbPrimaryLogon);
             pLeft.Dock = DockStyle.Left;
-            pLeft.Location = new System.Drawing.Point(0, 23);
+            pLeft.Location = new System.Drawing.Point(0, 24);
             pLeft.Margin = new Padding(4, 3, 4, 3);
             pLeft.Name = "pLeft";
-            pLeft.Size = new System.Drawing.Size(253, 652);
+            pLeft.Size = new System.Drawing.Size(253, 651);
             pLeft.TabIndex = 5;
             // 
             // pLeftBottom
@@ -577,7 +597,7 @@ namespace LiveView.Forms
             pLeftBottom.Location = new System.Drawing.Point(0, 334);
             pLeftBottom.Margin = new Padding(4, 3, 4, 3);
             pLeftBottom.Name = "pLeftBottom";
-            pLeftBottom.Size = new System.Drawing.Size(253, 318);
+            pLeftBottom.Size = new System.Drawing.Size(253, 317);
             pLeftBottom.TabIndex = 13;
             // 
             // splitter4
@@ -877,7 +897,7 @@ namespace LiveView.Forms
             pbMap.Name = "pbMap";
             pbMap.OriginalSize = new System.Drawing.Size(100, 50);
             pbMap.RepositioningAndResizingControlsOnResize = false;
-            pbMap.Size = new System.Drawing.Size(929, 485);
+            pbMap.Size = new System.Drawing.Size(929, 484);
             pbMap.SizeMode = PictureBoxSizeMode.Zoom;
             pbMap.TabIndex = 0;
             pbMap.TabStop = false;
@@ -887,10 +907,10 @@ namespace LiveView.Forms
             pMap.BackColor = System.Drawing.Color.AliceBlue;
             pMap.Controls.Add(pbMap);
             pMap.Dock = DockStyle.Fill;
-            pMap.Location = new System.Drawing.Point(257, 23);
+            pMap.Location = new System.Drawing.Point(257, 24);
             pMap.Margin = new Padding(4, 3, 4, 3);
             pMap.Name = "pMap";
-            pMap.Size = new System.Drawing.Size(929, 485);
+            pMap.Size = new System.Drawing.Size(929, 484);
             pMap.TabIndex = 11;
             // 
             // pMain
@@ -916,7 +936,7 @@ namespace LiveView.Forms
             msMenu.Location = new System.Drawing.Point(0, 0);
             msMenu.Name = "msMenu";
             msMenu.Padding = new Padding(7, 2, 0, 2);
-            msMenu.Size = new System.Drawing.Size(1186, 23);
+            msMenu.Size = new System.Drawing.Size(1186, 24);
             msMenu.TabIndex = 4;
             msMenu.Text = "menuStrip1";
             // 

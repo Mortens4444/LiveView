@@ -303,6 +303,7 @@
             // 
             // btnRearrangeGrid
             // 
+            btnRearrangeGrid.Image = (System.Drawing.Image)resources.GetObject("btnRearrangeGrid.Image");
             btnRearrangeGrid.Location = new System.Drawing.Point(120, 105);
             btnRearrangeGrid.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnRearrangeGrid.Name = "btnRearrangeGrid";
