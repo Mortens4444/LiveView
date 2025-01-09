@@ -16,6 +16,7 @@ namespace LiveView.Models.Dependencies
             IGroupRepository groupRepository,
             IUserRepository userRepository,
             IUsersInGroupsRepository userGroupRepository,
+            IPersonalOptionsRepository personalOptionsRepository,
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
@@ -23,6 +24,8 @@ namespace LiveView.Models.Dependencies
             GroupRepository = groupRepository;
             UserRepository = userRepository;
             UserGroupRepository = userGroupRepository;
+            PersonalOptionsRepository = personalOptionsRepository;
+            PermissionManager = permissionManager;
             Logger = logger;
         }
 
@@ -32,8 +35,12 @@ namespace LiveView.Models.Dependencies
 
         public IUserRepository UserRepository { get; private set; }
 
+        public IPersonalOptionsRepository PersonalOptionsRepository { get; private set; }
+
         public ILogger<MainForm> Logger { get; private set; }
         
         public IUsersInGroupsRepository UserGroupRepository { get; private set; }
+
+        public PermissionManager PermissionManager { get; internal set; }
     }
 }

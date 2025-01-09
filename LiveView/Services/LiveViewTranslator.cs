@@ -1,4 +1,5 @@
-﻿using Mtf.LanguageService;
+﻿using LiveView.Forms;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 
 namespace LiveView.Services
@@ -16,6 +17,11 @@ namespace LiveView.Services
             BaseBox.EnableAutomaticMessageClosing = Lng.Elem("Enable automatic message closing");
             BaseBox.Copy = Lng.Elem("Copy");
             BaseBox.PleaseWait = Lng.Elem("Please wait...");
+
+            MainForm.Uptime = Lng.Elem("Uptime");
+            MainForm.SystemUptime = Lng.Elem("System uptime");
+            MainForm.Day = Lng.Elem("day");
+            MainForm.Days = Lng.Elem("days");
         }
     }
 }

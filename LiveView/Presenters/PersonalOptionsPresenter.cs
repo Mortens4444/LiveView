@@ -17,8 +17,6 @@ namespace LiveView.Presenters
 {
     public class PersonalOptionsPresenter : BasePresenter
     {
-        private const int HungarianLanguageIndex = 9;
-
         private IPersonalOptionsView view;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
@@ -49,8 +47,8 @@ namespace LiveView.Presenters
                 .Cast<ImplementedLanguage>()
                 .Select(language => $"{language} ({language.GetDescription()})");
             view.AddItems(view.CbLanguages, languages);
-            int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, HungarianLanguageIndex);
-            view.SelectByIndex(view.CbLanguages, 9);
+            int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
+            view.SelectByIndex(view.CbLanguages, selectedLanguage);
         }
 
         public void ChangeLanguage()

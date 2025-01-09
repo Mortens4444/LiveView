@@ -9,7 +9,7 @@ namespace Database.Repositories
 {
     public sealed class PersonalOptionsRepository : BaseOptionsRepository<PersonalOption>, IPersonalOptionsRepository
     {
-        private readonly Dictionary<(string settingName, long userId), PersonalOption> cachedUserSettings = new Dictionary<(string settingName, long userId), PersonalOption>();
+        private readonly Dictionary<UserSetting, PersonalOption> cachedUserSettings = new Dictionary<UserSetting, PersonalOption>();
 
         public void DeletePersonalOptions()
         {
@@ -28,11 +28,11 @@ namespace Database.Repositories
                 var repositorySettings = SelectAll();
                 foreach (var repositorySetting in repositorySettings)
                 {
-                    cachedUserSettings[(repositorySetting.Name, userId)] = repositorySetting;
+                    cachedUserSettings[new UserSetting(repositorySetting.Name, repositorySetting.UserId)] = repositorySetting;
                 }
             }
 
-            if (cachedUserSettings.TryGetValue((settingName.ToString(), userId), out var setting))
+            if (cachedUserSettings.TryGetValue(new UserSetting(settingName.ToString(), userId), out var setting))
             {
                 return GetValue<T>(settingName, setting);
             }
@@ -47,12 +47,12 @@ namespace Database.Repositories
                 var repositorySettings = SelectAll();
                 foreach (var repositorySetting in repositorySettings)
                 {
-                    cachedUserSettings[(repositorySetting.Name, repositorySetting.UserId)] = repositorySetting;
+                    cachedUserSettings[new UserSetting(repositorySetting.Name, repositorySetting.UserId)] = repositorySetting;
                 }
             }
 
             var stringValue = Convert.ToString(value, CultureInfo.InvariantCulture);
-            var settingKey = (settingName.ToString(), userId);
+            var settingKey = new UserSetting(settingName.ToString(), userId);
             if (cachedUserSettings.TryGetValue(settingKey, out var setting))
             {
                 setting.Value = stringValue;

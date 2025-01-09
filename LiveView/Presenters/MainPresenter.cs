@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
@@ -10,9 +11,11 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.LanguageService.Enums;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Network.EventArg;
+using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,6 +35,8 @@ namespace LiveView.Presenters
         private readonly IDisplayRepository displayRepository;
         private readonly IGroupRepository groupRepository;
         private readonly IUserRepository userRepository;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly PermissionManager permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
 
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
@@ -46,6 +51,8 @@ namespace LiveView.Presenters
             groupRepository = mainPresenterDependencies.GroupRepository;
             userRepository = mainPresenterDependencies.UserRepository;
             userGroupRepository = mainPresenterDependencies.UserGroupRepository;
+            personalOptionsRepository = mainPresenterDependencies.PersonalOptionsRepository;
+            permissionManager = mainPresenterDependencies.PermissionManager;
             uptime = new Uptime();
         }
 
@@ -70,6 +77,11 @@ namespace LiveView.Presenters
 
                 view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }
+
+            var implementedLanguage = (ImplementedLanguage)personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
+            Mtf.LanguageService.Enums.Language selectedLanguage;
+            Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
+            LiveViewTranslator.Translate();
 
             CheckLanguageFile();
         }

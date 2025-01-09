@@ -2,11 +2,9 @@
 using LiveView.Core.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using LiveView.Services;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
-using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -14,7 +12,6 @@ using Mtf.Permissions.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -26,10 +23,10 @@ namespace LiveView.Forms
     {
         private MainPresenter presenter;
 
-        private static string Uptime;
-        private static string SystemUptime;        
-        private static string Day;
-        private static string Days;
+        public static string Uptime;
+        public static string SystemUptime;
+        public static string Day;
+        public static string Days;
 
         public static readonly IHardwareKey HardwareKey;
 
@@ -55,7 +52,7 @@ namespace LiveView.Forms
             //permissionManager.ApplyPermissionsOnControls(this);
             var user = new User
             {
-                Id = 2,
+                Id = 1,
                 IndividualPermissions = new List<Permission>
                 {
                     new Permission { PermissionGroup = typeof(GridManagementPermissions), PermissionValue = (long)GridManagementPermissions.FullControl },
@@ -84,13 +81,6 @@ namespace LiveView.Forms
                 }
             };
             permissionManager.SetUser(this, user);
-
-            Translator.Translate(this);
-
-            Uptime = Lng.Elem("Uptime");
-            SystemUptime = Lng.Elem("System uptime");
-            Day = Lng.Elem("day");
-            Days = Lng.Elem("days");
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
@@ -277,6 +267,8 @@ namespace LiveView.Forms
         {
             presenter = Presenter as MainPresenter;
             presenter.Load();
+
+            Translator.Translate(this);
         }
 
         public IntPtr GetHandle()
