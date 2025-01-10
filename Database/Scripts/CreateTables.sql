@@ -240,7 +240,7 @@ BEGIN
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         Comment NVARCHAR(MAX) NOT NULL,
         Name NVARCHAR(MAX) NOT NULL,
-        MapImage VARBINARY(MAX) NOT NULL,
+        MapImage VARBINARY(MAX) NULL,
         OriginalWidth INT NOT NULL,
         OriginalHeight INT NOT NULL
     );

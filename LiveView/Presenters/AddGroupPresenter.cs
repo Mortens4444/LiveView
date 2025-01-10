@@ -78,18 +78,21 @@ namespace LiveView.Presenters
         {
             view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
 
-            view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Cameras"].Items,
-                cameraRepository.SelectAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
-                {
-                    Tag = camera,
-                    ToolTipText = camera.Guid
-                }).ToArray());
-            view.AddToItems(view.LvAvaialableOperationsAndCameras.Groups["Operations"].Items,
-                operationRepository.SelectAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
-                {
-                    Tag = operation,
-                    ToolTipText = operation.Note
-                }).ToArray());
+            var cameraListItems = cameraRepository.SelectAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+            {
+                Tag = camera,
+                ToolTipText = camera.Guid,
+                Group = view.LvAvaialableOperationsAndCameras.Groups["Cameras"]
+            }).ToArray();
+            view.AddToItems(view.LvAvaialableOperationsAndCameras.Items, cameraListItems);
+
+            var operationListItems = operationRepository.SelectAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
+            {
+                Tag = operation,
+                ToolTipText = operation.Note,
+                Group = view.LvAvaialableOperationsAndCameras.Groups["Operations"]
+            }).ToArray();
+            view.AddToItems(view.LvAvaialableOperationsAndCameras.Items, operationListItems);
         }
 
         public void AddAllOperationsAndCameras()
@@ -133,7 +136,7 @@ namespace LiveView.Presenters
             }
 
             var userEvent = view.GetUserEvent();
-            userEventRepository.DeleteWhere(new { Name = userEvent.Name });
+            userEventRepository.DeleteWhere(new { userEvent.Name });
         }
 
         public void ModifyEvent()

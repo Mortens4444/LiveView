@@ -32,7 +32,7 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MapCreator));
             ilImages = new System.Windows.Forms.ImageList(components);
             btnDeleteMap = new System.Windows.Forms.Button();
-            cbMapName = new System.Windows.Forms.ComboBox();
+            cbMap = new System.Windows.Forms.ComboBox();
             btnAddObject = new System.Windows.Forms.Button();
             rtbComment = new System.Windows.Forms.RichTextBox();
             lblComment = new System.Windows.Forms.Label();
@@ -51,17 +51,15 @@
             tsmiCameraIcon = new System.Windows.Forms.ToolStripMenuItem();
             tsmiAddImage = new System.Windows.Forms.ToolStripMenuItem();
             cmsObjectMenu = new System.Windows.Forms.ContextMenuStrip(components);
-            pDefault = new Mtf.Controls.MovableSizablePanel();
+            pTemplate = new Mtf.Controls.MovableSizablePanel();
             gbTools = new System.Windows.Forms.GroupBox();
             btnLoadImage = new System.Windows.Forms.Button();
             pCanvas = new System.Windows.Forms.Panel();
-            pbCanvas = new Mtf.Controls.MtfPictureBox();
             pTools = new System.Windows.Forms.Panel();
             pMain = new System.Windows.Forms.Panel();
+            folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             cmsObjectMenu.SuspendLayout();
             gbTools.SuspendLayout();
-            pCanvas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbCanvas).BeginInit();
             pTools.SuspendLayout();
             pMain.SuspendLayout();
             SuspendLayout();
@@ -87,14 +85,15 @@
             btnDeleteMap.UseVisualStyleBackColor = true;
             btnDeleteMap.Click += BtnDeleteMap_Click;
             // 
-            // cbMapName
+            // cbMap
             // 
-            cbMapName.FormattingEnabled = true;
-            cbMapName.Location = new System.Drawing.Point(418, 40);
-            cbMapName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbMapName.Name = "cbMapName";
-            cbMapName.Size = new System.Drawing.Size(129, 23);
-            cbMapName.TabIndex = 1;
+            cbMap.FormattingEnabled = true;
+            cbMap.Location = new System.Drawing.Point(418, 40);
+            cbMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbMap.Name = "cbMap";
+            cbMap.Size = new System.Drawing.Size(129, 23);
+            cbMap.TabIndex = 1;
+            cbMap.SelectedIndexChanged += CbMap_SelectedIndexChanged;
             // 
             // btnAddObject
             // 
@@ -106,7 +105,6 @@
             btnAddObject.TabIndex = 5;
             btnAddObject.Text = "Add object";
             btnAddObject.UseVisualStyleBackColor = true;
-            btnAddObject.Visible = false;
             btnAddObject.Click += BtnAddObject_Click;
             // 
             // rtbComment
@@ -236,26 +234,28 @@
             cmsObjectMenu.Name = "cms_ObjectMenu";
             cmsObjectMenu.Size = new System.Drawing.Size(219, 120);
             // 
-            // pDefault
+            // pTemplate
             // 
-            pDefault.BackColor = System.Drawing.Color.Black;
-            pDefault.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            pDefault.CanMove = true;
-            pDefault.CanSize = true;
-            pDefault.ContextMenuStrip = cmsObjectMenu;
-            pDefault.Location = new System.Drawing.Point(7, 22);
-            pDefault.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pDefault.Name = "pDefault";
-            pDefault.Size = new System.Drawing.Size(63, 48);
-            pDefault.TabIndex = 8;
-            pDefault.TransparentColor = System.Drawing.Color.Black;
-            pDefault.UseTransparentColor = false;
+            pTemplate.BackColor = System.Drawing.Color.Gold;
+            pTemplate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pTemplate.CanMove = false;
+            pTemplate.CanSize = true;
+            pTemplate.ContextMenuStrip = cmsObjectMenu;
+            pTemplate.Location = new System.Drawing.Point(7, 22);
+            pTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pTemplate.Name = "pTemplate";
+            pTemplate.Size = new System.Drawing.Size(63, 48);
+            pTemplate.TabIndex = 8;
+            pTemplate.TransparentColor = System.Drawing.Color.Black;
+            pTemplate.UseTransparentColor = false;
+            pTemplate.MouseDown += PTemplate_MouseDown;
+            pTemplate.MouseUp += PTemplate_MouseUp;
             // 
             // gbTools
             // 
-            gbTools.Controls.Add(pDefault);
+            gbTools.Controls.Add(pTemplate);
             gbTools.Controls.Add(btnDeleteMap);
-            gbTools.Controls.Add(cbMapName);
+            gbTools.Controls.Add(cbMap);
             gbTools.Controls.Add(btnAddObject);
             gbTools.Controls.Add(rtbComment);
             gbTools.Controls.Add(lblComment);
@@ -286,26 +286,15 @@
             // 
             // pCanvas
             // 
-            pCanvas.Controls.Add(pbCanvas);
+            pCanvas.AllowDrop = true;
             pCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             pCanvas.Location = new System.Drawing.Point(0, 177);
             pCanvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pCanvas.Name = "pCanvas";
             pCanvas.Size = new System.Drawing.Size(691, 369);
             pCanvas.TabIndex = 0;
-            // 
-            // pbCanvas
-            // 
-            pbCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            pbCanvas.Location = new System.Drawing.Point(0, 0);
-            pbCanvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pbCanvas.Name = "pbCanvas";
-            pbCanvas.OriginalSize = new System.Drawing.Size(100, 50);
-            pbCanvas.RepositioningAndResizingControlsOnResize = false;
-            pbCanvas.Size = new System.Drawing.Size(691, 369);
-            pbCanvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            pbCanvas.TabIndex = 0;
-            pbCanvas.TabStop = false;
+            pCanvas.DragDrop += PCanvas_DragDrop;
+            pCanvas.DragEnter += PCanvas_DragEnter;
             // 
             // pTools
             // 
@@ -334,6 +323,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(691, 546);
             Controls.Add(pMain);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(697, 571);
             Name = "MapCreator";
@@ -342,8 +332,6 @@
             cmsObjectMenu.ResumeLayout(false);
             gbTools.ResumeLayout(false);
             gbTools.PerformLayout();
-            pCanvas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pbCanvas).EndInit();
             pTools.ResumeLayout(false);
             pMain.ResumeLayout(false);
             ResumeLayout(false);
@@ -353,7 +341,7 @@
 
         private System.Windows.Forms.ImageList ilImages;
         private System.Windows.Forms.Button btnDeleteMap;
-        private System.Windows.Forms.ComboBox cbMapName;
+        private System.Windows.Forms.ComboBox cbMap;
         private System.Windows.Forms.Button btnAddObject;
         private System.Windows.Forms.RichTextBox rtbComment;
         private System.Windows.Forms.Label lblComment;
@@ -372,12 +360,12 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiCameraIcon;
         private System.Windows.Forms.ToolStripMenuItem tsmiAddImage;
         private System.Windows.Forms.ContextMenuStrip cmsObjectMenu;
-        private Mtf.Controls.MovableSizablePanel pDefault;
+        private Mtf.Controls.MovableSizablePanel pTemplate;
         private System.Windows.Forms.GroupBox gbTools;
         private System.Windows.Forms.Button btnLoadImage;
         private System.Windows.Forms.Panel pCanvas;
-        private Mtf.Controls.MtfPictureBox pbCanvas;
         private System.Windows.Forms.Panel pTools;
         private System.Windows.Forms.Panel pMain;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }

@@ -18,9 +18,9 @@ namespace LiveView.Forms
 
         public ComboBox CbEvents => cbEvents;
 
-        public ListView LvAvaialableOperationsAndCameras => lvSelectableOperationsAndCameras;
+        public ListView LvAvaialableOperationsAndCameras => lvAvaialableOperationsAndCameras;
 
-        public ListView LvOperationsAndCameras => lvExecuteableOperationsAndVisibleCameras;
+        public ListView LvOperationsAndCameras => lvOperationsAndCameras;
 
         public AddGroup(IServiceProvider serviceProvider, Group parentGroup) : base(serviceProvider, typeof(AddGroupPresenter))
         {

@@ -30,7 +30,7 @@ namespace LiveView.Forms
         protected PermissionManager permissionManager;
 
         protected BasePresenter Presenter { get; private set; }
-        private Type presenterType;
+        private readonly Type presenterType;
 
         public BaseView() : this(null, typeof(BasePresenter))
         {

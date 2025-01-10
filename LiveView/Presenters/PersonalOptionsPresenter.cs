@@ -11,7 +11,6 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Services;
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Language = Mtf.LanguageService.Enums.Language;
 
 namespace LiveView.Presenters
@@ -45,9 +44,14 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
+#if NET481
             var languages = Enum.GetValues(typeof(ImplementedLanguage))
                 .Cast<ImplementedLanguage>()
                 .Select(language => $"{language} ({language.GetDescription()})");
+#else
+            var languages = Enum.GetValues<ImplementedLanguage>()
+                .Select(language => $"{language} ({language.GetDescription()})");
+#endif
 
             view.AddItems(view.CbLanguages, languages);
             int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
