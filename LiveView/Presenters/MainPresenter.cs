@@ -75,9 +75,16 @@ namespace LiveView.Presenters
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var port))
             {
-                Server = new NetworkServer(listenerPort: port);
-                Server.DataArrived += DataArrivedEventHandler;
-                Server.Start();
+                try
+                {
+                    Server = new NetworkServer(listenerPort: port);
+                    Server.DataArrived += DataArrivedEventHandler;
+                    Server.Start();
+                }
+                catch (SocketException)
+                {
+                    Application.Restart();
+                }
 
                 view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }

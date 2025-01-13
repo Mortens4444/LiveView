@@ -13,13 +13,13 @@ namespace LiveView.Forms
     {
         private SyncronViewPresenter presenter;
 
-        public AxVideoPicture AxVideoPicture1 => axVideoPicture1;
+        public AxVideoPicture AxVideoPicture1 => axVideoPlayerWindow1.AxVideoPicture;
 
-        public AxVideoPicture AxVideoPicture2 => axVideoPicture2;
+        public AxVideoPicture AxVideoPicture2 => axVideoPlayerWindow2.AxVideoPicture;
 
-        public AxVideoPicture AxVideoPicture3 => axVideoPicture3;
+        public AxVideoPicture AxVideoPicture3 => axVideoPlayerWindow3.AxVideoPicture;
 
-        public AxVideoPicture AxVideoPicture4 => axVideoPicture4;
+        public AxVideoPicture AxVideoPicture4 => axVideoPlayerWindow4.AxVideoPicture;
 
         public TrackBar TbSpeed => tbSpeed;
 
@@ -40,7 +40,10 @@ namespace LiveView.Forms
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-
+            AxVideoPicture1.Visible = false;
+            AxVideoPicture2.Visible = false;
+            AxVideoPicture3.Visible = false;
+            AxVideoPicture4.Visible = false;
             Translator.Translate(this);
         }
 

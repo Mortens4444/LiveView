@@ -41,9 +41,6 @@ IO Ports
 --------
 - Add listing, modifying, logic
 
-Syncron View
-------------
-
 BarCode readings
 ----------------
 

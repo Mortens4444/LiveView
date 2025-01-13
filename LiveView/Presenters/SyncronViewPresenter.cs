@@ -6,7 +6,9 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.x86;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -18,6 +20,7 @@ namespace LiveView.Presenters
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<SyncronView> logger;
+        private readonly ReadOnlyCollection<Server> servers;
 
         public SyncronViewPresenter(SyncronViewPresenterDependencies syncronViewPresenterDependencies)
             : base(syncronViewPresenterDependencies)
@@ -25,6 +28,7 @@ namespace LiveView.Presenters
             serverRepository = syncronViewPresenterDependencies.ServerRepository;
             cameraRepository = syncronViewPresenterDependencies.CameraRepository;
             logger = syncronViewPresenterDependencies.Logger;
+            servers = serverRepository.SelectAll();
         }
 
         public new void SetView(IView view)
@@ -76,7 +80,6 @@ namespace LiveView.Presenters
         public override void Load()
         {
             var cameras = cameraRepository.SelectAll();
-            var servers = serverRepository.SelectAll();
             ParentChildToolStripMenuItemBuilder.PopulateMenuItems(
                 view.TsmiChangeCameraTo,
                 servers,
@@ -91,17 +94,19 @@ namespace LiveView.Presenters
         {
             if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera camera)
             {
-                var contextMenu = menuItem.GetCurrentParent() as ContextMenuStrip;
+                var dropDownMenu = menuItem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem.Owner as ContextMenuStrip;
                 var sourceControl = contextMenu?.SourceControl;
 
-                if (sourceControl != null)
+                if (sourceControl is AxVideoPlayerWindow axVideoPlayerWindow)
                 {
-                    var videoPicture = ((AxVideoPicture)sourceControl);
+                    var videoPicture = axVideoPlayerWindow.AxVideoPicture;
                     if (videoPicture.IsConnected())
                     {
                         videoPicture.Disconnect();
                     }
-                    videoPicture.Connect(camera.IpAddress, camera.Guid, camera.Username, camera.Password);
+                    var server = servers.FirstOrDefault(s => s.Id == camera.ServerId);
+                    videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.Username, camera.Password);
                 }
             }
         }

@@ -30,10 +30,6 @@
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline3;
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline2;
 	    private AxVIDEOCONTROL4Lib.AxVideoTimeline  axVideoTimeline1;
-	    private AxVIDEOCONTROL4Lib.AxVideoPicture  axVideoPicture3;
-	    private AxVIDEOCONTROL4Lib.AxVideoPicture  axVideoPicture4;
-	    private AxVIDEOCONTROL4Lib.AxVideoPicture  axVideoPicture2;
-	    private AxVIDEOCONTROL4Lib.AxVideoPicture  axVideoPicture1;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -76,16 +72,16 @@
             btnStepNext = new System.Windows.Forms.Button();
             btnPlay = new System.Windows.Forms.Button();
             gbCameras = new System.Windows.Forms.GroupBox();
+            axVideoPlayerWindow4 = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            tsmiChangeCameraTo = new System.Windows.Forms.ToolStripMenuItem();
+            axVideoPlayerWindow3 = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow2 = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow1 = new Mtf.Controls.x86.AxVideoPlayerWindow();
             axVideoTimeline4 = new AxVIDEOCONTROL4Lib.AxVideoTimeline();
             axVideoTimeline3 = new AxVIDEOCONTROL4Lib.AxVideoTimeline();
             axVideoTimeline2 = new AxVIDEOCONTROL4Lib.AxVideoTimeline();
             axVideoTimeline1 = new AxVIDEOCONTROL4Lib.AxVideoTimeline();
-            axVideoPicture3 = new AxVIDEOCONTROL4Lib.AxVideoPicture();
-            axVideoPicture4 = new AxVIDEOCONTROL4Lib.AxVideoPicture();
-            axVideoPicture2 = new AxVIDEOCONTROL4Lib.AxVideoPicture();
-            axVideoPicture1 = new AxVIDEOCONTROL4Lib.AxVideoPicture();
-            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
-            tsmiChangeCameraTo = new System.Windows.Forms.ToolStripMenuItem();
             pMain.SuspendLayout();
             gbControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tbSpeed).BeginInit();
@@ -93,15 +89,11 @@
             ((System.ComponentModel.ISupportInitialize)nudImageMinute).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudImageSecond).BeginInit();
             gbCameras.SuspendLayout();
+            cmsMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture1).BeginInit();
-            cmsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // pMain
@@ -285,20 +277,80 @@
             // gbCameras
             // 
             gbCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbCameras.Controls.Add(axVideoPlayerWindow4);
+            gbCameras.Controls.Add(axVideoPlayerWindow3);
+            gbCameras.Controls.Add(axVideoPlayerWindow2);
+            gbCameras.Controls.Add(axVideoPlayerWindow1);
             gbCameras.Controls.Add(axVideoTimeline4);
             gbCameras.Controls.Add(axVideoTimeline3);
             gbCameras.Controls.Add(axVideoTimeline2);
             gbCameras.Controls.Add(axVideoTimeline1);
-            gbCameras.Controls.Add(axVideoPicture3);
-            gbCameras.Controls.Add(axVideoPicture4);
-            gbCameras.Controls.Add(axVideoPicture2);
-            gbCameras.Controls.Add(axVideoPicture1);
             gbCameras.Location = new System.Drawing.Point(0, 0);
             gbCameras.Name = "gbCameras";
             gbCameras.Size = new System.Drawing.Size(782, 554);
             gbCameras.TabIndex = 1;
             gbCameras.TabStop = false;
             gbCameras.Text = "Cameras";
+            // 
+            // axVideoPlayerWindow4
+            // 
+            axVideoPlayerWindow4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            axVideoPlayerWindow4.ContextMenuStrip = cmsMenu;
+            axVideoPlayerWindow4.Location = new System.Drawing.Point(393, 284);
+            axVideoPlayerWindow4.Name = "axVideoPlayerWindow4";
+            axVideoPlayerWindow4.OverlayFont = (System.Drawing.Font)resources.GetObject("axVideoPlayerWindow4.OverlayFont");
+            axVideoPlayerWindow4.OverlayLocation = new System.Drawing.Point(10, 10);
+            axVideoPlayerWindow4.OverlayText = "";
+            axVideoPlayerWindow4.Size = new System.Drawing.Size(381, 210);
+            axVideoPlayerWindow4.TabIndex = 18;
+            // 
+            // cmsMenu
+            // 
+            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiChangeCameraTo });
+            cmsMenu.Name = "contextMenuStrip1";
+            cmsMenu.Size = new System.Drawing.Size(184, 48);
+            // 
+            // tsmiChangeCameraTo
+            // 
+            tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
+            tsmiChangeCameraTo.Size = new System.Drawing.Size(183, 22);
+            tsmiChangeCameraTo.Text = "Change camera to …";
+            // 
+            // axVideoPlayerWindow3
+            // 
+            axVideoPlayerWindow3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            axVideoPlayerWindow3.ContextMenuStrip = cmsMenu;
+            axVideoPlayerWindow3.Location = new System.Drawing.Point(393, 13);
+            axVideoPlayerWindow3.Name = "axVideoPlayerWindow3";
+            axVideoPlayerWindow3.OverlayFont = (System.Drawing.Font)resources.GetObject("axVideoPlayerWindow3.OverlayFont");
+            axVideoPlayerWindow3.OverlayLocation = new System.Drawing.Point(10, 10);
+            axVideoPlayerWindow3.OverlayText = "";
+            axVideoPlayerWindow3.Size = new System.Drawing.Size(381, 210);
+            axVideoPlayerWindow3.TabIndex = 17;
+            // 
+            // axVideoPlayerWindow2
+            // 
+            axVideoPlayerWindow2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            axVideoPlayerWindow2.ContextMenuStrip = cmsMenu;
+            axVideoPlayerWindow2.Location = new System.Drawing.Point(5, 283);
+            axVideoPlayerWindow2.Name = "axVideoPlayerWindow2";
+            axVideoPlayerWindow2.OverlayFont = (System.Drawing.Font)resources.GetObject("axVideoPlayerWindow2.OverlayFont");
+            axVideoPlayerWindow2.OverlayLocation = new System.Drawing.Point(10, 10);
+            axVideoPlayerWindow2.OverlayText = "";
+            axVideoPlayerWindow2.Size = new System.Drawing.Size(381, 210);
+            axVideoPlayerWindow2.TabIndex = 16;
+            // 
+            // axVideoPlayerWindow1
+            // 
+            axVideoPlayerWindow1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            axVideoPlayerWindow1.ContextMenuStrip = cmsMenu;
+            axVideoPlayerWindow1.Location = new System.Drawing.Point(6, 13);
+            axVideoPlayerWindow1.Name = "axVideoPlayerWindow1";
+            axVideoPlayerWindow1.OverlayFont = (System.Drawing.Font)resources.GetObject("axVideoPlayerWindow1.OverlayFont");
+            axVideoPlayerWindow1.OverlayLocation = new System.Drawing.Point(10, 10);
+            axVideoPlayerWindow1.OverlayText = "";
+            axVideoPlayerWindow1.Size = new System.Drawing.Size(380, 209);
+            axVideoPlayerWindow1.TabIndex = 15;
             // 
             // axVideoTimeline4
             // 
@@ -336,58 +388,6 @@
             axVideoTimeline1.Size = new System.Drawing.Size(383, 50);
             axVideoTimeline1.TabIndex = 11;
             // 
-            // axVideoPicture3
-            // 
-            axVideoPicture3.ContextMenuStrip = cmsMenu;
-            axVideoPicture3.Enabled = true;
-            axVideoPicture3.Location = new System.Drawing.Point(393, 13);
-            axVideoPicture3.Name = "axVideoPicture3";
-            axVideoPicture3.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoPicture3.OcxState");
-            axVideoPicture3.Size = new System.Drawing.Size(383, 210);
-            axVideoPicture3.TabIndex = 3;
-            // 
-            // axVideoPicture4
-            // 
-            axVideoPicture4.ContextMenuStrip = cmsMenu;
-            axVideoPicture4.Enabled = true;
-            axVideoPicture4.Location = new System.Drawing.Point(393, 283);
-            axVideoPicture4.Name = "axVideoPicture4";
-            axVideoPicture4.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoPicture4.OcxState");
-            axVideoPicture4.Size = new System.Drawing.Size(383, 210);
-            axVideoPicture4.TabIndex = 2;
-            // 
-            // axVideoPicture2
-            // 
-            axVideoPicture2.ContextMenuStrip = cmsMenu;
-            axVideoPicture2.Enabled = true;
-            axVideoPicture2.Location = new System.Drawing.Point(5, 283);
-            axVideoPicture2.Name = "axVideoPicture2";
-            axVideoPicture2.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoPicture2.OcxState");
-            axVideoPicture2.Size = new System.Drawing.Size(383, 210);
-            axVideoPicture2.TabIndex = 1;
-            // 
-            // axVideoPicture1
-            // 
-            axVideoPicture1.ContextMenuStrip = cmsMenu;
-            axVideoPicture1.Enabled = true;
-            axVideoPicture1.Location = new System.Drawing.Point(5, 13);
-            axVideoPicture1.Name = "axVideoPicture1";
-            axVideoPicture1.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoPicture1.OcxState");
-            axVideoPicture1.Size = new System.Drawing.Size(383, 210);
-            axVideoPicture1.TabIndex = 0;
-            // 
-            // cmsMenu
-            // 
-            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiChangeCameraTo });
-            cmsMenu.Name = "contextMenuStrip1";
-            cmsMenu.Size = new System.Drawing.Size(184, 26);
-            // 
-            // tsmiChangeCameraTo
-            // 
-            tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
-            tsmiChangeCameraTo.Size = new System.Drawing.Size(183, 22);
-            tsmiChangeCameraTo.Text = "Change camera to ...";
-            // 
             // SyncronView
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -406,18 +406,19 @@
             ((System.ComponentModel.ISupportInitialize)nudImageMinute).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudImageSecond).EndInit();
             gbCameras.ResumeLayout(false);
+            cmsMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline4).EndInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline3).EndInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline2).EndInit();
             ((System.ComponentModel.ISupportInitialize)axVideoTimeline1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)axVideoPicture1).EndInit();
-            cmsMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow2;
+        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow1;
+        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow4;
+        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow3;
     }
 }
