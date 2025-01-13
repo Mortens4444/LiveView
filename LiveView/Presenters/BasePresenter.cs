@@ -261,14 +261,5 @@ namespace LiveView.Presenters
         {
             generalOptions = generalOptionsRepository.SelectAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }
-
-        public void StartWithShellExecute(string fileName)
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = fileName,
-                UseShellExecute = true
-            });
-        }
     }
 }

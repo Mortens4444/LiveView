@@ -1,15 +1,16 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
-using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -17,18 +18,22 @@ namespace LiveView.Presenters
     public class MapCreatorPresenter : BasePresenter
     {
         private IMapCreatorView view;
+        private readonly IServerRepository serverRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
-        private readonly IObjectInMapRepository objectInMapRepositoryRepository;
+        private readonly IObjectInMapRepository objectInMapRepository;
         private readonly ILogger<MapCreator> logger;
         private Image image;
 
         public MapCreatorPresenter(MapCreatorPresenterDependencies mapCreatorPresenterDependencies)
             : base(mapCreatorPresenterDependencies)
         {
+            serverRepository = mapCreatorPresenterDependencies.ServerRepository;
+            cameraRepository = mapCreatorPresenterDependencies.CameraRepository;
             mapRepository = mapCreatorPresenterDependencies.MapRepository;
             mapObjectRepository = mapCreatorPresenterDependencies.MapObjectRepository;
-            objectInMapRepositoryRepository = mapCreatorPresenterDependencies.ObjectInMapRepositoryRepository;
+            objectInMapRepository = mapCreatorPresenterDependencies.ObjectInMapRepository;
             logger = mapCreatorPresenterDependencies.Logger;
         }
 
@@ -63,24 +68,62 @@ namespace LiveView.Presenters
         {
             var maps = mapRepository.SelectAll();
             view.CbMap.AddItemsAndSelectFirst(maps);
+            foreach (var map in maps)
+            {
+                var mapItem = new ToolStripMenuItem(map.ToString())
+                {
+                    Tag = map
+                };
+                view.TsmiOpenMap.DropDownItems.Add(mapItem);
+            }
+
+            var cameras = cameraRepository.SelectAll();
+            var servers = serverRepository.SelectAll();
+            foreach (var server in servers)
+            {
+                var serverItem = new ToolStripMenuItem(server.ToString())
+                {
+                    Tag = server
+                };
+                var serverCameras = cameras.Where(c => c.ServerId == server.Id);
+                foreach (var camera in serverCameras)
+                {
+                    var cameraItem = new ToolStripMenuItem(camera.ToString())
+                    {
+                        Tag = camera
+                    };
+                    serverItem.DropDownItems.Add(cameraItem);
+                }
+                view.TsmiOpenCamera.DropDownItems.Add(serverItem);
+            }
         }
 
         public void SelectMap()
         {
             if (view.CbMap.SelectedItem is Map map)
             {
-                var mapObjects = mapObjectRepository.SelectWhere(map.Id);
-                var objectInMaps = objectInMapRepositoryRepository.SelectWhere(map.Id);
+                var objectInMaps = objectInMapRepository.SelectWhere(map.Id);
+                var mapObjects = mapObjectRepository.SelectWhere(objectInMaps.Select(o => o.MapObjectId));
 
-                Load(map, mapObjects, objectInMaps);
+                Load(map, mapObjects);
             }
         }
 
-        private void Load(Map map, ReadOnlyCollection<MapObject> mapObjects, ReadOnlyCollection<ObjectInMap> objectInMaps)
+        private void Load(Map map, ReadOnlyCollection<MapObject> mapObjects)
         {
             view.PCanvas.BackgroundImage = Services.ImageConverter.ByteArrayToImage(map.MapImage);
-
-            //throw new NotImplementedException();
+            foreach (MapObject mapObject in mapObjects)
+            {
+                view.PCanvas.Controls.Add(new MovableSizablePanel
+                {
+                    Size = new Size(mapObject.Width, mapObject.Height),
+                    BackColor = Color.Gold,
+                    BorderStyle = BorderStyle.None,
+                    CanMove = true,
+                    CanSize = true,
+                    Location = new Point(mapObject.X, mapObject.Y)
+                });
+            }
         }
 
         public void DeleteMap()
@@ -93,9 +136,9 @@ namespace LiveView.Presenters
 
         public void LoadMapImage()
         {
-            if (view.FolderBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (view.OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                image = Image.FromFile(view.FolderBrowserDialog.SelectedPath);
+                image = Image.FromFile(view.OpenFileDialog.FileName);
                 view.PCanvas.BackgroundImage = image;
             }
         }
@@ -110,7 +153,18 @@ namespace LiveView.Presenters
                 OriginalHeight = image?.Height ?? 0,
                 OriginalWidth = image?.Width ?? 0
             };
-            mapRepository.Insert(map);
+            var mapId = mapRepository.InsertAndReturnId<int>(map);
+
+            foreach (Control control in view.PCanvas.Controls)
+            {
+                var mapObject = new MapObject();
+                var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
+                objectInMapRepository.Insert(new ObjectInMap
+                {
+                    MapId = mapId,
+                    MapObjectId = mapObjectId
+                });
+            }
         }
 
         public static void SetDragEffect(DragEventArgs e)

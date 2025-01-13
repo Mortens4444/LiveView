@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -70,8 +71,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var grids = gridRepository.SelectAll();
-            view.AddToItems(view.LeftSide, grids.Select(grid => new ListViewItem(grid.Name) { Tag = grid }).ToArray());
+            view.LeftSide.AddItems(gridRepository.SelectAll(), grid => new ListViewItem(grid.Name) { Tag = grid });
         }
     }
 }

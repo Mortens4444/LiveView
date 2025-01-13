@@ -475,6 +475,7 @@
             lvTemplates.TabIndex = 0;
             lvTemplates.UseCompatibleStateImageBehavior = false;
             lvTemplates.View = System.Windows.Forms.View.Details;
+            lvTemplates.ItemSelectionChanged += LvTemplates_ItemSelectionChanged;
             // 
             // chTemplateName
             // 

@@ -4,12 +4,17 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class Templates : BaseView, ITemplatesView
     {
         private TemplatesPresenter presenter;
+
+        public ListView LvTemplates => lvTemplates;
+
+        public TextBox TbTemplateName => tbTemplateName;
 
         public Templates(IServiceProvider serviceProvider) : base(serviceProvider, typeof(TemplatesPresenter))
         {

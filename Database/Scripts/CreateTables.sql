@@ -334,18 +334,14 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FormPositions]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TemplateProcesses]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE FormPositions (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        template_id bigint NOT NULL,
-        form_id bigint NOT NULL,
-        secondary_id bigint NULL,
-        isopened bit NOT NULL,
-        x int NOT NULL,
-        y int NOT NULL,
-        w int NOT NULL,
-        h int NOT NULL
+    CREATE TABLE TemplateProcesses (
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        TemplateId BIGINT NOT NULL,
+        ProcessName NVARCHAR(50) NOT NULL,
+        ProcessParameters NVARCHAR(250) NOT NULL,
+        FOREIGN KEY (TemplateId) REFERENCES Templates(Id)
     );
 END;
 

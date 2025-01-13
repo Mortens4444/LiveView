@@ -19,6 +19,8 @@ namespace Sequence.Forms
             if (disposing && (components != null))
             {
                 components.Dispose();
+                cts?.Dispose();
+                client?.Dispose();
                 DisposeCameraWindows();
             }
             base.Dispose(disposing);

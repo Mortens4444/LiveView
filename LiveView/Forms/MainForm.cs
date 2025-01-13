@@ -12,6 +12,7 @@ using Mtf.Permissions.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -176,7 +177,7 @@ namespace LiveView.Forms
         private void TsmiLanguageEditor_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.StartWithShellExecute(Path.Combine(Application.StartupPath, "Languages.ods"));
+            AppStarter.Start(Path.Combine(Application.StartupPath, "Languages.ods"));
         }
 
         [RequirePermission(LogManagementPermissions.Select)]
@@ -267,8 +268,6 @@ namespace LiveView.Forms
         {
             presenter = Presenter as MainPresenter;
             presenter.Load();
-
-            Translator.Translate(this);
         }
 
         public IntPtr GetHandle()

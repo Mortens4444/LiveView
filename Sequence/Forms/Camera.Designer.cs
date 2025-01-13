@@ -58,6 +58,7 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
+            FormClosing += Camera_FormClosing;
             Load += Camera_Load;
             Shown += Camera_Shown;
             ResumeLayout(false);

@@ -13,6 +13,7 @@ namespace LiveView.Models.Dependencies
             IGeneralOptionsRepository generalOptionsRepository,
             IDisplayRepository displayRepository,
             ITemplateRepository templateRepository,
+            ITemplateProcessRepository templateProcessRepository,
             ISequenceRepository sequenceRepository,
             ICameraRepository cameraRepository,
             PermissionManager permissionManager,
@@ -23,6 +24,7 @@ namespace LiveView.Models.Dependencies
         {
             PermissionManager = permissionManager;
             TemplateRepository = templateRepository;
+            TemplateProcessRepository = templateProcessRepository;
             CameraRepository = cameraRepository;
             DisplayManager = displayManager;
             DisplayRepository = displayRepository;
@@ -33,7 +35,9 @@ namespace LiveView.Models.Dependencies
         public PermissionManager PermissionManager { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
-        
+
+        public ITemplateProcessRepository TemplateProcessRepository { get; private set; }
+
         public IDisplayRepository DisplayRepository { get; private set; }
         
         public DisplayManager DisplayManager { get; private set; }

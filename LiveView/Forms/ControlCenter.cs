@@ -309,5 +309,15 @@ namespace LiveView.Forms
         {
             pbSziltechLogo.BackColor = Color.WhiteSmoke;
         }
+
+        private async void LvTemplates_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected && e.Item.Tag is Template template)
+            {
+                presenter.StartTemplate(template);
+                await Task.Delay(1000);
+                e.Item.Selected = false;
+            }
+        }
     }
 }

@@ -26,5 +26,10 @@ namespace Database.Models
         public long ServerId { get; set; }
 
         public int RecorderIndex { get; set; }
+
+        public override string ToString()
+        {
+            return CameraName;
+        }
     }
 }

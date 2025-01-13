@@ -70,16 +70,11 @@ namespace LiveView.Presenters
             var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf() as IVideoServerView, server);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
             {
-                var items = new List<ListViewItem>();
-                foreach (var camera in connectionResult.Cameras)
+                view.ServerCameras.AddItems(connectionResult.Cameras, camera => new ListViewItem(camera.Name, CameraIconIndex)
                 {
-                    items.Add(new ListViewItem(camera.Name, CameraIconIndex)
-                    {
-                        Tag = camera,
-                        ToolTipText = camera.Guid
-                    });
-                }
-                view.AddToItems(view.ServerCameras, items.ToArray());
+                    Tag = camera,
+                    ToolTipText = camera.Guid
+                });
             }
             else
             {

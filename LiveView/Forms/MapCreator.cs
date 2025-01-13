@@ -24,7 +24,11 @@ namespace LiveView.Forms
 
         public ContextMenuStrip CmsObjectMenu => cmsObjectMenu;
 
-        public FolderBrowserDialog FolderBrowserDialog => folderBrowserDialog;
+        public OpenFileDialog OpenFileDialog => openFileDialog;
+
+        public ToolStripMenuItem TsmiOpenCamera => tsmiOpenCamera;
+
+        public ToolStripMenuItem TsmiOpenMap => tsmiOpenMap;
 
         public MapCreator(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MapCreatorPresenter))
         {
@@ -33,6 +37,7 @@ namespace LiveView.Forms
             permissionManager.ApplyPermissionsOnControls(this);
 
             Translator.Translate(this);
+            Translator.Translate(cmsObjectMenu.Items);
         }
 
         [RequirePermission(MapManagementPermissions.Update)]
@@ -93,6 +98,30 @@ namespace LiveView.Forms
         private void CbMap_SelectedIndexChanged(object sender, EventArgs e)
         {
             presenter.SelectMap();
+        }
+
+        private void TsmiDelete_Click(object sender, EventArgs e)
+        {
+            if (sender is Control control)
+            {
+                PCanvas.Controls.Remove(control);
+            }
+        }
+
+        private void TsmiAddComment_DropDownOpening(object sender, EventArgs e)
+        {
+            if (sender is Control control)
+            {
+                tstComment.Text = control.Text;
+            }
+        }
+
+        private void TsmiAddComment_DropDownClosed(object sender, EventArgs e)
+        {
+            if (sender is Control control)
+            {
+                control.Text = tstComment.Text;
+            }
         }
     }
 }

@@ -78,21 +78,18 @@ namespace LiveView.Presenters
         {
             view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
 
-            var cameraListItems = cameraRepository.SelectAll().Select(camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+            view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName, CameraIconIndex)
             {
                 Tag = camera,
                 ToolTipText = camera.Guid,
                 Group = view.LvAvaialableOperationsAndCameras.Groups["Cameras"]
-            }).ToArray();
-            view.AddToItems(view.LvAvaialableOperationsAndCameras.Items, cameraListItems);
-
-            var operationListItems = operationRepository.SelectAll().Select(operation => new ListViewItem(operation.Name, OperationIconIndex)
+            });
+            view.LvAvaialableOperationsAndCameras.AddItems(operationRepository.SelectAll(), operation => new ListViewItem(operation.Name, OperationIconIndex)
             {
                 Tag = operation,
                 ToolTipText = operation.Note,
                 Group = view.LvAvaialableOperationsAndCameras.Groups["Operations"]
-            }).ToArray();
-            view.AddToItems(view.LvAvaialableOperationsAndCameras.Items, operationListItems);
+            }, false);
         }
 
         public void AddAllOperationsAndCameras()

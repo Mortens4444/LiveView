@@ -1,7 +1,7 @@
 ﻿using Database.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-
 
 namespace LiveView.Extensions
 {
@@ -57,6 +57,22 @@ namespace LiveView.Extensions
             {
                 item.Selected = true;
             }
+        }
+
+        public static void AddItems<T>(this ListView listView, IEnumerable<T> items, Func<T, ListViewItem> itemConverter, bool clearItems = true)
+        {
+            if (clearItems)
+            {
+                listView.Items.Clear();
+            }
+
+            var lvItems = new List<ListViewItem>();
+            foreach (var item in items)
+            {
+                lvItems.Add(itemConverter(item));
+            }
+
+            listView.Items.AddRange(lvItems.ToArray());
         }
     }
 }

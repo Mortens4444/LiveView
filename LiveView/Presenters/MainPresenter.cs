@@ -12,6 +12,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
+using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Network.EventArg;
@@ -40,6 +41,9 @@ namespace LiveView.Presenters
         private readonly IUsersInGroupsRepository userGroupRepository;
 
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
+        public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
+        //public readonly static Dictionary<string, (int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (int processId, long sequenceId, long displayId)>();
+        //public readonly static Dictionary<Socket, (int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<Socket, (int processId, long sequenceId, long displayId)>();
 
         public static NetworkServer Server;
 
@@ -82,6 +86,7 @@ namespace LiveView.Presenters
             Mtf.LanguageService.Enums.Language selectedLanguage;
             Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
             LiveViewTranslator.Translate();
+            Translator.Translate(view.GetSelf());
 
             CheckLanguageFile();
         }
@@ -126,6 +131,32 @@ namespace LiveView.Presenters
             {
                 var cameraProcessId = Convert.ToInt32(messageParts[1]);
                 CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
+            }
+            else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
+            {
+                var localEndPoint = messageParts[1];
+                //var userId = Convert.ToInt64(messageParts[2]);
+                var sequenceId = Convert.ToInt64(messageParts[3]);
+                var displayId = Convert.ToInt64(messageParts[4]);
+                //var isMdi = Convert.ToBoolean(messageParts[5]);
+                var processId = Convert.ToInt32(messageParts[6]);
+                //SequenceProcesses.Add(localEndPoint, (processId, sequenceId, displayId));
+                //SequenceProcesses.Add(e.Socket, (processId, sequenceId, displayId));
+                SequenceProcesses.Add(localEndPoint, (e.Socket, processId, sequenceId, displayId));
+            }
+            else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
+            {
+                var localEndPoint = messageParts[1];
+                //var sequenceId = Convert.ToInt64(messageParts[2]);
+                //var processId = Convert.ToInt32(messageParts[3]);
+                if (SequenceProcesses.ContainsKey(localEndPoint))
+                {
+                    SequenceProcesses.Remove(localEndPoint);
+                }
+                //if (SequenceProcesses.ContainsKey(e.Socket))
+                //{
+                //    SequenceProcesses.Remove(e.Socket);
+                //}
             }
             else
             {

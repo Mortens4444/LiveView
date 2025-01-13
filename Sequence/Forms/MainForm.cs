@@ -2,15 +2,19 @@ using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
 using LiveView.Core.Services;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.Network;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using Sequence.Dto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -22,29 +26,65 @@ namespace Sequence.Forms
 {
     public partial class MainForm : Form
     {
-        private readonly DisplayDto display;
-        private bool running = true;
+        private int disposed;
+        private Task gridChanger;
+        private CancellationTokenSource cts;
+
+        private static readonly ReadOnlyCollection<Database.Models.Server> servers;
+        private static readonly ReadOnlyCollection<Database.Models.Camera> allCameras;
+        private static readonly ReadOnlyCollection<GridCamera> gridCameras;
+        private static Client client;
+
         private readonly bool isMdi;
         private readonly long sequenceId;
+        private readonly DisplayDto display;
         private readonly PermissionManager permissionManager;
-        private readonly ReadOnlyCollection<Server> servers;
-        private readonly ReadOnlyCollection<Database.Models.Camera> allCameras;
-        private readonly ReadOnlyCollection<GridCamera> gridCameras;
 
         private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
         private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
 
+        static MainForm()
+        {
+            var serverRepository = new ServerRepository();
+            servers = serverRepository.SelectAll();
+            var gridCameraRepository = new GridCameraRepository();
+            gridCameras = gridCameraRepository.SelectAll();
+            var cameraRepository = new CameraRepository();
+            allCameras = cameraRepository.SelectAll();
+        }
+
         public MainForm(long userId, long sequenceId, long displayId, bool isMdi)
         {
-            Application.ApplicationExit += OnExit;
-            AppDomain.CurrentDomain.ProcessExit += OnExit;
-            FormClosing += OnExit;
-            Console.CancelKeyPress += (sender, e) =>
+            var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
+            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            if (UInt16.TryParse(listenerPort, out var serverPort))
             {
-                e.Cancel = true;
-                DisposeCameraWindows();
-                Application.Exit();
-            };
+                try
+                {
+                    client = new Client(serverIp, serverPort);
+                    client.DataArrived += ClientDataArrivedEventHandler;
+                    client.Connect();
+#if NET481
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}");
+#else
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Environment.ProcessId}");
+#endif
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
+            }
+            else
+            {
+                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+            }
+
+            Console.CancelKeyPress += async (sender, e) => await OnExitAsync().ConfigureAwait(false);
+            Application.ApplicationExit += async (sender, e) => await OnExitAsync().ConfigureAwait(false);
+            AppDomain.CurrentDomain.ProcessExit += async (sender, e) => await OnExitAsync().ConfigureAwait(false);
+            FormClosing += async (sender, e) => await OnExitAsync().ConfigureAwait(false);
+
             InitializeComponent();
             //closeToolStripMenuItem.Text = Lng.Elem("Close");
             this.isMdi = isMdi;
@@ -74,13 +114,17 @@ namespace Sequence.Forms
             {
                 throw new InvalidOperationException($"Display does not found with Id '{displayId}'.");
             }
+        }
 
-            var serverRepository = new ServerRepository();
-            servers = serverRepository.SelectAll();
-            var gridCameraRepository = new GridCameraRepository();
-            gridCameras = gridCameraRepository.SelectAll();
-            var cameraRepository = new CameraRepository();
-            allCameras = cameraRepository.SelectAll();
+        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
+        {
+            var message = $"{client?.Encoding.GetString(e.Data)}";
+            var messageParts = message.Split('|');
+
+            if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+            {
+                Close();
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -91,6 +135,7 @@ namespace Sequence.Forms
 
         private async void MainForm_Shown(object sender, EventArgs e)
         {
+            cts = new CancellationTokenSource();
             var sequenceRepository = new SequenceRepository();
             var gridInSequeneRepository = new GridInSequenceRepository();
             var gridRepository = new GridRepository();
@@ -105,11 +150,13 @@ namespace Sequence.Forms
 
             if (grids.Count > 1)
             {
-                await ShowGridsAsync(grids).ConfigureAwait(false);
+                gridChanger = ShowGridsAsync(grids, cts.Token);
+                await gridChanger.ConfigureAwait(false);
             }
             else if (grids.Count == 1)
             {
-                ShowGrid(grids, grids[0]);
+                var gridCameras = GetCameras(grids[0]);
+                ShowGrid(grids, grids[0], gridCameras, cts.Token);
             }
             else
             {
@@ -117,24 +164,31 @@ namespace Sequence.Forms
             }
         }
 
-        private void OnExit(object sender, EventArgs e)
+        private async Task OnExitAsync()
         {
-            DisposeCameraWindows();
+            if (cts != null && !cts.IsCancellationRequested)
+            {
+#if NET481
+                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Process.GetCurrentProcess().Id}");
+                cts.Cancel();
+#else
+                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Environment.ProcessId}");
+                await cts.CancelAsync().ConfigureAwait(false);
+#endif
+            }
         }
 
-        private List<Form> ShowGridInWindow(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
+        private List<Form> ShowGridInWindow(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence, List<CameraInfo> gridCameras, CancellationToken cancellationToken)
         {
             var result = new List<Form>();
-            var cameras = GetCameras(gridInSequence);
-
-            foreach (var camera in cameras)
+            foreach (var camera in gridCameras)
             {
                 var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
 
                 Camera cameraForm = null;
                 Invoke((Action)(() =>
                 {
-                    cameraForm = new Camera(permissionManager, camera.Camera, camera.Server, rectangle)
+                    cameraForm = new Camera(permissionManager, camera.Camera, camera.Server, rectangle, cancellationToken)
                     {
                         MdiParent = this
                     };
@@ -174,16 +228,39 @@ namespace Sequence.Forms
                 .ToList();
         }
 
-        private async Task ShowGridsAsync(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids)
+        private async Task ShowGridsAsync(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids, CancellationToken token)
         {
-            while (running)
+            while (!token.IsCancellationRequested)
             {
                 foreach (var grid in sequenceGrids)
                 {
-                    ShowGrid(sequenceGrids, grid);
-                    await Task.Delay(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
+                    var gridCameras = GetCameras(grid);
+                    ShowGrid(sequenceGrids, grid, gridCameras, token);
+                    await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000, token).ConfigureAwait(false);
+                    if (token.IsCancellationRequested)
+                    {
+                        break;
+                    }
                     HideCameraWindows(grid.grid.Id);
                 }
+            }
+        }
+
+        private static async Task WaitWithCancellationAsync(int millisecondsDelay, CancellationToken token, int checkInterval = 100)
+        {
+#if NET481
+            var start = Environment.TickCount;
+            while (Environment.TickCount - start < millisecondsDelay)
+#else
+            var start = Environment.TickCount64;
+            while (Environment.TickCount64 - start < millisecondsDelay)
+#endif
+            {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                await Task.Delay(checkInterval, CancellationToken.None).ConfigureAwait(false);
             }
         }
 
@@ -191,15 +268,19 @@ namespace Sequence.Forms
         {
             if (isMdi)
             {
-                FormUtils.HideMdiChildForms(this, cameraForms[gridId]);
+                if (cameraForms.TryGetValue(gridId, out var value))
+                {
+                    FormUtils.HideMdiChildForms(this, value);
+                }
             }
             else
             {
-                ProcessUtils.ChangeExternalProcessesVisibility(processes[gridId], CmdShow.Hide);
+                if (processes.TryGetValue(gridId, out var value))
+                {
+                    ProcessUtils.ChangeExternalProcessesVisibility(value, CmdShow.Hide);
+                }
             }
         }
-
-        int disposed;
 
         private void DisposeCameraWindows()
         {
@@ -216,8 +297,12 @@ namespace Sequence.Forms
             }
         }
 
-        private void ShowGrid(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids, (Grid grid, GridInSequence gridInSequence) grid)
+        private void ShowGrid(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids, (Grid grid, GridInSequence gridInSequence) grid, List<CameraInfo> gridCameras, CancellationToken cancellationToken)
         {
+            if (cts.Token.IsCancellationRequested)
+            {
+                return;
+            }
             if (isMdi)
             {
                 if (cameraForms.TryGetValue(grid.grid.Id, out var value))
@@ -226,7 +311,7 @@ namespace Sequence.Forms
                 }
                 else
                 {
-                    cameraForms[grid.grid.Id] = ShowGridInWindow(sequenceGrids, grid);
+                    cameraForms[grid.grid.Id] = ShowGridInWindow(sequenceGrids, grid, gridCameras, cancellationToken);
                 }
             }
             else
@@ -242,10 +327,9 @@ namespace Sequence.Forms
             }
         }
 
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            running = false;
-            Application.Exit();
+            await OnExitAsync().ConfigureAwait(false);
         }
     }
 }

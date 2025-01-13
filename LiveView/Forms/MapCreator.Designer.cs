@@ -38,8 +38,6 @@
             lblComment = new System.Windows.Forms.Label();
             lblMapName = new System.Windows.Forms.Label();
             btnSaveMap = new System.Windows.Forms.Button();
-            tsmiSetNewObjectsDefaultSize = new System.Windows.Forms.ToolStripMenuItem();
-            tssSeparator = new System.Windows.Forms.ToolStripSeparator();
             tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             tstComment = new System.Windows.Forms.ToolStripTextBox();
             tsmiAddComment = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +55,7 @@
             pCanvas = new System.Windows.Forms.Panel();
             pTools = new System.Windows.Forms.Panel();
             pMain = new System.Windows.Forms.Panel();
-            folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
             cmsObjectMenu.SuspendLayout();
             gbTools.SuspendLayout();
             pTools.SuspendLayout();
@@ -74,12 +72,12 @@
             // 
             // btnDeleteMap
             // 
-            btnDeleteMap.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnDeleteMap.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnDeleteMap.Enabled = false;
-            btnDeleteMap.Location = new System.Drawing.Point(554, 38);
+            btnDeleteMap.Location = new System.Drawing.Point(803, 38);
             btnDeleteMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnDeleteMap.Name = "btnDeleteMap";
-            btnDeleteMap.Size = new System.Drawing.Size(130, 27);
+            btnDeleteMap.Size = new System.Drawing.Size(119, 27);
             btnDeleteMap.TabIndex = 6;
             btnDeleteMap.Text = "Delete map";
             btnDeleteMap.UseVisualStyleBackColor = true;
@@ -87,23 +85,24 @@
             // 
             // cbMap
             // 
+            cbMap.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             cbMap.FormattingEnabled = true;
             cbMap.Location = new System.Drawing.Point(418, 40);
             cbMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbMap.Name = "cbMap";
-            cbMap.Size = new System.Drawing.Size(129, 23);
+            cbMap.Size = new System.Drawing.Size(377, 23);
             cbMap.TabIndex = 1;
             cbMap.SelectedIndexChanged += CbMap_SelectedIndexChanged;
             // 
             // btnAddObject
             // 
             btnAddObject.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnAddObject.Location = new System.Drawing.Point(7, 143);
+            btnAddObject.Image = Properties.Resources.plus_16;
+            btnAddObject.Location = new System.Drawing.Point(4, 22);
             btnAddObject.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddObject.Name = "btnAddObject";
-            btnAddObject.Size = new System.Drawing.Size(130, 27);
+            btnAddObject.Size = new System.Drawing.Size(27, 27);
             btnAddObject.TabIndex = 5;
-            btnAddObject.Text = "Add object";
             btnAddObject.UseVisualStyleBackColor = true;
             btnAddObject.Click += BtnAddObject_Click;
             // 
@@ -114,7 +113,7 @@
             rtbComment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rtbComment.MaxLength = 200;
             rtbComment.Name = "rtbComment";
-            rtbComment.Size = new System.Drawing.Size(265, 46);
+            rtbComment.Size = new System.Drawing.Size(503, 46);
             rtbComment.TabIndex = 3;
             rtbComment.Text = "";
             // 
@@ -140,34 +139,25 @@
             // 
             // btnSaveMap
             // 
-            btnSaveMap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            btnSaveMap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnSaveMap.DialogResult = System.Windows.Forms.DialogResult.OK;
             btnSaveMap.Enabled = false;
-            btnSaveMap.Location = new System.Drawing.Point(554, 143);
+            btnSaveMap.Location = new System.Drawing.Point(803, 143);
             btnSaveMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSaveMap.Name = "btnSaveMap";
-            btnSaveMap.Size = new System.Drawing.Size(130, 27);
+            btnSaveMap.Size = new System.Drawing.Size(119, 27);
             btnSaveMap.TabIndex = 7;
             btnSaveMap.Text = "Save map";
             btnSaveMap.UseVisualStyleBackColor = true;
             btnSaveMap.Click += BtnSaveMap_Click;
             // 
-            // tsmiSetNewObjectsDefaultSize
-            // 
-            tsmiSetNewObjectsDefaultSize.Name = "tsmiSetNewObjectsDefaultSize";
-            tsmiSetNewObjectsDefaultSize.Size = new System.Drawing.Size(218, 22);
-            tsmiSetNewObjectsDefaultSize.Text = "Set new objects default size";
-            // 
-            // tssSeparator
-            // 
-            tssSeparator.Name = "tssSeparator";
-            tssSeparator.Size = new System.Drawing.Size(215, 6);
-            // 
             // tsmiDelete
             // 
+            tsmiDelete.Image = Properties.Resources.cancel;
             tsmiDelete.Name = "tsmiDelete";
-            tsmiDelete.Size = new System.Drawing.Size(218, 22);
+            tsmiDelete.Size = new System.Drawing.Size(166, 22);
             tsmiDelete.Text = "Delete";
+            tsmiDelete.Click += TsmiDelete_Click;
             // 
             // tstComment
             // 
@@ -178,37 +168,45 @@
             // tsmiAddComment
             // 
             tsmiAddComment.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tstComment });
+            tsmiAddComment.Image = Properties.Resources.comment;
             tsmiAddComment.Name = "tsmiAddComment";
-            tsmiAddComment.Size = new System.Drawing.Size(218, 22);
+            tsmiAddComment.Size = new System.Drawing.Size(166, 22);
             tsmiAddComment.Text = "Add comment";
+            tsmiAddComment.DropDownClosed += TsmiAddComment_DropDownClosed;
+            tsmiAddComment.DropDownOpening += TsmiAddComment_DropDownOpening;
             // 
             // tsmiOpenMap
             // 
+            tsmiOpenMap.Image = Properties.Resources.map_creator;
             tsmiOpenMap.Name = "tsmiOpenMap";
-            tsmiOpenMap.Size = new System.Drawing.Size(145, 22);
+            tsmiOpenMap.Size = new System.Drawing.Size(180, 22);
             tsmiOpenMap.Text = "Open map";
             // 
             // tsmiOpenCamera
             // 
+            tsmiOpenCamera.Image = Properties.Resources.camera;
             tsmiOpenCamera.Name = "tsmiOpenCamera";
-            tsmiOpenCamera.Size = new System.Drawing.Size(145, 22);
+            tsmiOpenCamera.Size = new System.Drawing.Size(180, 22);
             tsmiOpenCamera.Text = "Open camera";
             // 
             // tsmiAddFunctionality
             // 
             tsmiAddFunctionality.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiOpenCamera, tsmiOpenMap });
+            tsmiAddFunctionality.Image = Properties.Resources.link;
             tsmiAddFunctionality.Name = "tsmiAddFunctionality";
-            tsmiAddFunctionality.Size = new System.Drawing.Size(218, 22);
+            tsmiAddFunctionality.Size = new System.Drawing.Size(166, 22);
             tsmiAddFunctionality.Text = "Add functionality";
             // 
             // tsmiBrowse
             // 
+            tsmiBrowse.Image = Properties.Resources.folder;
             tsmiBrowse.Name = "tsmiBrowse";
             tsmiBrowse.Size = new System.Drawing.Size(121, 22);
             tsmiBrowse.Text = "Browse…";
             // 
             // tsmiMapIcon
             // 
+            tsmiMapIcon.Image = Properties.Resources.map_creator;
             tsmiMapIcon.Name = "tsmiMapIcon";
             tsmiMapIcon.Size = new System.Drawing.Size(121, 22);
             tsmiMapIcon.Text = "Map";
@@ -216,6 +214,7 @@
             // 
             // tsmiCameraIcon
             // 
+            tsmiCameraIcon.Image = Properties.Resources.camera;
             tsmiCameraIcon.Name = "tsmiCameraIcon";
             tsmiCameraIcon.Size = new System.Drawing.Size(121, 22);
             tsmiCameraIcon.Text = "Camera";
@@ -224,15 +223,16 @@
             // tsmiAddImage
             // 
             tsmiAddImage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiCameraIcon, tsmiMapIcon, tsmiBrowse });
+            tsmiAddImage.Image = Properties.Resources.templates;
             tsmiAddImage.Name = "tsmiAddImage";
-            tsmiAddImage.Size = new System.Drawing.Size(218, 22);
+            tsmiAddImage.Size = new System.Drawing.Size(166, 22);
             tsmiAddImage.Text = "Add image";
             // 
             // cmsObjectMenu
             // 
-            cmsObjectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiAddImage, tsmiAddFunctionality, tsmiAddComment, tsmiDelete, tssSeparator, tsmiSetNewObjectsDefaultSize });
+            cmsObjectMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiAddImage, tsmiAddFunctionality, tsmiAddComment, tsmiDelete });
             cmsObjectMenu.Name = "cms_ObjectMenu";
-            cmsObjectMenu.Size = new System.Drawing.Size(219, 120);
+            cmsObjectMenu.Size = new System.Drawing.Size(167, 92);
             // 
             // pTemplate
             // 
@@ -240,8 +240,7 @@
             pTemplate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pTemplate.CanMove = false;
             pTemplate.CanSize = true;
-            pTemplate.ContextMenuStrip = cmsObjectMenu;
-            pTemplate.Location = new System.Drawing.Point(7, 22);
+            pTemplate.Location = new System.Drawing.Point(39, 22);
             pTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pTemplate.Name = "pTemplate";
             pTemplate.Size = new System.Drawing.Size(63, 48);
@@ -267,7 +266,7 @@
             gbTools.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbTools.Name = "gbTools";
             gbTools.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbTools.Size = new System.Drawing.Size(691, 177);
+            gbTools.Size = new System.Drawing.Size(929, 177);
             gbTools.TabIndex = 0;
             gbTools.TabStop = false;
             gbTools.Text = "Tools";
@@ -275,7 +274,7 @@
             // btnLoadImage
             // 
             btnLoadImage.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnLoadImage.Location = new System.Drawing.Point(418, 143);
+            btnLoadImage.Location = new System.Drawing.Point(418, 142);
             btnLoadImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnLoadImage.Name = "btnLoadImage";
             btnLoadImage.Size = new System.Drawing.Size(130, 27);
@@ -291,7 +290,7 @@
             pCanvas.Location = new System.Drawing.Point(0, 177);
             pCanvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pCanvas.Name = "pCanvas";
-            pCanvas.Size = new System.Drawing.Size(691, 369);
+            pCanvas.Size = new System.Drawing.Size(929, 484);
             pCanvas.TabIndex = 0;
             pCanvas.DragDrop += PCanvas_DragDrop;
             pCanvas.DragEnter += PCanvas_DragEnter;
@@ -303,7 +302,7 @@
             pTools.Location = new System.Drawing.Point(0, 0);
             pTools.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pTools.Name = "pTools";
-            pTools.Size = new System.Drawing.Size(691, 177);
+            pTools.Size = new System.Drawing.Size(929, 177);
             pTools.TabIndex = 0;
             // 
             // pMain
@@ -314,14 +313,18 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(691, 546);
+            pMain.Size = new System.Drawing.Size(929, 661);
             pMain.TabIndex = 1;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.ico;*.tiff;*.emf;*.wmf|BMP files|*.bmp|JPEG files|*.jpg;*.jpeg|PNG files|*.png";
             // 
             // MapCreator
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(691, 546);
+            ClientSize = new System.Drawing.Size(929, 661);
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -347,8 +350,6 @@
         private System.Windows.Forms.Label lblComment;
         private System.Windows.Forms.Label lblMapName;
         private System.Windows.Forms.Button btnSaveMap;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSetNewObjectsDefaultSize;
-        private System.Windows.Forms.ToolStripSeparator tssSeparator;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.ToolStripTextBox tstComment;
         private System.Windows.Forms.ToolStripMenuItem tsmiAddComment;
@@ -366,6 +367,6 @@
         private System.Windows.Forms.Panel pCanvas;
         private System.Windows.Forms.Panel pTools;
         private System.Windows.Forms.Panel pMain;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

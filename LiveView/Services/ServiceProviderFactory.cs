@@ -133,6 +133,7 @@ namespace LiveView.Services
             services.AddScoped<ISequenceRepository, SequenceRepository>();
             services.AddScoped<IServerRepository, ServerRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
+            services.AddScoped<ITemplateProcessRepository, TemplateProcessRepository>();
             services.AddScoped<IUserEventRepository, UserEventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUsersInGroupsRepository, UsersInGroupsRepository>();

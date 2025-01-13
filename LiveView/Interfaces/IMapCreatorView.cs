@@ -15,6 +15,10 @@ namespace LiveView.Interfaces
 
         ContextMenuStrip CmsObjectMenu { get; }
 
-        FolderBrowserDialog FolderBrowserDialog { get; }
+        OpenFileDialog OpenFileDialog { get; }
+
+        ToolStripMenuItem TsmiOpenCamera { get; }
+
+        ToolStripMenuItem TsmiOpenMap { get; }
     }
 }

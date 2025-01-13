@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -26,6 +27,7 @@ namespace LiveView.Presenters
         private IControlCenterView view;
         private readonly IDisplayRepository displayRepository;
         private readonly ITemplateRepository templateRepository;
+        private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly PermissionManager permissionManager;
@@ -40,6 +42,7 @@ namespace LiveView.Presenters
             : base(controlCenterPresenterDependencies)
         {
             templateRepository = controlCenterPresenterDependencies.TemplateRepository;
+            templateProcessRepository = controlCenterPresenterDependencies.TemplateProcessRepository;
             displayRepository = controlCenterPresenterDependencies.DisplayRepository;
             sequenceRepository = controlCenterPresenterDependencies.SequenceRepository;
             cameraRepository = controlCenterPresenterDependencies.CameraRepository;
@@ -179,26 +182,9 @@ namespace LiveView.Presenters
         {
             view.InitializeMouseUpdateTimer(view.PDisplayDevices);
 
-            var sequences = sequenceRepository.SelectAll();
-            view.LvSequences.Items.Clear();
-            foreach (var sequence in sequences)
-            {
-                view.AddToItems(view.LvSequences, new ListViewItem(sequence.Name) { Tag = sequence });
-            }
-
-            var cameras = cameraRepository.SelectAll();
-            view.LvCameras.Items.Clear();
-            foreach (var camera in cameras)
-            {
-                view.AddToItems(view.LvCameras, new ListViewItem(camera.CameraName) { Tag = camera });
-            }
-
-            var templates = templateRepository.SelectAll();
-            view.LvTemplates.Items.Clear();
-            foreach (var template in templates)
-            {
-                view.AddToItems(view.LvTemplates, new ListViewItem(template.TemplateName) { Tag = template });
-            }
+            view.LvSequences.AddItems(sequenceRepository.SelectAll(), sequence => new ListViewItem(sequence.Name) { Tag = sequence });
+            view.LvCameras.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName) { Tag = camera });
+            view.LvTemplates.AddItems(templateRepository.SelectAll(), template => new ListViewItem(template.TemplateName) { Tag = template });
 
             RefreshAgents();
         }
@@ -323,6 +309,21 @@ namespace LiveView.Presenters
             else
             {
                 ShowError("Select a display first.");
+            }
+        }
+
+        public void StartTemplate(Template template)
+        {
+            foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
+            {
+                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.socket, NetworkCommand.Close.ToString());
+                //SentToClient(sequenceProcess.Key, NetworkCommand.Close.ToString());
+            }
+
+            var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });
+            foreach (var process in processes)
+            {
+                AppStarter.Start(process.ProcessName, process.ProcessParameters);
             }
         }
     }

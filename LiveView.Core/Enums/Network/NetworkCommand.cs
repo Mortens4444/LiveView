@@ -8,6 +8,9 @@
         UnregisterAgent,
         RegisterDisplay,
         UnregisterDisplay,
-        SendCameraProcessId
+        SendCameraProcessId,
+        RegisterSequence,
+        UnregisterSequence,
+        Close
     }
 }

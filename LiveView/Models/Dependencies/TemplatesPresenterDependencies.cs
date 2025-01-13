@@ -9,12 +9,16 @@ namespace LiveView.Models.Dependencies
         public TemplatesPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             ITemplateRepository templateRepository,
+            ITemplateProcessRepository templateProcessRepository,
             ILogger<Templates> logger)
             : base(generalOptionsRepository)
         {
+            TemplateProcessRepository = templateProcessRepository;
             TemplateRepository = templateRepository;
             Logger = logger;
         }
+
+        public ITemplateProcessRepository TemplateProcessRepository { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
         

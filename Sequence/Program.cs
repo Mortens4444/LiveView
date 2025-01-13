@@ -1,5 +1,6 @@
 using Database.Repositories;
 using Mtf.Database;
+using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
 using System;
 using System.Configuration;
@@ -10,12 +11,13 @@ namespace Sequence
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        private static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
+
         [STAThread]
         static void Main(string[] args)
         {
+            ExceptionHandler.CatchUnhandledExceptions();
+
 #if NETFRAMEWORK
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

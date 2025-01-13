@@ -8,6 +8,8 @@ namespace LiveView.Models.Dependencies
     public class MapCreatorPresenterDependencies : BasePresenterDependencies
     {
         public MapCreatorPresenterDependencies(
+            IServerRepository serverRepository,
+            ICameraRepository cameraRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
@@ -15,19 +17,25 @@ namespace LiveView.Models.Dependencies
             ILogger<MapCreator> logger)
             : base(generalOptionsRepository)
         {
+            CameraRepository = cameraRepository;
+            ServerRepository = serverRepository;
             MapRepository = mapRepository;
             MapObjectRepository = mapObjectRepository;
-            ObjectInMapRepositoryRepository = objectInMapRepositoryRepository;
+            ObjectInMapRepository = objectInMapRepositoryRepository;
             Logger = logger;
         }
 
         public PermissionManager PermissionManager { get; private set; }
 
+        public IServerRepository ServerRepository { get; private set; }
+        
+        public ICameraRepository CameraRepository { get; private set; }
+
         public IMapRepository MapRepository { get; private set; }
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
 
-        public IObjectInMapRepository ObjectInMapRepositoryRepository { get; private set; }
+        public IObjectInMapRepository ObjectInMapRepository { get; private set; }
         
         public ILogger<MapCreator> Logger { get; private set; }
     }

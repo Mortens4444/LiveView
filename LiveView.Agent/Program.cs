@@ -1,5 +1,7 @@
 ﻿using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using Mtf.MessageBoxes;
+using Mtf.MessageBoxes.Exceptions;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using System;
@@ -19,9 +21,11 @@ namespace ConsoleApp
 
         private static readonly Dictionary<long, Process> cameraProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<long, Process> sequenceProcesses = new Dictionary<long, Process>();
+        private static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
 
         static void Main(string[] args)
         {
+            ExceptionHandler.CatchUnhandledExceptions();
             Console.CancelKeyPress += Console_CancelKeyPress;
 
             var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
@@ -60,6 +64,10 @@ namespace ConsoleApp
                 {
                     Thread.Sleep(1000);
                 }
+            }
+            else
+            {
+                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
             }
         }
 
