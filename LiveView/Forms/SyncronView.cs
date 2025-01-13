@@ -1,15 +1,39 @@
-﻿using LiveView.Interfaces;
+﻿using AxVIDEOCONTROL4Lib;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class SyncronView : BaseView, ISyncronViewView
     {
         private SyncronViewPresenter presenter;
+
+        public AxVideoPicture AxVideoPicture1 => axVideoPicture1;
+
+        public AxVideoPicture AxVideoPicture2 => axVideoPicture2;
+
+        public AxVideoPicture AxVideoPicture3 => axVideoPicture3;
+
+        public AxVideoPicture AxVideoPicture4 => axVideoPicture4;
+
+        public TrackBar TbSpeed => tbSpeed;
+
+        public DateTimePicker DtpImageDate => dtpImageDate;
+
+        public NumericUpDown NudHour => nudImageHour;
+
+        public NumericUpDown NudMinute => nudImageMinute;
+
+        public NumericUpDown NudSecond => nudImageSecond;
+
+        public CheckBox ChkOsd => chkOsd;
+
+        public ToolStripMenuItem TsmiChangeCameraTo => tsmiChangeCameraTo;
 
         public SyncronView(IServiceProvider serviceProvider) : base(serviceProvider, typeof(SyncronViewPresenter))
         {
@@ -60,16 +84,15 @@ namespace LiveView.Forms
             presenter.SetSpeed();
         }
 
-        [RequirePermission(CameraManagementPermissions.Select)]
-        private void TsmiChangeCameraTo_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
-            presenter.ConnectToCamera();
-        }
-
         private void SyncronView_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as SyncronViewPresenter;
+            presenter.Load();
+        }
+
+        private void ChkOsd_CheckedChanged(object sender, EventArgs e)
+        {
+            presenter.ChangeOsdState();
         }
     }
 }

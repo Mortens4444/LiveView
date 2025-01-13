@@ -1,12 +1,15 @@
-﻿using Database.Interfaces;
+﻿using AxVIDEOCONTROL4Lib;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
+using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -79,22 +82,27 @@ namespace LiveView.Presenters
 
             var cameras = cameraRepository.SelectAll();
             var servers = serverRepository.SelectAll();
-            foreach (var server in servers)
+            ParentChildToolStripMenuItemBuilder.PopulateMenuItems(
+                view.TsmiOpenCamera,
+                servers,
+                server => server.ToString(),
+                server => cameras.Where(c => c.ServerId == server.Id),
+                camera => camera.ToString(),
+                CameraMenuItem_Click
+            );
+        }
+
+        private void CameraMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera camera)
             {
-                var serverItem = new ToolStripMenuItem(server.ToString())
+                var contextMenu = menuItem.GetCurrentParent() as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl != null)
                 {
-                    Tag = server
-                };
-                var serverCameras = cameras.Where(c => c.ServerId == server.Id);
-                foreach (var camera in serverCameras)
-                {
-                    var cameraItem = new ToolStripMenuItem(camera.ToString())
-                    {
-                        Tag = camera
-                    };
-                    serverItem.DropDownItems.Add(cameraItem);
+                    throw new NotImplementedException();
                 }
-                view.TsmiOpenCamera.DropDownItems.Add(serverItem);
             }
         }
 

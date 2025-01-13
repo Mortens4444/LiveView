@@ -13,15 +13,13 @@ Groups
 Contol Panel
 ------------
 - Active sequence
+- Fullscreen, Sequence apps on mini display view
 
 Settings
 --------
 
 Auto Create Wizard
 ------------------
-
-Templates
----------
 
 MapCreator
 ----------

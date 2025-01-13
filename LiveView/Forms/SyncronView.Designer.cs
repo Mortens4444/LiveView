@@ -236,6 +236,7 @@
             chkOsd.TabIndex = 19;
             chkOsd.Text = "OSD";
             chkOsd.UseVisualStyleBackColor = true;
+            chkOsd.CheckedChanged += ChkOsd_CheckedChanged;
             // 
             // btnStepBack
             // 
@@ -337,6 +338,7 @@
             // 
             // axVideoPicture3
             // 
+            axVideoPicture3.ContextMenuStrip = cmsMenu;
             axVideoPicture3.Enabled = true;
             axVideoPicture3.Location = new System.Drawing.Point(393, 13);
             axVideoPicture3.Name = "axVideoPicture3";
@@ -346,6 +348,7 @@
             // 
             // axVideoPicture4
             // 
+            axVideoPicture4.ContextMenuStrip = cmsMenu;
             axVideoPicture4.Enabled = true;
             axVideoPicture4.Location = new System.Drawing.Point(393, 283);
             axVideoPicture4.Name = "axVideoPicture4";
@@ -355,6 +358,7 @@
             // 
             // axVideoPicture2
             // 
+            axVideoPicture2.ContextMenuStrip = cmsMenu;
             axVideoPicture2.Enabled = true;
             axVideoPicture2.Location = new System.Drawing.Point(5, 283);
             axVideoPicture2.Name = "axVideoPicture2";
@@ -364,6 +368,7 @@
             // 
             // axVideoPicture1
             // 
+            axVideoPicture1.ContextMenuStrip = cmsMenu;
             axVideoPicture1.Enabled = true;
             axVideoPicture1.Location = new System.Drawing.Point(5, 13);
             axVideoPicture1.Name = "axVideoPicture1";
@@ -382,7 +387,6 @@
             tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
             tsmiChangeCameraTo.Size = new System.Drawing.Size(183, 22);
             tsmiChangeCameraTo.Text = "Change camera to ...";
-            tsmiChangeCameraTo.Click += TsmiChangeCameraTo_Click;
             // 
             // SyncronView
             // 
