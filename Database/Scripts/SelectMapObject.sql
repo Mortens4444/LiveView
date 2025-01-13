@@ -1,1 +1,0 @@
-﻿SELECT Id, Image, X, Y, Width, Height, ActionType, ActionReferencedId, Comment FROM MapObjects WHERE Id IN (SELECT MapObjectId FROM ObjectsInMaps WHERE MapId = @MapId)

@@ -1,5 +1,5 @@
-﻿using Database.Models;
-using Mtf.Enums.Camera;
+﻿using Database.Enums;
+using Database.Models;
 
 namespace LiveView.Dto
 {

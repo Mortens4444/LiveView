@@ -95,7 +95,7 @@ namespace LiveView.Presenters
             if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera camera)
             {
                 var dropDownMenu = menuItem.GetCurrentParent() as ToolStripDropDownMenu;
-                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem.Owner as ContextMenuStrip;
+                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
                 var sourceControl = contextMenu?.SourceControl;
 
                 if (sourceControl is AxVideoPlayerWindow axVideoPlayerWindow)

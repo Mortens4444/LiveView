@@ -164,6 +164,7 @@
             tstComment.MaxLength = 200;
             tstComment.Name = "tstComment";
             tstComment.Size = new System.Drawing.Size(100, 23);
+            tstComment.LostFocus += TstComment_Leave;
             // 
             // tsmiAddComment
             // 
@@ -172,21 +173,20 @@
             tsmiAddComment.Name = "tsmiAddComment";
             tsmiAddComment.Size = new System.Drawing.Size(166, 22);
             tsmiAddComment.Text = "Add comment";
-            tsmiAddComment.DropDownClosed += TsmiAddComment_DropDownClosed;
             tsmiAddComment.DropDownOpening += TsmiAddComment_DropDownOpening;
             // 
             // tsmiOpenMap
             // 
             tsmiOpenMap.Image = Properties.Resources.map_creator;
             tsmiOpenMap.Name = "tsmiOpenMap";
-            tsmiOpenMap.Size = new System.Drawing.Size(180, 22);
+            tsmiOpenMap.Size = new System.Drawing.Size(145, 22);
             tsmiOpenMap.Text = "Open map";
             // 
             // tsmiOpenCamera
             // 
             tsmiOpenCamera.Image = Properties.Resources.camera;
             tsmiOpenCamera.Name = "tsmiOpenCamera";
-            tsmiOpenCamera.Size = new System.Drawing.Size(180, 22);
+            tsmiOpenCamera.Size = new System.Drawing.Size(145, 22);
             tsmiOpenCamera.Text = "Open camera";
             // 
             // tsmiAddFunctionality
@@ -201,24 +201,22 @@
             // 
             tsmiBrowse.Image = Properties.Resources.folder;
             tsmiBrowse.Name = "tsmiBrowse";
-            tsmiBrowse.Size = new System.Drawing.Size(121, 22);
+            tsmiBrowse.Size = new System.Drawing.Size(180, 22);
             tsmiBrowse.Text = "Browse…";
             // 
             // tsmiMapIcon
             // 
             tsmiMapIcon.Image = Properties.Resources.map_creator;
             tsmiMapIcon.Name = "tsmiMapIcon";
-            tsmiMapIcon.Size = new System.Drawing.Size(121, 22);
+            tsmiMapIcon.Size = new System.Drawing.Size(180, 22);
             tsmiMapIcon.Text = "Map";
-            tsmiMapIcon.Visible = false;
             // 
             // tsmiCameraIcon
             // 
             tsmiCameraIcon.Image = Properties.Resources.camera;
             tsmiCameraIcon.Name = "tsmiCameraIcon";
-            tsmiCameraIcon.Size = new System.Drawing.Size(121, 22);
+            tsmiCameraIcon.Size = new System.Drawing.Size(180, 22);
             tsmiCameraIcon.Text = "Camera";
-            tsmiCameraIcon.Visible = false;
             // 
             // tsmiAddImage
             // 

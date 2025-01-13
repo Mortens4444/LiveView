@@ -84,16 +84,6 @@ BEGIN
     EXEC sp_rename 'dbo.Events.language_element_id', 'LanguageElementId', 'COLUMN';
     EXEC sp_rename 'dbo.Events.note', 'Note', 'COLUMN';
 
-    EXEC sp_rename 'dbo.FormPositions.ID', 'Id', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.template_id', 'TemplateId', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.form_id', 'FormId', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.secondary_id', 'SecondaryId', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.isopened', 'IsOpened', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.x', 'X', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.y', 'Y', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.w', 'W', 'COLUMN';
-    EXEC sp_rename 'dbo.FormPositions.h', 'H', 'COLUMN';
-
     EXEC sp_rename 'dbo.GridCameralist.ID', 'Id', 'COLUMN';
     EXEC sp_rename 'dbo.GridCameralist.grid_id', 'GridId', 'COLUMN';
     EXEC sp_rename 'dbo.GridCameralist.camera_id', 'CameraId', 'COLUMN';

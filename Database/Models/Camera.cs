@@ -1,5 +1,5 @@
-﻿using Database.Interfaces;
-using Mtf.Enums.Camera;
+﻿using Database.Enums;
+using Database.Interfaces;
 
 namespace Database.Models
 {

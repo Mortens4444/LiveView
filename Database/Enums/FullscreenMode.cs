@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Mtf.Enums.Camera
+namespace Database.Enums
 {
     public enum FullscreenMode : byte
     {

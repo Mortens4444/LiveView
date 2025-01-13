@@ -7,6 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace LiveView.Presenters
 
         public void DeleteAllLogs()
         {
+            if (!ShowConfirm("Are you sure you want to delete item(s)?", Decide.No))
+            {
+                return;
+            }
+
             logRepository.DeleteAll();
             //logger.LogInfo();
             logRepository.Insert(new LogEntry

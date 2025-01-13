@@ -84,17 +84,6 @@ END;
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.foreign_keys 
-    WHERE name = 'FK_FormPositions_Template'
-)
-BEGIN
-    ALTER TABLE FormPositions
-    ADD CONSTRAINT FK_FormPositions_Template
-    FOREIGN KEY (template_id) REFERENCES Templates(Id);
-END;
-
-IF NOT EXISTS (
-    SELECT 1 
-    FROM sys.foreign_keys 
     WHERE name = 'FK_Images_Camera'
 )
 BEGIN

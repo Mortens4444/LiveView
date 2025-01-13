@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums
+﻿namespace Database.Enums
 {
     public enum MapActionType : byte
     {

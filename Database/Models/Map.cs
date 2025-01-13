@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Map : IHaveId<int>
+    public class Map : IHaveId<long>
     {
-        public int Id { get; private set; }
+        public long Id { get; private set; }
 
         public string Name { get; set; }
 

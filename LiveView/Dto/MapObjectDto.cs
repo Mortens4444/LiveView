@@ -1,5 +1,5 @@
-﻿using Database.Models;
-using Mtf.Enums;
+﻿using Database.Enums;
+using Database.Models;
 using System;
 using System.Drawing;
 
@@ -27,7 +27,7 @@ namespace LiveView.Dto
 
         public MapActionType ActionType { get; set; } = MapActionType.NoAction;
 
-        public int ActionReferencedId { get; set; } = -1;
+        public long ActionReferencedId { get; set; } = -1;
 
         public string Comment { get; set; } = String.Empty;
 

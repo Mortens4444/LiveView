@@ -110,18 +110,12 @@ namespace LiveView.Forms
 
         private void TsmiAddComment_DropDownOpening(object sender, EventArgs e)
         {
-            if (sender is Control control)
-            {
-                tstComment.Text = control.Text;
-            }
+            presenter.LoadCommentFromPanel(sender);
         }
 
-        private void TsmiAddComment_DropDownClosed(object sender, EventArgs e)
+        private void TstComment_Leave(object sender, EventArgs e)
         {
-            if (sender is Control control)
-            {
-                control.Text = tstComment.Text;
-            }
+            presenter.AddCommentToPanel(sender);
         }
     }
 }

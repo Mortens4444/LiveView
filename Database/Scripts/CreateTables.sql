@@ -253,7 +253,7 @@ BEGIN
         ActionReferencedId INT NOT NULL,
         ActionType INT NOT NULL,
         Comment NVARCHAR(MAX) NOT NULL,
-        Image VARBINARY(MAX) NOT NULL,
+        Image VARBINARY(MAX) NULL,
         X INT NOT NULL,
         Y INT NOT NULL,
         Width INT NOT NULL,

@@ -23,7 +23,6 @@ Auto Create Wizard
 
 MapCreator
 ----------
-- Drag&Drop not works
 
 Log Viewer
 ----------

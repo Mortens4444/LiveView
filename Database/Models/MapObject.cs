@@ -1,5 +1,5 @@
-﻿using Database.Interfaces;
-using Mtf.Enums;
+﻿using Database.Enums;
+using Database.Interfaces;
 
 namespace Database.Models
 {
@@ -9,7 +9,7 @@ namespace Database.Models
 
         public MapActionType ActionType { get; set; }
 
-        public int ActionReferencedId { get; set; }
+        public long ActionReferencedId { get; set; }
 
         public string Comment { get; set; }
 

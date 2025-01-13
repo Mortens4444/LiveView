@@ -1,7 +1,7 @@
 ﻿using AxVIDEOCONTROL4Lib;
+using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -9,6 +9,8 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
+using Mtf.Controls.x86;
+using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -88,20 +90,32 @@ namespace LiveView.Presenters
                 server => server.ToString(),
                 server => cameras.Where(c => c.ServerId == server.Id),
                 camera => camera.ToString(),
-                CameraMenuItem_Click
+                MapObjectMenuItem_Click
             );
         }
 
-        private void CameraMenuItem_Click(object sender, EventArgs e)
+        private void MapObjectMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera camera)
+            if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera)
             {
-                var contextMenu = menuItem.GetCurrentParent() as ContextMenuStrip;
+                var dropDownMenu = menuItem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
                 var sourceControl = contextMenu?.SourceControl;
 
-                if (sourceControl != null)
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
                 {
-                    throw new NotImplementedException();
+                    movableSizablePanel.Tag = menuItem.Tag;
+                }
+            }
+            else if (sender is ToolStripMenuItem mapMenuItem && mapMenuItem.Tag is Map)
+            {
+                var dropDownMenu = mapMenuItem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    movableSizablePanel.Tag = mapMenuItem.Tag;
                 }
             }
         }
@@ -110,8 +124,8 @@ namespace LiveView.Presenters
         {
             if (view.CbMap.SelectedItem is Map map)
             {
-                var objectInMaps = objectInMapRepository.SelectWhere(map.Id);
-                var mapObjects = mapObjectRepository.SelectWhere(objectInMaps.Select(o => o.MapObjectId));
+                //var objectInMaps = objectInMapRepository.SelectWhere(new { map.Id });
+                var mapObjects = mapObjectRepository.SelectWhere(new { map.Id }/*objectInMaps.Select(o => o.MapObjectId)*/);
 
                 Load(map, mapObjects);
             }
@@ -136,9 +150,15 @@ namespace LiveView.Presenters
 
         public void DeleteMap()
         {
+            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
+            {
+                return;
+            }
+
             if (view.CbMap.SelectedItem is Map map)
             {
                 mapRepository.Delete(map.Id);
+                Load();
             }
         }
 
@@ -165,7 +185,17 @@ namespace LiveView.Presenters
 
             foreach (Control control in view.PCanvas.Controls)
             {
-                var mapObject = new MapObject();
+                var mapObject = new MapObject
+                {
+                    Comment = control.Text,
+                    X = control.Location.X,
+                    Y = control.Location.Y,
+                    Width = control.Size.Width,
+                    Height = control.Size.Height,
+                    Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage, ImageFormat.Bmp),
+                    ActionType = control.Tag is Camera ? MapActionType.OpenCamera : control.Tag is Map ? MapActionType.OpenMap : MapActionType.NoAction,
+                    ActionReferencedId = ((IHaveId<long>)control.Tag)?.Id ?? 0
+                };
                 var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
                 objectInMapRepository.Insert(new ObjectInMap
                 {
@@ -178,6 +208,35 @@ namespace LiveView.Presenters
         public static void SetDragEffect(DragEventArgs e)
         {
             e.Effect = e.Data.GetDataPresent(typeof(MovableSizablePanel)) ? DragDropEffects.Move : DragDropEffects.None;
+        }
+
+        public void AddCommentToPanel(object sender)
+        {
+            if (sender is ToolStripTextBox menuTextBox)
+            {
+                var dropDownMenu = menuTextBox.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    movableSizablePanel.Text = menuTextBox.Text;
+                }
+            }
+        }
+
+        public void LoadCommentFromPanel(object sender)
+        {
+            if (sender is ToolStripMenuItem menuitem)
+            {
+                var contextMenu = menuitem.GetCurrentParent() as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    menuitem.DropDownItems[0].Text = movableSizablePanel.Text;
+                }
+            }
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using Database.Interfaces;
-using Database.Models;
+﻿using Database.Enums;
+using Database.Interfaces;
 using LiveView.CustomEventArgs;
 using LiveView.Dto;
 using LiveView.Models.Dependencies;
 using Mtf.Controls;
-using Mtf.Enums;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
