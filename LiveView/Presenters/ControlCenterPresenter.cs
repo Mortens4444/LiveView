@@ -317,7 +317,6 @@ namespace LiveView.Presenters
             foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
             {
                 MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.socket, NetworkCommand.Close.ToString());
-                //SentToClient(sequenceProcess.Key, NetworkCommand.Close.ToString());
             }
 
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });

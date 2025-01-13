@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Dto;
+using System.Windows.Forms;
 
 namespace LiveView.Dto
 {
@@ -6,6 +7,8 @@ namespace LiveView.Dto
     {
         public DisplayDto Display { get; set; }
 
-        public int SequenceId { get; set; }
+        public long SequenceId { get; set; }
+
+        public Button CloseButton { get; set; }
     }
 }

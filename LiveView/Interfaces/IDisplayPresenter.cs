@@ -14,7 +14,7 @@ namespace LiveView.Interfaces
 
         Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size);
 
-        List<SequenceEnvironment> GetSequenceEnvironments();
+        List<SequenceEnvironment> GetSequenceEnvironments(DisplayDto display);
 
         (Pen, SolidBrush) GetDrawingTools(DisplayDto display, DisplayDrawingTools displayDrawingTools);
     }

@@ -268,7 +268,7 @@ namespace LiveView.Forms
                     GetAndCacheDisplays(PDisplayDevices.Size);
                 }
 
-                DrawDisplays(e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text);
+                DrawDisplays(PDisplayDevices, e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text);
                 DrawMouse(e.Graphics, PDisplayDevices.Size);
             }
             catch (Exception ex)

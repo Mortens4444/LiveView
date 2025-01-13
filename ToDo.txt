@@ -13,7 +13,7 @@ Groups
 Contol Panel
 ------------
 - Active sequence
-- Fullscreen, Sequence apps on mini display view
+- Handle remote display sequences also
 
 Settings
 --------

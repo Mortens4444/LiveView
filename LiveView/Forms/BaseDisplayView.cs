@@ -58,7 +58,7 @@ namespace LiveView.Forms
             }
         }
 
-        protected void DrawDisplays(Graphics graphics, DisplayDrawingTools displayDrawingTools, string hostname)
+        protected void DrawDisplays(Panel panel, Graphics graphics, DisplayDrawingTools displayDrawingTools, string hostname)
         {
             if (CachedDisplays == null)
             {
@@ -69,7 +69,7 @@ namespace LiveView.Forms
             {
                 if (display.Host == hostname)
                 {
-                    DrawDisplay(graphics, display, displayDrawingTools);
+                    DrawDisplay(panel, graphics, display, displayDrawingTools);
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace LiveView.Forms
             }
         }
 
-        private void DrawDisplay(Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools)
+        private void DrawDisplay(Panel panel, Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools)
         {
             if (!CachedBounds.TryGetValue(display.Id, out var bounds))
             {
@@ -93,7 +93,7 @@ namespace LiveView.Forms
 
             var adjustedBounds = GetAdjustedBounds(bounds);
             var (drawingPen, drawingBrush) = displayPresenter.GetDrawingTools(display, displayDrawingTools);
-            Draw(graphics, display, bounds, adjustedBounds, drawingPen, drawingBrush);
+            Draw(panel, graphics, display, bounds, adjustedBounds, drawingPen, drawingBrush);
         }
 
         private static Rectangle GetAdjustedBounds(Rectangle bounds)
@@ -106,13 +106,13 @@ namespace LiveView.Forms
             );
         }
 
-        private void Draw(Graphics graphics, DisplayDto display, Rectangle bounds, Rectangle adjustedBounds, Pen drawingPen, SolidBrush drawingBrush)
+        private void Draw(Panel panel, Graphics graphics, DisplayDto display, Rectangle bounds, Rectangle adjustedBounds, Pen drawingPen, SolidBrush drawingBrush)
         {
             graphics.DrawRectangle(drawingPen, bounds);
             graphics.FillRegion(drawingBrush, new Region(bounds));
             graphics.DrawRectangle(drawingPen, adjustedBounds);
 
-            ShowSeqence(graphics, display, adjustedBounds);
+            ShowSeqence(panel, graphics, display, adjustedBounds);
             ShowDisplayName(graphics, display, adjustedBounds);
         }
 
@@ -129,24 +129,23 @@ namespace LiveView.Forms
             }
         }
 
-        private void ShowSeqence(Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
+        private void ShowSeqence(Panel panel, Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
         {
-            try
+            var sequenceEnvironments = displayPresenter.GetSequenceEnvironments(display);
+            foreach (var sequenceEnvironment in sequenceEnvironments)
             {
-                var starters = displayPresenter.GetSequenceEnvironments();
-                foreach (var starter in starters)
+                var (drawingPen, sequenceBrush) = displayPresenter.GetDrawingTools(display, DisplayDrawingTools.Sequence);
+                graphics.FillRectangle(sequenceBrush, adjustedBounds);
+
+                if (!panel.Controls.ContainsKey(sequenceEnvironment.CloseButton.Name))
                 {
-                    if (starter.Display.Id == display.Id)
-                    {
-                        var (drawingPen, sequenceBrush) = displayPresenter.GetDrawingTools(display, DisplayDrawingTools.Sequence);
-                        graphics.FillRectangle(sequenceBrush, adjustedBounds);
-                        break;
-                    }
+                    const int delta = 4;
+                    sequenceEnvironment.CloseButton.Location = new Point(
+                        adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta,
+                        adjustedBounds.Top + delta);
+                    panel.Controls.Add(sequenceEnvironment.CloseButton);
+                    sequenceEnvironment.CloseButton.BringToFront();
                 }
-            }
-            catch (Exception ex)
-            {
-                //DebugErrorBox.Show(ex);
             }
         }
     }

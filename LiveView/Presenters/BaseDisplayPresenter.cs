@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using LiveView.Core.Dto;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
@@ -10,6 +11,7 @@ using LiveView.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
@@ -78,10 +80,43 @@ namespace LiveView.Presenters
             return displayManager.GetScaledDisplayBounds(displays, size);
         }
 
-        public List<SequenceEnvironment> GetSequenceEnvironments()
+        public List<SequenceEnvironment> GetSequenceEnvironments(DisplayDto display)
         {
-            throw new NotImplementedException();
-            //return Display.GetSequenceEnvironments(displayId);
+            var result = new List<SequenceEnvironment>();
+            foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
+            {
+                var (socket, processId, sequenceId, displayId) = sequenceProcess.Value;
+                if (display.Id == displayId.ToString()) // ToDo: Handle remote display sequences also
+                {
+                    var closeButton = new Button
+                    {
+                        Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                        BackColor = SystemColors.Control,
+                        Image = Properties.Resources.btn_CloseSequenceApplications_Image,
+                        Margin = new Padding(4, 3, 4, 3),
+                        Name = $"btnCloseSeuence{sequenceId}OnDisplay{displayId}",
+                        Size = new Size(21, 21),
+                        TabIndex = 0,
+                        UseVisualStyleBackColor = false
+                    };
+                    closeButton.Click += (object sender, EventArgs e) =>
+                    {
+                        MainPresenter.Server.SendMessageToClient(socket, NetworkCommand.Close.ToString());
+                        MainPresenter.SequenceProcesses[sequenceProcess.Key] = (null, 0, 0, 0);
+                        var button = sender as Button;
+                        button.Parent.Controls.Remove(button);
+                        button.Dispose();
+                    };
+                    
+                    result.Add(new SequenceEnvironment
+                    {
+                        Display = display,
+                        SequenceId = sequenceId,
+                        CloseButton = closeButton
+                    });
+                }
+            }
+            return result;
         }
 
         public (Pen, SolidBrush) GetDrawingTools(DisplayDto display, DisplayDrawingTools displayDrawingTools)
