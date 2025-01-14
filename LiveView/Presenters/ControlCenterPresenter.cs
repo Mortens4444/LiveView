@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -231,7 +232,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void StartCameraApp(Camera camera)
+        public void StartCameraApp(IHaveId<long> camera)
         {
             ProcessUtils.Kill(cameraProcess);
 

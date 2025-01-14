@@ -65,7 +65,7 @@ namespace LiveView.Presenters
             user.LicensePlate = view.TbLicensePlate.Text;
             user.OtherInformation = view.TbOtherInformation.Text;
             user.Phone = view.TbTelephoneNumber.Text;
-            user.Image = ImageConverter.ImageToByteArray(view.PbPicture.Image, ImageFormat.Bmp);
+            user.Image = ImageConverter.ImageToByteArray(view.PbPicture.Image);
             userRepository.Update(user);
             CloseForm();
         }

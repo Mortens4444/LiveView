@@ -1,12 +1,12 @@
-﻿using LiveView.Dto;
+﻿using Database.Models;
 
 namespace LiveView.CustomEventArgs
 {
     public class CameraObjectClickedEventArgs
     {
-        public CameraDto Camera { get; private set; }
+        public Camera Camera { get; private set; }
 
-        public CameraObjectClickedEventArgs(CameraDto camera)
+        public CameraObjectClickedEventArgs(Camera camera)
         {
             Camera = camera;
         }

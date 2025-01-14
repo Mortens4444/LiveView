@@ -1,1 +1,1 @@
-﻿SELECT CameraId, InitRow, InitCol, EndRow, EndCol FROM GridCameralist WHERE GridId = @GridId;
+﻿SELECT GridId, CameraId, InitRow, InitCol, EndRow, EndCol FROM GridCameralist WHERE GridId = @GridId;

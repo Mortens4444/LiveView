@@ -23,6 +23,7 @@ Auto Create Wizard
 
 MapCreator
 ----------
+- Map update not works when background is set.
 
 Log Viewer
 ----------

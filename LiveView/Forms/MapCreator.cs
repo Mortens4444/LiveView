@@ -132,5 +132,10 @@ namespace LiveView.Forms
         {
             presenter.SetCustomImage(sender);
         }
+
+        private void BtnNewMap_Click(object sender, EventArgs e)
+        {
+            presenter.CreateNewMap();
+        }
     }
 }

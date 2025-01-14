@@ -2,7 +2,7 @@
   "profiles": {
     "Camera": {
       "commandName": "Project",
-      "commandLineArgs": "1 13 5"
+      "commandLineArgs": "1 10 5"
     }
   }
 }

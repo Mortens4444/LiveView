@@ -51,6 +51,7 @@
             cmsObjectMenu = new System.Windows.Forms.ContextMenuStrip(components);
             pTemplate = new Mtf.Controls.MovableSizablePanel();
             gbTools = new System.Windows.Forms.GroupBox();
+            btnNewMap = new System.Windows.Forms.Button();
             btnLoadImage = new System.Windows.Forms.Button();
             pCanvas = new System.Windows.Forms.Panel();
             pTools = new System.Windows.Forms.Panel();
@@ -74,7 +75,7 @@
             // 
             btnDeleteMap.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnDeleteMap.Enabled = false;
-            btnDeleteMap.Location = new System.Drawing.Point(803, 38);
+            btnDeleteMap.Location = new System.Drawing.Point(803, 40);
             btnDeleteMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnDeleteMap.Name = "btnDeleteMap";
             btnDeleteMap.Size = new System.Drawing.Size(119, 27);
@@ -201,7 +202,7 @@
             // 
             tsmiBrowse.Image = Properties.Resources.folder;
             tsmiBrowse.Name = "tsmiBrowse";
-            tsmiBrowse.Size = new System.Drawing.Size(180, 22);
+            tsmiBrowse.Size = new System.Drawing.Size(121, 22);
             tsmiBrowse.Text = "Browse…";
             tsmiBrowse.Click += TsmiBrowse_Click;
             // 
@@ -209,7 +210,7 @@
             // 
             tsmiMapIcon.Image = Properties.Resources.map_creator;
             tsmiMapIcon.Name = "tsmiMapIcon";
-            tsmiMapIcon.Size = new System.Drawing.Size(180, 22);
+            tsmiMapIcon.Size = new System.Drawing.Size(121, 22);
             tsmiMapIcon.Text = "Map";
             tsmiMapIcon.Click += TsmiMapIcon_Click;
             // 
@@ -217,7 +218,7 @@
             // 
             tsmiCameraIcon.Image = Properties.Resources.camera;
             tsmiCameraIcon.Name = "tsmiCameraIcon";
-            tsmiCameraIcon.Size = new System.Drawing.Size(180, 22);
+            tsmiCameraIcon.Size = new System.Drawing.Size(121, 22);
             tsmiCameraIcon.Text = "Camera";
             tsmiCameraIcon.Click += TsmiCameraIcon_Click;
             // 
@@ -253,6 +254,7 @@
             // 
             // gbTools
             // 
+            gbTools.Controls.Add(btnNewMap);
             gbTools.Controls.Add(pTemplate);
             gbTools.Controls.Add(btnDeleteMap);
             gbTools.Controls.Add(cbMap);
@@ -272,10 +274,23 @@
             gbTools.TabStop = false;
             gbTools.Text = "Tools";
             // 
+            // btnNewMap
+            // 
+            btnNewMap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnNewMap.Enabled = false;
+            btnNewMap.Location = new System.Drawing.Point(418, 142);
+            btnNewMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNewMap.Name = "btnNewMap";
+            btnNewMap.Size = new System.Drawing.Size(119, 27);
+            btnNewMap.TabIndex = 9;
+            btnNewMap.Text = "Clear canvas";
+            btnNewMap.UseVisualStyleBackColor = true;
+            btnNewMap.Click += BtnNewMap_Click;
+            // 
             // btnLoadImage
             // 
             btnLoadImage.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnLoadImage.Location = new System.Drawing.Point(418, 142);
+            btnLoadImage.Location = new System.Drawing.Point(545, 142);
             btnLoadImage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnLoadImage.Name = "btnLoadImage";
             btnLoadImage.Size = new System.Drawing.Size(130, 27);
@@ -330,7 +345,7 @@
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(697, 571);
+            MinimumSize = new System.Drawing.Size(824, 700);
             Name = "MapCreator";
             Text = "Map creator";
             Shown += MapCreator_Shown;
@@ -370,5 +385,6 @@
         private System.Windows.Forms.Panel pTools;
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnNewMap;
     }
 }

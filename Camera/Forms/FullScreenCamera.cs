@@ -2,6 +2,7 @@
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using Mtf.LanguageService;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -24,8 +25,14 @@ namespace CameraApp.Forms
             this.cameraId = cameraId;
             permissionManager = new PermissionManager();
             Initialize(userId, cameraId);
+#if DEBUG
+            this.location = new Point(0, 0);
+            this.size = new Size(100, 100);
+            TopMost = false;
+#else
             this.location = location;
             this.size = size;
+#endif
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
@@ -68,6 +75,11 @@ namespace CameraApp.Forms
 
         private void FullScreenCamera_Load(object sender, EventArgs e)
         {
+#if DEBUG
+            Location = new Point(0, 0);
+            Size = new Size(100, 100);
+            TopMost = false;
+#else
             if (display != null)
             {
                 Location = new Point(display.X, display.Y);
@@ -78,6 +90,7 @@ namespace CameraApp.Forms
                 Location = location;
                 Size = size;
             }
+#endif
         }
 
         private void FullScreenCamera_Shown(object sender, EventArgs e)
@@ -85,7 +98,15 @@ namespace CameraApp.Forms
             var cameraRepository = new CameraRepository();
             var serverRepository = new ServerRepository();
             var camera = cameraRepository.Select(cameraId);
+            if (camera == null)
+            {
+                DebugErrorBox.Show("Camera is null", $"Cannot find camera with Id: {cameraId}");
+            }
             var server = serverRepository.Select(camera.ServerId);
+            if (server == null)
+            {
+                DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
+            }
 
             axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
             axVideoPlayerWindow.OverlayText = $"{server.IpAddress} - {camera.CameraName}";

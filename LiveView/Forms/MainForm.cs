@@ -88,16 +88,26 @@ namespace LiveView.Forms
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
         {
-            if (ControlCenter == null || ControlCenter.IsDisposed)
+            if (ControlCenter.Visible)
             {
-                ControlCenter = presenter.ShowForm<ControlCenter>();
+                ControlCenter.Hide();
             }
             else
             {
-                ControlCenter.Close();
-                ControlCenter.Dispose();
-                ControlCenter = null;
+                ControlCenter.Show();
+                ControlCenter.Reload();
             }
+
+            //if (ControlCenter == null || ControlCenter.IsDisposed)
+            //{
+            //    ControlCenter = presenter.ShowForm<ControlCenter>();
+            //}
+            //else
+            //{
+            //    ControlCenter.Close();
+            //    ControlCenter.Dispose();
+            //    ControlCenter = null;
+            //}
         }
 
         [RequirePermission(ServerManagementPermissions.FullControl)]
@@ -270,6 +280,8 @@ namespace LiveView.Forms
         {
             presenter = Presenter as MainPresenter;
             presenter.Load();
+            ControlCenter = presenter.ShowForm<ControlCenter>();
+            ControlCenter.Hide();
         }
 
         public IntPtr GetHandle()

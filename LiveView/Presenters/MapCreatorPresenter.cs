@@ -20,6 +20,9 @@ namespace LiveView.Presenters
 {
     public class MapCreatorPresenter : BasePresenter
     {
+        private const string MapHasBeenCreated = "Map {0} has been created.";
+        private const string MapHasBeenUpdated = "Map {0} has been updated.";
+        private const string MapHasBeenDeleted = "Map {0} has been deleted.";
         private IMapCreatorView view;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
@@ -71,12 +74,14 @@ namespace LiveView.Presenters
         {
             var maps = mapRepository.SelectAll();
             view.CbMap.AddItemsAndSelectFirst(maps);
+            view.TsmiOpenMap.DropDownItems.Clear();
             foreach (var map in maps)
             {
                 var mapItem = new ToolStripMenuItem(map.ToString())
                 {
                     Tag = map
                 };
+                mapItem.Click += MapObjectMenuItem_Click;
                 view.TsmiOpenMap.DropDownItems.Add(mapItem);
             }
 
@@ -97,7 +102,7 @@ namespace LiveView.Presenters
             if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera)
             {
                 var dropDownMenu = menuItem.GetCurrentParent() as ToolStripDropDownMenu;
-                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
+                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
                 var sourceControl = contextMenu?.SourceControl;
 
                 if (sourceControl is MovableSizablePanel movableSizablePanel)
@@ -108,7 +113,7 @@ namespace LiveView.Presenters
             else if (sender is ToolStripMenuItem mapMenuItem && mapMenuItem.Tag is Map)
             {
                 var dropDownMenu = mapMenuItem.GetCurrentParent() as ToolStripDropDownMenu;
-                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
                 var sourceControl = contextMenu?.SourceControl;
 
                 if (sourceControl is MovableSizablePanel movableSizablePanel)
@@ -170,7 +175,8 @@ namespace LiveView.Presenters
             if (view.CbMap.SelectedItem is Map map)
             {
                 mapRepository.Delete(map.Id);
-                logger.LogInfo("Map {0} has been deleted.", map);
+                logger.LogInfo(MapHasBeenDeleted, map);
+                CreateNewMap();
                 Load();
             }
         }
@@ -185,55 +191,35 @@ namespace LiveView.Presenters
             }
         }
 
+        public void CreateNewMap()
+        {
+            view.CbMap.SelectedIndex = -1;
+            view.CbMap.Text = String.Empty;
+            view.RtbComment.Text = String.Empty;
+            view.PCanvas.Controls.Clear();
+            view.PCanvas.BackgroundImage = null;
+        }
+
         public void SaveMap()
         {
             long mapId;
-            var map = new Map
-            {
-                Name = view.CbMap.Text,
-                Comment = view.RtbComment.Text,
-                MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage, ImageFormat.Jpeg),
-                OriginalHeight = image?.Height ?? 0,
-                OriginalWidth = image?.Width ?? 0
-            };
+            var map = GetMap();
             if (view.CbMap.SelectedItem is Map existingMap)
             {
                 map.Id = existingMap.Id;
                 mapId = map.Id;
                 mapRepository.Update(map);
-                logger.LogInfo("Map {0} has been updated.", map);
+                logger.LogInfo(MapHasBeenUpdated, map);
             }
             else
             {
                 mapId = mapRepository.InsertAndReturnId<int>(map);
-                logger.LogInfo("Map {0} has been created.", map);
+                logger.LogInfo(MapHasBeenCreated, map);
             }
 
             foreach (Control control in view.PCanvas.Controls)
             {
-                var mapObject = new MapObject
-                {
-                    Comment = control.Text,
-                    X = control.Location.X,
-                    Y = control.Location.Y,
-                    Width = control.Size.Width,
-                    Height = control.Size.Height,
-                    Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage, ImageFormat.Jpeg)
-                };
-                if (control.Tag is Camera camera)
-                {
-                    mapObject.ActionType = MapActionType.OpenCamera;
-                    mapObject.ActionReferencedId = camera.Id;
-                }
-                else if (control.Tag is Map actualMap)
-                {
-                    mapObject.ActionType = MapActionType.OpenMap;
-                    mapObject.ActionReferencedId = actualMap.Id;
-                }
-                else
-                {
-                    mapObject.ActionType = MapActionType.NoAction;
-                }
+                var mapObject = GetMapObject(control);
 
                 if (Int32.TryParse(control.Name, out var id))
                 {
@@ -250,6 +236,47 @@ namespace LiveView.Presenters
                     });
                 }
             }
+        }
+
+        private static MapObject GetMapObject(Control control)
+        {
+            var mapObject = new MapObject
+            {
+                Comment = control.Text,
+                X = control.Location.X,
+                Y = control.Location.Y,
+                Width = control.Size.Width,
+                Height = control.Size.Height,
+                Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage)
+            };
+            if (control.Tag is Camera camera)
+            {
+                mapObject.ActionType = MapActionType.OpenCamera;
+                mapObject.ActionReferencedId = camera.Id;
+            }
+            else if (control.Tag is Map actualMap)
+            {
+                mapObject.ActionType = MapActionType.OpenMap;
+                mapObject.ActionReferencedId = actualMap.Id;
+            }
+            else
+            {
+                mapObject.ActionType = MapActionType.NoAction;
+            }
+
+            return mapObject;
+        }
+
+        private Map GetMap()
+        {
+            return new Map
+            {
+                Name = view.CbMap.Text,
+                Comment = view.RtbComment.Text,
+                MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage),
+                OriginalHeight = image?.Height ?? 0,
+                OriginalWidth = image?.Width ?? 0
+            };
         }
 
         public static void SetDragEffect(DragEventArgs e)

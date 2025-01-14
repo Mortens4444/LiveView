@@ -34,6 +34,7 @@ namespace LiveView.Presenters
     public class MainPresenter : BasePresenter
     {
         private IMainView view;
+        private MapLoader mapLoader;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
         private readonly IServiceProvider serviceProvider;
@@ -228,9 +229,16 @@ namespace LiveView.Presenters
             {
                 var map = MapDto.FromModel(maps.First());
                 map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
-                var mapLoader = (MapLoader)ActivatorUtilities.CreateInstance(serviceProvider, typeof(MapLoader), view.PbMap, view.TtHint);
+                mapLoader = (MapLoader)ActivatorUtilities.CreateInstance(serviceProvider, typeof(MapLoader), view.PbMap, view.TtHint);
                 mapLoader.LoadMap(map);
+                mapLoader.CameraObjectClicked += MapLoader_CameraObjectClicked;
+
             }
+        }
+
+        private void MapLoader_CameraObjectClicked(CustomEventArgs.CameraObjectClickedEventArgs e)
+        {
+            MainForm.ControlCenter.StartCamera(e.Camera);
         }
     }
 }

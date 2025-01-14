@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -20,7 +20,7 @@ namespace LiveView.Services
             }
         }
 
-        public static byte[] ImageToByteArray(Image image, ImageFormat format)
+        public static byte[] ImageToByteArray(Image image, ImageFormat format = null)
         {
             if (image == null)
             {
@@ -29,8 +29,18 @@ namespace LiveView.Services
 
             using (var ms = new MemoryStream())
             {
-                image.Save(ms, format);
-                return ms.ToArray();
+                using (var clonedImage = (Image)image.Clone())
+                {
+                    try
+                    {
+                        clonedImage.Save(ms, format ?? clonedImage.RawFormat);
+                    }
+                    catch
+                    {
+                        clonedImage.Save(ms, ImageFormat.Png);
+                    }
+                    return ms.ToArray();
+                }
             }
         }
     }

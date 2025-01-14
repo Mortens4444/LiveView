@@ -255,7 +255,11 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
-            //GetAndCacheDisplays(PDisplayDevices.Size);
+            Reload();
+        }
+
+        public void Reload()
+        {
             presenter.Load();
         }
 
@@ -293,6 +297,11 @@ namespace LiveView.Forms
                 await Task.Delay(1000);
                 e.Item.Selected = false;
             }
+        }
+
+        public void StartCamera(Camera camera)
+        {
+            presenter.StartCameraApp(camera);
         }
 
         private void PDisplayDevices_MouseClick(object sender, MouseEventArgs e)

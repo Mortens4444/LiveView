@@ -1,1 +1,1 @@
-﻿SELECT LanguageElementId FROM Operations WHERE Id = @Id
+﻿SELECT Id, LanguageElementId FROM Operations WHERE Id = @Id

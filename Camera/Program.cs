@@ -33,6 +33,7 @@ namespace CameraApp
             BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+            //InfoBox.Show("Camera app started", $"{String.Join(" ", args)}");
 
             try
             {
