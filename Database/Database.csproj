@@ -59,7 +59,7 @@
     <EmbeddedResource Include="Scripts\DeleteLogEntry.sql" />
     <EmbeddedResource Include="Scripts\InsertLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
-    <EmbeddedResource Include="Scripts\InsertObjectsInMaps.sql" />
+    <EmbeddedResource Include="Scripts\InsertObjectInMap.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereGridInSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCamera.sql" />

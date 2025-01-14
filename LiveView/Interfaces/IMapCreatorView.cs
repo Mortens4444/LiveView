@@ -20,5 +20,7 @@ namespace LiveView.Interfaces
         ToolStripMenuItem TsmiOpenCamera { get; }
 
         ToolStripMenuItem TsmiOpenMap { get; }
+
+        ImageList IlImages { get; }
     }
 }

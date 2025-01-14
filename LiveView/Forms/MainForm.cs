@@ -5,14 +5,12 @@ using LiveView.Presenters;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
-using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -38,6 +36,10 @@ namespace LiveView.Forms
         public static DisplayDto FullScreenDisplay { get; set; }
 
         public ToolStripStatusLabel TsslServerData => tsslServerData;
+
+        public PictureBox PbMap => pbMap;
+
+        public ToolTip TtHint => ttHint;
 
         static MainForm()
         {

@@ -5,10 +5,12 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using LiveView.Dto;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
@@ -21,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -33,6 +36,9 @@ namespace LiveView.Presenters
         private IMainView view;
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
+        private readonly IServiceProvider serviceProvider;
+        private readonly IMapRepository mapRepository;
+        private readonly IMapObjectRepository mapObjectRepository;
         private readonly IDisplayRepository displayRepository;
         private readonly IGroupRepository groupRepository;
         private readonly IUserRepository userRepository;
@@ -51,6 +57,9 @@ namespace LiveView.Presenters
             : base(mainPresenterDependencies)
         {
             logger = mainPresenterDependencies.Logger;
+            serviceProvider = mainPresenterDependencies.ServiceProvider;
+            mapRepository = mainPresenterDependencies.MapRepository;
+            mapObjectRepository = mainPresenterDependencies.MapObjectRepository;
             displayRepository = mainPresenterDependencies.DisplayRepository;
             groupRepository = mainPresenterDependencies.GroupRepository;
             userRepository = mainPresenterDependencies.UserRepository;
@@ -94,6 +103,7 @@ namespace LiveView.Presenters
             Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
+            LoadMap(); // ToDo: Sometimes it fails to load.
 
             CheckLanguageFile();
         }
@@ -209,6 +219,18 @@ namespace LiveView.Presenters
             var osUptime = uptime.GetOs();
             var appUptime = uptime.GetApp();
             view.SetUptime(osUptime, appUptime);
+        }
+
+        private void LoadMap()
+        {
+            var maps = mapRepository.SelectAll();
+            if (maps.Any())
+            {
+                var map = MapDto.FromModel(maps.First());
+                map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
+                var mapLoader = (MapLoader)ActivatorUtilities.CreateInstance(serviceProvider, typeof(MapLoader), view.PbMap, view.TtHint);
+                mapLoader.LoadMap(map);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Models.Dependencies
 {
@@ -11,6 +12,9 @@ namespace LiveView.Models.Dependencies
         public MainPresenterDependencies(
             PermissionManager permissionManager,
             FormFactory formfactory,
+            IServiceProvider serviceProvider,
+            IMapRepository mapRepository,
+            IMapObjectRepository mapObjectRepository,
             IDisplayRepository displayRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IGroupRepository groupRepository,
@@ -20,14 +24,19 @@ namespace LiveView.Models.Dependencies
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
+            ServiceProvider = serviceProvider;
             DisplayRepository = displayRepository;
             GroupRepository = groupRepository;
             UserRepository = userRepository;
             UserGroupRepository = userGroupRepository;
             PersonalOptionsRepository = personalOptionsRepository;
             PermissionManager = permissionManager;
+            MapRepository = mapRepository;
+            MapObjectRepository = mapObjectRepository;
             Logger = logger;
         }
+
+        public IServiceProvider ServiceProvider { get; private set; }
 
         public IDisplayRepository DisplayRepository { get; private set; }
 
@@ -41,6 +50,10 @@ namespace LiveView.Models.Dependencies
         
         public IUsersInGroupsRepository UserGroupRepository { get; private set; }
 
-        public PermissionManager PermissionManager { get; internal set; }
+        public PermissionManager PermissionManager { get; private set; }
+
+        public IMapRepository MapRepository { get; private set; }
+
+        public IMapObjectRepository MapObjectRepository { get; private set; }
     }
 }

@@ -5,6 +5,10 @@ namespace LiveView.Interfaces
 {
     public interface IMainView : IView
     {
+        PictureBox PbMap { get; }
+
+        ToolTip TtHint { get; }
+
         ToolStripStatusLabel TsslServerData { get; }
 
         IntPtr GetHandle();

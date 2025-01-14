@@ -14,6 +14,7 @@ namespace LiveView.Services
             Func<TChild, string> childTextSelector,
             EventHandler leafItemClickHandler)
         {
+            rootItem.DropDownItems.Clear();
             foreach (var parent in parents)
             {
                 var parentItem = new ToolStripMenuItem(parentTextSelector(parent))

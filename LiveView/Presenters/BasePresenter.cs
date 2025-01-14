@@ -33,7 +33,7 @@ namespace LiveView.Presenters
         {
             this.formFactory = formFactory;
             this.generalOptionsRepository = generalOptionsRepository;
-            LoadOptoins();
+            LoadOptions();
         }
 
         public void SetView(IView view)
@@ -164,7 +164,7 @@ namespace LiveView.Presenters
                 Value = view.Size.Height.ToString(),
                 TypeId = OptionType.Int32
             });
-            LoadOptoins();
+            LoadOptions();
         }
 
         public void InsertFormLocationAndSize()
@@ -199,7 +199,7 @@ namespace LiveView.Presenters
                 Value = view.Size.Height.ToString(),
                 TypeId = OptionType.Int32
             });
-            LoadOptoins();
+            LoadOptions();
         }
 
         public void SetLocationAndSize()
@@ -257,7 +257,7 @@ namespace LiveView.Presenters
             view.AddToItems(destinationListView, itemsToView.ToArray());
         }
 
-        private void LoadOptoins()
+        private void LoadOptions()
         {
             generalOptions = generalOptionsRepository.SelectAll().Select(x => GeneralOptionDto.FromGeneralOption(x));
         }

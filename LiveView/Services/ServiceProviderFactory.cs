@@ -9,7 +9,6 @@ using LiveView.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
-using System;
 
 namespace LiveView.Services
 {

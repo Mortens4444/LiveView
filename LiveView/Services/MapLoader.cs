@@ -6,6 +6,7 @@ using LiveView.Models.Dependencies;
 using Mtf.Controls;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Services
@@ -20,7 +21,6 @@ namespace LiveView.Services
 
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
-        private readonly IObjectInMapRepository objectInMapRepositoryRepository;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
 
@@ -30,7 +30,6 @@ namespace LiveView.Services
             this.toolTip = toolTip;
             mapRepository = mapLoaderDependencies.MapRepository;
             mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
-            objectInMapRepositoryRepository = mapLoaderDependencies.ObjectInMapRepositoryRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
             serverRepository = mapLoaderDependencies.ServerRepository;
         }
@@ -63,7 +62,7 @@ namespace LiveView.Services
 
                 mapObjectPanel.BackgroundImageLayout = ImageLayout.Zoom;
                 mapObjectPanel.MouseEnter += MapObjectPanel_MouseEnter;
-                mapObjectPanel.MouseClick += MapObjectPanel_MouseClick;
+                mapObjectPanel.Click += MapObjectPanel_Click;
                 mapObjectPanel.Tag = mapObject;
 
                 mapContainer.Controls.Add(mapObjectPanel);
@@ -93,7 +92,7 @@ namespace LiveView.Services
             }
         }
 
-        private void MapObjectPanel_MouseClick(Object sender, MouseEventArgs e)
+        private void MapObjectPanel_Click(Object sender, EventArgs e)
         {
             var mapObjectPanel = (TransparentPanel)sender;
             if (mapObjectPanel == null)
@@ -113,8 +112,9 @@ namespace LiveView.Services
                     OnCameraObjectClicked(new CameraObjectClickedEventArgs(CameraDto.FromModel(camera, server)));
                     break;
                 case MapActionType.OpenMap:
-                    var map = mapRepository.Select(mapObject.ActionReferencedId);
-                    LoadMap(MapDto.FromModel(map));
+                    var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId));
+                    map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
+                    LoadMap(map);
                     break;
             }
         }

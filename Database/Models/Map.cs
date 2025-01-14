@@ -4,7 +4,7 @@ namespace Database.Models
 {
     public class Map : IHaveId<long>
     {
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
 

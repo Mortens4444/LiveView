@@ -30,6 +30,8 @@ namespace LiveView.Forms
 
         public ToolStripMenuItem TsmiOpenMap => tsmiOpenMap;
 
+        public ImageList IlImages => ilImages;
+
         public MapCreator(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MapCreatorPresenter))
         {
             InitializeComponent();
@@ -66,6 +68,7 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.SaveMap();
+            presenter.Load();
         }
 
         private void MapCreator_Shown(object sender, EventArgs e)
@@ -102,10 +105,7 @@ namespace LiveView.Forms
 
         private void TsmiDelete_Click(object sender, EventArgs e)
         {
-            if (sender is Control control)
-            {
-                PCanvas.Controls.Remove(control);
-            }
+            presenter.DeleteMapObject(sender);
         }
 
         private void TsmiAddComment_DropDownOpening(object sender, EventArgs e)
@@ -116,6 +116,21 @@ namespace LiveView.Forms
         private void TstComment_Leave(object sender, EventArgs e)
         {
             presenter.AddCommentToPanel(sender);
+        }
+
+        private void TsmiCameraIcon_Click(object sender, EventArgs e)
+        {
+            presenter.SetCameraIcon(sender);
+        }
+
+        private void TsmiMapIcon_Click(object sender, EventArgs e)
+        {
+            presenter.SetMapIcon(sender);
+        }
+
+        private void TsmiBrowse_Click(object sender, EventArgs e)
+        {
+            presenter.SetCustomImage(sender);
         }
     }
 }

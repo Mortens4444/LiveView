@@ -5,7 +5,7 @@ namespace Database.Models
 {
     public class MapObject : IHaveId<int>
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public MapActionType ActionType { get; set; }
 

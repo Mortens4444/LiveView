@@ -203,6 +203,7 @@
             tsmiBrowse.Name = "tsmiBrowse";
             tsmiBrowse.Size = new System.Drawing.Size(180, 22);
             tsmiBrowse.Text = "Browse…";
+            tsmiBrowse.Click += TsmiBrowse_Click;
             // 
             // tsmiMapIcon
             // 
@@ -210,6 +211,7 @@
             tsmiMapIcon.Name = "tsmiMapIcon";
             tsmiMapIcon.Size = new System.Drawing.Size(180, 22);
             tsmiMapIcon.Text = "Map";
+            tsmiMapIcon.Click += TsmiMapIcon_Click;
             // 
             // tsmiCameraIcon
             // 
@@ -217,6 +219,7 @@
             tsmiCameraIcon.Name = "tsmiCameraIcon";
             tsmiCameraIcon.Size = new System.Drawing.Size(180, 22);
             tsmiCameraIcon.Text = "Camera";
+            tsmiCameraIcon.Click += TsmiCameraIcon_Click;
             // 
             // tsmiAddImage
             // 
@@ -284,6 +287,7 @@
             // pCanvas
             // 
             pCanvas.AllowDrop = true;
+            pCanvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             pCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             pCanvas.Location = new System.Drawing.Point(0, 177);
             pCanvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

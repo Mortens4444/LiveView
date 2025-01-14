@@ -8,14 +8,12 @@ namespace LiveView.Models.Dependencies
             IMapRepository mapRepository,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
-            IMapObjectRepository mapObjectRepository,
-            IObjectInMapRepository objectInMapRepositoryRepository)
+            IMapObjectRepository mapObjectRepository)
         {
             ServerRepository = serverRepository;
             CameraRepository = cameraRepository;
             MapRepository = mapRepository;
             MapObjectRepository = mapObjectRepository;
-            ObjectInMapRepositoryRepository = objectInMapRepositoryRepository;
         }
 
         public IMapRepository MapRepository { get; private set; }
@@ -25,7 +23,5 @@ namespace LiveView.Models.Dependencies
         public ICameraRepository CameraRepository { get; private set; }
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
-
-        public IObjectInMapRepository ObjectInMapRepositoryRepository { get; private set; }
     }
 }

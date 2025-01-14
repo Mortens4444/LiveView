@@ -1,5 +1,4 @@
-﻿using AxVIDEOCONTROL4Lib;
-using Database.Enums;
+﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
@@ -9,7 +8,6 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
-using Mtf.Controls.x86;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.ObjectModel;
@@ -124,27 +122,41 @@ namespace LiveView.Presenters
         {
             if (view.CbMap.SelectedItem is Map map)
             {
-                //var objectInMaps = objectInMapRepository.SelectWhere(new { map.Id });
-                var mapObjects = mapObjectRepository.SelectWhere(new { map.Id }/*objectInMaps.Select(o => o.MapObjectId)*/);
-
+                var mapObjects = mapObjectRepository.SelectWhere(new { map.Id });
                 Load(map, mapObjects);
             }
         }
 
         private void Load(Map map, ReadOnlyCollection<MapObject> mapObjects)
         {
+            view.PCanvas.Controls.Clear();
             view.PCanvas.BackgroundImage = Services.ImageConverter.ByteArrayToImage(map.MapImage);
             foreach (MapObject mapObject in mapObjects)
             {
-                view.PCanvas.Controls.Add(new MovableSizablePanel
+                var panel = new MovableSizablePanel
                 {
+                    Name = mapObject.Id.ToString(),
                     Size = new Size(mapObject.Width, mapObject.Height),
                     BackColor = Color.Gold,
                     BorderStyle = BorderStyle.None,
                     CanMove = true,
                     CanSize = true,
-                    Location = new Point(mapObject.X, mapObject.Y)
-                });
+                    Location = new Point(mapObject.X, mapObject.Y),
+                    ContextMenuStrip = view.CmsObjectMenu,
+                    Text = mapObject.Comment,
+                    BackgroundImage = Services.ImageConverter.ByteArrayToImage(mapObject.Image),
+                    BackgroundImageLayout = ImageLayout.Zoom
+                };
+                switch (mapObject.ActionType)
+                {
+                    case MapActionType.OpenMap:
+                        panel.Tag = mapRepository.Select(mapObject.ActionReferencedId);
+                        break;
+                    case MapActionType.OpenCamera:
+                        panel.Tag = cameraRepository.Select(mapObject.ActionReferencedId);
+                        break;
+                }
+                view.PCanvas.Controls.Add(panel);
             }
         }
 
@@ -158,6 +170,7 @@ namespace LiveView.Presenters
             if (view.CbMap.SelectedItem is Map map)
             {
                 mapRepository.Delete(map.Id);
+                logger.LogInfo("Map {0} has been deleted.", map);
                 Load();
             }
         }
@@ -168,20 +181,33 @@ namespace LiveView.Presenters
             {
                 image = Image.FromFile(view.OpenFileDialog.FileName);
                 view.PCanvas.BackgroundImage = image;
+                view.PCanvas.Controls.Clear();
             }
         }
 
         public void SaveMap()
         {
+            long mapId;
             var map = new Map
             {
                 Name = view.CbMap.Text,
                 Comment = view.RtbComment.Text,
-                MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage, ImageFormat.Bmp),
+                MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage, ImageFormat.Jpeg),
                 OriginalHeight = image?.Height ?? 0,
                 OriginalWidth = image?.Width ?? 0
             };
-            var mapId = mapRepository.InsertAndReturnId<int>(map);
+            if (view.CbMap.SelectedItem is Map existingMap)
+            {
+                map.Id = existingMap.Id;
+                mapId = map.Id;
+                mapRepository.Update(map);
+                logger.LogInfo("Map {0} has been updated.", map);
+            }
+            else
+            {
+                mapId = mapRepository.InsertAndReturnId<int>(map);
+                logger.LogInfo("Map {0} has been created.", map);
+            }
 
             foreach (Control control in view.PCanvas.Controls)
             {
@@ -192,16 +218,37 @@ namespace LiveView.Presenters
                     Y = control.Location.Y,
                     Width = control.Size.Width,
                     Height = control.Size.Height,
-                    Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage, ImageFormat.Bmp),
-                    ActionType = control.Tag is Camera ? MapActionType.OpenCamera : control.Tag is Map ? MapActionType.OpenMap : MapActionType.NoAction,
-                    ActionReferencedId = ((IHaveId<long>)control.Tag)?.Id ?? 0
+                    Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage, ImageFormat.Jpeg)
                 };
-                var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
-                objectInMapRepository.Insert(new ObjectInMap
+                if (control.Tag is Camera camera)
                 {
-                    MapId = mapId,
-                    MapObjectId = mapObjectId
-                });
+                    mapObject.ActionType = MapActionType.OpenCamera;
+                    mapObject.ActionReferencedId = camera.Id;
+                }
+                else if (control.Tag is Map actualMap)
+                {
+                    mapObject.ActionType = MapActionType.OpenMap;
+                    mapObject.ActionReferencedId = actualMap.Id;
+                }
+                else
+                {
+                    mapObject.ActionType = MapActionType.NoAction;
+                }
+
+                if (Int32.TryParse(control.Name, out var id))
+                {
+                    mapObject.Id = id;
+                    mapObjectRepository.Update(mapObject);
+                }
+                else
+                {
+                    var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
+                    objectInMapRepository.Insert(new ObjectInMap
+                    {
+                        MapId = (int)mapId,
+                        MapObjectId = mapObjectId
+                    });
+                }
             }
         }
 
@@ -235,6 +282,77 @@ namespace LiveView.Presenters
                 if (sourceControl is MovableSizablePanel movableSizablePanel)
                 {
                     menuitem.DropDownItems[0].Text = movableSizablePanel.Text;
+                }
+            }
+        }
+
+        public void DeleteMapObject(object sender)
+        {
+            if (sender is ToolStripMenuItem menuitem)
+            {
+                var contextMenu = menuitem.GetCurrentParent() as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    if (movableSizablePanel.Tag is MapObject mapObject)
+                    {
+                        objectInMapRepository.DeleteWhere(new { mapObject.Id });
+                        mapObjectRepository.Delete(mapObject.Id);
+                    }
+                    movableSizablePanel.Parent.Controls.Remove(movableSizablePanel);
+                }
+            }
+        }
+
+        public void SetMapIcon(object sender)
+        {
+            if (sender is ToolStripMenuItem menuitem)
+            {
+                var dropDownMenu = menuitem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    movableSizablePanel.BackgroundImage = view.IlImages.Images[1];
+                    movableSizablePanel.BackgroundImageLayout = ImageLayout.Zoom;
+                }
+            }
+        }
+
+        public void SetCameraIcon(object sender)
+        {
+            if (sender is ToolStripMenuItem menuitem)
+            {
+                var dropDownMenu = menuitem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    movableSizablePanel.BackgroundImage = view.IlImages.Images[0];
+                    movableSizablePanel.BackgroundImageLayout = ImageLayout.Zoom;
+                }
+            }
+        }
+
+        public void SetCustomImage(object sender)
+        {
+            if (sender is ToolStripMenuItem menuitem)
+            {
+                var dropDownMenu = menuitem.GetCurrentParent() as ToolStripDropDownMenu;
+                var contextMenu = dropDownMenu?.OwnerItem?.Owner as ContextMenuStrip;
+                var sourceControl = contextMenu?.SourceControl;
+
+                if (sourceControl is MovableSizablePanel movableSizablePanel)
+                {
+                    if (view.OpenFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        image = Image.FromFile(view.OpenFileDialog.FileName);
+                        movableSizablePanel.BackgroundImage = image;
+                        movableSizablePanel.BackgroundImageLayout = ImageLayout.Zoom;
+                    }
                 }
             }
         }
