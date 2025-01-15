@@ -2,7 +2,6 @@
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
-using LiveView.Models.VideoServer;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;

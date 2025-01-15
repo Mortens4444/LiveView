@@ -234,11 +234,15 @@ namespace LiveView.Presenters
 
         public void StartCameraApp(IHaveId<long> camera)
         {
+            if (camera == null)
+            {
+                return;
+            }
             ProcessUtils.Kill(cameraProcess);
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
-                var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+                var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
                 if (selectedDisplay != null)
                 {
                     if (view.CbAgents.SelectedIndex == 0)

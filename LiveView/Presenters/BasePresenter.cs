@@ -41,18 +41,11 @@ namespace LiveView.Presenters
             this.view = view;
         }
 
-        public TFormType CreateForm<TFormType>(params object[] parameters)
+        public TFormType ShowForm<TFormType>(params object[] parameters)
             where TFormType : Form
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
             form.FormClosed += (s, e) => form.Dispose();
-            return form;
-        }
-
-        public TFormType ShowForm<TFormType>(params object[] parameters)
-            where TFormType : Form
-        {
-            var form = CreateForm<TFormType>(parameters);
             view.Show(form);
             return form;
         }

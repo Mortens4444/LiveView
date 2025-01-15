@@ -1,5 +1,6 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -15,6 +16,26 @@ namespace LiveView.Forms
         public ListView LeftSide => lvLeftSide;
 
         public ListView RightSide => lvRightSide;
+
+        public ComboBox CbGrids => cbGrids;
+
+        public CheckBox ChkCreateSequences => chkCreateSequences;
+
+        public ComboBox CbX => cbX;
+
+        public TextBox TbGridNamePrefix => tbGridNamePrefix;
+
+        public TextBox TbGridNamePostfix => tbGridNamePostfix;
+
+        public TextBox TbSequenceNamePrefix => tbSequenceNamePrefix;
+
+        public TextBox TbSequenceNamePostfix => tbSequenceNamePostfix;
+
+        public NumericUpDown NudSecondsToShow => nudSecondsToShow;
+
+        public MtfPictureBox PbCheck => pbCheck;
+
+        public ImageList ImageList => ilImages;
 
         public AutoCreateWizard(IServiceProvider serviceProvider) : base(serviceProvider, typeof(AutoCreateWizardPresenter))
         {
@@ -76,5 +97,10 @@ namespace LiveView.Forms
             presenter = Presenter as AutoCreateWizardPresenter;
             presenter.Load();
         }
+
+        private void CbGrids_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presenter.AfterItemCountChange();
+    }
     }
 }

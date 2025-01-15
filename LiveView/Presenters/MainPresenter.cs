@@ -238,7 +238,14 @@ namespace LiveView.Presenters
 
         private void MapLoader_CameraObjectClicked(CustomEventArgs.CameraObjectClickedEventArgs e)
         {
-            MainForm.ControlCenter.StartCamera(e.Camera);
+            if (MainForm.ControlCenter == null || MainForm.ControlCenter.IsDisposed)
+            {
+                MainForm.ControlCenter = ShowForm<ControlCenter>(e.Camera);
+            }
+            else
+            {
+                MainForm.ControlCenter.StartCamera(e.Camera);
+            }
         }
     }
 }

@@ -33,7 +33,7 @@
             chLeftHeader = new System.Windows.Forms.ColumnHeader();
             btnRemoveAll = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
-            tblblSequenceNamePostfix = new System.Windows.Forms.TextBox();
+            tbSequenceNamePostfix = new System.Windows.Forms.TextBox();
             lblSequenceNamePostfix = new System.Windows.Forms.Label();
             tbSequenceNamePrefix = new System.Windows.Forms.TextBox();
             lblSequenceNamePrefix = new System.Windows.Forms.Label();
@@ -43,7 +43,7 @@
             tbGridNamePrefix = new System.Windows.Forms.TextBox();
             cbX = new System.Windows.Forms.ComboBox();
             lblSelectGridLook = new System.Windows.Forms.Label();
-            cbSelectGridLook = new System.Windows.Forms.ComboBox();
+            cbGrids = new System.Windows.Forms.ComboBox();
             btnAddAll = new System.Windows.Forms.Button();
             lblStatus = new System.Windows.Forms.Label();
             pbCheck = new Mtf.Controls.MtfPictureBox();
@@ -58,16 +58,20 @@
             btnClose = new System.Windows.Forms.Button();
             pFooter = new System.Windows.Forms.Panel();
             pControl = new System.Windows.Forms.Panel();
+            lblSecondsToShow = new System.Windows.Forms.Label();
+            nudSecondsToShow = new System.Windows.Forms.NumericUpDown();
             gbMain = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)pbCheck).BeginInit();
             pLists.SuspendLayout();
             pFooter.SuspendLayout();
             pControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudSecondsToShow).BeginInit();
             gbMain.SuspendLayout();
             SuspendLayout();
             // 
             // chLeftHeader
             // 
+            chLeftHeader.Text = "Cameras";
             chLeftHeader.Width = 251;
             // 
             // btnRemoveAll
@@ -94,14 +98,14 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += BtnAdd_Click;
             // 
-            // tblblSequenceNamePostfix
+            // tbSequenceNamePostfix
             // 
-            tblblSequenceNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            tblblSequenceNamePostfix.Location = new System.Drawing.Point(516, 493);
-            tblblSequenceNamePostfix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tblblSequenceNamePostfix.Name = "tblblSequenceNamePostfix";
-            tblblSequenceNamePostfix.Size = new System.Drawing.Size(128, 23);
-            tblblSequenceNamePostfix.TabIndex = 13;
+            tbSequenceNamePostfix.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            tbSequenceNamePostfix.Location = new System.Drawing.Point(516, 493);
+            tbSequenceNamePostfix.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbSequenceNamePostfix.Name = "tbSequenceNamePostfix";
+            tbSequenceNamePostfix.Size = new System.Drawing.Size(128, 23);
+            tbSequenceNamePostfix.TabIndex = 13;
             // 
             // lblSequenceNamePostfix
             // 
@@ -197,15 +201,17 @@
             lblSelectGridLook.TabIndex = 1;
             lblSelectGridLook.Text = "Select a grid look";
             // 
-            // cbSelectGridLook
+            // cbGrids
             // 
-            cbSelectGridLook.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            cbSelectGridLook.FormattingEnabled = true;
-            cbSelectGridLook.Location = new System.Drawing.Point(454, 405);
-            cbSelectGridLook.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbSelectGridLook.Name = "cbSelectGridLook";
-            cbSelectGridLook.Size = new System.Drawing.Size(191, 23);
-            cbSelectGridLook.TabIndex = 3;
+            cbGrids.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            cbGrids.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbGrids.FormattingEnabled = true;
+            cbGrids.Location = new System.Drawing.Point(171, 405);
+            cbGrids.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbGrids.Name = "cbGrids";
+            cbGrids.Size = new System.Drawing.Size(128, 23);
+            cbGrids.TabIndex = 3;
+            cbGrids.SelectedIndexChanged += CbGrids_SelectedIndexChanged;
             // 
             // btnAddAll
             // 
@@ -282,6 +288,7 @@
             // 
             // chRightHeader
             // 
+            chRightHeader.Text = "Cameras";
             chRightHeader.Width = 252;
             // 
             // lvRightSide
@@ -388,7 +395,9 @@
             // 
             // pControl
             // 
-            pControl.Controls.Add(tblblSequenceNamePostfix);
+            pControl.Controls.Add(lblSecondsToShow);
+            pControl.Controls.Add(nudSecondsToShow);
+            pControl.Controls.Add(tbSequenceNamePostfix);
             pControl.Controls.Add(lblSequenceNamePostfix);
             pControl.Controls.Add(tbSequenceNamePrefix);
             pControl.Controls.Add(lblSequenceNamePrefix);
@@ -398,7 +407,7 @@
             pControl.Controls.Add(lblGridNamePrefix);
             pControl.Controls.Add(cbX);
             pControl.Controls.Add(lblSelectGridLook);
-            pControl.Controls.Add(cbSelectGridLook);
+            pControl.Controls.Add(cbGrids);
             pControl.Controls.Add(chkCreateSequences);
             pControl.Controls.Add(pLists);
             pControl.Controls.Add(pFooter);
@@ -408,6 +417,22 @@
             pControl.Name = "pControl";
             pControl.Size = new System.Drawing.Size(649, 554);
             pControl.TabIndex = 0;
+            // 
+            // lblSecondsToShow
+            // 
+            lblSecondsToShow.AutoSize = true;
+            lblSecondsToShow.Location = new System.Drawing.Point(346, 409);
+            lblSecondsToShow.Name = "lblSecondsToShow";
+            lblSecondsToShow.Size = new System.Drawing.Size(96, 15);
+            lblSecondsToShow.TabIndex = 16;
+            lblSecondsToShow.Text = "Seconds to show";
+            // 
+            // nudSecondsToShow
+            // 
+            nudSecondsToShow.Location = new System.Drawing.Point(575, 406);
+            nudSecondsToShow.Name = "nudSecondsToShow";
+            nudSecondsToShow.Size = new System.Drawing.Size(66, 23);
+            nudSecondsToShow.TabIndex = 15;
             // 
             // gbMain
             // 
@@ -439,6 +464,7 @@
             pFooter.PerformLayout();
             pControl.ResumeLayout(false);
             pControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudSecondsToShow).EndInit();
             gbMain.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -448,7 +474,7 @@
         private System.Windows.Forms.ColumnHeader chLeftHeader;
         private System.Windows.Forms.Button btnRemoveAll;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.TextBox tblblSequenceNamePostfix;
+        private System.Windows.Forms.TextBox tbSequenceNamePostfix;
         private System.Windows.Forms.Label lblSequenceNamePostfix;
         private System.Windows.Forms.TextBox tbSequenceNamePrefix;
         private System.Windows.Forms.Label lblSequenceNamePrefix;
@@ -458,7 +484,7 @@
         private System.Windows.Forms.TextBox tbGridNamePrefix;
         private System.Windows.Forms.ComboBox cbX;
         private System.Windows.Forms.Label lblSelectGridLook;
-        private System.Windows.Forms.ComboBox cbSelectGridLook;
+        private System.Windows.Forms.ComboBox cbGrids;
         private System.Windows.Forms.Button btnAddAll;
         private System.Windows.Forms.Label lblStatus;
         private Mtf.Controls.MtfPictureBox pbCheck;
@@ -474,5 +500,7 @@
         private System.Windows.Forms.Panel pFooter;
         private System.Windows.Forms.Panel pControl;
         private System.Windows.Forms.GroupBox gbMain;
+        private System.Windows.Forms.NumericUpDown nudSecondsToShow;
+        private System.Windows.Forms.Label lblSecondsToShow;
     }
 }

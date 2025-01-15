@@ -16,10 +16,12 @@ namespace LiveView.Forms
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
         private ControlCenterPresenter presenter;
+        private Camera camera;
 
-        public ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
+        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
             InitializeComponent();
+            this.camera = camera;
 
             permissionManager.ApplyPermissionsOnControls(this);
             if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.PanTilt))
@@ -255,12 +257,8 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
-            Reload();
-        }
-
-        public void Reload()
-        {
             presenter.Load();
+            presenter.StartCameraApp(camera);
         }
 
         private void PDisplayDevices_Paint(object sender, PaintEventArgs e)
