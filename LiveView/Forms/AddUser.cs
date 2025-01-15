@@ -12,12 +12,14 @@ namespace LiveView.Forms
     public partial class AddUser : BaseView, IAddUserView
     {
         private readonly User user;
+        private readonly Group parentGroup;
         private AddUserPresenter presenter;
 
-        public AddUser(IServiceProvider serviceProvider, User user = null) : base(serviceProvider, typeof(AddUserPresenter))
+        public AddUser(IServiceProvider serviceProvider, Group parentGroup, User user = null) : base(serviceProvider, typeof(AddUserPresenter))
         {
             InitializeComponent();
             this.user = user;
+            this.parentGroup = parentGroup;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
@@ -33,7 +35,7 @@ namespace LiveView.Forms
         private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.CreateUser();
+            presenter.CreateUserInGroup(parentGroup);
         }
 
         private void BtnClose_Click(object sender, EventArgs e)

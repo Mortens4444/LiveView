@@ -19,8 +19,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
+    <EmbeddedResource Include="Scripts\DeleteUser.sql" />
+    <EmbeddedResource Include="Scripts\SelectGroup.sql" />
     <EmbeddedResource Include="Scripts\InsertPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\InsertTemplateProcess.sql" />
+    <EmbeddedResource Include="Scripts\InsertUserGroup.sql" />
     <EmbeddedResource Include="Scripts\MigrationNullableMapImage.sql" />
     <EmbeddedResource Include="Scripts\SelectAllOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectAllPersonalOption.sql" />

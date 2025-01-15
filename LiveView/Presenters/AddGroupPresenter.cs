@@ -7,7 +7,6 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes.Enums;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -55,10 +54,11 @@ namespace LiveView.Presenters
                     return;
                 }
 
-                var existingGroup = groupRepository.GetByName(group.Name);
-                if (existingGroup != null)
+                if (group.Id != 0)
                 {
+                    var existingGroup = groupRepository.Select(group.Id);
                     existingGroup.OtherInformation = group.OtherInformation;
+                    existingGroup.Name = group.Name;
                     groupRepository.Update(existingGroup);
                 }
                 else
@@ -173,13 +173,13 @@ namespace LiveView.Presenters
         public void SavePermissions()
         {
             var group = view.GetGroup();
-            var existingGroup = groupRepository.GetByName(group.Name);
-            if (existingGroup == null)
+            if (group.Id != 0)
             {
                 ShowError("The group not exists.");
                 return;
             }
 
+            var existingGroup = groupRepository.Select(group.Id);
             var userEvent = view.GetUserEvent();
             var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
             if (existingUserEvent == null)

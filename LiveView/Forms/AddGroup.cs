@@ -14,6 +14,7 @@ namespace LiveView.Forms
     public partial class AddGroup : BaseView, IAddGroupView
     {
         private AddGroupPresenter presenter;
+        private readonly Group group;
         private readonly Group parentGroup;
 
         public ComboBox CbEvents => cbEvents;
@@ -22,13 +23,20 @@ namespace LiveView.Forms
 
         public ListView LvOperationsAndCameras => lvOperationsAndCameras;
 
-        public AddGroup(IServiceProvider serviceProvider, Group parentGroup) : base(serviceProvider, typeof(AddGroupPresenter))
+        public AddGroup(IServiceProvider serviceProvider, Group parentGroup, Group group = null) : base(serviceProvider, typeof(AddGroupPresenter))
         {
             InitializeComponent();
+            this.group = group;
             this.parentGroup = parentGroup;
 
             permissionManager.ApplyPermissionsOnControls(this);
-
+            if (group != null)
+            {
+                Text = "Modify group";
+                tbGroupName.Text = group.Name;
+                tbGroupNote.Text = group.OtherInformation;
+                btnCreateOrModifyGroup.Text = "Save";
+            }
             Translator.Translate(this);
         }
 
@@ -126,6 +134,7 @@ namespace LiveView.Forms
         {
             return new Group
             {
+                Id = group?.Id ?? 0,
                 Name = tbGroupName.Text,
                 OtherInformation = tbGroupNote.Text,
                 ParentGroupId = parentGroup?.Id

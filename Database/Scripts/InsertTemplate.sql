@@ -1,3 +1,4 @@
 ﻿INSERT INTO Templates
 	(TemplateName)
-VALUES (@TemplateName);
+VALUES
+	(@TemplateName);

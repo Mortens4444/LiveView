@@ -12,7 +12,6 @@ using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -20,9 +19,9 @@ namespace LiveView.Presenters
 {
     public class MapCreatorPresenter : BasePresenter
     {
-        private const string MapHasBeenCreated = "Map {0} has been created.";
-        private const string MapHasBeenUpdated = "Map {0} has been updated.";
-        private const string MapHasBeenDeleted = "Map {0} has been deleted.";
+        private const string MapHasBeenCreated = "Map '{0}' has been created.";
+        private const string MapHasBeenUpdated = "Map '{0}' has been updated.";
+        private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
         private IMapCreatorView view;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;

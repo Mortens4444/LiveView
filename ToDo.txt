@@ -5,8 +5,6 @@ Language check
 
 Groups
 ------
-- Refersh list after adding group or user
-- Adding user should add entry into UsersInGroups also.
 - Enable buttons like in ServerAndCameraManagement
 - Add Events, Operations, Camera permissions
 
@@ -17,9 +15,6 @@ Contol Panel
 
 Settings
 --------
-
-Auto Create Wizard
-------------------
 
 MapCreator
 ----------

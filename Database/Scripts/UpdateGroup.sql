@@ -1,6 +1,5 @@
 ﻿UPDATE Groups
 SET 
     Name = @Name,
-    OtherInformation = @OtherInformation,
-    ParentGroupId = @ParentGroupId
+    OtherInformation = @OtherInformation
 WHERE Id = @Id;

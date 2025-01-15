@@ -28,9 +28,9 @@ namespace LiveView.Forms
         private void BtnNewGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            if (TvUsersAndGroups.SelectedNode.Tag is Group group)
+            if (TvUsersAndGroups.SelectedNode.Tag is Group parentGroup)
             {
-                presenter.ShowDialogWithReload<AddGroup>(group);
+                presenter.ShowDialogWithReload<AddGroup>(parentGroup);
             }
             else
             {
@@ -42,7 +42,7 @@ namespace LiveView.Forms
         private void BtnNewUser_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowDialogWithReload<AddUser>();
+            presenter.AddUser();
         }
 
         private void BtnModify_Click(object sender, EventArgs e)

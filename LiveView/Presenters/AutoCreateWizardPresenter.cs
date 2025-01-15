@@ -15,8 +15,8 @@ namespace LiveView.Presenters
     public class AutoCreateWizardPresenter : BasePresenter
     {
         private const int CameraIndex = 0;
-        private const string GridHasBeenCreated = "Grid {0} has been created.";
-        private const string SequenceHasBeenCreated = "Sequence {0} has been created.";
+        private const string GridHasBeenCreated = "Grid '{0}' has been created.";
+        private const string SequenceHasBeenCreated = "Sequence '{0}' has been created.";
 
         private IAutoCreateWizardView view;
         private readonly ICameraRepository cameraRepository;

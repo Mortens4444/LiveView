@@ -78,10 +78,8 @@ namespace LiveView.Presenters
         {
             var form = formFactory.CreateForm<TFormType>(parameters);
             form.FormClosed += (s, e) => form.Dispose();
-            if (view.ShowDialog(form))
-            {
-                Load();
-            }
+            view.ShowDialog(form);
+            Load();
         }
 
         public void CloseForm()

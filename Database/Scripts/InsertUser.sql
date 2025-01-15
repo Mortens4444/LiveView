@@ -1,10 +1,8 @@
-﻿INSERT INTO Users (
-    Username, Password, Fullname, Address, Email, Phone, LicensePlate, 
+﻿INSERT INTO Users
+    (Username, Password, Fullname, Address, Email, Phone, LicensePlate, 
     Barcode, OtherInformation, Image, SecondaryLogonPriority, 
-    NeededSecondaryLogonPriority
-)
-VALUES (
-    @Username, @Password, @Fullname, @Address, @Email, @Phone, @LicensePlate, 
+    NeededSecondaryLogonPriority)
+VALUES
+    (@Username, @Password, @Fullname, @Address, @Email, @Phone, @LicensePlate, 
     @Barcode, @OtherInformation, @Image, @SecondaryLogonPriority, 
-    @NeededSecondaryLogonPriority
-);
+    @NeededSecondaryLogonPriority);

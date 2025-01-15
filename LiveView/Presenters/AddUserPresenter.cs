@@ -12,12 +12,14 @@ namespace LiveView.Presenters
     {
         private IAddUserView view;
         private readonly IUserRepository userRepository;
+        private readonly IUsersInGroupsRepository usersInGroupsRepository;
         private readonly ILogger<AddUser> logger;
 
         public AddUserPresenter(AddUserPresenterDependencies addUserPresenterDependencies)
             : base(addUserPresenterDependencies)
         {
             userRepository = addUserPresenterDependencies.UserRepository;
+            usersInGroupsRepository = addUserPresenterDependencies.UsersInGroupsRepository;
             logger = addUserPresenterDependencies.Logger;
         }
 
@@ -27,11 +29,16 @@ namespace LiveView.Presenters
             this.view = view as IAddUserView;
         }
 
-        public void CreateUser()
+        public void CreateUserInGroup(Group parentGroup)
         {
             var user = view.GetUser();
-            userRepository.Insert(user);
-            logger.LogInfo("User {0} has been created.", user.Username);
+            int userId = userRepository.InsertAndReturnId<int>(user);
+            usersInGroupsRepository.Insert(new UserGroup
+            {
+                UserId = userId,
+                GroupId = parentGroup.Id
+            });
+            logger.LogInfo("User '{0}' has been created in group '{1}'.", user.Username, parentGroup.Name);
         }
 
         public void LoadData(User user)

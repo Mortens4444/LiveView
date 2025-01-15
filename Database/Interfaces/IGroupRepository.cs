@@ -5,6 +5,5 @@ namespace Database.Interfaces
 {
     public interface IGroupRepository : IRepository<Group>
     {
-        Group GetByName(string name);
     }
 }

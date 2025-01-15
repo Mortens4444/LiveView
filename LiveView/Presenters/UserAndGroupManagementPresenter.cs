@@ -102,6 +102,7 @@ namespace LiveView.Presenters
             var groupsNode = view.TvUsersAndGroups.Nodes["Groups"];
             groupsNode.Nodes.Clear();
             view.AddNodes(groupsNode, groupTreeNodes);
+            view.TvUsersAndGroups.ExpandAll();
             view.ExpandAll(groupsNode);
         }
 
@@ -158,9 +159,12 @@ namespace LiveView.Presenters
                 {
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update))
                     {
-                        if (ShowDialog<AddGroup>(group))
+                        if (node.Parent.Tag is Group parentGroup)
                         {
-                            logger.LogInfo("Group '{0}' has been modified.", group);
+                            if (ShowDialog<AddGroup>(parentGroup, group))
+                            {
+                                logger.LogInfo("Group '{0}' has been modified.", group);
+                            }
                         }
                     }
                     else
@@ -173,9 +177,12 @@ namespace LiveView.Presenters
                 {
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
                     {
-                        if (ShowDialog<AddUser>(user))
+                        if (node.Parent.Tag is Group userGroup)
                         {
-                            logger.LogInfo("User '{0}' has been modified.", user);
+                            if (ShowDialog<AddUser>(userGroup, user))
+                            {
+                                logger.LogInfo("User '{0}' has been modified.", user);
+                            }
                         }
                     }
                     else
@@ -185,6 +192,14 @@ namespace LiveView.Presenters
                     }
                 }
                 Load();
+            }
+        }
+
+        public void AddUser()
+        {
+            if (view.TvUsersAndGroups.SelectedNode.Tag is Group group)
+            {
+                ShowDialogWithReload<AddUser>(group);
             }
         }
     }
