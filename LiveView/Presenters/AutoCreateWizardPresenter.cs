@@ -63,15 +63,19 @@ namespace LiveView.Presenters
 
         private void SetTickState()
         {
+            var isCompatible = IsCameraNumbnerCompatibleWithGrid();
+            view.PbCheck.Image = isCompatible ? view.ImageList.Images[1] : view.ImageList.Images[2];
+        }
+
+        private bool IsCameraNumbnerCompatibleWithGrid()
+        {
             if (view.CbGrids.SelectedItem is Grid grid)
             {
                 var cameraCountInGrid = gridCameraRepository.SelectWhere(new { GridId = grid.Id }).Count; // ToDo: Select count script
-                view.PbCheck.Image = view.ImageList.Images[view.RightSide.Items.Count % cameraCountInGrid == 0 ? 1 : 2];
+                return view.RightSide.Items.Count % cameraCountInGrid == 0 ? true : false;
             }
-            else
-            {
-                view.PbCheck.Image = view.ImageList.Images[2];
-            }
+
+            return false;
         }
 
         private void GetDividers()
@@ -80,7 +84,7 @@ namespace LiveView.Presenters
             view.CbX.Items.Clear();
             view.CbX.Items.Add("1");
 
-            for (int i = 2; i <= cameraCount / 2; i++)
+            for (int i = 2; i <= cameraCount; i++)
             {
                 if (cameraCount % i == 0)
                 {
@@ -93,17 +97,22 @@ namespace LiveView.Presenters
 
         public void AutoCreate()
         {
+            if (!IsCameraNumbnerCompatibleWithGrid())
+            {
+                ShowError("Try to change the grid or the number of cameras in the right side list.");
+            }
+
             int cameraCount = 0, gridCount = 0;
             if (view.CbGrids.SelectedItem is Grid grid)
             {
-                var cameraCountInGrid = gridCameraRepository.SelectWhere(new { GridId = grid.Id }).Count; // ToDo: Select count script
+                var templateGridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
+                var cameraCountInGrid = templateGridCameras.Count;
                 var numberOfGridsInSequence = Convert.ToInt32(view.CbX.Text);
 
                 var gridCameras = new List<Camera>();
                 var grids = new List<Grid>();
                 var gridIds = new List<long>();
 
-                var templateGridCameras = gridCameraRepository.SelectWhere(grid.Id);
                 foreach (ListViewItem item in view.RightSide.Items)
                 {
                     if (item.Tag is Camera camera)
@@ -116,14 +125,15 @@ namespace LiveView.Presenters
                             var gridName = gridCameras.Count > 1 ? String.Concat(gridCameras.First().CameraName, " - ", gridCameras.Last().CameraName) : gridCameras.First().CameraName;
                             var actualGrid = new Grid
                             {
-                                Name = $"{view.TbGridNamePrefix}{gridName}{view.TbGridNamePostfix}",
+                                Name = $"{view.TbGridNamePrefix.Text}{gridName}{view.TbGridNamePostfix.Text}",
                                 Columns = grid.Columns,
                                 Rows = grid.Columns,
                                 PixelsFromBottom = grid.PixelsFromBottom,
                                 PixelsFromRight = grid.PixelsFromRight,
                                 Priority = grid.Priority
                             };
-                            gridIds.Add(gridRepository.InsertAndReturnId<long>(actualGrid));
+                            actualGrid.Id = gridRepository.InsertAndReturnId<long>(actualGrid);
+                            gridIds.Add(actualGrid.Id);
                             grids.Add(actualGrid);
                             logger.LogInfo(GridHasBeenCreated, actualGrid.Name);
                             gridCount++;
@@ -165,7 +175,7 @@ namespace LiveView.Presenters
                             var sequenceName = grids.Count > 1 ? String.Concat(grids.First().Name, " - ", grids.Last().Name) : grids.First().Name;
                             var actualSequence = new Database.Models.Sequence
                             {
-                                Name = $"{view.TbSequenceNamePrefix}{sequenceName}{view.TbSequenceNamePostfix}",
+                                Name = $"{view.TbSequenceNamePrefix.Text}{sequenceName}{view.TbSequenceNamePostfix.Text}",
                                 Active = true
                             };
                             var sequenceId = sequenceRepository.InsertAndReturnId<long>(actualSequence);
@@ -182,6 +192,7 @@ namespace LiveView.Presenters
                                 });
                             }
                             gridIds.Clear();
+                            grids.Clear();
                             logger.LogInfo(SequenceHasBeenCreated, actualSequence.Name);
                         }
                     }

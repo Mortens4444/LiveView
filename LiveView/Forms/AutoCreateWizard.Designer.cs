@@ -261,10 +261,10 @@
             btnAutoCreate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnAutoCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
             btnAutoCreate.Enabled = false;
-            btnAutoCreate.Location = new System.Drawing.Point(463, 5);
+            btnAutoCreate.Location = new System.Drawing.Point(346, 5);
             btnAutoCreate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAutoCreate.Name = "btnAutoCreate";
-            btnAutoCreate.Size = new System.Drawing.Size(88, 27);
+            btnAutoCreate.Size = new System.Drawing.Size(205, 27);
             btnAutoCreate.TabIndex = 1;
             btnAutoCreate.Text = "Auto create";
             btnAutoCreate.UseVisualStyleBackColor = true;
@@ -430,9 +430,12 @@
             // nudSecondsToShow
             // 
             nudSecondsToShow.Location = new System.Drawing.Point(575, 406);
+            nudSecondsToShow.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            nudSecondsToShow.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             nudSecondsToShow.Name = "nudSecondsToShow";
             nudSecondsToShow.Size = new System.Drawing.Size(66, 23);
             nudSecondsToShow.TabIndex = 15;
+            nudSecondsToShow.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // gbMain
             // 
