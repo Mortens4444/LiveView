@@ -3,6 +3,7 @@ using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
@@ -21,12 +22,12 @@ namespace LiveView.Presenters
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
-        public AddCamerasPresenter(IGeneralOptionsRepository generalOptionsRepository, ICameraRepository cameraRepository, IServerRepository serverRepository, ILogger<AddCameras> logger)
-            : base(generalOptionsRepository)
+        public AddCamerasPresenter(AddCamerasPresenterDependencies addCamerasPresenterDependencies)
+            : base(addCamerasPresenterDependencies)
         {
-            this.cameraRepository = cameraRepository;
-            this.serverRepository = serverRepository;
-            this.logger = logger;
+            cameraRepository = addCamerasPresenterDependencies.CameraRepository;
+            serverRepository = addCamerasPresenterDependencies.ServerRepository;
+            logger = addCamerasPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)

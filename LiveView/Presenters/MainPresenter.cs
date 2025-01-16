@@ -114,10 +114,11 @@ namespace LiveView.Presenters
 
         private void CheckLanguageFile()
         {
-            var hash = Hasher.GetFileSha256Hash(Path.Combine(Application.StartupPath, "Languages.ods"));
-            if (hash != "2c31421f94e6c7928028481e1b640c8c2cf714310981b2dea23774721803a8a9")
+            var actualHash = generalOptionsRepository.Get(Setting.LanguageFileHash, LanguageFileChangedPresenter.OriginalLanguageFileHash);
+            if (LanguageFileChangedPresenter.IsModified(actualHash))
             {
-                ShowInfo("The language file has been tampered.");
+                ShowForm<LanguageFileChangedForm>();
+                //ShowInfo("The language file has been tampered.");
             }
         }
 
@@ -161,8 +162,6 @@ namespace LiveView.Presenters
                 var displayId = Convert.ToInt64(messageParts[4]);
                 //var isMdi = Convert.ToBoolean(messageParts[5]);
                 var processId = Convert.ToInt32(messageParts[6]);
-                //SequenceProcesses.Add(localEndPoint, (processId, sequenceId, displayId));
-                //SequenceProcesses.Add(e.Socket, (processId, sequenceId, displayId));
                 SequenceProcesses.Add(localEndPoint, (e.Socket, processId, sequenceId, displayId));
             }
             else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
@@ -174,10 +173,6 @@ namespace LiveView.Presenters
                 {
                     SequenceProcesses.Remove(localEndPoint);
                 }
-                //if (SequenceProcesses.ContainsKey(e.Socket))
-                //{
-                //    SequenceProcesses.Remove(e.Socket);
-                //}
             }
             else
             {

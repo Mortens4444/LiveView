@@ -33,5 +33,6 @@
         TextBoxForeColor,
         UseCustomControlColors,
         Language,
+        LanguageFileHash,
     }
 }
