@@ -38,7 +38,7 @@ namespace Sequence.Forms
         private readonly bool isMdi;
         private readonly long sequenceId;
         private readonly DisplayDto display;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
 
         private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
         private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
@@ -93,8 +93,8 @@ namespace Sequence.Forms
             var userRepository = new UserRepository();
             var user = userRepository.Select(userId);
 
-            permissionManager = new PermissionManager();
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User
+            permissionManager = new PermissionManager<Database.Models.User>();
+            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<Database.Models.User>
             {
 
             });

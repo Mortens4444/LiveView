@@ -22,7 +22,7 @@ namespace LiveView.Presenters
         private readonly IGroupRepository groupRepository;
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
         
         private const int GroupIconIndex = 0;
         private const int UserIconIndex = 1;

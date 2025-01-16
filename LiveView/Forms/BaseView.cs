@@ -27,7 +27,7 @@ namespace LiveView.Forms
         private const int SC_MOVE = 0xF010;
 
         protected readonly IServiceProvider serviceProvider;
-        protected PermissionManager permissionManager;
+        protected PermissionManager<Database.Models.User> permissionManager;
 
         protected BasePresenter Presenter { get; private set; }
         private readonly Type presenterType;
@@ -40,7 +40,7 @@ namespace LiveView.Forms
         {
             if (!DesignMode)
             {
-                permissionManager = serviceProvider?.GetRequiredService<PermissionManager>();
+                permissionManager = serviceProvider?.GetRequiredService<PermissionManager<Database.Models.User>>();
                 Load += BaseView_Load;
             }
             this.presenterType = presenterType;

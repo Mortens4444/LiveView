@@ -12,7 +12,7 @@ namespace LiveView.Services.Logging
         private readonly string categoryName;
         private readonly int currentUserId;
 
-        public LogRepositoryLogger(PermissionManager permissionManager, ILogRepository logRepository, string categoryName)
+        public LogRepositoryLogger(PermissionManager<Database.Models.User> permissionManager, ILogRepository logRepository, string categoryName)
         {
             this.logRepository = logRepository ?? throw new ArgumentNullException(nameof(logRepository));
             this.categoryName = categoryName ?? throw new ArgumentNullException(nameof(categoryName));

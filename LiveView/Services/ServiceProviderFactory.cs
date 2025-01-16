@@ -30,7 +30,7 @@ namespace LiveView.Services
                 builder.ClearProviders();
                 builder.AddConsole();
                 builder.Services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
-                    sp.GetRequiredService<PermissionManager>(),
+                    sp.GetRequiredService<PermissionManager<Database.Models.User>>(),
                     sp.GetRequiredService<ILogRepository>()
                 ));
             });
@@ -106,7 +106,7 @@ namespace LiveView.Services
         private static void RegisterSingletons(ServiceCollection services)
         {
             services.AddSingleton<FormFactory>();
-            services.AddSingleton<PermissionManager>();
+            services.AddSingleton<PermissionManager<Database.Models.User>>();
             services.AddSingleton<DisplayManager>();
         }
 

@@ -10,8 +10,9 @@ namespace LiveView.Models.Dependencies
     public class MainPresenterDependencies : BasePresenterDependencies
     {
         public MainPresenterDependencies(
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             FormFactory formfactory,
+            IRightRepository rightRepository,
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
@@ -24,6 +25,7 @@ namespace LiveView.Models.Dependencies
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
+            RightRepository = rightRepository;
             ServiceProvider = serviceProvider;
             DisplayRepository = displayRepository;
             GroupRepository = groupRepository;
@@ -35,6 +37,8 @@ namespace LiveView.Models.Dependencies
             MapObjectRepository = mapObjectRepository;
             Logger = logger;
         }
+
+        public IRightRepository RightRepository { get; private set; }
 
         public IServiceProvider ServiceProvider { get; private set; }
 
@@ -50,7 +54,7 @@ namespace LiveView.Models.Dependencies
         
         public IUsersInGroupsRepository UserGroupRepository { get; private set; }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public IMapRepository MapRepository { get; private set; }
 

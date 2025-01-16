@@ -20,7 +20,7 @@ namespace LiveView.Presenters
         private IPersonalOptionsView view;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
 
         public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies personalOptionsPresenterDependencies)
             : base(personalOptionsPresenterDependencies)

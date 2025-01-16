@@ -12,11 +12,11 @@ namespace Sequence.Forms
         //private int waitTimeInMs = 500;
         private readonly Server server;
         private readonly Database.Models.Camera camera;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public Camera(PermissionManager permissionManager, Database.Models.Camera camera, Server server, Rectangle rectangle, CancellationToken cancellationToken)
+        public Camera(PermissionManager<Database.Models.User> permissionManager, Database.Models.Camera camera, Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
             InitializeComponent();
             this.rectangle = rectangle;

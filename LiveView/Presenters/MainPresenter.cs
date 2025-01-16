@@ -33,6 +33,7 @@ namespace LiveView.Presenters
 {
     public class MainPresenter : BasePresenter
     {
+        private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
         private IMainView view;
         private MapLoader mapLoader;
         private readonly ILogger<MainForm> logger;
@@ -42,9 +43,10 @@ namespace LiveView.Presenters
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly IDisplayRepository displayRepository;
         private readonly IGroupRepository groupRepository;
+        private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
 
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
@@ -58,6 +60,7 @@ namespace LiveView.Presenters
             : base(mainPresenterDependencies)
         {
             logger = mainPresenterDependencies.Logger;
+            rightRepository = mainPresenterDependencies.RightRepository;
             serviceProvider = mainPresenterDependencies.ServiceProvider;
             mapRepository = mainPresenterDependencies.MapRepository;
             mapObjectRepository = mainPresenterDependencies.MapObjectRepository;
@@ -182,14 +185,49 @@ namespace LiveView.Presenters
             }
         }
 
-        public void PrimaryLogon()
+        public Mtf.Permissions.Models.User<Database.Models.User> PrimaryLogon()
         {
-            throw new NotImplementedException();
+            var result = new Mtf.Permissions.Models.User<Database.Models.User>();
+            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Text);
+            var groupIds = userGroupRepository.SelectWhere(new { UserId = user.Id }).Select(userGroup => userGroup.GroupId);
+
+            result.Username = user.Username;
+            result.Tag = user;
+            result.Groups = new List<Mtf.Permissions.Models.Group>();
+            foreach (var groupId in groupIds)
+            {
+                var group = new Mtf.Permissions.Models.Group();
+                var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
+                result.Groups.Add(group);
+            }
+
+            if (user.NeededSecondaryLogonPriority > 0)
+            {
+                var secondaryLogonForm = ShowFormAsDialog<LoginForm>();
+                if (secondaryLogonForm.DialogResult != DialogResult.OK)
+                {
+                    return null;
+                }
+
+                if (secondaryLogonForm.SecondaryUser.SecondaryLogonPriority < user.NeededSecondaryLogonPriority)
+                {
+                    var message = String.Format(UserShouldHaveAtLeastPriority, secondaryLogonForm.SecondaryUser, user.NeededSecondaryLogonPriority);
+                    ShowError(message);
+                    return null;
+                }
+            }
+
+            return result;
         }
 
-        public void SecondaryLogon()
+        public void SecondaryLogon(int neededSecondaryLogonPriority)
         {
-            throw new NotImplementedException();
+            var secondaryUser = userRepository.SecondaryLogin(view.TbUsername2.Text, view.TbPassword2.Text);
+            if (secondaryUser.SecondaryLogonPriority < neededSecondaryLogonPriority)
+            {
+                var message = String.Format(UserShouldHaveAtLeastPriority, secondaryUser, neededSecondaryLogonPriority);
+                ShowError(message);
+            }
         }
 
         public void MoveMouseToHome()

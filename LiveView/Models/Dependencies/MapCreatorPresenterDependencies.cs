@@ -25,7 +25,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> permissionManager { get; private set; }
 
         public IServerRepository ServerRepository { get; private set; }
         

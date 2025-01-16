@@ -31,7 +31,7 @@ namespace LiveView.Presenters
         private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
         private readonly List<Process> sequenceProcesses;

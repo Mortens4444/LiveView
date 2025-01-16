@@ -17,13 +17,13 @@ namespace CameraApp.Forms
         private readonly Point location;
         private readonly Size size;
         private readonly long cameraId;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
 
         public FullScreenCamera(long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
             this.cameraId = cameraId;
-            permissionManager = new PermissionManager();
+            permissionManager = new PermissionManager<Database.Models.User>();
             Initialize(userId, cameraId);
 #if DEBUG
             this.location = new Point(0, 0);
@@ -40,7 +40,7 @@ namespace CameraApp.Forms
         {
             InitializeComponent();
             this.cameraId = cameraId;
-            permissionManager = new PermissionManager();
+            permissionManager = new PermissionManager<Database.Models.User>();
             Initialize(userId, cameraId);
 
             var displayRepository = new DisplayRepository();
@@ -66,7 +66,7 @@ namespace CameraApp.Forms
             var userRepository = new UserRepository();
             var user = userRepository.Select(userId);
 
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User
+            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<Database.Models.User>
             {
 
             });

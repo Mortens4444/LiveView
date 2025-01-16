@@ -17,7 +17,7 @@ namespace LiveView.Presenters
     {
         private IProfileView view;
         private readonly IUserRepository userRepository;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
         private readonly ILogger<Profile> logger;
         private readonly User user;
 

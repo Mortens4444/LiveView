@@ -10,7 +10,7 @@ namespace LiveView.Models.Dependencies
     {
         public ServerAndCameraManagementPresenterDependencies(
             FormFactory formFactory,
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             IGeneralOptionsRepository generalOptionsRepository,
             IDatabaseServerRepository databaseServerRepository,
             IServerRepository serverRepository,
@@ -25,7 +25,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public IDatabaseServerRepository DatabaseServerRepository { get; private set; }
 

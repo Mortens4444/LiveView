@@ -16,5 +16,14 @@ namespace LiveView.Interfaces
         void SetCursorPosition();
 
         void SetUptime(TimeSpan osUptime, TimeSpan appUptime);
+
+        TextBox TbUsername { get; }
+
+        TextBox TbPassword { get; }
+
+        TextBox TbUsername2 { get; }
+
+        TextBox TbPassword2 { get; }
+
     }
 }

@@ -8,7 +8,7 @@ namespace LiveView.Models.Dependencies
     public class LogViewerPresenterDependencies : BasePresenterDependencies
     {
         public LogViewerPresenterDependencies(
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             IGeneralOptionsRepository generalOptionsRepository,
             ILogRepository logRepository,
             IUserRepository userRepository,
@@ -21,7 +21,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public ILogRepository LogRepository { get; private set; }
 

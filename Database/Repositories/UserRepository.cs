@@ -10,5 +10,23 @@ namespace Database.Repositories
         {
             return ExecuteScalar<long>("SelectNumberOfUsers", null);
         }
+
+        public User Login(string username, string password)
+        {
+            return ExecuteScalar<User>("LoginUser", new
+            {
+                Username = username,
+                Password = password
+            });
+        }
+
+        public User SecondaryLogin(string username, string password)
+        {
+            return ExecuteScalar<User>("SecondaryLoginUser", new
+            {
+                Username = username,
+                Password = password
+            });
+        }
     }
 }

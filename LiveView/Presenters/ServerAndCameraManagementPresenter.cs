@@ -25,7 +25,7 @@ namespace LiveView.Presenters
         private readonly IDatabaseServerRepository databaseServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraManagement> logger;
-        private readonly PermissionManager permissionManager;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
 
         private const int ServerIconIndex = 1;
         private const int CameraIconIndex = 2;

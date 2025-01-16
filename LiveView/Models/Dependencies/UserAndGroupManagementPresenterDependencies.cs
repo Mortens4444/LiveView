@@ -9,7 +9,7 @@ namespace LiveView.Models.Dependencies
     public class UserAndGroupManagementPresenterDependencies : BasePresenterDependencies
     {
         public UserAndGroupManagementPresenterDependencies(
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             FormFactory formfactory,
             IGeneralOptionsRepository generalOptionsRepository,
             IGroupRepository groupRepository,
@@ -29,7 +29,7 @@ namespace LiveView.Models.Dependencies
 
         public IUserRepository UserRepository { get; private set; }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public ILogger<UserAndGroupManagement> Logger { get; private set; }
 

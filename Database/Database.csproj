@@ -30,6 +30,10 @@
     <EmbeddedResource Include="Scripts\SelectSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectAllUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectAllUserEvent.sql" />
+    <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
+    <EmbeddedResource Include="Scripts\LoginUser.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereRights.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
     <EmbeddedResource Include="Scripts\UpdateUser.sql" />
     <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
@@ -151,10 +155,10 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0" />
     <PackageReference Include="Mtf.Database" Version="2.0.25" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />
+    <PackageReference Include="System.Text.Json" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

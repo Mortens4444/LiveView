@@ -1,13 +1,21 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using System;
+using System.ComponentModel;
 
 namespace LiveView.Forms
 {
     public partial class LoginForm : BaseView, ILoginFormView
     {
         private LoginFormPresenter presenter;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public User User { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public User SecondaryUser { get; set; }
 
         public LoginForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LoginFormPresenter))
         {

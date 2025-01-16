@@ -16,7 +16,7 @@ namespace LiveView.Models.Dependencies
             ITemplateProcessRepository templateProcessRepository,
             ISequenceRepository sequenceRepository,
             ICameraRepository cameraRepository,
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             DisplayManager displayManager,
             FormFactory formFactory,
             ILogger<ControlCenter> logger)
@@ -32,7 +32,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
 

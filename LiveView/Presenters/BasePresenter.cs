@@ -50,6 +50,15 @@ namespace LiveView.Presenters
             return form;
         }
 
+        public TFormType ShowFormAsDialog<TFormType>(params object[] parameters)
+            where TFormType : Form
+        {
+            var form = formFactory.CreateForm<TFormType>(parameters);
+            form.FormClosed += (s, e) => form.Dispose();
+            view.ShowDialog(form);
+            return form;
+        }
+
         /// <summary>
         /// Displays a form of the specified type as a modal dialog and returns a value 
         /// indicating whether the dialog result was successful (OK or Yes).

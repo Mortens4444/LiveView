@@ -41,6 +41,14 @@ namespace LiveView.Forms
 
         public ToolTip TtHint => ttHint;
 
+        public TextBox TbUsername => tbUsername;
+
+        public TextBox TbPassword => tbPassword;
+
+        public TextBox TbUsername2 => tbUsername2;
+
+        public TextBox TbPassword2 => tbPassword2;
+
         static MainForm()
         {
             HardwareKey = new VirtualSziltechHardwareKey();
@@ -53,7 +61,7 @@ namespace LiveView.Forms
             InitializeComponent();
 
             //permissionManager.ApplyPermissionsOnControls(this);
-            var user = new User
+            var user = new User<Database.Models.User>
             {
                 Id = 1,
                 IndividualPermissions = new List<Permission>
@@ -258,12 +266,13 @@ namespace LiveView.Forms
 
         private void BtnLoginLogoutPrimary_Click(object sender, EventArgs e)
         {
-            presenter.PrimaryLogon();
+            var user = presenter.PrimaryLogon();
+            permissionManager.SetUser(this, user);
         }
 
         private void BtnLoginLogoutSecondary_Click(object sender, EventArgs e)
         {
-            presenter.SecondaryLogon();
+            presenter.SecondaryLogon(permissionManager.CurrentUser.Tag.NeededSecondaryLogonPriority);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

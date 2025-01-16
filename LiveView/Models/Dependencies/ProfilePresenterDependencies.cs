@@ -8,7 +8,7 @@ namespace LiveView.Models.Dependencies
     public class ProfilePresenterDependencies : BasePresenterDependencies
     {
         public ProfilePresenterDependencies(
-            PermissionManager permissionManager,
+            PermissionManager<Database.Models.User> permissionManager,
             IGeneralOptionsRepository generalOptionsRepository,
             IUserRepository userRepository,
             ILogger<Profile> logger)
@@ -19,7 +19,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public PermissionManager PermissionManager { get; private set; }
+        public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
         public IUserRepository UserRepository { get; private set; }
 
