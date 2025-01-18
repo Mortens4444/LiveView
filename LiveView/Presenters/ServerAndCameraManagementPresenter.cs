@@ -297,5 +297,13 @@ namespace LiveView.Presenters
             view.BtnMotionDetection.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected;
             view.BtnSyncronize.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && serverSelected;
         }
+
+        public void ShowServerAndCameraProperties()
+        {
+            if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
+            {
+                ShowForm<ServerAndCameraProperties>(server);
+            }
+        }
     }
 }

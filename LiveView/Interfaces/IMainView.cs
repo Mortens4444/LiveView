@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Mtf.Controls;
+using System;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
     public interface IMainView : IView
     {
-        PictureBox PbMap { get; }
+        MtfPictureBox PbMap { get; }
 
         ToolTip TtHint { get; }
 
@@ -24,6 +25,5 @@ namespace LiveView.Interfaces
         TextBox TbUsername2 { get; }
 
         TextBox TbPassword2 { get; }
-
     }
 }

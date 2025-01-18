@@ -15,8 +15,8 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <ApplicationIcon>Resources\eye.ico</ApplicationIcon>
     <WarningLevel>9999</WarningLevel>
+    <DesignerExcludedFiles>e_sqlite3.dll</DesignerExcludedFiles>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Resources\Languages.ods" />
     <None Remove="Resources\oui.csv" />
@@ -56,14 +56,15 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.1" />
-    <PackageReference Include="Mtf.Controls" Version="1.0.18" />
+    <PackageReference Include="Mtf.Controls" Version="1.0.21" />
     <PackageReference Include="Mtf.Database" Version="2.0.25" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.8" />
     <PackageReference Include="Mtf.Joystick" Version="1.0.0" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
-    <PackageReference Include="Mtf.Network" Version="1.0.8" />
+    <PackageReference Include="Mtf.Network" Version="1.0.9" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.15" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.33" />
+    <PackageReference Include="Mtf.Wmi" Version="1.0.9" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <PackageReference Include="System.Text.Json" Version="9.0.1" />

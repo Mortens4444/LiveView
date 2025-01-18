@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -136,7 +136,7 @@ namespace LiveView.Forms
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Image = Properties.Resources.system_options;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -153,7 +153,7 @@ namespace LiveView.Forms
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Image = Properties.Resources.personal_options;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -624,11 +624,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "IO_Devices";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -896,7 +896,7 @@ namespace LiveView.Forms
             pbMap.Margin = new Padding(4, 3, 4, 3);
             pbMap.Name = "pbMap";
             pbMap.OriginalSize = new System.Drawing.Size(100, 50);
-            pbMap.RepositioningAndResizingControlsOnResize = false;
+            pbMap.RepositioningAndResizingControlsOnResize = true;
             pbMap.Size = new System.Drawing.Size(929, 484);
             pbMap.SizeMode = PictureBoxSizeMode.Zoom;
             pbMap.TabIndex = 0;

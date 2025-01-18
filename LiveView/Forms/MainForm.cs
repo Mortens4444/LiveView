@@ -2,6 +2,7 @@
 using LiveView.Core.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
@@ -14,7 +15,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using User = Mtf.Permissions.Models.User;
 
 namespace LiveView.Forms
 {
@@ -37,7 +37,7 @@ namespace LiveView.Forms
 
         public ToolStripStatusLabel TsslServerData => tsslServerData;
 
-        public PictureBox PbMap => pbMap;
+        public MtfPictureBox PbMap => pbMap;
 
         public ToolTip TtHint => ttHint;
 

@@ -1,9 +1,13 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Models;
+using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
@@ -11,9 +15,25 @@ namespace LiveView.Forms
     {
         private ServerAndCameraPropertiesPresenter presenter;
 
-        public ServerAndCameraProperties(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
+        public MtfListView LvCameraList => lvCameraList;
+
+        public MtfListView LvHardwareInformation => lvHardwareInformation;
+
+        public SaveFileDialog SaveFileDialog => saveFileDialog;
+
+        public TextBox TbPassword => tbPassword;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Server Server { get; private set; }
+
+        public TextBox TbWindowsUsername => tbWindowsUsername;
+
+        public TextBox TbWindowsPassword => tbWindowsPassword;
+
+        public ServerAndCameraProperties(IServiceProvider serviceProvider, Server server) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
         {
             InitializeComponent();
+            Server = server;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
@@ -65,12 +85,13 @@ namespace LiveView.Forms
         private void BtnWakeOnLan_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.WakeOnLan();
+            presenter.WakeOnLAN();
         }
 
         private void ServerAndCameraProperties_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ServerAndCameraPropertiesPresenter;
+            presenter.Load();
         }
     }
 }

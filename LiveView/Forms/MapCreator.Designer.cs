@@ -302,7 +302,7 @@
             // pCanvas
             // 
             pCanvas.AllowDrop = true;
-            pCanvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            pCanvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             pCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             pCanvas.Location = new System.Drawing.Point(0, 177);
             pCanvas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

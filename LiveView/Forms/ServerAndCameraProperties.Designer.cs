@@ -136,6 +136,7 @@
             chLicensePlateRecognition = new System.Windows.Forms.ColumnHeader();
             chEstimatedCapacity2 = new System.Windows.Forms.ColumnHeader();
             chGuid = new System.Windows.Forms.ColumnHeader();
+            saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             gbMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).BeginInit();
             tpOtherData.SuspendLayout();
@@ -1527,5 +1528,6 @@
         private System.Windows.Forms.ColumnHeader chEstimatedCapacity2;
         private System.Windows.Forms.ColumnHeader chGuid;
         private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

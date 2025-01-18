@@ -22,7 +22,6 @@ using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text.Json;
@@ -51,8 +50,6 @@ namespace LiveView.Presenters
 
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
         public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
-        //public readonly static Dictionary<string, (int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (int processId, long sequenceId, long displayId)>();
-        //public readonly static Dictionary<Socket, (int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<Socket, (int processId, long sequenceId, long displayId)>();
 
         public static NetworkServer Server;
 
@@ -118,7 +115,6 @@ namespace LiveView.Presenters
             if (LanguageFileChangedPresenter.IsModified(actualHash))
             {
                 ShowForm<LanguageFileChangedForm>();
-                //ShowInfo("The language file has been tampered.");
             }
         }
 
@@ -265,7 +261,6 @@ namespace LiveView.Presenters
                 mapLoader = (MapLoader)ActivatorUtilities.CreateInstance(serviceProvider, typeof(MapLoader), view.PbMap, view.TtHint);
                 mapLoader.LoadMap(map);
                 mapLoader.CameraObjectClicked += MapLoader_CameraObjectClicked;
-
             }
         }
 

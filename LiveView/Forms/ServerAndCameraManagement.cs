@@ -74,7 +74,7 @@ namespace LiveView.Forms
         private void BtnProperties_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<ServerAndCameraProperties>();
+            presenter.ShowServerAndCameraProperties();
         }
 
         [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]
