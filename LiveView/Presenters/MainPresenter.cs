@@ -104,7 +104,7 @@ namespace LiveView.Presenters
             Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
-            LoadMap(); // ToDo: Sometimes it fails to load.
+            LoadFirstMap();
 
             CheckLanguageFile();
         }
@@ -251,16 +251,23 @@ namespace LiveView.Presenters
             view.SetUptime(osUptime, appUptime);
         }
 
-        private void LoadMap()
+        public void LoadFirstMap()
         {
             var maps = mapRepository.SelectAll();
             if (maps.Any())
             {
                 var map = MapDto.FromModel(maps.First());
                 map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
-                mapLoader = (MapLoader)ActivatorUtilities.CreateInstance(serviceProvider, typeof(MapLoader), view.PbMap, view.TtHint);
+                if (mapLoader == null)
+                {
+                    mapLoader = ActivatorUtilities.CreateInstance<MapLoader>(serviceProvider, view.PbMap, view.TtHint);
+                    mapLoader.CameraObjectClicked += MapLoader_CameraObjectClicked;
+                }
                 mapLoader.LoadMap(map);
-                mapLoader.CameraObjectClicked += MapLoader_CameraObjectClicked;
+            }
+            else
+            {
+                view.PbMap.Image = Properties.Resources.IPVS37;
             }
         }
 

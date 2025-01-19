@@ -311,6 +311,7 @@
             pCanvas.TabIndex = 0;
             pCanvas.DragDrop += PCanvas_DragDrop;
             pCanvas.DragEnter += PCanvas_DragEnter;
+            pCanvas.Resize += PCanvas_Resize;
             // 
             // pTools
             // 

@@ -1,5 +1,7 @@
-﻿using LiveView.Core.Dto;
+﻿using Database.Models;
+using LiveView.Core.Dto;
 using LiveView.Core.Services;
+using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
@@ -234,7 +236,7 @@ namespace LiveView.Forms
         private void TsmiMapCreator_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<MapCreator>();
+            _ = presenter.ShowFormWithCloseAction<MapCreator>(() => presenter.LoadFirstMap());
         }
 
         private void TsmiAbout_Click(object sender, EventArgs e)

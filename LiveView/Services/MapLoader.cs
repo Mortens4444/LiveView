@@ -13,7 +13,7 @@ namespace LiveView.Services
 {
     public class MapLoader
     {
-        private readonly MtfPictureBox mapContainer;
+        private readonly Control mapContainer;
         private readonly ToolTip toolTip;
 
         public delegate void CameraObjectClickedEventHandler(CameraObjectClickedEventArgs e);
@@ -23,7 +23,7 @@ namespace LiveView.Services
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly ICameraRepository cameraRepository;
 
-        public MapLoader(MtfPictureBox mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
+        public MapLoader(Control mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {
             this.mapContainer = mapContainer;
             this.toolTip = toolTip;
@@ -55,40 +55,32 @@ namespace LiveView.Services
             }
             mapContainer.Controls.Clear();
             mapContainer.SuspendLayout();
+            var originalSize = new Size(map.OriginalWidth, map.OriginalHeight);
             try
             {
-                mapContainer.Image = map.MapImage;
+                if (mapContainer is MtfPictureBox pictureBox)
+                {
+                    pictureBox.Image = map.MapImage;
+                    pictureBox.OriginalSize = originalSize;
+                }
+                else
+                {
+                    mapContainer.BackgroundImage = map.MapImage;
+                    // Need Resize event handler
+                }
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine($"Error setting map image: {ex.Message}");
                 throw;
             }
-            mapContainer.Paint += (s, e) =>
-            {
-                if (mapContainer.Image == null || mapContainer.Image.Width <= 0 || mapContainer.Image.Height <= 0)
-                {
-                    throw new ArgumentException("Invalid image dimensions during Paint.");
-                }
-            };
             foreach (var mapObject in map.MapObjects)
             {
-                if (mapObject.Location.X < 0 || mapObject.Location.Y < 0 || mapObject.Size.Width <= 0 || mapObject.Size.Height <= 0)
-                {
-                    throw new ArgumentException("Map object panel must have valid position or size.");
-                }
-
                 var mapObjectPanel = new TransparentPanel
                 {
-                    //Location = new Point(mapObject.Location.X, mapObject.Location.Y),
-                    Size = new Size(mapObject.Size.Width, mapObject.Size.Height),
+                    Location = mapObject.Location,
+                    Size = mapObject.Size,
                     BackColor = Color.Black
                 };
-                var validLocation = new Point(
-                    Math.Max(0, Math.Min(mapContainer.ClientSize.Width - mapObject.Size.Width, mapObject.Location.X)),
-                    Math.Max(0, Math.Min(mapContainer.ClientSize.Height - mapObject.Size.Height, mapObject.Location.Y))
-                );
-                mapObjectPanel.Location = validLocation;
 
                 var image = (Bitmap)mapObject.Image;
                 if (image != null)
@@ -103,6 +95,13 @@ namespace LiveView.Services
 
                 mapContainer.Controls.Add(mapObjectPanel);
             }
+            var controlsLocationAndSize = map.MapObjects.Select(mo => new Mtf.Controls.Models.LocationAndSize(mo.Location.X, mo.Location.Y, mo.Size.Width, mo.Size.Height)).ToList();
+
+            if (mapContainer is MtfPictureBox mtfPictureBox)
+            {
+                MtfPictureBox.RelocateControls(mtfPictureBox, originalSize, controlsLocationAndSize);
+            }
+            mapContainer.Tag = (map, controlsLocationAndSize);
             mapContainer.ResumeLayout();
             mapContainer.Refresh();
         }

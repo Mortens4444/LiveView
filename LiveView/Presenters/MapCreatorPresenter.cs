@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.Controls;
 using Mtf.MessageBoxes.Enums;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -22,13 +23,14 @@ namespace LiveView.Presenters
         private const string MapHasBeenCreated = "Map '{0}' has been created.";
         private const string MapHasBeenUpdated = "Map '{0}' has been updated.";
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
-        private IMapCreatorView view;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly IObjectInMapRepository objectInMapRepository;
         private readonly ILogger<MapCreator> logger;
+        private static Mtf.Controls.Models.LocationAndSize imageLocationAndSize;
+        private IMapCreatorView view;
         private Image image;
 
         public MapCreatorPresenter(MapCreatorPresenterDependencies mapCreatorPresenterDependencies)
@@ -135,6 +137,8 @@ namespace LiveView.Presenters
         {
             view.PCanvas.Controls.Clear();
             view.PCanvas.BackgroundImage = Services.ImageConverter.ByteArrayToImage(map.MapImage);
+            imageLocationAndSize = MtfPictureBox.GetImageLocationAndSize(view.PCanvas.BackgroundImage, view.PCanvas.Size, PictureBoxSizeMode.Zoom);
+
             foreach (MapObject mapObject in mapObjects)
             {
                 var panel = new MovableSizablePanel
@@ -145,7 +149,7 @@ namespace LiveView.Presenters
                     BorderStyle = BorderStyle.None,
                     CanMove = true,
                     CanSize = true,
-                    Location = new Point(mapObject.X, mapObject.Y),
+                    Location = new Point(imageLocationAndSize.Left + mapObject.X, imageLocationAndSize.Top + mapObject.Y),
                     ContextMenuStrip = view.CmsObjectMenu,
                     Text = mapObject.Comment,
                     BackgroundImage = Services.ImageConverter.ByteArrayToImage(mapObject.Image),
@@ -162,6 +166,9 @@ namespace LiveView.Presenters
                 }
                 view.PCanvas.Controls.Add(panel);
             }
+            var controlsLocationAndSize = mapObjects.Select(mo => new Mtf.Controls.Models.LocationAndSize(mo.X, mo.Y, mo.Width, mo.Height)).ToList();
+            view.PCanvas.Tag = (map, controlsLocationAndSize);
+            MtfPictureBox.RelocateControls(view.PCanvas, new Size(map.OriginalWidth, map.OriginalHeight), controlsLocationAndSize);
         }
 
         public void DeleteMap()
@@ -237,13 +244,13 @@ namespace LiveView.Presenters
             }
         }
 
-        private static MapObject GetMapObject(Control control)
+        private MapObject GetMapObject(Control control)
         {
             var mapObject = new MapObject
             {
                 Comment = control.Text,
-                X = control.Location.X,
-                Y = control.Location.Y,
+                X = control.Location.X - imageLocationAndSize.Left,
+                Y = control.Location.Y - imageLocationAndSize.Top,
                 Width = control.Size.Width,
                 Height = control.Size.Height,
                 Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage)
@@ -273,8 +280,8 @@ namespace LiveView.Presenters
                 Name = view.CbMap.Text,
                 Comment = view.RtbComment.Text,
                 MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage),
-                OriginalHeight = image?.Height ?? 0,
-                OriginalWidth = image?.Width ?? 0
+                OriginalHeight = imageLocationAndSize.Height,
+                OriginalWidth = imageLocationAndSize.Width
             };
         }
 
@@ -380,6 +387,15 @@ namespace LiveView.Presenters
                         movableSizablePanel.BackgroundImageLayout = ImageLayout.Zoom;
                     }
                 }
+            }
+        }
+
+        public void CanvasResize()
+        {
+            if (view.PCanvas.Tag is ValueTuple<Map, List<Mtf.Controls.Models.LocationAndSize>> tag)
+            {
+                var (map, controlsLocationAndSize) = tag;
+                MtfPictureBox.RelocateControls(view.PCanvas, new Size(map.OriginalWidth, map.OriginalHeight), controlsLocationAndSize);
             }
         }
     }

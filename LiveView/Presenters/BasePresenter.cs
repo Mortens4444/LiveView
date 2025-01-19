@@ -50,6 +50,19 @@ namespace LiveView.Presenters
             return form;
         }
 
+        public TFormType ShowFormWithCloseAction<TFormType>(Action action, params object[] parameters)
+            where TFormType : Form
+        {
+            var form = formFactory.CreateForm<TFormType>(parameters);
+            form.FormClosed += (s, e) =>
+            {
+                form.Dispose();
+                action();
+            };
+            view.Show(form);
+            return form;
+        }
+
         public TFormType ShowFormAsDialog<TFormType>(params object[] parameters)
             where TFormType : Form
         {

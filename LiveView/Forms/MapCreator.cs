@@ -137,5 +137,10 @@ namespace LiveView.Forms
         {
             presenter.CreateNewMap();
         }
+
+        private void PCanvas_Resize(object sender, EventArgs e)
+        {
+            presenter?.CanvasResize();
+        }
     }
 }

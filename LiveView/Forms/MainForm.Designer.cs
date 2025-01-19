@@ -890,13 +890,18 @@ namespace LiveView.Forms
             // 
             pbMap.BackColor = System.Drawing.Color.Silver;
             pbMap.BackgroundImageLayout = ImageLayout.Zoom;
+            pbMap.BackgroundPaintDebounceIntervalInMs = 0;
             pbMap.Dock = DockStyle.Fill;
             pbMap.Image = Properties.Resources.IPVS37;
             pbMap.Location = new System.Drawing.Point(0, 0);
             pbMap.Margin = new Padding(4, 3, 4, 3);
             pbMap.Name = "pbMap";
-            pbMap.OriginalSize = new System.Drawing.Size(100, 50);
+            pbMap.OriginalSize = new System.Drawing.Size(328, 248);
+            pbMap.PaintDebounceIntervalInMs = 0;
             pbMap.RepositioningAndResizingControlsOnResize = true;
+            pbMap.ResizeDebounceIntervalInMs = 0;
+            pbMap.ShowPaintErrors = false;
+            pbMap.ShowResizeErrors = false;
             pbMap.Size = new System.Drawing.Size(929, 484);
             pbMap.SizeMode = PictureBoxSizeMode.Zoom;
             pbMap.TabIndex = 0;
