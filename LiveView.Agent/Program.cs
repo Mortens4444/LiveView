@@ -87,12 +87,18 @@ namespace ConsoleApp
                 client.Dispose();
             }
 
+            foreach (var cameraProcess in cameraProcesses)
+            {
+                ProcessUtils.Kill(cameraProcess.Value);
+            }
+
+            foreach (var sequenceProcess in sequenceProcesses)
+            {
+                ProcessUtils.Kill(sequenceProcess.Value);
+            }
+
             Application.Exit();
         }
-
-        //private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        //{
-        //}
 
         private static void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
@@ -101,12 +107,12 @@ namespace ConsoleApp
                 var message = $"{client?.Encoding.GetString(e.Data)}";
                 var messageParts = message.Split('|');
 
-                if (message.StartsWith("Camera.exe|", StringComparison.InvariantCulture))
+                if (message.StartsWith($"{LiveView.Core.Constants.CameraExe}|", StringComparison.InvariantCulture))
                 {
                     var cameraProcessId = StartProcess(messageParts, cameraProcesses);
                     client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}");
                 }
-                else if (message.StartsWith("Sequence.exe|", StringComparison.InvariantCulture))
+                else if (message.StartsWith($"{LiveView.Core.Constants.SequenceExe}|", StringComparison.InvariantCulture))
                 {
                     StartProcess(messageParts, sequenceProcesses);
                 }
@@ -115,11 +121,11 @@ namespace ConsoleApp
                     long id = Convert.ToInt64(messageParts[2], CultureInfo.InvariantCulture);
                     switch (messageParts[1])
                     {
-                        case "Camera.exe":
+                        case LiveView.Core.Constants.CameraExe:
                             ProcessUtils.Kill(cameraProcesses[id]);
                             cameraProcesses.Remove(id);
                             break;
-                        case "Sequence.exe":
+                        case LiveView.Core.Constants.SequenceExe:
                             ProcessUtils.Kill(sequenceProcesses[id]);
                             sequenceProcesses.Remove(id);
                             break;
@@ -127,7 +133,7 @@ namespace ConsoleApp
                 }
                 else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
                 {
-                    var processes = messageParts[1] == "Camera.exe" ? cameraProcesses.Values : sequenceProcesses.Values;
+                    var processes = messageParts[1] == LiveView.Core.Constants.CameraExe ? cameraProcesses.Values : sequenceProcesses.Values;
                     ProcessUtils.Kill(processes);
                 }
             }

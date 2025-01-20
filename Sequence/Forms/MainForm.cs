@@ -166,6 +166,8 @@ namespace Sequence.Forms
 
         private async Task OnExitAsync()
         {
+            DisposeCameraWindows();
+
             if (cts != null && !cts.IsCancellationRequested)
             {
 #if NET481
@@ -207,7 +209,7 @@ namespace Sequence.Forms
             foreach (var camera in cameras)
             {
                 var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                result.Add(AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
+                result.Add(AppStarter.Start(LiveView.Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
             }
             return result;
         }
@@ -290,10 +292,7 @@ namespace Sequence.Forms
                 {
                     FormUtils.DisposeMdiChildForms(this, cameraForms.Values.SelectMany(forms => forms).ToList());
                 }
-                else
-                {
-                    ProcessUtils.Kill(processes.Values.SelectMany(windows => windows).ToList());
-                }
+                ProcessUtils.Kill(processes.Values.SelectMany(windows => windows).ToList());
             }
         }
 

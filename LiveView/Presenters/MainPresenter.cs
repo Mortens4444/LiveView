@@ -12,6 +12,7 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Joystick;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
@@ -23,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -230,9 +232,11 @@ namespace LiveView.Presenters
         {
             if (view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
             {
-                Environment.Exit(0);
+                JoystickHandler.StopJoystick();
+                StopStartedApplications();
                 var handle = view.GetHandle();
                 WinAPI.UnregisterHotKey(handle, 1);
+                Environment.Exit(0);
                 return true;
             }
             return false;
@@ -281,6 +285,41 @@ namespace LiveView.Presenters
             {
                 MainForm.ControlCenter.StartCamera(e.Camera);
             }
+        }
+
+        public void StopStartedApplications()
+        {
+            ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
+            foreach (var cameraProcess in CameraProcesses)
+            {
+                SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcess.Value);
+            }
+            foreach (var sequenceProcess in SequenceProcesses)
+            {
+                var (_, sequenceProcessId, _, _) = sequenceProcess.Value;
+                SentToClient(sequenceProcess.Key, NetworkCommand.Kill, Core.Constants.SequenceExe, sequenceProcessId);
+            }
+        }
+
+        public static void SentToClient(string clientAddress, params object[] parameters)
+        {
+            using (var clientSocket = CreateSocket(clientAddress))
+            {
+                Server.SendMessageToClient(clientSocket, String.Join("|", parameters));
+            }
+        }
+
+        private static Socket CreateSocket(string clientAddress)
+        {
+            var parts = clientAddress.Split(':');
+            string ipString = parts[0];
+            int port = int.Parse(parts[1]);
+
+            var ipAddress = IPAddress.Parse(ipString);
+            var endPoint = new IPEndPoint(ipAddress, port);
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(endPoint);
+            return socket;
         }
     }
 }

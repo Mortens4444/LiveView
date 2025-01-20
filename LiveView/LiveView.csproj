@@ -59,7 +59,7 @@
     <PackageReference Include="Mtf.Controls" Version="1.0.27" />
     <PackageReference Include="Mtf.Database" Version="2.0.25" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.8" />
-    <PackageReference Include="Mtf.Joystick" Version="1.0.0" />
+    <PackageReference Include="Mtf.Joystick" Version="2.0.2" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
     <PackageReference Include="Mtf.Network" Version="1.0.9" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.15" />
@@ -68,6 +68,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <PackageReference Include="System.Text.Json" Version="9.0.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>

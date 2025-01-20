@@ -3,12 +3,12 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
-using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Joystick;
 using Mtf.LanguageService;
 using Mtf.Permissions.Services;
 using System;
@@ -17,8 +17,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -35,7 +33,7 @@ namespace LiveView.Presenters
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
         private readonly List<Process> sequenceProcesses;
-        private Process cameraProcess;
+        public static Process CameraProcess { get; private set; }
 
         public static BindingList<string> Agents { get; } = new BindingList<string>();
 
@@ -61,21 +59,21 @@ namespace LiveView.Presenters
 
         public void CalibrateJoystick()
         {
-            throw new NotImplementedException();
+            JoystickHandler.CalibrateJoystick();
         }
 
         public void CloseFullScreenCameraApplication()
         {
             if (view.CbAgents.SelectedIndex == 0)
             {
-                ProcessUtils.Kill(cameraProcess);
-                cameraProcess = null;
+                ProcessUtils.Kill(CameraProcess);
+                CameraProcess = null;
             }
             else
             {
                 if (MainPresenter.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
                 {
-                    SentToClient(view.CbAgents.Text, $"{NetworkCommand.Kill}|Camera.exe|{cameraProcessId}");
+                    MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcessId);
                     MainPresenter.CameraProcesses.Remove(view.CbAgents.Text);
                 }
             }
@@ -90,7 +88,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                SentToClient(view.CbAgents.Text, $"{NetworkCommand.KillAll}|Sequence.exe");
+                MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.KillAll, Core.Constants.SequenceExe);
             }
         }
 
@@ -238,7 +236,7 @@ namespace LiveView.Presenters
             {
                 return;
             }
-            ProcessUtils.Kill(cameraProcess);
+            ProcessUtils.Kill(CameraProcess);
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
@@ -247,11 +245,11 @@ namespace LiveView.Presenters
                 {
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
                     }
                     else
                     {
-                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, permissionManager.CurrentUser.Id, camera.Id, selectedDisplay.Id);
                     }
                 }
                 else
@@ -265,35 +263,14 @@ namespace LiveView.Presenters
                 {
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        cameraProcess = AppStarter.Start("Camera.exe", $"{permissionManager.CurrentUser.Id} {camera.Id}");
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Id}");
                     }
                     else
                     {
-                        SentToClient(view.CbAgents.Text, $"Camera.exe|{permissionManager.CurrentUser.Id} {camera.Id}");
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, permissionManager.CurrentUser.Id, camera.Id);
                     }
                 }
             }
-        }
-
-        private static void SentToClient(string clientAddress, string message)
-        {
-            using (var clientSocket = CreateSocket(clientAddress))
-            {
-                MainPresenter.Server.SendMessageToClient(clientSocket, message);
-            }
-        }
-
-        private static Socket CreateSocket(string clientAddress)
-        {
-            var parts = clientAddress.Split(':');
-            string ipString = parts[0];
-            int port = int.Parse(parts[1]);
-
-            var ipAddress = IPAddress.Parse(ipString);
-            var endPoint = new IPEndPoint(ipAddress, port);
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Connect(endPoint);
-            return socket;
         }
 
         public void StartSequenceApp(Database.Models.Sequence sequence)
@@ -304,11 +281,11 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (view.CbAgents.SelectedIndex == 0)
                 {
-                    sequenceProcesses.Add(AppStarter.Start("Sequence.exe", $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
+                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
                 }
                 else
                 {
-                    SentToClient(view.CbAgents.Text, $"Sequence.exe|{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}");
+                    MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.SequenceExe, permissionManager.CurrentUser.Id, sequence.Id, selectedDisplay.Id, isMdi);
                 }
             }
             else

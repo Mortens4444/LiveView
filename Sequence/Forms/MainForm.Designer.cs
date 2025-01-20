@@ -39,14 +39,14 @@ namespace Sequence.Forms
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(800, 450);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.None;
             IsMdiContainer = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainForm";
-            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            StartPosition = FormStartPosition.Manual;
             Load += MainForm_Load;
             Shown += MainForm_Shown;
             ResumeLayout(false);

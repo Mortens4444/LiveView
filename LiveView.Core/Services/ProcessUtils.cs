@@ -35,6 +35,7 @@ namespace LiveView.Core.Services
             }
 
             process.CloseMainWindow();
+            process.WaitForExit(100);
             if (!process.HasExited)
             {
 #if NET481

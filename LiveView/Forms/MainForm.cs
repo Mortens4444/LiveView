@@ -1,13 +1,12 @@
-﻿using Database.Models;
-using LiveView.Core.Dto;
+﻿using LiveView.Core.Dto;
 using LiveView.Core.Services;
-using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
+using Mtf.Joystick;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Models;
@@ -56,6 +55,26 @@ namespace LiveView.Forms
             HardwareKey = new VirtualSziltechHardwareKey();
             //HardwareKey = new SziltechHardwareKey();
             HardwareKey.GetDescription();
+
+            JoystickHandler.InitializeJoystick(
+                continuePulling: () => true,
+                getDeltaModifier: () => 10,
+                getMinimumDelta: () => 5,
+                restAction: (deltaX, deltaY) => Console.WriteLine("Joystick at rest."),
+                forwardOrBackwardAction: (deltaX, deltaY) => Console.WriteLine($"Moving forward/backward: {deltaY}"),
+                forwardWithLeftTurnAction: (deltaX, deltaY) => Console.WriteLine($"Forward with left turn: {deltaX}, {deltaY}"),
+                forwardWithRightTurnAction: (deltaX, deltaY) => Console.WriteLine($"Forward with right turn: {deltaX}, {deltaY}"),
+                backwardWithLeftTurnAction: (deltaX, deltaY) => Console.WriteLine($"Backward with left turn: {deltaX}, {deltaY}"),
+                backwardWithRightTurnAction: (deltaX, deltaY) => Console.WriteLine($"Backward with right turn: {deltaX}, {deltaY}"),
+                turnLeftOrRightAction: (deltaX, deltaY) => Console.WriteLine($"Turning left/right: {deltaX}"),
+                afterPullingAction: () => Console.WriteLine("Polling stopped."),
+                buttonActions: new Action[]
+                {
+                    () => Console.WriteLine("Button 1 pressed."),
+                    () => Console.WriteLine("Button 2 pressed."),
+                    () => Console.WriteLine("Button 3 pressed."),
+                }
+            );
         }
 
         public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))
@@ -257,6 +276,7 @@ namespace LiveView.Forms
             {
                 e.Cancel = true;
             }
+            // This point is never reached - Do all exit login in the Exit function!!!
         }
 
         [RequirePermission(ApplicationManagementPermissions.Exit)]

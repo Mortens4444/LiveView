@@ -252,12 +252,17 @@
             // 
             // pbCrossHair
             // 
+            pbCrossHair.BackgroundPaintDebounceIntervalInMs = 0;
             pbCrossHair.Image = Properties.Resources.pb_CrossHair_Image;
             pbCrossHair.Location = new System.Drawing.Point(0, 0);
             pbCrossHair.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbCrossHair.Name = "pbCrossHair";
             pbCrossHair.OriginalSize = new System.Drawing.Size(100, 50);
+            pbCrossHair.PaintDebounceIntervalInMs = 0;
             pbCrossHair.RepositioningAndResizingControlsOnResize = false;
+            pbCrossHair.ResizeDebounceIntervalInMs = 0;
+            pbCrossHair.ShowPaintErrors = false;
+            pbCrossHair.ShowResizeErrors = false;
             pbCrossHair.Size = new System.Drawing.Size(29, 29);
             pbCrossHair.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pbCrossHair.TabIndex = 0;
@@ -982,13 +987,18 @@
             // 
             // pbSziltechLogo
             // 
+            pbSziltechLogo.BackgroundPaintDebounceIntervalInMs = 0;
             pbSziltechLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             pbSziltechLogo.Image = Properties.Resources.pb_Logo_Image;
             pbSziltechLogo.Location = new System.Drawing.Point(0, 0);
             pbSziltechLogo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbSziltechLogo.Name = "pbSziltechLogo";
             pbSziltechLogo.OriginalSize = new System.Drawing.Size(100, 50);
+            pbSziltechLogo.PaintDebounceIntervalInMs = 0;
             pbSziltechLogo.RepositioningAndResizingControlsOnResize = false;
+            pbSziltechLogo.ResizeDebounceIntervalInMs = 0;
+            pbSziltechLogo.ShowPaintErrors = false;
+            pbSziltechLogo.ShowResizeErrors = false;
             pbSziltechLogo.Size = new System.Drawing.Size(328, 52);
             pbSziltechLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pbSziltechLogo.TabIndex = 83;
