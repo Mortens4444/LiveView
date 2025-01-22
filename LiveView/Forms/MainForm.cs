@@ -23,10 +23,17 @@ namespace LiveView.Forms
     {
         private MainPresenter presenter;
 
-        public static string Uptime;
-        public static string SystemUptime;
-        public static string Day;
-        public static string Days;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static string Uptime { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static string SystemUptime { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static string Day { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public static string Days { get; set; }
 
         public static readonly IHardwareKey HardwareKey;
 

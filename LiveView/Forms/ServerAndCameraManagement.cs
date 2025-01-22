@@ -34,16 +34,14 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(CameraManagementPermissions.Create)]
-        private void BtnNewCamera_Click(object sender, EventArgs e)
+        [RequirePermission(ServerManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.Select)]
+        private void ServerAndCameraManagement_Shown(object sender, EventArgs e)
         {
+            presenter = Presenter as ServerAndCameraManagementPresenter;
+            presenter.ChangeButtonStates(null);
             permissionManager.EnsurePermissions();
-            presenter.CreateNewCameraForm();
-        }
-
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
-            presenter.CloseForm();
+            presenter.Load();
         }
 
         [RequirePermission(ServerManagementPermissions.Create)]
@@ -60,14 +58,11 @@ namespace LiveView.Forms
             presenter.ShowDialogWithReload<AddDatabaseServer>();
         }
 
-        private void BtnModify_Click(object sender, EventArgs e)
+        [RequirePermission(CameraManagementPermissions.Create)]
+        private void BtnNewCamera_Click(object sender, EventArgs e)
         {
-            presenter.Modify();
-        }
-
-        private void BtnRemove_Click(object sender, EventArgs e)
-        {
-            presenter.Remove();
+            permissionManager.EnsurePermissions();
+            presenter.CreateNewCameraForm();
         }
 
         [RequirePermission(ServerManagementPermissions.Select)]
@@ -89,16 +84,6 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             await presenter.SyncronizeAsync();
-        }
-
-        [RequirePermission(ServerManagementPermissions.Select)]
-        [RequirePermission(CameraManagementPermissions.Select)]
-        private void ServerAndCameraManagement_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as ServerAndCameraManagementPresenter;
-            presenter.ChangeButtonStates(null);
-            permissionManager.EnsurePermissions();
-            presenter.Load();
         }
 
         private void TvServersAndCameras_AfterSelect(object sender, TreeViewEventArgs e)
@@ -124,6 +109,21 @@ namespace LiveView.Forms
             }
 
             throw new NotImplementedException("SyncronizationMode  is not supported.");
+        }
+
+        private void BtnModify_Click(object sender, EventArgs e)
+        {
+            presenter.Modify();
+        }
+
+        private void BtnRemove_Click(object sender, EventArgs e)
+        {
+            presenter.Remove();
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            presenter.CloseForm();
         }
     }
 }

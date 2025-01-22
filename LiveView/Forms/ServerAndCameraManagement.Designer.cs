@@ -32,6 +32,7 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraManagement));
             var treeNode1 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
             var treeNode2 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
+            var treeNode3 = new System.Windows.Forms.TreeNode("Agents", 8, 8);
             ttHint = new System.Windows.Forms.ToolTip(components);
             ilImages = new System.Windows.Forms.ImageList(components);
             btnMotionDetection = new System.Windows.Forms.Button();
@@ -68,6 +69,7 @@
             ilImages.Images.SetKeyName(5, "videoserver_del.ico");
             ilImages.Images.SetKeyName(6, "camdel.ico");
             ilImages.Images.SetKeyName(7, "db_server.ico");
+            ilImages.Images.SetKeyName(8, "user_black_female.ico");
             // 
             // btnMotionDetection
             // 
@@ -212,7 +214,11 @@
             treeNode2.Name = "DBServers";
             treeNode2.SelectedImageIndex = 7;
             treeNode2.Text = "DB servers";
-            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2 });
+            treeNode3.ImageIndex = 8;
+            treeNode3.Name = "Agents";
+            treeNode3.SelectedImageIndex = 8;
+            treeNode3.Text = "Agents";
+            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2, treeNode3 });
             tvServersAndCameras.SelectedImageIndex = 0;
             tvServersAndCameras.ShowNodeToolTips = true;
             tvServersAndCameras.ShowPlusMinusOnRootNodes = true;

@@ -56,23 +56,17 @@ namespace LiveView.Services
             mapContainer.Controls.Clear();
             mapContainer.SuspendLayout();
             var originalSize = new Size(map.OriginalWidth, map.OriginalHeight);
-            try
+            if (mapContainer is MtfPictureBox pictureBox)
             {
-                if (mapContainer is MtfPictureBox pictureBox)
-                {
-                    pictureBox.Image = map.MapImage;
-                    pictureBox.OriginalSize = originalSize;
-                }
-                else
-                {
-                    mapContainer.BackgroundImage = map.MapImage;
-                    // Need Resize event handler
-                }
+                pictureBox.Image = map.MapImage;
+                pictureBox.OriginalSize = originalSize;
             }
-            catch (ArgumentException ex)
+            else
             {
-                throw;
+                mapContainer.BackgroundImage = map.MapImage;
+                // Need Resize event handler
             }
+
             foreach (var mapObject in map.MapObjects)
             {
                 var mapObjectPanel = new TransparentPanel

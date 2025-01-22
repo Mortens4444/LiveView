@@ -8,13 +8,16 @@ using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Network;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Server = Database.Models.Server;
 
 namespace LiveView.Presenters
 {
@@ -34,6 +37,7 @@ namespace LiveView.Presenters
         private const int DeleteServerIconIndex = 5;
         private const int DeleteCameraIconIndex = 6;
         private const int DatabaseServerIconIndex = 7;
+        private const int AgentIconIndex = 8;
 
         public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies serverAndCameraManagementPresenterDependencies)
             : base(serverAndCameraManagementPresenterDependencies)
@@ -232,10 +236,64 @@ namespace LiveView.Presenters
         {
             var servers = serverRepository.SelectAll();
             var cameras = cameraRepository.SelectAll();
-            var dbServers = databaseServerRepository.SelectAll();
+            var videoServerTreeNodes = CreateServerAndCamerasTreeNodes(servers, cameras);
+            AddNodes("Servers", videoServerTreeNodes);
 
-            var videoServerTreeNodes = new List<TreeNode>();
+            var dbServers = databaseServerRepository.SelectAll();
+            var dbServerTreeNodes = CreateDatabaseTreeNodes(dbServers);
+            AddNodes("DBServers", dbServerTreeNodes);
+
+            var agentTreeNodes = CreateAgentTreeNodes();
+            AddNodes("Agents", agentTreeNodes);
+        }
+
+        private static List<TreeNode> CreateAgentTreeNodes()
+        {
+            var agentTreeNodes = new List<TreeNode>();
+            foreach (var agent in MainPresenter.VideoCaptureSources.Keys)
+            {
+                var endPoint = agent.LocalEndPoint.ToString();
+                var agentTreeNode = new TreeNode(endPoint.ToString(), AgentIconIndex, AgentIconIndex)
+                {
+                    Name = endPoint.ToString()
+                };
+                var agentCameras = MainPresenter.VideoCaptureSources[agent];
+                foreach (var agentCamera in agentCameras)
+                {
+                    var cameraTreeNode = new TreeNode(agentCamera.Key, CameraIconIndex, CameraIconIndex)
+                    {
+                        Name = agentCamera.Key,
+                        ToolTipText = agentCamera.Value
+                    };
+                    agentTreeNode.Nodes.Add(cameraTreeNode);
+                }
+
+                agentTreeNodes.Add(agentTreeNode);
+            }
+            return agentTreeNodes;
+        }
+
+        private static List<TreeNode> CreateDatabaseTreeNodes(ReadOnlyCollection<DatabaseServer> dbServers)
+        {
             var dbServerTreeNodes = new List<TreeNode>();
+            foreach (var dbServer in dbServers)
+            {
+                var dbServerTreeNode = new TreeNode(dbServer.Hostname, DatabaseServerIconIndex, DatabaseServerIconIndex)
+                {
+                    Name = dbServer.Id.ToString(),
+                    Tag = dbServer,
+                    ToolTipText = dbServer.IpOrHost
+                };
+
+                dbServerTreeNodes.Add(dbServerTreeNode);
+            }
+
+            return dbServerTreeNodes;
+        }
+
+        private static List<TreeNode> CreateServerAndCamerasTreeNodes(ReadOnlyCollection<Server> servers, ReadOnlyCollection<Camera> cameras)
+        {
+            var videoServerTreeNodes = new List<TreeNode>();
             foreach (var server in servers)
             {
                 var serverTreeNode = new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex)
@@ -259,26 +317,16 @@ namespace LiveView.Presenters
 
                 videoServerTreeNodes.Add(serverTreeNode);
             }
-            foreach (var dbServer in dbServers)
-            {
-                var dbServerTreeNode = new TreeNode(dbServer.Hostname, DatabaseServerIconIndex, DatabaseServerIconIndex)
-                {
-                    Name = dbServer.Id.ToString(),
-                    Tag = dbServer,
-                    ToolTipText = dbServer.IpOrHost
-                };
 
-                dbServerTreeNodes.Add(dbServerTreeNode);
-            }
+            return videoServerTreeNodes;
+        }
 
-            var serversNode = view.ServersAndCameras.Nodes["Servers"];
-            serversNode.Nodes.Clear();
-            view.AddNodes(serversNode, videoServerTreeNodes);
-            var dbServersNode = view.ServersAndCameras.Nodes["DBServers"];
-            dbServersNode.Nodes.Clear();
-            view.AddNodes(dbServersNode, dbServerTreeNodes);
-            view.ExpandAll(serversNode);
-            view.ExpandAll(dbServersNode);
+        private void AddNodes(string nodeName, IEnumerable<TreeNode> newNodes)
+        {
+            var parentNode = view.ServersAndCameras.Nodes[nodeName];
+            parentNode.Nodes.Clear();
+            view.AddNodes(parentNode, newNodes);
+            view.ExpandAll(parentNode);
         }
 
         public void ChangeButtonStates(TreeNode treeNode)

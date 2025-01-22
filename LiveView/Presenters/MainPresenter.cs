@@ -18,11 +18,14 @@ using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -35,8 +38,14 @@ namespace LiveView.Presenters
     public class MainPresenter : BasePresenter
     {
         private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
-        private IMainView view;
-        private MapLoader mapLoader;
+
+        public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
+        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
+        public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
+
+        public static NetworkServer Server { get; private set; }
+        private readonly Dictionary<int, List<byte[]>> imageParts = new Dictionary<int, List<byte[]>>();
+        private readonly Dictionary<int, int> totalPartsMap = new Dictionary<int, int>();
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
         private readonly IServiceProvider serviceProvider;
@@ -47,13 +56,11 @@ namespace LiveView.Presenters
         private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
 
-        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
-        public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
-
-        public static NetworkServer Server;
+        private IMainView view;
+        private MapLoader mapLoader;
 
         public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
             : base(mainPresenterDependencies)
@@ -122,65 +129,128 @@ namespace LiveView.Presenters
 
         private void DataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
-            var message = $"{Server?.Encoding.GetString(e.Data)}";
-            var messageParts = message.Split('|');
+            var messages = $"{Server?.Encoding.GetString(e.Data)}";
+            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var message in allMessages)
+            {
+                var messageParts = message.Split('|');
 
-            if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
-            {
-                ControlCenterPresenter.Agents.Add(messageParts[1]);
-                MainForm.ControlCenter?.RefreshAgents();
-            }
-            else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
-            {
-                ControlCenterPresenter.Agents.Remove(messageParts[1]);
-                MainForm.ControlCenter?.RefreshAgents();
-            }
-            else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
-            {
-                var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
-                DisplayManager.RemoteDisplays.Add(display);
-                MainForm.ControlCenter.CachedDisplays = null;
-            }
-            else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
-            {
-                var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
-                DisplayManager.RemoteDisplays.Remove(display);
-                MainForm.ControlCenter.CachedDisplays = null;
-            }
-            else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
-            {
-                var cameraProcessId = Convert.ToInt32(messageParts[1]);
-                CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
-            }
-            else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
-            {
-                var localEndPoint = messageParts[1];
-                //var userId = Convert.ToInt64(messageParts[2]);
-                var sequenceId = Convert.ToInt64(messageParts[3]);
-                var displayId = Convert.ToInt64(messageParts[4]);
-                //var isMdi = Convert.ToBoolean(messageParts[5]);
-                var processId = Convert.ToInt32(messageParts[6]);
-                SequenceProcesses.Add(localEndPoint, (e.Socket, processId, sequenceId, displayId));
-            }
-            else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
-            {
-                var localEndPoint = messageParts[1];
-                //var sequenceId = Convert.ToInt64(messageParts[2]);
-                //var processId = Convert.ToInt32(messageParts[3]);
-                if (SequenceProcesses.ContainsKey(localEndPoint))
+                if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
                 {
+                    ControlCenterPresenter.Agents.Add(messageParts[1]);
+                    MainForm.ControlCenter?.RefreshAgents();
+                }
+                else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
+                {
+                    ControlCenterPresenter.Agents.Remove(messageParts[1]);
+                    MainForm.ControlCenter?.RefreshAgents();
+                }
+                else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
+                {
+                    var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+                    DisplayManager.RemoteDisplays.Add(display);
+                    if (MainForm.ControlCenter != null)
+                    {
+                        MainForm.ControlCenter.CachedDisplays = null;
+                    }
+                }
+                else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
+                {
+                    var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+                    DisplayManager.RemoteDisplays.Remove(display);
+                    if (MainForm.ControlCenter != null)
+                    {
+                        MainForm.ControlCenter.CachedDisplays = null;
+                    }
+                }
+                else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
+                {
+                    var cameraProcessId = Convert.ToInt32(messageParts[1]);
+                    CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
+                }
+                else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
+                {
+                    var localEndPoint = messageParts[1];
+                    //var userId = Convert.ToInt64(messageParts[2]);
+                    var sequenceId = Convert.ToInt64(messageParts[3]);
+                    var displayId = Convert.ToInt64(messageParts[4]);
+                    //var isMdi = Convert.ToBoolean(messageParts[5]);
+                    var processId = Convert.ToInt32(messageParts[6]);
+                    SequenceProcesses.Add(localEndPoint, (e.Socket, processId, sequenceId, displayId));
+                }
+                else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
+                {
+                    var localEndPoint = messageParts[1];
+                    //var sequenceId = Convert.ToInt64(messageParts[2]);
+                    //var processId = Convert.ToInt32(messageParts[3]);
                     SequenceProcesses.Remove(localEndPoint);
                 }
-            }
-            else
-            {
-                DebugErrorBox.Show("Unknown message arrived", message);
+                else if(message.StartsWith($"{NetworkCommand.FrameArrived}|"))
+                {
+                    try
+                    {
+                        if (Int32.TryParse(messageParts[1], out var videoCaptureId) &&
+                            Int32.TryParse(messageParts[2], out var imagePartNumber) &&
+                            Int32.TryParse(messageParts[3], out var totalParts))
+                        {
+                            var imageData = Convert.FromBase64String(messageParts[4]);
+                            if (!imageParts.ContainsKey(videoCaptureId))
+                            {
+                                imageParts[videoCaptureId] = new List<byte[]>(new byte[totalParts][]);
+                                totalPartsMap[videoCaptureId] = totalParts;
+                            }
+
+                            imageParts[videoCaptureId][imagePartNumber - 1] = imageData;
+                            if (imageParts[videoCaptureId].All(part => part != null))
+                            {
+                                var fullImageData = imageParts[videoCaptureId].SelectMany(part => part).ToArray();
+                                using (var ms = new MemoryStream(fullImageData))
+                                {
+                                    var image = Image.FromStream(ms);
+                                    view.PbMap.BackgroundImage = image;
+                                }
+                                imageParts.Remove(videoCaptureId);
+                                totalPartsMap.Remove(videoCaptureId);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //InfoBox.Show("FrameArrived", messageParts[2]);
+                        //ErrorBox.Show(ex);
+                    }
+                }
+                else if (message.StartsWith($"{NetworkCommand.VideoCaptureFailure}|"))
+                {
+                    var videoCaptureIdentifier = messageParts[1];
+                    ShowError($"VideoCapture error: {videoCaptureIdentifier}");
+                }
+                else if (message.StartsWith($"{NetworkCommand.VideoCaptureCreationFailure}|"))
+                {
+                    var videoCaptureIdentifier = messageParts[1];
+                    var exception = messageParts[2];
+                    ShowError(exception);
+                }
+                else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
+                {
+                    var videoCaptureSources = messageParts[1].Split(';')
+                        .Select(vcs => vcs.Split('='))
+                        .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
+                    VideoCaptureSources.Add(e.Socket, videoCaptureSources);
+                }
+                else if (message.StartsWith($"{NetworkCommand.Ping}"))
+                {
+                }
+                else
+                {
+                    DebugErrorBox.Show("Unknown message arrived", message);
+                }
             }
         }
 
-        public Mtf.Permissions.Models.User<Database.Models.User> PrimaryLogon()
+        public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var result = new Mtf.Permissions.Models.User<Database.Models.User>();
+            var result = new Mtf.Permissions.Models.User<User>();
             var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Text);
             var groupIds = userGroupRepository.SelectWhere(new { UserId = user.Id }).Select(userGroup => userGroup.GroupId);
 
@@ -305,7 +375,7 @@ namespace LiveView.Presenters
         {
             using (var clientSocket = CreateSocket(clientAddress))
             {
-                Server.SendMessageToClient(clientSocket, String.Join("|", parameters));
+                Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
             }
         }
 

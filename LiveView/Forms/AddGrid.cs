@@ -57,17 +57,18 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
+        private void AddGrid_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as AddGridPresenter;
+            presenter.Load();
+        }
+
         [RequirePermission(GridManagementPermissions.Create)]
         [RequirePermission(GridManagementPermissions.Update)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.SaveGrid();
-        }
-
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
-            presenter.CloseForm();
         }
 
         private void BtnCombine_Click(object sender, EventArgs e)
@@ -205,12 +206,6 @@ namespace LiveView.Forms
             presenter.AdjustLowerEdgeDownwards();
         }
 
-        private void AddGrid_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as AddGridPresenter;
-            presenter.Load();
-        }
-
         private void CbDisplays_SelectedIndexChanged(object sender, EventArgs e)
         {
             presenter.DisplaySelected();
@@ -274,6 +269,11 @@ namespace LiveView.Forms
         {
             Invalidate(true);
             PMiniDesign.Invalidate(true);
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            presenter.CloseForm();
         }
     }
 }

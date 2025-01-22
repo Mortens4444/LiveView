@@ -101,7 +101,7 @@ namespace LiveView.Presenters
                     };
                     closeButton.Click += (object sender, EventArgs e) =>
                     {
-                        MainPresenter.Server.SendMessageToClient(socket, NetworkCommand.Close.ToString());
+                        MainPresenter.Server.SendMessageToClient(socket, NetworkCommand.Close.ToString(), true);
                         MainPresenter.SequenceProcesses[sequenceProcess.Key] = (null, 0, 0, 0);
                         var button = sender as Button;
                         button.Parent.Controls.Remove(button);

@@ -11,6 +11,15 @@
         SendCameraProcessId,
         RegisterSequence,
         UnregisterSequence,
-        Close
+        Close,
+        FrameArrived,
+        VideoCapture,
+        VideoCaptureFileServe,
+        VideoCaptureCreationFailure,
+        VideoCaptureFailure,
+        StopVideoCapture,
+        VideoCaptureSourcesRequest,
+        VideoCaptureSourcesResponse,
+        Ping
     }
 }

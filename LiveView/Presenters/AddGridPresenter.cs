@@ -8,8 +8,9 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services;
+using LiveView.Services.Net;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.CustomEventArgs;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using System;
@@ -17,7 +18,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.ExceptionServices;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -297,8 +298,20 @@ namespace LiveView.Presenters
             foreach (var camera in cameras)
             {
                 result.Items.Add(camera);
-                //result.Items.Add($"{camera.ServerConnection.IpOrHost} - {camera.CameraName}");
             }
+
+            result.Items.AddRange(
+                MainPresenter.VideoCaptureSources
+                    .SelectMany(vcs => vcs.Value, (vcs, camera) => new
+                    {
+                        Tag = vcs.Key,
+                        Name = camera.Key,
+                        EndPoint = camera.Value,
+                        ToString = (Func<string>)(() => $"{camera.Key} - {camera.Value}")
+                    })
+                    .ToArray()
+            );
+
             result.SelectedIndex = result.Items.Count > 0 ? 0 : -1;
 
             result.LocationChanged += (s, e) => { view.Invalidate(true); };
@@ -488,14 +501,31 @@ namespace LiveView.Presenters
 
         private void Connect(ComboBox comboBox)
         {
-            if (view.ChkConnectToCamera.Checked && comboBox.SelectedItem is CameraDto camera)
+            if (view.ChkConnectToCamera.Checked)
             {
-                view.AxVideoPlayerWindow.Visible = true;
-                view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.Server.IpAddress, camera.Guid, camera.Server.VideoServerCredentials.Username, camera.Server.VideoServerCredentials.Password);
-                var matrixRegion = comboBox.Tag as MatrixRegion;
-                view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
-                view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));
+                if (comboBox.SelectedItem is CameraDto camera)
+                {
+                    view.AxVideoPlayerWindow.Visible = true;
+                    view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.Server.IpAddress, camera.Guid, camera.Server.VideoServerCredentials.Username, camera.Server.VideoServerCredentials.Password);
+                    var matrixRegion = comboBox.Tag as MatrixRegion;
+                    view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
+                    view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));
+                }
+                else if (((dynamic)comboBox.SelectedItem).Tag is Socket socket)
+                {
+                    var videoSource = ((dynamic)comboBox.SelectedItem);
+                    var name = videoSource.Name;
+                    var endPoint = videoSource.EndPoint.Split(':');
+
+                    var videoCaptureClient = new VideoCaptureClient(Convert.ToString(endPoint[0]), Convert.ToUInt16(endPoint[1]));
+                    videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+                }
             }
+        }
+
+        private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
+        {
+            view.PMain.BackgroundImage = e.Frame;
         }
 
         private void RemoveControls(Control.ControlCollection controls, MatrixRegion matrixRegionToDelete)

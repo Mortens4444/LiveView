@@ -275,7 +275,7 @@ namespace LiveView.Presenters
 
         public void StartSequenceApp(Database.Models.Sequence sequence)
         {
-            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
             if (selectedDisplay != null)
             {
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
@@ -298,7 +298,7 @@ namespace LiveView.Presenters
         {
             foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
             {
-                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.socket, NetworkCommand.Close.ToString());
+                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.socket, NetworkCommand.Close.ToString(), true);
             }
 
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });

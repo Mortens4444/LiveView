@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Network" Version="1.0.9" />
+    <PackageReference Include="Mtf.Network" Version="1.0.15" />
+    <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
   </ItemGroup>
 
   <ItemGroup>

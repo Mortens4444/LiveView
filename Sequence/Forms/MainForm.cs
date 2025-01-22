@@ -24,34 +24,24 @@ using System.Windows.Forms;
 
 namespace Sequence.Forms
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         private int disposed;
         private Task gridChanger;
         private CancellationTokenSource cts;
 
-        private static readonly ReadOnlyCollection<Database.Models.Server> servers;
-        private static readonly ReadOnlyCollection<Database.Models.Camera> allCameras;
-        private static readonly ReadOnlyCollection<GridCamera> gridCameras;
+        private static readonly ReadOnlyCollection<Database.Models.Server> servers = new ServerRepository().SelectAll();
+        private static readonly ReadOnlyCollection<Database.Models.Camera> allCameras = new CameraRepository().SelectAll();
+        private static readonly ReadOnlyCollection<GridCamera> gridCameras = new GridCameraRepository().SelectAll();
         private static Client client;
 
         private readonly bool isMdi;
         private readonly long sequenceId;
         private readonly DisplayDto display;
-        private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly PermissionManager<User> permissionManager;
 
         private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
         private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
-
-        static MainForm()
-        {
-            var serverRepository = new ServerRepository();
-            servers = serverRepository.SelectAll();
-            var gridCameraRepository = new GridCameraRepository();
-            gridCameras = gridCameraRepository.SelectAll();
-            var cameraRepository = new CameraRepository();
-            allCameras = cameraRepository.SelectAll();
-        }
 
         public MainForm(long userId, long sequenceId, long displayId, bool isMdi)
         {
@@ -65,9 +55,9 @@ namespace Sequence.Forms
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
 #if NET481
-                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}");
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}", true);
 #else
-                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Environment.ProcessId}");
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Environment.ProcessId}", true);
 #endif
                 }
                 catch (Exception ex)
@@ -155,7 +145,7 @@ namespace Sequence.Forms
             }
             else if (grids.Count == 1)
             {
-                var gridCameras = GetCameras(grids[0]);
+                var gridCameras = MainForm.GetCameras(grids[0]);
                 ShowGrid(grids, grids[0], gridCameras, cts.Token);
             }
             else
@@ -171,10 +161,11 @@ namespace Sequence.Forms
             if (cts != null && !cts.IsCancellationRequested)
             {
 #if NET481
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Process.GetCurrentProcess().Id}");
+                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Process.GetCurrentProcess().Id}", true);
                 cts.Cancel();
+                await Task.Delay(0).ConfigureAwait(false);
 #else
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Environment.ProcessId}");
+                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Environment.ProcessId}", true);
                 await cts.CancelAsync().ConfigureAwait(false);
 #endif
             }
@@ -204,7 +195,7 @@ namespace Sequence.Forms
         private List<Process> ShowGridOnScreen(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
         {
             var result = new List<Process>();
-            var cameras = GetCameras(gridInSequence);
+            var cameras = MainForm.GetCameras(gridInSequence);
 
             foreach (var camera in cameras)
             {
@@ -214,7 +205,7 @@ namespace Sequence.Forms
             return result;
         }
 
-        private List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
+        private static List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
         {
             return gridCameras
                 .Where(gc => gc.GridId == grid.grid.Id)
@@ -236,7 +227,7 @@ namespace Sequence.Forms
             {
                 foreach (var grid in sequenceGrids)
                 {
-                    var gridCameras = GetCameras(grid);
+                    var gridCameras = MainForm.GetCameras(grid);
                     ShowGrid(sequenceGrids, grid, gridCameras, token);
                     await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000, token).ConfigureAwait(false);
                     if (token.IsCancellationRequested)
