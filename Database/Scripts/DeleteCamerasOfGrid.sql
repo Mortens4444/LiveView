@@ -1,1 +1,1 @@
-﻿DELETE FROM GridCameralist WHERE GridId = @GridId;
+﻿DELETE FROM GridCameras WHERE GridId = @GridId;

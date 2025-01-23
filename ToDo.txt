@@ -1,3 +1,9 @@
+VideoSource
+-----------
+- Add to wizard
+- Add to map
+- Fix AddGrid OutOfMemoryException
+
 Groups
 ------
 - Enable buttons like in ServerAndCameraManagement

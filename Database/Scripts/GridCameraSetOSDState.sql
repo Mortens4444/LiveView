@@ -1,1 +1,1 @@
-﻿UPDATE GridCameralist SET Osd = @Osd WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol
+﻿UPDATE GridCameras SET Osd = @Osd WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol

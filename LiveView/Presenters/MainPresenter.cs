@@ -56,6 +56,7 @@ namespace LiveView.Presenters
         private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly IAgentRepository agentRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
 
@@ -76,6 +77,8 @@ namespace LiveView.Presenters
             userGroupRepository = mainPresenterDependencies.UserGroupRepository;
             personalOptionsRepository = mainPresenterDependencies.PersonalOptionsRepository;
             permissionManager = mainPresenterDependencies.PermissionManager;
+            agentRepository = mainPresenterDependencies.AgentRepository;
+            agentRepository.DeleteAll();
             uptime = new Uptime();
         }
 
@@ -109,8 +112,7 @@ namespace LiveView.Presenters
             }
 
             var implementedLanguage = (ImplementedLanguage)personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
-            Mtf.LanguageService.Enums.Language selectedLanguage;
-            Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
+            Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out Mtf.LanguageService.Enums.Language selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
             LoadFirstMap();
@@ -185,58 +187,68 @@ namespace LiveView.Presenters
                     //var processId = Convert.ToInt32(messageParts[3]);
                     SequenceProcesses.Remove(localEndPoint);
                 }
-                else if(message.StartsWith($"{NetworkCommand.FrameArrived}|"))
-                {
-                    try
-                    {
-                        if (Int32.TryParse(messageParts[1], out var videoCaptureId) &&
-                            Int32.TryParse(messageParts[2], out var imagePartNumber) &&
-                            Int32.TryParse(messageParts[3], out var totalParts))
-                        {
-                            var imageData = Convert.FromBase64String(messageParts[4]);
-                            if (!imageParts.ContainsKey(videoCaptureId))
-                            {
-                                imageParts[videoCaptureId] = new List<byte[]>(new byte[totalParts][]);
-                                totalPartsMap[videoCaptureId] = totalParts;
-                            }
+                //else if(message.StartsWith($"{NetworkCommand.FrameArrived}|"))
+                //{
+                //    try
+                //    {
+                //        if (Int32.TryParse(messageParts[1], out var videoCaptureId) &&
+                //            Int32.TryParse(messageParts[2], out var imagePartNumber) &&
+                //            Int32.TryParse(messageParts[3], out var totalParts))
+                //        {
+                //            var imageData = Convert.FromBase64String(messageParts[4]);
+                //            if (!imageParts.ContainsKey(videoCaptureId))
+                //            {
+                //                imageParts[videoCaptureId] = new List<byte[]>(new byte[totalParts][]);
+                //                totalPartsMap[videoCaptureId] = totalParts;
+                //            }
 
-                            imageParts[videoCaptureId][imagePartNumber - 1] = imageData;
-                            if (imageParts[videoCaptureId].All(part => part != null))
-                            {
-                                var fullImageData = imageParts[videoCaptureId].SelectMany(part => part).ToArray();
-                                using (var ms = new MemoryStream(fullImageData))
-                                {
-                                    var image = Image.FromStream(ms);
-                                    view.PbMap.BackgroundImage = image;
-                                }
-                                imageParts.Remove(videoCaptureId);
-                                totalPartsMap.Remove(videoCaptureId);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        //InfoBox.Show("FrameArrived", messageParts[2]);
-                        //ErrorBox.Show(ex);
-                    }
-                }
-                else if (message.StartsWith($"{NetworkCommand.VideoCaptureFailure}|"))
-                {
-                    var videoCaptureIdentifier = messageParts[1];
-                    ShowError($"VideoCapture error: {videoCaptureIdentifier}");
-                }
-                else if (message.StartsWith($"{NetworkCommand.VideoCaptureCreationFailure}|"))
-                {
-                    var videoCaptureIdentifier = messageParts[1];
-                    var exception = messageParts[2];
-                    ShowError(exception);
-                }
+                //            imageParts[videoCaptureId][imagePartNumber - 1] = imageData;
+                //            if (imageParts[videoCaptureId].All(part => part != null))
+                //            {
+                //                var fullImageData = imageParts[videoCaptureId].SelectMany(part => part).ToArray();
+                //                using (var ms = new MemoryStream(fullImageData))
+                //                {
+                //                    var image = Image.FromStream(ms);
+                //                    view.PbMap.BackgroundImage = image;
+                //                }
+                //                imageParts.Remove(videoCaptureId);
+                //                totalPartsMap.Remove(videoCaptureId);
+                //            }
+                //        }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        //InfoBox.Show("FrameArrived", messageParts[2]);
+                //        //ErrorBox.Show(ex);
+                //    }
+                //}
+                //else if (message.StartsWith($"{NetworkCommand.VideoCaptureFailure}|"))
+                //{
+                //    var videoCaptureIdentifier = messageParts[1];
+                //    ShowError($"VideoCapture error: {videoCaptureIdentifier}");
+                //}
+                //else if (message.StartsWith($"{NetworkCommand.VideoCaptureCreationFailure}|"))
+                //{
+                //    var videoCaptureIdentifier = messageParts[1];
+                //    var exception = messageParts[2];
+                //    ShowError(exception);
+                //}
                 else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                 {
                     var videoCaptureSources = messageParts[1].Split(';')
                         .Select(vcs => vcs.Split('='))
                         .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
                     VideoCaptureSources.Add(e.Socket, videoCaptureSources);
+                    foreach (var videoCaptureSource in videoCaptureSources)
+                    {
+                        var hostInfo = videoCaptureSource.Value.Split(':');
+                        agentRepository.Insert(new Database.Models.Agent
+                        {
+                            VideoCaptureSourceName = videoCaptureSource.Key,
+                            ServerIp = hostInfo[0],
+                            Port = Convert.ToInt32(hostInfo[1])
+                        });
+                    }
                 }
                 else if (message.StartsWith($"{NetworkCommand.Ping}"))
                 {
@@ -293,7 +305,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void MoveMouseToHome()
+        public static void MoveMouseToHome()
         {
             SendKeys.Send("{HOME}");
         }
@@ -328,7 +340,7 @@ namespace LiveView.Presenters
         public void LoadFirstMap()
         {
             var maps = mapRepository.SelectAll();
-            if (maps.Any())
+            if (maps.Count > 0)
             {
                 var map = MapDto.FromModel(maps.First());
                 map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
@@ -357,7 +369,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void StopStartedApplications()
+        public static void StopStartedApplications()
         {
             ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
             foreach (var cameraProcess in CameraProcesses)

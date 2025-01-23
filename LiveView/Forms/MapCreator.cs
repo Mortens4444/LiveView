@@ -110,12 +110,12 @@ namespace LiveView.Forms
 
         private void TsmiAddComment_DropDownOpening(object sender, EventArgs e)
         {
-            presenter.LoadCommentFromPanel(sender);
+            MapCreatorPresenter.LoadCommentFromPanel(sender);
         }
 
         private void TstComment_Leave(object sender, EventArgs e)
         {
-            presenter.AddCommentToPanel(sender);
+            MapCreatorPresenter.AddCommentToPanel(sender);
         }
 
         private void TsmiCameraIcon_Click(object sender, EventArgs e)

@@ -2,12 +2,8 @@
 
 namespace Sequence.Dto
 {
-    public class CameraInfo
+    public abstract class CameraInfo
     {
         public GridCamera GridCamera { get; set; }
-
-        public Camera Camera { get; set; }
-
-        public Server Server { get; set; }
     }
 }

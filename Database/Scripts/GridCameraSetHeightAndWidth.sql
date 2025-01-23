@@ -1,1 +1,1 @@
-﻿UPDATE GridCameralist SET Width = @Width, Height = @Height WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol
+﻿UPDATE GridCameras SET Width = @Width, Height = @Height WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol

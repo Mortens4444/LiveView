@@ -244,7 +244,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private MapObject GetMapObject(Control control)
+        private static MapObject GetMapObject(Control control)
         {
             var mapObject = new MapObject
             {
@@ -290,7 +290,7 @@ namespace LiveView.Presenters
             e.Effect = e.Data.GetDataPresent(typeof(MovableSizablePanel)) ? DragDropEffects.Move : DragDropEffects.None;
         }
 
-        public void AddCommentToPanel(object sender)
+        public static void AddCommentToPanel(object sender)
         {
             if (sender is ToolStripTextBox menuTextBox)
             {
@@ -305,7 +305,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void LoadCommentFromPanel(object sender)
+        public static void LoadCommentFromPanel(object sender)
         {
             if (sender is ToolStripMenuItem menuitem)
             {

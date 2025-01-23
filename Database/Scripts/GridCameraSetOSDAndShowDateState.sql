@@ -1,1 +1,1 @@
-﻿UPDATE GridCameralist SET Osd = @Osd, ShowDateTime = @ShowDateTime WHERE GridId = @GridId
+﻿UPDATE GridCameras SET Osd = @Osd, ShowDateTime = @ShowDateTime WHERE GridId = @GridId

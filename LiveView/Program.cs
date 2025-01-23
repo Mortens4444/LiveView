@@ -51,8 +51,8 @@ namespace LiveView
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
             BaseRepository.Execute("CreateTables");
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
-                "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns",
-                /*"MigrationRenameConstraints"*/ };
+                "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
+                "MigrationCreateAgentsTable" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();

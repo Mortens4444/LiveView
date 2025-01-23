@@ -27,14 +27,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Forms\Camera.cs">
+    <Compile Update="Forms\VideoSourceCamera.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AxVideoCamera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Forms\Camera.resx">
+    <EmbeddedResource Update="Forms\VideoSourceCamera.resx">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\AxVideoCamera.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

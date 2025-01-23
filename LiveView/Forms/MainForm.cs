@@ -227,7 +227,7 @@ namespace LiveView.Forms
 
         private void TsmiPositioningMousePointer_Click(object sender, EventArgs e)
         {
-            presenter.MoveMouseToHome();
+            MainPresenter.MoveMouseToHome();
         }
 
         [RequirePermission(SerialDeviceManagementPermissions.FullControl)]

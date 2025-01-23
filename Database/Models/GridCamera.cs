@@ -8,7 +8,7 @@ namespace Database.Models
 
         public long GridId { get; set; }
 
-        public long CameraId { get; set; }
+        public long? CameraId { get; set; }
 
         public int InitRow { get; set; }
 
@@ -45,6 +45,10 @@ namespace Database.Models
         public int CsrValue { get; set; }
 
         public bool ShowDateTime { get; set; } = false;
+
+        public string ServerIp { get; set; }
+
+        public string VideoSourceName { get; set; }
 
         public MatrixRegion MatrixRegion => new MatrixRegion
         {

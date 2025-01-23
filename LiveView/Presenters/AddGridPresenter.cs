@@ -1,16 +1,17 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
+using LiveView.Core.Services.Net;
 using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using LiveView.Services.Net;
 using Microsoft.Extensions.Logging;
-using Mtf.Controls.CustomEventArgs;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using System;
@@ -18,7 +19,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
-using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -89,7 +89,7 @@ namespace LiveView.Presenters
             view.Invalidate(true);
         }
 
-        private int CalculateDimension(int totalSize, int frameSize, decimal divisions) => (int)Math.Round((totalSize - frameSize) / divisions);
+        private static int CalculateDimension(int totalSize, int frameSize, decimal divisions) => (int)Math.Round((totalSize - frameSize) / divisions);
 
         public void AdjustLeftEdgeLeftwards() => AdjustEdge(view.NudInitialColumn, -1);
 
@@ -140,7 +140,7 @@ namespace LiveView.Presenters
                 view.NudNumberOfColumns.Value = grid.Columns;
                 view.NudPixelsFromRight.Value = grid.PixelsFromRight;
                 view.NudPixelsFromBottom.Value = grid.PixelsFromBottom;
-                gridType = GridType.General;
+                gridType = (GridType)(grid.Rows * grid.Columns);
                 view.Invalidate(true);
             }
         }
@@ -213,8 +213,6 @@ namespace LiveView.Presenters
         {
             var controls = GetControls();
             var selectedMatrixRegion = GetSelectedMatrixRegion();
-            //int selected = -1;
-            //selected = (controls[$"{ComboBox}{selectedMatrixRegion}"] as ComboBox)?.SelectedIndex ?? 0;
 
             RemoveControls(controls, selectedMatrixRegion);
 
@@ -302,12 +300,11 @@ namespace LiveView.Presenters
 
             result.Items.AddRange(
                 MainPresenter.VideoCaptureSources
-                    .SelectMany(vcs => vcs.Value, (vcs, camera) => new
+                    .SelectMany(vcs => vcs.Value, (vcs, camera) => new VideoSource
                     {
-                        Tag = vcs.Key,
+                        Socket = vcs.Key,
                         Name = camera.Key,
-                        EndPoint = camera.Value,
-                        ToString = (Func<string>)(() => $"{camera.Key} - {camera.Value}")
+                        EndPoint = camera.Value
                     })
                     .ToArray()
             );
@@ -511,24 +508,39 @@ namespace LiveView.Presenters
                     view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
                     view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));
                 }
-                else if (((dynamic)comboBox.SelectedItem).Tag is Socket socket)
+                else if (comboBox.SelectedItem is VideoSource videoSource)
                 {
-                    var videoSource = ((dynamic)comboBox.SelectedItem);
-                    var name = videoSource.Name;
-                    var endPoint = videoSource.EndPoint.Split(':');
-
-                    var videoCaptureClient = new VideoCaptureClient(Convert.ToString(endPoint[0]), Convert.ToUInt16(endPoint[1]));
+                    var videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
+                    videoCaptureClient.Start();
                     videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                 }
             }
         }
+        private Image lastImage = null;
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
         {
-            view.PMain.BackgroundImage = e.Frame;
+            try
+            {
+                lastImage?.Dispose();
+                view.AxVideoPlayerWindow.Invoke((Action)(() => { view.AxVideoPlayerWindow.Visible = false; }));
+                view.PMain.SetImage(e.Frame, true);
+                lastImage = e.Frame;
+
+                //view.AxVideoPlayerWindow.SetImage(e.Frame, true);
+            }
+            catch (InvalidOperationException)
+            {
+                //view.AxVideoPlayerWindow.SetImage(Properties.Resources.nosignal, false);
+            }
+            catch (Exception ex)
+            {
+                //view.AxVideoPlayerWindow.SetImage(Properties.Resources.nosignal, false);
+                DebugErrorBox.Show(ex);
+            }
         }
 
-        private void RemoveControls(Control.ControlCollection controls, MatrixRegion matrixRegionToDelete)
+        private static void RemoveControls(Control.ControlCollection controls, MatrixRegion matrixRegionToDelete)
         {
             var controlsToRemove = new List<Control>();
             foreach (Control control in controls)
@@ -545,7 +557,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private void RemoveOldControls(Control.ControlCollection controls)
+        private static void RemoveOldControls(Control.ControlCollection controls)
         {
             for (int i = controls.Count - 1; i >= 0; i--)
             {
@@ -645,16 +657,38 @@ namespace LiveView.Presenters
             {
                 if (control is ComboBox comboBox && control.Tag is MatrixRegion matrixRegion)
                 {
-                    var gridCamera = new GridCamera
+                    GridCamera gridCamera = null;
+                    if (comboBox.SelectedItem is CameraDto cameraDto)
                     {
-                        InitRow = matrixRegion.FromRow,
-                        InitCol = matrixRegion.FromColumn,
-                        EndRow = matrixRegion.ToRow,
-                        EndCol = matrixRegion.FromColumn,
-                        GridId = gridId,
-                        CameraId = ((CameraDto)comboBox.SelectedItem).Id
-                    };
-                    gridCameraRepository.Insert(gridCamera);
+                        gridCamera = new GridCamera
+                        {
+                            InitRow = matrixRegion.FromRow,
+                            InitCol = matrixRegion.FromColumn,
+                            EndRow = matrixRegion.ToRow,
+                            EndCol = matrixRegion.FromColumn,
+                            GridId = gridId,
+                            CameraId = cameraDto.Id
+                        };
+                    }
+                    else if (comboBox.SelectedItem is VideoSource videoSource)
+                    {
+                        gridCamera = new GridCamera
+                        {
+                            InitRow = matrixRegion.FromRow,
+                            InitCol = matrixRegion.FromColumn,
+                            EndRow = matrixRegion.ToRow,
+                            EndCol = matrixRegion.FromColumn,
+                            GridId = gridId,
+                            ServerIp = videoSource.ServerIp,
+                            VideoSourceName = videoSource.Name,
+                            CameraId = null
+                        };
+                    }
+
+                    if (gridCamera != null)
+                    {
+                        gridCameraRepository.Insert(gridCamera);
+                    }
                 }
             }
 

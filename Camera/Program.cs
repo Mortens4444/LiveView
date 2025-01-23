@@ -37,17 +37,48 @@ namespace CameraApp
 
             try
             {
-                if (args.Length <= 3)
+                if (args.Length == 2)
                 {
                     long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
                     long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-                    long? displayId = args.Length == 3 ? Convert.ToInt64(args[2], CultureInfo.InvariantCulture) : (long?)null;
-                    using (var form = new FullScreenCamera(userId, cameraId, displayId))
+                    using (var form = new AxVideoCameraWindow(userId, cameraId, null))
                     {
                         Application.Run(form);
                     }
                 }
-                else
+                if (args.Length == 3)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    if (Int64.TryParse(args[1], out var cameraId))
+                    {
+                        long? displayId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
+                        using (var form = new AxVideoCameraWindow(userId, cameraId, displayId))
+                        {
+                            Application.Run(form);
+                        }
+                    }
+                    else
+                    {
+                        var serverIp = args[1];
+                        var videoCaptureSource = args[2];
+                        using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, null))
+                        {
+                            Application.Run(form);
+                        }
+                    }
+                }
+                else if (args.Length == 4)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    var serverIp = args[1];
+                    var videoCaptureSource = args[2];
+                    long? displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+                    using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, displayId))
+                    {
+                        Application.Run(form);
+                    }
+                }
+                else if (args.Length == 6)
                 {
                     long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
                     long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
@@ -55,7 +86,21 @@ namespace CameraApp
                     int y = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
                     int width = Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
                     int height = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
-                    using (var form = new FullScreenCamera(userId, cameraId, new Point(x, y), new Size(width, height)))
+                    using (var form = new AxVideoCameraWindow(userId, cameraId, new Point(x, y), new Size(width, height)))
+                    {
+                        Application.Run(form);
+                    }
+                }
+                else if (args.Length == 7)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    var serverIp = args[1];
+                    var videoCaptureSource = args[2];
+                    int x = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+                    int y = Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    int width = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
+                    int height = Convert.ToInt32(args[6], CultureInfo.InvariantCulture);
+                    using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, new Point(x, y), new Size(width, height)))
                     {
                         Application.Run(form);
                     }

@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Linq;
@@ -170,10 +171,23 @@ namespace LiveView.Presenters
                 view.LvGridCameras.Items.Clear();
                 foreach (var gridCamera in gridCameras)
                 {
-                    var camera = cameraRepository.Select(gridCamera.CameraId);
-                    var server = serverRepository.Select(camera.ServerId);
-                    var item = CreateListViewItem(gridCamera, camera, server);
-                    view.LvGridCameras.Items.Add(item);
+                    ListViewItem item = null;
+                    if (gridCamera.CameraId.HasValue)
+                    {
+                        var camera = cameraRepository.Select(gridCamera.CameraId.Value);
+                        var server = serverRepository.Select(camera.ServerId);
+                        item = CreateListViewItem(gridCamera, camera, server);
+                    }
+                    else
+                    {
+                        item = CreateListViewItem(gridCamera, gridCamera.ServerIp, gridCamera.VideoSourceName);
+
+                    }
+
+                    if (item != null)
+                    {
+                        view.LvGridCameras.Items.Add(item);
+                    }
                 }
             }
         }
@@ -187,6 +201,18 @@ namespace LiveView.Presenters
             item.SubItems.Add(camera.CameraName);
             item.SubItems.Add(server.Hostname);
             item.SubItems.Add(camera.Guid);
+            return item;
+        }
+
+        private ListViewItem CreateListViewItem(GridCamera gridCamera, string serverIp, string videoSourceName)
+        {
+            var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
+            {
+                Tag = gridCamera
+            };
+            item.SubItems.Add(videoSourceName);
+            item.SubItems.Add(serverIp);
+            item.SubItems.Add(Lng.Elem("N/A"));
             return item;
         }
     }

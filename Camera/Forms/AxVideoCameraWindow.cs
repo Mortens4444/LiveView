@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace CameraApp.Forms
 {
-    public partial class FullScreenCamera : Form
+    public partial class AxVideoCameraWindow : Form
     {
         private readonly DisplayDto display;
         private readonly Point location;
@@ -19,7 +19,7 @@ namespace CameraApp.Forms
         private readonly long cameraId;
         private readonly PermissionManager<Database.Models.User> permissionManager;
 
-        public FullScreenCamera(long userId, long cameraId, Point location, Size size)
+        public AxVideoCameraWindow(long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
             this.cameraId = cameraId;
@@ -36,7 +36,7 @@ namespace CameraApp.Forms
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
-        public FullScreenCamera(long userId, long cameraId, long? displayId)
+        public AxVideoCameraWindow(long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             this.cameraId = cameraId;
@@ -73,7 +73,7 @@ namespace CameraApp.Forms
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
         }
 
-        private void FullScreenCamera_Load(object sender, EventArgs e)
+        private void AxVideoCameraWindow_Load(object sender, EventArgs e)
         {
 #if DEBUG
             Location = new Point(0, 0);
@@ -93,7 +93,7 @@ namespace CameraApp.Forms
 #endif
         }
 
-        private void FullScreenCamera_Shown(object sender, EventArgs e)
+        private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
             var cameraRepository = new CameraRepository();
             var serverRepository = new ServerRepository();

@@ -1,0 +1,14 @@
+﻿using Database.Interfaces;
+using Database.Models;
+using Mtf.Database;
+
+namespace Database.Repositories
+{
+    public sealed class AgentRepository : BaseRepository<Agent>, IAgentRepository
+    {
+        public void DeleteAll()
+        {
+            Execute("DeleteAllAgent");
+        }
+    }
+}

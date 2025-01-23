@@ -1,4 +1,4 @@
-﻿UPDATE GridCameralist
+﻿UPDATE GridCameras
 SET 
     GridId = @GridId,
     CameraId = @CameraId,
@@ -19,5 +19,7 @@ SET
     CsrSaveImages = @CsrSaveImages,
     CsrNumberOfPhotos = @CsrNumberOfPhotos,
     CsrValue = @CsrValue,
-    ShowDateTime = @ShowDateTime
+    ShowDateTime = @ShowDateTime,
+    ServerIp = @ServerIp,
+    VideoSourceName = @VideoSourceName
 WHERE Id = @Id;

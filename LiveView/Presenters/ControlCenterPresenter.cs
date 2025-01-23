@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -57,7 +58,7 @@ namespace LiveView.Presenters
             this.view = view as IControlCenterView;
         }
 
-        public void CalibrateJoystick()
+        public static void CalibrateJoystick()
         {
             JoystickHandler.CalibrateJoystick();
         }
@@ -183,6 +184,20 @@ namespace LiveView.Presenters
 
             view.LvSequences.AddItems(sequenceRepository.SelectAll(), sequence => new ListViewItem(sequence.Name) { Tag = sequence });
             view.LvCameras.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName) { Tag = camera });
+            foreach (var videoCaptureSource in MainPresenter.VideoCaptureSources)
+            {
+                foreach (var camera in videoCaptureSource.Value)
+                {
+                    var videoSource = new VideoSource
+                    {
+                        Socket = videoCaptureSource.Key,
+                        Name = camera.Key,
+                        EndPoint = camera.Value
+                    };
+                    view.LvCameras.Items.Add(new ListViewItem($"{videoSource.ServerIp} - {videoSource.Name}") { Tag = videoSource });
+                }
+            }
+            
             view.LvTemplates.AddItems(templateRepository.SelectAll(), template => new ListViewItem(template.TemplateName) { Tag = template });
 
             RefreshAgents();
@@ -236,20 +251,52 @@ namespace LiveView.Presenters
             {
                 return;
             }
+
+            var parameters = new[]
+            {
+        permissionManager.CurrentUser.Id.ToString(),
+        camera.Id.ToString()
+    };
+
+            StartCameraAppInternal(parameters);
+        }
+
+        public void StartCameraApp(VideoSource videoSource)
+        {
+            if (videoSource == null)
+            {
+                return;
+            }
+
+            var parameters = new[]
+            {
+                permissionManager.CurrentUser.Id.ToString(),
+                videoSource.ServerIp,
+                videoSource.Name
+            };
+
+            StartCameraAppInternal(parameters);
+        }
+
+        private void StartCameraAppInternal(string[] parameters)
+        {
             ProcessUtils.Kill(CameraProcess);
+
+            var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p);
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
                 var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
                 if (selectedDisplay != null)
                 {
+                    var displayId = selectedDisplay.Id.ToString();
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Id} {selectedDisplay.Id}");
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{string.Join(" ", protectedParameters)} {displayId}");
                     }
                     else
                     {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, permissionManager.CurrentUser.Id, camera.Id, selectedDisplay.Id);
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, protectedParameters.Concat(new[] { displayId }).ToArray());
                     }
                 }
                 else
@@ -263,11 +310,11 @@ namespace LiveView.Presenters
                 {
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Id}");
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, string.Join(" ", protectedParameters));
                     }
                     else
                     {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, permissionManager.CurrentUser.Id, camera.Id);
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, protectedParameters.ToArray());
                     }
                 }
             }

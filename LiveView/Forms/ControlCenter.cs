@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -15,8 +16,9 @@ namespace LiveView.Forms
 {
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
+        private readonly Camera camera;
+
         private ControlCenterPresenter presenter;
-        private Camera camera;
 
         public ControlCenter(IServiceProvider serviceProvider, Camera camera = null) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
@@ -96,7 +98,7 @@ namespace LiveView.Forms
         private void BtnCalibrate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.CalibrateJoystick();
+            ControlCenterPresenter.CalibrateJoystick();
         }
 
         [RequirePermission(GridManagementPermissions.Navigate)]
@@ -292,6 +294,12 @@ namespace LiveView.Forms
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
                 presenter.StartCameraApp(camera);
+                await Task.Delay(1000);
+                e.Item.Selected = false;
+            }
+            else if (e.IsSelected && e.Item.Tag is VideoSource videoSource)
+            {
+                presenter.StartCameraApp(videoSource);
                 await Task.Delay(1000);
                 e.Item.Selected = false;
             }

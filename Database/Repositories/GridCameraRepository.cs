@@ -12,44 +12,44 @@ namespace Database.Repositories
             return Query("SelectCombinedGridCamera", new { GridId = gridId });
         }
 
-        public string GridCameraListSetShowMethod(int cameraId)
+        public string GridCameraSetShowMethod(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListSetShowMethod", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraSetShowMethod", new { cid = cameraId });
         }
 
-        public string GridCameraListSetOSDState(int cameraId)
+        public string GridCameraSetOSDState(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListSetOSDState", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraSetOSDState", new { cid = cameraId });
         }
 
-        public string GridCameraListSetOSDAndShowDateState(int gridId)
+        public string GridCameraSetOSDAndShowDateState(int gridId)
         {
-            return ExecuteScalar<string>("GridCameraListSetOSDAndShowDateState", new { cid = gridId });
+            return ExecuteScalar<string>("GridCameraSetOSDAndShowDateState", new { cid = gridId });
         }
 
-        public string GridCameraListSetTopLeftCoordinates(int cameraId)
+        public string GridCameraSetTopLeftCoordinates(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListSetTopLeftCoordinates", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraSetTopLeftCoordinates", new { cid = cameraId });
         }
 
-        public string GridCameraListSetHeightAndWidth(int cameraId)
+        public string GridCameraSetHeightAndWidth(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListSetHeightAndWidth", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraSetHeightAndWidth", new { cid = cameraId });
         }
 
-        public string GridCameraListReset(int cameraId)
+        public string GridCameraReset(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListReset", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraReset", new { cid = cameraId });
         }
 
-        public string GridCameraListSetFrameState(int gridId)
+        public string GridCameraSetFrameState(int gridId)
         {
-            return ExecuteScalar<string>("GridCameraListSetFrameState", new { cid = gridId });
+            return ExecuteScalar<string>("GridCameraSetFrameState", new { cid = gridId });
         }
 
-        public string GridCameraListSetShowDateTimeState(int cameraId)
+        public string GridCameraSetShowDateTimeState(int cameraId)
         {
-            return ExecuteScalar<string>("GridCameraListSetShowDateTimeState", new { cid = cameraId });
+            return ExecuteScalar<string>("GridCameraSetShowDateTimeState", new { cid = cameraId });
         }
 
         public void DeleteCamerasOfGrid(long gridId)

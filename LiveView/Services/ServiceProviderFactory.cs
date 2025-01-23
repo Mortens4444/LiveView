@@ -115,6 +115,7 @@ namespace LiveView.Services
 
         private static void RegisterRepositories(ServiceCollection services)
         {
+            services.AddScoped<IAgentRepository, AgentRepository>();
             services.AddScoped<ICameraRepository, CameraRepository>();
             services.AddScoped<ICameraRightRepository, CameraRightRepository>();
             services.AddScoped<IDatabaseServerRepository, DatabaseServerRepository>();

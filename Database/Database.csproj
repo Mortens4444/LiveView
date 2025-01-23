@@ -17,9 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\DeleteAllAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
+    <EmbeddedResource Include="Scripts\InsertAgent.sql" />
+    <EmbeddedResource Include="Scripts\MigrationRestructureGridCameras.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectGroup.sql" />
     <EmbeddedResource Include="Scripts\InsertPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\InsertTemplateProcess.sql" />
@@ -47,7 +51,7 @@
     <EmbeddedResource Include="Scripts\MigrationData.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropChecksums.sql" />
     <EmbeddedResource Include="Scripts\MigrationRenameTables.sql" />
-    <EmbeddedResource Include="Scripts\MigrationRenameConstraints.sql" />
+    <EmbeddedResource Include="Scripts\MigrationCreateAgentsTable.sql" />
     <EmbeddedResource Include="Scripts\MigrationRenameColumns.sql" />
     <EmbeddedResource Include="Scripts\MigrationAddConstraints.sql" />
   </ItemGroup>

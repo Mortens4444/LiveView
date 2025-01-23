@@ -1,6 +1,6 @@
-﻿namespace CameraApp.Forms
+﻿namespace Sequence.Forms
 {
-    partial class FullScreenCamera
+    partial class AxVideoCamera
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(FullScreenCamera));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AxVideoCamera));
             axVideoPlayerWindow = new Mtf.Controls.x86.AxVideoPlayerWindow();
-            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
-            closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            cmsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // axVideoPlayerWindow
             // 
             axVideoPlayerWindow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            axVideoPlayerWindow.ContextMenuStrip = cmsMenu;
             axVideoPlayerWindow.Dock = System.Windows.Forms.DockStyle.Fill;
             axVideoPlayerWindow.Location = new System.Drawing.Point(0, 0);
             axVideoPlayerWindow.Name = "axVideoPlayerWindow";
@@ -49,20 +44,7 @@
             axVideoPlayerWindow.Size = new System.Drawing.Size(800, 450);
             axVideoPlayerWindow.TabIndex = 0;
             // 
-            // cmsMenu
-            // 
-            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { closeToolStripMenuItem });
-            cmsMenu.Name = "cmsMenu";
-            cmsMenu.Size = new System.Drawing.Size(104, 26);
-            // 
-            // closeToolStripMenuItem
-            // 
-            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            closeToolStripMenuItem.Text = "Close";
-            closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
-            // 
-            // FullScreenCamera
+            // Camera
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -71,21 +53,19 @@
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FullScreenCamera";
+            Name = "Camera";
             ShowIcon = false;
-            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
-            Load += FullScreenCamera_Load;
-            Shown += FullScreenCamera_Shown;
-            cmsMenu.ResumeLayout(false);
+            FormClosing += AxVideoCamera_FormClosing;
+            Load += AxVideoCamera_Load;
+            Shown += AxVideoCamera_Shown;
             ResumeLayout(false);
         }
 
         #endregion
 
         private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
-        private System.Windows.Forms.ContextMenuStrip cmsMenu;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }

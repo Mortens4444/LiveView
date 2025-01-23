@@ -91,11 +91,7 @@ namespace Sequence.Forms
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
             var displayRepository = new DisplayRepository();
-            var sequenceDisplay = displayRepository.Select(displayId);
-            if (sequenceDisplay == null)
-            {
-                throw new InvalidOperationException($"Display does not found in repository with Id '{displayId}'.");
-            }
+            var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display does not found in repository with Id '{displayId}'.");
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
 
@@ -108,12 +104,16 @@ namespace Sequence.Forms
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
-            var message = $"{client?.Encoding.GetString(e.Data)}";
-            var messageParts = message.Split('|');
-
-            if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+            var messages = $"{client?.Encoding.GetString(e.Data)}";
+            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var message in allMessages)
             {
-                Close();
+                var messageParts = message.Split('|');
+
+                if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                {
+                    Close();
+                }
             }
         }
 
@@ -145,7 +145,7 @@ namespace Sequence.Forms
             }
             else if (grids.Count == 1)
             {
-                var gridCameras = MainForm.GetCameras(grids[0]);
+                var gridCameras = GetCameras(grids[0]);
                 ShowGrid(grids, grids[0], gridCameras, cts.Token);
             }
             else
@@ -178,16 +178,27 @@ namespace Sequence.Forms
             {
                 var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
 
-                Camera cameraForm = null;
                 Invoke((Action)(() =>
                 {
-                    cameraForm = new Camera(permissionManager, camera.Camera, camera.Server, rectangle, cancellationToken)
+                    if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                     {
-                        MdiParent = this
-                    };
-                    cameraForm.Show();
+                        var cameraForm = new AxVideoCamera(permissionManager, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationToken)
+                        {
+                            MdiParent = this
+                        };
+                        cameraForm.Show();
+                        result.Add(cameraForm);
+                    }
+                    else if (camera is VideoCatureSourceCameraInfo videoCatureSourceCameraInfo)
+                    {
+                        var cameraForm = new VideoSourceCamera(permissionManager, videoCatureSourceCameraInfo, rectangle)
+                        {
+                            MdiParent = this
+                        };
+                        cameraForm.Show();
+                        result.Add(cameraForm);
+                    }
                 }));
-                result.Add(cameraForm);
             }
             return result;
         }
@@ -195,12 +206,19 @@ namespace Sequence.Forms
         private List<Process> ShowGridOnScreen(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
         {
             var result = new List<Process>();
-            var cameras = MainForm.GetCameras(gridInSequence);
+            var cameras = GetCameras(gridInSequence);
 
             foreach (var camera in cameras)
             {
                 var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                result.Add(AppStarter.Start(LiveView.Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {camera.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
+                if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
+                {
+                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {videoPictureCameraInfo.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
+                }
+                else if (camera is VideoCatureSourceCameraInfo videoCatureSourceCameraInfo)
+                {
+                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraExe, $"{permissionManager.CurrentUser.Id} {videoCatureSourceCameraInfo.ServerIp} {videoCatureSourceCameraInfo.VideoSourceName} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height}"));
+                }
             }
             return result;
         }
@@ -209,15 +227,30 @@ namespace Sequence.Forms
         {
             return gridCameras
                 .Where(gc => gc.GridId == grid.grid.Id)
-                .Join(allCameras,
-                    gridCamera => gridCamera.CameraId,
-                    camera => camera.Id,
-                    (gridCamera, camera) => new CameraInfo
+                .Select(gridCamera =>
+                {
+                    if (gridCamera.CameraId == null)
                     {
-                        GridCamera = gridCamera,
-                        Camera = camera,
-                        Server = servers.First(s => s.Id == camera.ServerId)
-                    })
+                        // Use VideoCatureSourceCameraInfo when CameraId is null
+                        return new VideoCatureSourceCameraInfo
+                        {
+                            GridCamera = gridCamera,
+                            ServerIp = gridCamera.ServerIp, // Assuming these fields are populated
+                            VideoSourceName = gridCamera.VideoSourceName
+                        } as CameraInfo;
+                    }
+                    else
+                    {
+                        // Use AxVideoPictureCameraInfo when CameraId is not null
+                        var camera = allCameras.First(c => c.Id == gridCamera.CameraId);
+                        return new AxVideoPictureCameraInfo
+                        {
+                            GridCamera = gridCamera,
+                            Camera = camera,
+                            Server = servers.First(s => s.Id == camera.ServerId)
+                        };
+                    }
+                })
                 .ToList();
         }
 
@@ -227,7 +260,7 @@ namespace Sequence.Forms
             {
                 foreach (var grid in sequenceGrids)
                 {
-                    var gridCameras = MainForm.GetCameras(grid);
+                    var gridCameras = GetCameras(grid);
                     ShowGrid(sequenceGrids, grid, gridCameras, token);
                     await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000, token).ConfigureAwait(false);
                     if (token.IsCancellationRequested)

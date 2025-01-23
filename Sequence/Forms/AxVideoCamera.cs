@@ -7,16 +7,16 @@ using System.Windows.Forms;
 
 namespace Sequence.Forms
 {
-    public partial class Camera : Form
+    public partial class AxVideoCamera : Form
     {
         //private int waitTimeInMs = 500;
         private readonly Server server;
-        private readonly Database.Models.Camera camera;
-        private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly Camera camera;
+        private readonly PermissionManager<User> permissionManager;
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public Camera(PermissionManager<Database.Models.User> permissionManager, Database.Models.Camera camera, Server server, Rectangle rectangle, CancellationToken cancellationToken)
+        public AxVideoCamera(PermissionManager<User> permissionManager, Camera camera, Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
             InitializeComponent();
             this.rectangle = rectangle;
@@ -26,13 +26,13 @@ namespace Sequence.Forms
             this.permissionManager = permissionManager;
         }
 
-        private void Camera_Load(object sender, EventArgs e)
+        private void AxVideoCamera_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
             Size = new Size(rectangle.Width, rectangle.Height);
         }
 
-        private async void Camera_Shown(object sender, EventArgs e)
+        private void AxVideoCamera_Shown(object sender, EventArgs e)
         {
             axVideoPlayerWindow.AxVideoPicture.Visible = false;
             axVideoPlayerWindow.OverlayText = $"{server.IpAddress} - {camera.CameraName}";
@@ -65,7 +65,7 @@ namespace Sequence.Forms
             //axVideoPlayerWindow.AxVideoPicture.Connect(server.IpAddress, camera.Guid, server.Username, server.Password);
         }
 
-        private void Camera_FormClosing(object sender, FormClosingEventArgs e)
+        private void AxVideoCamera_FormClosing(object sender, FormClosingEventArgs e)
         {
             axVideoPlayerWindow.AxVideoPlayer.Stop();
             axVideoPlayerWindow.AxVideoPlayer.Dispose();
