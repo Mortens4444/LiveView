@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace LiveView.Dto
 {
-    public class VideoSource
+    public class VideoSource : IEquatable<VideoSource>
     {
         private string endPoint;
 
@@ -24,6 +24,37 @@ namespace LiveView.Dto
                 var connectionData = value.Split(':');
                 ServerIp = connectionData[0];
                 ServerPort = Convert.ToUInt16(connectionData[1]);
+            }
+        }
+
+        public bool Equals(VideoSource other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return Name == other.Name && ServerIp == other.ServerIp;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is VideoSource other)
+            {
+                return Equals(other);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + (Name?.GetHashCode() ?? 0);
+                hash = hash * 23 + (ServerIp?.GetHashCode() ?? 0);
+                return hash;
             }
         }
 

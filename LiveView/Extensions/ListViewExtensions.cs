@@ -11,7 +11,7 @@ namespace LiveView.Extensions
         {
             foreach (ListViewItem item in listView.Items)
             {
-                if (((IHaveGuid)item.Tag).Guid == guid)
+                if (item.Tag is IHaveGuid guidOwner && guidOwner.Guid == guid)
                 {
                     return true;
                 }
@@ -23,7 +23,19 @@ namespace LiveView.Extensions
         {
             foreach (ListViewItem item in listView.Items)
             {
-                if (((IHaveId<long>)item.Tag).Id == id)
+                if (item.Tag is IHaveId<long> idOwner && idOwner.Id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool HasElementWithTag(this ListView listView, object value)
+        {
+            foreach (ListViewItem item in listView.Items)
+            {
+                if (item.Tag.Equals(value))
                 {
                     return true;
                 }

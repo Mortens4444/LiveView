@@ -47,6 +47,8 @@ namespace LiveView.Interfaces
         void ShowError(Exception exception);
 
         bool HasItemWithId(ListView listview, long id);
+        
+        bool HasItemWithTag(ListView listview, object value);
 
         ListView.ListViewItemCollection GetItems(ListView listView);
 

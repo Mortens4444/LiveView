@@ -16,6 +16,7 @@ namespace Sequence
         [STAThread]
         static void Main(string[] args)
         {
+            //System.Threading.Thread.Sleep(10000);
             ExceptionHandler.CatchUnhandledExceptions();
 
 #if NETFRAMEWORK

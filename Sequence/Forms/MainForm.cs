@@ -31,7 +31,7 @@ namespace Sequence.Forms
         private CancellationTokenSource cts;
 
         private static readonly ReadOnlyCollection<Database.Models.Server> servers = new ServerRepository().SelectAll();
-        private static readonly ReadOnlyCollection<Database.Models.Camera> allCameras = new CameraRepository().SelectAll();
+        private static readonly ReadOnlyCollection<Camera> allCameras = new CameraRepository().SelectAll();
         private static readonly ReadOnlyCollection<GridCamera> gridCameras = new GridCameraRepository().SelectAll();
         private static Client client;
 
@@ -83,8 +83,8 @@ namespace Sequence.Forms
             var userRepository = new UserRepository();
             var user = userRepository.Select(userId);
 
-            permissionManager = new PermissionManager<Database.Models.User>();
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<Database.Models.User>
+            permissionManager = new PermissionManager<User>();
+            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
             {
 
             });
@@ -104,16 +104,26 @@ namespace Sequence.Forms
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
-            var messages = $"{client?.Encoding.GetString(e.Data)}";
-            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var message in allMessages)
+            try
             {
-                var messageParts = message.Split('|');
-
-                if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                var messages = $"{client?.Encoding.GetString(e.Data)}";
+                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var message in allMessages)
                 {
-                    Close();
+                    var messageParts = message.Split('|');
+                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
             }
         }
 
@@ -160,14 +170,21 @@ namespace Sequence.Forms
 
             if (cts != null && !cts.IsCancellationRequested)
             {
+                try
+                {
 #if NET481
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Process.GetCurrentProcess().Id}", true);
-                cts.Cancel();
-                await Task.Delay(0).ConfigureAwait(false);
+                    client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Process.GetCurrentProcess().Id}", true);
+                    cts.Cancel();
+                    await Task.Delay(0).ConfigureAwait(false);
 #else
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Environment.ProcessId}", true);
-                await cts.CancelAsync().ConfigureAwait(false);
+                    client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{Environment.ProcessId}", true);
+                    await cts.CancelAsync().ConfigureAwait(false);
 #endif
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
         }
 

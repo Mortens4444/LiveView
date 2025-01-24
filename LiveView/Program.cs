@@ -52,7 +52,7 @@ namespace LiveView
             BaseRepository.Execute("CreateTables");
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
-                "MigrationCreateAgentsTable" };
+                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();

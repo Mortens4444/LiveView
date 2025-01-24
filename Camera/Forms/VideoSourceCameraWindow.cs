@@ -117,12 +117,15 @@ namespace CameraApp.Forms
         {
             var agentRepository = new AgentRepository();
             var agents = agentRepository.SelectAll();
-            var agent = agents.First(a => a.ServerIp == serverIp && a.VideoCaptureSourceName == videoCaptureSource);
-            videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
-            videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+            var agent = agents.FirstOrDefault(a => a.ServerIp == serverIp && a.VideoCaptureSourceName == videoCaptureSource);
+            if (agent != null)
+            {
+                videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
+                videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
 
-            videoCaptureClient.Start();
-            frameTimer.Start();
+                videoCaptureClient.Start();
+                frameTimer.Start();
+            }
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)

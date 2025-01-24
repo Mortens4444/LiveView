@@ -149,6 +149,11 @@ namespace LiveView.Forms
             return listview.HasElementWithId(id);
         }
 
+        public bool HasItemWithTag(ListView listview, object value)
+        {
+            return listview.HasElementWithTag(value);
+        }
+
         public void SelectByIndex(ComboBox comboBox, int index = 0)
         {
             if (comboBox.Items.Count > 0)

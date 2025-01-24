@@ -44,7 +44,7 @@ BEGIN
         ID BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         rows INT NOT NULL,
         columns INT NOT NULL,
-        name NVARCHAR(50) NOT NULL,
+        name NVARCHAR(500) NOT NULL,
         pixelsfrombottom INT NOT NULL,
         pixelsfromright INT NOT NULL,
         priority INT NULL,

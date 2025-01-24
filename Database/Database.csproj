@@ -22,6 +22,8 @@
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
     <EmbeddedResource Include="Scripts\InsertAgent.sql" />
+    <EmbeddedResource Include="Scripts\MigrationExtendSequenceName.sql" />
+    <EmbeddedResource Include="Scripts\MigrationExtendGridName.sql" />
     <EmbeddedResource Include="Scripts\MigrationRestructureGridCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectAllAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectGroup.sql" />

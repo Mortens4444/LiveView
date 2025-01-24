@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -8,6 +9,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -46,8 +48,32 @@ namespace LiveView.Presenters
 
         public void AddAll()
         {
-            AddAllItemsFromListViewToAnother(view.LeftSide, view.RightSide, (item) => view.HasItemWithId(view.RightSide, ((IHaveId<long>)item.Tag).Id));
+            var itemsToView = new List<ListViewItem>();
+            var items = view.GetItems(view.LeftSide);
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Tag is IHaveId<long> idOwner)
+                {
+                    if (!view.HasItemWithId(view.RightSide, idOwner.Id))
+                    {
+                        AddClonedItem(itemsToView, items[i]);
+                    }
+                }
+                else if (items[i].Tag is VideoSource videoSource)
+                {
+                    if (!view.HasItemWithTag(view.RightSide, videoSource))
+                    {
+                        AddClonedItem(itemsToView, items[i]);
+                    }
+                }
+            }
+            view.AddToItems(view.RightSide, itemsToView.ToArray());
             AfterItemCountChange();
+        }
+
+        private static void AddClonedItem(List<ListViewItem> itemsToView, ListViewItem item)
+        {
+            itemsToView.Add((ListViewItem)item.Clone());
         }
 
         public void AfterItemCountChange()
@@ -58,7 +84,26 @@ namespace LiveView.Presenters
 
         public void AddSelected()
         {
-            AddSelectedItemsFromListViewToAnother(view.LeftSide, view.RightSide, (item) => view.HasItemWithId(view.RightSide, ((IHaveId<long>)item.Tag).Id));
+            var itemsToView = new List<ListViewItem>();
+            var items = view.GetSelectedItems(view.LeftSide);
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Tag is IHaveId<long> idOwner)
+                {
+                    if (!view.HasItemWithId(view.RightSide, idOwner.Id))
+                    {
+                        AddClonedItem(itemsToView, items[i]);
+                    }
+                }
+                else if (items[i].Tag is VideoSource videoSource)
+                {
+                    if (!view.HasItemWithTag(view.RightSide, videoSource))
+                    {
+                        AddClonedItem(itemsToView, items[i]);
+                    }
+                }
+            }
+            view.AddToItems(view.RightSide, itemsToView.ToArray());
             AfterItemCountChange();
         }
 
@@ -110,95 +155,120 @@ namespace LiveView.Presenters
                 var cameraCountInGrid = templateGridCameras.Count;
                 var numberOfGridsInSequence = Convert.ToInt32(view.CbX.Text);
 
-                var gridCameras = new List<Camera>();
+                var gridCameras = new List<object>();
                 var grids = new List<Grid>();
                 var gridIds = new List<long>();
 
                 foreach (ListViewItem item in view.RightSide.Items)
                 {
+                    cameraCount++;
                     if (item.Tag is Camera camera)
                     {
                         gridCameras.Add(camera);
-                        cameraCount++;
-
-                        if (cameraCount % cameraCountInGrid == 0)
-                        {
-                            var gridName = gridCameras.Count > 1 ? String.Concat(gridCameras.First().CameraName, " - ", gridCameras.Last().CameraName) : gridCameras.First().CameraName;
-                            var actualGrid = new Grid
-                            {
-                                Name = $"{view.TbGridNamePrefix.Text}{gridName}{view.TbGridNamePostfix.Text}",
-                                Columns = grid.Columns,
-                                Rows = grid.Columns,
-                                PixelsFromBottom = grid.PixelsFromBottom,
-                                PixelsFromRight = grid.PixelsFromRight,
-                                Priority = grid.Priority
-                            };
-                            actualGrid.Id = gridRepository.InsertAndReturnId<long>(actualGrid);
-                            gridIds.Add(actualGrid.Id);
-                            grids.Add(actualGrid);
-                            logger.LogInfo(GridHasBeenCreated, actualGrid.Name);
-                            gridCount++;
-
-                            var gridCameraIndex = 0;
-                            foreach (var gridCamera in gridCameras)
-                            {
-                                var templateCamera = templateGridCameras[gridCameraIndex];
-                                gridCameraRepository.Insert(new GridCamera
-                                {
-                                    GridId = actualGrid.Id,
-                                    CameraId = gridCamera.Id,
-                                    InitRow = templateCamera.InitRow,
-                                    InitCol = templateCamera.InitCol,
-                                    EndRow = templateCamera.EndRow,
-                                    EndCol = templateCamera.EndCol,
-                                    Left = templateCamera.Left,
-                                    Width = templateCamera.Width,
-                                    Top = templateCamera.Top,
-                                    Height = templateCamera.Height,
-                                    CsrNumberOfPhotos = templateCamera.CsrNumberOfPhotos,
-                                    CsrSaveImages = templateCamera.CsrSaveImages,
-                                    CsrValue = templateCamera.CsrValue,
-                                    Frame = templateCamera.Frame,
-                                    MotionNumberOfPhotos = templateCamera.MotionNumberOfPhotos,
-                                    MotionSaveImages = templateCamera.MotionSaveImages,
-                                    MotionValue = templateCamera.MotionValue,
-                                    Osd = templateCamera.Osd,
-                                    Ptz = templateCamera.Ptz,
-                                    ShowDateTime = templateCamera.ShowDateTime
-                                });
-                                gridCameraIndex++;
-                            }
-                            gridCameras.Clear();
-                        }
-
-                        if (view.ChkCreateSequences.Checked && (gridCount % numberOfGridsInSequence == 0))
-                        {
-                            var sequenceName = grids.Count > 1 ? String.Concat(grids.First().Name, " - ", grids.Last().Name) : grids.First().Name;
-                            var actualSequence = new Database.Models.Sequence
-                            {
-                                Name = $"{view.TbSequenceNamePrefix.Text}{sequenceName}{view.TbSequenceNamePostfix.Text}",
-                                Active = true
-                            };
-                            var sequenceId = sequenceRepository.InsertAndReturnId<long>(actualSequence);
-
-                            int number = 1; 
-                            foreach (var gridId in gridIds)
-                            {
-                                gridInSequenceRepository.Insert(new GridInSequence
-                                {
-                                    SequenceId = sequenceId,
-                                    GridId = gridId,
-                                    Number = number++,
-                                    TimeToShow = (int)view.NudSecondsToShow.Value
-                                });
-                            }
-                            gridIds.Clear();
-                            grids.Clear();
-                            logger.LogInfo(SequenceHasBeenCreated, actualSequence.Name);
-                        }
+                        gridCount = CreateGrids(cameraCount, gridCount, grid, templateGridCameras, cameraCountInGrid, gridCameras, grids, gridIds);
+                        CreateSequence(gridCount, numberOfGridsInSequence, grids, gridIds);
+                    }
+                    else if (item.Tag is VideoSource videoSource)
+                    {
+                        gridCameras.Add(videoSource);
+                        gridCount = CreateGrids(cameraCount, gridCount, grid, templateGridCameras, cameraCountInGrid, gridCameras, grids, gridIds);
+                        CreateSequence(gridCount, numberOfGridsInSequence, grids, gridIds);
                     }
                 }
             }
+        }
+
+        private void CreateSequence(int gridCount, int numberOfGridsInSequence, List<Grid> grids, List<long> gridIds)
+        {
+            if (view.ChkCreateSequences.Checked && (gridCount % numberOfGridsInSequence == 0))
+            {
+                var sequenceName = grids.Count > 1 ? String.Concat(grids.First().Name, " - ", grids.Last().Name) : grids.First().Name;
+                var actualSequence = new Database.Models.Sequence
+                {
+                    Name = $"{view.TbSequenceNamePrefix.Text}{sequenceName}{view.TbSequenceNamePostfix.Text}",
+                    Active = true
+                };
+                var sequenceId = sequenceRepository.InsertAndReturnId<long>(actualSequence);
+
+                int number = 1;
+                foreach (var gridId in gridIds)
+                {
+                    gridInSequenceRepository.Insert(new GridInSequence
+                    {
+                        SequenceId = sequenceId,
+                        GridId = gridId,
+                        Number = number++,
+                        TimeToShow = (int)view.NudSecondsToShow.Value
+                    });
+                }
+                gridIds.Clear();
+                grids.Clear();
+                logger.LogInfo(SequenceHasBeenCreated, actualSequence.Name);
+            }
+        }
+
+        private int CreateGrids(int cameraCount, int gridCount, Grid grid, ReadOnlyCollection<GridCamera> templateGridCameras, int cameraCountInGrid, List<object> gridCameras, List<Grid> grids, List<long> gridIds)
+        {
+            if (cameraCount % cameraCountInGrid == 0)
+            {
+                var gridName = GetGridName(gridCameras);
+                var actualGrid = new Grid
+                {
+                    Name = $"{view.TbGridNamePrefix.Text}{gridName}{view.TbGridNamePostfix.Text}",
+                    Columns = grid.Columns,
+                    Rows = grid.Columns,
+                    PixelsFromBottom = grid.PixelsFromBottom,
+                    PixelsFromRight = grid.PixelsFromRight,
+                    Priority = grid.Priority
+                };
+                actualGrid.Id = gridRepository.InsertAndReturnId<long>(actualGrid);
+                gridIds.Add(actualGrid.Id);
+                grids.Add(actualGrid);
+                logger.LogInfo(GridHasBeenCreated, actualGrid.Name);
+                gridCount++;
+
+                var gridCameraIndex = 0;
+                foreach (var gridCamera in gridCameras)
+                {
+                    var templateCamera = templateGridCameras[gridCameraIndex];
+                    gridCameraRepository.Insert(new GridCamera
+                    {
+                        GridId = actualGrid.Id,
+                        CameraId = gridCamera is Camera camera1 ? (long?)camera1.Id : null,
+                        InitRow = templateCamera.InitRow,
+                        InitCol = templateCamera.InitCol,
+                        EndRow = templateCamera.EndRow,
+                        EndCol = templateCamera.EndCol,
+                        Left = templateCamera.Left,
+                        Width = templateCamera.Width,
+                        Top = templateCamera.Top,
+                        Height = templateCamera.Height,
+                        CsrNumberOfPhotos = templateCamera.CsrNumberOfPhotos,
+                        CsrSaveImages = templateCamera.CsrSaveImages,
+                        CsrValue = templateCamera.CsrValue,
+                        Frame = templateCamera.Frame,
+                        MotionNumberOfPhotos = templateCamera.MotionNumberOfPhotos,
+                        MotionSaveImages = templateCamera.MotionSaveImages,
+                        MotionValue = templateCamera.MotionValue,
+                        Osd = templateCamera.Osd,
+                        Ptz = templateCamera.Ptz,
+                        ShowDateTime = templateCamera.ShowDateTime,
+                        ServerIp = gridCamera is VideoSource videoSource1 ? videoSource1.ServerIp : null,
+                        VideoSourceName = gridCamera is VideoSource videoSource2 ? videoSource2.Name : null
+                    });
+                    gridCameraIndex++;
+                }
+                gridCameras.Clear();
+            }
+
+            return gridCount;
+        }
+
+        private static object GetGridName(List<object> gridCameras)
+        {
+            var firstCameraName = gridCameras.First() is Camera camera ? camera.CameraName : gridCameras.First() is VideoSource videoSource ? videoSource.Name : "N/A";
+            var lastCameraName = gridCameras.Last() is Camera camera2 ? camera2.CameraName : gridCameras.First() is VideoSource videoSource2 ? videoSource2.Name : "N/A";
+            return gridCameras.Count > 1 ? String.Concat(firstCameraName, " - ", lastCameraName) : firstCameraName;
         }
 
         public void RemoveAll()

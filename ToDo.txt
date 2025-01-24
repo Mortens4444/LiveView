@@ -1,6 +1,6 @@
 VideoSource
 -----------
-- Add to wizard, map, syncron view
+- Add to map, syncron view
 - AddGrid unsubsribe from videosource (change sould work)
 
 Groups

@@ -16,7 +16,6 @@ namespace Sequence.Forms
 {
     public partial class VideoSourceCamera : Form
     {
-        //private int waitTimeInMs = 500;
         private readonly PermissionManager<User> permissionManager;
         private readonly Rectangle rectangle;
         private readonly VideoCaptureClient videoCaptureClient;
@@ -32,21 +31,24 @@ namespace Sequence.Forms
             this.permissionManager = permissionManager;
             var agentRepository = new AgentRepository();
             var agents = agentRepository.SelectAll();
-            var agent = agents.First(a => a.ServerIp == videoCatureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCatureSourceCameraInfo.VideoSourceName);
-            videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
-            videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-
-            frameTimer = new Timer(frameTimeout);
-            frameTimer.Elapsed += (s, e) =>
+            var agent = agents.FirstOrDefault(a => a.ServerIp == videoCatureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCatureSourceCameraInfo.VideoSourceName);
+            if (agent != null)
             {
-                Invoke((Action)(() =>
-                {
-                    mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                }));
-                frameTimer.Stop();
-            };
+                videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
+                videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
 
-            frameTimer.AutoReset = false;
+                frameTimer = new Timer(frameTimeout);
+                frameTimer.Elapsed += (s, e) =>
+                {
+                    Invoke((Action)(() =>
+                    {
+                        mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                    }));
+                    frameTimer.Stop();
+                };
+
+                frameTimer.AutoReset = false;
+            }
         }
 
         private void VideoSourceCamera_Load(object sender, EventArgs e)
@@ -58,12 +60,12 @@ namespace Sequence.Forms
         private void VideoSourceCamera_Shown(object sender, EventArgs e)
         {
             Start();
-            frameTimer.Start();
+            frameTimer?.Start();
         }
 
         private void Start()
         {
-            videoCaptureClient.Start();
+            videoCaptureClient?.Start();
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
@@ -89,8 +91,8 @@ namespace Sequence.Forms
 
         private void VideoSourceCamera_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frameTimer.Stop();
-            videoCaptureClient.Stop();
+            frameTimer?.Stop();
+            videoCaptureClient?.Stop();
         }
     }
 }
