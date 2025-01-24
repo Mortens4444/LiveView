@@ -1,5 +1,6 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.Controls.x86;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
@@ -47,6 +48,8 @@ namespace LiveView.Forms
         public bool IsVideoConnected => axVideoPlayerWindow.AxVideoPicture.IsConnected();
 
         public AxVideoPlayerWindow AxVideoPlayerWindow => axVideoPlayerWindow;
+
+        public MtfPictureBox MtfCamera => mtfCamera;
 
         public AddGrid(IServiceProvider serviceProvider) : base(serviceProvider, typeof(AddGridPresenter))
         {

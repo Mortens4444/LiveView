@@ -104,6 +104,7 @@
             lblGridName = new System.Windows.Forms.Label();
             btnSave = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
+            mtfCamera = new Mtf.Controls.MtfPictureBox();
             pMain.SuspendLayout();
             ssStatusStrip.SuspendLayout();
             pEditor.SuspendLayout();
@@ -120,11 +121,13 @@
             ((System.ComponentModel.ISupportInitialize)nudNumberOfRows).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfColumns).BeginInit();
             gbProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)mtfCamera).BeginInit();
             SuspendLayout();
             // 
             // pMain
             // 
             pMain.BackColor = System.Drawing.Color.Gray;
+            pMain.Controls.Add(mtfCamera);
             pMain.Controls.Add(axVideoPlayerWindow);
             pMain.Controls.Add(ssStatusStrip);
             pMain.Controls.Add(pEditor);
@@ -955,6 +958,22 @@
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += BtnClose_Click;
             // 
+            // mtfCamera
+            // 
+            mtfCamera.BackgroundPaintDebounceIntervalInMs = 0;
+            mtfCamera.Location = new System.Drawing.Point(220, 98);
+            mtfCamera.Name = "mtfCamera";
+            mtfCamera.OriginalSize = new System.Drawing.Size(0, 0);
+            mtfCamera.PaintDebounceIntervalInMs = 0;
+            mtfCamera.RepositioningAndResizingControlsOnResize = false;
+            mtfCamera.ResizeDebounceIntervalInMs = 0;
+            mtfCamera.ShowPaintErrors = false;
+            mtfCamera.ShowResizeErrors = false;
+            mtfCamera.Size = new System.Drawing.Size(114, 71);
+            mtfCamera.TabIndex = 8;
+            mtfCamera.TabStop = false;
+            mtfCamera.Visible = false;
+            // 
             // AddGrid
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -988,6 +1007,7 @@
             ((System.ComponentModel.ISupportInitialize)nudNumberOfColumns).EndInit();
             gbProperties.ResumeLayout(false);
             gbProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)mtfCamera).EndInit();
             ResumeLayout(false);
         }
 
@@ -1068,5 +1088,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
         private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
+        private Mtf.Controls.MtfPictureBox mtfCamera;
     }
 }

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -170,6 +171,7 @@ namespace LiveView.Presenters
                     DrawBorders(graphics, matrixRegion, defaultWindowSize, color, BorderThickness);
                 }
             }
+            Thread.Sleep(40);
         }
 
         public void DrawMiniDesign(Graphics graphics)
@@ -202,6 +204,7 @@ namespace LiveView.Presenters
             {
                 ShowError(ex);
             }
+            Thread.Sleep(40);
         }
 
         private MatrixRegion GetSelectedMatrixRegion()
@@ -503,6 +506,7 @@ namespace LiveView.Presenters
                 if (comboBox.SelectedItem is CameraDto camera)
                 {
                     view.AxVideoPlayerWindow.Visible = true;
+                    view.MtfCamera.Visible = false;
                     view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.Server.IpAddress, camera.Guid, camera.Server.VideoServerCredentials.Username, camera.Server.VideoServerCredentials.Password);
                     var matrixRegion = comboBox.Tag as MatrixRegion;
                     view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
@@ -510,10 +514,25 @@ namespace LiveView.Presenters
                 }
                 else if (comboBox.SelectedItem is VideoSource videoSource)
                 {
+                    view.MtfCamera.Visible = true;
+                    view.AxVideoPlayerWindow.Visible = false;
                     var videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
                     videoCaptureClient.Start();
                     videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+                    var matrixRegion = comboBox.Tag as MatrixRegion;
+                    view.MtfCamera.Location = GetControlLocation(matrixRegion, 62);
+                    view.MtfCamera.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));
                 }
+                else
+                {
+                    view.MtfCamera.Visible = false;
+                    view.AxVideoPlayerWindow.Visible = false;
+                }
+            }
+            else
+            {
+                view.MtfCamera.Visible = false;
+                view.AxVideoPlayerWindow.Visible = false;
             }
         }
         private Image lastImage = null;
@@ -523,11 +542,9 @@ namespace LiveView.Presenters
             try
             {
                 lastImage?.Dispose();
-                view.AxVideoPlayerWindow.Invoke((Action)(() => { view.AxVideoPlayerWindow.Visible = false; }));
-                view.PMain.SetImage(e.Frame, true);
+                view.MtfCamera.SetImage(e.Frame, true);
                 lastImage = e.Frame;
 
-                //view.AxVideoPlayerWindow.SetImage(e.Frame, true);
             }
             catch (InvalidOperationException)
             {
@@ -657,38 +674,25 @@ namespace LiveView.Presenters
             {
                 if (control is ComboBox comboBox && control.Tag is MatrixRegion matrixRegion)
                 {
-                    GridCamera gridCamera = null;
+                    GridCamera gridCamera = new GridCamera
+                    {
+                        InitRow = matrixRegion.FromRow,
+                        InitCol = matrixRegion.FromColumn,
+                        EndRow = matrixRegion.ToRow,
+                        EndCol = matrixRegion.FromColumn,
+                        GridId = gridId
+                    };
                     if (comboBox.SelectedItem is CameraDto cameraDto)
                     {
-                        gridCamera = new GridCamera
-                        {
-                            InitRow = matrixRegion.FromRow,
-                            InitCol = matrixRegion.FromColumn,
-                            EndRow = matrixRegion.ToRow,
-                            EndCol = matrixRegion.FromColumn,
-                            GridId = gridId,
-                            CameraId = cameraDto.Id
-                        };
+                        gridCamera.CameraId = cameraDto.Id;
                     }
                     else if (comboBox.SelectedItem is VideoSource videoSource)
                     {
-                        gridCamera = new GridCamera
-                        {
-                            InitRow = matrixRegion.FromRow,
-                            InitCol = matrixRegion.FromColumn,
-                            EndRow = matrixRegion.ToRow,
-                            EndCol = matrixRegion.FromColumn,
-                            GridId = gridId,
-                            ServerIp = videoSource.ServerIp,
-                            VideoSourceName = videoSource.Name,
-                            CameraId = null
-                        };
+                        gridCamera.ServerIp = videoSource.ServerIp;
+                        gridCamera.VideoSourceName = videoSource.Name;
+                        gridCamera.CameraId = null;
                     }
-
-                    if (gridCamera != null)
-                    {
-                        gridCameraRepository.Insert(gridCamera);
-                    }
+                    gridCameraRepository.Insert(gridCamera);
                 }
             }
 

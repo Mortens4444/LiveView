@@ -2,7 +2,8 @@ VideoSource
 -----------
 - Add to wizard
 - Add to map
-- Fix AddGrid OutOfMemoryException
+- AddGrid unsubsribe from videosource (change sould work)
+- Fix creating Sequence
 
 Groups
 ------

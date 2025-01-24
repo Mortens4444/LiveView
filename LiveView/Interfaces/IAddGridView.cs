@@ -1,4 +1,5 @@
-﻿using Mtf.Controls.x86;
+﻿using Mtf.Controls;
+using Mtf.Controls.x86;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces
@@ -38,5 +39,7 @@ namespace LiveView.Interfaces
         bool IsVideoConnected { get; }
 
         AxVideoPlayerWindow AxVideoPlayerWindow { get; }
+
+        MtfPictureBox MtfCamera { get; }
     }
 }

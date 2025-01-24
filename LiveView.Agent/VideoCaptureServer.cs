@@ -13,6 +13,7 @@ namespace LiveView.Agent
         public static Server Capture(Dictionary<string, CancellationTokenSource> cancellationTokenSources, VideoCapture videoCapture, string videoCaptureIdentifier, byte fps = 25)
         {
             var server = new Server();
+            Thread.Sleep(100);
             server.Start();
             server.SetBufferSize(409600);
 
@@ -71,13 +72,9 @@ namespace LiveView.Agent
             var totalParts = (int)Math.Ceiling((double)data.Length / chunkSize);
             for (int i = 0; i < totalParts; i++)
             {
-                //var headerBytes = server.Encoding.GetBytes($"{NetworkCommand.FrameArrived}|{videoCaptureIdentifier}|{i + 1}|{totalParts}|");
                 var offset = i * chunkSize;
                 var partSize = Math.Min(chunkSize, data.Length - offset);
-                //var partBytes = new byte[partSize + headerBytes.Length];
                 var partBytes = new byte[partSize];
-                //Buffer.BlockCopy(headerBytes, 0, partBytes, 0, headerBytes.Length);
-                //Buffer.BlockCopy(data, offset, partBytes, headerBytes.Length, partSize);
                 Buffer.BlockCopy(data, offset, partBytes, 0, partSize);
                 server.SendBytesToAllClients(partBytes, true);
             }

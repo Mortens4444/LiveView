@@ -10,8 +10,8 @@ using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace CameraApp.Forms
 {
@@ -23,6 +23,10 @@ namespace CameraApp.Forms
         private readonly string serverIp;
         private readonly string videoCaptureSource;
         private readonly PermissionManager<Database.Models.User> permissionManager;
+
+        private Image lastImage;
+        private Timer frameTimer;
+        private readonly int frameTimeout = 1500;
 
         private VideoCaptureClient videoCaptureClient;
 
@@ -41,26 +45,6 @@ namespace CameraApp.Forms
             this.location = location;
             this.size = size;
 #endif
-        }
-
-        private Image lastImage = null;
-        private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
-        {
-            try
-            {
-                lastImage?.Dispose();
-                mtfCamera.SetImage(e.Frame, true);
-                lastImage = e.Frame;
-            }
-            catch (InvalidOperationException)
-            {
-                mtfCamera.SetImage(Properties.Resources.nosignal, false);
-            }
-            catch (Exception ex)
-            {
-                mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                DebugErrorBox.Show(ex);
-            }
         }
 
         public VideoSourceCameraWindow(long userId, string serverIp, string videoCaptureSource, long? displayId)
@@ -85,6 +69,18 @@ namespace CameraApp.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource)
         {
+            frameTimer = new Timer(frameTimeout);
+            frameTimer.Elapsed += (s, e) =>
+            {
+                Invoke((Action)(() =>
+                {
+                    mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                }));
+                frameTimer.Stop();
+            };
+
+            frameTimer.AutoReset = false;
+
             closeToolStripMenuItem.Text = Lng.Elem("Close");
 
             var userRepository = new UserRepository();
@@ -119,8 +115,6 @@ namespace CameraApp.Forms
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
-            Thread.Sleep(10000);
-
             var agentRepository = new AgentRepository();
             var agents = agentRepository.SelectAll();
             var agent = agents.First(a => a.ServerIp == serverIp && a.VideoCaptureSourceName == videoCaptureSource);
@@ -128,6 +122,29 @@ namespace CameraApp.Forms
             videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
 
             videoCaptureClient.Start();
+            frameTimer.Start();
+        }
+
+        private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
+        {
+            try
+            {
+                frameTimer.Stop();
+
+                lastImage?.Dispose();
+                mtfCamera.SetImage(e.Frame, true);
+                lastImage = e.Frame;
+                frameTimer.Start();
+            }
+            catch (InvalidOperationException)
+            {
+                mtfCamera.SetImage(Properties.Resources.nosignal, false);
+            }
+            catch (Exception ex)
+            {
+                mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
