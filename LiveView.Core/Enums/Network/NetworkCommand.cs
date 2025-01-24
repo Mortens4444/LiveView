@@ -13,8 +13,6 @@
         UnregisterSequence,
         Close,
         FrameArrived,
-        VideoCapture,
-        VideoCaptureFileServe,
         VideoCaptureCreationFailure,
         VideoCaptureFailure,
         StopVideoCapture,

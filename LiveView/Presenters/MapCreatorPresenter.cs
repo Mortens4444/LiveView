@@ -88,7 +88,7 @@ namespace LiveView.Presenters
 
             var cameras = cameraRepository.SelectAll();
             var servers = serverRepository.SelectAll();
-            ParentChildToolStripMenuItemBuilder.PopulateMenuItems(
+            CameraListProvider.PopulateMenuItems(
                 view.TsmiOpenCamera,
                 servers,
                 server => server.ToString(),

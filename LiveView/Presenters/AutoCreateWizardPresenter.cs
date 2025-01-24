@@ -4,6 +4,7 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -214,7 +215,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.LeftSide.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName, CameraIndex) { Tag = camera });
+            CameraListProvider.AddCameras(view.LeftSide, cameraRepository.SelectAll(), CameraIndex);
 
             var grids = gridRepository.SelectAll();
             view.AddItems(view.CbGrids, grids);

@@ -80,7 +80,7 @@ namespace LiveView.Presenters
         public override void Load()
         {
             var cameras = cameraRepository.SelectAll();
-            ParentChildToolStripMenuItemBuilder.PopulateMenuItems(
+            CameraListProvider.PopulateMenuItems(
                 view.TsmiChangeCameraTo,
                 servers,
                 server => server.ToString(),

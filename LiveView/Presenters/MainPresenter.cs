@@ -385,9 +385,16 @@ namespace LiveView.Presenters
 
         public static void SentToClient(string clientAddress, params object[] parameters)
         {
-            using (var clientSocket = CreateSocket(clientAddress))
+            try
             {
-                Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
+                using (var clientSocket = CreateSocket(clientAddress))
+                {
+                    Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
             }
         }
 

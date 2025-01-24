@@ -8,6 +8,7 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
 using Mtf.LanguageService;
@@ -183,20 +184,7 @@ namespace LiveView.Presenters
             view.InitializeMouseUpdateTimer(view.PDisplayDevices);
 
             view.LvSequences.AddItems(sequenceRepository.SelectAll(), sequence => new ListViewItem(sequence.Name) { Tag = sequence });
-            view.LvCameras.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName) { Tag = camera });
-            foreach (var videoCaptureSource in MainPresenter.VideoCaptureSources)
-            {
-                foreach (var camera in videoCaptureSource.Value)
-                {
-                    var videoSource = new VideoSource
-                    {
-                        Socket = videoCaptureSource.Key,
-                        Name = camera.Key,
-                        EndPoint = camera.Value
-                    };
-                    view.LvCameras.Items.Add(new ListViewItem($"{videoSource.ServerIp} - {videoSource.Name}") { Tag = videoSource });
-                }
-            }
+            CameraListProvider.AddCameras(view.LvCameras, cameraRepository.SelectAll());
             
             view.LvTemplates.AddItems(templateRepository.SelectAll(), template => new ListViewItem(template.TemplateName) { Tag = template });
 

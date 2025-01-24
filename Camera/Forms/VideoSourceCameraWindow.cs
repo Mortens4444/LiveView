@@ -130,7 +130,6 @@ namespace CameraApp.Forms
             try
             {
                 frameTimer.Stop();
-
                 lastImage?.Dispose();
                 mtfCamera.SetImage(e.Frame, true);
                 lastImage = e.Frame;

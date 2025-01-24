@@ -34,6 +34,7 @@
             // 
             // mtfCamera
             // 
+            mtfCamera.BackColor = System.Drawing.Color.Black;
             mtfCamera.BackgroundPaintDebounceIntervalInMs = 0;
             mtfCamera.Dock = System.Windows.Forms.DockStyle.Fill;
             mtfCamera.Image = Properties.Resources.nosignal;

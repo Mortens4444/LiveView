@@ -14,10 +14,15 @@ namespace LiveView.Extensions
             }
         }
 
-        public static void AddItemsAndSelectFirst(this ComboBox comboBox, IEnumerable<object> items)
+        public static void AddItems(this ComboBox comboBox, IEnumerable<object> items)
         {
             comboBox.Items.Clear();
             comboBox.Items.AddRange(items.ToArray());
+        }
+
+        public static void AddItemsAndSelectFirst(this ComboBox comboBox, IEnumerable<object> items)
+        {
+            comboBox.AddItems(items);
             comboBox.SelectFirst();
         }
     }

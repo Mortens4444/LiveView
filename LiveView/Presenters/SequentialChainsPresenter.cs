@@ -115,7 +115,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.CbSequences.AddItemsAndSelectFirst(sequenceRepository.SelectAll());
+            view.CbSequences.AddItems(sequenceRepository.SelectAll());
             view.CbGrids.AddItemsAndSelectFirst(gridRepository.SelectAll());
         }
 

@@ -88,7 +88,6 @@ namespace LiveView.Agent
         {
             var json = ConfigurationManager.AppSettings["StartCameras"];
             var videoCaptureIds = JsonSerializer.Deserialize<List<string>>(json);
-            //var videoCaptureIds = new[] { "0", "1", "2", "3", @"E:\Video\Natasha Bedingfield - Pocketful of Sunshine (Official Video).mp4" };
             foreach (var videoCaptureId in videoCaptureIds)
             {
                 try
@@ -96,7 +95,6 @@ namespace LiveView.Agent
                     var server = Int32.TryParse(videoCaptureId, out var videoCaptureIndex) ?
                         VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(videoCaptureIndex), videoCaptureId) :
                         VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(videoCaptureId), videoCaptureId);
-                    //Capture(VideoCapture.FromFile(videoCaptureId), videoCaptureId);
                     cameraServers.Add(videoCaptureId, server);
                 }
                 catch (Exception ex)
@@ -184,17 +182,6 @@ namespace LiveView.Agent
                     {
                         SendVideoCaptureSourcesToLiveView();
                     }
-                    //else if (message.StartsWith($"{NetworkCommand.VideoCaptureFileServe}|", StringComparison.InvariantCulture))
-                    //{
-                    //    var server = VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(messageParts[1]), messageParts[1]);
-                    //}
-                    //else if (message.StartsWith($"{NetworkCommand.VideoCapture}|", StringComparison.InvariantCulture))
-                    //{
-                    //    if (Int32.TryParse(messageParts[1], out var videoCaptureIndex))
-                    //    {
-                    //        var server = VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(videoCaptureIndex), videoCaptureIndex.ToString(CultureInfo.CurrentCulture));
-                    //    }
-                    //}
                     else if (message.StartsWith($"{NetworkCommand.StopVideoCapture}|", StringComparison.InvariantCulture))
                     {
                         if (cancellationTokenSources.TryGetValue(messageParts[1], out var value))

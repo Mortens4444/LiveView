@@ -10,6 +10,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace Sequence.Forms
 {
@@ -19,6 +20,10 @@ namespace Sequence.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly Rectangle rectangle;
         private readonly VideoCaptureClient videoCaptureClient;
+
+        private Image lastImage;
+        private Timer frameTimer;
+        private readonly int frameTimeout = 1500;
 
         public VideoSourceCamera(PermissionManager<User> permissionManager, VideoCatureSourceCameraInfo videoCatureSourceCameraInfo, Rectangle rectangle)
         {
@@ -30,6 +35,18 @@ namespace Sequence.Forms
             var agent = agents.First(a => a.ServerIp == videoCatureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCatureSourceCameraInfo.VideoSourceName);
             videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
             videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+
+            frameTimer = new Timer(frameTimeout);
+            frameTimer.Elapsed += (s, e) =>
+            {
+                Invoke((Action)(() =>
+                {
+                    mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                }));
+                frameTimer.Stop();
+            };
+
+            frameTimer.AutoReset = false;
         }
 
         private void VideoSourceCamera_Load(object sender, EventArgs e)
@@ -41,21 +58,23 @@ namespace Sequence.Forms
         private void VideoSourceCamera_Shown(object sender, EventArgs e)
         {
             Start();
+            frameTimer.Start();
         }
 
         private void Start()
         {
             videoCaptureClient.Start();
         }
-        private Image lastImage = null;
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
         {
             try
             {
+                frameTimer.Stop();
                 lastImage?.Dispose();
                 mtfCamera.SetImage(e.Frame, true);
                 lastImage = e.Frame;
+                frameTimer.Start();
             }
             catch (InvalidOperationException)
             {
@@ -70,6 +89,7 @@ namespace Sequence.Forms
 
         private void VideoSourceCamera_FormClosing(object sender, FormClosingEventArgs e)
         {
+            frameTimer.Stop();
             videoCaptureClient.Stop();
         }
     }
