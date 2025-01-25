@@ -19,9 +19,13 @@ namespace LiveView.Services
         public delegate void CameraObjectClickedEventHandler(CameraObjectClickedEventArgs e);
         public event CameraObjectClickedEventHandler CameraObjectClicked;
 
+        public delegate void VideoSourceObjectClickedEventHandler(VideoSourceObjectClickedEventArgs e);
+        public event VideoSourceObjectClickedEventHandler VideoSourceObjectClicked;
+
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly IGridCameraRepository gridCameraRepository;
 
         public MapLoader(Control mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {
@@ -30,6 +34,7 @@ namespace LiveView.Services
             mapRepository = mapLoaderDependencies.MapRepository;
             mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
+            gridCameraRepository = mapLoaderDependencies.GridCameraRepository;
         }
 
         public void LoadMap(MapDto map)
@@ -105,7 +110,12 @@ namespace LiveView.Services
             CameraObjectClicked?.Invoke(e);
         }
 
-        private void MapObjectPanel_MouseEnter(Object sender, EventArgs e)
+        protected virtual void OnVideoSourceObjectClicked(VideoSourceObjectClickedEventArgs e)
+        {
+            VideoSourceObjectClicked?.Invoke(e);
+        }
+
+        private void MapObjectPanel_MouseEnter(object sender, EventArgs e)
         {
             var mapObjectPanel = (TransparentPanel)sender;
             if (mapObjectPanel == null)
@@ -140,6 +150,15 @@ namespace LiveView.Services
                 case MapActionType.OpenCamera:
                     var camera = cameraRepository.Select(mapObject.ActionReferencedId);
                     OnCameraObjectClicked(new CameraObjectClickedEventArgs(camera));
+                    break;
+                case MapActionType.OpenVideoSource:
+                    var gridCamera = gridCameraRepository.Select(mapObject.ActionReferencedId); // Should use VideoSourceRepository
+                    var videoSource = new VideoSource
+                    {
+                        EndPoint = $"{gridCamera.ServerIp}:0",
+                        Name = gridCamera.VideoSourceName
+                    };
+                    OnVideoSourceObjectClicked(new VideoSourceObjectClickedEventArgs(videoSource));
                     break;
                 case MapActionType.OpenMap:
                     var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId));

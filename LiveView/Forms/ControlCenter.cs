@@ -17,13 +17,23 @@ namespace LiveView.Forms
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
         private readonly Camera camera;
+        private readonly VideoSource videoSource;
 
         private ControlCenterPresenter presenter;
 
-        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null) : base(serviceProvider, typeof(ControlCenterPresenter))
+        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null) : this(serviceProvider)
+        {
+            this.camera = camera;
+        }
+
+        public ControlCenter(IServiceProvider serviceProvider, VideoSource videoSource = null) : this(serviceProvider)
+        {
+            this.videoSource = videoSource;
+        }
+
+        private ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
             InitializeComponent();
-            this.camera = camera;
 
             permissionManager.ApplyPermissionsOnControls(this);
             if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.PanTilt))
@@ -72,6 +82,14 @@ namespace LiveView.Forms
         public ListView LvTemplates => lvTemplates;
 
         public ComboBox CbAgents => cbAgents;
+
+        private void ControlCenter_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as ControlCenterPresenter;
+            presenter.Load();
+            presenter.StartCameraApp(camera);
+            presenter.StartCameraApp(videoSource);
+        }
 
         [RequirePermission(SequenceManagementPermissions.Close)]
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
@@ -256,13 +274,6 @@ namespace LiveView.Forms
             presenter.StopMoving();
         }
 
-        private void ControlCenter_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as ControlCenterPresenter;
-            presenter.Load();
-            presenter.StartCameraApp(camera);
-        }
-
         private void PDisplayDevices_Paint(object sender, PaintEventArgs e)
         {
             try
@@ -308,6 +319,11 @@ namespace LiveView.Forms
         public void StartCamera(Camera camera)
         {
             presenter.StartCameraApp(camera);
+        }
+        
+        public void StartVideoSource(VideoSource videoSource)
+        {
+            presenter.StartCameraApp(videoSource);
         }
 
         private void PDisplayDevices_MouseClick(object sender, MouseEventArgs e)

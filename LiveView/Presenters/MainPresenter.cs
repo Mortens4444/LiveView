@@ -308,12 +308,25 @@ namespace LiveView.Presenters
                 {
                     mapLoader = ActivatorUtilities.CreateInstance<MapLoader>(serviceProvider, view.PbMap, view.TtHint);
                     mapLoader.CameraObjectClicked += MapLoader_CameraObjectClicked;
+                    mapLoader.VideoSourceObjectClicked += MapLoader_VideoSourceObjectClicked;
                 }
                 mapLoader.LoadMap(map);
             }
             else
             {
                 view.PbMap.Image = Properties.Resources.IPVS37;
+            }
+        }
+
+        private void MapLoader_VideoSourceObjectClicked(CustomEventArgs.VideoSourceObjectClickedEventArgs e)
+        {
+            if (MainForm.ControlCenter == null || MainForm.ControlCenter.IsDisposed)
+            {
+                MainForm.ControlCenter = ShowForm<ControlCenter>(e.VideoSource);
+            }
+            else
+            {
+                MainForm.ControlCenter.StartVideoSource(e.VideoSource);
             }
         }
 

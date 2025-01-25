@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -25,10 +26,12 @@ namespace LiveView.Presenters
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly IGridCameraRepository gridCameraRepository;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly IObjectInMapRepository objectInMapRepository;
         private readonly ILogger<MapCreator> logger;
+        private readonly ReadOnlyCollection<GridCamera> gridCameras;
         private static Mtf.Controls.Models.LocationAndSize imageLocationAndSize;
         private IMapCreatorView view;
         private Image image;
@@ -38,10 +41,13 @@ namespace LiveView.Presenters
         {
             serverRepository = mapCreatorPresenterDependencies.ServerRepository;
             cameraRepository = mapCreatorPresenterDependencies.CameraRepository;
+            gridCameraRepository = mapCreatorPresenterDependencies.GridCameraRepository;
             mapRepository = mapCreatorPresenterDependencies.MapRepository;
             mapObjectRepository = mapCreatorPresenterDependencies.MapObjectRepository;
             objectInMapRepository = mapCreatorPresenterDependencies.ObjectInMapRepository;
             logger = mapCreatorPresenterDependencies.Logger;
+
+            gridCameras = gridCameraRepository.SelectAll();
         }
 
         public new void SetView(IView view)
@@ -100,7 +106,7 @@ namespace LiveView.Presenters
 
         private void MapObjectMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender is ToolStripMenuItem menuItem && menuItem.Tag is Camera)
+            if (sender is ToolStripMenuItem menuItem && (menuItem.Tag is Camera || menuItem.Tag is VideoSource))
             {
                 var dropDownMenu = menuItem.GetCurrentParent() as ToolStripDropDownMenu;
                 var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
@@ -111,6 +117,17 @@ namespace LiveView.Presenters
                     movableSizablePanel.Tag = menuItem.Tag;
                 }
             }
+            //else if (sender is ToolStripMenuItem videoSourceItem && videoSourceItem.Tag is VideoSource)
+            //{
+            //    var dropDownMenu = videoSourceItem.GetCurrentParent() as ToolStripDropDownMenu;
+            //    var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
+            //    var sourceControl = contextMenu?.SourceControl;
+
+            //    if (sourceControl is MovableSizablePanel movableSizablePanel)
+            //    {
+            //        movableSizablePanel.Tag = videoSourceItem.Tag;
+            //    }
+            //}
             else if (sender is ToolStripMenuItem mapMenuItem && mapMenuItem.Tag is Map)
             {
                 var dropDownMenu = mapMenuItem.GetCurrentParent() as ToolStripDropDownMenu;
@@ -162,6 +179,17 @@ namespace LiveView.Presenters
                         break;
                     case MapActionType.OpenCamera:
                         panel.Tag = cameraRepository.Select(mapObject.ActionReferencedId);
+                        break;
+                    case MapActionType.OpenVideoSource:
+                        var gridCamera = gridCameras.FirstOrDefault(gc => gc.Id == mapObject.ActionReferencedId); // Should use videoSourceRepository
+                        if (gridCamera != null)
+                        {
+                            panel.Tag = new VideoSource
+                            {
+                                EndPoint = $"{gridCamera.ServerIp}:0",
+                                Name = gridCamera.VideoSourceName
+                            };
+                        }
                         break;
                 }
                 view.PCanvas.Controls.Add(panel);
@@ -244,8 +272,17 @@ namespace LiveView.Presenters
             }
         }
 
-        private static MapObject GetMapObject(Control control)
+        private MapObject GetMapObject(Control control)
         {
+            byte[] mapObjectImage;
+            try
+            {
+                mapObjectImage = Services.ImageConverter.ImageToByteArray(control.BackgroundImage);
+            }
+            catch
+            {
+                mapObjectImage = null;
+            }
             var mapObject = new MapObject
             {
                 Comment = control.Text,
@@ -253,12 +290,21 @@ namespace LiveView.Presenters
                 Y = control.Location.Y - imageLocationAndSize.Top,
                 Width = control.Size.Width,
                 Height = control.Size.Height,
-                Image = Services.ImageConverter.ImageToByteArray(control.BackgroundImage)
+                Image = mapObjectImage
             };
             if (control.Tag is Camera camera)
             {
                 mapObject.ActionType = MapActionType.OpenCamera;
                 mapObject.ActionReferencedId = camera.Id;
+            }
+            if (control.Tag is VideoSource videoSource)
+            {
+                mapObject.ActionType = MapActionType.OpenVideoSource;
+                var gridCamera = gridCameras.FirstOrDefault(gc => gc.ServerIp == videoSource.ServerIp && gc.VideoSourceName == videoSource.Name); // These data should not be in GridCamera, but in a separate table VideoSources
+                if (gridCamera != null)
+                {
+                    mapObject.ActionReferencedId = gridCamera.Id; // VideoSource.Id should be saved here
+                }
             }
             else if (control.Tag is Map actualMap)
             {
@@ -275,11 +321,20 @@ namespace LiveView.Presenters
 
         private Map GetMap()
         {
+            byte[] mapImage;
+            try
+            {
+                mapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage);
+            }
+            catch
+            {
+                mapImage = null;
+            }
             return new Map
             {
                 Name = view.CbMap.Text,
                 Comment = view.RtbComment.Text,
-                MapImage = Services.ImageConverter.ImageToByteArray(view.PCanvas.BackgroundImage),
+                MapImage = mapImage,
                 OriginalHeight = imageLocationAndSize.Height,
                 OriginalWidth = imageLocationAndSize.Width
             };

@@ -4,6 +4,7 @@
     {
         NoAction,
         OpenMap,
-        OpenCamera
+        OpenCamera,
+        OpenVideoSource
     }
 }

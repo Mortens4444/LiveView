@@ -76,6 +76,7 @@ namespace LiveView.Services
                     {
                         Tag = videoSource
                     };
+                    childItem.Click += leafItemClickHandler;
                     parentItem.Text = videoSource.ServerIp;
                     parentItem.DropDownItems.Add(childItem);
                 }
