@@ -6,6 +6,7 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
@@ -13,6 +14,10 @@ namespace LiveView.Forms
     {
         private readonly Server server;
         private AddVideoServerPresenter presenter;
+
+        public TextBox TbModel => tbModel;
+
+        public TextBox TbSziltechSerialNumber => tbSziltechSerialNumber;
 
         public AddVideoServer(IServiceProvider serviceProvider, Server server = null) : base(serviceProvider, typeof(AddVideoServerPresenter))
         {

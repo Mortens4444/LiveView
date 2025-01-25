@@ -50,6 +50,8 @@
             tbUsername = new System.Windows.Forms.TextBox();
             lblUsername = new System.Windows.Forms.Label();
             lblIpAddress = new System.Windows.Forms.Label();
+            lblModel = new System.Windows.Forms.Label();
+            tbModel = new System.Windows.Forms.TextBox();
             pMain.SuspendLayout();
             gbValidate.SuspendLayout();
             gbNetwork.SuspendLayout();
@@ -67,11 +69,13 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(315, 382);
+            pMain.Size = new System.Drawing.Size(315, 411);
             pMain.TabIndex = 0;
             // 
             // gbValidate
             // 
+            gbValidate.Controls.Add(tbModel);
+            gbValidate.Controls.Add(lblModel);
             gbValidate.Controls.Add(tbSziltechSerialNumber);
             gbValidate.Controls.Add(lblSziltechSerialNumberOptional);
             gbValidate.Controls.Add(btnValidate);
@@ -80,19 +84,18 @@
             gbValidate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbValidate.Name = "gbValidate";
             gbValidate.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbValidate.Size = new System.Drawing.Size(315, 70);
+            gbValidate.Size = new System.Drawing.Size(315, 99);
             gbValidate.TabIndex = 7;
             gbValidate.TabStop = false;
             gbValidate.Text = "Validate";
             // 
             // tbSziltechSerialNumber
             // 
-            tbSziltechSerialNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             tbSziltechSerialNumber.Location = new System.Drawing.Point(10, 37);
             tbSziltechSerialNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbSziltechSerialNumber.MaxLength = 100;
             tbSziltechSerialNumber.Name = "tbSziltechSerialNumber";
-            tbSziltechSerialNumber.Size = new System.Drawing.Size(200, 23);
+            tbSziltechSerialNumber.Size = new System.Drawing.Size(133, 23);
             tbSziltechSerialNumber.TabIndex = 1;
             // 
             // lblSziltechSerialNumberOptional
@@ -107,8 +110,7 @@
             // 
             // btnValidate
             // 
-            btnValidate.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnValidate.Location = new System.Drawing.Point(218, 35);
+            btnValidate.Location = new System.Drawing.Point(7, 65);
             btnValidate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnValidate.Name = "btnValidate";
             btnValidate.Size = new System.Drawing.Size(88, 27);
@@ -121,7 +123,7 @@
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(218, 349);
+            btnClose.Location = new System.Drawing.Point(218, 378);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -135,7 +137,7 @@
             btnAddOrModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnAddOrModify.DialogResult = System.Windows.Forms.DialogResult.OK;
             btnAddOrModify.Enabled = false;
-            btnAddOrModify.Location = new System.Drawing.Point(124, 349);
+            btnAddOrModify.Location = new System.Drawing.Point(124, 378);
             btnAddOrModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddOrModify.Name = "btnAddOrModify";
             btnAddOrModify.Size = new System.Drawing.Size(88, 27);
@@ -304,15 +306,36 @@
             lblIpAddress.TabIndex = 0;
             lblIpAddress.Text = "DNS name or IP address";
             // 
+            // lblModel
+            // 
+            lblModel.AutoSize = true;
+            lblModel.Location = new System.Drawing.Point(151, 18);
+            lblModel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblModel.Name = "lblModel";
+            lblModel.Size = new System.Drawing.Size(41, 15);
+            lblModel.TabIndex = 4;
+            lblModel.Text = "Model";
+            // 
+            // tbModel
+            // 
+            tbModel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbModel.Location = new System.Drawing.Point(151, 37);
+            tbModel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbModel.MaxLength = 20;
+            tbModel.Name = "tbModel";
+            tbModel.ReadOnly = true;
+            tbModel.Size = new System.Drawing.Size(153, 23);
+            tbModel.TabIndex = 4;
+            // 
             // AddVideoServer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(315, 382);
+            ClientSize = new System.Drawing.Size(315, 411);
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(322, 407);
+            MinimumSize = new System.Drawing.Size(331, 450);
             Name = "AddVideoServer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New video server";
@@ -351,5 +374,7 @@
         private System.Windows.Forms.Label lblIpAddress;
         private System.Windows.Forms.TextBox tbManufacturer;
         private System.Windows.Forms.Label lblManufacturer;
+        private System.Windows.Forms.TextBox tbModel;
+        private System.Windows.Forms.Label lblModel;
     }
 }

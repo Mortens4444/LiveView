@@ -1,5 +1,6 @@
 ﻿using Database.Models;
 using LiveView.Models.Network;
+using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
@@ -10,5 +11,9 @@ namespace LiveView.Interfaces
         ServerDto GetServerDto();
 
         void LoadData(Server server);
+
+        TextBox TbModel { get; }
+
+        TextBox TbSziltechSerialNumber { get; }
     }
 }

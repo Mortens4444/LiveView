@@ -127,7 +127,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                //ErrorBox.Show(Lng.Elem("77"), Lng.Elem("78"));
+                ShowError("There is an overlap in the selected area.");
             }
         }
 

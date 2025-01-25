@@ -4,9 +4,10 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
+using LiveView.Services;
 using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
-using System;
+using Mtf.LanguageService;
 using System.Threading.Tasks;
 
 namespace LiveView.Presenters
@@ -16,6 +17,7 @@ namespace LiveView.Presenters
         private IAddVideoServerView view;
         private readonly IServerRepository serverRepository;
         private readonly ILogger<AddVideoServer> logger;
+        private readonly SziltechDeviceChecker sziltechDeviceChecker = new SziltechDeviceChecker();
 
         public AddVideoServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IServerRepository serverRepository, ILogger<AddVideoServer> logger)
             : base(generalOptionsRepository)
@@ -61,7 +63,11 @@ namespace LiveView.Presenters
 
         public void Validate()
         {
-            throw new NotImplementedException();
+            var iszSziltechDeice = sziltechDeviceChecker.IsSziltechDevice(view.TbSziltechSerialNumber.Text, out var deviceInfo);
+            if (iszSziltechDeice)
+            {
+                view.TbModel.Text = Lng.Elem(deviceInfo.Model);
+            }
         }
 
         private void OnHostDiscovered(HostDiscoveryResult result)
