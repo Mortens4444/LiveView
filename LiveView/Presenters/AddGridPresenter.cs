@@ -47,6 +47,7 @@ namespace LiveView.Presenters
 
         private bool gridSettingsChanged = true;
         private bool gridSelectionMatrixChanged = true;
+        private VideoCaptureClient videoCaptureClient;
 
         public AddGridPresenter(AddGridPresenterDependencies addGridPresenterDependencies)
             : base(addGridPresenterDependencies)
@@ -516,7 +517,14 @@ namespace LiveView.Presenters
                 {
                     view.MtfCamera.Visible = true;
                     view.AxVideoPlayerWindow.Visible = false;
-                    var videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
+                    if (videoCaptureClient != null)
+                    {
+                        videoCaptureClient.FrameArrived -= VideoCaptureClient_FrameArrived;
+                        videoCaptureClient.Stop();
+                        videoCaptureClient = null;
+                        Thread.Sleep(100);
+                    }
+                    videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
                     videoCaptureClient.Start();
                     videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                     var matrixRegion = comboBox.Tag as MatrixRegion;

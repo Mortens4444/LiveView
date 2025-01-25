@@ -1,7 +1,6 @@
 VideoSource
 -----------
 - Add syncron view
-- AddGrid unsubsribe from videosource (change sould work)
 - MapCreatorPresenter, MapLoader comments should be addressed
 
 Groups

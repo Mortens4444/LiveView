@@ -49,6 +49,7 @@ namespace LiveView.Core.Services.Net
             if (client != null)
             {
                 client.DataArrived -= ClientDataArrivedEventHandler;
+                client.Disconnect();
                 client.Dispose();
                 client = null;
             }
@@ -103,19 +104,19 @@ namespace LiveView.Core.Services.Net
                 imageData.Skip(imageData.Count - pngEndMarker.Length).SequenceEqual(pngEndMarker);
         }
 
-        byte[] previousImage;
+        //private byte[] previousImage;
         private void OnFrameArrived(byte[] fullImageData)
         {
             try
             {
-                if (!AreByteArraysEqual(previousImage, fullImageData))
+                //if (!AreByteArraysEqual(previousImage, fullImageData))
                 {
                     using (var stream = new MemoryStream(fullImageData))
                     {
                         var image = Image.FromStream(stream);
                         FrameArrived?.Invoke(this, new FrameArrivedEventArgs(image));
                     }
-                    previousImage = fullImageData;
+                    //previousImage = fullImageData;
                 }
             }
             catch (Exception ex)

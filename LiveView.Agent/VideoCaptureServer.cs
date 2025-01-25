@@ -12,6 +12,9 @@ namespace LiveView.Agent
     {
         public static Server Capture(Dictionary<string, CancellationTokenSource> cancellationTokenSources, VideoCapture videoCapture, string videoCaptureIdentifier, byte fps = 25)
         {
+            const int maxRetryCount = 3; // Maximum újraindítási próbálkozások száma
+            int retryCount = 0;
+
             var server = new Server();
             Thread.Sleep(100);
             server.Start();
@@ -19,31 +22,48 @@ namespace LiveView.Agent
 
             Task.Run(() =>
             {
-                try
-                {
-                    using (var capture = videoCapture)
-                    {
-                        var cancellationTokenSource = new CancellationTokenSource();
-                        cancellationTokenSources.Add(videoCaptureIdentifier, cancellationTokenSource);
-                        while (!cancellationTokenSource.Token.IsCancellationRequested)
-                        {
-                            if (!CaptureFrame(server, videoCaptureIdentifier, capture))
-                            {
-                                break;
-                            }
-
-                            var waitTime = 1000 / fps;
-                            Thread.Sleep(waitTime);
-                        }
-                    }
-                }
-                catch (Exception ex)
+                while (retryCount < maxRetryCount)
                 {
                     try
                     {
-                        server.SendMessageToAllClients($"{NetworkCommand.VideoCaptureCreationFailure}|{videoCaptureIdentifier}|{ex}", true);
+                        using (var capture = videoCapture)
+                        {
+                            var cancellationTokenSource = new CancellationTokenSource();
+                            cancellationTokenSources.Add(videoCaptureIdentifier, cancellationTokenSource);
+
+                            while (!cancellationTokenSource.Token.IsCancellationRequested)
+                            {
+                                if (!CaptureFrame(server, videoCaptureIdentifier, capture))
+                                {
+                                    break;
+                                }
+
+                                var waitTime = 1000 / fps;
+                                Thread.Sleep(waitTime);
+                            }
+                        }
+
+                        // Sikeres végrehajtás esetén kilépünk a retry loop-ból
+                        break;
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        retryCount++;
+                        try
+                        {
+                            server.SendMessageToAllClients($"{NetworkCommand.VideoCaptureCreationFailure}|{videoCaptureIdentifier}|{ex}", true);
+                        }
+                        catch { }
+
+                        if (retryCount < maxRetryCount)
+                        {
+                            Thread.Sleep(2000); // Rövid várakozás az újraindítás előtt
+                        }
+                        else
+                        {
+                            server.SendMessageToAllClients($"{NetworkCommand.VideoCaptureCreationFailure}|{videoCaptureIdentifier}|Max retry attempts reached", true);
+                        }
+                    }
                 }
             });
 
