@@ -35,6 +35,10 @@
         StopPanAndTilt,
         StopZoom,
         ZoomIn,
-        ZoomOut
+        ZoomOut,
+        ShowPreviousGrid,
+        RearrangeGrids,
+        ShowNextGrid,
+        PlayOrPauseSequence
     }
 }

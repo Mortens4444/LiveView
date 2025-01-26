@@ -119,6 +119,18 @@ namespace Sequence.Forms
                     {
                         Close();
                     }
+                    else if (message.StartsWith(NetworkCommand.PlayOrPauseSequence.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.RearrangeGrids.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ShowNextGrid.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ShowPreviousGrid.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
                 }
             }
             catch (Exception ex)

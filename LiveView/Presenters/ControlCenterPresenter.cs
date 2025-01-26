@@ -142,22 +142,26 @@ namespace LiveView.Presenters
 
         public void PlayOrPauseSequence()
         {
-            throw new NotImplementedException();
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.PlayOrPauseSequence}");
         }
 
         public void RearrangeGrids()
         {
-            throw new NotImplementedException();
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.RearrangeGrids}");
         }
 
         public void ShowNextGrid()
         {
-            throw new NotImplementedException();
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowNextGrid}");
         }
 
         public void ShowPreviousGrid()
         {
-            throw new NotImplementedException();
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowPreviousGrid}");
         }
 
         public void StopMoving()
@@ -334,7 +338,7 @@ namespace LiveView.Presenters
         {
             foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
             {
-                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.socket, NetworkCommand.Close.ToString(), true);
+                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
             }
 
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });

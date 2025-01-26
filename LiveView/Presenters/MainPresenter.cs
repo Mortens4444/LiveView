@@ -39,7 +39,7 @@ namespace LiveView.Presenters
 
         public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
-        public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
+        public readonly static Dictionary<string, SequenceProcessInfo> SequenceProcesses = new Dictionary<string, SequenceProcessInfo>();
         public readonly static Dictionary<Socket, CameraProcessInfo> CameraProcessInfo = new Dictionary<Socket, CameraProcessInfo>();
 
         public static NetworkServer Server { get; private set; }
@@ -120,12 +120,23 @@ namespace LiveView.Presenters
             CheckLanguageFile();
         }
 
+        public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)
+        {
+            foreach (var sequenceProcess in SequenceProcesses)
+            {
+                if (sequenceProcess.Value.DisplayId == display.GetId())
+                {
+                    Server.SendMessageToClient(sequenceProcess.Value.Socket, message, true);
+                }
+            }
+        }
+
         public static void SendMessageToFullScreenCamera(string message)
         {
-            var info = MainPresenter.GetFullScreenInfo();
+            var info = GetFullScreenInfo();
             if (info.Key != null)
             {
-                MainPresenter.Server.SendMessageToClient(info.Key, message, true);
+                Server.SendMessageToClient(info.Key, message, true);
             }
         }
 
@@ -196,12 +207,15 @@ namespace LiveView.Presenters
                     else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
                     {
                         var localEndPoint = messageParts[1];
-                        //var userId = Convert.ToInt64(messageParts[2]);
-                        var sequenceId = Convert.ToInt64(messageParts[3]);
-                        var displayId = Convert.ToInt64(messageParts[4]);
-                        //var isMdi = Convert.ToBoolean(messageParts[5]);
-                        var processId = Convert.ToInt32(messageParts[6]);
-                        SequenceProcesses.Add(localEndPoint, (e.Socket, processId, sequenceId, displayId));
+                        SequenceProcesses.Add(localEndPoint, new SequenceProcessInfo
+                        {
+                            Socket = e.Socket,
+                            UserId = Convert.ToInt64(messageParts[2]),
+                            SequenceId = Convert.ToInt64(messageParts[3]),
+                            DisplayId = Convert.ToInt64(messageParts[4]),
+                            IsMdi = Convert.ToBoolean(messageParts[5]),
+                            ProcessId = Convert.ToInt32(messageParts[6])
+                        });
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
                     {
@@ -409,8 +423,7 @@ namespace LiveView.Presenters
             }
             foreach (var sequenceProcess in SequenceProcesses)
             {
-                var (socket, sequenceProcessId, _, _) = sequenceProcess.Value;
-                Server.SendMessageToClient(socket, NetworkCommand.Close.ToString());
+                Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
             }
         }
 
