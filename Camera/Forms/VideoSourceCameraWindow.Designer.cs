@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                frameTimer?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

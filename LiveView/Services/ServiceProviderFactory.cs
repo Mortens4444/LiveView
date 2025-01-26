@@ -54,6 +54,7 @@ namespace LiveView.Services
             services.AddTransient<EnterPassPresenterDependencies>();
             services.AddTransient<GeneralOptionsPresenterDependencies>();
             services.AddTransient<GridManagerPresenterDependencies>();
+            services.AddTransient<KBD300ASimulatorPresenterDependencies>();
             services.AddTransient<LanguageFileChangedPresenterDependencies>();
             services.AddTransient<LogViewerPresenterDependencies>();
             services.AddTransient<MainPresenterDependencies>();
@@ -90,6 +91,7 @@ namespace LiveView.Services
             services.AddTransient<GridManagerPresenter>();
             services.AddTransient<IOPortEditorPresenter>();
             services.AddTransient<IOPortSettingsPresenter>();
+            services.AddTransient<KBD300ASimulatorPresenter>();
             services.AddTransient<LanguageFileChangedPresenter>();
             services.AddTransient<LicenseFormPresenter>();
             services.AddTransient<LoginFormPresenter>();
@@ -162,6 +164,7 @@ namespace LiveView.Services
             services.AddTransient<GridManager>();
             services.AddTransient<IOPortEditor>();
             services.AddTransient<IOPortSettings>();
+            services.AddTransient<KBD300ASimulator>();
             services.AddTransient<LanguageFileChangedForm>();
             services.AddTransient<LicenseForm>();
             services.AddTransient<LoginForm>();

@@ -4,6 +4,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Net;
+using LiveView.Core.Services.Pipe;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
@@ -29,10 +30,12 @@ namespace CameraApp.Forms
         private readonly int frameTimeout = 1500;
 
         private VideoCaptureClient videoCaptureClient;
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
         public VideoSourceCameraWindow(long userId, string serverIp, string videoCaptureSource, Point location, Size size)
         {
             InitializeComponent();
+
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
             permissionManager = new PermissionManager<Database.Models.User>();
@@ -69,6 +72,8 @@ namespace CameraApp.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource)
         {
+            kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
             {
@@ -151,7 +156,7 @@ namespace CameraApp.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            videoCaptureClient.Stop();
+            videoCaptureClient?.Stop();
             Application.Exit();
         }
     }

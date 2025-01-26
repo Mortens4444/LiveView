@@ -1,6 +1,7 @@
 ﻿using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
+using LiveView.Core.Services.Pipe;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
@@ -18,10 +19,12 @@ namespace CameraApp.Forms
         private readonly Size size;
         private readonly long cameraId;
         private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
         public AxVideoCameraWindow(long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
+
             this.cameraId = cameraId;
             permissionManager = new PermissionManager<Database.Models.User>();
             Initialize(userId, cameraId);
@@ -61,6 +64,8 @@ namespace CameraApp.Forms
 
         private void Initialize(long userId, long cameraId)
         {
+            kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+
             closeToolStripMenuItem.Text = Lng.Elem("Close");
 
             var userRepository = new UserRepository();

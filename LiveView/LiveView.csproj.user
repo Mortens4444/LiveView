@@ -64,6 +64,9 @@
     <Compile Update="Forms\IOPortSettings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\KBD300ASimulator.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\LanguageFileChangedForm.cs">
       <SubType>Form</SubType>
     </Compile>

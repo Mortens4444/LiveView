@@ -18,10 +18,11 @@ namespace CameraApp
         [STAThread]
         private static void Main(string[] args)
         {
+            //System.Threading.Thread.Sleep(10000);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
 
-//#if NETFRAMEWORK
+            //#if NETFRAMEWORK
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //#else

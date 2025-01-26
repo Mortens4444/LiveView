@@ -31,6 +31,7 @@ namespace LiveView.Forms
 
         protected BasePresenter Presenter { get; private set; }
         private readonly Type presenterType;
+        protected bool colorize = true;
 
         public BaseView() : this(null, typeof(BasePresenter))
         {
@@ -49,7 +50,10 @@ namespace LiveView.Forms
 
         private void BaseView_Load(object sender, EventArgs e)
         {
-            Colorize();
+            if (colorize)
+            {
+                Colorize();
+            }
         }
 
         private void Colorize()

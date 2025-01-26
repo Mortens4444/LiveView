@@ -10,6 +10,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.Serial;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
@@ -60,6 +61,7 @@ namespace LiveView.Presenters
 
         private IMainView view;
         private MapLoader mapLoader;
+        //private KBD300A kBD300A = new KBD300A("COM1");
 
         public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
             : base(mainPresenterDependencies)
@@ -322,7 +324,7 @@ namespace LiveView.Presenters
         {
             if (MainForm.ControlCenter == null || MainForm.ControlCenter.IsDisposed)
             {
-                MainForm.ControlCenter = ShowForm<ControlCenter>(e.VideoSource);
+                MainForm.ControlCenter = ShowForm<ControlCenter>(null, e.VideoSource);
             }
             else
             {

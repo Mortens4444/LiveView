@@ -493,6 +493,16 @@ namespace LiveView.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Kbd300ASimulator {
+            get {
+                object obj = ResourceManager.GetObject("Kbd300ASimulator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap license_form {
             get {
                 object obj = ResourceManager.GetObject("license_form", resourceCulture);

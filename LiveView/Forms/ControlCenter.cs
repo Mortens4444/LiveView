@@ -21,13 +21,9 @@ namespace LiveView.Forms
 
         private ControlCenterPresenter presenter;
 
-        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null) : this(serviceProvider)
+        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null, VideoSource videoSource = null) : this(serviceProvider)
         {
             this.camera = camera;
-        }
-
-        public ControlCenter(IServiceProvider serviceProvider, VideoSource videoSource = null) : this(serviceProvider)
-        {
             this.videoSource = videoSource;
         }
 
