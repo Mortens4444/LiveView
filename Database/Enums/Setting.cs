@@ -34,5 +34,6 @@
         UseCustomControlColors,
         Language,
         LanguageFileHash,
+        CameraMoveValue,
     }
 }

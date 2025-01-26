@@ -10,7 +10,6 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
-using LiveView.Services.Serial;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
@@ -41,6 +40,7 @@ namespace LiveView.Presenters
         public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
         public readonly static Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)> SequenceProcesses = new Dictionary<string, (Socket socket, int processId, long sequenceId, long displayId)>();
+        public readonly static Dictionary<Socket, CameraProcessInfo> CameraProcessInfo = new Dictionary<Socket, CameraProcessInfo>();
 
         public static NetworkServer Server { get; private set; }
         private readonly Dictionary<int, List<byte[]>> imageParts = new Dictionary<int, List<byte[]>>();
@@ -118,6 +118,27 @@ namespace LiveView.Presenters
             LoadFirstMap();
 
             CheckLanguageFile();
+        }
+
+        public static void SendMessageToFullScreenCamera(string message)
+        {
+            var info = MainPresenter.GetFullScreenInfo();
+            if (info.Key != null)
+            {
+                MainPresenter.Server.SendMessageToClient(info.Key, message, true);
+            }
+        }
+
+        private static KeyValuePair<Socket, CameraProcessInfo> GetFullScreenInfo()
+        {
+            foreach (KeyValuePair<Socket, CameraProcessInfo> cameraProcessInfo in CameraProcessInfo)
+            {
+                if (cameraProcessInfo.Value.DisplayId != null)
+                {
+                    return cameraProcessInfo;
+                }
+            }
+            return new KeyValuePair<Socket, CameraProcessInfo>(null, null);
         }
 
         private void CheckLanguageFile()
@@ -205,6 +226,37 @@ namespace LiveView.Presenters
                                 Port = Convert.ToInt32(hostInfo[1])
                             });
                         }
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
+                    {
+                        CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        {
+                            LocalEndPoint = messageParts[1],
+                            UserId = Convert.ToInt64(messageParts[2]),
+                            CameraId = Convert.ToInt64(messageParts[3]),
+                            DisplayId = !String.IsNullOrEmpty(messageParts[4]) ? (long?)Convert.ToInt64(messageParts[4]) : null,
+                            ProcessId = Convert.ToInt32(messageParts[5])
+                        });
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}|"))
+                    {
+                        CameraProcessInfo.Remove(e.Socket);
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.RegisterVideoSource}"))
+                    {
+                        CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        {
+                            LocalEndPoint = messageParts[1],
+                            UserId = Convert.ToInt64(messageParts[2]),
+                            ServerIp = messageParts[3],
+                            VideoCaptureSource = messageParts[4],
+                            DisplayId = !String.IsNullOrEmpty(messageParts[5]) ? (long?)Convert.ToInt64(messageParts[5]) : null,
+                            ProcessId = Convert.ToInt32(messageParts[6])
+                        });
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.UnregisterVideoSource}|"))
+                    {
+                        CameraProcessInfo.Remove(e.Socket);
                     }
                     else if (message.StartsWith($"{NetworkCommand.Ping}"))
                     {
@@ -347,6 +399,10 @@ namespace LiveView.Presenters
         public static void StopStartedApplications()
         {
             ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
+            foreach (var cameraProcessInfo in CameraProcessInfo)
+            {
+                Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
+            }
             foreach (var cameraProcess in CameraProcesses)
             {
                 SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcess.Value);

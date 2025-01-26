@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -96,47 +97,47 @@ namespace LiveView.Presenters
 
         public void MoveToEast()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToEast.ToString());
         }
 
         public void MoveToNorth()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.TiltToNorth.ToString());
         }
 
         public void MoveToNorthEast()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToEastAndTiltToNorth.ToString());
         }
 
         public void MoveToNorthWest()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToWestAndTiltToNorth.ToString());
         }
 
         public void MoveToPresetZero()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.MoveToPresetZero.ToString());
         }
 
         public void MoveToSouth()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.TiltToSouth.ToString());
         }
 
         public void MoveToSouthEast()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToEastAndTiltToSouth.ToString());
         }
 
         public void MoveToSouthWest()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToWestAndTiltToSouth.ToString());
         }
 
         public void MoveToWest()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToWest.ToString());
         }
 
         public void PlayOrPauseSequence()
@@ -161,22 +162,22 @@ namespace LiveView.Presenters
 
         public void StopMoving()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
         }
 
         public void StopZoom()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
         }
 
         public void ZoomIn()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.ZoomIn.ToString());
         }
 
         public void ZoomOut()
         {
-            throw new NotImplementedException();
+            MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.ZoomOut.ToString());
         }
 
         public override void Load()

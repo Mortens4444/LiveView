@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading;
 using System.Windows.Forms;
@@ -26,14 +27,30 @@ namespace LiveView.Agent
         private static readonly Dictionary<long, Process> cameraProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<long, Process> sequenceProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
-        private static readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>();
+        private static readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures shoul be in the same dictionary
+        private static readonly Dictionary<string, VideoCapture> videoCaptures = new Dictionary<string, VideoCapture>();
 
         private static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
+        
+        [DllImport("Kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("User32.dll", SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private const int SW_HIDE = 0;
 
         static void Main(string[] args)
         {
             ExceptionHandler.CatchUnhandledExceptions();
-            Console.CancelKeyPress += Console_CancelKeyPress;
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+
+#if !DEBUG
+            var handle = GetConsoleWindow();
+            ShowWindow(handle, SW_HIDE);
+#endif
 
             StartVideoCaptureServers();
 
@@ -92,9 +109,11 @@ namespace LiveView.Agent
             {
                 try
                 {
-                    var server = Int32.TryParse(videoCaptureId, out var videoCaptureIndex) ?
-                        VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(videoCaptureIndex), videoCaptureId) :
-                        VideoCaptureServer.Capture(cancellationTokenSources, new VideoCapture(videoCaptureId), videoCaptureId);
+                    var videoCapture = Int32.TryParse(videoCaptureId, out var videoCaptureIndex) ?
+                        new VideoCapture(videoCaptureIndex) : new VideoCapture(videoCaptureId);
+
+                    videoCaptures.Add(videoCaptureId, videoCapture);
+                    var server = VideoCaptureServer.Capture(cancellationTokenSources, videoCapture, videoCaptureId);
                     cameraServers.Add(videoCaptureId, server);
                 }
                 catch (Exception ex)
@@ -104,7 +123,7 @@ namespace LiveView.Agent
             }
         }
 
-        private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        private static void OnExit()
         {
             if (client != null && client.Socket != null)
             {
@@ -118,6 +137,11 @@ namespace LiveView.Agent
                 }
 
                 client.Dispose();
+            }
+
+            foreach (var videoCapture in videoCaptures)
+            {
+                videoCapture.Value.Release();
             }
 
             foreach (var cameraServer in cameraServers)
@@ -189,6 +213,84 @@ namespace LiveView.Agent
                             value.Cancel();
                             cancellationTokenSources.Remove(messageParts[1]);
                         }
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToEast}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.TiltToNorth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToNorth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToNorth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.MoveToPresetZero}|", StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.TiltToSouth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToSouth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToSouth}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                        videoCaptures[videoCaptureId].Tilt = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.PanToWest}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Pan = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.StopPanAndTilt}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        videoCaptures[videoCaptureId].Pan = 0;
+                        videoCaptures[videoCaptureId].Tilt = 0;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.StopZoom}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        videoCaptures[videoCaptureId].Zoom = 0;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.ZoomIn}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Zoom = value;
+                    }
+                    else if (message.StartsWith($"{NetworkCommand.ZoomOut}|", StringComparison.InvariantCulture))
+                    {
+                        var videoCaptureId = messageParts[1];
+                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
+                        videoCaptures[videoCaptureId].Zoom = value;
                     }
                 }
             }

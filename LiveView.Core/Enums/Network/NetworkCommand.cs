@@ -18,6 +18,23 @@
         StopVideoCapture,
         VideoCaptureSourcesRequest,
         VideoCaptureSourcesResponse,
-        Ping
+        Ping,
+        RegisterCamera,
+        RegisterVideoSource,
+        UnregisterVideoSource,
+        UnregisterCamera,
+        PanToEast,
+        TiltToNorth,
+        PanToEastAndTiltToNorth,
+        PanToWestAndTiltToNorth,
+        MoveToPresetZero,
+        TiltToSouth,
+        PanToEastAndTiltToSouth,
+        PanToWestAndTiltToSouth,
+        PanToWest,
+        StopPanAndTilt,
+        StopZoom,
+        ZoomIn,
+        ZoomOut
     }
 }

@@ -1,14 +1,19 @@
 ﻿using Database.Repositories;
 using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Net;
 using LiveView.Core.Services.Pipe;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.Network;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +23,8 @@ namespace CameraApp.Forms
 {
     public partial class VideoSourceCameraWindow : Form
     {
+        private static Client client;
+
         private readonly DisplayDto display;
         private readonly Point location;
         private readonly Size size;
@@ -72,7 +79,38 @@ namespace CameraApp.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource)
         {
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+            FormClosing += (sender, e) => OnExit();
+
             kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+
+            var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
+            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            if (UInt16.TryParse(listenerPort, out var serverPort))
+            {
+                try
+                {
+                    client = new Client(liveViewServerIp, serverPort);
+                    client.DataArrived += ClientDataArrivedEventHandler;
+                    client.Connect();
+                    var displayId = display?.Id ?? "";
+#if NET481
+                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Process.GetCurrentProcess().Id}", true);
+#else
+                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Environment.ProcessId}", true);
+#endif
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
+            }
+            else
+            {
+                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+            }
 
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
@@ -96,6 +134,96 @@ namespace CameraApp.Forms
 
             });
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+        }
+
+        private static void OnExit()
+        {
+#if NET481
+            client?.Send($"{NetworkCommand.UnregisterVideoSource}", true);
+#else
+            client?.Send($"{NetworkCommand.UnregisterVideoSource}", true);
+#endif
+        }
+
+        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
+        {
+            try
+            {
+                var messages = $"{client?.Encoding.GetString(e.Data)}";
+                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var message in allMessages)
+                {
+                    var messageParts = message.Split('|');
+                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
+                    {
+                        //videoCaptureClient.
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
+                    {
+
+                    }
+                    else
+                    {
+                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
