@@ -22,6 +22,7 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace LiveView.Presenters
 
         public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
-        public readonly static Dictionary<string, SequenceProcessInfo> SequenceProcesses = new Dictionary<string, SequenceProcessInfo>();
+        public readonly static ConcurrentDictionary<string, SequenceProcessInfo> SequenceProcesses = new ConcurrentDictionary<string, SequenceProcessInfo>();
         public readonly static Dictionary<Socket, CameraProcessInfo> CameraProcessInfo = new Dictionary<Socket, CameraProcessInfo>();
 
         public static NetworkServer Server { get; private set; }
@@ -207,7 +208,7 @@ namespace LiveView.Presenters
                     else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
                     {
                         var localEndPoint = messageParts[1];
-                        SequenceProcesses.Add(localEndPoint, new SequenceProcessInfo
+                        SequenceProcesses.TryAdd(localEndPoint, new SequenceProcessInfo
                         {
                             Socket = e.Socket,
                             UserId = Convert.ToInt64(messageParts[2]),
@@ -222,7 +223,7 @@ namespace LiveView.Presenters
                         var localEndPoint = messageParts[1];
                         //var sequenceId = Convert.ToInt64(messageParts[2]);
                         //var processId = Convert.ToInt32(messageParts[3]);
-                        SequenceProcesses.Remove(localEndPoint);
+                        SequenceProcesses.TryRemove(localEndPoint, out _);
                     }
                     else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                     {

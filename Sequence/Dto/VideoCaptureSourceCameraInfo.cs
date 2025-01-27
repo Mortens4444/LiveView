@@ -1,6 +1,6 @@
 ﻿namespace Sequence.Dto
 {
-    public class VideoCatureSourceCameraInfo : CameraInfo
+    public class VideoCaptureSourceCameraInfo : CameraInfo
     {
         public string ServerIp { get; set; }
         

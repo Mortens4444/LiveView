@@ -18,10 +18,9 @@ namespace Sequence.Forms
         {
             if (disposing && (components != null))
             {
+                gridSequenceManager.Dispose();
                 components.Dispose();
-                cts?.Dispose();
                 client?.Dispose();
-                DisposeCameraWindows();
             }
             base.Dispose(disposing);
         }
@@ -48,7 +47,6 @@ namespace Sequence.Forms
             Name = "MainForm";
             StartPosition = FormStartPosition.Manual;
             Load += MainForm_Load;
-            Shown += MainForm_Shown;
             ResumeLayout(false);
         }
 

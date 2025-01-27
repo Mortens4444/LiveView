@@ -24,14 +24,14 @@ namespace Sequence.Forms
         private Timer frameTimer;
         private readonly int frameTimeout = 1500;
 
-        public VideoSourceCamera(PermissionManager<User> permissionManager, VideoCatureSourceCameraInfo videoCatureSourceCameraInfo, Rectangle rectangle)
+        public VideoSourceCamera(PermissionManager<User> permissionManager, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             var agentRepository = new AgentRepository();
             var agents = agentRepository.SelectAll();
-            var agent = agents.FirstOrDefault(a => a.ServerIp == videoCatureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCatureSourceCameraInfo.VideoSourceName);
+            var agent = agents.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
             if (agent != null)
             {
                 videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);

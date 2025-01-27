@@ -77,7 +77,7 @@ namespace LiveView.Agent
                 if (capture.Read(mat) && !mat.Empty())
                 {
                     var bytes = mat.ToBytes();
-                    SendData(server, videoCaptureIdentifier, bytes);
+                    SendData(server, bytes);
                     return true;
                 }
 
@@ -86,7 +86,7 @@ namespace LiveView.Agent
             }
         }
 
-        private static void SendData(Server server, string videoCaptureIdentifier, byte[] data)
+        private static void SendData(Server server, byte[] data)
         {
             var chunkSize = server.Socket.SendBufferSize - 500;
             var totalParts = (int)Math.Ceiling((double)data.Length / chunkSize);

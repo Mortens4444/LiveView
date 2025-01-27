@@ -85,8 +85,7 @@ namespace LiveView.Presenters
             var result = new List<SequenceEnvironment>();
             foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
             {
-                var (socket, processId, sequenceId, displayId) = sequenceProcess.Value;
-                if (display.Id == displayId.ToString()) // ToDo: Handle remote display sequences also
+                if (display.Id == sequenceProcess.Value.DisplayId.ToString()) // ToDo: Handle remote display sequences also
                 {
                     var closeButton = new Button
                     {
@@ -94,15 +93,15 @@ namespace LiveView.Presenters
                         BackColor = SystemColors.Control,
                         Image = Properties.Resources.btn_CloseSequenceApplications_Image,
                         Margin = new Padding(4, 3, 4, 3),
-                        Name = $"btnCloseSeuence{sequenceId}OnDisplay{displayId}",
+                        Name = $"btnCloseSeuence{sequenceProcess.Value.SequenceId}OnDisplay{sequenceProcess.Value.DisplayId}",
                         Size = new Size(21, 21),
                         TabIndex = 0,
                         UseVisualStyleBackColor = false
                     };
                     closeButton.Click += (object sender, EventArgs e) =>
                     {
-                        MainPresenter.Server.SendMessageToClient(socket, NetworkCommand.Close.ToString(), true);
-                        MainPresenter.SequenceProcesses[sequenceProcess.Key] = (null, 0, 0, 0);
+                        MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
+                        MainPresenter.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
                         var button = sender as Button;
                         button.Parent.Controls.Remove(button);
                         button.Dispose();
@@ -111,7 +110,7 @@ namespace LiveView.Presenters
                     result.Add(new SequenceEnvironment
                     {
                         Display = display,
-                        SequenceId = sequenceId,
+                        SequenceId = sequenceProcess.Value.SequenceId.Value,
                         CloseButton = closeButton
                     });
                 }
