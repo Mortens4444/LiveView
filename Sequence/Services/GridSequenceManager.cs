@@ -35,9 +35,10 @@ namespace Sequence.Services
         private readonly List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
 
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private CancellationTokenSource gridShowCancellationTokenSource = new CancellationTokenSource();
         private int currentGridIndex;
         private int disposed;
+        private bool showNextGrid, showPreviousGrid;
+
         public bool IsPaused { get; set; }
 
         public GridSequenceManager(PermissionManager<User> permissionManager, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
@@ -88,9 +89,6 @@ namespace Sequence.Services
                 
                 cancellationTokenSource?.Dispose();
                 cancellationTokenSource = null;
-
-                gridShowCancellationTokenSource?.Dispose();
-                gridShowCancellationTokenSource = null;
             }
         }
 
@@ -182,10 +180,10 @@ namespace Sequence.Services
             while (Environment.TickCount - start < millisecondsDelay)
 #else
             var start = Environment.TickCount64;
-            while (Environment.TickCount64 - start < millisecondsDelay || IsPaused)
+            while ((Environment.TickCount64 - start < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
 #endif
             {
-                if (gridShowCancellationTokenSource.Token.IsCancellationRequested && !IsPaused)
+                if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     break;
                 }
@@ -259,13 +257,12 @@ namespace Sequence.Services
 
         public void ShowNextGrid()
         {
-            gridShowCancellationTokenSource.Cancel();
+            showNextGrid = true;
         }
 
         public void ShowPreviousGrid()
         {
-            currentGridIndex = (currentGridIndex - 2 + sequenceGrids.Count) % sequenceGrids.Count;
-            gridShowCancellationTokenSource.Cancel();
+            showPreviousGrid = true;
         }
 
         public void ChangeIsPausedState()
@@ -275,31 +272,42 @@ namespace Sequence.Services
 
         private async Task ShowGridsAsync()
         {
-            while (!cancellationTokenSource.Token.IsCancellationRequested)
+            try
             {
-                for (int i = currentGridIndex; i < sequenceGrids.Count; i++)
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    currentGridIndex = i;
-                    var grid = sequenceGrids[i];
-                    var gridCameras = GetCameras(grid);
-
-                    ShowGrid(sequenceGrids, grid, gridCameras);
-
-                    try
+                    for (int i = currentGridIndex; i < sequenceGrids.Count; i++)
                     {
+                        currentGridIndex = GetCurrentGridIndex(i);
+                        var grid = sequenceGrids[i];
+                        var gridCameras = GetCameras(grid);
+
+                        ShowGrid(sequenceGrids, grid, gridCameras);
                         await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        gridShowCancellationTokenSource.Dispose();
-                        gridShowCancellationTokenSource = new CancellationTokenSource();
+                        HideCameraWindows(grid.grid.Id);
                     }
 
-                    HideCameraWindows(grid.grid.Id);
+                    currentGridIndex = 0;
                 }
-
-                currentGridIndex = 0;
             }
+            catch (TaskCanceledException)
+            {
+            }
+        }
+
+        private int GetCurrentGridIndex(int i)
+        {
+            if (showPreviousGrid)
+            {
+                showPreviousGrid = false;
+                return (currentGridIndex - 1 + sequenceGrids.Count) % sequenceGrids.Count;
+            }
+            if (showNextGrid)
+            {
+                showNextGrid = false;
+                return (currentGridIndex + 1) % sequenceGrids.Count;
+            }
+            return i;
         }
 
         public async Task DisposeCameraWindowsAsync()
