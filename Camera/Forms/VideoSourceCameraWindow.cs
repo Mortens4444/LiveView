@@ -112,6 +112,8 @@ namespace CameraApp.Forms
                 ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
             }
 
+            mtfCamera.SetOsdText("Arial", 20, FontStyle.Bold, Color.Red, $"{liveViewServerIp}:{listenerPort} - {videoCaptureSource}");
+
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
             {

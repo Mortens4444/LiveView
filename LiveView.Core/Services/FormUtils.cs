@@ -22,12 +22,10 @@ namespace LiveView.Core.Services
                     ShowWindow(form.Handle, SW_SHOW);
                 }));
             }
-            mdiParent.ResumeLayout();
         }
 
         public static void HideMdiChildForms(Form mdiParent, List<Form> forms)
         {
-            mdiParent.SuspendLayout();
             foreach (var form in forms)
             {
                 mdiParent.Invoke((Action)(() =>

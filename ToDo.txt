@@ -19,7 +19,6 @@ Settings
 MapCreator
 ----------
 - Map update not works when background is set.
-- Mainform size and move fails.
 
 Log Viewer
 ----------

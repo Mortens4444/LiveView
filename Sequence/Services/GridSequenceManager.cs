@@ -286,7 +286,9 @@ namespace Sequence.Services
                         var gridCameras = GetCameras(grid);
 
                         ShowGrid(sequenceGrids, grid, gridCameras);
+                        parentForm.ResumeLayout();
                         await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
+                        parentForm.SuspendLayout();
                         HideCameraWindows(grid.grid.Id);
                     }
 

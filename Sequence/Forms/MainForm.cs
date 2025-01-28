@@ -153,6 +153,16 @@ namespace Sequence.Forms
             }
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
         private async void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await OnExitAsync().ConfigureAwait(false);

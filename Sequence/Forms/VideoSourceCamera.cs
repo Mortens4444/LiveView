@@ -105,6 +105,8 @@ namespace Sequence.Forms
         {
             Start();
             frameTimer?.Start();
+
+            mtfCamera.SetOsdText("Arial", 20, FontStyle.Bold, Color.Red, $"{videoCaptureSourceCameraInfo.ServerIp} - {videoCaptureSourceCameraInfo.GridCamera.VideoSourceName}");
         }
 
         private void Start()
