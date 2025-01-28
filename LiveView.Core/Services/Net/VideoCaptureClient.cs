@@ -103,35 +103,20 @@ namespace LiveView.Core.Services.Net
                 imageData.Skip(imageData.Count - pngEndMarker.Length).SequenceEqual(pngEndMarker);
         }
 
-        //private byte[] previousImage;
         private void OnFrameArrived(byte[] fullImageData)
         {
             try
             {
-                //if (!AreByteArraysEqual(previousImage, fullImageData))
+                using (var stream = new MemoryStream(fullImageData))
                 {
-                    using (var stream = new MemoryStream(fullImageData))
-                    {
-                        var image = Image.FromStream(stream);
-                        FrameArrived?.Invoke(this, new FrameArrivedEventArgs(image));
-                    }
-                    //previousImage = fullImageData;
+                    var image = Image.FromStream(stream);
+                    FrameArrived?.Invoke(this, new FrameArrivedEventArgs(image));
                 }
             }
             catch (Exception ex)
             {
                 DebugErrorBox.Show(ex);
             }
-        }
-
-        public static bool AreByteArraysEqual(byte[] bytes1, byte[] bytes2)
-        {
-            if (bytes1 == null || bytes2 == null)
-            {
-                return false;
-            }
-
-            return bytes1.SequenceEqual(bytes2);
         }
     }
 }

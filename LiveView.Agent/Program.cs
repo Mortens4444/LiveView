@@ -1,5 +1,7 @@
-﻿using LiveView.Core.Enums.Network;
+﻿using Database.Repositories;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using Mtf.Network;
@@ -29,7 +31,7 @@ namespace LiveView.Agent
         private static readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
         private static readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures shoul be in the same dictionary
         private static readonly Dictionary<string, VideoCapture> videoCaptures = new Dictionary<string, VideoCapture>();
-
+        //private static readonly GeneralOptionsRepository generalOptionsRepository;
         private static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
         
         [DllImport("Kernel32.dll", SetLastError = true)]
@@ -38,7 +40,11 @@ namespace LiveView.Agent
         [DllImport("User32.dll", SetLastError = true)]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        private const int SW_HIDE = 0;
+        static Program()
+        {
+            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+            //generalOptionsRepository = new GeneralOptionsRepository();
+        }
 
         static void Main(string[] args)
         {
@@ -48,10 +54,10 @@ namespace LiveView.Agent
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
 
 #if !DEBUG
+            const int SW_HIDE = 0;
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
 #endif
-
             StartVideoCaptureServers();
 
             var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
@@ -111,6 +117,16 @@ namespace LiveView.Agent
                 {
                     var videoCapture = Int32.TryParse(videoCaptureId, out var videoCaptureIndex) ?
                         new VideoCapture(videoCaptureIndex) : new VideoCapture(videoCaptureId);
+
+                    // Cameras should have uniques values
+                    //var exposure = generalOptionsRepository.Get<int>(Database.Enums.Setting.Exposure, 0);
+                    //videoCapture.Set(VideoCaptureProperties.Exposure, exposure); // -4, 1, 0.75
+
+                    //var brightness = generalOptionsRepository.Get<int>(Database.Enums.Setting.Brightness, 0);
+                    //videoCapture.Set(VideoCaptureProperties.Brightness, brightness); // 50 (scale 0–100)
+
+                    //var gain = generalOptionsRepository.Get<int>(Database.Enums.Setting.Gain, 0);
+                    //videoCapture.Set(VideoCaptureProperties.Gain, gain); // 10
 
                     videoCaptures.Add(videoCaptureId, videoCapture);
                     var server = VideoCaptureServer.Capture(cancellationTokenSources, videoCapture, videoCaptureId);

@@ -55,6 +55,7 @@ namespace LiveView.Presenters
         private readonly IGroupRepository groupRepository;
         private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
+        private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IAgentRepository agentRepository;
         private readonly PermissionManager<User> permissionManager;
@@ -75,6 +76,7 @@ namespace LiveView.Presenters
             displayRepository = mainPresenterDependencies.DisplayRepository;
             groupRepository = mainPresenterDependencies.GroupRepository;
             userRepository = mainPresenterDependencies.UserRepository;
+            templateRepository = mainPresenterDependencies.TemplateRepository;
             userGroupRepository = mainPresenterDependencies.UserGroupRepository;
             personalOptionsRepository = mainPresenterDependencies.PersonalOptionsRepository;
             permissionManager = mainPresenterDependencies.PermissionManager;
@@ -94,6 +96,11 @@ namespace LiveView.Presenters
             //MousePointer.ShowOnCtrlKey();
             var handle = view.GetHandle();
             WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
+
+            if (generalOptionsRepository.Get(Setting.OpenControlCenterWhenProgramStarts, true))
+            {
+                MainForm.ControlCenter = ShowForm<ControlCenter>();
+            }
 
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var port))
@@ -119,6 +126,22 @@ namespace LiveView.Presenters
             LoadFirstMap();
 
             CheckLanguageFile();
+
+            var templates = templateRepository.SelectAll();
+            var templateToLoad = generalOptionsRepository.Get(Setting.AutoLoadedTemplate, String.Empty);
+            var autoLoadTemplate = templates.FirstOrDefault(template => template.TemplateName == templateToLoad);
+            if (autoLoadTemplate != null)
+            {
+                if (MainForm.ControlCenter == null)
+                {
+                    MainForm.ControlCenter = ShowForm<ControlCenter>();
+                    MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
+                    MainForm.ControlCenter.Close();
+                }
+                else
+                {
+                    MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
+            }
         }
 
         public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)

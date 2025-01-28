@@ -72,12 +72,17 @@ namespace LiveView.Agent
 
         private static bool CaptureFrame(Server server, string videoCaptureIdentifier, VideoCapture capture)
         {
-            using (var mat = new Mat())
+            using (var frame = new Mat())
             {
-                if (capture.Read(mat) && !mat.Empty())
+                if (capture.Read(frame) && !frame.Empty())
                 {
-                    var bytes = mat.ToBytes();
-                    SendData(server, bytes);
+                    SendData(server, frame.ToBytes());
+
+                    //var gray = frame.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    //var equalized = new Mat();
+                    //Cv2.EqualizeHist(gray, equalized);
+                    //SendData(server, equalized.ToBytes());
+
                     return true;
                 }
 

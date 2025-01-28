@@ -20,6 +20,7 @@ namespace LiveView.Models.Dependencies
             IGeneralOptionsRepository generalOptionsRepository,
             IGroupRepository groupRepository,
             IUserRepository userRepository,
+            ITemplateRepository templateRepository,
             IUsersInGroupsRepository userGroupRepository,
             IPersonalOptionsRepository personalOptionsRepository,
             IAgentRepository agentRepository,
@@ -37,6 +38,7 @@ namespace LiveView.Models.Dependencies
             MapRepository = mapRepository;
             MapObjectRepository = mapObjectRepository;
             AgentRepository = agentRepository;
+            TemplateRepository = templateRepository;
             Logger = logger;
         }
 
@@ -63,5 +65,7 @@ namespace LiveView.Models.Dependencies
         public IMapRepository MapRepository { get; private set; }
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
+
+        public ITemplateRepository TemplateRepository { get; internal set; }
     }
 }

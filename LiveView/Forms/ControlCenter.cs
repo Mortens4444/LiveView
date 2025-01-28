@@ -349,5 +349,17 @@ namespace LiveView.Forms
                 e.Item.Selected = false;
             }
         }
+
+        public void StartTemplate(Template template)
+        {
+            Task.Run(() =>
+            {
+                while (presenter == null)
+                {
+                    Thread.Sleep(100);
+                }
+                presenter.StartTemplate(template);
+            });
+        }
     }
 }

@@ -10,7 +10,7 @@ Groups
 
 Contol Panel
 ------------
-- Active sequence
+- Rearrange grid
 - Handle remote display sequences also
 
 Settings

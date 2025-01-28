@@ -17,8 +17,6 @@ namespace LiveView.Forms
 
         public NumericUpDown NudRestartTemplate => nudRestartTemplate;
 
-        public NumericUpDown NudDatabasePort => nudDatabasePort;
-
         public NumericUpDown NudMaximumTimeToWaitForNewPicture => nudMaximumTimeToWaitForNewPicture;
 
         public NumericUpDown NudMaximumDeflectionBetweenLiveViewAndRecorder => nudMaximumDeflectionBetweenLiveViewAndRecorder;
@@ -40,7 +38,9 @@ namespace LiveView.Forms
         public CheckBox ChkThreading => chkThreading;
 
         public CheckBox ChkOpenMotionPopupWhenProgramStarts => chkOpenMotionPopupWhenProgramStarts;
-
+        
+        public CheckBox ChkOpenControlCenterWhenProgramStarts => chkOpenControlCenterWhenProgramStarts;
+        
         public CheckBox ChkUseCustomNoSignalImage => chkUseCustomNoSignalImage;
 
         public CheckBox ChkVerboseDebugLogging => chkVerboseDebugLogging;
@@ -51,13 +51,13 @@ namespace LiveView.Forms
 
         public ComboBox CbUsers => cbUsers;
 
+        public ComboBox CbAutoLoadedTemplate => cbAutoLoadedTemplate;
+
         public TextBox TbDatabaseUsage => tbDatabaseUsage;
 
         public TextBox TbDatabaseFolder => tbDatabaseFolder;
 
-        public TextBox TbDatabaseServerIp => tbDatabaseServerIp;
-
-        public TextBox TbPassword => tbPassword;
+        public TextBox TbDataSource => tbDataSource;
 
         public TextBox TbUsername => tbUsername;
 
@@ -72,6 +72,20 @@ namespace LiveView.Forms
         public RadioButton RbVerboseLogOnlyErrors => rbVerboseLogOnlyErrors;
 
         public FolderBrowserDialog FolderBrowserDialog => folderBrowserDialog;
+
+        public CheckBox ChkIntegratedSecurity => chkIntegratedSecurity;
+
+        public CheckBox ChkEncrypt => chkEncrypt;
+
+        public CheckBox ChkPooling => chkPooling;
+
+        public Label LblPassword => lblPassword;
+
+        public TextBox TbPassword => tbPassword;
+
+        public NumericUpDown NudConnectionTimeout => nudConnectionTimeout;
+
+        public SaveFileDialog SaveFileDialog => saveFileDialog;
 
         public GeneralOptionsForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GeneralOptionsPresenter))
         {
@@ -127,6 +141,16 @@ namespace LiveView.Forms
             presenter = Presenter as GeneralOptionsPresenter;
             permissionManager.EnsurePermissions();
             presenter.Load();
+        }
+
+        private void BtnGenerateConfigFile_Click(object sender, EventArgs e)
+        {
+            presenter.GenerateConfigFile();
+        }
+
+        private void ChkIntegratedSecurity_CheckedChanged(object sender, EventArgs e)
+        {
+            presenter.ChangeIntegratedSecurity();
         }
     }
 }

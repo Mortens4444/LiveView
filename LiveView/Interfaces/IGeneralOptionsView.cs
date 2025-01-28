@@ -9,8 +9,6 @@ namespace LiveView.Interfaces
 
         NumericUpDown NudRestartTemplate { get; }
 
-        NumericUpDown NudDatabasePort { get; }
-
         NumericUpDown NudMaximumTimeToWaitForNewPicture { get; }
 
         NumericUpDown NudMaximumDeflectionBetweenLiveViewAndRecorder { get; }
@@ -32,6 +30,8 @@ namespace LiveView.Interfaces
         CheckBox ChkThreading { get; }
 
         CheckBox ChkOpenMotionPopupWhenProgramStarts { get; }
+        
+        CheckBox ChkOpenControlCenterWhenProgramStarts { get; }
 
         CheckBox ChkUseCustomNoSignalImage { get; }
 
@@ -39,21 +39,33 @@ namespace LiveView.Interfaces
 
         CheckBox ChkUseWatchDog { get; }
 
+        CheckBox ChkIntegratedSecurity { get; }
+
         ComboBox CbKBD300ACOMPort { get; }
 
         ComboBox CbUsers { get; }
+
+        ComboBox CbAutoLoadedTemplate { get; }
 
         TextBox TbDatabaseUsage { get; }
 
         TextBox TbDatabaseFolder { get; }
 
-        TextBox TbDatabaseServerIp { get; }
-
-        TextBox TbPassword { get; }
+        TextBox TbDataSource { get; }
 
         TextBox TbUsername { get; }
 
         TextBox TbDatabaseName { get; }
+
+        TextBox TbPassword { get; }
+        
+        NumericUpDown NudConnectionTimeout { get; }
+
+        CheckBox ChkEncrypt { get; }
+
+        CheckBox ChkPooling { get; }
+        
+        Label LblPassword { get; }
 
         MtfPictureBox PbStatus { get; }
 
@@ -64,5 +76,7 @@ namespace LiveView.Interfaces
         RadioButton RbVerboseLogOnlyErrors { get; }
 
         FolderBrowserDialog FolderBrowserDialog { get; }
+
+        SaveFileDialog SaveFileDialog { get; }
     }
 }
