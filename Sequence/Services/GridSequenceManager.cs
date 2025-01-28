@@ -17,12 +17,13 @@ using LiveView.Core.Enums.Window;
 using Sequence.Dto;
 using Sequence.Forms;
 using LiveView.Core.Enums.Display;
+using Mtf.Network;
 
 namespace Sequence.Services
 {
     public class GridSequenceManager : IDisposable
     {
-        private static readonly ReadOnlyCollection<Server> servers = new ServerRepository().SelectAll();
+        private static readonly ReadOnlyCollection<Database.Models.Server> servers = new ServerRepository().SelectAll();
         private static readonly ReadOnlyCollection<Camera> allCameras = new CameraRepository().SelectAll();
         private static readonly ReadOnlyCollection<GridCamera> gridCameras = new GridCameraRepository().SelectAll();
 
@@ -38,11 +39,13 @@ namespace Sequence.Services
         private int currentGridIndex;
         private int disposed;
         private bool showNextGrid, showPreviousGrid;
+        private Client client;
 
         public bool IsPaused { get; set; }
 
-        public GridSequenceManager(PermissionManager<User> permissionManager, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
+        public GridSequenceManager(Client client, PermissionManager<User> permissionManager, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
         {
+            this.client = client;
             this.permissionManager = permissionManager;
             this.parentForm = parentForm;
             this.display = display;
@@ -141,7 +144,7 @@ namespace Sequence.Services
                     }
                     else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                     {
-                        var cameraForm = new VideoSourceCamera(permissionManager, videoCaptureSourceCameraInfo, rectangle)
+                        var cameraForm = new VideoSourceCamera(client, permissionManager, videoCaptureSourceCameraInfo, rectangle)
                         {
                             MdiParent = parentForm
                         };

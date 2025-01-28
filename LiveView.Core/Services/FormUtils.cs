@@ -1,24 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Services
 {
     public static class FormUtils
     {
+        private const int SW_SHOW = 5;
+        private const int SW_HIDE = 0;
+
+        [DllImport("User32.dll", SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         public static void ShowMdiChildForms(Form mdiParent, List<Form> forms)
         {
             foreach (var form in forms)
             {
-                mdiParent.Invoke((Action)(() => form.Show()));
+                mdiParent.Invoke((Action)(() =>
+                {
+                    ShowWindow(form.Handle, SW_SHOW);
+                }));
             }
+            mdiParent.ResumeLayout();
         }
 
         public static void HideMdiChildForms(Form mdiParent, List<Form> forms)
         {
+            mdiParent.SuspendLayout();
             foreach (var form in forms)
             {
-                mdiParent.Invoke((Action)(() => form.Hide()));
+                mdiParent.Invoke((Action)(() =>
+                {
+                    ShowWindow(form.Handle, SW_HIDE);
+                }));
             }
         }
 

@@ -19,6 +19,7 @@ namespace LiveView.Forms
     {
         private readonly Camera camera;
         private readonly VideoSource videoSource;
+        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
 
         private ControlCenterPresenter presenter;
 
@@ -83,6 +84,7 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
+            initializationCompleted.Set();
             presenter.Load();
             presenter.StartCameraApp(camera);
             presenter.StartCameraApp(videoSource);
@@ -354,10 +356,7 @@ namespace LiveView.Forms
         {
             Task.Run(() =>
             {
-                while (presenter == null)
-                {
-                    Thread.Sleep(100);
-                }
+                initializationCompleted.WaitOne();
                 presenter.StartTemplate(template);
             });
         }

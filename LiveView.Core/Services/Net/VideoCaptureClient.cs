@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace LiveView.Core.Services.Net
 {
@@ -14,8 +15,10 @@ namespace LiveView.Core.Services.Net
     {
         private readonly string serverIp;
         private readonly ushort serverPort;
-        private Client client;
         private readonly List<byte> imageDataChunks = new List<byte>();
+
+        private Client client;
+        private int started = 0;
 
         public event EventHandler<FrameArrivedEventArgs> FrameArrived;
 
@@ -37,15 +40,18 @@ namespace LiveView.Core.Services.Net
 
         public void Start()
         {
-            client = new Client(serverIp, serverPort);
-            client.DataArrived += ClientDataArrivedEventHandler;
-            client.SetBufferSize(409600);
-            client.Connect();
+            if (Interlocked.Exchange(ref started, 1) == 0)
+            {
+                client = new Client(serverIp, serverPort);
+                client.DataArrived += ClientDataArrivedEventHandler;
+                client.SetBufferSize(409600);
+                client.Connect();
+            }
         }
 
         public void Stop()
         {
-            if (client != null)
+            if (client != null && Interlocked.Exchange(ref started, 0) == 1)
             {
                 client.DataArrived -= ClientDataArrivedEventHandler;
                 client.Disconnect();

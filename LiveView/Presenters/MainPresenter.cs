@@ -24,6 +24,7 @@ using Mtf.Permissions.Services;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -42,10 +43,11 @@ namespace LiveView.Presenters
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
         public readonly static ConcurrentDictionary<string, SequenceProcessInfo> SequenceProcesses = new ConcurrentDictionary<string, SequenceProcessInfo>();
         public readonly static Dictionary<Socket, CameraProcessInfo> CameraProcessInfo = new Dictionary<Socket, CameraProcessInfo>();
+        
+        public static BindingList<string> Agents { get; } = new BindingList<string>();
+        //public readonly static Dictionary<string, DateTime> AgentPingTimes = new Dictionary<string, DateTime>();
 
         public static NetworkServer Server { get; private set; }
-        private readonly Dictionary<int, List<byte[]>> imageParts = new Dictionary<int, List<byte[]>>();
-        private readonly Dictionary<int, int> totalPartsMap = new Dictionary<int, int>();
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
         private readonly IServiceProvider serviceProvider;
@@ -198,12 +200,16 @@ namespace LiveView.Presenters
 
                     if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
                     {
-                        ControlCenterPresenter.Agents.Add(messageParts[1]);
+                        Agents.Add(messageParts[1]);
+                        //AgentPingTimes.Add(messageParts[1], DateTime.UtcNow);
                         MainForm.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
                     {
-                        ControlCenterPresenter.Agents.Remove(messageParts[1]);
+                        Agents.Remove(messageParts[1]);
+                        //AgentPingTimes.Remove(messageParts[1]);
+                        
+                        //agentRepository.DeleteWhere(new { ServerIp = messageParts[1].Split(':')[0] });
                         MainForm.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
@@ -249,12 +255,20 @@ namespace LiveView.Presenters
                         //var processId = Convert.ToInt32(messageParts[3]);
                         SequenceProcesses.TryRemove(localEndPoint, out _);
                     }
+                    else if (message.StartsWith($"{NetworkCommand.AgentDisconnected}|"))
+                    {
+                        agentRepository.DeleteWhere(new { ServerIp = messageParts[1] });
+                    }
                     else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                     {
                         var videoCaptureSources = messageParts[1].Split(';')
                             .Select(vcs => vcs.Split('='))
                             .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
                         VideoCaptureSources.Add(e.Socket, videoCaptureSources);
+                        if (videoCaptureSources.Count > 0)
+                        { 
+                            agentRepository.DeleteWhere(new { ServerIp = videoCaptureSources.Values.First().Split(':')[0] });
+                        }
                         foreach (var videoCaptureSource in videoCaptureSources)
                         {
                             var hostInfo = videoCaptureSource.Value.Split(':');
@@ -299,6 +313,7 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.Ping}"))
                     {
+                        //AgentPingTimes.Add(messageParts[1], DateTime.UtcNow);
                     }
                     else
                     {

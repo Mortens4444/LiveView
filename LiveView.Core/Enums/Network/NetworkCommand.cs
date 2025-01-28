@@ -39,6 +39,7 @@
         ShowPreviousGrid,
         RearrangeGrids,
         ShowNextGrid,
-        PlayOrPauseSequence
+        PlayOrPauseSequence,
+        AgentDisconnected
     }
 }

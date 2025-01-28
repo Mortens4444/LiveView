@@ -84,7 +84,7 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display does not found with Id '{displayId}'.");
             }
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, this, display, isMdi, sequenceId);
+            gridSequenceManager = new GridSequenceManager(client, permissionManager, this, display, isMdi, sequenceId);
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)

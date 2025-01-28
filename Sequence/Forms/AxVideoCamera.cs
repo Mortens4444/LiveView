@@ -19,6 +19,8 @@ namespace Sequence.Forms
         public AxVideoCamera(PermissionManager<User> permissionManager, Camera camera, Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
             InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+
             this.rectangle = rectangle;
             this.server = server;
             this.camera = camera;

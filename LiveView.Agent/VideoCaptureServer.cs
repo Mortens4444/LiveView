@@ -12,7 +12,7 @@ namespace LiveView.Agent
     {
         public static Server Capture(Dictionary<string, CancellationTokenSource> cancellationTokenSources, VideoCapture videoCapture, string videoCaptureIdentifier, byte fps = 25)
         {
-            const int maxRetryCount = 3; // Maximum újraindítási próbálkozások száma
+            const int maxRetryCount = 3;
             int retryCount = 0;
 
             var server = new Server();
@@ -43,7 +43,6 @@ namespace LiveView.Agent
                             }
                         }
 
-                        // Sikeres végrehajtás esetén kilépünk a retry loop-ból
                         break;
                     }
                     catch (Exception ex)
@@ -57,7 +56,7 @@ namespace LiveView.Agent
 
                         if (retryCount < maxRetryCount)
                         {
-                            Thread.Sleep(2000); // Rövid várakozás az újraindítás előtt
+                            Thread.Sleep(2000);
                         }
                         else
                         {

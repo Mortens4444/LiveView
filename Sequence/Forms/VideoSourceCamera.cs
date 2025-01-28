@@ -1,14 +1,18 @@
 ﻿using Database.Models;
 using Database.Repositories;
 using LiveView.Core.CustomEventArgs;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services.Net;
 using Mtf.MessageBoxes;
+using Mtf.Network;
 using Mtf.Permissions.Services;
 using Sequence.Dto;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Timers.Timer;
 
@@ -16,39 +20,79 @@ namespace Sequence.Forms
 {
     public partial class VideoSourceCamera : Form
     {
+        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
         private readonly PermissionManager<User> permissionManager;
         private readonly Rectangle rectangle;
-        private readonly VideoCaptureClient videoCaptureClient;
-
-        private Image lastImage;
-        private Timer frameTimer;
+        private readonly Client client;
         private readonly int frameTimeout = 1500;
 
-        public VideoSourceCamera(PermissionManager<User> permissionManager, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
+        private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
+        private VideoCaptureClient videoCaptureClient;
+        private Image lastImage;
+        private Timer frameTimer;
+
+        public VideoSourceCamera(Client client, PermissionManager<User> permissionManager, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+
+            this.client = client;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
+            StartVideoCapture();
+        }
+
+        private void StartVideoCapture()
+        {
             var agentRepository = new AgentRepository();
-            var agents = agentRepository.SelectAll();
-            var agent = agents.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
-            if (agent != null)
+
+            Task.Run(() =>
             {
+                Agent agent = null;
+                do
+                {
+                    var agents = agentRepository.SelectAll();
+                    agent = agents.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                    Thread.Sleep(500);
+                }
+                while (agent == null);
+
                 videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
                 videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-
-                frameTimer = new Timer(frameTimeout);
-                frameTimer.Elapsed += (s, e) =>
+                videoCaptureClient.Start();
+                initializationCompleted.Set();
+                Invoke((Action)(() =>
                 {
-                    Invoke((Action)(() =>
+                    frameTimer = new Timer(frameTimeout);
+                    frameTimer.Elapsed += (s, e) =>
                     {
-                        mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                    }));
-                    frameTimer.Stop();
-                };
+                        Invoke((Action)(() =>
+                        {
+                            mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                            client.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}", true);
+                            Thread.Sleep(200);
+                            ReconnectVideoCapture();
+                        }));
+                        frameTimer.Stop();
+                    };
+                    frameTimer.AutoReset = false;
+                }));
+            });
+        }
 
-                frameTimer.AutoReset = false;
-            }
+        /// <summary>
+        /// Can only be called after the Agents table has been cleared.
+        /// </summary>
+        private void ReconnectVideoCapture()
+        {
+            Task.Run(() =>
+            {
+                videoCaptureClient.FrameArrived -= VideoCaptureClient_FrameArrived;
+                videoCaptureClient?.Stop();
+                videoCaptureClient = null;
+                StartVideoCapture();
+            });
         }
 
         private void VideoSourceCamera_Load(object sender, EventArgs e)
@@ -65,7 +109,11 @@ namespace Sequence.Forms
 
         private void Start()
         {
-            videoCaptureClient?.Start();
+            Task.Run(() =>
+            {
+                initializationCompleted.WaitOne();
+                videoCaptureClient?.Start();
+            });
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)

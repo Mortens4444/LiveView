@@ -32,13 +32,11 @@ namespace LiveView.Presenters
         private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
         private readonly DisplayManager displayManager;
         private readonly List<Process> sequenceProcesses;
         public static Process CameraProcess { get; private set; }
-
-        public static BindingList<string> Agents { get; } = new BindingList<string>();
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
             : base(controlCenterPresenterDependencies)
@@ -149,19 +147,40 @@ namespace LiveView.Presenters
         public void RearrangeGrids()
         {
             var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.RearrangeGrids}");
+            if (selectedDisplay != null)
+            {
+                MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.RearrangeGrids}");
+            }
+            else
+            {
+                ShowError("Select a display first.");
+            }
         }
 
         public void ShowNextGrid()
         {
             var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowNextGrid}");
+            if (selectedDisplay != null)
+            {
+                MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowNextGrid}");
+            }
+            else
+            {
+                ShowError("Select a display first.");
+            }
         }
 
         public void ShowPreviousGrid()
         {
             var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
-            MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowPreviousGrid}");
+            if (selectedDisplay != null)
+            {
+                MainPresenter.SendMessageToSequenceOnDisplay(selectedDisplay, $"{NetworkCommand.ShowPreviousGrid}");
+            }
+            else
+            {
+                ShowError("Select a display first.");
+            }
         }
 
         public void StopMoving()
@@ -205,7 +224,7 @@ namespace LiveView.Presenters
                     var selected = view.CbAgents.SelectedItem;
                     view.CbAgents.Items.Clear();
                     view.CbAgents.Items.Add(Lng.Elem("Localhost"));
-                    view.CbAgents.Items.AddRange(Agents.OrderBy(agent => agent).ToArray());
+                    view.CbAgents.Items.AddRange(MainPresenter.Agents.OrderBy(agent => agent).ToArray());
                     view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
                 }));
             }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
