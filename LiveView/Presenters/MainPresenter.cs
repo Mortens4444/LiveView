@@ -141,6 +141,7 @@ namespace LiveView.Presenters
                 else
                 {
                     MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
+                }
             }
         }
 
