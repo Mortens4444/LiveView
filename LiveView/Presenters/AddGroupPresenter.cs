@@ -4,9 +4,17 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -77,19 +85,41 @@ namespace LiveView.Presenters
         public override void Load()
         {
             view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
+            //view.LvOperationsAndCameras.Groups.Add
 
-            view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(), camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+            view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(),
+                camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+                {
+                    Tag = camera,
+                    ToolTipText = camera.Guid,
+                    Group = view.LvAvaialableOperationsAndCameras.Groups["Cameras"]
+                });
+
+            var operations = operationRepository.SelectAll();
+            foreach (var operation in operations)
             {
-                Tag = camera,
-                ToolTipText = camera.Guid,
-                Group = view.LvAvaialableOperationsAndCameras.Groups["Cameras"]
-            });
-            view.LvAvaialableOperationsAndCameras.AddItems(operationRepository.SelectAll(), operation => new ListViewItem(operation.Name, OperationIconIndex)
-            {
-                Tag = operation,
-                ToolTipText = operation.Note,
-                Group = view.LvAvaialableOperationsAndCameras.Groups["Operations"]
-            }, false);
+                var groupName = operation.PermissionGroup;
+                var formattedGroupName = Lng.Elem(TypeNameFormatter.ToReadableFormat(groupName));
+                var permissionGroup = view.LvAvaialableOperationsAndCameras.Groups
+                    .Cast<ListViewGroup>()
+                    .FirstOrDefault(g => g.Name == groupName);
+                
+                if (permissionGroup == null)
+                {
+                    permissionGroup = new ListViewGroup(formattedGroupName, HorizontalAlignment.Left)
+                    {
+                        Name = groupName
+                    };
+                    view.LvAvaialableOperationsAndCameras.Groups.Add(permissionGroup);
+                }
+                var listViewItem = new ListViewItem(Lng.Elem(TypeNameFormatter.ToReadableFormat(operation.PermissionValue)), OperationIconIndex)
+                {
+                    Group = permissionGroup,
+                    Tag = operation
+                };
+                //listViewItem.SubItems.Add(GetOperationId(enumType.Name, valueStr).ToString());
+                view.LvAvaialableOperationsAndCameras.Items.Add(listViewItem);
+            }
         }
 
         public void AddAllOperationsAndCameras()
@@ -218,7 +248,11 @@ namespace LiveView.Presenters
 
         public void SelectAllOperations()
         {
-            view.LvAvaialableOperationsAndCameras.Groups["Operations"].SelectAll();
+            var enums = PermissionEnumProviders.Get();
+            foreach (var enumType in enums)
+            {
+                view.LvAvaialableOperationsAndCameras.Groups[enumType.Name].SelectAll();
+            }
         }
     }
 }

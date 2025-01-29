@@ -1,1 +1,1 @@
-﻿SELECT Id, SequenceId, GridId, TimeToShow, Number FROM GridsInSequences;
+﻿SELECT * FROM GridsInSequences;

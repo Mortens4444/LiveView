@@ -1,4 +1,4 @@
-﻿SELECT Id, Date, UserId, OperationId, EventId, LanguageElementId, OtherInformation FROM Logs
+﻿SELECT * FROM Logs
 WHERE
     (LogType = @LogType OR @LogType = 0) -- Filter by LogType if not 'Any'
     AND Date BETWEEN @From AND @To      -- Filter by date range

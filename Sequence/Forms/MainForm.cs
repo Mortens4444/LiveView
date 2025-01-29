@@ -130,7 +130,11 @@ namespace Sequence.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             Location = new Point(display.X, display.Y);
+#if DEBUG
+            Size = new Size(100, 100);
+#else
             Size = new Size(display.MaxWidth, display.MaxHeight);
+#endif
         }
 
         private async Task OnExitAsync()

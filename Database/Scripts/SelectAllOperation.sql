@@ -1,1 +1,1 @@
-﻿SELECT Id, LanguageElementId, Note FROM Operations;
+﻿SELECT * FROM Operations;

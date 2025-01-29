@@ -330,7 +330,12 @@ namespace LiveView.Presenters
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
             var result = new Mtf.Permissions.Models.User<User>();
-            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Text);
+            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
+            if (user == null)
+            {
+                ShowError("Invalid username or password");
+                return null;
+            }
             var groupIds = userGroupRepository.SelectWhere(new { UserId = user.Id }).Select(userGroup => userGroup.GroupId);
 
             result.Username = user.Username;
@@ -362,14 +367,32 @@ namespace LiveView.Presenters
             return result;
         }
 
-        public void SecondaryLogon(int neededSecondaryLogonPriority)
+        public Mtf.Permissions.Models.User<User> SecondaryLogon(int neededSecondaryLogonPriority)
         {
-            var secondaryUser = userRepository.SecondaryLogin(view.TbUsername2.Text, view.TbPassword2.Text);
+            var result = new Mtf.Permissions.Models.User<User>();
+            var secondaryUser = userRepository.SecondaryLogin(view.TbUsername2.Text, view.TbPassword2.Password);
+            if (secondaryUser == null)
+            {
+                ShowError("Invalid username or password");
+                return null;
+            }
             if (secondaryUser.SecondaryLogonPriority < neededSecondaryLogonPriority)
             {
                 var message = String.Format(UserShouldHaveAtLeastPriority, secondaryUser, neededSecondaryLogonPriority);
                 ShowError(message);
+                return null;
             }
+            result.Username = secondaryUser.Username;
+            result.Tag = secondaryUser;
+            result.Groups = new List<Mtf.Permissions.Models.Group>();
+            var groupIds = userGroupRepository.SelectWhere(new { UserId = secondaryUser.Id }).Select(userGroup => userGroup.GroupId);
+            foreach (var groupId in groupIds)
+            {
+                var group = new Mtf.Permissions.Models.Group();
+                var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
+                result.Groups.Add(group);
+            }
+            return result;
         }
 
         public static void MoveMouseToHome()

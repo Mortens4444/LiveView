@@ -1,1 +1,1 @@
-﻿SELECT Id, Rows, Columns, PixelsFromRight, PixelsFromBottom, Name, Priority FROM Grids ORDER BY Name
+﻿SELECT * FROM Grids ORDER BY Name

@@ -1,1 +1,1 @@
-﻿SELECT GridId, CameraId, InitRow, InitCol, EndRow, EndCol, ServerIp, VideoSourceName FROM GridCameras WHERE Id = @Id;
+﻿SELECT * FROM GridCameras WHERE Id = @Id;

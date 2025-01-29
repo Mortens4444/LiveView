@@ -179,7 +179,7 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rights]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Permissions]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Rights (
         ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -304,7 +304,7 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RightsOnCameras]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraPermissions]') AND type in (N'U'))
 BEGIN
     CREATE TABLE RightsOnCameras (
         ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,

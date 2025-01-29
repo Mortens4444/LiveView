@@ -1,1 +1,0 @@
-﻿SELECT Id, OperationId, GroupId, UserEvent FROM Permissions WHERE GroupId = @GroupId;

@@ -1,0 +1,1 @@
+﻿SELECT * FROM Permissions WHERE GroupId = @GroupId;

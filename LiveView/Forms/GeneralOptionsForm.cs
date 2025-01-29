@@ -102,7 +102,7 @@ namespace LiveView.Forms
             permissionManager.EnsurePermissions();
         }
 
-        [RequirePermission(CameraManagementPermissions.ChangeNosignalImage)]
+        [RequirePermission(CameraManagementPermissions.ChangeNoSignalImage)]
         private void BtnNoSignalImageBrowse_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

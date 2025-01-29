@@ -23,17 +23,22 @@ namespace LiveView.Core.Extensions
                 {
                     oldImage = pictureBox.Image;
                     pictureBox.Image = useClone ? (Image)image.Clone() : image;
-                    SetTextOnImage(control, pictureBox.Image, Color.Gray, 2);
+                    SetTextOnImage(control, pictureBox.Image);
                 }
                 else
                 {
                     oldImage = control.BackgroundImage;
                     control.BackgroundImage = useClone ? (Image)image.Clone() : image;
-                    SetTextOnImage(control, control.BackgroundImage, Color.Gray, 2);
+                    SetTextOnImage(control, control.BackgroundImage);
                 }
                 
                 oldImage?.Dispose();
             }));
+        }
+
+        private static void SetTextOnImage(Control control, Image image)
+        {
+            SetTextOnImage(control, image, Color.DarkGray, 2);
         }
 
         private static void SetTextOnImage(Control control, Image image, Color shadowColor, int shadowOffset)

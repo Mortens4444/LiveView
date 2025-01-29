@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, Note FROM UserEvents;
+﻿SELECT * FROM UserEvents;

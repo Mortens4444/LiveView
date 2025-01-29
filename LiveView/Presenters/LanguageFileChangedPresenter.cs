@@ -13,7 +13,7 @@ namespace LiveView.Presenters
     public class LanguageFileChangedPresenter : BasePresenter
     {
         public static string LanguageFilePath = Path.Combine(Application.StartupPath, "Languages.ods");
-        public static string OriginalLanguageFileHash = "13e6d30899fde5de23b95146b865ddd54a421e760dcad4916e5620c8a71f8404";
+        public static string OriginalLanguageFileHash = "8cce4e26c1b3b018ecbc693714b0bfe8de3ea2359eb5bd20d18d49ef616bb705";
 
         private ILanguageFileChangedView view;
         private readonly ILogger<LanguageFileChangedForm> logger;

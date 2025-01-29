@@ -1,1 +1,1 @@
-﻿SELECT Id, TemplateId, ProcessName, ProcessParameters FROM TemplateProcesses WHERE TemplateId = @TemplateId;
+﻿SELECT * FROM TemplateProcesses WHERE TemplateId = @TemplateId;

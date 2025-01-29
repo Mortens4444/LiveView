@@ -7,6 +7,8 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -176,6 +178,15 @@ namespace LiveView.Forms
             }
 
             return false;
+        }
+
+        private void AddGroup_Resize(object sender, EventArgs e)
+        {
+            var availableWidth = ClientSize.Width - pCenter.Width;
+            var panelWidth = availableWidth / 2;
+            pLeft.Width = panelWidth;
+            pRight.Width = panelWidth;
+            pCenter.Location = new Point(pLeft.Right, pRight.Location.Y);
         }
     }
 }

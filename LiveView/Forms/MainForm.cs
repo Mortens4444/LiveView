@@ -51,11 +51,11 @@ namespace LiveView.Forms
 
         public TextBox TbUsername => tbUsername;
 
-        public TextBox TbPassword => tbPassword;
+        public PasswordBox TbPassword => tbPassword;
 
         public TextBox TbUsername2 => tbUsername2;
 
-        public TextBox TbPassword2 => tbPassword2;
+        public PasswordBox TbPassword2 => tbPassword2;
 
         static MainForm()
         {
@@ -296,7 +296,10 @@ namespace LiveView.Forms
         private void BtnLoginLogoutPrimary_Click(object sender, EventArgs e)
         {
             var user = presenter.PrimaryLogon();
-            permissionManager.SetUser(this, user);
+            if (user != null)
+            {
+                permissionManager.SetUser(this, user);
+            }
         }
 
         private void BtnLoginLogoutSecondary_Click(object sender, EventArgs e)

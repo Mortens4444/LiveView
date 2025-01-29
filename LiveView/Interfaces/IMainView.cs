@@ -20,10 +20,10 @@ namespace LiveView.Interfaces
 
         TextBox TbUsername { get; }
 
-        TextBox TbPassword { get; }
+        PasswordBox TbPassword { get; }
 
         TextBox TbUsername2 { get; }
 
-        TextBox TbPassword2 { get; }
+        PasswordBox TbPassword2 { get; }
     }
 }

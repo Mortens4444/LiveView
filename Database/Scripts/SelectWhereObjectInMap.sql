@@ -1,1 +1,1 @@
-﻿SELECT MapObjectId, MapId FROM ObjectsInMaps WHERE MapId = @Id;
+﻿SELECT * FROM ObjectsInMaps WHERE MapId = @Id;

@@ -1,1 +1,1 @@
-﻿SELECT Id, DisplayedName, IpOrHost, DbPort, DbName, Username, Password, MacAddress FROM DBServers ORDER BY DisplayedName
+﻿SELECT * FROM DBServers ORDER BY DisplayedName

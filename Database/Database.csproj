@@ -13,18 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Scripts\GetDatabaseUsageStatistics.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
     <EmbeddedResource Include="Scripts\InsertAgent.sql" />
+    <EmbeddedResource Include="Scripts\InsertOperation.sql" />
     <EmbeddedResource Include="Scripts\MigrationExtendSequenceName.sql" />
     <EmbeddedResource Include="Scripts\MigrationExtendGridName.sql" />
+    <EmbeddedResource Include="Scripts\MigrationAlterTableOperation.sql" />
     <EmbeddedResource Include="Scripts\MigrationRestructureGridCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectAllAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectGroup.sql" />
@@ -39,7 +37,8 @@
     <EmbeddedResource Include="Scripts\SelectAllUserEvent.sql" />
     <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
-    <EmbeddedResource Include="Scripts\SelectWhereRights.sql" />
+    <EmbeddedResource Include="Scripts\HasAnyRowOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
     <EmbeddedResource Include="Scripts\UpdateUser.sql" />

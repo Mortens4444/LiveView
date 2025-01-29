@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, Active, Priority FROM Sequences WHERE @Id = Id;
+﻿SELECT * FROM Sequences WHERE @Id = Id;

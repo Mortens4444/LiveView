@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, OtherInformation, ParentGroupId FROM Groups WHERE Name = @Name;
+﻿SELECT * FROM Groups WHERE Name = @Name;

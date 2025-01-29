@@ -36,25 +36,29 @@
             var listViewGroup4 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
             pMain = new System.Windows.Forms.Panel();
             gbPermissions = new System.Windows.Forms.GroupBox();
-            lblUserEvents = new System.Windows.Forms.Label();
-            btnDeleteEvent = new System.Windows.Forms.Button();
-            btnSelectAllCameras = new System.Windows.Forms.Button();
-            btnModifyEvent = new System.Windows.Forms.Button();
-            btnSelectAllOperation = new System.Windows.Forms.Button();
-            btnCreateEvent = new System.Windows.Forms.Button();
-            lvAvaialableOperationsAndCameras = new Mtf.Controls.MtfListView();
-            chSelectableOperationsAndCameras = new System.Windows.Forms.ColumnHeader();
-            ilImages = new System.Windows.Forms.ImageList(components);
-            tbUserEventNote = new System.Windows.Forms.TextBox();
+            pBottom = new System.Windows.Forms.Panel();
+            pRight = new System.Windows.Forms.Panel();
             lvOperationsAndCameras = new Mtf.Controls.MtfListView();
             chExecuteableOperationsAndVisibleCameras = new System.Windows.Forms.ColumnHeader();
+            ilImages = new System.Windows.Forms.ImageList(components);
+            pLeft = new System.Windows.Forms.Panel();
+            lvAvaialableOperationsAndCameras = new Mtf.Controls.MtfListView();
+            chSelectableOperationsAndCameras = new System.Windows.Forms.ColumnHeader();
+            pCenter = new System.Windows.Forms.Panel();
+            btnSelectAllOperation = new System.Windows.Forms.Button();
+            btnSelectAllCameras = new System.Windows.Forms.Button();
+            btnAddSelected = new System.Windows.Forms.Button();
+            btnAddAll = new System.Windows.Forms.Button();
+            btnRemoveSelected = new System.Windows.Forms.Button();
+            btnRemoveAll = new System.Windows.Forms.Button();
+            lblUserEvents = new System.Windows.Forms.Label();
+            btnDeleteEvent = new System.Windows.Forms.Button();
+            btnModifyEvent = new System.Windows.Forms.Button();
+            btnCreateEvent = new System.Windows.Forms.Button();
+            tbUserEventNote = new System.Windows.Forms.TextBox();
             lblNote2 = new System.Windows.Forms.Label();
             lblEventName = new System.Windows.Forms.Label();
             cbEvents = new System.Windows.Forms.ComboBox();
-            btnRemoveAll = new System.Windows.Forms.Button();
-            btnRemoveSelected = new System.Windows.Forms.Button();
-            btnAddAll = new System.Windows.Forms.Button();
-            btnAddSelected = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnSavePermissions = new System.Windows.Forms.Button();
             gbGeneralDetails = new System.Windows.Forms.GroupBox();
@@ -66,6 +70,10 @@
             niModifyIcon = new System.Windows.Forms.NotifyIcon(components);
             pMain.SuspendLayout();
             gbPermissions.SuspendLayout();
+            pBottom.SuspendLayout();
+            pRight.SuspendLayout();
+            pLeft.SuspendLayout();
+            pCenter.SuspendLayout();
             gbGeneralDetails.SuspendLayout();
             SuspendLayout();
             // 
@@ -79,36 +87,225 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(664, 500);
+            pMain.Size = new System.Drawing.Size(654, 486);
             pMain.TabIndex = 0;
             // 
             // gbPermissions
             // 
             gbPermissions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbPermissions.Controls.Add(pBottom);
             gbPermissions.Controls.Add(lblUserEvents);
             gbPermissions.Controls.Add(btnDeleteEvent);
-            gbPermissions.Controls.Add(btnSelectAllCameras);
             gbPermissions.Controls.Add(btnModifyEvent);
-            gbPermissions.Controls.Add(btnSelectAllOperation);
             gbPermissions.Controls.Add(btnCreateEvent);
-            gbPermissions.Controls.Add(lvAvaialableOperationsAndCameras);
             gbPermissions.Controls.Add(tbUserEventNote);
-            gbPermissions.Controls.Add(lvOperationsAndCameras);
             gbPermissions.Controls.Add(lblNote2);
             gbPermissions.Controls.Add(lblEventName);
             gbPermissions.Controls.Add(cbEvents);
-            gbPermissions.Controls.Add(btnRemoveAll);
-            gbPermissions.Controls.Add(btnRemoveSelected);
-            gbPermissions.Controls.Add(btnAddAll);
-            gbPermissions.Controls.Add(btnAddSelected);
             gbPermissions.Location = new System.Drawing.Point(0, 104);
             gbPermissions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbPermissions.Name = "gbPermissions";
             gbPermissions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbPermissions.Size = new System.Drawing.Size(664, 360);
+            gbPermissions.Size = new System.Drawing.Size(654, 346);
             gbPermissions.TabIndex = 5;
             gbPermissions.TabStop = false;
             gbPermissions.Text = "Permissions";
+            // 
+            // pBottom
+            // 
+            pBottom.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pBottom.Controls.Add(pRight);
+            pBottom.Controls.Add(pLeft);
+            pBottom.Controls.Add(pCenter);
+            pBottom.Location = new System.Drawing.Point(3, 132);
+            pBottom.Name = "pBottom";
+            pBottom.Size = new System.Drawing.Size(648, 208);
+            pBottom.TabIndex = 12;
+            // 
+            // pRight
+            // 
+            pRight.Controls.Add(lvOperationsAndCameras);
+            pRight.Dock = System.Windows.Forms.DockStyle.Right;
+            pRight.Location = new System.Drawing.Point(332, 0);
+            pRight.Name = "pRight";
+            pRight.Size = new System.Drawing.Size(316, 208);
+            pRight.TabIndex = 12;
+            // 
+            // lvOperationsAndCameras
+            // 
+            lvOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvOperationsAndCameras.AlternatingColorsAreInUse = true;
+            lvOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chExecuteableOperationsAndVisibleCameras });
+            lvOperationsAndCameras.CompactView = false;
+            lvOperationsAndCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvOperationsAndCameras.EnsureLastItemIsVisible = false;
+            lvOperationsAndCameras.FirstItemIsGray = false;
+            lvOperationsAndCameras.FullRowSelect = true;
+            listViewGroup1.Header = "Operations";
+            listViewGroup1.Name = "Operations2";
+            listViewGroup2.Header = "Cameras";
+            listViewGroup2.Name = "Cameras2";
+            lvOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2 });
+            lvOperationsAndCameras.Location = new System.Drawing.Point(0, 0);
+            lvOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvOperationsAndCameras.Name = "lvOperationsAndCameras";
+            lvOperationsAndCameras.OwnerDraw = true;
+            lvOperationsAndCameras.ReadonlyCheckboxes = false;
+            lvOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvOperationsAndCameras.Size = new System.Drawing.Size(316, 208);
+            lvOperationsAndCameras.SmallImageList = ilImages;
+            lvOperationsAndCameras.TabIndex = 8;
+            lvOperationsAndCameras.Tag = "3; 120";
+            lvOperationsAndCameras.UseCompatibleStateImageBehavior = false;
+            lvOperationsAndCameras.View = System.Windows.Forms.View.Details;
+            // 
+            // chExecuteableOperationsAndVisibleCameras
+            // 
+            chExecuteableOperationsAndVisibleCameras.Text = "Executable operations and visible cameras";
+            chExecuteableOperationsAndVisibleCameras.Width = 270;
+            // 
+            // ilImages
+            // 
+            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
+            ilImages.TransparentColor = System.Drawing.Color.Transparent;
+            ilImages.Images.SetKeyName(0, "key.ico");
+            ilImages.Images.SetKeyName(1, "cam 0.ico");
+            // 
+            // pLeft
+            // 
+            pLeft.Controls.Add(lvAvaialableOperationsAndCameras);
+            pLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            pLeft.Location = new System.Drawing.Point(0, 0);
+            pLeft.Name = "pLeft";
+            pLeft.Size = new System.Drawing.Size(285, 208);
+            pLeft.TabIndex = 11;
+            // 
+            // lvAvaialableOperationsAndCameras
+            // 
+            lvAvaialableOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvAvaialableOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvAvaialableOperationsAndCameras.AlternatingColorsAreInUse = true;
+            lvAvaialableOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvAvaialableOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvAvaialableOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chSelectableOperationsAndCameras });
+            lvAvaialableOperationsAndCameras.CompactView = false;
+            lvAvaialableOperationsAndCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvAvaialableOperationsAndCameras.EnsureLastItemIsVisible = false;
+            lvAvaialableOperationsAndCameras.FirstItemIsGray = false;
+            lvAvaialableOperationsAndCameras.FullRowSelect = true;
+            listViewGroup3.Header = "Operations";
+            listViewGroup3.Name = "Operations";
+            listViewGroup4.Header = "Cameras";
+            listViewGroup4.Name = "Cameras";
+            lvAvaialableOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup3, listViewGroup4 });
+            lvAvaialableOperationsAndCameras.Location = new System.Drawing.Point(0, 0);
+            lvAvaialableOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvAvaialableOperationsAndCameras.Name = "lvAvaialableOperationsAndCameras";
+            lvAvaialableOperationsAndCameras.OwnerDraw = true;
+            lvAvaialableOperationsAndCameras.ReadonlyCheckboxes = false;
+            lvAvaialableOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvAvaialableOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvAvaialableOperationsAndCameras.Size = new System.Drawing.Size(285, 208);
+            lvAvaialableOperationsAndCameras.SmallImageList = ilImages;
+            lvAvaialableOperationsAndCameras.TabIndex = 1;
+            lvAvaialableOperationsAndCameras.Tag = "307; 120";
+            lvAvaialableOperationsAndCameras.UseCompatibleStateImageBehavior = false;
+            lvAvaialableOperationsAndCameras.View = System.Windows.Forms.View.Details;
+            // 
+            // chSelectableOperationsAndCameras
+            // 
+            chSelectableOperationsAndCameras.Text = "Selectable operations and cameras";
+            chSelectableOperationsAndCameras.Width = 270;
+            // 
+            // pCenter
+            // 
+            pCenter.Controls.Add(btnSelectAllOperation);
+            pCenter.Controls.Add(btnSelectAllCameras);
+            pCenter.Controls.Add(btnAddSelected);
+            pCenter.Controls.Add(btnAddAll);
+            pCenter.Controls.Add(btnRemoveSelected);
+            pCenter.Controls.Add(btnRemoveAll);
+            pCenter.Location = new System.Drawing.Point(285, 3);
+            pCenter.Name = "pCenter";
+            pCenter.Size = new System.Drawing.Size(47, 216);
+            pCenter.TabIndex = 10;
+            // 
+            // btnSelectAllOperation
+            // 
+            btnSelectAllOperation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnSelectAllOperation.Image = Properties.Resources.summa_right;
+            btnSelectAllOperation.Location = new System.Drawing.Point(7, 9);
+            btnSelectAllOperation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSelectAllOperation.Name = "btnSelectAllOperation";
+            btnSelectAllOperation.Size = new System.Drawing.Size(33, 27);
+            btnSelectAllOperation.TabIndex = 2;
+            btnSelectAllOperation.UseVisualStyleBackColor = true;
+            btnSelectAllOperation.Click += BtnSelectAllOperation_Click;
+            // 
+            // btnSelectAllCameras
+            // 
+            btnSelectAllCameras.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnSelectAllCameras.Image = Properties.Resources.summa_cam;
+            btnSelectAllCameras.Location = new System.Drawing.Point(7, 42);
+            btnSelectAllCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSelectAllCameras.Name = "btnSelectAllCameras";
+            btnSelectAllCameras.Size = new System.Drawing.Size(33, 27);
+            btnSelectAllCameras.TabIndex = 3;
+            btnSelectAllCameras.UseVisualStyleBackColor = true;
+            btnSelectAllCameras.Click += BtnSelectAllCameras_Click;
+            // 
+            // btnAddSelected
+            // 
+            btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddSelected.Image = Properties.Resources.add;
+            btnAddSelected.Location = new System.Drawing.Point(7, 82);
+            btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddSelected.Name = "btnAddSelected";
+            btnAddSelected.Size = new System.Drawing.Size(33, 27);
+            btnAddSelected.TabIndex = 4;
+            btnAddSelected.UseVisualStyleBackColor = true;
+            btnAddSelected.Click += BtnAddSelected_Click;
+            // 
+            // btnAddAll
+            // 
+            btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnAddAll.Image = Properties.Resources.summa_add;
+            btnAddAll.Location = new System.Drawing.Point(7, 115);
+            btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddAll.Name = "btnAddAll";
+            btnAddAll.Size = new System.Drawing.Size(33, 27);
+            btnAddAll.TabIndex = 5;
+            btnAddAll.UseVisualStyleBackColor = true;
+            btnAddAll.Click += BtnAddAll_Click;
+            // 
+            // btnRemoveSelected
+            // 
+            btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveSelected.Image = Properties.Resources.del;
+            btnRemoveSelected.Location = new System.Drawing.Point(7, 148);
+            btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveSelected.Name = "btnRemoveSelected";
+            btnRemoveSelected.Size = new System.Drawing.Size(33, 27);
+            btnRemoveSelected.TabIndex = 6;
+            btnRemoveSelected.UseVisualStyleBackColor = true;
+            btnRemoveSelected.Click += BtnRemoveSelected_Click;
+            // 
+            // btnRemoveAll
+            // 
+            btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            btnRemoveAll.Image = Properties.Resources.summa_del;
+            btnRemoveAll.Location = new System.Drawing.Point(7, 181);
+            btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRemoveAll.Name = "btnRemoveAll";
+            btnRemoveAll.Size = new System.Drawing.Size(33, 27);
+            btnRemoveAll.TabIndex = 7;
+            btnRemoveAll.UseVisualStyleBackColor = true;
+            btnRemoveAll.Click += BtnRemoveAll_Click;
             // 
             // lblUserEvents
             // 
@@ -123,7 +320,7 @@
             // btnDeleteEvent
             // 
             btnDeleteEvent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnDeleteEvent.Location = new System.Drawing.Point(559, 99);
+            btnDeleteEvent.Location = new System.Drawing.Point(549, 99);
             btnDeleteEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnDeleteEvent.Name = "btnDeleteEvent";
             btnDeleteEvent.Size = new System.Drawing.Size(88, 27);
@@ -132,22 +329,10 @@
             btnDeleteEvent.UseVisualStyleBackColor = true;
             btnDeleteEvent.Click += BtnDeleteEvent_Click;
             // 
-            // btnSelectAllCameras
-            // 
-            btnSelectAllCameras.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnSelectAllCameras.Image = Properties.Resources.summa_cam;
-            btnSelectAllCameras.Location = new System.Drawing.Point(316, 172);
-            btnSelectAllCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnSelectAllCameras.Name = "btnSelectAllCameras";
-            btnSelectAllCameras.Size = new System.Drawing.Size(33, 27);
-            btnSelectAllCameras.TabIndex = 3;
-            btnSelectAllCameras.UseVisualStyleBackColor = true;
-            btnSelectAllCameras.Click += BtnSelectAllCameras_Click;
-            // 
             // btnModifyEvent
             // 
             btnModifyEvent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnModifyEvent.Location = new System.Drawing.Point(559, 68);
+            btnModifyEvent.Location = new System.Drawing.Point(549, 68);
             btnModifyEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnModifyEvent.Name = "btnModifyEvent";
             btnModifyEvent.Size = new System.Drawing.Size(88, 27);
@@ -156,23 +341,11 @@
             btnModifyEvent.UseVisualStyleBackColor = true;
             btnModifyEvent.Click += BtnModifyEvent_Click;
             // 
-            // btnSelectAllOperation
-            // 
-            btnSelectAllOperation.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnSelectAllOperation.Image = Properties.Resources.summa_right;
-            btnSelectAllOperation.Location = new System.Drawing.Point(316, 138);
-            btnSelectAllOperation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnSelectAllOperation.Name = "btnSelectAllOperation";
-            btnSelectAllOperation.Size = new System.Drawing.Size(33, 27);
-            btnSelectAllOperation.TabIndex = 2;
-            btnSelectAllOperation.UseVisualStyleBackColor = true;
-            btnSelectAllOperation.Click += BtnSelectAllOperation_Click;
-            // 
             // btnCreateEvent
             // 
             btnCreateEvent.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCreateEvent.Enabled = false;
-            btnCreateEvent.Location = new System.Drawing.Point(559, 37);
+            btnCreateEvent.Location = new System.Drawing.Point(549, 37);
             btnCreateEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCreateEvent.Name = "btnCreateEvent";
             btnCreateEvent.Size = new System.Drawing.Size(88, 27);
@@ -180,51 +353,6 @@
             btnCreateEvent.Text = "Create";
             btnCreateEvent.UseVisualStyleBackColor = true;
             btnCreateEvent.Click += BtnCreateEvent_Click;
-            // 
-            // lvAvaialableOperationsAndCameras
-            // 
-            lvAvaialableOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvAvaialableOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvAvaialableOperationsAndCameras.AlternatingColorsAreInUse = true;
-            lvAvaialableOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvAvaialableOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvAvaialableOperationsAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvAvaialableOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chSelectableOperationsAndCameras });
-            lvAvaialableOperationsAndCameras.CompactView = false;
-            lvAvaialableOperationsAndCameras.EnsureLastItemIsVisible = false;
-            lvAvaialableOperationsAndCameras.FirstItemIsGray = false;
-            lvAvaialableOperationsAndCameras.FullRowSelect = true;
-            listViewGroup1.Header = "Operations";
-            listViewGroup1.Name = "Operations";
-            listViewGroup2.Header = "Cameras";
-            listViewGroup2.Name = "Cameras";
-            lvAvaialableOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2 });
-            lvAvaialableOperationsAndCameras.Location = new System.Drawing.Point(4, 138);
-            lvAvaialableOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvAvaialableOperationsAndCameras.Name = "lvAvaialableOperationsAndCameras";
-            lvAvaialableOperationsAndCameras.OwnerDraw = true;
-            lvAvaialableOperationsAndCameras.ReadonlyCheckboxes = false;
-            lvAvaialableOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvAvaialableOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvAvaialableOperationsAndCameras.Size = new System.Drawing.Size(302, 214);
-            lvAvaialableOperationsAndCameras.SmallImageList = ilImages;
-            lvAvaialableOperationsAndCameras.TabIndex = 1;
-            lvAvaialableOperationsAndCameras.Tag = "307; 120";
-            lvAvaialableOperationsAndCameras.UseCompatibleStateImageBehavior = false;
-            lvAvaialableOperationsAndCameras.View = System.Windows.Forms.View.Details;
-            // 
-            // chSelectableOperationsAndCameras
-            // 
-            chSelectableOperationsAndCameras.Text = "Selectable operations and cameras";
-            chSelectableOperationsAndCameras.Width = 270;
-            // 
-            // ilImages
-            // 
-            ilImages.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            ilImages.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("ilImages.ImageStream");
-            ilImages.TransparentColor = System.Drawing.Color.Transparent;
-            ilImages.Images.SetKeyName(0, "key.ico");
-            ilImages.Images.SetKeyName(1, "cam 0.ico");
             // 
             // tbUserEventNote
             // 
@@ -234,45 +362,8 @@
             tbUserEventNote.MaxLength = 5000;
             tbUserEventNote.Multiline = true;
             tbUserEventNote.Name = "tbUserEventNote";
-            tbUserEventNote.Size = new System.Drawing.Size(394, 55);
+            tbUserEventNote.Size = new System.Drawing.Size(384, 55);
             tbUserEventNote.TabIndex = 3;
-            // 
-            // lvOperationsAndCameras
-            // 
-            lvOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvOperationsAndCameras.AlternatingColorsAreInUse = true;
-            lvOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvOperationsAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chExecuteableOperationsAndVisibleCameras });
-            lvOperationsAndCameras.CompactView = false;
-            lvOperationsAndCameras.EnsureLastItemIsVisible = false;
-            lvOperationsAndCameras.FirstItemIsGray = false;
-            lvOperationsAndCameras.FullRowSelect = true;
-            listViewGroup3.Header = "Operations";
-            listViewGroup3.Name = "Operations2";
-            listViewGroup4.Header = "Cameras";
-            listViewGroup4.Name = "Cameras2";
-            lvOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup3, listViewGroup4 });
-            lvOperationsAndCameras.Location = new System.Drawing.Point(358, 138);
-            lvOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvOperationsAndCameras.Name = "lvOperationsAndCameras";
-            lvOperationsAndCameras.OwnerDraw = true;
-            lvOperationsAndCameras.ReadonlyCheckboxes = false;
-            lvOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvOperationsAndCameras.Size = new System.Drawing.Size(302, 214);
-            lvOperationsAndCameras.SmallImageList = ilImages;
-            lvOperationsAndCameras.TabIndex = 8;
-            lvOperationsAndCameras.Tag = "3; 120";
-            lvOperationsAndCameras.UseCompatibleStateImageBehavior = false;
-            lvOperationsAndCameras.View = System.Windows.Forms.View.Details;
-            // 
-            // chExecuteableOperationsAndVisibleCameras
-            // 
-            chExecuteableOperationsAndVisibleCameras.Text = "Executable operations and visible cameras";
-            chExecuteableOperationsAndVisibleCameras.Width = 270;
             // 
             // lblNote2
             // 
@@ -303,63 +394,15 @@
             cbEvents.Location = new System.Drawing.Point(158, 39);
             cbEvents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbEvents.Name = "cbEvents";
-            cbEvents.Size = new System.Drawing.Size(394, 23);
+            cbEvents.Size = new System.Drawing.Size(384, 23);
             cbEvents.TabIndex = 1;
             cbEvents.SelectedIndexChanged += CbEvents_SelectedIndexChanged;
-            // 
-            // btnRemoveAll
-            // 
-            btnRemoveAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveAll.Image = Properties.Resources.summa_del;
-            btnRemoveAll.Location = new System.Drawing.Point(316, 323);
-            btnRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRemoveAll.Name = "btnRemoveAll";
-            btnRemoveAll.Size = new System.Drawing.Size(33, 27);
-            btnRemoveAll.TabIndex = 7;
-            btnRemoveAll.UseVisualStyleBackColor = true;
-            btnRemoveAll.Click += BtnRemoveAll_Click;
-            // 
-            // btnRemoveSelected
-            // 
-            btnRemoveSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnRemoveSelected.Image = Properties.Resources.del;
-            btnRemoveSelected.Location = new System.Drawing.Point(316, 290);
-            btnRemoveSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRemoveSelected.Name = "btnRemoveSelected";
-            btnRemoveSelected.Size = new System.Drawing.Size(33, 27);
-            btnRemoveSelected.TabIndex = 6;
-            btnRemoveSelected.UseVisualStyleBackColor = true;
-            btnRemoveSelected.Click += BtnRemoveSelected_Click;
-            // 
-            // btnAddAll
-            // 
-            btnAddAll.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddAll.Image = Properties.Resources.summa_add;
-            btnAddAll.Location = new System.Drawing.Point(316, 256);
-            btnAddAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAddAll.Name = "btnAddAll";
-            btnAddAll.Size = new System.Drawing.Size(33, 27);
-            btnAddAll.TabIndex = 5;
-            btnAddAll.UseVisualStyleBackColor = true;
-            btnAddAll.Click += BtnAddAll_Click;
-            // 
-            // btnAddSelected
-            // 
-            btnAddSelected.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            btnAddSelected.Image = Properties.Resources.add;
-            btnAddSelected.Location = new System.Drawing.Point(316, 223);
-            btnAddSelected.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnAddSelected.Name = "btnAddSelected";
-            btnAddSelected.Size = new System.Drawing.Size(33, 27);
-            btnAddSelected.TabIndex = 4;
-            btnAddSelected.UseVisualStyleBackColor = true;
-            btnAddSelected.Click += BtnAddSelected_Click;
             // 
             // btnClose
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(569, 467);
+            btnClose.Location = new System.Drawing.Point(559, 453);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -371,7 +414,7 @@
             // btnSavePermissions
             // 
             btnSavePermissions.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnSavePermissions.Location = new System.Drawing.Point(354, 467);
+            btnSavePermissions.Location = new System.Drawing.Point(344, 453);
             btnSavePermissions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSavePermissions.Name = "btnSavePermissions";
             btnSavePermissions.Size = new System.Drawing.Size(208, 27);
@@ -392,7 +435,7 @@
             gbGeneralDetails.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbGeneralDetails.Name = "gbGeneralDetails";
             gbGeneralDetails.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbGeneralDetails.Size = new System.Drawing.Size(664, 103);
+            gbGeneralDetails.Size = new System.Drawing.Size(654, 103);
             gbGeneralDetails.TabIndex = 4;
             gbGeneralDetails.TabStop = false;
             gbGeneralDetails.Text = "General details";
@@ -400,7 +443,7 @@
             // btnCreateOrModifyGroup
             // 
             btnCreateOrModifyGroup.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnCreateOrModifyGroup.Location = new System.Drawing.Point(559, 13);
+            btnCreateOrModifyGroup.Location = new System.Drawing.Point(549, 13);
             btnCreateOrModifyGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnCreateOrModifyGroup.Name = "btnCreateOrModifyGroup";
             btnCreateOrModifyGroup.Size = new System.Drawing.Size(88, 27);
@@ -417,7 +460,7 @@
             tbGroupNote.MaxLength = 5000;
             tbGroupNote.Multiline = true;
             tbGroupNote.Name = "tbGroupNote";
-            tbGroupNote.Size = new System.Drawing.Size(394, 54);
+            tbGroupNote.Size = new System.Drawing.Size(384, 54);
             tbGroupNote.TabIndex = 3;
             // 
             // lblNote
@@ -438,7 +481,7 @@
             tbGroupName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbGroupName.MaxLength = 100;
             tbGroupName.Name = "tbGroupName";
-            tbGroupName.Size = new System.Drawing.Size(394, 23);
+            tbGroupName.Size = new System.Drawing.Size(384, 23);
             tbGroupName.TabIndex = 1;
             // 
             // lblGroupname
@@ -460,7 +503,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(664, 500);
+            ClientSize = new System.Drawing.Size(654, 486);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(670, 525);
@@ -469,9 +512,14 @@
             Text = "Add group";
             TopMost = true;
             Shown += AddGroup_Shown;
+            Resize += AddGroup_Resize;
             pMain.ResumeLayout(false);
             gbPermissions.ResumeLayout(false);
             gbPermissions.PerformLayout();
+            pBottom.ResumeLayout(false);
+            pRight.ResumeLayout(false);
+            pLeft.ResumeLayout(false);
+            pCenter.ResumeLayout(false);
             gbGeneralDetails.ResumeLayout(false);
             gbGeneralDetails.PerformLayout();
             ResumeLayout(false);
@@ -509,5 +557,9 @@
         private System.Windows.Forms.TextBox tbGroupName;
         private System.Windows.Forms.Label lblGroupname;
         private System.Windows.Forms.NotifyIcon niModifyIcon;
+        private System.Windows.Forms.Panel pCenter;
+        private System.Windows.Forms.Panel pBottom;
+        private System.Windows.Forms.Panel pRight;
+        private System.Windows.Forms.Panel pLeft;
     }
 }

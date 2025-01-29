@@ -1,1 +1,1 @@
-﻿SELECT Id, MapImage, Name, Comment, OriginalWidth, OriginalHeight FROM Maps Where Id = @Id
+﻿SELECT * FROM Maps Where Id = @Id

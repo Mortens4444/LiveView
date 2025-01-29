@@ -1,1 +1,1 @@
-﻿SELECT Id, Rows, Columns, PixelsFromRight, PixelsFromBottom, Name, Priority FROM Grids WHERE Id = @Id;
+﻿SELECT * FROM Grids WHERE Id = @Id;

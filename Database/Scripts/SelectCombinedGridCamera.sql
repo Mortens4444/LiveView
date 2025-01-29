@@ -1,1 +1,1 @@
-﻿SELECT GridId, InitRow, InitCol, EndRow, EndCol FROM GridCameras WHERE (EndRow IS NOT NULL) AND (GridId = @GridId);
+﻿SELECT * FROM GridCameras WHERE (EndRow IS NOT NULL) AND (GridId = @GridId);

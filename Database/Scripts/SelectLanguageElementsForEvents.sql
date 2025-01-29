@@ -1,1 +1,1 @@
-﻿SELECT Id, LanguageElementId FROM Events WHERE Id = @Id
+﻿SELECT * FROM Events WHERE Id = @Id

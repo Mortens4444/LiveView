@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace LiveView.Extensions
 {
@@ -22,5 +24,15 @@ namespace LiveView.Extensions
 
             throw new ArgumentException($"No enum value found for '{name}' in {typeof(TEnum).Name}");
         }
+
+        public static List<object> GetIndividualValues(Type enumType)
+        {
+            return Enum.GetValues(enumType)
+                       .Cast<object>()
+                       .Where(value => IsPowerOfTwo(Convert.ToInt64(value)))
+                       .ToList();
+        }
+
+        private static bool IsPowerOfTwo(long value) => value != 0 && (value & (value - 1)) == 0;
     }
 }

@@ -1,1 +1,1 @@
-﻿SELECT Id, UserId, GroupId FROM UsersInGroups;
+﻿SELECT * FROM UsersInGroups;

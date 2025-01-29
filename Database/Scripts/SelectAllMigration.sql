@@ -1,1 +1,1 @@
-﻿SELECT Id, Name FROM Migrations
+﻿SELECT * FROM Migrations

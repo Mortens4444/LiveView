@@ -1,1 +1,1 @@
-﻿SELECT Id, Name, Active, Priority FROM Sequences;
+﻿SELECT * FROM Sequences;

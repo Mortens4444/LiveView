@@ -1,1 +1,1 @@
-﻿SELECT Id, ServerIp, VideoCaptureSourceName, Port FROM Agents;
+﻿SELECT * FROM Agents;

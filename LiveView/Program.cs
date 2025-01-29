@@ -3,12 +3,14 @@ using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,7 +54,7 @@ namespace LiveView
             BaseRepository.Execute("CreateTables");
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
-                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName" };
+                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();
@@ -69,6 +71,14 @@ namespace LiveView
             var serviceProvider = ServiceProviderFactory.Create();
             ExceptionHandler.SetLogger(serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>());
 
+            FillOrUpdateDisplaysTable(serviceProvider);
+            FillOperationsTable(serviceProvider);
+
+            Application.Run(serviceProvider.GetRequiredService<MainForm>());
+        }
+
+        private static void FillOrUpdateDisplaysTable(ServiceProvider serviceProvider)
+        {
             var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var displays = displayRepository.SelectAll();
 
@@ -77,8 +87,29 @@ namespace LiveView
 
             //DeleteDiplaysFromRepository(displayRepository, displays, currentDisplays);
             InsertOrUpdateDisplay(displayRepository, displays, currentDisplays);
+        }
 
-            Application.Run(serviceProvider.GetRequiredService<MainForm>());
+        private static void FillOperationsTable(ServiceProvider serviceProvider)
+        {
+            var operationRepository = serviceProvider.GetRequiredService<IOperationRepository>();
+            if (!operationRepository.HasAnyRow())
+            {
+                var enums = PermissionEnumProviders.Get();
+                foreach (var enumType in enums)
+                {
+                    foreach (var value in EnumExtensions.GetIndividualValues(enumType))
+                    {
+                        var valueStr = value.ToString();
+                        var operation = new Operation
+                        {
+                            Id = UniqueIdGenerator.Get(String.Concat(enumType.Name, valueStr)),
+                            PermissionGroup = enumType.Name,
+                            PermissionValue = valueStr
+                        };
+                        operationRepository.Insert(operation);
+                    }
+                }
+            }
         }
 
         private static void InsertOrUpdateDisplay(IDisplayRepository displayRepository, ReadOnlyCollection<Display> displays, List<DisplayDto> currentDisplays)

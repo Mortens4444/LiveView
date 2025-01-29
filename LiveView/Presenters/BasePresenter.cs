@@ -256,6 +256,7 @@ namespace LiveView.Presenters
                 if (!isItemInDestinationListView(items[i]))
                 {
                     var item = (ListViewItem)items[i].Clone();
+                    SetItemGroup(destinationListView, items[i], item);
                     itemsToView.Add(item);
                 }
             }
@@ -271,10 +272,34 @@ namespace LiveView.Presenters
                 if (!isItemInDestinationListView(items[i]))
                 {
                     var item = (ListViewItem)items[i].Clone();
+                    SetItemGroup(destinationListView, items[i], item);
                     itemsToView.Add(item);
                 }
             }
             view.AddToItems(destinationListView, itemsToView.ToArray());
+        }
+
+        private static void SetItemGroup(ListView destinationListView, ListViewItem originalItem, ListViewItem item)
+        {
+            if (originalItem.Group != null)
+            {
+                var groupName = originalItem.Group.Name;
+
+                var targetGroup = destinationListView.Groups
+                    .Cast<ListViewGroup>()
+                    .FirstOrDefault(g => g.Name == groupName);
+
+                if (targetGroup == null)
+                {
+                    targetGroup = new ListViewGroup(originalItem.Group.Header, HorizontalAlignment.Left)
+                    {
+                        Name = groupName
+                    };
+                    destinationListView.Groups.Add(targetGroup);
+                }
+
+                item.Group = targetGroup;
+            }
         }
 
         private void LoadOptions()

@@ -1,1 +1,1 @@
-﻿SELECT Id, TemplateName FROM Templates;
+﻿SELECT * FROM Templates;

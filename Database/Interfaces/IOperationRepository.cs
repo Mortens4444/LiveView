@@ -5,5 +5,6 @@ namespace Database.Interfaces
 {
     public interface IOperationRepository : IRepository<Operation>
     {
+        bool HasAnyRow();
     }
 }

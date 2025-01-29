@@ -1,1 +1,1 @@
-﻿SELECT UserId, Name, TypeId, Value FROM Options WHERE UserId = @UserId
+﻿SELECT * FROM Options WHERE UserId = @UserId

@@ -1,1 +1,1 @@
-﻿SELECT Name, TypeId, Value, UserId FROM Options;
+﻿SELECT * FROM Options;

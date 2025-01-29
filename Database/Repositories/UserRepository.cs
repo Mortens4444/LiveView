@@ -13,7 +13,7 @@ namespace Database.Repositories
 
         public User Login(string username, string password)
         {
-            return ExecuteScalar<User>("LoginUser", new
+            return QuerySingleOrDefault("LoginUser", new
             {
                 Username = username,
                 Password = password

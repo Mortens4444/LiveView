@@ -1,1 +1,1 @@
-﻿SELECT Id, AdapterName, MonitorName, ShownName, SziltechId, Fullscreen, CanShowSequence, CanShowFullscreen FROM Displays WHERE SziltechId = @SziltechId;
+﻿SELECT * FROM Displays WHERE SziltechId = @SziltechId;

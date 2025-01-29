@@ -1,3 +1,1 @@
-﻿SELECT Id, GridId, CameraId, InitRow, InitCol, EndRow, EndCol, Osd, Frame, [Left], [Top], Width, Height, Ptz,
-    MotionSaveImages, MotionNumberOfPhotos, MotionValue, CsrSaveImages, CsrNumberOfPhotos, CsrValue, ShowDateTime
-FROM GridCameras WHERE GridId = @GridId;
+﻿SELECT * FROM GridCameras WHERE GridId = @GridId;
