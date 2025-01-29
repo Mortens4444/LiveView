@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
 using Mtf.Database;
+using System.Collections.ObjectModel;
 
 namespace Database.Repositories
 {
@@ -14,6 +15,11 @@ namespace Database.Repositories
         public string SelectCameraName(long cameraId)
         {
             return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
+        }
+
+        public ReadOnlyCollection<Camera> SelectGroupCameras(long groupId)
+        {
+            return Query("SelectGroupCameras", new { GroupId = groupId });
         }
     }
 }

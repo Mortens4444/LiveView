@@ -8,7 +8,7 @@ namespace Database.Models
 
         public long? OperationId { get; set; }
 
-        public long? UserEventId { get; set; }
+        public long? UserEvent { get; set; }
 
         public long GroupId { get; set; }
     }

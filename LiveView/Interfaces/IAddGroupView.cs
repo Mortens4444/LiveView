@@ -6,6 +6,10 @@ namespace LiveView.Interfaces
 {
     public interface IAddGroupView : IView
     {
+        Group ParentGroup { get; }
+
+        Group Group { get; set; }
+
         ComboBox CbEvents { get; }
 
         ListView LvAvaialableOperationsAndCameras { get; }

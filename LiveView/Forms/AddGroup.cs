@@ -7,8 +7,8 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.ComponentModel;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace LiveView.Forms
@@ -16,7 +16,7 @@ namespace LiveView.Forms
     public partial class AddGroup : BaseView, IAddGroupView
     {
         private AddGroupPresenter presenter;
-        private readonly Group group;
+        private Group group;
         private readonly Group parentGroup;
 
         public ComboBox CbEvents => cbEvents;
@@ -24,6 +24,11 @@ namespace LiveView.Forms
         public ListView LvAvaialableOperationsAndCameras => lvAvaialableOperationsAndCameras;
 
         public ListView LvOperationsAndCameras => lvOperationsAndCameras;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Group Group { get => group; set => group = value; }
+
+        public Group ParentGroup => parentGroup;
 
         public AddGroup(IServiceProvider serviceProvider, Group parentGroup, Group group = null) : base(serviceProvider, typeof(AddGroupPresenter))
         {
@@ -40,6 +45,12 @@ namespace LiveView.Forms
                 btnCreateOrModifyGroup.Text = "Save";
             }
             Translator.Translate(this);
+        }
+
+        private void AddGroup_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as AddGroupPresenter;
+            presenter.Load();
         }
 
         [RequirePermission(GroupManagementPermissions.Create)]
@@ -121,17 +132,6 @@ namespace LiveView.Forms
             presenter.SavePermissions();
         }
 
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
-            presenter.CloseForm();
-        }
-
-        private void AddGroup_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as AddGroupPresenter;
-            presenter.Load();
-        }
-
         public Group GetGroup()
         {
             return new Group
@@ -187,6 +187,11 @@ namespace LiveView.Forms
             pLeft.Width = panelWidth;
             pRight.Width = panelWidth;
             pCenter.Location = new Point(pLeft.Right, pRight.Location.Y);
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            presenter.CloseForm();
         }
     }
 }

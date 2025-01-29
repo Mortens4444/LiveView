@@ -1,0 +1,1 @@
+﻿SELECT o.* FROM Operations o JOIN Permissions p ON o.Id = p.OperationId WHERE p.GroupId = @GroupId;

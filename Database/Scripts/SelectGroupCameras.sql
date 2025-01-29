@@ -1,0 +1,1 @@
+﻿SELECT c.* FROM Cameras c JOIN CameraPermissions cp ON c.Id = cp.CameraId WHERE cp.GroupId = @GroupId;

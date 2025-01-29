@@ -177,7 +177,7 @@ IF NOT EXISTS (
 BEGIN
     ALTER TABLE Rights
     ADD CONSTRAINT FK_Permissions_UserEvents
-    FOREIGN KEY (user_event) REFERENCES Events(Id)
+    FOREIGN KEY (user_event) REFERENCES UserEvents(Id)
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 END;
@@ -297,7 +297,7 @@ IF NOT EXISTS (
 BEGIN
     ALTER TABLE RightsOnCameras
     ADD CONSTRAINT FK_CameraPermissions_Events
-    FOREIGN KEY (user_event) REFERENCES Events(Id)
+    FOREIGN KEY (user_event) REFERENCES UserEvents(Id)
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 END;
