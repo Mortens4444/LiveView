@@ -1,3 +1,15 @@
+GeneralOptionsForm
+------------------
+Show and Delete auto login user
+
+UserAndGroupManagement
+----------------------
+Load error with admin user
+
+Sequence
+--------
+Close sequence on taskbar, close button stays on display on ControlCenter
+
 VideoSource
 -----------
 - Add syncron view

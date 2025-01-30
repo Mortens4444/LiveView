@@ -8,7 +8,7 @@ namespace Database.Repositories
     {
         public long GetUserCount()
         {
-            return ExecuteScalar<long>("SelectNumberOfUsers", null);
+            return ExecuteScalar<long>("SelectNumberOfUsers");
         }
 
         public User Login(string username, string password)

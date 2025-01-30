@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -77,6 +77,7 @@ namespace LiveView.Forms
             tsmiLanguageEditor = new ToolStripMenuItem();
             tsmiHelp = new ToolStripMenuItem();
             tsmiTools = new ToolStripMenuItem();
+            tsmiKBD300ASimulator = new ToolStripMenuItem();
             lblUsername = new Label();
             gbUserEvents = new GroupBox();
             lvUserEvents = new Mtf.Controls.MtfListView();
@@ -93,12 +94,6 @@ namespace LiveView.Forms
             chPortName = new ColumnHeader();
             chPortValue = new ColumnHeader();
             chPortDirection = new ColumnHeader();
-            gbSecondaryLogon = new GroupBox();
-            btnLoginLogoutSecondary = new Button();
-            tbPassword2 = new Mtf.Controls.PasswordBox();
-            lblPassword2 = new Label();
-            tbUsername2 = new TextBox();
-            lblUsername2 = new Label();
             gbPrimaryLogon = new GroupBox();
             chIOPortEventNote = new ColumnHeader();
             chIOPortEventLoggedOnUser = new ColumnHeader();
@@ -117,12 +112,10 @@ namespace LiveView.Forms
             msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
             timer = new Timer(components);
-            tsmiKBD300ASimulator = new ToolStripMenuItem();
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
             pLeftBottom.SuspendLayout();
-            gbSecondaryLogon.SuspendLayout();
             gbPrimaryLogon.SuspendLayout();
             gb_PortEvents.SuspendLayout();
             pRightBottom.SuspendLayout();
@@ -261,7 +254,7 @@ namespace LiveView.Forms
             // btnLoginLogoutPrimary
             // 
             btnLoginLogoutPrimary.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnLoginLogoutPrimary.Location = new System.Drawing.Point(7, 134);
+            btnLoginLogoutPrimary.Location = new System.Drawing.Point(7, 126);
             btnLoginLogoutPrimary.Margin = new Padding(4, 3, 4, 3);
             btnLoginLogoutPrimary.Name = "btnLoginLogoutPrimary";
             btnLoginLogoutPrimary.Size = new System.Drawing.Size(234, 27);
@@ -274,20 +267,20 @@ namespace LiveView.Forms
             // 
             tbPassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbPassword.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            tbPassword.Location = new System.Drawing.Point(7, 105);
+            tbPassword.Location = new System.Drawing.Point(7, 97);
             tbPassword.Margin = new Padding(4, 3, 4, 3);
             tbPassword.MaxLength = 100;
             tbPassword.Name = "tbPassword";
             tbPassword.Password = "";
             tbPassword.PasswordChar = '*';
-            tbPassword.ShowRealPasswordLength = false;
+            tbPassword.ShowRealPasswordLength = true;
             tbPassword.Size = new System.Drawing.Size(234, 23);
             tbPassword.TabIndex = 17;
             // 
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new System.Drawing.Point(4, 83);
+            lblPassword.Location = new System.Drawing.Point(4, 75);
             lblPassword.Margin = new Padding(4, 0, 4, 0);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new System.Drawing.Size(57, 15);
@@ -298,7 +291,7 @@ namespace LiveView.Forms
             // 
             tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbUsername.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            tbUsername.Location = new System.Drawing.Point(7, 54);
+            tbUsername.Location = new System.Drawing.Point(7, 46);
             tbUsername.Margin = new Padding(4, 3, 4, 3);
             tbUsername.MaxLength = 100;
             tbUsername.Name = "tbUsername";
@@ -504,10 +497,18 @@ namespace LiveView.Forms
             tsmiTools.Size = new System.Drawing.Size(63, 20);
             tsmiTools.Text = "Tools";
             // 
+            // tsmiKBD300ASimulator
+            // 
+            tsmiKBD300ASimulator.Image = Properties.Resources.Kbd300ASimulator;
+            tsmiKBD300ASimulator.Name = "tsmiKBD300ASimulator";
+            tsmiKBD300ASimulator.Size = new System.Drawing.Size(215, 22);
+            tsmiKBD300ASimulator.Text = "KBD300A Simulator";
+            tsmiKBD300ASimulator.Click += TsmiKBD300ASimulator_Click;
+            // 
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new System.Drawing.Point(4, 32);
+            lblUsername.Location = new System.Drawing.Point(4, 24);
             lblUsername.Margin = new Padding(4, 0, 4, 0);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new System.Drawing.Size(60, 15);
@@ -522,7 +523,7 @@ namespace LiveView.Forms
             gbUserEvents.Margin = new Padding(4, 3, 4, 3);
             gbUserEvents.Name = "gbUserEvents";
             gbUserEvents.Padding = new Padding(4, 3, 4, 3);
-            gbUserEvents.Size = new System.Drawing.Size(253, 170);
+            gbUserEvents.Size = new System.Drawing.Size(253, 343);
             gbUserEvents.TabIndex = 14;
             gbUserEvents.TabStop = false;
             gbUserEvents.Text = "Choose the active event";
@@ -550,7 +551,7 @@ namespace LiveView.Forms
             lvUserEvents.ReadonlyCheckboxes = false;
             lvUserEvents.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvUserEvents.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvUserEvents.Size = new System.Drawing.Size(245, 148);
+            lvUserEvents.Size = new System.Drawing.Size(245, 321);
             lvUserEvents.TabIndex = 0;
             lvUserEvents.UseCompatibleStateImageBehavior = false;
             lvUserEvents.View = View.Details;
@@ -578,7 +579,6 @@ namespace LiveView.Forms
             // pLeft
             // 
             pLeft.Controls.Add(pLeftBottom);
-            pLeft.Controls.Add(gbSecondaryLogon);
             pLeft.Controls.Add(gbPrimaryLogon);
             pLeft.Dock = DockStyle.Left;
             pLeft.Location = new System.Drawing.Point(0, 24);
@@ -595,10 +595,10 @@ namespace LiveView.Forms
             pLeftBottom.Controls.Add(splitter2);
             pLeftBottom.Controls.Add(lvIOPorts);
             pLeftBottom.Dock = DockStyle.Fill;
-            pLeftBottom.Location = new System.Drawing.Point(0, 334);
+            pLeftBottom.Location = new System.Drawing.Point(0, 161);
             pLeftBottom.Margin = new Padding(4, 3, 4, 3);
             pLeftBottom.Name = "pLeftBottom";
-            pLeftBottom.Size = new System.Drawing.Size(253, 317);
+            pLeftBottom.Size = new System.Drawing.Size(253, 490);
             pLeftBottom.TabIndex = 13;
             // 
             // splitter4
@@ -625,11 +625,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "IO_Devices";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -699,82 +699,6 @@ namespace LiveView.Forms
             // 
             chPortDirection.Text = "Direction";
             // 
-            // gbSecondaryLogon
-            // 
-            gbSecondaryLogon.BackColor = System.Drawing.Color.Silver;
-            gbSecondaryLogon.Controls.Add(btnLoginLogoutSecondary);
-            gbSecondaryLogon.Controls.Add(tbPassword2);
-            gbSecondaryLogon.Controls.Add(lblPassword2);
-            gbSecondaryLogon.Controls.Add(tbUsername2);
-            gbSecondaryLogon.Controls.Add(lblUsername2);
-            gbSecondaryLogon.Dock = DockStyle.Top;
-            gbSecondaryLogon.Location = new System.Drawing.Point(0, 167);
-            gbSecondaryLogon.Margin = new Padding(4, 3, 4, 3);
-            gbSecondaryLogon.Name = "gbSecondaryLogon";
-            gbSecondaryLogon.Padding = new Padding(4, 3, 4, 3);
-            gbSecondaryLogon.Size = new System.Drawing.Size(253, 167);
-            gbSecondaryLogon.TabIndex = 7;
-            gbSecondaryLogon.TabStop = false;
-            gbSecondaryLogon.Text = "Secondary login";
-            gbSecondaryLogon.Visible = false;
-            // 
-            // btnLoginLogoutSecondary
-            // 
-            btnLoginLogoutSecondary.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnLoginLogoutSecondary.Location = new System.Drawing.Point(7, 134);
-            btnLoginLogoutSecondary.Margin = new Padding(4, 3, 4, 3);
-            btnLoginLogoutSecondary.Name = "btnLoginLogoutSecondary";
-            btnLoginLogoutSecondary.Size = new System.Drawing.Size(234, 27);
-            btnLoginLogoutSecondary.TabIndex = 18;
-            btnLoginLogoutSecondary.Text = "Login";
-            btnLoginLogoutSecondary.UseVisualStyleBackColor = true;
-            btnLoginLogoutSecondary.Click += BtnLoginLogoutSecondary_Click;
-            // 
-            // tbPassword2
-            // 
-            tbPassword2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbPassword2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            tbPassword2.Location = new System.Drawing.Point(7, 105);
-            tbPassword2.Margin = new Padding(4, 3, 4, 3);
-            tbPassword2.MaxLength = 100;
-            tbPassword2.Name = "tbPassword2";
-            tbPassword2.Password = "";
-            tbPassword2.PasswordChar = '*';
-            tbPassword2.ShowRealPasswordLength = false;
-            tbPassword2.Size = new System.Drawing.Size(234, 23);
-            tbPassword2.TabIndex = 17;
-            // 
-            // lblPassword2
-            // 
-            lblPassword2.AutoSize = true;
-            lblPassword2.Location = new System.Drawing.Point(4, 83);
-            lblPassword2.Margin = new Padding(4, 0, 4, 0);
-            lblPassword2.Name = "lblPassword2";
-            lblPassword2.Size = new System.Drawing.Size(57, 15);
-            lblPassword2.TabIndex = 16;
-            lblPassword2.Text = "Password";
-            // 
-            // tbUsername2
-            // 
-            tbUsername2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbUsername2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            tbUsername2.Location = new System.Drawing.Point(7, 54);
-            tbUsername2.Margin = new Padding(4, 3, 4, 3);
-            tbUsername2.MaxLength = 100;
-            tbUsername2.Name = "tbUsername2";
-            tbUsername2.Size = new System.Drawing.Size(234, 23);
-            tbUsername2.TabIndex = 15;
-            // 
-            // lblUsername2
-            // 
-            lblUsername2.AutoSize = true;
-            lblUsername2.Location = new System.Drawing.Point(4, 32);
-            lblUsername2.Margin = new Padding(4, 0, 4, 0);
-            lblUsername2.Name = "lblUsername2";
-            lblUsername2.Size = new System.Drawing.Size(60, 15);
-            lblUsername2.TabIndex = 14;
-            lblUsername2.Text = "Username";
-            // 
             // gbPrimaryLogon
             // 
             gbPrimaryLogon.BackColor = System.Drawing.Color.Silver;
@@ -788,7 +712,7 @@ namespace LiveView.Forms
             gbPrimaryLogon.Margin = new Padding(4, 3, 4, 3);
             gbPrimaryLogon.Name = "gbPrimaryLogon";
             gbPrimaryLogon.Padding = new Padding(4, 3, 4, 3);
-            gbPrimaryLogon.Size = new System.Drawing.Size(253, 167);
+            gbPrimaryLogon.Size = new System.Drawing.Size(253, 161);
             gbPrimaryLogon.TabIndex = 6;
             gbPrimaryLogon.TabStop = false;
             gbPrimaryLogon.Text = "Primary login";
@@ -952,14 +876,6 @@ namespace LiveView.Forms
             timer.Interval = 500;
             timer.Tick += Timer_Tick;
             // 
-            // tsmiKBD300ASimulator
-            // 
-            tsmiKBD300ASimulator.Image = Properties.Resources.Kbd300ASimulator;
-            tsmiKBD300ASimulator.Name = "tsmiKBD300ASimulator";
-            tsmiKBD300ASimulator.Size = new System.Drawing.Size(215, 22);
-            tsmiKBD300ASimulator.Text = "KBD300A Simulator";
-            tsmiKBD300ASimulator.Click += TsmiKBD300ASimulator_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -978,8 +894,6 @@ namespace LiveView.Forms
             gbUserEvents.ResumeLayout(false);
             pLeft.ResumeLayout(false);
             pLeftBottom.ResumeLayout(false);
-            gbSecondaryLogon.ResumeLayout(false);
-            gbSecondaryLogon.PerformLayout();
             gbPrimaryLogon.ResumeLayout(false);
             gbPrimaryLogon.PerformLayout();
             gb_PortEvents.ResumeLayout(false);
@@ -1053,12 +967,6 @@ namespace LiveView.Forms
         private System.Windows.Forms.ColumnHeader chPortName;
         private System.Windows.Forms.ColumnHeader chPortValue;
         private System.Windows.Forms.ColumnHeader chPortDirection;
-        private System.Windows.Forms.GroupBox gbSecondaryLogon;
-        private System.Windows.Forms.Button btnLoginLogoutSecondary;
-        private Mtf.Controls.PasswordBox tbPassword2;
-        private System.Windows.Forms.Label lblPassword2;
-        private System.Windows.Forms.TextBox tbUsername2;
-        private System.Windows.Forms.Label lblUsername2;
         private System.Windows.Forms.GroupBox gbPrimaryLogon;
         private System.Windows.Forms.ColumnHeader chIOPortEventNote;
         private System.Windows.Forms.ColumnHeader chIOPortEventLoggedOnUser;

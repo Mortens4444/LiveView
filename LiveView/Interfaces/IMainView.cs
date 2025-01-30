@@ -22,8 +22,10 @@ namespace LiveView.Interfaces
 
         PasswordBox TbPassword { get; }
 
-        TextBox TbUsername2 { get; }
+        Label LblPassword { get; }
 
-        PasswordBox TbPassword2 { get; }
+        GroupBox GbPrimaryLogon { get; }
+
+        Button BtnLoginLogoutPrimary { get; }
     }
 }

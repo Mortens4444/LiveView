@@ -9,9 +9,7 @@ using Mtf.HardwareKey.Interfaces;
 using Mtf.Joystick;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
-using Mtf.Permissions.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -53,9 +51,11 @@ namespace LiveView.Forms
 
         public PasswordBox TbPassword => tbPassword;
 
-        public TextBox TbUsername2 => tbUsername2;
+        public Label LblPassword => lblPassword;
 
-        public PasswordBox TbPassword2 => tbPassword2;
+        public GroupBox GbPrimaryLogon => gbPrimaryLogon;
+
+        public Button BtnLoginLogoutPrimary => btnLoginLogoutPrimary;
 
         static MainForm()
         {
@@ -87,45 +87,13 @@ namespace LiveView.Forms
         public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))
         {
             InitializeComponent();
-
-            //permissionManager.ApplyPermissionsOnControls(this);
-            var user = new User<Database.Models.User>
-            {
-                Id = 1,
-                IndividualPermissions = new List<Permission>
-                {
-                    new Permission { PermissionGroup = typeof(GridManagementPermissions), PermissionValue = (long)GridManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(SequenceManagementPermissions), PermissionValue = (long)SequenceManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(LogManagementPermissions), PermissionValue = (long)LogManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(IODeviceManagementPermissions), PermissionValue = (long)IODeviceManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(MapManagementPermissions), PermissionValue = (long)MapManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(DatabaseServerManagementPermissions), PermissionValue = (long)DatabaseServerManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(GroupManagementPermissions), PermissionValue = (long)GroupManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(UserManagementPermissions), PermissionValue = (long)UserManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(PermissionManagementPermissions), PermissionValue = (long)PermissionManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(JoystickManagementPermissions), PermissionValue = (long)JoystickManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(NetworkManagementPermissions), PermissionValue = (long)NetworkManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(PasswordManagementPermissions), PermissionValue = (long)PasswordManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(SerialDeviceManagementPermissions), PermissionValue = (long)SerialDeviceManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(TemplateManagementPermissions), PermissionValue = (long)TemplateManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(LanguageManagementPermissions), PermissionValue = (long)LanguageManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(HardwareManagementPermissions), PermissionValue = (long)HardwareManagementPermissions.FullControl },
-
-                    new Permission { PermissionGroup = typeof(CameraManagementPermissions), PermissionValue = (long)CameraManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(ServerManagementPermissions), PermissionValue = (long)ServerManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(SettingsManagementPermissions), PermissionValue = (long)SettingsManagementPermissions.FullControl },
-                    new Permission { PermissionGroup = typeof(ApplicationManagementPermissions), PermissionValue = (long)ApplicationManagementPermissions.Exit },
-                    new Permission { PermissionGroup = typeof(DisplayManagementPermissions), PermissionValue = (long)DisplayManagementPermissions.FullControl},
-                    new Permission { PermissionGroup = typeof(WindowManagementPermissions), PermissionValue = (long)WindowManagementPermissions.FullControl},
-                }
-            };
-            permissionManager.SetUser(this, user);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as MainPresenter;
             presenter.Load();
+            presenter.AutoLogin();
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
@@ -297,16 +265,14 @@ namespace LiveView.Forms
 
         private void BtnLoginLogoutPrimary_Click(object sender, EventArgs e)
         {
-            var user = presenter.PrimaryLogon();
-            if (user != null)
+            if (permissionManager.CurrentUser == null)
             {
-                permissionManager.SetUser(this, user);
+                presenter.Login();
             }
-        }
-
-        private void BtnLoginLogoutSecondary_Click(object sender, EventArgs e)
-        {
-            presenter.SecondaryLogon(permissionManager.CurrentUser.Tag.NeededSecondaryLogonPriority);
+            else
+            {
+                presenter.Logout();
+            }
         }
 
         public IntPtr GetHandle()

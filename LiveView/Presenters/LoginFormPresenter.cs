@@ -3,7 +3,6 @@ using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace LiveView.Presenters
 {
@@ -26,9 +25,15 @@ namespace LiveView.Presenters
             this.view = view as ILoginFormView;
         }
 
-        public void Login()
+        public User Login()
         {
-            throw new NotImplementedException();
+            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
+            if (user == null)
+            {
+                ShowError("Invalid username or password");
+                return null;
+            }
+            return user;
         }
     }
 }

@@ -27,6 +27,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -124,10 +125,7 @@ namespace LiveView.Presenters
                 view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }
 
-            var implementedLanguage = (ImplementedLanguage)personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Id, Constants.HungarianLanguageIndex);
-            Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out Mtf.LanguageService.Enums.Language selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
-            LiveViewTranslator.Translate();
-            Translator.Translate(view.GetSelf());
+            LoadLanguage(2);
             LoadFirstMap();
 
             CheckLanguageFile();
@@ -148,6 +146,14 @@ namespace LiveView.Presenters
                     MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
                 }
             }
+        }
+
+        public void LoadLanguage(int userId)
+        {
+            var implementedLanguage = (ImplementedLanguage)personalOptionsRepository.Get(Setting.Language, userId, Constants.HungarianLanguageIndex);
+            Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out Mtf.LanguageService.Enums.Language selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
+            LiveViewTranslator.Translate();
+            Translator.Translate(view.GetSelf());
         }
 
         public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)
@@ -332,41 +338,19 @@ namespace LiveView.Presenters
 
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var result = new Mtf.Permissions.Models.User<User>();
             var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
             if (user == null)
             {
                 ShowError("Invalid username or password");
                 return null;
             }
-            var groupIds = userGroupRepository.SelectWhere(new { UserId = user.Id }).Select(userGroup => userGroup.GroupId);
 
-            result.Username = user.Username;
-            result.Tag = user;
-            result.Groups = new List<Mtf.Permissions.Models.Group>();
-            var assembly = typeof(CameraManagementPermissions).Assembly;
-            foreach (var groupId in groupIds)
+            var result = new Mtf.Permissions.Models.User<User>
             {
-                var group = new Mtf.Permissions.Models.Group();
-                var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
-                var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
-                var operations = operationRepository.SelectWhere(new { Ids = operationIds });
-                foreach (var operation in operations)
-                {
-                    var enumType = assembly.GetType($"Mtf.Permissions.Enums.{operation.PermissionGroup}");
-                    if (enumType != null && Enum.IsDefined(enumType, operation.PermissionValue))
-                    {
-                        var enumValue = Enum.Parse(enumType, operation.PermissionValue);
-
-                        group.Permissions.Add(new Mtf.Permissions.Models.Permission
-                        {
-                            PermissionGroup = enumType,
-                            PermissionValue = Convert.ToInt64(enumValue)
-                        });
-                    }
-                }
-                result.Groups.Add(group);
-            }
+                Username = user.Username,
+                Tag = user
+            };
+            SetGroups(result);
 
             if (user.NeededSecondaryLogonPriority > 0)
             {
@@ -384,35 +368,43 @@ namespace LiveView.Presenters
                 }
             }
 
+            ChangeControlsOnLogin(user.Username);
             return result;
         }
 
-        public Mtf.Permissions.Models.User<User> SecondaryLogon(int neededSecondaryLogonPriority)
+        private void SetGroups(Mtf.Permissions.Models.User<User> result)
         {
-            var result = new Mtf.Permissions.Models.User<User>();
-            var secondaryUser = userRepository.SecondaryLogin(view.TbUsername2.Text, view.TbPassword2.Password);
-            if (secondaryUser == null)
-            {
-                ShowError("Invalid username or password");
-                return null;
-            }
-            if (secondaryUser.SecondaryLogonPriority < neededSecondaryLogonPriority)
-            {
-                var message = String.Format(UserShouldHaveAtLeastPriority, secondaryUser, neededSecondaryLogonPriority);
-                ShowError(message);
-                return null;
-            }
-            result.Username = secondaryUser.Username;
-            result.Tag = secondaryUser;
             result.Groups = new List<Mtf.Permissions.Models.Group>();
-            var groupIds = userGroupRepository.SelectWhere(new { UserId = secondaryUser.Id }).Select(userGroup => userGroup.GroupId);
+            var groupIds = userGroupRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
             foreach (var groupId in groupIds)
             {
-                var group = new Mtf.Permissions.Models.Group();
-                var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
-                result.Groups.Add(group);
+                SetUserGroup(result, groupId);
             }
-            return result;
+        }
+
+        private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
+        {
+            var group = new Mtf.Permissions.Models.Group();
+            var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
+            var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
+            var operations = operationRepository.SelectWhere(new { Ids = operationIds });
+            var assembly = typeof(CameraManagementPermissions).Assembly;
+
+            foreach (var operation in operations)
+            {
+                var enumType = assembly.GetType($"Mtf.Permissions.Enums.{operation.PermissionGroup}");
+                if (enumType != null && Enum.IsDefined(enumType, operation.PermissionValue))
+                {
+                    var enumValue = Enum.Parse(enumType, operation.PermissionValue);
+
+                    group.Permissions.Add(new Mtf.Permissions.Models.Permission
+                    {
+                        PermissionGroup = enumType,
+                        PermissionValue = Convert.ToInt64(enumValue)
+                    });
+                }
+            }
+            user.Groups.Add(group);
         }
 
         public static void MoveMouseToHome()
@@ -536,6 +528,66 @@ namespace LiveView.Presenters
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Connect(endPoint);
             return socket;
+        }
+
+        public void AutoLogin()
+        {
+            var users = userRepository.SelectAll();
+            var autoLoginUserName = generalOptionsRepository.Get(Setting.AutoLoginUser, String.Empty);
+            if (!String.IsNullOrEmpty(autoLoginUserName))
+            {
+                var user = users.FirstOrDefault(u => u.Username == autoLoginUserName);
+                if (user != null)
+                {
+                    var permissionUser = new Mtf.Permissions.Models.User<User>
+                    {
+                        Username = user.Username,
+                        Tag = user
+                    };
+                    SetGroups(permissionUser);
+                    permissionManager.SetUser(view.GetSelf(), permissionUser);
+                    ChangeControlsOnLogin(user.Username);
+                }
+            }
+        }
+
+        private void ChangeControlsOnLogin(string username)
+        {
+            view.TbUsername.ReadOnly = true;
+            view.TbUsername.Text = username;
+            view.LblPassword.Visible = false;
+            view.TbPassword.Visible = false;
+            view.GbPrimaryLogon.Size = new Size(253, 111);
+            view.BtnLoginLogoutPrimary.Text = Lng.Elem("Logout");
+            MainForm.ControlCenter.SetImagesEnabledState();
+        }
+
+        private void ChangeControlsOnLogout()
+        {
+            view.TbUsername.ReadOnly = false;
+            view.TbUsername.Text = String.Empty;
+            view.LblPassword.Visible = true;
+            view.TbPassword.Visible = true;
+            view.TbPassword.Text = String.Empty;
+            view.GbPrimaryLogon.Size = new Size(253, 161);
+            view.BtnLoginLogoutPrimary.Text = Lng.Elem("Login");
+            MainForm.ControlCenter.SetImagesEnabledState();
+        }
+
+        public void Logout()
+        {
+            permissionManager.Logout(view.GetSelf());
+            ChangeControlsOnLogout();
+        }
+
+        public void Login()
+        {
+            var user = PrimaryLogon();
+            if (user != null)
+            {
+                permissionManager.SetUser(view.GetSelf(), user);
+                LoadLanguage(user.Id);
+            }
         }
     }
 }

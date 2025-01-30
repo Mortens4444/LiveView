@@ -34,7 +34,13 @@ namespace LiveView.Forms
             InitializeComponent();
 
             permissionManager.ApplyPermissionsOnControls(this);
-            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.PanTilt))
+
+            Translator.Translate(this);
+        }
+
+        public void SetImagesEnabledState()
+        {
+            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.PanTilt) ?? false))
             {
                 btnMoveCameraNorthWest.Image = Properties.Resources.nw_g;
                 btnMoveCameraNorthEast.Image = Properties.Resources.ne_g;
@@ -42,20 +48,36 @@ namespace LiveView.Forms
                 btnMoveCameraSouthEast.Image = Properties.Resources.se_g;
                 btnMoveCameraToPresetZero.Image = Properties.Resources.house_g;
             }
+            else
+            {
+                btnMoveCameraNorthWest.Image = Properties.Resources.nw;
+                btnMoveCameraNorthEast.Image = Properties.Resources.ne;
+                btnMoveCameraSouthWest.Image = Properties.Resources.sw;
+                btnMoveCameraSouthEast.Image = Properties.Resources.se;
+                btnMoveCameraToPresetZero.Image = Properties.Resources.house;
+            }
 
-            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Pan))
+            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Pan) ?? false))
             {
                 btnMoveCameraEast.Image = Properties.Resources.e_g;
-                btnMoveCameraSouth.Image = Properties.Resources.s_g;
-            }
-
-            if (!permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Tilt))
-            {
-                btnMoveCameraNorth.Image = Properties.Resources.n_g;
                 btnMoveCameraWest.Image = Properties.Resources.w_g;
             }
+            else
+            {
+                btnMoveCameraEast.Image = Properties.Resources.arrow_right;
+                btnMoveCameraWest.Image = Properties.Resources.arrow_left;
+            }
 
-            Translator.Translate(this);
+            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Tilt) ?? false))
+            {
+                btnMoveCameraNorth.Image = Properties.Resources.n_g;
+                btnMoveCameraSouth.Image = Properties.Resources.s_g;
+            }
+            else
+            {
+                btnMoveCameraNorth.Image = Properties.Resources.arrow_up;
+                btnMoveCameraSouth.Image = Properties.Resources.arrow_down;
+            }
         }
 
         public Point HomeLocation
