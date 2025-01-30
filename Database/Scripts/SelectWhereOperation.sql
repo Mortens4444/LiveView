@@ -1,0 +1,1 @@
+﻿SELECT * FROM Operations WHERE Id IN @Ids;

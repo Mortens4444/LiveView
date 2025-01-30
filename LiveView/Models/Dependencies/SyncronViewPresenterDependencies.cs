@@ -20,7 +20,7 @@ namespace LiveView.Models.Dependencies
 
         public ICameraRepository CameraRepository { get; private set; }
         
-        public IServerRepository ServerRepository { get; internal set; }
+        public IServerRepository ServerRepository { get; private set; }
 
         public ILogger<SyncronView> Logger { get; private set; }
     }

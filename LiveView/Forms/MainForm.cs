@@ -122,6 +122,12 @@ namespace LiveView.Forms
             permissionManager.SetUser(this, user);
         }
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as MainPresenter;
+            presenter.Load();
+        }
+
         private void TsmiControlCenter_Click(object sender, EventArgs e)
         {
             if (ControlCenter == null || ControlCenter.IsDisposed)
@@ -275,15 +281,11 @@ namespace LiveView.Forms
             presenter.ShowForm<LicenseForm>();
         }
 
-        [RequirePermission(ApplicationManagementPermissions.Exit)]
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        [RequirePermission(CameraManagementPermissions.OpenFullScreen)]
+        [RequirePermission(CameraManagementPermissions.PTZ)]
+        private void TsmiKBD300ASimulator_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
-            if (!presenter.Exit())
-            {
-                e.Cancel = true;
-            }
-            // This point is never reached - Do all exit login in the Exit function!!!
+            presenter.ShowForm<KBD300ASimulator>();
         }
 
         [RequirePermission(ApplicationManagementPermissions.Exit)]
@@ -307,16 +309,11 @@ namespace LiveView.Forms
             presenter.SecondaryLogon(permissionManager.CurrentUser.Tag.NeededSecondaryLogonPriority);
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as MainPresenter;
-            presenter.Load();
-        }
-
         public IntPtr GetHandle()
         {
             return Handle;
         }
+
         protected override void WndProc(ref Message m)
         {
             const int WM_HOTKEY = 0x0312;
@@ -371,9 +368,15 @@ namespace LiveView.Forms
             tsslUptime.Text = appUptime.Days < 2 ? $"{Uptime}: {appUptime.Days} {Day} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Uptime}: {appUptime.Days} {Days} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
         }
 
-        private void TsmiKBD300ASimulator_Click(object sender, EventArgs e)
+        [RequirePermission(ApplicationManagementPermissions.Exit)]
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            presenter.ShowForm<KBD300ASimulator>();
+            permissionManager.EnsurePermissions();
+            if (!presenter.Exit())
+            {
+                e.Cancel = true;
+            }
+            // This point is never reached - Do all exit login in the Exit function!!!
         }
     }
 }

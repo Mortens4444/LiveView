@@ -20,7 +20,7 @@ namespace LiveView.Models.Dependencies
 
         public ICameraRepository CameraRepository { get; private set; }
 
-        public IGridCameraRepository GridCameraRepository { get; internal set; }
+        public IGridCameraRepository GridCameraRepository { get; private set; }
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
     }

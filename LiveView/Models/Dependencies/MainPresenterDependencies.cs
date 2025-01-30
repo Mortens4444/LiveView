@@ -24,6 +24,7 @@ namespace LiveView.Models.Dependencies
             IUsersInGroupsRepository userGroupRepository,
             IPersonalOptionsRepository personalOptionsRepository,
             IAgentRepository agentRepository,
+            IOperationRepository operationRepository,
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
@@ -39,6 +40,7 @@ namespace LiveView.Models.Dependencies
             MapObjectRepository = mapObjectRepository;
             AgentRepository = agentRepository;
             TemplateRepository = templateRepository;
+            OperationRepository = operationRepository;
             Logger = logger;
         }
 
@@ -66,6 +68,8 @@ namespace LiveView.Models.Dependencies
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
 
-        public ITemplateRepository TemplateRepository { get; internal set; }
+        public ITemplateRepository TemplateRepository { get; private set; }
+
+        public IOperationRepository OperationRepository { get; private set; }
     }
 }

@@ -20,6 +20,7 @@ using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Network;
 using Mtf.Network.EventArg;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Concurrent;
@@ -60,6 +61,7 @@ namespace LiveView.Presenters
         private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IAgentRepository agentRepository;
+        private readonly IOperationRepository operationRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
 
@@ -83,6 +85,7 @@ namespace LiveView.Presenters
             personalOptionsRepository = mainPresenterDependencies.PersonalOptionsRepository;
             permissionManager = mainPresenterDependencies.PermissionManager;
             agentRepository = mainPresenterDependencies.AgentRepository;
+            operationRepository = mainPresenterDependencies.OperationRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
         }
@@ -341,10 +344,27 @@ namespace LiveView.Presenters
             result.Username = user.Username;
             result.Tag = user;
             result.Groups = new List<Mtf.Permissions.Models.Group>();
+            var assembly = typeof(CameraManagementPermissions).Assembly;
             foreach (var groupId in groupIds)
             {
                 var group = new Mtf.Permissions.Models.Group();
                 var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
+                var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
+                var operations = operationRepository.SelectWhere(new { Ids = operationIds });
+                foreach (var operation in operations)
+                {
+                    var enumType = assembly.GetType($"Mtf.Permissions.Enums.{operation.PermissionGroup}");
+                    if (enumType != null && Enum.IsDefined(enumType, operation.PermissionValue))
+                    {
+                        var enumValue = Enum.Parse(enumType, operation.PermissionValue);
+
+                        group.Permissions.Add(new Mtf.Permissions.Models.Permission
+                        {
+                            PermissionGroup = enumType,
+                            PermissionValue = Convert.ToInt64(enumValue)
+                        });
+                    }
+                }
                 result.Groups.Add(group);
             }
 

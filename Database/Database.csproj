@@ -43,6 +43,7 @@
     <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
     <EmbeddedResource Include="Scripts\HasAnyRowOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
