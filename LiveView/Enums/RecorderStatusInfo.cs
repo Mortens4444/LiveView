@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums.VideoServer
+﻿namespace LiveView.Enums
 {
     public enum RecorderStatusInfo : byte
     {

@@ -4,6 +4,6 @@ namespace LiveView.Interfaces
 {
     public interface IVideoServerView : IInvoker
     {
-        AxVideoServer GetVideoServerControl();
+        AxVideoServer AxVideoServer { get; }
     }
 }

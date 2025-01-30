@@ -13,6 +13,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <COMReference Include="VIDEOCONTROL4Lib">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>419d9aed-e973-424e-80b0-257e01858caf</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxVIDEOCONTROL4Lib">
+      <WrapperTool>aximp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>419d9aed-e973-424e-80b0-257e01858caf</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="main_form.ico" />
   </ItemGroup>
 

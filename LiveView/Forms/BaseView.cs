@@ -114,6 +114,11 @@ namespace LiveView.Forms
             return this;
         }
 
+        public T GetSelf<T>() where T : class
+        {
+            return this as T;
+        }
+
         public ListView.ListViewItemCollection GetItems(ListView listView)
         {
             return listView.Items;

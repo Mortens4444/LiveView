@@ -19,6 +19,8 @@ namespace LiveView.Forms
 
         private AddCamerasPresenter presenter;
 
+        public AxVideoServer AxVideoServer => axVideoServer;
+
         public ListView ServerCameras => lvCamerasOfServer;
 
         public ListView CamerasToView => lvCamerasToView;
@@ -85,11 +87,6 @@ namespace LiveView.Forms
         {
             presenter = Presenter as AddCamerasPresenter;
             presenter.LoadServers(server);
-        }
-
-        public AxVideoServer GetVideoServerControl()
-        {
-            return axVideoServer;
         }
 
         public bool CamerasToViewHasElementWithGuid(string guid)

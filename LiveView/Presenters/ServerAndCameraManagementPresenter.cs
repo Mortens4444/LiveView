@@ -7,6 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Network;
 using Mtf.Permissions.Enums;
@@ -177,7 +178,7 @@ namespace LiveView.Presenters
                 if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
                 {
                     var camerasInDatabase = cameraRepository.SelectWhere(new { ServerId = server.Id });
-                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf() as IVideoServerView, server);
+                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server);
                     if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
                     {
                         foreach (var camera in connectionResult.Cameras)
@@ -221,7 +222,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        view.ShowError("Connection failed", VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
+                        ShowError("Connection failed", VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
                     }
                     Load();
                 }

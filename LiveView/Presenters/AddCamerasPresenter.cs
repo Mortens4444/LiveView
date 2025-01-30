@@ -7,6 +7,7 @@ using LiveView.Models.Dependencies;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +68,7 @@ namespace LiveView.Presenters
         public async Task GetCamerasAsync()
         {
             var server = view.GetSelectedItem<Server>(view.Servers);
-            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf() as IVideoServerView, server);
+            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
             {
                 view.ServerCameras.AddItems(connectionResult.Cameras, camera => new ListViewItem(camera.Name, CameraIconIndex)

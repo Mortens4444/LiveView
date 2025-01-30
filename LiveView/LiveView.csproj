@@ -12,7 +12,6 @@
     <FileVersion>$(Version)</FileVersion>
     <InformationalVersion>$(Version)</InformationalVersion>
     <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <ApplicationIcon>Resources\eye.ico</ApplicationIcon>
     <WarningLevel>9999</WarningLevel>
     <DesignerExcludedFiles>e_sqlite3.dll</DesignerExcludedFiles>

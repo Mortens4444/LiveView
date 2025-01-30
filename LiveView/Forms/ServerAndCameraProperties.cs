@@ -1,4 +1,5 @@
-﻿using Database.Models;
+﻿using AxVIDEOCONTROL4Lib;
+using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
@@ -11,9 +12,12 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class ServerAndCameraProperties : BaseView, IServerAndCameraPropertiesView
+    public partial class ServerAndCameraProperties : BaseView, IServerAndCameraPropertiesView, IVideoServerView
     {
         private ServerAndCameraPropertiesPresenter presenter;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Server Server { get; private set; }
 
         public MtfListView LvCameraList => lvCameraList;
 
@@ -30,9 +34,6 @@ namespace LiveView.Forms
         public TextBox TbWindowsUsername => tbWindowsUsername;
 
         public TextBox TbWindowsPassword => tbWindowsPassword;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Server Server { get; private set; }
 
         public TextBox TbVideoServerUsername => tbVideoServerUsername;
 
@@ -51,6 +52,44 @@ namespace LiveView.Forms
         public PictureBox PbRemoteVideoServerConnectionStatus => pbRemoteVideoServerConnectionStatus;
 
         public ImageList ImageList => imageList;
+
+        public Label LblPingTestStatus => lblPingTestStatus;
+
+        public Label LblRemoteVideoServerConnectionStatus => lblRemoteVideoServerConnectionStatus;
+
+        public TextBox TbVideoServerErrorMessage => tbVideoServerErrorMessage;
+
+        public TextBox TbManufacturer => tbManufacturer;
+
+        public AxVideoServer AxVideoServer => axVideoServer;
+
+        public TextBox TbReturnCode => tbReturnCode;
+
+        public TextBox TbVideoServerTime => tbVideoServerTime;
+
+        public TextBox TbRecorderVersion => tbRecorderVersion;
+
+        public TextBox TbRemoteVideoServerVersion => tbRemoteVideoServerVersion;
+
+        public TextBox TbVideoRecorderProtocolVersion => tbVideoRecorderProtocolVersion;
+
+        public TextBox TbRecorderStatus => tbRecorderStatus;
+
+        public TextBox TbCpuUsage => tbCpuUsage;
+
+        public TextBox TbRecordingInterval => tbRecordingInterval;
+
+        public TextBox TbRecordedLocalCameraNumber => tbRecordedLocalCameraNumber;
+
+        public TextBox TbLicensedCameraNumber => tbLicensedCameraNumber;
+
+        public TextBox TbLiveViewDisplay => tbLiveViewDisplay;
+
+        public TextBox TbWindowErrorMessage => tbWindowErrorMessage;
+
+        public PictureBox PbWindowsConnectionStatus => pbWindowsConnectionStatus;
+
+        public TextBox TbRecording => tbRecording;
 
         public ServerAndCameraProperties(IServiceProvider serviceProvider, Server server) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
         {

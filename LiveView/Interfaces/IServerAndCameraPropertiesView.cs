@@ -34,6 +34,8 @@ namespace LiveView.Interfaces
 
         TextBox TbMacAddress { get; }
 
+        TextBox TbManufacturer { get; }
+
         TextBox TbModel { get; }
 
         PictureBox PbPingTestStatus { get; }
@@ -41,5 +43,39 @@ namespace LiveView.Interfaces
         PictureBox PbRemoteVideoServerConnectionStatus { get; }
 
         ImageList ImageList { get; }
+
+        Label LblPingTestStatus { get; }
+
+        Label LblRemoteVideoServerConnectionStatus { get; }
+
+        TextBox TbVideoServerErrorMessage { get; }
+
+        TextBox TbReturnCode { get; }
+
+        TextBox TbVideoServerTime { get; }
+
+        TextBox TbRecorderVersion { get; }
+
+        TextBox TbRemoteVideoServerVersion { get; }
+
+        TextBox TbVideoRecorderProtocolVersion { get; }
+
+        TextBox TbRecorderStatus { get; }
+
+        TextBox TbCpuUsage { get; }
+
+        TextBox TbRecordingInterval { get; }
+
+        TextBox TbRecordedLocalCameraNumber { get; }
+
+        TextBox TbLicensedCameraNumber { get; }
+
+        TextBox TbLiveViewDisplay { get; }
+
+        TextBox TbWindowErrorMessage { get; }
+
+        PictureBox PbWindowsConnectionStatus { get; }
+
+        TextBox TbRecording { get; }
     }
 }

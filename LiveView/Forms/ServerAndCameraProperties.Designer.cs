@@ -79,6 +79,7 @@
             pbRemoteVideoServerConnectionStatus = new Mtf.Controls.MtfPictureBox();
             lblPingTestStatus = new System.Windows.Forms.Label();
             gbAvailabilityTests = new System.Windows.Forms.GroupBox();
+            axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
             lblRemoteVideoServerConnectionStatus = new System.Windows.Forms.Label();
             gbVideoServer = new System.Windows.Forms.GroupBox();
             lblPassword = new System.Windows.Forms.Label();
@@ -100,8 +101,10 @@
             lblVideoRecorderProtocolVersion = new System.Windows.Forms.Label();
             btnClose5 = new System.Windows.Forms.Button();
             gbVideoRecorderStatus = new System.Windows.Forms.GroupBox();
+            tbRecording = new System.Windows.Forms.TextBox();
+            lblRecording = new System.Windows.Forms.Label();
             lblRecordingInterval = new System.Windows.Forms.Label();
-            tbVersionRecorderVersion = new System.Windows.Forms.TextBox();
+            tbRecorderVersion = new System.Windows.Forms.TextBox();
             lblRemoteVideoServerVersion = new System.Windows.Forms.Label();
             lblVersionRecorderVersion = new System.Windows.Forms.Label();
             tbRemoteVideoServerVersion = new System.Windows.Forms.TextBox();
@@ -147,6 +150,7 @@
             ((System.ComponentModel.ISupportInitialize)pbPingTestStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbRemoteVideoServerConnectionStatus).BeginInit();
             gbAvailabilityTests.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
             gbVideoServer.SuspendLayout();
             tpVideoServer.SuspendLayout();
             gbWindowsCredentials.SuspendLayout();
@@ -750,6 +754,7 @@
             // gbAvailabilityTests
             // 
             gbAvailabilityTests.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbAvailabilityTests.Controls.Add(axVideoServer);
             gbAvailabilityTests.Controls.Add(lblRemoteVideoServerConnectionStatus);
             gbAvailabilityTests.Controls.Add(pbRemoteVideoServerConnectionStatus);
             gbAvailabilityTests.Controls.Add(lblPingTestStatus);
@@ -762,6 +767,16 @@
             gbAvailabilityTests.TabIndex = 1;
             gbAvailabilityTests.TabStop = false;
             gbAvailabilityTests.Text = "Availability tests";
+            // 
+            // axVideoServer
+            // 
+            axVideoServer.Enabled = true;
+            axVideoServer.Location = new System.Drawing.Point(306, 12);
+            axVideoServer.Name = "axVideoServer";
+            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
+            axVideoServer.Size = new System.Drawing.Size(100, 50);
+            axVideoServer.TabIndex = 25;
+            axVideoServer.Visible = false;
             // 
             // lblRemoteVideoServerConnectionStatus
             // 
@@ -858,7 +873,7 @@
             // tbLiveViewDisplay
             // 
             tbLiveViewDisplay.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbLiveViewDisplay.Location = new System.Drawing.Point(204, 143);
+            tbLiveViewDisplay.Location = new System.Drawing.Point(204, 171);
             tbLiveViewDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbLiveViewDisplay.MaxLength = 100;
             tbLiveViewDisplay.Name = "tbLiveViewDisplay";
@@ -870,7 +885,7 @@
             // lblLiveViewDisplay
             // 
             lblLiveViewDisplay.AutoSize = true;
-            lblLiveViewDisplay.Location = new System.Drawing.Point(7, 148);
+            lblLiveViewDisplay.Location = new System.Drawing.Point(7, 176);
             lblLiveViewDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLiveViewDisplay.MaximumSize = new System.Drawing.Size(191, 15);
             lblLiveViewDisplay.Name = "lblLiveViewDisplay";
@@ -881,7 +896,7 @@
             // tbLicensedCameraNumber
             // 
             tbLicensedCameraNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbLicensedCameraNumber.Location = new System.Drawing.Point(204, 117);
+            tbLicensedCameraNumber.Location = new System.Drawing.Point(204, 145);
             tbLicensedCameraNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbLicensedCameraNumber.MaxLength = 100;
             tbLicensedCameraNumber.Name = "tbLicensedCameraNumber";
@@ -893,7 +908,7 @@
             // lblLicensedCameraNumber
             // 
             lblLicensedCameraNumber.AutoSize = true;
-            lblLicensedCameraNumber.Location = new System.Drawing.Point(7, 121);
+            lblLicensedCameraNumber.Location = new System.Drawing.Point(7, 149);
             lblLicensedCameraNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLicensedCameraNumber.MaximumSize = new System.Drawing.Size(191, 15);
             lblLicensedCameraNumber.Name = "lblLicensedCameraNumber";
@@ -904,7 +919,7 @@
             // tbRecordedLocalCameraNumber
             // 
             tbRecordedLocalCameraNumber.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbRecordedLocalCameraNumber.Location = new System.Drawing.Point(204, 91);
+            tbRecordedLocalCameraNumber.Location = new System.Drawing.Point(204, 119);
             tbRecordedLocalCameraNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbRecordedLocalCameraNumber.MaxLength = 100;
             tbRecordedLocalCameraNumber.Name = "tbRecordedLocalCameraNumber";
@@ -916,7 +931,7 @@
             // lblRecordedLocalCameraNumber
             // 
             lblRecordedLocalCameraNumber.AutoSize = true;
-            lblRecordedLocalCameraNumber.Location = new System.Drawing.Point(7, 96);
+            lblRecordedLocalCameraNumber.Location = new System.Drawing.Point(7, 124);
             lblRecordedLocalCameraNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRecordedLocalCameraNumber.MaximumSize = new System.Drawing.Size(191, 15);
             lblRecordedLocalCameraNumber.Name = "lblRecordedLocalCameraNumber";
@@ -944,14 +959,14 @@
             lblRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRecorderStatus.MaximumSize = new System.Drawing.Size(191, 15);
             lblRecorderStatus.Name = "lblRecorderStatus";
-            lblRecorderStatus.Size = new System.Drawing.Size(95, 15);
+            lblRecorderStatus.Size = new System.Drawing.Size(71, 15);
             lblRecorderStatus.TabIndex = 8;
-            lblRecorderStatus.Text = "Recording status";
+            lblRecorderStatus.Text = "Return code";
             // 
             // tbCpuUsage
             // 
             tbCpuUsage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbCpuUsage.Location = new System.Drawing.Point(204, 40);
+            tbCpuUsage.Location = new System.Drawing.Point(204, 68);
             tbCpuUsage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbCpuUsage.MaxLength = 100;
             tbCpuUsage.Name = "tbCpuUsage";
@@ -963,7 +978,7 @@
             // tbRecordingInterval
             // 
             tbRecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbRecordingInterval.Location = new System.Drawing.Point(204, 66);
+            tbRecordingInterval.Location = new System.Drawing.Point(204, 94);
             tbRecordingInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbRecordingInterval.MaxLength = 100;
             tbRecordingInterval.Name = "tbRecordingInterval";
@@ -975,7 +990,7 @@
             // lblCpuUsage
             // 
             lblCpuUsage.AutoSize = true;
-            lblCpuUsage.Location = new System.Drawing.Point(7, 45);
+            lblCpuUsage.Location = new System.Drawing.Point(7, 73);
             lblCpuUsage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblCpuUsage.MaximumSize = new System.Drawing.Size(191, 15);
             lblCpuUsage.Name = "lblCpuUsage";
@@ -1021,6 +1036,8 @@
             // gbVideoRecorderStatus
             // 
             gbVideoRecorderStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbVideoRecorderStatus.Controls.Add(tbRecording);
+            gbVideoRecorderStatus.Controls.Add(lblRecording);
             gbVideoRecorderStatus.Controls.Add(tbLiveViewDisplay);
             gbVideoRecorderStatus.Controls.Add(lblLiveViewDisplay);
             gbVideoRecorderStatus.Controls.Add(tbLicensedCameraNumber);
@@ -1037,14 +1054,37 @@
             gbVideoRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbVideoRecorderStatus.Name = "gbVideoRecorderStatus";
             gbVideoRecorderStatus.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbVideoRecorderStatus.Size = new System.Drawing.Size(422, 174);
+            gbVideoRecorderStatus.Size = new System.Drawing.Size(422, 254);
             gbVideoRecorderStatus.TabIndex = 0;
             gbVideoRecorderStatus.TabStop = false;
+            // 
+            // tbRecording
+            // 
+            tbRecording.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRecording.Location = new System.Drawing.Point(204, 41);
+            tbRecording.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRecording.MaxLength = 100;
+            tbRecording.Name = "tbRecording";
+            tbRecording.ReadOnly = true;
+            tbRecording.Size = new System.Drawing.Size(209, 23);
+            tbRecording.TabIndex = 23;
+            tbRecording.TabStop = false;
+            // 
+            // lblRecording
+            // 
+            lblRecording.AutoSize = true;
+            lblRecording.Location = new System.Drawing.Point(7, 46);
+            lblRecording.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRecording.MaximumSize = new System.Drawing.Size(191, 15);
+            lblRecording.Name = "lblRecording";
+            lblRecording.Size = new System.Drawing.Size(95, 15);
+            lblRecording.TabIndex = 22;
+            lblRecording.Text = "Recording status";
             // 
             // lblRecordingInterval
             // 
             lblRecordingInterval.AutoSize = true;
-            lblRecordingInterval.Location = new System.Drawing.Point(7, 70);
+            lblRecordingInterval.Location = new System.Drawing.Point(7, 98);
             lblRecordingInterval.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRecordingInterval.MaximumSize = new System.Drawing.Size(191, 15);
             lblRecordingInterval.Name = "lblRecordingInterval";
@@ -1052,17 +1092,17 @@
             lblRecordingInterval.TabIndex = 2;
             lblRecordingInterval.Text = "Recording interval";
             // 
-            // tbVersionRecorderVersion
+            // tbRecorderVersion
             // 
-            tbVersionRecorderVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbVersionRecorderVersion.Location = new System.Drawing.Point(204, 15);
-            tbVersionRecorderVersion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbVersionRecorderVersion.MaxLength = 100;
-            tbVersionRecorderVersion.Name = "tbVersionRecorderVersion";
-            tbVersionRecorderVersion.ReadOnly = true;
-            tbVersionRecorderVersion.Size = new System.Drawing.Size(209, 23);
-            tbVersionRecorderVersion.TabIndex = 23;
-            tbVersionRecorderVersion.TabStop = false;
+            tbRecorderVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbRecorderVersion.Location = new System.Drawing.Point(204, 15);
+            tbRecorderVersion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbRecorderVersion.MaxLength = 100;
+            tbRecorderVersion.Name = "tbRecorderVersion";
+            tbRecorderVersion.ReadOnly = true;
+            tbRecorderVersion.Size = new System.Drawing.Size(209, 23);
+            tbRecorderVersion.TabIndex = 23;
+            tbRecorderVersion.TabStop = false;
             // 
             // lblRemoteVideoServerVersion
             // 
@@ -1138,7 +1178,7 @@
             // gbVersionInformation
             // 
             gbVersionInformation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gbVersionInformation.Controls.Add(tbVersionRecorderVersion);
+            gbVersionInformation.Controls.Add(tbRecorderVersion);
             gbVersionInformation.Controls.Add(lblRemoteVideoServerVersion);
             gbVersionInformation.Controls.Add(lblVersionRecorderVersion);
             gbVersionInformation.Controls.Add(tbRemoteVideoServerVersion);
@@ -1425,6 +1465,7 @@
             ((System.ComponentModel.ISupportInitialize)pbRemoteVideoServerConnectionStatus).EndInit();
             gbAvailabilityTests.ResumeLayout(false);
             gbAvailabilityTests.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
             gbVideoServer.ResumeLayout(false);
             gbVideoServer.PerformLayout();
             tpVideoServer.ResumeLayout(false);
@@ -1516,7 +1557,7 @@
         private System.Windows.Forms.Button btnClose5;
         private System.Windows.Forms.GroupBox gbVideoRecorderStatus;
         private System.Windows.Forms.Label lblRecordingInterval;
-        private System.Windows.Forms.TextBox tbVersionRecorderVersion;
+        private System.Windows.Forms.TextBox tbRecorderVersion;
         private System.Windows.Forms.Label lblRemoteVideoServerVersion;
         private System.Windows.Forms.Label lblVersionRecorderVersion;
         private System.Windows.Forms.TextBox tbRemoteVideoServerVersion;
@@ -1556,5 +1597,9 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ImageList imageList;
+        private AxVIDEOCONTROL4Lib.AxVideoServer axVideoServer;
+        private System.Windows.Forms.TextBox tbRecording;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRecording;
     }
 }

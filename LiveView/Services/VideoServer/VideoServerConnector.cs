@@ -14,13 +14,14 @@ namespace LiveView.Services.VideoServer
     {
         public static async Task<VideoServerConnectionResult> ConnectAsync(IVideoServerView videoServerView, Server server)
         {
+            object recorderStatus = null;
             var cameras = new List<VideoServerCamera>();
             try
             {
                 int errorCode = VideoServerErrorHandler.TimeoutErrorCode;
                 var connectTcs = new TaskCompletionSource<bool>();
 
-                var originalAxVideoServer = videoServerView.GetVideoServerControl();
+                var originalAxVideoServer = videoServerView.AxVideoServer;
                 AxVideoServer axVideoServer = null;
                 videoServerView.InvokeAction(() => axVideoServer = ShallowCopyHelper.ShallowCopy(originalAxVideoServer));
 
@@ -28,6 +29,7 @@ namespace LiveView.Services.VideoServer
                 {
                     errorCode = VideoServerErrorHandler.Success;
                     cameras = VideoCameraConnector.GetOrUpdateCameras(axVideoServer);
+                    recorderStatus = axVideoServer.RecorderStatus();
                     connectTcs.TrySetResult(true);
 
                     // This command makes hanging the software, as this function runs asynchronous, it won't bother us.
@@ -47,15 +49,15 @@ namespace LiveView.Services.VideoServer
 
                 await Task.WhenAny(connectTcs.Task, Task.Delay(GeneralSettings.ConnectionTimeoutMs));
                 //server.VideoServerInfo.LastErrorCode = errorCode;
-                return new VideoServerConnectionResult(errorCode, cameras);
+                return new VideoServerConnectionResult(errorCode, cameras, recorderStatus);
             }
             catch (ObjectDisposedException)
             {
-                return new VideoServerConnectionResult(VideoServerErrorHandler.NoResult, cameras);
+                return new VideoServerConnectionResult(VideoServerErrorHandler.NoResult, cameras, recorderStatus);
             }
             catch (Exception)
             {
-                return new VideoServerConnectionResult(VideoServerErrorHandler.UnknownErrorOccurred, cameras);
+                return new VideoServerConnectionResult(VideoServerErrorHandler.UnknownErrorOccurred, cameras, recorderStatus);
             }
         }
     }
