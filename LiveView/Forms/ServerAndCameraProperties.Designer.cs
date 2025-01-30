@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraProperties));
             btnExportHardwareInfo = new System.Windows.Forms.Button();
             tbReturnCode = new System.Windows.Forms.TextBox();
             lblReturnCode = new System.Windows.Forms.Label();
@@ -67,8 +69,8 @@
             lblHost = new System.Windows.Forms.Label();
             btnRefresh = new System.Windows.Forms.Button();
             btnShowPassword = new System.Windows.Forms.Button();
-            tbPassword = new System.Windows.Forms.TextBox();
-            tbVideoserverUsername = new System.Windows.Forms.TextBox();
+            tbVideoServerPassword = new System.Windows.Forms.TextBox();
+            tbVideoServerUsername = new System.Windows.Forms.TextBox();
             tbVideoServerName = new System.Windows.Forms.TextBox();
             gbVideoServerErrorMessage = new System.Windows.Forms.GroupBox();
             tbVideoServerErrorMessage = new System.Windows.Forms.TextBox();
@@ -137,6 +139,7 @@
             chEstimatedCapacity2 = new System.Windows.Forms.ColumnHeader();
             chGuid = new System.Windows.Forms.ColumnHeader();
             saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            imageList = new System.Windows.Forms.ImageList(components);
             gbMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbWindowsConnectionStatus).BeginInit();
             tpOtherData.SuspendLayout();
@@ -469,11 +472,16 @@
             // 
             // pbWindowsConnectionStatus
             // 
+            pbWindowsConnectionStatus.BackgroundPaintDebounceIntervalInMs = 0;
             pbWindowsConnectionStatus.Location = new System.Drawing.Point(12, 74);
             pbWindowsConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbWindowsConnectionStatus.Name = "pbWindowsConnectionStatus";
             pbWindowsConnectionStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbWindowsConnectionStatus.PaintDebounceIntervalInMs = 0;
             pbWindowsConnectionStatus.RepositioningAndResizingControlsOnResize = false;
+            pbWindowsConnectionStatus.ResizeDebounceIntervalInMs = 0;
+            pbWindowsConnectionStatus.ShowPaintErrors = false;
+            pbWindowsConnectionStatus.ShowResizeErrors = false;
             pbWindowsConnectionStatus.Size = new System.Drawing.Size(21, 21);
             pbWindowsConnectionStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pbWindowsConnectionStatus.TabIndex = 28;
@@ -619,29 +627,29 @@
             btnShowPassword.UseVisualStyleBackColor = true;
             btnShowPassword.Click += BtnShowPassword_Click;
             // 
-            // tbPassword
+            // tbVideoServerPassword
             // 
-            tbPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbPassword.Location = new System.Drawing.Point(203, 91);
-            tbPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbPassword.MaxLength = 100;
-            tbPassword.Name = "tbPassword";
-            tbPassword.PasswordChar = '*';
-            tbPassword.ReadOnly = true;
-            tbPassword.Size = new System.Drawing.Size(205, 23);
-            tbPassword.TabIndex = 1;
+            tbVideoServerPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoServerPassword.Location = new System.Drawing.Point(203, 91);
+            tbVideoServerPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoServerPassword.MaxLength = 100;
+            tbVideoServerPassword.Name = "tbVideoServerPassword";
+            tbVideoServerPassword.PasswordChar = '*';
+            tbVideoServerPassword.ReadOnly = true;
+            tbVideoServerPassword.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerPassword.TabIndex = 1;
             // 
-            // tbVideoserverUsername
+            // tbVideoServerUsername
             // 
-            tbVideoserverUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbVideoserverUsername.Location = new System.Drawing.Point(204, 66);
-            tbVideoserverUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbVideoserverUsername.MaxLength = 100;
-            tbVideoserverUsername.Name = "tbVideoserverUsername";
-            tbVideoserverUsername.ReadOnly = true;
-            tbVideoserverUsername.Size = new System.Drawing.Size(205, 23);
-            tbVideoserverUsername.TabIndex = 5;
-            tbVideoserverUsername.TabStop = false;
+            tbVideoServerUsername.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbVideoServerUsername.Location = new System.Drawing.Point(204, 66);
+            tbVideoServerUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbVideoServerUsername.MaxLength = 100;
+            tbVideoServerUsername.Name = "tbVideoServerUsername";
+            tbVideoServerUsername.ReadOnly = true;
+            tbVideoServerUsername.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerUsername.TabIndex = 5;
+            tbVideoServerUsername.TabStop = false;
             // 
             // tbVideoServerName
             // 
@@ -684,11 +692,16 @@
             // 
             // pbPingTestStatus
             // 
+            pbPingTestStatus.BackgroundPaintDebounceIntervalInMs = 0;
             pbPingTestStatus.Location = new System.Drawing.Point(10, 20);
             pbPingTestStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbPingTestStatus.Name = "pbPingTestStatus";
             pbPingTestStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbPingTestStatus.PaintDebounceIntervalInMs = 0;
             pbPingTestStatus.RepositioningAndResizingControlsOnResize = false;
+            pbPingTestStatus.ResizeDebounceIntervalInMs = 0;
+            pbPingTestStatus.ShowPaintErrors = false;
+            pbPingTestStatus.ShowResizeErrors = false;
             pbPingTestStatus.Size = new System.Drawing.Size(21, 21);
             pbPingTestStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pbPingTestStatus.TabIndex = 22;
@@ -708,11 +721,16 @@
             // 
             // pbRemoteVideoServerConnectionStatus
             // 
+            pbRemoteVideoServerConnectionStatus.BackgroundPaintDebounceIntervalInMs = 0;
             pbRemoteVideoServerConnectionStatus.Location = new System.Drawing.Point(10, 45);
             pbRemoteVideoServerConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbRemoteVideoServerConnectionStatus.Name = "pbRemoteVideoServerConnectionStatus";
             pbRemoteVideoServerConnectionStatus.OriginalSize = new System.Drawing.Size(100, 50);
+            pbRemoteVideoServerConnectionStatus.PaintDebounceIntervalInMs = 0;
             pbRemoteVideoServerConnectionStatus.RepositioningAndResizingControlsOnResize = false;
+            pbRemoteVideoServerConnectionStatus.ResizeDebounceIntervalInMs = 0;
+            pbRemoteVideoServerConnectionStatus.ShowPaintErrors = false;
+            pbRemoteVideoServerConnectionStatus.ShowResizeErrors = false;
             pbRemoteVideoServerConnectionStatus.Size = new System.Drawing.Size(21, 21);
             pbRemoteVideoServerConnectionStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             pbRemoteVideoServerConnectionStatus.TabIndex = 24;
@@ -761,8 +779,8 @@
             gbVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbVideoServer.Controls.Add(lblPassword);
             gbVideoServer.Controls.Add(btnShowPassword);
-            gbVideoServer.Controls.Add(tbVideoserverUsername);
-            gbVideoServer.Controls.Add(tbPassword);
+            gbVideoServer.Controls.Add(tbVideoServerUsername);
+            gbVideoServer.Controls.Add(tbVideoServerPassword);
             gbVideoServer.Controls.Add(tbVideoServerName);
             gbVideoServer.Controls.Add(tbHost);
             gbVideoServer.Controls.Add(lblVideoserverUsername);
@@ -1377,6 +1395,14 @@
             // 
             chGuid.Text = "GUID";
             // 
+            // imageList
+            // 
+            imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            imageList.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imageList.ImageStream");
+            imageList.TransparentColor = System.Drawing.Color.Transparent;
+            imageList.Images.SetKeyName(0, "accept.ico");
+            imageList.Images.SetKeyName(1, "cancel.ico");
+            // 
             // ServerAndCameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1459,8 +1485,8 @@
         private System.Windows.Forms.Label lblHost;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnShowPassword;
-        private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.TextBox tbVideoserverUsername;
+        private System.Windows.Forms.TextBox tbVideoServerPassword;
+        private System.Windows.Forms.TextBox tbVideoServerUsername;
         private System.Windows.Forms.TextBox tbVideoServerName;
         private System.Windows.Forms.GroupBox gbVideoServerErrorMessage;
         private System.Windows.Forms.TextBox tbVideoServerErrorMessage;
@@ -1529,5 +1555,6 @@
         private System.Windows.Forms.ColumnHeader chGuid;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ImageList imageList;
     }
 }

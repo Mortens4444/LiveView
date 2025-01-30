@@ -2,8 +2,13 @@
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.HardwareKey;
+using Mtf.HardwareKey.Enums;
+using Mtf.HardwareKey.Interfaces;
 using Mtf.LanguageService;
+using Mtf.Network.EventArg;
 using Mtf.Network.Services;
 using Mtf.WmiHelper;
 using System;
@@ -21,6 +26,7 @@ namespace LiveView.Presenters
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
+        private Ping ping;
 
         public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies serverAndCameraPropertiesPresenterDependencies)
             : base(serverAndCameraPropertiesPresenterDependencies)
@@ -32,7 +38,33 @@ namespace LiveView.Presenters
         
         public override void Load()
         {
+            var hwKey = MainForm.HardwareKey as SiliconVideoHardwareKey;
+            view.TbVideoServerName.Text = view.Server.Hostname;
+            view.TbHost.Text = view.Server.IpAddress;
+            view.TbVideoServerUsername.Text = view.Server.Username;
+            view.TbVideoServerPassword.Text = view.Server.Password;
+            view.TbMacAddress.Text = view.Server.MacAddress;
+            view.TbDongleSerial.Text = hwKey?.Serial.ToString() ?? Lng.Elem("N/A");
+            view.TbDongleSubtype.Text = hwKey?.SubType.ToString() ?? Lng.Elem("N/A");
 
+            var sziltechDeviceChecker = new SziltechDeviceChecker();
+            var iszSziltechDeice = sziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
+            if (iszSziltechDeice)
+            {
+                view.TbModel.Text = Lng.Elem(deviceInfo.Model);
+            }
+
+            //view.PbRemoteVideoServerConnectionStatus.Image = view.ImageList.Images[0];
+
+            ping = new Ping(view.Server.IpAddress);
+            ping.PingReplyArrived += Ping_PingReplyArrived;
+        }
+
+        private void Ping_PingReplyArrived(object sender, PingReplyArrivedEventArgs e)
+        {
+            var imageIndex = e.Success ? 0 : 1;
+            view.PbPingTestStatus.Image = view.ImageList.Images[imageIndex];
+            ping.Dispose();
         }
 
         public new void SetView(IView view)

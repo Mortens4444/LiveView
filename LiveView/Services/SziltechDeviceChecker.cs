@@ -9,7 +9,7 @@ namespace LiveView.Services
 {
     public class SziltechDeviceChecker
     {
-        private static List<SziltechDeviceInfo> devices;
+        private static readonly List<SziltechDeviceInfo> devices;
 
         static SziltechDeviceChecker()
         {

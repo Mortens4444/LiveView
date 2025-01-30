@@ -21,14 +21,36 @@ namespace LiveView.Forms
 
         public SaveFileDialog SaveFileDialog => saveFileDialog;
 
-        public TextBox TbPassword => tbPassword;
+        public TextBox TbHost => tbHost;
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Server Server { get; private set; }
+        public TextBox TbPassword => tbVideoServerPassword;
+
+        public TextBox TbVideoServerName => tbVideoServerName;
 
         public TextBox TbWindowsUsername => tbWindowsUsername;
 
         public TextBox TbWindowsPassword => tbWindowsPassword;
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Server Server { get; private set; }
+
+        public TextBox TbVideoServerUsername => tbVideoServerUsername;
+
+        public TextBox TbVideoServerPassword => tbVideoServerPassword;
+
+        public TextBox TbDongleSerial => tbDongleSerial;
+
+        public TextBox TbDongleSubtype => tbDongleSubtype;
+
+        public TextBox TbMacAddress => tbMacAddress;
+
+        public TextBox TbModel => tbModel;
+
+        public PictureBox PbPingTestStatus => pbPingTestStatus;
+
+        public PictureBox PbRemoteVideoServerConnectionStatus => pbRemoteVideoServerConnectionStatus;
+
+        public ImageList ImageList => imageList;
 
         public ServerAndCameraProperties(IServiceProvider serviceProvider, Server server) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
         {
@@ -40,9 +62,10 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        private void BtnClose_Click(object sender, EventArgs e)
+        private void ServerAndCameraProperties_Shown(object sender, EventArgs e)
         {
-            presenter.CloseForm();
+            presenter = Presenter as ServerAndCameraPropertiesPresenter;
+            presenter.Load();
         }
 
         [RequirePermission(PasswordManagementPermissions.Select)]
@@ -88,10 +111,9 @@ namespace LiveView.Forms
             presenter.WakeOnLAN();
         }
 
-        private void ServerAndCameraProperties_Shown(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
-            presenter = Presenter as ServerAndCameraPropertiesPresenter;
-            presenter.Load();
+            presenter.CloseForm();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace LiveView.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static string Days { get; set; }
 
-        public static readonly IHardwareKey HardwareKey;
+        public static readonly ISltHardwareKey HardwareKey;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static ControlCenter ControlCenter { get; set; }

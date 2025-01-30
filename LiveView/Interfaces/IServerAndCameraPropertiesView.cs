@@ -16,8 +16,30 @@ namespace LiveView.Interfaces
 
         TextBox TbPassword { get; }
 
+        TextBox TbVideoServerName { get; }
+
+        TextBox TbHost { get; }
+
         TextBox TbWindowsUsername { get; }
 
         TextBox TbWindowsPassword { get; }
+
+        TextBox TbVideoServerUsername { get; }
+
+        TextBox TbVideoServerPassword { get; }
+
+        TextBox TbDongleSerial { get; }
+
+        TextBox TbDongleSubtype { get; }
+
+        TextBox TbMacAddress { get; }
+
+        TextBox TbModel { get; }
+
+        PictureBox PbPingTestStatus { get; }
+
+        PictureBox PbRemoteVideoServerConnectionStatus { get; }
+
+        ImageList ImageList { get; }
     }
 }
