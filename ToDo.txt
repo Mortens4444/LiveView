@@ -8,7 +8,7 @@ Close sequence on taskbar, close button stays on display on ControlCenter
 
 VideoSource
 -----------
-- Add syncron view
+- Add synchron view
 - MapCreatorPresenter, MapLoader comments should be addressed
 
 Groups

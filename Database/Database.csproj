@@ -48,6 +48,7 @@
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
+    <EmbeddedResource Include="Scripts\UpdateCamera.sql" />
     <EmbeddedResource Include="Scripts\UpdateUser.sql" />
     <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropDisplaysTableColumns.sql" />

@@ -4,12 +4,23 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class CameraMotionSettings : BaseView, ICameraMotionSettingsView
     {
         private CameraMotionOptionsPresenter presenter;
+
+        public NumericUpDown NudMotionTrigger => nudMotionTrigger;
+
+        public NumericUpDown NudMotionTriggerMinimumLength => nudMotionTriggerMinimumLength;
+
+        public ComboBox CbPartnerVideoServer => cbPartnerVideoServer;
+        
+        public ComboBox CbPartnerCamera => cbPartnerCamera;
+
+        public ListView LvCameras => lvCameras;
 
         public CameraMotionSettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(CameraMotionOptionsPresenter))
         {

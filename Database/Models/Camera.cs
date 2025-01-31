@@ -33,9 +33,9 @@ namespace Database.Models
 
         public long ServerId { get; set; }
 
-        public long MotionTrigger { get; set; }
+        public long? MotionTrigger { get; set; }
 
-        public long MotionTriggerMinimumLength { get; set; }
+        public long? MotionTriggerMinimumLength { get; set; }
 
         public int Priority { get; set; }
 

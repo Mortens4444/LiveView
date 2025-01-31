@@ -75,7 +75,7 @@
             // 
             btnChange.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnChange.Enabled = false;
-            btnChange.Location = new System.Drawing.Point(827, 16);
+            btnChange.Location = new System.Drawing.Point(831, 16);
             btnChange.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnChange.Name = "btnChange";
             btnChange.Size = new System.Drawing.Size(88, 27);
@@ -91,7 +91,7 @@
             pCameras.Location = new System.Drawing.Point(0, 84);
             pCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pCameras.Name = "pCameras";
-            pCameras.Size = new System.Drawing.Size(918, 390);
+            pCameras.Size = new System.Drawing.Size(922, 390);
             pCameras.TabIndex = 1;
             // 
             // gbCameras
@@ -102,7 +102,7 @@
             gbCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbCameras.Name = "gbCameras";
             gbCameras.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCameras.Size = new System.Drawing.Size(918, 390);
+            gbCameras.Size = new System.Drawing.Size(922, 390);
             gbCameras.TabIndex = 1;
             gbCameras.TabStop = false;
             gbCameras.Text = "Cameras";
@@ -128,7 +128,7 @@
             lvCameras.ReadonlyCheckboxes = false;
             lvCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvCameras.Size = new System.Drawing.Size(910, 368);
+            lvCameras.Size = new System.Drawing.Size(914, 368);
             lvCameras.TabIndex = 0;
             lvCameras.UseCompatibleStateImageBehavior = false;
             lvCameras.View = System.Windows.Forms.View.Details;
@@ -141,22 +141,22 @@
             // chCamera
             // 
             chCamera.Text = "Camera";
-            chCamera.Width = 118;
+            chCamera.Width = 165;
             // 
             // chMotionTrigger
             // 
             chMotionTrigger.Text = "Motion trigger";
-            chMotionTrigger.Width = 84;
+            chMotionTrigger.Width = 90;
             // 
             // chMotionTriggerMinimumLength
             // 
             chMotionTriggerMinimumLength.Text = "Motion trigger minimum length (seconds)";
-            chMotionTriggerMinimumLength.Width = 206;
+            chMotionTriggerMinimumLength.Width = 240;
             // 
             // chPartnerCamera
             // 
             chPartnerCamera.Text = "Partner camera";
-            chPartnerCamera.Width = 149;
+            chPartnerCamera.Width = 250;
             // 
             // cmsContextMenu
             // 
@@ -198,7 +198,7 @@
             cbPartnerCamera.Location = new System.Drawing.Point(534, 52);
             cbPartnerCamera.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbPartnerCamera.Name = "cbPartnerCamera";
-            cbPartnerCamera.Size = new System.Drawing.Size(160, 23);
+            cbPartnerCamera.Size = new System.Drawing.Size(164, 23);
             cbPartnerCamera.TabIndex = 6;
             // 
             // lblPartnerCamera
@@ -246,7 +246,7 @@
             gbCameraOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbCameraOptions.Name = "gbCameraOptions";
             gbCameraOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCameraOptions.Size = new System.Drawing.Size(918, 84);
+            gbCameraOptions.Size = new System.Drawing.Size(922, 84);
             gbCameraOptions.TabIndex = 0;
             gbCameraOptions.TabStop = false;
             gbCameraOptions.Text = "Camera options";
@@ -268,7 +268,7 @@
             pSettings.Location = new System.Drawing.Point(0, 0);
             pSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pSettings.Name = "pSettings";
-            pSettings.Size = new System.Drawing.Size(918, 84);
+            pSettings.Size = new System.Drawing.Size(922, 84);
             pSettings.TabIndex = 0;
             // 
             // pMain
@@ -279,14 +279,14 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(918, 474);
+            pMain.Size = new System.Drawing.Size(922, 474);
             pMain.TabIndex = 1;
             // 
             // CameraMotionSettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(918, 474);
+            ClientSize = new System.Drawing.Size(922, 474);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CameraMotionSettings";

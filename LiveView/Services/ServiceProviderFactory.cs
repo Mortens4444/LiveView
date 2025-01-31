@@ -51,6 +51,7 @@ namespace LiveView.Services
             services.AddTransient<AutoCreateWizardPresenterDependencies>();
             services.AddTransient<BarcodeScanOptionsPresenterDependencies>();
             services.AddTransient<BarcodeScanReadingsPresenterDependencies>();
+            services.AddTransient<CameraMotionOptionsPresenterDependencies>();
             services.AddTransient<ControlCenterPresenterDependencies>();
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<EnterPassPresenterDependencies>();
