@@ -23,6 +23,10 @@ namespace Database.Models
 
         public string Password { get; set; }
 
+        public string ServerUsername { get; set; }
+
+        public string ServerPassword { get; set; }
+
         public string HttpStreamUrl { get; set; }
 
         public bool Actual { get; set; }

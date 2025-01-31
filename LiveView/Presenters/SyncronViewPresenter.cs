@@ -106,7 +106,7 @@ namespace LiveView.Presenters
                         videoPicture.Disconnect();
                     }
                     var server = servers.FirstOrDefault(s => s.Id == camera.ServerId);
-                    videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.Username, camera.Password);
+                    videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.ServerUsername, camera.ServerPassword);
                 }
             }
         }
