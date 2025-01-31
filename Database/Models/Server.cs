@@ -21,6 +21,10 @@ namespace Database.Models
 
         public string SerialNumber { get; set; }
 
+        public string WinUser { get; set; }
+
+        public string WinPass { get; set; }
+
         public bool StartInMotionPopup { get; set; }
 
         public override int GetHashCode()

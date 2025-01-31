@@ -43,7 +43,7 @@ namespace Mtf.Extensions
                     return (double)green / (red + green + blue);
                 case ColorComponent.Blue:
                     return (double)blue / (red + green + blue);
-                default: throw new NotImplementedException();
+                default: throw new NotSupportedException();
             }
         }
 
@@ -492,7 +492,7 @@ namespace Mtf.Extensions
                     return GetRandomColor();
                 case ColorTransformMethod.Original:
                     return value;
-                default: throw new NotImplementedException();
+                default: throw new NotSupportedException();
             }
         }
     }

@@ -18,9 +18,18 @@ namespace LiveView.Presenters
     public class BaseDisplayPresenter : BasePresenter, IDisplayPresenter
     {
         private readonly DisplayManager displayManager;
-        private static Pen blackPen, bluePen;
-        private static SolidBrush cornflowerBlueBrush, lightBlueBrush, darkGreenBrush, grayBrush, darkGrayBrush, lightGreenBrush,
-            lightGoldenrodYellowBrush, darkGoldenrodBrush, silverBrush, darkSlateBlueBrush;
+        private static readonly Pen blackPen;
+        private static readonly Pen bluePen;
+        private static readonly SolidBrush cornflowerBlueBrush;
+        private static readonly SolidBrush lightBlueBrush;
+        private static readonly SolidBrush darkGreenBrush;
+        private static readonly SolidBrush grayBrush;
+        private static readonly SolidBrush darkGrayBrush;
+        private static readonly SolidBrush lightGreenBrush;
+        private static readonly SolidBrush lightGoldenrodYellowBrush;
+        private static readonly SolidBrush darkGoldenrodBrush;
+        private static readonly SolidBrush silverBrush;
+        private static readonly SolidBrush darkSlateBlueBrush;
 
         static BaseDisplayPresenter()
         {
@@ -68,8 +77,7 @@ namespace LiveView.Presenters
         {
             var (screenBounds, deltaPoint) = displayManager.GetScreensBounds();
             var diminutive = displayManager.GetScaleFactor(screenBounds, drawnSize);
-            var point = new POINT();
-            WinAPI.GetCursorPos(out point);
+            WinAPI.GetCursorPos(out var point);
             var mouseLeft = (int)(screenBounds.Left + point.X / diminutive + DisplayManager.FrameWidth / 2 + 1);
             var mouseTop = (int)(screenBounds.Top + point.Y / diminutive + DisplayManager.FrameWidth / 2 + 1);
             return new Point(mouseLeft + deltaPoint.X, mouseTop + deltaPoint.Y);
@@ -168,7 +176,7 @@ namespace LiveView.Presenters
                     return (blackPen, darkGrayBrush);
                 }
 
-                throw new NotImplementedException($"Remoted isplay drawing tools ({displayDrawingTools}) are not implemented.");
+                throw new NotSupportedException($"Remote display drawing tools ({displayDrawingTools}) are not supported yet.");
             }
 
             if (displayDrawingTools == DisplayDrawingTools.Functions)
@@ -217,7 +225,7 @@ namespace LiveView.Presenters
                 return (blackPen, grayBrush);
             }
 
-            throw new NotImplementedException($"Display drawing tools ({displayDrawingTools}) are not implemented.");
+            throw new NotSupportedException($"Display drawing tools ({displayDrawingTools}) are not supported yet.");
         }
     }
 }

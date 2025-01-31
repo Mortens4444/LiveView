@@ -31,6 +31,8 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddVideoServer));
             pMain = new System.Windows.Forms.Panel();
             gbValidate = new System.Windows.Forms.GroupBox();
+            tbModel = new System.Windows.Forms.TextBox();
+            lblModel = new System.Windows.Forms.Label();
             tbSziltechSerialNumber = new System.Windows.Forms.TextBox();
             lblSziltechSerialNumberOptional = new System.Windows.Forms.Label();
             btnValidate = new System.Windows.Forms.Button();
@@ -50,16 +52,21 @@
             tbUsername = new System.Windows.Forms.TextBox();
             lblUsername = new System.Windows.Forms.Label();
             lblIpAddress = new System.Windows.Forms.Label();
-            lblModel = new System.Windows.Forms.Label();
-            tbModel = new System.Windows.Forms.TextBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            lblWinPassword = new System.Windows.Forms.Label();
+            tbWinPassword = new System.Windows.Forms.TextBox();
+            tbWinUsername = new System.Windows.Forms.TextBox();
+            lblWinUsername = new System.Windows.Forms.Label();
             pMain.SuspendLayout();
             gbValidate.SuspendLayout();
             gbNetwork.SuspendLayout();
             gbVideoServer.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // pMain
             // 
+            pMain.Controls.Add(groupBox1);
             pMain.Controls.Add(gbValidate);
             pMain.Controls.Add(btnClose);
             pMain.Controls.Add(btnAddOrModify);
@@ -69,7 +76,7 @@
             pMain.Location = new System.Drawing.Point(0, 0);
             pMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pMain.Name = "pMain";
-            pMain.Size = new System.Drawing.Size(315, 411);
+            pMain.Size = new System.Drawing.Size(315, 485);
             pMain.TabIndex = 0;
             // 
             // gbValidate
@@ -88,6 +95,27 @@
             gbValidate.TabIndex = 7;
             gbValidate.TabStop = false;
             gbValidate.Text = "Validate";
+            // 
+            // tbModel
+            // 
+            tbModel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbModel.Location = new System.Drawing.Point(151, 37);
+            tbModel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbModel.MaxLength = 20;
+            tbModel.Name = "tbModel";
+            tbModel.ReadOnly = true;
+            tbModel.Size = new System.Drawing.Size(153, 23);
+            tbModel.TabIndex = 4;
+            // 
+            // lblModel
+            // 
+            lblModel.AutoSize = true;
+            lblModel.Location = new System.Drawing.Point(151, 18);
+            lblModel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblModel.Name = "lblModel";
+            lblModel.Size = new System.Drawing.Size(41, 15);
+            lblModel.TabIndex = 4;
+            lblModel.Text = "Model";
             // 
             // tbSziltechSerialNumber
             // 
@@ -123,7 +151,7 @@
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(218, 378);
+            btnClose.Location = new System.Drawing.Point(218, 452);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -137,7 +165,7 @@
             btnAddOrModify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnAddOrModify.DialogResult = System.Windows.Forms.DialogResult.OK;
             btnAddOrModify.Enabled = false;
-            btnAddOrModify.Location = new System.Drawing.Point(124, 378);
+            btnAddOrModify.Location = new System.Drawing.Point(124, 452);
             btnAddOrModify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnAddOrModify.Name = "btnAddOrModify";
             btnAddOrModify.Size = new System.Drawing.Size(88, 27);
@@ -306,36 +334,70 @@
             lblIpAddress.TabIndex = 0;
             lblIpAddress.Text = "DNS name or IP address";
             // 
-            // lblModel
+            // groupBox1
             // 
-            lblModel.AutoSize = true;
-            lblModel.Location = new System.Drawing.Point(151, 18);
-            lblModel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblModel.Name = "lblModel";
-            lblModel.Size = new System.Drawing.Size(41, 15);
-            lblModel.TabIndex = 4;
-            lblModel.Text = "Model";
+            groupBox1.Controls.Add(lblWinPassword);
+            groupBox1.Controls.Add(tbWinPassword);
+            groupBox1.Controls.Add(tbWinUsername);
+            groupBox1.Controls.Add(lblWinUsername);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox1.Location = new System.Drawing.Point(0, 374);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(315, 70);
+            groupBox1.TabIndex = 10;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Microsoft Windows";
             // 
-            // tbModel
+            // lblWinPassword
             // 
-            tbModel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbModel.Location = new System.Drawing.Point(151, 37);
-            tbModel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbModel.MaxLength = 20;
-            tbModel.Name = "tbModel";
-            tbModel.ReadOnly = true;
-            tbModel.Size = new System.Drawing.Size(153, 23);
-            tbModel.TabIndex = 4;
+            lblWinPassword.AutoSize = true;
+            lblWinPassword.Location = new System.Drawing.Point(152, 17);
+            lblWinPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWinPassword.Name = "lblWinPassword";
+            lblWinPassword.Size = new System.Drawing.Size(57, 15);
+            lblWinPassword.TabIndex = 3;
+            lblWinPassword.Text = "Password";
+            // 
+            // tbWinPassword
+            // 
+            tbWinPassword.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbWinPassword.Location = new System.Drawing.Point(152, 35);
+            tbWinPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWinPassword.MaxLength = 20;
+            tbWinPassword.Name = "tbWinPassword";
+            tbWinPassword.Size = new System.Drawing.Size(152, 23);
+            tbWinPassword.TabIndex = 2;
+            // 
+            // tbWinUsername
+            // 
+            tbWinUsername.Location = new System.Drawing.Point(10, 35);
+            tbWinUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbWinUsername.MaxLength = 20;
+            tbWinUsername.Name = "tbWinUsername";
+            tbWinUsername.Size = new System.Drawing.Size(133, 23);
+            tbWinUsername.TabIndex = 1;
+            // 
+            // lblWinUsername
+            // 
+            lblWinUsername.AutoSize = true;
+            lblWinUsername.Location = new System.Drawing.Point(8, 18);
+            lblWinUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWinUsername.Name = "lblWinUsername";
+            lblWinUsername.Size = new System.Drawing.Size(60, 15);
+            lblWinUsername.TabIndex = 0;
+            lblWinUsername.Text = "Username";
             // 
             // AddVideoServer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(315, 411);
+            ClientSize = new System.Drawing.Size(315, 485);
             Controls.Add(pMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(331, 450);
+            MinimumSize = new System.Drawing.Size(331, 524);
             Name = "AddVideoServer";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "New video server";
@@ -348,6 +410,8 @@
             gbNetwork.PerformLayout();
             gbVideoServer.ResumeLayout(false);
             gbVideoServer.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -376,5 +440,10 @@
         private System.Windows.Forms.Label lblManufacturer;
         private System.Windows.Forms.TextBox tbModel;
         private System.Windows.Forms.Label lblModel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblWinPassword;
+        private System.Windows.Forms.TextBox tbWinPassword;
+        private System.Windows.Forms.TextBox tbWinUsername;
+        private System.Windows.Forms.Label lblWinUsername;
     }
 }

@@ -90,6 +90,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
                     {
                         //logger.LogInfo("Camera '{0}' has been modified.", camera);
+                        throw new NotImplementedException();
                     }
                     else
                     {
@@ -216,7 +217,7 @@ namespace LiveView.Presenters
                                     }
                                     break;
                                 default:
-                                    throw new NotImplementedException();
+                                    throw new NotSupportedException($"SyncronizationMode '{syncMode}' is not supported yet.");
                             }
                         }
                     }

@@ -13,6 +13,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -63,6 +64,8 @@ namespace LiveView.Forms
             if (useCustomColors)
             {
                 var colorizeControlsService = serviceProvider?.GetRequiredService<ColorizeControlsService>();
+                
+                colorizeControlsService.ColorizeControl(this, Setting.GroupBoxBackgroundColor, Setting.GroupBoxForeColor, Color.FromArgb(50, 50, 50), Color.White);
                 colorizeControlsService.ColorizeControls(Controls);
             }
         }

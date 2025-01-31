@@ -99,10 +99,15 @@ namespace LiveView.Services.Coloring
                 {
                     ColorizeControl(control, Setting.StatusStripBackgroundColor, Setting.StatusStripForeColor, Color.FromArgb(70, 70, 70), Color.White);
                 }
+
+                if (control is TabControl)
+                {
+                    ColorizeControl(control, Setting.GroupBoxBackgroundColor, Setting.GroupBoxForeColor, Color.FromArgb(60, 60, 60), Color.White);
+                }
             }
         }
 
-        private void ColorizeControl(Control control, Setting backgroundColor, Setting foreColor, Color defaultBackgroundColor, Color defaultForeColor)
+        public void ColorizeControl(Control control, Setting backgroundColor, Setting foreColor, Color defaultBackgroundColor, Color defaultForeColor)
         {
             control.BackColor = generalOptionsRepository.Get(backgroundColor, defaultBackgroundColor);
             control.ForeColor = generalOptionsRepository.Get(foreColor, defaultForeColor);

@@ -108,7 +108,7 @@ namespace LiveView.Forms
                 return SyncronizationMode.CameraName;
             }
 
-            throw new NotImplementedException("SyncronizationMode  is not supported.");
+            throw new NotSupportedException("SyncronizationMode is not supported yet.");
         }
 
         private void BtnModify_Click(object sender, EventArgs e)

@@ -60,7 +60,7 @@ namespace Mtf.Models.Colors
                     B = Clip(((298 * C) + (516 * D) + 128) >> 8);
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new NotSupportedException();
             }
         }
 

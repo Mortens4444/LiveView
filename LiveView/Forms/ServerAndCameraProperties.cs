@@ -114,14 +114,6 @@ namespace LiveView.Forms
             presenter.ShowPassword();
         }
 
-        [RequirePermission(ServerManagementPermissions.Select)]
-        [RequirePermission(CameraManagementPermissions.Select)]
-        private void BtnRefresh_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
-            presenter.Refresh();
-        }
-
         [RequirePermission(CameraManagementPermissions.ExportCameraList)]
         private void BtnExportCameraList_Click(object sender, EventArgs e)
         {
@@ -136,13 +128,6 @@ namespace LiveView.Forms
             presenter.ExportHadwareInfo();
         }
 
-        [RequirePermission(HardwareManagementPermissions.Select)]
-        private void BtnGetHardwareInfo_Click(object sender, EventArgs e)
-        {
-            permissionManager.EnsurePermissions();
-            presenter.GetHardwareInfo();
-        }
-
         [RequirePermission(NetworkManagementPermissions.WakeOnLAN)]
         private void BtnWakeOnLan_Click(object sender, EventArgs e)
         {
@@ -153,6 +138,13 @@ namespace LiveView.Forms
         private void BtnClose_Click(object sender, EventArgs e)
         {
             presenter.CloseForm();
+        }
+
+        [RequirePermission(PasswordManagementPermissions.Select)]
+        private void BtnShowWinPassword_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter.ShowWinPassword();
         }
     }
 }

@@ -41,9 +41,6 @@
             lblDongleSerial = new System.Windows.Forms.Label();
             tbModel = new System.Windows.Forms.TextBox();
             tbNote = new System.Windows.Forms.TextBox();
-            btnRefresh2 = new System.Windows.Forms.Button();
-            chValue = new System.Windows.Forms.ColumnHeader();
-            btnClose2 = new System.Windows.Forms.Button();
             gbMisc = new System.Windows.Forms.GroupBox();
             tbManufacturer = new System.Windows.Forms.TextBox();
             tbMacAddress = new System.Windows.Forms.TextBox();
@@ -51,23 +48,18 @@
             lblNote = new System.Windows.Forms.Label();
             lblManufacturer = new System.Windows.Forms.Label();
             lblMacAddress = new System.Windows.Forms.Label();
-            chKey = new System.Windows.Forms.ColumnHeader();
-            lvHardwareInformation = new Mtf.Controls.MtfListView();
             tbWindowErrorMessage = new System.Windows.Forms.TextBox();
-            lblWindowsConnectionStatus = new System.Windows.Forms.Label();
             pbWindowsConnectionStatus = new Mtf.Controls.MtfPictureBox();
             tbWindowsPassword = new System.Windows.Forms.TextBox();
             lblWindowsPassword = new System.Windows.Forms.Label();
             lblWindowsUsername = new System.Windows.Forms.Label();
             tbWindowsUsername = new System.Windows.Forms.TextBox();
             tpOtherData = new System.Windows.Forms.TabPage();
-            btnGetHardwareInfo = new System.Windows.Forms.Button();
             fbdFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             tbHost = new System.Windows.Forms.TextBox();
             lblVideoserverUsername = new System.Windows.Forms.Label();
             lblVideoServerName = new System.Windows.Forms.Label();
             lblHost = new System.Windows.Forms.Label();
-            btnRefresh = new System.Windows.Forms.Button();
             btnShowPassword = new System.Windows.Forms.Button();
             tbVideoServerPassword = new System.Windows.Forms.TextBox();
             tbVideoServerUsername = new System.Windows.Forms.TextBox();
@@ -84,8 +76,8 @@
             gbVideoServer = new System.Windows.Forms.GroupBox();
             lblPassword = new System.Windows.Forms.Label();
             tpVideoServer = new System.Windows.Forms.TabPage();
-            btnClose = new System.Windows.Forms.Button();
             gbWindowsCredentials = new System.Windows.Forms.GroupBox();
+            btnShowWinPassword = new System.Windows.Forms.Button();
             tbLiveViewDisplay = new System.Windows.Forms.TextBox();
             lblLiveViewDisplay = new System.Windows.Forms.Label();
             tbLicensedCameraNumber = new System.Windows.Forms.TextBox();
@@ -97,9 +89,8 @@
             tbCpuUsage = new System.Windows.Forms.TextBox();
             tbRecordingInterval = new System.Windows.Forms.TextBox();
             lblCpuUsage = new System.Windows.Forms.Label();
-            btnRefresh4 = new System.Windows.Forms.Button();
             lblVideoRecorderProtocolVersion = new System.Windows.Forms.Label();
-            btnClose5 = new System.Windows.Forms.Button();
+            btnClose = new System.Windows.Forms.Button();
             gbVideoRecorderStatus = new System.Windows.Forms.GroupBox();
             tbRecording = new System.Windows.Forms.TextBox();
             lblRecording = new System.Windows.Forms.Label();
@@ -109,20 +100,18 @@
             lblVersionRecorderVersion = new System.Windows.Forms.Label();
             tbRemoteVideoServerVersion = new System.Windows.Forms.TextBox();
             tbVideoRecorderProtocolVersion = new System.Windows.Forms.TextBox();
-            btnRefresh5 = new System.Windows.Forms.Button();
-            btnClose6 = new System.Windows.Forms.Button();
             gbVersionInformation = new System.Windows.Forms.GroupBox();
             tpVideoRecorderStatus = new System.Windows.Forms.TabPage();
             tpVersionInformation = new System.Windows.Forms.TabPage();
             tcInfoPages = new System.Windows.Forms.TabControl();
             tpHardwareInformation = new System.Windows.Forms.TabPage();
-            btnClose3 = new System.Windows.Forms.Button();
             gbHardwareInformation = new System.Windows.Forms.GroupBox();
+            lvHardwareInformation = new Mtf.Controls.MtfListView();
+            chKey = new System.Windows.Forms.ColumnHeader();
+            chValue = new System.Windows.Forms.ColumnHeader();
             tpCameraList = new System.Windows.Forms.TabPage();
-            btnExportCameraList = new System.Windows.Forms.Button();
-            btnRefresh3 = new System.Windows.Forms.Button();
-            btnClose4 = new System.Windows.Forms.Button();
             gbCameraList = new System.Windows.Forms.GroupBox();
+            btnExportCameraList = new System.Windows.Forms.Button();
             lvCameraList = new Mtf.Controls.MtfListView();
             chCameraName = new System.Windows.Forms.ColumnHeader();
             chRpcReturnCode = new System.Windows.Forms.ColumnHeader();
@@ -167,8 +156,8 @@
             // 
             // btnExportHardwareInfo
             // 
-            btnExportHardwareInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnExportHardwareInfo.Location = new System.Drawing.Point(304, 386);
+            btnExportHardwareInfo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnExportHardwareInfo.Location = new System.Drawing.Point(294, 68);
             btnExportHardwareInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnExportHardwareInfo.Name = "btnExportHardwareInfo";
             btnExportHardwareInfo.Size = new System.Drawing.Size(119, 27);
@@ -186,7 +175,7 @@
             tbReturnCode.MaxLength = 100;
             tbReturnCode.Name = "tbReturnCode";
             tbReturnCode.ReadOnly = true;
-            tbReturnCode.Size = new System.Drawing.Size(209, 23);
+            tbReturnCode.Size = new System.Drawing.Size(206, 23);
             tbReturnCode.TabIndex = 23;
             tbReturnCode.TabStop = false;
             // 
@@ -209,7 +198,7 @@
             tbVideoServerTime.MaxLength = 100;
             tbVideoServerTime.Name = "tbVideoServerTime";
             tbVideoServerTime.ReadOnly = true;
-            tbVideoServerTime.Size = new System.Drawing.Size(209, 23);
+            tbVideoServerTime.Size = new System.Drawing.Size(206, 23);
             tbVideoServerTime.TabIndex = 21;
             tbVideoServerTime.TabStop = false;
             // 
@@ -232,7 +221,7 @@
             tbDongleSubtype.MaxLength = 100;
             tbDongleSubtype.Name = "tbDongleSubtype";
             tbDongleSubtype.ReadOnly = true;
-            tbDongleSubtype.Size = new System.Drawing.Size(209, 23);
+            tbDongleSubtype.Size = new System.Drawing.Size(206, 23);
             tbDongleSubtype.TabIndex = 19;
             tbDongleSubtype.TabStop = false;
             // 
@@ -255,7 +244,7 @@
             tbDongleSerial.MaxLength = 100;
             tbDongleSerial.Name = "tbDongleSerial";
             tbDongleSerial.ReadOnly = true;
-            tbDongleSerial.Size = new System.Drawing.Size(209, 23);
+            tbDongleSerial.Size = new System.Drawing.Size(206, 23);
             tbDongleSerial.TabIndex = 17;
             tbDongleSerial.TabStop = false;
             // 
@@ -278,7 +267,7 @@
             tbModel.MaxLength = 1000;
             tbModel.Name = "tbModel";
             tbModel.ReadOnly = true;
-            tbModel.Size = new System.Drawing.Size(209, 23);
+            tbModel.Size = new System.Drawing.Size(206, 23);
             tbModel.TabIndex = 5;
             tbModel.TabStop = false;
             // 
@@ -292,43 +281,13 @@
             tbNote.Name = "tbNote";
             tbNote.ReadOnly = true;
             tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            tbNote.Size = new System.Drawing.Size(404, 131);
+            tbNote.Size = new System.Drawing.Size(401, 122);
             tbNote.TabIndex = 3;
             tbNote.TabStop = false;
             tbNote.Visible = false;
             // 
-            // btnRefresh2
-            // 
-            btnRefresh2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnRefresh2.Location = new System.Drawing.Point(121, 387);
-            btnRefresh2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRefresh2.Name = "btnRefresh2";
-            btnRefresh2.Size = new System.Drawing.Size(111, 27);
-            btnRefresh2.TabIndex = 5;
-            btnRefresh2.Text = "Refresh";
-            btnRefresh2.UseVisualStyleBackColor = true;
-            btnRefresh2.Click += BtnRefresh_Click;
-            // 
-            // chValue
-            // 
-            chValue.Text = "Value";
-            chValue.Width = 238;
-            // 
-            // btnClose2
-            // 
-            btnClose2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose2.Location = new System.Drawing.Point(4, 386);
-            btnClose2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose2.Name = "btnClose2";
-            btnClose2.Size = new System.Drawing.Size(111, 27);
-            btnClose2.TabIndex = 4;
-            btnClose2.Text = "Close";
-            btnClose2.UseVisualStyleBackColor = true;
-            btnClose2.Click += BtnClose_Click;
-            // 
             // gbMisc
             // 
-            gbMisc.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbMisc.Controls.Add(tbReturnCode);
             gbMisc.Controls.Add(lblReturnCode);
             gbMisc.Controls.Add(tbVideoServerTime);
@@ -345,11 +304,12 @@
             gbMisc.Controls.Add(lblNote);
             gbMisc.Controls.Add(lblManufacturer);
             gbMisc.Controls.Add(lblMacAddress);
+            gbMisc.Dock = System.Windows.Forms.DockStyle.Fill;
             gbMisc.Location = new System.Drawing.Point(4, 3);
             gbMisc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbMisc.Name = "gbMisc";
             gbMisc.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbMisc.Size = new System.Drawing.Size(422, 383);
+            gbMisc.Size = new System.Drawing.Size(419, 374);
             gbMisc.TabIndex = 2;
             gbMisc.TabStop = false;
             // 
@@ -361,7 +321,7 @@
             tbManufacturer.MaxLength = 17;
             tbManufacturer.Name = "tbManufacturer";
             tbManufacturer.ReadOnly = true;
-            tbManufacturer.Size = new System.Drawing.Size(209, 23);
+            tbManufacturer.Size = new System.Drawing.Size(206, 23);
             tbManufacturer.TabIndex = 1;
             tbManufacturer.TabStop = false;
             // 
@@ -373,7 +333,7 @@
             tbMacAddress.MaxLength = 17;
             tbMacAddress.Name = "tbMacAddress";
             tbMacAddress.ReadOnly = true;
-            tbMacAddress.Size = new System.Drawing.Size(209, 23);
+            tbMacAddress.Size = new System.Drawing.Size(206, 23);
             tbMacAddress.TabIndex = 1;
             tbMacAddress.TabStop = false;
             // 
@@ -421,36 +381,6 @@
             lblMacAddress.TabIndex = 0;
             lblMacAddress.Text = "MAC address";
             // 
-            // chKey
-            // 
-            chKey.Text = "Key";
-            chKey.Width = 111;
-            // 
-            // lvHardwareInformation
-            // 
-            lvHardwareInformation.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvHardwareInformation.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvHardwareInformation.AlternatingColorsAreInUse = true;
-            lvHardwareInformation.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvHardwareInformation.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvHardwareInformation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chKey, chValue });
-            lvHardwareInformation.CompactView = false;
-            lvHardwareInformation.Dock = System.Windows.Forms.DockStyle.Fill;
-            lvHardwareInformation.EnsureLastItemIsVisible = false;
-            lvHardwareInformation.FirstItemIsGray = false;
-            lvHardwareInformation.FullRowSelect = true;
-            lvHardwareInformation.Location = new System.Drawing.Point(4, 19);
-            lvHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvHardwareInformation.Name = "lvHardwareInformation";
-            lvHardwareInformation.OwnerDraw = true;
-            lvHardwareInformation.ReadonlyCheckboxes = false;
-            lvHardwareInformation.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvHardwareInformation.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvHardwareInformation.Size = new System.Drawing.Size(414, 218);
-            lvHardwareInformation.TabIndex = 0;
-            lvHardwareInformation.UseCompatibleStateImageBehavior = false;
-            lvHardwareInformation.View = System.Windows.Forms.View.Details;
-            // 
             // tbWindowErrorMessage
             // 
             tbWindowErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
@@ -460,19 +390,9 @@
             tbWindowErrorMessage.Name = "tbWindowErrorMessage";
             tbWindowErrorMessage.ReadOnly = true;
             tbWindowErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            tbWindowErrorMessage.Size = new System.Drawing.Size(403, 23);
+            tbWindowErrorMessage.Size = new System.Drawing.Size(400, 23);
             tbWindowErrorMessage.TabIndex = 6;
             tbWindowErrorMessage.TabStop = false;
-            // 
-            // lblWindowsConnectionStatus
-            // 
-            lblWindowsConnectionStatus.AutoSize = true;
-            lblWindowsConnectionStatus.Location = new System.Drawing.Point(40, 76);
-            lblWindowsConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblWindowsConnectionStatus.MaximumSize = new System.Drawing.Size(369, 15);
-            lblWindowsConnectionStatus.Name = "lblWindowsConnectionStatus";
-            lblWindowsConnectionStatus.Size = new System.Drawing.Size(0, 15);
-            lblWindowsConnectionStatus.TabIndex = 5;
             // 
             // pbWindowsConnectionStatus
             // 
@@ -499,9 +419,9 @@
             tbWindowsPassword.MaxLength = 50;
             tbWindowsPassword.Name = "tbWindowsPassword";
             tbWindowsPassword.PasswordChar = '*';
-            tbWindowsPassword.Size = new System.Drawing.Size(209, 23);
+            tbWindowsPassword.ReadOnly = true;
+            tbWindowsPassword.Size = new System.Drawing.Size(206, 23);
             tbWindowsPassword.TabIndex = 4;
-            tbWindowsPassword.Text = "72svpi";
             // 
             // lblWindowsPassword
             // 
@@ -532,35 +452,21 @@
             tbWindowsUsername.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbWindowsUsername.MaxLength = 100;
             tbWindowsUsername.Name = "tbWindowsUsername";
-            tbWindowsUsername.Size = new System.Drawing.Size(209, 23);
+            tbWindowsUsername.ReadOnly = true;
+            tbWindowsUsername.Size = new System.Drawing.Size(206, 23);
             tbWindowsUsername.TabIndex = 2;
-            tbWindowsUsername.Text = "Rendszergazda";
             // 
             // tpOtherData
             // 
-            tpOtherData.Controls.Add(btnRefresh2);
-            tpOtherData.Controls.Add(btnClose2);
             tpOtherData.Controls.Add(gbMisc);
             tpOtherData.Location = new System.Drawing.Point(4, 44);
             tpOtherData.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpOtherData.Name = "tpOtherData";
             tpOtherData.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpOtherData.Size = new System.Drawing.Size(427, 418);
+            tpOtherData.Size = new System.Drawing.Size(427, 380);
             tpOtherData.TabIndex = 1;
             tpOtherData.Text = "Misc";
             tpOtherData.UseVisualStyleBackColor = true;
-            // 
-            // btnGetHardwareInfo
-            // 
-            btnGetHardwareInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnGetHardwareInfo.Location = new System.Drawing.Point(121, 386);
-            btnGetHardwareInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnGetHardwareInfo.Name = "btnGetHardwareInfo";
-            btnGetHardwareInfo.Size = new System.Drawing.Size(176, 27);
-            btnGetHardwareInfo.TabIndex = 6;
-            btnGetHardwareInfo.Text = "Get hardware information";
-            btnGetHardwareInfo.UseVisualStyleBackColor = true;
-            btnGetHardwareInfo.Click += BtnGetHardwareInfo_Click;
             // 
             // tbHost
             // 
@@ -570,7 +476,7 @@
             tbHost.MaxLength = 100;
             tbHost.Name = "tbHost";
             tbHost.ReadOnly = true;
-            tbHost.Size = new System.Drawing.Size(205, 23);
+            tbHost.Size = new System.Drawing.Size(206, 23);
             tbHost.TabIndex = 3;
             tbHost.TabStop = false;
             // 
@@ -607,18 +513,6 @@
             lblHost.TabIndex = 2;
             lblHost.Text = "Hostname / IP address[:port]";
             // 
-            // btnRefresh
-            // 
-            btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnRefresh.Location = new System.Drawing.Point(121, 386);
-            btnRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new System.Drawing.Size(111, 27);
-            btnRefresh.TabIndex = 8;
-            btnRefresh.Text = "Refresh";
-            btnRefresh.UseVisualStyleBackColor = true;
-            btnRefresh.Click += BtnRefresh_Click;
-            // 
             // btnShowPassword
             // 
             btnShowPassword.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -640,7 +534,7 @@
             tbVideoServerPassword.Name = "tbVideoServerPassword";
             tbVideoServerPassword.PasswordChar = '*';
             tbVideoServerPassword.ReadOnly = true;
-            tbVideoServerPassword.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerPassword.Size = new System.Drawing.Size(206, 23);
             tbVideoServerPassword.TabIndex = 1;
             // 
             // tbVideoServerUsername
@@ -651,7 +545,7 @@
             tbVideoServerUsername.MaxLength = 100;
             tbVideoServerUsername.Name = "tbVideoServerUsername";
             tbVideoServerUsername.ReadOnly = true;
-            tbVideoServerUsername.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerUsername.Size = new System.Drawing.Size(206, 23);
             tbVideoServerUsername.TabIndex = 5;
             tbVideoServerUsername.TabStop = false;
             // 
@@ -663,19 +557,19 @@
             tbVideoServerName.MaxLength = 100;
             tbVideoServerName.Name = "tbVideoServerName";
             tbVideoServerName.ReadOnly = true;
-            tbVideoServerName.Size = new System.Drawing.Size(205, 23);
+            tbVideoServerName.Size = new System.Drawing.Size(206, 23);
             tbVideoServerName.TabIndex = 1;
             tbVideoServerName.TabStop = false;
             // 
             // gbVideoServerErrorMessage
             // 
-            gbVideoServerErrorMessage.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbVideoServerErrorMessage.Controls.Add(tbVideoServerErrorMessage);
-            gbVideoServerErrorMessage.Location = new System.Drawing.Point(4, 212);
+            gbVideoServerErrorMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbVideoServerErrorMessage.Location = new System.Drawing.Point(4, 200);
             gbVideoServerErrorMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbVideoServerErrorMessage.Name = "gbVideoServerErrorMessage";
             gbVideoServerErrorMessage.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbVideoServerErrorMessage.Size = new System.Drawing.Size(418, 168);
+            gbVideoServerErrorMessage.Size = new System.Drawing.Size(419, 177);
             gbVideoServerErrorMessage.TabIndex = 2;
             gbVideoServerErrorMessage.TabStop = false;
             gbVideoServerErrorMessage.Text = "Video server's error message";
@@ -690,7 +584,7 @@
             tbVideoServerErrorMessage.Name = "tbVideoServerErrorMessage";
             tbVideoServerErrorMessage.ReadOnly = true;
             tbVideoServerErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            tbVideoServerErrorMessage.Size = new System.Drawing.Size(398, 137);
+            tbVideoServerErrorMessage.Size = new System.Drawing.Size(399, 149);
             tbVideoServerErrorMessage.TabIndex = 0;
             tbVideoServerErrorMessage.TabStop = false;
             // 
@@ -714,7 +608,7 @@
             // btnWakeOnLan
             // 
             btnWakeOnLan.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnWakeOnLan.Location = new System.Drawing.Point(239, 386);
+            btnWakeOnLan.Location = new System.Drawing.Point(123, 434);
             btnWakeOnLan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnWakeOnLan.Name = "btnWakeOnLan";
             btnWakeOnLan.Size = new System.Drawing.Size(111, 27);
@@ -753,17 +647,17 @@
             // 
             // gbAvailabilityTests
             // 
-            gbAvailabilityTests.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbAvailabilityTests.Controls.Add(axVideoServer);
             gbAvailabilityTests.Controls.Add(lblRemoteVideoServerConnectionStatus);
             gbAvailabilityTests.Controls.Add(pbRemoteVideoServerConnectionStatus);
             gbAvailabilityTests.Controls.Add(lblPingTestStatus);
             gbAvailabilityTests.Controls.Add(pbPingTestStatus);
-            gbAvailabilityTests.Location = new System.Drawing.Point(4, 131);
+            gbAvailabilityTests.Dock = System.Windows.Forms.DockStyle.Top;
+            gbAvailabilityTests.Location = new System.Drawing.Point(4, 125);
             gbAvailabilityTests.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbAvailabilityTests.Name = "gbAvailabilityTests";
             gbAvailabilityTests.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbAvailabilityTests.Size = new System.Drawing.Size(418, 75);
+            gbAvailabilityTests.Size = new System.Drawing.Size(419, 75);
             gbAvailabilityTests.TabIndex = 1;
             gbAvailabilityTests.TabStop = false;
             gbAvailabilityTests.Text = "Availability tests";
@@ -791,7 +685,6 @@
             // 
             // gbVideoServer
             // 
-            gbVideoServer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbVideoServer.Controls.Add(lblPassword);
             gbVideoServer.Controls.Add(btnShowPassword);
             gbVideoServer.Controls.Add(tbVideoServerUsername);
@@ -801,11 +694,12 @@
             gbVideoServer.Controls.Add(lblVideoserverUsername);
             gbVideoServer.Controls.Add(lblVideoServerName);
             gbVideoServer.Controls.Add(lblHost);
+            gbVideoServer.Dock = System.Windows.Forms.DockStyle.Top;
             gbVideoServer.Location = new System.Drawing.Point(4, 3);
             gbVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbVideoServer.Name = "gbVideoServer";
             gbVideoServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbVideoServer.Size = new System.Drawing.Size(418, 122);
+            gbVideoServer.Size = new System.Drawing.Size(419, 122);
             gbVideoServer.TabIndex = 0;
             gbVideoServer.TabStop = false;
             gbVideoServer.Text = "Video server";
@@ -823,52 +717,49 @@
             // 
             // tpVideoServer
             // 
-            tpVideoServer.Controls.Add(btnRefresh);
             tpVideoServer.Controls.Add(gbVideoServerErrorMessage);
-            tpVideoServer.Controls.Add(btnWakeOnLan);
             tpVideoServer.Controls.Add(gbAvailabilityTests);
             tpVideoServer.Controls.Add(gbVideoServer);
-            tpVideoServer.Controls.Add(btnClose);
             tpVideoServer.Location = new System.Drawing.Point(4, 44);
             tpVideoServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpVideoServer.Name = "tpVideoServer";
             tpVideoServer.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpVideoServer.Size = new System.Drawing.Size(427, 418);
+            tpVideoServer.Size = new System.Drawing.Size(427, 380);
             tpVideoServer.TabIndex = 0;
             tpVideoServer.Text = "General details";
             tpVideoServer.UseVisualStyleBackColor = true;
             // 
-            // btnClose
-            // 
-            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(4, 386);
-            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(111, 27);
-            btnClose.TabIndex = 4;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += BtnClose_Click;
-            // 
             // gbWindowsCredentials
             // 
-            gbWindowsCredentials.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbWindowsCredentials.Controls.Add(btnShowWinPassword);
+            gbWindowsCredentials.Controls.Add(btnExportHardwareInfo);
             gbWindowsCredentials.Controls.Add(tbWindowErrorMessage);
-            gbWindowsCredentials.Controls.Add(lblWindowsConnectionStatus);
             gbWindowsCredentials.Controls.Add(pbWindowsConnectionStatus);
             gbWindowsCredentials.Controls.Add(tbWindowsPassword);
             gbWindowsCredentials.Controls.Add(lblWindowsPassword);
             gbWindowsCredentials.Controls.Add(lblWindowsUsername);
             gbWindowsCredentials.Controls.Add(tbWindowsUsername);
+            gbWindowsCredentials.Dock = System.Windows.Forms.DockStyle.Top;
             gbWindowsCredentials.Location = new System.Drawing.Point(4, 3);
             gbWindowsCredentials.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbWindowsCredentials.Name = "gbWindowsCredentials";
             gbWindowsCredentials.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbWindowsCredentials.Size = new System.Drawing.Size(422, 129);
+            gbWindowsCredentials.Size = new System.Drawing.Size(419, 129);
             gbWindowsCredentials.TabIndex = 4;
             gbWindowsCredentials.TabStop = false;
             gbWindowsCredentials.Text = "Credentials";
+            // 
+            // btnShowWinPassword
+            // 
+            btnShowWinPassword.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btnShowWinPassword.Location = new System.Drawing.Point(82, 38);
+            btnShowWinPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnShowWinPassword.Name = "btnShowWinPassword";
+            btnShowWinPassword.Size = new System.Drawing.Size(114, 27);
+            btnShowWinPassword.TabIndex = 29;
+            btnShowWinPassword.Text = "Show it!";
+            btnShowWinPassword.UseVisualStyleBackColor = true;
+            btnShowWinPassword.Click += BtnShowWinPassword_Click;
             // 
             // tbLiveViewDisplay
             // 
@@ -878,7 +769,7 @@
             tbLiveViewDisplay.MaxLength = 100;
             tbLiveViewDisplay.Name = "tbLiveViewDisplay";
             tbLiveViewDisplay.ReadOnly = true;
-            tbLiveViewDisplay.Size = new System.Drawing.Size(209, 23);
+            tbLiveViewDisplay.Size = new System.Drawing.Size(206, 23);
             tbLiveViewDisplay.TabIndex = 21;
             tbLiveViewDisplay.TabStop = false;
             // 
@@ -901,7 +792,7 @@
             tbLicensedCameraNumber.MaxLength = 100;
             tbLicensedCameraNumber.Name = "tbLicensedCameraNumber";
             tbLicensedCameraNumber.ReadOnly = true;
-            tbLicensedCameraNumber.Size = new System.Drawing.Size(209, 23);
+            tbLicensedCameraNumber.Size = new System.Drawing.Size(206, 23);
             tbLicensedCameraNumber.TabIndex = 19;
             tbLicensedCameraNumber.TabStop = false;
             // 
@@ -924,7 +815,7 @@
             tbRecordedLocalCameraNumber.MaxLength = 100;
             tbRecordedLocalCameraNumber.Name = "tbRecordedLocalCameraNumber";
             tbRecordedLocalCameraNumber.ReadOnly = true;
-            tbRecordedLocalCameraNumber.Size = new System.Drawing.Size(209, 23);
+            tbRecordedLocalCameraNumber.Size = new System.Drawing.Size(206, 23);
             tbRecordedLocalCameraNumber.TabIndex = 11;
             tbRecordedLocalCameraNumber.TabStop = false;
             // 
@@ -948,7 +839,7 @@
             tbRecorderStatus.MaxLength = 100;
             tbRecorderStatus.Name = "tbRecorderStatus";
             tbRecorderStatus.ReadOnly = true;
-            tbRecorderStatus.Size = new System.Drawing.Size(209, 23);
+            tbRecorderStatus.Size = new System.Drawing.Size(206, 23);
             tbRecorderStatus.TabIndex = 9;
             tbRecorderStatus.TabStop = false;
             // 
@@ -971,7 +862,7 @@
             tbCpuUsage.MaxLength = 100;
             tbCpuUsage.Name = "tbCpuUsage";
             tbCpuUsage.ReadOnly = true;
-            tbCpuUsage.Size = new System.Drawing.Size(209, 23);
+            tbCpuUsage.Size = new System.Drawing.Size(206, 23);
             tbCpuUsage.TabIndex = 5;
             tbCpuUsage.TabStop = false;
             // 
@@ -983,7 +874,7 @@
             tbRecordingInterval.MaxLength = 100;
             tbRecordingInterval.Name = "tbRecordingInterval";
             tbRecordingInterval.ReadOnly = true;
-            tbRecordingInterval.Size = new System.Drawing.Size(209, 23);
+            tbRecordingInterval.Size = new System.Drawing.Size(206, 23);
             tbRecordingInterval.TabIndex = 3;
             tbRecordingInterval.TabStop = false;
             // 
@@ -998,18 +889,6 @@
             lblCpuUsage.TabIndex = 4;
             lblCpuUsage.Text = "CPU usage";
             // 
-            // btnRefresh4
-            // 
-            btnRefresh4.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnRefresh4.Location = new System.Drawing.Point(121, 386);
-            btnRefresh4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRefresh4.Name = "btnRefresh4";
-            btnRefresh4.Size = new System.Drawing.Size(111, 27);
-            btnRefresh4.TabIndex = 2;
-            btnRefresh4.Text = "Refresh";
-            btnRefresh4.UseVisualStyleBackColor = true;
-            btnRefresh4.Click += BtnRefresh_Click;
-            // 
             // lblVideoRecorderProtocolVersion
             // 
             lblVideoRecorderProtocolVersion.AutoSize = true;
@@ -1021,21 +900,20 @@
             lblVideoRecorderProtocolVersion.TabIndex = 6;
             lblVideoRecorderProtocolVersion.Text = "Video Recorder protocol version";
             // 
-            // btnClose5
+            // btnClose
             // 
-            btnClose5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose5.Location = new System.Drawing.Point(4, 386);
-            btnClose5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose5.Name = "btnClose5";
-            btnClose5.Size = new System.Drawing.Size(111, 27);
-            btnClose5.TabIndex = 1;
-            btnClose5.Text = "Close";
-            btnClose5.UseVisualStyleBackColor = true;
-            btnClose5.Click += BtnClose_Click;
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnClose.Location = new System.Drawing.Point(4, 434);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(111, 27);
+            btnClose.TabIndex = 1;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += BtnClose_Click;
             // 
             // gbVideoRecorderStatus
             // 
-            gbVideoRecorderStatus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbVideoRecorderStatus.Controls.Add(tbRecording);
             gbVideoRecorderStatus.Controls.Add(lblRecording);
             gbVideoRecorderStatus.Controls.Add(tbLiveViewDisplay);
@@ -1050,11 +928,12 @@
             gbVideoRecorderStatus.Controls.Add(tbRecordingInterval);
             gbVideoRecorderStatus.Controls.Add(lblCpuUsage);
             gbVideoRecorderStatus.Controls.Add(lblRecordingInterval);
+            gbVideoRecorderStatus.Dock = System.Windows.Forms.DockStyle.Top;
             gbVideoRecorderStatus.Location = new System.Drawing.Point(4, 3);
             gbVideoRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbVideoRecorderStatus.Name = "gbVideoRecorderStatus";
             gbVideoRecorderStatus.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbVideoRecorderStatus.Size = new System.Drawing.Size(422, 254);
+            gbVideoRecorderStatus.Size = new System.Drawing.Size(419, 204);
             gbVideoRecorderStatus.TabIndex = 0;
             gbVideoRecorderStatus.TabStop = false;
             // 
@@ -1066,7 +945,7 @@
             tbRecording.MaxLength = 100;
             tbRecording.Name = "tbRecording";
             tbRecording.ReadOnly = true;
-            tbRecording.Size = new System.Drawing.Size(209, 23);
+            tbRecording.Size = new System.Drawing.Size(206, 23);
             tbRecording.TabIndex = 23;
             tbRecording.TabStop = false;
             // 
@@ -1100,7 +979,7 @@
             tbRecorderVersion.MaxLength = 100;
             tbRecorderVersion.Name = "tbRecorderVersion";
             tbRecorderVersion.ReadOnly = true;
-            tbRecorderVersion.Size = new System.Drawing.Size(209, 23);
+            tbRecorderVersion.Size = new System.Drawing.Size(206, 23);
             tbRecorderVersion.TabIndex = 23;
             tbRecorderVersion.TabStop = false;
             // 
@@ -1134,7 +1013,7 @@
             tbRemoteVideoServerVersion.MaxLength = 100;
             tbRemoteVideoServerVersion.Name = "tbRemoteVideoServerVersion";
             tbRemoteVideoServerVersion.ReadOnly = true;
-            tbRemoteVideoServerVersion.Size = new System.Drawing.Size(209, 23);
+            tbRemoteVideoServerVersion.Size = new System.Drawing.Size(206, 23);
             tbRemoteVideoServerVersion.TabIndex = 21;
             tbRemoteVideoServerVersion.TabStop = false;
             // 
@@ -1146,157 +1025,158 @@
             tbVideoRecorderProtocolVersion.MaxLength = 100;
             tbVideoRecorderProtocolVersion.Name = "tbVideoRecorderProtocolVersion";
             tbVideoRecorderProtocolVersion.ReadOnly = true;
-            tbVideoRecorderProtocolVersion.Size = new System.Drawing.Size(209, 23);
+            tbVideoRecorderProtocolVersion.Size = new System.Drawing.Size(206, 23);
             tbVideoRecorderProtocolVersion.TabIndex = 7;
             tbVideoRecorderProtocolVersion.TabStop = false;
             // 
-            // btnRefresh5
-            // 
-            btnRefresh5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnRefresh5.Location = new System.Drawing.Point(121, 386);
-            btnRefresh5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRefresh5.Name = "btnRefresh5";
-            btnRefresh5.Size = new System.Drawing.Size(111, 27);
-            btnRefresh5.TabIndex = 5;
-            btnRefresh5.Text = "Refresh";
-            btnRefresh5.UseVisualStyleBackColor = true;
-            btnRefresh5.Click += BtnRefresh_Click;
-            // 
-            // btnClose6
-            // 
-            btnClose6.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose6.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose6.Location = new System.Drawing.Point(4, 386);
-            btnClose6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose6.Name = "btnClose6";
-            btnClose6.Size = new System.Drawing.Size(111, 27);
-            btnClose6.TabIndex = 4;
-            btnClose6.Text = "Close";
-            btnClose6.UseVisualStyleBackColor = true;
-            btnClose6.Click += BtnClose_Click;
-            // 
             // gbVersionInformation
             // 
-            gbVersionInformation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbVersionInformation.Controls.Add(tbRecorderVersion);
             gbVersionInformation.Controls.Add(lblRemoteVideoServerVersion);
             gbVersionInformation.Controls.Add(lblVersionRecorderVersion);
             gbVersionInformation.Controls.Add(tbRemoteVideoServerVersion);
             gbVersionInformation.Controls.Add(tbVideoRecorderProtocolVersion);
             gbVersionInformation.Controls.Add(lblVideoRecorderProtocolVersion);
+            gbVersionInformation.Dock = System.Windows.Forms.DockStyle.Top;
             gbVersionInformation.Location = new System.Drawing.Point(4, 3);
             gbVersionInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbVersionInformation.Name = "gbVersionInformation";
             gbVersionInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbVersionInformation.Size = new System.Drawing.Size(422, 96);
+            gbVersionInformation.Size = new System.Drawing.Size(419, 96);
             gbVersionInformation.TabIndex = 3;
             gbVersionInformation.TabStop = false;
             // 
             // tpVideoRecorderStatus
             // 
-            tpVideoRecorderStatus.Controls.Add(btnRefresh4);
-            tpVideoRecorderStatus.Controls.Add(btnClose5);
             tpVideoRecorderStatus.Controls.Add(gbVideoRecorderStatus);
             tpVideoRecorderStatus.Location = new System.Drawing.Point(4, 44);
             tpVideoRecorderStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpVideoRecorderStatus.Name = "tpVideoRecorderStatus";
             tpVideoRecorderStatus.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpVideoRecorderStatus.Size = new System.Drawing.Size(427, 418);
+            tpVideoRecorderStatus.Size = new System.Drawing.Size(427, 380);
             tpVideoRecorderStatus.TabIndex = 4;
             tpVideoRecorderStatus.Text = "Video Recorder status";
             tpVideoRecorderStatus.UseVisualStyleBackColor = true;
             // 
             // tpVersionInformation
             // 
-            tpVersionInformation.Controls.Add(btnRefresh5);
-            tpVersionInformation.Controls.Add(btnClose6);
             tpVersionInformation.Controls.Add(gbVersionInformation);
             tpVersionInformation.Location = new System.Drawing.Point(4, 44);
             tpVersionInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpVersionInformation.Name = "tpVersionInformation";
             tpVersionInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpVersionInformation.Size = new System.Drawing.Size(427, 418);
+            tpVersionInformation.Size = new System.Drawing.Size(427, 380);
             tpVersionInformation.TabIndex = 5;
             tpVersionInformation.Text = "Version information";
             tpVersionInformation.UseVisualStyleBackColor = true;
             // 
             // tcInfoPages
             // 
+            tcInfoPages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             tcInfoPages.Controls.Add(tpVideoServer);
             tcInfoPages.Controls.Add(tpOtherData);
             tcInfoPages.Controls.Add(tpHardwareInformation);
             tcInfoPages.Controls.Add(tpCameraList);
             tcInfoPages.Controls.Add(tpVideoRecorderStatus);
             tcInfoPages.Controls.Add(tpVersionInformation);
-            tcInfoPages.Dock = System.Windows.Forms.DockStyle.Fill;
             tcInfoPages.Location = new System.Drawing.Point(0, 0);
             tcInfoPages.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tcInfoPages.Multiline = true;
             tcInfoPages.Name = "tcInfoPages";
             tcInfoPages.SelectedIndex = 0;
-            tcInfoPages.Size = new System.Drawing.Size(435, 466);
+            tcInfoPages.Size = new System.Drawing.Size(435, 428);
             tcInfoPages.TabIndex = 2;
             // 
             // tpHardwareInformation
             // 
-            tpHardwareInformation.Controls.Add(btnExportHardwareInfo);
-            tpHardwareInformation.Controls.Add(btnGetHardwareInfo);
-            tpHardwareInformation.Controls.Add(gbWindowsCredentials);
-            tpHardwareInformation.Controls.Add(btnClose3);
             tpHardwareInformation.Controls.Add(gbHardwareInformation);
+            tpHardwareInformation.Controls.Add(gbWindowsCredentials);
             tpHardwareInformation.Location = new System.Drawing.Point(4, 44);
             tpHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpHardwareInformation.Name = "tpHardwareInformation";
             tpHardwareInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpHardwareInformation.Size = new System.Drawing.Size(427, 418);
+            tpHardwareInformation.Size = new System.Drawing.Size(427, 380);
             tpHardwareInformation.TabIndex = 2;
             tpHardwareInformation.Text = "Hardware information";
             tpHardwareInformation.UseVisualStyleBackColor = true;
-            // 
-            // btnClose3
-            // 
-            btnClose3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose3.Location = new System.Drawing.Point(4, 386);
-            btnClose3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose3.Name = "btnClose3";
-            btnClose3.Size = new System.Drawing.Size(111, 27);
-            btnClose3.TabIndex = 1;
-            btnClose3.Text = "Close";
-            btnClose3.UseVisualStyleBackColor = true;
-            btnClose3.Click += BtnClose_Click;
             // 
             // gbHardwareInformation
             // 
             gbHardwareInformation.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbHardwareInformation.Controls.Add(lvHardwareInformation);
-            gbHardwareInformation.Location = new System.Drawing.Point(4, 140);
+            gbHardwareInformation.Location = new System.Drawing.Point(4, 132);
             gbHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbHardwareInformation.Name = "gbHardwareInformation";
             gbHardwareInformation.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbHardwareInformation.Size = new System.Drawing.Size(422, 240);
-            gbHardwareInformation.TabIndex = 0;
+            gbHardwareInformation.Size = new System.Drawing.Size(419, 245);
+            gbHardwareInformation.TabIndex = 5;
             gbHardwareInformation.TabStop = false;
             gbHardwareInformation.Text = "Hardware information";
             // 
+            // lvHardwareInformation
+            // 
+            lvHardwareInformation.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvHardwareInformation.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvHardwareInformation.AlternatingColorsAreInUse = true;
+            lvHardwareInformation.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvHardwareInformation.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvHardwareInformation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chKey, chValue });
+            lvHardwareInformation.CompactView = false;
+            lvHardwareInformation.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvHardwareInformation.EnsureLastItemIsVisible = false;
+            lvHardwareInformation.FirstItemIsGray = false;
+            lvHardwareInformation.FullRowSelect = true;
+            lvHardwareInformation.Location = new System.Drawing.Point(4, 19);
+            lvHardwareInformation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvHardwareInformation.Name = "lvHardwareInformation";
+            lvHardwareInformation.OwnerDraw = true;
+            lvHardwareInformation.ReadonlyCheckboxes = false;
+            lvHardwareInformation.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvHardwareInformation.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvHardwareInformation.Size = new System.Drawing.Size(411, 223);
+            lvHardwareInformation.TabIndex = 0;
+            lvHardwareInformation.UseCompatibleStateImageBehavior = false;
+            lvHardwareInformation.View = System.Windows.Forms.View.Details;
+            // 
+            // chKey
+            // 
+            chKey.Text = "Key";
+            chKey.Width = 111;
+            // 
+            // chValue
+            // 
+            chValue.Text = "Value";
+            chValue.Width = 238;
+            // 
             // tpCameraList
             // 
-            tpCameraList.Controls.Add(btnExportCameraList);
-            tpCameraList.Controls.Add(btnRefresh3);
-            tpCameraList.Controls.Add(btnClose4);
             tpCameraList.Controls.Add(gbCameraList);
             tpCameraList.Location = new System.Drawing.Point(4, 44);
             tpCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tpCameraList.Name = "tpCameraList";
             tpCameraList.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tpCameraList.Size = new System.Drawing.Size(427, 418);
+            tpCameraList.Size = new System.Drawing.Size(427, 380);
             tpCameraList.TabIndex = 3;
             tpCameraList.Text = "Camera list";
             tpCameraList.UseVisualStyleBackColor = true;
             // 
+            // gbCameraList
+            // 
+            gbCameraList.Controls.Add(btnExportCameraList);
+            gbCameraList.Controls.Add(lvCameraList);
+            gbCameraList.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbCameraList.Location = new System.Drawing.Point(4, 3);
+            gbCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraList.Name = "gbCameraList";
+            gbCameraList.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCameraList.Size = new System.Drawing.Size(419, 374);
+            gbCameraList.TabIndex = 3;
+            gbCameraList.TabStop = false;
+            // 
             // btnExportCameraList
             // 
-            btnExportCameraList.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnExportCameraList.Location = new System.Drawing.Point(239, 386);
+            btnExportCameraList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnExportCameraList.Location = new System.Drawing.Point(307, 8);
             btnExportCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnExportCameraList.Name = "btnExportCameraList";
             btnExportCameraList.Size = new System.Drawing.Size(111, 27);
@@ -1305,42 +1185,6 @@
             btnExportCameraList.UseVisualStyleBackColor = true;
             btnExportCameraList.Click += BtnExportCameraList_Click;
             // 
-            // btnRefresh3
-            // 
-            btnRefresh3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnRefresh3.Location = new System.Drawing.Point(121, 386);
-            btnRefresh3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnRefresh3.Name = "btnRefresh3";
-            btnRefresh3.Size = new System.Drawing.Size(111, 27);
-            btnRefresh3.TabIndex = 5;
-            btnRefresh3.Text = "Refresh";
-            btnRefresh3.UseVisualStyleBackColor = true;
-            btnRefresh3.Click += BtnRefresh_Click;
-            // 
-            // btnClose4
-            // 
-            btnClose4.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnClose4.Location = new System.Drawing.Point(4, 386);
-            btnClose4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnClose4.Name = "btnClose4";
-            btnClose4.Size = new System.Drawing.Size(111, 27);
-            btnClose4.TabIndex = 4;
-            btnClose4.Text = "Close";
-            btnClose4.UseVisualStyleBackColor = true;
-            btnClose4.Click += BtnClose_Click;
-            // 
-            // gbCameraList
-            // 
-            gbCameraList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gbCameraList.Controls.Add(lvCameraList);
-            gbCameraList.Location = new System.Drawing.Point(4, 3);
-            gbCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCameraList.Name = "gbCameraList";
-            gbCameraList.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCameraList.Size = new System.Drawing.Size(422, 376);
-            gbCameraList.TabIndex = 3;
-            gbCameraList.TabStop = false;
-            // 
             // lvCameraList
             // 
             lvCameraList.AlternatingColorEven = System.Drawing.Color.LightBlue;
@@ -1348,20 +1192,20 @@
             lvCameraList.AlternatingColorsAreInUse = true;
             lvCameraList.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvCameraList.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvCameraList.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             lvCameraList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chCameraName, chRpcReturnCode, chFrameRate, chCapturedFrames, chDroppedFrames, chStoredFrames, chDiskUsageGbPerDay, chEstimatedCapacity, chMotion, chLight, chAlarm, chError, chCompression, chVideoSignal, chLicensePlateRecognition, chEstimatedCapacity2, chGuid });
             lvCameraList.CompactView = false;
-            lvCameraList.Dock = System.Windows.Forms.DockStyle.Fill;
             lvCameraList.EnsureLastItemIsVisible = false;
             lvCameraList.FirstItemIsGray = false;
             lvCameraList.FullRowSelect = true;
-            lvCameraList.Location = new System.Drawing.Point(4, 19);
+            lvCameraList.Location = new System.Drawing.Point(4, 42);
             lvCameraList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvCameraList.Name = "lvCameraList";
             lvCameraList.OwnerDraw = true;
             lvCameraList.ReadonlyCheckboxes = false;
             lvCameraList.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvCameraList.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvCameraList.Size = new System.Drawing.Size(414, 354);
+            lvCameraList.Size = new System.Drawing.Size(414, 331);
             lvCameraList.TabIndex = 0;
             lvCameraList.UseCompatibleStateImageBehavior = false;
             lvCameraList.View = System.Windows.Forms.View.Details;
@@ -1448,7 +1292,9 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(435, 466);
+            Controls.Add(btnWakeOnLan);
             Controls.Add(tcInfoPages);
+            Controls.Add(btnClose);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MinimumSize = new System.Drawing.Size(451, 505);
             Name = "ServerAndCameraProperties";
@@ -1498,9 +1344,6 @@
         private System.Windows.Forms.Label lblDongleSerial;
         private System.Windows.Forms.TextBox tbModel;
         private System.Windows.Forms.TextBox tbNote;
-        private System.Windows.Forms.Button btnRefresh2;
-        private System.Windows.Forms.ColumnHeader chValue;
-        private System.Windows.Forms.Button btnClose2;
         private System.Windows.Forms.GroupBox gbMisc;
         private System.Windows.Forms.TextBox tbManufacturer;
         private System.Windows.Forms.TextBox tbMacAddress;
@@ -1508,23 +1351,18 @@
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Label lblManufacturer;
         private System.Windows.Forms.Label lblMacAddress;
-        private System.Windows.Forms.ColumnHeader chKey;
-        private Mtf.Controls.MtfListView lvHardwareInformation;
         private System.Windows.Forms.TextBox tbWindowErrorMessage;
-        private System.Windows.Forms.Label lblWindowsConnectionStatus;
         private Mtf.Controls.MtfPictureBox pbWindowsConnectionStatus;
         private System.Windows.Forms.TextBox tbWindowsPassword;
         private System.Windows.Forms.Label lblWindowsPassword;
         private System.Windows.Forms.Label lblWindowsUsername;
         private System.Windows.Forms.TextBox tbWindowsUsername;
         private System.Windows.Forms.TabPage tpOtherData;
-        private System.Windows.Forms.Button btnGetHardwareInfo;
         private System.Windows.Forms.FolderBrowserDialog fbdFolderBrowser;
         private System.Windows.Forms.TextBox tbHost;
         private System.Windows.Forms.Label lblVideoserverUsername;
         private System.Windows.Forms.Label lblVideoServerName;
         private System.Windows.Forms.Label lblHost;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnShowPassword;
         private System.Windows.Forms.TextBox tbVideoServerPassword;
         private System.Windows.Forms.TextBox tbVideoServerUsername;
@@ -1539,7 +1377,6 @@
         private System.Windows.Forms.Label lblRemoteVideoServerConnectionStatus;
         private System.Windows.Forms.GroupBox gbVideoServer;
         private System.Windows.Forms.TabPage tpVideoServer;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox gbWindowsCredentials;
         private System.Windows.Forms.TextBox tbLiveViewDisplay;
         private System.Windows.Forms.Label lblLiveViewDisplay;
@@ -1552,9 +1389,8 @@
         private System.Windows.Forms.TextBox tbCpuUsage;
         private System.Windows.Forms.TextBox tbRecordingInterval;
         private System.Windows.Forms.Label lblCpuUsage;
-        private System.Windows.Forms.Button btnRefresh4;
         private System.Windows.Forms.Label lblVideoRecorderProtocolVersion;
-        private System.Windows.Forms.Button btnClose5;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox gbVideoRecorderStatus;
         private System.Windows.Forms.Label lblRecordingInterval;
         private System.Windows.Forms.TextBox tbRecorderVersion;
@@ -1562,19 +1398,13 @@
         private System.Windows.Forms.Label lblVersionRecorderVersion;
         private System.Windows.Forms.TextBox tbRemoteVideoServerVersion;
         private System.Windows.Forms.TextBox tbVideoRecorderProtocolVersion;
-        private System.Windows.Forms.Button btnRefresh5;
-        private System.Windows.Forms.Button btnClose6;
         private System.Windows.Forms.GroupBox gbVersionInformation;
         private System.Windows.Forms.TabPage tpVideoRecorderStatus;
         private System.Windows.Forms.TabPage tpVersionInformation;
         private System.Windows.Forms.TabControl tcInfoPages;
         private System.Windows.Forms.TabPage tpHardwareInformation;
-        private System.Windows.Forms.Button btnClose3;
-        private System.Windows.Forms.GroupBox gbHardwareInformation;
         private System.Windows.Forms.TabPage tpCameraList;
         private System.Windows.Forms.Button btnExportCameraList;
-        private System.Windows.Forms.Button btnRefresh3;
-        private System.Windows.Forms.Button btnClose4;
         private System.Windows.Forms.GroupBox gbCameraList;
         private Mtf.Controls.MtfListView lvCameraList;
         private System.Windows.Forms.ColumnHeader chCameraName;
@@ -1599,7 +1429,11 @@
         private System.Windows.Forms.ImageList imageList;
         private AxVIDEOCONTROL4Lib.AxVideoServer axVideoServer;
         private System.Windows.Forms.TextBox tbRecording;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblRecording;
+        private System.Windows.Forms.GroupBox gbHardwareInformation;
+        private Mtf.Controls.MtfListView lvHardwareInformation;
+        private System.Windows.Forms.ColumnHeader chKey;
+        private System.Windows.Forms.ColumnHeader chValue;
+        private System.Windows.Forms.Button btnShowWinPassword;
     }
 }

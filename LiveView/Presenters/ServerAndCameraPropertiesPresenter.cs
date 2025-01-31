@@ -1,6 +1,5 @@
 ﻿using Database.Interfaces;
 using LiveView.Enums;
-using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -8,8 +7,6 @@ using LiveView.Services;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
 using Mtf.HardwareKey;
-using Mtf.HardwareKey.Enums;
-using Mtf.HardwareKey.Interfaces;
 using Mtf.LanguageService;
 using Mtf.Network.EventArg;
 using Mtf.Network.Services;
@@ -19,6 +16,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Management;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,6 +29,8 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
         private Ping ping;
+        private CancellationTokenSource cancellationTokenSource;
+        private Task hardwareInfoRetrieverTask;
 
         public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies serverAndCameraPropertiesPresenterDependencies)
             : base(serverAndCameraPropertiesPresenterDependencies)
@@ -48,6 +48,8 @@ namespace LiveView.Presenters
             view.TbVideoServerUsername.Text = view.Server.Username;
             view.TbVideoServerPassword.Text = view.Server.Password;
             view.TbMacAddress.Text = view.Server.MacAddress;
+            view.TbWindowsUsername.Text = view.Server.WinUser;
+            view.TbWindowsPassword.Text = view.Server.WinPass;
 
             var sziltechDeviceChecker = new SziltechDeviceChecker();
             var iszSziltechDeice = sziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
@@ -67,6 +69,7 @@ namespace LiveView.Presenters
             {
                 view.PbRemoteVideoServerConnectionStatus.Image = view.ImageList.Images[0];
                 view.LblRemoteVideoServerConnectionStatus.Text = Lng.Elem("Remote Video Server connection successful");
+                view.LvCameraList.Items.Clear();
                 foreach (var camera in connectionResult.Cameras)
                 {
                     var item = new ListViewItem(camera.Name);
@@ -98,6 +101,7 @@ namespace LiveView.Presenters
             }
             else
             {
+                view.TbRecording.Text = Lng.Elem("N/A");
                 view.TbLiveViewDisplay.Text = Lng.Elem("N/A");
                 view.TbVideoServerTime.Text = Lng.Elem("N/A");
                 view.TbRecordingInterval.Text = Lng.Elem("N/A");
@@ -123,6 +127,8 @@ namespace LiveView.Presenters
 
             ping = new Ping(view.Server.IpAddress);
             ping.PingReplyArrived += Ping_PingReplyArrived;
+
+            GetHardwareInfo();
         }
 
         private void Ping_PingReplyArrived(object sender, PingReplyArrivedEventArgs e)
@@ -161,7 +167,14 @@ namespace LiveView.Presenters
         {
             try
             {
-                Task.Run(() =>
+                if (cancellationTokenSource != null)
+                {
+                    cancellationTokenSource.Cancel();
+                    hardwareInfoRetrieverTask?.Wait();
+                }
+
+                cancellationTokenSource = new CancellationTokenSource();
+                hardwareInfoRetrieverTask = Task.Run(() =>
                 {
                     var queries = new Dictionary<string, string>
                     {
@@ -189,6 +202,7 @@ namespace LiveView.Presenters
                         try
                         {
                             var wmiReaderResult = Wmi.GetObjects(query.Value, "CIMv2", view.Server.IpAddress, ImpersonationLevel.Impersonate, AuthenticationLevel.Default, true, view.TbWindowsUsername.Text, null, view.TbWindowsPassword.Text);
+                            view.PbWindowsConnectionStatus.Image = view.ImageList.Images[0];
 
                             foreach (var row in wmiReaderResult)
                             {
@@ -213,6 +227,8 @@ namespace LiveView.Presenters
                         }
                         catch (Exception ex)
                         {
+                            view.PbWindowsConnectionStatus.Image = view.ImageList.Images[1];
+                            view.TbWindowErrorMessage.Text = ex.Message;
                             var errorItem = new ListViewItem("Error fetching data")
                             {
                                 Group = group,
@@ -224,7 +240,7 @@ namespace LiveView.Presenters
                             }));
                         }
                     }
-                });
+                }, cancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
@@ -232,9 +248,9 @@ namespace LiveView.Presenters
             }
         }
 
-        public void Refresh()
+        public void ShowWinPassword()
         {
-            throw new NotImplementedException();
+            view.TbWindowsPassword.PasswordChar = '\0';
         }
 
         public void ShowPassword()

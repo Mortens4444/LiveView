@@ -14,6 +14,10 @@
 
         public string SerialNumber { get; set; }
 
+        public string WinUser { get; set; }
+
+        public string WinPass { get; set; }
+
         public Credentials VideoServerCredentials { get; set; }
 
         public Server ToModel()
@@ -27,6 +31,8 @@
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
+                WinUser = WinUser,
+                WinPass = WinPass,
                 StartInMotionPopup = false
             };
         }
@@ -46,6 +52,8 @@
                 IpAddress = server.IpAddress,
                 MacAddress = server.MacAddress,
                 SerialNumber = server.SerialNumber,
+                WinUser = server.WinUser,
+                WinPass = server.WinPass,
                 VideoServerCredentials = new Credentials
                 {
                     Username = server.Username,
