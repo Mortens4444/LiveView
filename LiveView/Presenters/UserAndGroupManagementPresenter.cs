@@ -90,7 +90,7 @@ namespace LiveView.Presenters
             var usersInGroups = userGroupRepository.SelectAll();
 
             var userInGroupIds = usersInGroups
-                .Where(ug => ug.UserId == permissionManager.CurrentUser.Id)
+                .Where(ug => ug.UserId == permissionManager.CurrentUser.Tag.Id)
                 .Select(ug => ug.GroupId);
 
             var userGroups = groups.Where(g => userInGroupIds.Contains(g.Id)).ToList();

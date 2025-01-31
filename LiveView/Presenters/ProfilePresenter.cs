@@ -27,7 +27,7 @@ namespace LiveView.Presenters
             userRepository = profilePresenterDependencies.UserRepository;
             permissionManager = profilePresenterDependencies.PermissionManager;
             logger = profilePresenterDependencies.Logger;
-            user = userRepository.Select(permissionManager.CurrentUser.Id);
+            user = userRepository.Select(permissionManager.CurrentUser.Tag.Id);
         }
 
         public new void SetView(IView view)

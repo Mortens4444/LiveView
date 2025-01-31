@@ -148,7 +148,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void LoadLanguage(int userId)
+        public void LoadLanguage(long userId)
         {
             var implementedLanguage = (ImplementedLanguage)personalOptionsRepository.Get(Setting.Language, userId, Constants.HungarianLanguageIndex);
             Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out Mtf.LanguageService.Enums.Language selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
@@ -586,7 +586,7 @@ namespace LiveView.Presenters
             if (user != null)
             {
                 permissionManager.SetUser(view.GetSelf(), user);
-                LoadLanguage(user.Id);
+                LoadLanguage(user.Tag.Id);
             }
         }
     }

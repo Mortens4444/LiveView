@@ -21,12 +21,12 @@ namespace LiveView.Presenters
         private readonly ILogRepository logRepository;
         private readonly ReadOnlyCollection<User> users;
         private readonly ILogger<LogViewer> logger;
-        private readonly int currentUserId;
+        private readonly long currentUserId;
 
         public LogViewerPresenter(LogViewerPresenterDependencies logViewerPresenterDependencies)
             : base(logViewerPresenterDependencies)
         {
-            currentUserId = logViewerPresenterDependencies.PermissionManager.CurrentUser.Id;
+            currentUserId = logViewerPresenterDependencies.PermissionManager.CurrentUser.Tag.Id;
             logRepository = logViewerPresenterDependencies.LogRepository;
             logger = logViewerPresenterDependencies.Logger;
             users = logViewerPresenterDependencies.UserRepository.SelectAll();

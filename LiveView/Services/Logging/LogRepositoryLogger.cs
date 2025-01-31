@@ -10,13 +10,13 @@ namespace LiveView.Services.Logging
     {
         private readonly ILogRepository logRepository;
         private readonly string categoryName;
-        private readonly int currentUserId;
+        private readonly long currentUserId;
 
-        public LogRepositoryLogger(PermissionManager<Database.Models.User> permissionManager, ILogRepository logRepository, string categoryName)
+        public LogRepositoryLogger(PermissionManager<User> permissionManager, ILogRepository logRepository, string categoryName)
         {
             this.logRepository = logRepository ?? throw new ArgumentNullException(nameof(logRepository));
             this.categoryName = categoryName ?? throw new ArgumentNullException(nameof(categoryName));
-            currentUserId = permissionManager.CurrentUser?.Id ?? 1;
+            currentUserId = permissionManager.CurrentUser?.Tag.Id ?? 1;
         }
 
         public IDisposable BeginScope<TState>(TState state) => null;

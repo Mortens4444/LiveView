@@ -266,9 +266,9 @@ namespace LiveView.Presenters
 
             var parameters = new[]
             {
-        permissionManager.CurrentUser.Id.ToString(),
-        camera.Id.ToString()
-    };
+                permissionManager.CurrentUser.Tag.Id.ToString(),
+                camera.Id.ToString()
+            };
 
             StartCameraAppInternal(parameters);
         }
@@ -282,7 +282,7 @@ namespace LiveView.Presenters
 
             var parameters = new[]
             {
-                permissionManager.CurrentUser.Id.ToString(),
+                permissionManager.CurrentUser.Tag.Id.ToString(),
                 videoSource.ServerIp,
                 videoSource.Name
             };
@@ -340,11 +340,11 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (view.CbAgents.SelectedIndex == 0)
                 {
-                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
+                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
                 }
                 else
                 {
-                    MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.SequenceExe, permissionManager.CurrentUser.Id, sequence.Id, selectedDisplay.Id, isMdi);
+                    MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id, isMdi);
                 }
             }
             else

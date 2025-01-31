@@ -56,7 +56,7 @@ namespace LiveView.Presenters
             var templates = templateRepository.SelectAll();
 
             var userInGroupIds = usersInGroups
-                .Where(ug => ug.UserId == permissionManager.CurrentUser.Id)
+                .Where(ug => ug.UserId == permissionManager.CurrentUser.Tag.Id)
                 .Select(ug => ug.GroupId)
                 .ToList();
 
