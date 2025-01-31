@@ -17,7 +17,7 @@ namespace LiveView.Forms
         public NumericUpDown NudMotionTriggerMinimumLength => nudMotionTriggerMinimumLength;
 
         public ComboBox CbPartnerVideoServer => cbPartnerVideoServer;
-        
+
         public ComboBox CbPartnerCamera => cbPartnerCamera;
 
         public ListView LvCameras => lvCameras;
@@ -42,6 +42,13 @@ namespace LiveView.Forms
         {
             presenter = Presenter as CameraMotionOptionsPresenter;
             presenter.Load();
+        }
+
+        [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]
+        private void TsmiClearValues_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter.ClearMotionSettings();
         }
     }
 }

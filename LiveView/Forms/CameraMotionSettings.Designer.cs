@@ -162,13 +162,14 @@
             // 
             cmsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiClearValues });
             cmsContextMenu.Name = "cms_ContextMenu";
-            cmsContextMenu.Size = new System.Drawing.Size(102, 26);
+            cmsContextMenu.Size = new System.Drawing.Size(181, 48);
             // 
             // tsmiClearValues
             // 
             tsmiClearValues.Name = "tsmiClearValues";
-            tsmiClearValues.Size = new System.Drawing.Size(101, 22);
+            tsmiClearValues.Size = new System.Drawing.Size(180, 22);
             tsmiClearValues.Text = "Clear";
+            tsmiClearValues.Click += TsmiClearValues_Click;
             // 
             // lblPartnerVideoServer
             // 

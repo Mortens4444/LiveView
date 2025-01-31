@@ -72,5 +72,21 @@ namespace LiveView.Presenters
                 return result;
             });
         }
+
+        public void ClearMotionSettings()
+        {
+            var items = view.LvCameras.SelectedItems;
+            foreach (ListViewItem item in items)
+            {
+                if (item.Tag is Camera camera)
+                {
+                    camera.PartnerCameraId = null;
+                    camera.MotionTrigger = null;
+                    camera.MotionTriggerMinimumLength = null;
+                    cameraRepository.Update(camera);
+                }
+            }
+            Load();
+        }
     }
 }

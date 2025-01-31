@@ -7,7 +7,7 @@ namespace Database.Models
     {
         public long Id { get; set; }
 
-        public long PartnerCameraId { get; set; }
+        public long? PartnerCameraId { get; set; }
 
         public string Guid { get; set; }
 
