@@ -13,6 +13,14 @@ namespace LiveView.Forms
     {
         private UserAndGroupManagementPresenter presenter;
 
+        public Button BtnNewGroup => btnNewGroup;
+
+        public Button BtnNewUser => btnNewUser;
+
+        public Button BtnModify => btnModify;
+
+        public Button BtnRemove => btnRemove;
+
         public TreeView TvUsersAndGroups => tvUsersAndGroups;
 
         public UserAndGroupManagement(IServiceProvider serviceProvider) : base(serviceProvider, typeof(UserAndGroupManagementPresenter))
@@ -22,6 +30,15 @@ namespace LiveView.Forms
             permissionManager.ApplyPermissionsOnControls(this);
 
             Translator.Translate(this);
+        }
+
+        [RequirePermission(GroupManagementPermissions.Select)]
+        [RequirePermission(UserManagementPermissions.Select)]
+        private void UserAndGroupManagement_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter = Presenter as UserAndGroupManagementPresenter;
+            presenter.Load();
         }
 
         [RequirePermission(GroupManagementPermissions.Create)]
@@ -57,15 +74,14 @@ namespace LiveView.Forms
             presenter.Delete();
         }
 
+        private void TvUsersAndGroups_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            presenter?.ChangeButtonStates(e.Node);
+        }
+
         private void BtnClose_Click(object sender, EventArgs e)
         {
             presenter.CloseForm();
-        }
-
-        private void UserAndGroupManagement_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as UserAndGroupManagementPresenter;
-            presenter.Load();
         }
     }
 }

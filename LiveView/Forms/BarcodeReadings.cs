@@ -4,14 +4,17 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class BarcodeReadings : BaseView, IBarcodeReadingsView
     {
-        private BarcodeReadingsPresenter presenter;
+        private BarcodeScanReadingsPresenter presenter;
 
-        public BarcodeReadings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BarcodeReadingsPresenter))
+        public ListView LvScans => lvScans;
+
+        public BarcodeReadings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BarcodeScanReadingsPresenter))
         {
             InitializeComponent();
 
@@ -29,7 +32,7 @@ namespace LiveView.Forms
 
         private void BarcodeReadings_Shown(object sender, EventArgs e)
         {
-            presenter = Presenter as BarcodeReadingsPresenter;
+            presenter = Presenter as BarcodeScanReadingsPresenter;
             presenter.Load();
         }
     }

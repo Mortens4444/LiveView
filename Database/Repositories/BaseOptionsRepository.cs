@@ -21,7 +21,7 @@ namespace Database.Repositories
                     case OptionType.String:
                         return (T)Convert.ChangeType(setting.Value, typeof(T));
                     default:
-                        throw new NotImplementedException($"Type '{setting.TypeId}' is not supported.");
+                        throw new NotSupportedException($"Type '{setting.TypeId}' is not supported yet.");
                 }
             }
             catch (InvalidCastException)

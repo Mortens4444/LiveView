@@ -55,7 +55,7 @@ namespace LiveView.Presenters
             {
                 if (node.Tag is Group group)
                 {
-                    if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete))
+                    if (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Delete))
                     {
                         groupRepository.Delete(group.Id);
                         logger.LogInfo("Group '{0}' has been deleted.", group);
@@ -68,7 +68,7 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is User user)
                 {
-                    if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete))
+                    if (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Delete))
                     {
                         userRepository.Delete(user.Id);
                         logger.LogInfo("User '{0}' has been deleted.", user);
@@ -157,7 +157,7 @@ namespace LiveView.Presenters
             {
                 if (node.Tag is Group group)
                 {
-                    if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update))
+                    if (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Update))
                     {
                         if (node.Parent.Tag is Group parentGroup)
                         {
@@ -175,7 +175,7 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is User user)
                 {
-                    if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
+                    if (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Update))
                     {
                         if (node.Parent.Tag is Group userGroup)
                         {
@@ -201,6 +201,22 @@ namespace LiveView.Presenters
             {
                 ShowDialogWithReload<AddUser>(group);
             }
+        }
+
+        public void ChangeButtonStates(TreeNode treeNode)
+        {
+            var groupSelected = treeNode?.Tag is Group;
+            var userSelected = treeNode?.Tag is User;
+            var dbServerSelected = treeNode?.Tag is DatabaseServer;
+
+            view.BtnNewGroup.Enabled = (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Create) && groupSelected);
+            view.BtnNewUser.Enabled = (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Create) && userSelected);
+
+            view.BtnModify.Enabled = permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Update) && groupSelected ||
+                (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Update) && userSelected);
+
+            view.BtnRemove.Enabled = permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Delete) && groupSelected ||
+                (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Delete) && userSelected);
         }
     }
 }

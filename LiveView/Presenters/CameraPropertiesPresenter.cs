@@ -1,8 +1,12 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using System;
+using System.Linq;
 
 namespace LiveView.Presenters
 {
@@ -27,12 +31,31 @@ namespace LiveView.Presenters
 
         public void Save()
         {
-            throw new NotImplementedException();
+            view.Camera.IpAddress = view.TbCameraIpAddress.Text;
+            view.Camera.Username = view.TbCameraUsername.Text;
+            view.Camera.Password = view.TbCameraPassword.Password;
+            view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
+            view.Camera.StreamId = (int)view.NudStreamId.Value;
+            view.Camera.FullscreenMode = (FullscreenMode)view.CbFullscreenMode.SelectedIndex;
+
+            cameraRepository.Update(view.Camera);
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            var fullscreenModes = Enum.GetValues(typeof(FullscreenMode))
+                .Cast<FullscreenMode>()
+                .Select(fullscreenMode => Lng.Elem(fullscreenMode.GetDescription()));
+            view.AddItems(view.CbFullscreenMode, fullscreenModes);
+
+            view.TbCameraName.Text = view.Camera.CameraName;
+            view.TbCameraGuid.Text = view.Camera.Guid;
+            view.TbCameraIpAddress.Text = view.Camera.IpAddress;
+            view.TbCameraUsername.Text = view.Camera.Username;
+            view.TbCameraPassword.Password = view.Camera.Password;
+            view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
+            view.NudStreamId.Value = view.Camera.StreamId ?? 0;
+            view.CbFullscreenMode.SelectedIndex = (int)view.Camera.FullscreenMode;
         }
     }
 }

@@ -65,10 +65,8 @@ namespace LiveView.Forms
             presenter.CreateNewCameraForm();
         }
 
-        [RequirePermission(ServerManagementPermissions.Select)]
         private void BtnProperties_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
             presenter.ShowServerAndCameraProperties();
         }
 
@@ -88,7 +86,7 @@ namespace LiveView.Forms
 
         private void TvServersAndCameras_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            presenter.ChangeButtonStates(e.Node);
+            presenter?.ChangeButtonStates(e.Node);
         }
 
         public SyncronizationMode GetSyncronizationMode()

@@ -28,6 +28,7 @@
     <EmbeddedResource Include="Scripts\MigrationAlterTableOperation.sql" />
     <EmbeddedResource Include="Scripts\MigrationRestructureGridCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectAllAgent.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllBarcodeScanReading.sql" />
     <EmbeddedResource Include="Scripts\SelectGroupOperations.sql" />
     <EmbeddedResource Include="Scripts\SelectGroupCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectGroup.sql" />

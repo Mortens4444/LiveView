@@ -330,7 +330,7 @@ namespace LiveView.Forms
 
         public void SetUptime(TimeSpan osUptime, TimeSpan appUptime)
         {
-            tsslOsUptime.Text = osUptime.Days < 2 ? $"{SystemUptime}: {osUptime.Days} {Day} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{Uptime}: {osUptime.Days} {Days} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
+            tsslOsUptime.Text = osUptime.Days < 2 ? $"{SystemUptime}: {osUptime.Days} {Day} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{SystemUptime}: {osUptime.Days} {Days} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
             tsslUptime.Text = appUptime.Days < 2 ? $"{Uptime}: {appUptime.Days} {Day} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Uptime}: {appUptime.Days} {Days} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
         }
 

@@ -7,9 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
-using Mtf.Network;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
@@ -18,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static OpenCvSharp.ML.DTrees;
 using Server = Database.Models.Server;
 
 namespace LiveView.Presenters
@@ -89,8 +88,10 @@ namespace LiveView.Presenters
                 {
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
                     {
-                        //logger.LogInfo("Camera '{0}' has been modified.", camera);
-                        throw new NotImplementedException();
+                        if (ShowDialog<CameraProperties>(camera))
+                        {
+                            logger.LogInfo("Camera '{0}' has been modified.", camera);
+                        }
                     }
                     else
                     {
@@ -343,7 +344,8 @@ namespace LiveView.Presenters
             view.BtnRemove.Enabled = (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete) && cameraSelected) ||
                 (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete) && serverSelected) ||
                 (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Delete) && dbServerSelected);
-            view.BtnProperties.Enabled = permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update) && serverSelected;
+            view.BtnProperties.Enabled = permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Select) && serverSelected ||
+                (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected);
             view.BtnMotionDetection.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected;
             view.BtnSyncronize.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && serverSelected;
         }
@@ -352,7 +354,29 @@ namespace LiveView.Presenters
         {
             if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
             {
-                ShowForm<ServerAndCameraProperties>(server);
+                if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Select))
+                {
+                    ShowForm<ServerAndCameraProperties>(server);
+                }
+                else
+                {
+                    logger.LogError("User '{0}' has no permission to view server and camera properties.", permissionManager.CurrentUser);
+                }
+            }
+            else if (view.ServersAndCameras.SelectedNode?.Tag is Camera camera)
+            {
+                if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
+                {
+                    if (ShowDialog<CameraProperties>(camera))
+                    {
+                        logger.LogInfo("Camera '{0}' has been modified.", camera);
+                    }
+                }
+                else
+                {
+                    logger.LogError("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
+                    throw new UnauthorizedAccessException();
+                }
             }
         }
     }

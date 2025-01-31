@@ -49,6 +49,8 @@ namespace LiveView.Services
             services.AddTransient<AddGroupPresenterDependencies>();
             services.AddTransient<AddUserPresenterDependencies>();
             services.AddTransient<AutoCreateWizardPresenterDependencies>();
+            services.AddTransient<BarcodeScanOptionsPresenterDependencies>();
+            services.AddTransient<BarcodeScanReadingsPresenterDependencies>();
             services.AddTransient<ControlCenterPresenterDependencies>();
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<EnterPassPresenterDependencies>();
@@ -79,7 +81,7 @@ namespace LiveView.Services
             services.AddTransient<AddUserPresenter>();
             services.AddTransient<AddVideoServerPresenter>();
             services.AddTransient<AutoCreateWizardPresenter>();
-            services.AddTransient<BarcodeReadingsPresenter>();
+            services.AddTransient<BarcodeScanReadingsPresenter>();
             services.AddTransient<BasePresenter>();
             services.AddTransient<CameraMotionOptionsPresenter>();
             services.AddTransient<CameraPropertiesPresenter>();
@@ -118,6 +120,9 @@ namespace LiveView.Services
         private static void RegisterRepositories(ServiceCollection services)
         {
             services.AddScoped<IAgentRepository, AgentRepository>();
+            services.AddScoped<IBarcodeCharChangerRepository, BarcodeCharChangerRepository>();
+            services.AddScoped<IBarcodeScanOptionsRepository, BarcodeScanOptionsRepository>();
+            services.AddScoped<IBarcodeScanReadingRepository, BarcodeScanReadingRepository>();
             services.AddScoped<ICameraRepository, CameraRepository>();
             services.AddScoped<ICameraRightRepository, CameraRightRepository>();
             services.AddScoped<IDatabaseServerRepository, DatabaseServerRepository>();

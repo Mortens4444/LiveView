@@ -91,6 +91,7 @@ namespace LiveView.Forms
             tvUsersAndGroups.StateImageOrCheckBoxOnLeft = false;
             tvUsersAndGroups.TabIndex = 0;
             tvUsersAndGroups.TickColor = System.Drawing.Color.Green;
+            tvUsersAndGroups.AfterSelect += TvUsersAndGroups_AfterSelect;
             // 
             // ilImages
             // 

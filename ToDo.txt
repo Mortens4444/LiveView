@@ -50,6 +50,7 @@ IO Ports
 
 BarCode readings
 ----------------
+- Need filtering
 
 Other
 -----
