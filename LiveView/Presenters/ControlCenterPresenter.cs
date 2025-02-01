@@ -15,11 +15,9 @@ using Mtf.LanguageService;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -38,17 +36,17 @@ namespace LiveView.Presenters
         private readonly List<Process> sequenceProcesses;
         public static Process CameraProcess { get; private set; }
 
-        public ControlCenterPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
-            : base(controlCenterPresenterDependencies)
+        public ControlCenterPresenter(ControlCenterPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            templateRepository = controlCenterPresenterDependencies.TemplateRepository;
-            templateProcessRepository = controlCenterPresenterDependencies.TemplateProcessRepository;
-            displayRepository = controlCenterPresenterDependencies.DisplayRepository;
-            sequenceRepository = controlCenterPresenterDependencies.SequenceRepository;
-            cameraRepository = controlCenterPresenterDependencies.CameraRepository;
-            displayManager = controlCenterPresenterDependencies.DisplayManager;
-            permissionManager = controlCenterPresenterDependencies.PermissionManager;
-            logger = controlCenterPresenterDependencies.Logger;
+            templateRepository = dependencies.TemplateRepository;
+            templateProcessRepository = dependencies.TemplateProcessRepository;
+            displayRepository = dependencies.DisplayRepository;
+            sequenceRepository = dependencies.SequenceRepository;
+            cameraRepository = dependencies.CameraRepository;
+            displayManager = dependencies.DisplayManager;
+            permissionManager = dependencies.PermissionManager;
+            logger = dependencies.Logger;
             sequenceProcesses = new List<Process>();
         }
 

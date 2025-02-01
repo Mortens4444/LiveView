@@ -18,13 +18,13 @@ namespace LiveView.Presenters
         private readonly IGridInSequenceRepository gridInSequenceRepository;
         private readonly ILogger<SequentialChains> logger;
 
-        public SequentialChainsPresenter(SequentialChainsPresenterDependencies sequentialChainsPresenterDependencies)
-            : base(sequentialChainsPresenterDependencies)
+        public SequentialChainsPresenter(SequentialChainsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            gridRepository = sequentialChainsPresenterDependencies.GridRepository;
-            sequenceRepository = sequentialChainsPresenterDependencies.SequenceRepository;
-            gridInSequenceRepository = sequentialChainsPresenterDependencies.GridInSequenceRepository;
-            logger = sequentialChainsPresenterDependencies.Logger;
+            gridRepository = dependencies.GridRepository;
+            sequenceRepository = dependencies.SequenceRepository;
+            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

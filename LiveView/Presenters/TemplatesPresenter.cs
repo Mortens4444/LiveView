@@ -20,12 +20,12 @@ namespace LiveView.Presenters
         private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ILogger<Templates> logger;
 
-        public TemplatesPresenter(TemplatesPresenterDependencies templatesPresenterDependencies)
-            : base(templatesPresenterDependencies)
+        public TemplatesPresenter(TemplatesPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            templateProcessRepository = templatesPresenterDependencies.TemplateProcessRepository;
-            templateRepository = templatesPresenterDependencies.TemplateRepository;
-            logger = templatesPresenterDependencies.Logger;
+            templateProcessRepository = dependencies.TemplateProcessRepository;
+            templateRepository = dependencies.TemplateRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

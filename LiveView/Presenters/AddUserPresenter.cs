@@ -15,12 +15,12 @@ namespace LiveView.Presenters
         private readonly IUsersInGroupsRepository usersInGroupsRepository;
         private readonly ILogger<AddUser> logger;
 
-        public AddUserPresenter(AddUserPresenterDependencies addUserPresenterDependencies)
-            : base(addUserPresenterDependencies)
+        public AddUserPresenter(AddUserPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            userRepository = addUserPresenterDependencies.UserRepository;
-            usersInGroupsRepository = addUserPresenterDependencies.UsersInGroupsRepository;
-            logger = addUserPresenterDependencies.Logger;
+            userRepository = dependencies.UserRepository;
+            usersInGroupsRepository = dependencies.UsersInGroupsRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

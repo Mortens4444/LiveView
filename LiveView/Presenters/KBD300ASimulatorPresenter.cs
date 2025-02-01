@@ -10,10 +10,10 @@ namespace LiveView.Presenters
         private IKBD300ASimulatorView view;
         private readonly ILogger<KBD300ASimulator> logger;
 
-        public KBD300ASimulatorPresenter(KBD300ASimulatorPresenterDependencies kBD300ASimulatorPresenterDependencies)
-            : base(kBD300ASimulatorPresenterDependencies)
+        public KBD300ASimulatorPresenter(KBD300ASimulatorPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            logger = kBD300ASimulatorPresenterDependencies.Logger;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static OpenCvSharp.ML.DTrees;
 using Server = Database.Models.Server;
 
 namespace LiveView.Presenters
@@ -39,14 +38,14 @@ namespace LiveView.Presenters
         private const int DatabaseServerIconIndex = 7;
         private const int AgentIconIndex = 8;
 
-        public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies serverAndCameraManagementPresenterDependencies)
-            : base(serverAndCameraManagementPresenterDependencies)
+        public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            serverRepository = serverAndCameraManagementPresenterDependencies.ServerRepository;
-            databaseServerRepository = serverAndCameraManagementPresenterDependencies.DatabaseServerRepository;
-            cameraRepository = serverAndCameraManagementPresenterDependencies.CameraRepository;
-            logger = serverAndCameraManagementPresenterDependencies.Logger;
-            permissionManager = serverAndCameraManagementPresenterDependencies.PermissionManager;
+            serverRepository = dependencies.ServerRepository;
+            databaseServerRepository = dependencies.DatabaseServerRepository;
+            cameraRepository = dependencies.CameraRepository;
+            logger = dependencies.Logger;
+            permissionManager = dependencies.PermissionManager;
         }
 
         public new void SetView(IView view)

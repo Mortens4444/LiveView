@@ -18,10 +18,10 @@ namespace LiveView.Presenters
         private ILanguageFileChangedView view;
         private readonly ILogger<LanguageFileChangedForm> logger;
 
-        public LanguageFileChangedPresenter(LanguageFileChangedPresenterDependencies languageFileChangedPresenterDependencies)
-            : base(languageFileChangedPresenterDependencies)
+        public LanguageFileChangedPresenter(LanguageFileChangedPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            logger = languageFileChangedPresenterDependencies.Logger;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

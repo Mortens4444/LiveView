@@ -15,11 +15,11 @@ namespace LiveView.Presenters
         private readonly IDisplayRepository displayRepository;
         private readonly ILogger<DisplayProperties> logger;
 
-        public DisplayPropertiesPresenter(DisplayPropertiesPresenterDependencies displayPropertiesPresenterDependencies)
-            : base(displayPropertiesPresenterDependencies)
+        public DisplayPropertiesPresenter(DisplayPropertiesPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            displayRepository = displayPropertiesPresenterDependencies.DisplayRepository;
-            logger = displayPropertiesPresenterDependencies.Logger;
+            displayRepository = dependencies.DisplayRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

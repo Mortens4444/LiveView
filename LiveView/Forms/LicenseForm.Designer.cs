@@ -30,7 +30,6 @@
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(LicenseForm));
             gbMain = new System.Windows.Forms.GroupBox();
-            tbUpgradeString = new System.Windows.Forms.TextBox();
             btnUpgrade = new System.Windows.Forms.Button();
             lblEdition = new System.Windows.Forms.Label();
             lblIsVirtual = new System.Windows.Forms.Label();
@@ -57,7 +56,6 @@
             // gbMain
             // 
             gbMain.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            gbMain.Controls.Add(tbUpgradeString);
             gbMain.Controls.Add(btnUpgrade);
             gbMain.Controls.Add(lblEdition);
             gbMain.Controls.Add(lblIsVirtual);
@@ -86,19 +84,10 @@
             gbMain.TabIndex = 1;
             gbMain.TabStop = false;
             // 
-            // tbUpgradeString
-            // 
-            tbUpgradeString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbUpgradeString.Location = new System.Drawing.Point(13, 42);
-            tbUpgradeString.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbUpgradeString.Name = "tbUpgradeString";
-            tbUpgradeString.Size = new System.Drawing.Size(458, 23);
-            tbUpgradeString.TabIndex = 58;
-            // 
             // btnUpgrade
             // 
             btnUpgrade.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnUpgrade.Location = new System.Drawing.Point(478, 38);
+            btnUpgrade.Location = new System.Drawing.Point(9, 38);
             btnUpgrade.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnUpgrade.Name = "btnUpgrade";
             btnUpgrade.Size = new System.Drawing.Size(93, 27);
@@ -332,7 +321,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox gbMain;
-        private System.Windows.Forms.TextBox tbUpgradeString;
         private System.Windows.Forms.Button btnUpgrade;
         private System.Windows.Forms.Label lblEdition;
         private System.Windows.Forms.Label lblIsVirtual;

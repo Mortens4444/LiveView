@@ -22,14 +22,14 @@ namespace LiveView.Presenters
         private readonly IServerRepository serverRepository;
         private readonly ILogger<GridManager> logger;
 
-        public GridManagerPresenter(GridManagerPresenterDependencies gridManagerPresenterDependencies)
-            : base(gridManagerPresenterDependencies)
+        public GridManagerPresenter(GridManagerPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            gridRepository = gridManagerPresenterDependencies.GridRepository;
-            gridCameraRepository = gridManagerPresenterDependencies.GridCameraRepository;
-            cameraRepository = gridManagerPresenterDependencies.CameraRepository;
-            serverRepository = gridManagerPresenterDependencies.ServerRepository;
-            logger = gridManagerPresenterDependencies.Logger;
+            gridRepository = dependencies.GridRepository;
+            gridCameraRepository = dependencies.GridCameraRepository;
+            cameraRepository = dependencies.CameraRepository;
+            serverRepository = dependencies.ServerRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

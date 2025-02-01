@@ -18,12 +18,12 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<CameraMotionSettings> logger;
 
-        public CameraMotionOptionsPresenter(CameraMotionOptionsPresenterDependencies cameraMotionOptionsPresenterDependencies)
-            : base(cameraMotionOptionsPresenterDependencies)
+        public CameraMotionOptionsPresenter(CameraMotionOptionsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            serverRepository = cameraMotionOptionsPresenterDependencies.ServerRepository;
-            cameraRepository = cameraMotionOptionsPresenterDependencies.CameraRepository;
-            logger = cameraMotionOptionsPresenterDependencies.Logger;
+            serverRepository = dependencies.ServerRepository;
+            cameraRepository = dependencies.CameraRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

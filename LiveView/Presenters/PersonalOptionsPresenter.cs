@@ -22,12 +22,12 @@ namespace LiveView.Presenters
         private readonly ILogger<PersonalOptionsForm> logger;
         private readonly PermissionManager<Database.Models.User> permissionManager;
 
-        public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies personalOptionsPresenterDependencies)
-            : base(personalOptionsPresenterDependencies)
+        public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            permissionManager = personalOptionsPresenterDependencies.PermissionManager;
-            personalOptionsRepository = personalOptionsPresenterDependencies.PersonalOptionsRepository;
-            logger = personalOptionsPresenterDependencies.Logger;
+            permissionManager = dependencies.PermissionManager;
+            personalOptionsRepository = dependencies.PersonalOptionsRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

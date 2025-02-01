@@ -22,12 +22,12 @@ namespace LiveView.Presenters
         private readonly ILogger<SyncronView> logger;
         private readonly ReadOnlyCollection<Server> servers;
 
-        public SyncronViewPresenter(SyncronViewPresenterDependencies syncronViewPresenterDependencies)
-            : base(syncronViewPresenterDependencies)
+        public SyncronViewPresenter(SyncronViewPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            serverRepository = syncronViewPresenterDependencies.ServerRepository;
-            cameraRepository = syncronViewPresenterDependencies.CameraRepository;
-            logger = syncronViewPresenterDependencies.Logger;
+            serverRepository = dependencies.ServerRepository;
+            cameraRepository = dependencies.CameraRepository;
+            logger = dependencies.Logger;
             servers = serverRepository.SelectAll();
         }
 

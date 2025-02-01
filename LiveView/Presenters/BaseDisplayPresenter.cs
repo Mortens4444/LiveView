@@ -47,10 +47,10 @@ namespace LiveView.Presenters
             silverBrush = new SolidBrush(Color.Silver);
         }
 
-        public BaseDisplayPresenter(ControlCenterPresenterDependencies controlCenterPresenterDependencies)
-            : base(controlCenterPresenterDependencies.GeneralOptionsRepository, controlCenterPresenterDependencies.FormFactory)
+        public BaseDisplayPresenter(ControlCenterPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            displayManager = controlCenterPresenterDependencies.DisplayManager;
+            displayManager = dependencies.DisplayManager;
         }
 
         public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository generalOptionsRepository, FormFactory formFactory)

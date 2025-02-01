@@ -22,12 +22,12 @@ namespace LiveView.Presenters
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
-        public AddCamerasPresenter(AddCamerasPresenterDependencies addCamerasPresenterDependencies)
-            : base(addCamerasPresenterDependencies)
+        public AddCamerasPresenter(AddCamerasPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            cameraRepository = addCamerasPresenterDependencies.CameraRepository;
-            serverRepository = addCamerasPresenterDependencies.ServerRepository;
-            logger = addCamerasPresenterDependencies.Logger;
+            cameraRepository = dependencies.CameraRepository;
+            serverRepository = dependencies.ServerRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

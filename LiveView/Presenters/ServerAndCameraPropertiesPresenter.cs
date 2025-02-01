@@ -32,12 +32,12 @@ namespace LiveView.Presenters
         private CancellationTokenSource cancellationTokenSource;
         private Task hardwareInfoRetrieverTask;
 
-        public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies serverAndCameraPropertiesPresenterDependencies)
-            : base(serverAndCameraPropertiesPresenterDependencies)
+        public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            serverRepository = serverAndCameraPropertiesPresenterDependencies.ServerRepository;
-            cameraRepository = serverAndCameraPropertiesPresenterDependencies.CameraRepository;
-            logger = serverAndCameraPropertiesPresenterDependencies.Logger;
+            serverRepository = dependencies.ServerRepository;
+            cameraRepository = dependencies.CameraRepository;
+            logger = dependencies.Logger;
         }
         
         public async override void Load()

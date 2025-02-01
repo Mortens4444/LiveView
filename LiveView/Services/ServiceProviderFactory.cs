@@ -54,7 +54,7 @@ namespace LiveView.Services
             services.AddTransient<CameraMotionOptionsPresenterDependencies>();
             services.AddTransient<ControlCenterPresenterDependencies>();
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
-            services.AddTransient<EnterPassPresenterDependencies>();
+            services.AddTransient<UpgradeFormPresenterDependencies>();
             services.AddTransient<GeneralOptionsPresenterDependencies>();
             services.AddTransient<GridManagerPresenterDependencies>();
             services.AddTransient<IOPortEditorPresenterDependencies>();
@@ -91,7 +91,7 @@ namespace LiveView.Services
             services.AddTransient<ControlCenterPresenter>();
             services.AddTransient<DisplayPropertiesPresenter>();
             services.AddTransient<DisplaySettingsPresenter>();
-            services.AddTransient<EnterPassPresenter>();
+            services.AddTransient<UpgradeFormPresenter>();
             services.AddTransient<GeneralOptionsPresenter>();
             services.AddTransient<GridManagerPresenter>();
             services.AddTransient<IOPortEditorPresenter>();
@@ -168,7 +168,7 @@ namespace LiveView.Services
             services.AddTransient<ControlCenter>();
             services.AddTransient<DisplaySettings>();
             services.AddTransient<DisplayProperties>();
-            services.AddTransient<EnterPass>();
+            services.AddTransient<UpgradeForm>();
             services.AddTransient<GridManager>();
             services.AddTransient<IOPortEditor>();
             services.AddTransient<IOPortSettings>();

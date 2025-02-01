@@ -2,6 +2,7 @@
 using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using System;
@@ -17,9 +18,9 @@ namespace LiveView.Presenters
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
 
-        public LicenseFormPresenter(IGeneralOptionsRepository generalOptionsRepository, IUserRepository userRepository,
+        public LicenseFormPresenter(FormFactory formFactory, IGeneralOptionsRepository generalOptionsRepository, IUserRepository userRepository,
             IServerRepository serverRepository, ICameraRepository cameraRepository, ILogger<LicenseForm> logger)
-            : base(generalOptionsRepository)
+            : base(generalOptionsRepository, formFactory)
         {
             this.logger = logger;
             this.userRepository = userRepository;
@@ -35,8 +36,7 @@ namespace LiveView.Presenters
 
         public void Upgrade()
         {
-            //MainForm.HardwareKey.LiveViewEdition
-            throw new NotImplementedException();
+            ShowDialog<UpgradeForm>();
         }
 
         public override void Load()

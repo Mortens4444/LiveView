@@ -29,15 +29,15 @@ namespace LiveView.Presenters
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly ILogger<AutoCreateWizard> logger;
 
-        public AutoCreateWizardPresenter(AutoCreateWizardPresenterDependencies autoCreateWizardPresenterDependencies)
-            : base(autoCreateWizardPresenterDependencies)
+        public AutoCreateWizardPresenter(AutoCreateWizardPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            sequenceRepository = autoCreateWizardPresenterDependencies.SequenceRepository;
-            gridRepository = autoCreateWizardPresenterDependencies.GridRepository;
-            gridInSequenceRepository = autoCreateWizardPresenterDependencies.GridInSequenceRepository;
-            cameraRepository = autoCreateWizardPresenterDependencies.CameraRepository;
-            gridCameraRepository = autoCreateWizardPresenterDependencies.GridCameraRepository;
-            logger = autoCreateWizardPresenterDependencies.Logger;
+            sequenceRepository = dependencies.SequenceRepository;
+            gridRepository = dependencies.GridRepository;
+            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            cameraRepository = dependencies.CameraRepository;
+            gridCameraRepository = dependencies.GridCameraRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

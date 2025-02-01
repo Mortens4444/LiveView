@@ -1,4 +1,4 @@
-﻿namespace Mtf.Enums
+﻿namespace UpgradeCodeGenerator
 {
     public enum LiveViewEdition : byte
     {

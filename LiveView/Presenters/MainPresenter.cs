@@ -70,23 +70,23 @@ namespace LiveView.Presenters
         private MapLoader mapLoader;
         //private KBD300A kBD300A = new KBD300A("COM1");
 
-        public MainPresenter(MainPresenterDependencies mainPresenterDependencies)
-            : base(mainPresenterDependencies)
+        public MainPresenter(MainPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            logger = mainPresenterDependencies.Logger;
-            rightRepository = mainPresenterDependencies.RightRepository;
-            serviceProvider = mainPresenterDependencies.ServiceProvider;
-            mapRepository = mainPresenterDependencies.MapRepository;
-            mapObjectRepository = mainPresenterDependencies.MapObjectRepository;
-            displayRepository = mainPresenterDependencies.DisplayRepository;
-            groupRepository = mainPresenterDependencies.GroupRepository;
-            userRepository = mainPresenterDependencies.UserRepository;
-            templateRepository = mainPresenterDependencies.TemplateRepository;
-            userGroupRepository = mainPresenterDependencies.UserGroupRepository;
-            personalOptionsRepository = mainPresenterDependencies.PersonalOptionsRepository;
-            permissionManager = mainPresenterDependencies.PermissionManager;
-            agentRepository = mainPresenterDependencies.AgentRepository;
-            operationRepository = mainPresenterDependencies.OperationRepository;
+            logger = dependencies.Logger;
+            rightRepository = dependencies.RightRepository;
+            serviceProvider = dependencies.ServiceProvider;
+            mapRepository = dependencies.MapRepository;
+            mapObjectRepository = dependencies.MapObjectRepository;
+            displayRepository = dependencies.DisplayRepository;
+            groupRepository = dependencies.GroupRepository;
+            userRepository = dependencies.UserRepository;
+            templateRepository = dependencies.TemplateRepository;
+            userGroupRepository = dependencies.UserGroupRepository;
+            personalOptionsRepository = dependencies.PersonalOptionsRepository;
+            permissionManager = dependencies.PermissionManager;
+            agentRepository = dependencies.AgentRepository;
+            operationRepository = dependencies.OperationRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
         }

@@ -14,11 +14,11 @@ namespace LiveView.Presenters
         private readonly IBarcodeScanReadingRepository barcodeScanReadingRepository;
         private readonly ILogger<BarcodeReadings> logger;
 
-        public BarcodeScanReadingsPresenter(BarcodeScanReadingsPresenterDependencies barcodeScanReadingsPresenterDependencies)
-            : base(barcodeScanReadingsPresenterDependencies)
+        public BarcodeScanReadingsPresenter(BarcodeScanReadingsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            barcodeScanReadingRepository = barcodeScanReadingsPresenterDependencies.BarcodeScanReadingRepository;
-            logger = barcodeScanReadingsPresenterDependencies.Logger;
+            barcodeScanReadingRepository = dependencies.BarcodeScanReadingRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

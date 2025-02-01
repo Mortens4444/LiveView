@@ -12,11 +12,11 @@ namespace LiveView.Presenters
         private readonly IIOPortRepository ioPortRepository;
         private readonly ILogger<IOPortEditor> logger;
 
-        public IOPortEditorPresenter(IOPortEditorPresenterDependencies iOPortEditorPresenterDependencies)
-            : base(iOPortEditorPresenterDependencies)
+        public IOPortEditorPresenter(IOPortEditorPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            ioPortRepository = iOPortEditorPresenterDependencies.IOPortRepository;
-            logger = iOPortEditorPresenterDependencies.Logger;
+            ioPortRepository = dependencies.IOPortRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

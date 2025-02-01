@@ -30,16 +30,16 @@ namespace LiveView.Presenters
         private readonly ICameraRightRepository cameraRightRepository;
         private readonly ILogger<AddGroup> logger;
 
-        public AddGroupPresenter(AddGroupPresenterDependencies addGroupPresenterDependencies)
-            : base(addGroupPresenterDependencies)
+        public AddGroupPresenter(AddGroupPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            groupRepository = addGroupPresenterDependencies.GroupRepository;
-            userEventRepository = addGroupPresenterDependencies.UserEventRepository;
-            operationRepository = addGroupPresenterDependencies.OperationRepository;
-            cameraRepository = addGroupPresenterDependencies.CameraRepository;
-            rightRepository = addGroupPresenterDependencies.RightRepository;
-            cameraRightRepository = addGroupPresenterDependencies.CameraRightRepository;
-            logger = addGroupPresenterDependencies.Logger;
+            groupRepository = dependencies.GroupRepository;
+            userEventRepository = dependencies.UserEventRepository;
+            operationRepository = dependencies.OperationRepository;
+            cameraRepository = dependencies.CameraRepository;
+            rightRepository = dependencies.RightRepository;
+            cameraRightRepository = dependencies.CameraRightRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

@@ -20,14 +20,14 @@ namespace LiveView.Presenters
         private readonly IIOPortsRuleRepository ioPortsRuleRepository;
         private readonly ILogger<IOPortSettings> logger;
 
-        public IOPortSettingsPresenter(IOPortSettingsPresenterDependencies iOPortSettingsPresenterDependencies)
-            : base(iOPortSettingsPresenterDependencies)
+        public IOPortSettingsPresenter(IOPortSettingsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            eventRepository = iOPortSettingsPresenterDependencies.EventRepository;
-            ioPortRepository = iOPortSettingsPresenterDependencies.IOPortRepository;
-            ioPortsLogRepository = iOPortSettingsPresenterDependencies.IOPortsLogRepository;
-            ioPortsRuleRepository = iOPortSettingsPresenterDependencies.IOPortsRuleRepository;
-            logger = iOPortSettingsPresenterDependencies.Logger;
+            eventRepository = dependencies.EventRepository;
+            ioPortRepository = dependencies.IOPortRepository;
+            ioPortsLogRepository = dependencies.IOPortsLogRepository;
+            ioPortsRuleRepository = dependencies.IOPortsRuleRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

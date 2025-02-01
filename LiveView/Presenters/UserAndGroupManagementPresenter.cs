@@ -27,14 +27,14 @@ namespace LiveView.Presenters
         private const int GroupIconIndex = 0;
         private const int UserIconIndex = 1;
 
-        public UserAndGroupManagementPresenter(UserAndGroupManagementPresenterDependencies userAndGroupManagementPresenterDependencies)
-            : base(userAndGroupManagementPresenterDependencies)
+        public UserAndGroupManagementPresenter(UserAndGroupManagementPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            permissionManager = userAndGroupManagementPresenterDependencies.PermissionManager;
-            userRepository = userAndGroupManagementPresenterDependencies.UserRepository;
-            groupRepository = userAndGroupManagementPresenterDependencies.GroupRepository;
-            userGroupRepository = userAndGroupManagementPresenterDependencies.UserGroupRepository;
-            logger = userAndGroupManagementPresenterDependencies.Logger;
+            permissionManager = dependencies.PermissionManager;
+            userRepository = dependencies.UserRepository;
+            groupRepository = dependencies.GroupRepository;
+            userGroupRepository = dependencies.UserGroupRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

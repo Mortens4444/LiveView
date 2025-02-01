@@ -31,15 +31,15 @@ namespace LiveView.Presenters
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly PermissionManager<User> permissionManager;
 
-        public GeneralOptionsPresenter(GeneralOptionsPresenterDependencies generalOptionsPresenterDependencies)
-            : base(generalOptionsPresenterDependencies)
+        public GeneralOptionsPresenter(GeneralOptionsPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            templateRepository = generalOptionsPresenterDependencies.TemplateRepository;
-            userRepository = generalOptionsPresenterDependencies.UserRepository;
-            groupRepository = generalOptionsPresenterDependencies.GroupRepository;
-            userGroupRepository = generalOptionsPresenterDependencies.UserGroupRepository;
-            permissionManager = generalOptionsPresenterDependencies.PermissionManager;
-            logger = generalOptionsPresenterDependencies.Logger;
+            templateRepository = dependencies.TemplateRepository;
+            userRepository = dependencies.UserRepository;
+            groupRepository = dependencies.GroupRepository;
+            userGroupRepository = dependencies.UserGroupRepository;
+            permissionManager = dependencies.PermissionManager;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)

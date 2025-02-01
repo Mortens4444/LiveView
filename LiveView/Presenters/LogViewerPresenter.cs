@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -23,13 +22,13 @@ namespace LiveView.Presenters
         private readonly ILogger<LogViewer> logger;
         private readonly long currentUserId;
 
-        public LogViewerPresenter(LogViewerPresenterDependencies logViewerPresenterDependencies)
-            : base(logViewerPresenterDependencies)
+        public LogViewerPresenter(LogViewerPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            currentUserId = logViewerPresenterDependencies.PermissionManager.CurrentUser.Tag.Id;
-            logRepository = logViewerPresenterDependencies.LogRepository;
-            logger = logViewerPresenterDependencies.Logger;
-            users = logViewerPresenterDependencies.UserRepository.SelectAll();
+            currentUserId = dependencies.PermissionManager.CurrentUser.Tag.Id;
+            logRepository = dependencies.LogRepository;
+            logger = dependencies.Logger;
+            users = dependencies.UserRepository.SelectAll();
         }
 
         public new void SetView(IView view)

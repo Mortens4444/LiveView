@@ -36,16 +36,16 @@ namespace LiveView.Presenters
         private IMapCreatorView view;
         private Image image;
 
-        public MapCreatorPresenter(MapCreatorPresenterDependencies mapCreatorPresenterDependencies)
-            : base(mapCreatorPresenterDependencies)
+        public MapCreatorPresenter(MapCreatorPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            serverRepository = mapCreatorPresenterDependencies.ServerRepository;
-            cameraRepository = mapCreatorPresenterDependencies.CameraRepository;
-            gridCameraRepository = mapCreatorPresenterDependencies.GridCameraRepository;
-            mapRepository = mapCreatorPresenterDependencies.MapRepository;
-            mapObjectRepository = mapCreatorPresenterDependencies.MapObjectRepository;
-            objectInMapRepository = mapCreatorPresenterDependencies.ObjectInMapRepository;
-            logger = mapCreatorPresenterDependencies.Logger;
+            serverRepository = dependencies.ServerRepository;
+            cameraRepository = dependencies.CameraRepository;
+            gridCameraRepository = dependencies.GridCameraRepository;
+            mapRepository = dependencies.MapRepository;
+            mapObjectRepository = dependencies.MapObjectRepository;
+            objectInMapRepository = dependencies.ObjectInMapRepository;
+            logger = dependencies.Logger;
 
             gridCameras = gridCameraRepository.SelectAll();
         }

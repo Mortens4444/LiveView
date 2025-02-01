@@ -49,15 +49,15 @@ namespace LiveView.Presenters
         private bool gridSelectionMatrixChanged = true;
         private VideoCaptureClient videoCaptureClient;
 
-        public AddGridPresenter(AddGridPresenterDependencies addGridPresenterDependencies)
-            : base(addGridPresenterDependencies)
+        public AddGridPresenter(AddGridPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            displayManager = addGridPresenterDependencies.DisplayManager;
-            gridRepository = addGridPresenterDependencies.GridRepository;
-            gridCameraRepository = addGridPresenterDependencies.GridCameraRepository;
-            logger = addGridPresenterDependencies.Logger;
-            servers = addGridPresenterDependencies.ServerRepository.SelectAll();
-            cameras = addGridPresenterDependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
+            displayManager = dependencies.DisplayManager;
+            gridRepository = dependencies.GridRepository;
+            gridCameraRepository = dependencies.GridCameraRepository;
+            logger = dependencies.Logger;
+            servers = dependencies.ServerRepository.SelectAll();
+            cameras = dependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
         }
 
         public new void SetView(IView view)

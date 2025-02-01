@@ -52,7 +52,7 @@
     <Compile Update="Forms\DisplayProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\EnterPass.cs">
+    <Compile Update="Forms\UpgradeForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\GridManager.cs">

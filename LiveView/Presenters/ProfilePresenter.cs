@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using ImageConverter = LiveView.Services.ImageConverter;
 
@@ -21,12 +20,12 @@ namespace LiveView.Presenters
         private readonly ILogger<Profile> logger;
         private readonly User user;
 
-        public ProfilePresenter(ProfilePresenterDependencies profilePresenterDependencies)
-            : base(profilePresenterDependencies)
+        public ProfilePresenter(ProfilePresenterDependencies dependencies)
+            : base(dependencies)
         {
-            userRepository = profilePresenterDependencies.UserRepository;
-            permissionManager = profilePresenterDependencies.PermissionManager;
-            logger = profilePresenterDependencies.Logger;
+            userRepository = dependencies.UserRepository;
+            permissionManager = dependencies.PermissionManager;
+            logger = dependencies.Logger;
             user = userRepository.Select(permissionManager.CurrentUser.Tag.Id);
         }
 

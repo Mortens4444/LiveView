@@ -4,14 +4,19 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class EnterPass : BaseView, IEnterPassView
+    public partial class UpgradeForm : BaseView, IUpgradeFormView
     {
-        private EnterPassPresenter presenter;
+        private UpgradeFormPresenter presenter;
 
-        public EnterPass(IServiceProvider serviceProvider) : base(serviceProvider, typeof(EnterPassPresenter))
+        public TextBox TbSecretCode => tbSecretCode;
+
+        public RichTextBox RtbUpgradeCode => rtbUpgradeCode;
+
+        public UpgradeForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(UpgradeFormPresenter))
         {
             InitializeComponent();
 
@@ -21,15 +26,15 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(DatabaseServerManagementPermissions.FullControl)]
-        private void BtnOK_Click(object sender, EventArgs e)
+        private void BtnUpgrade_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.Login();
+            presenter.Upgrade();
         }
 
         private void EnterPass_Shown(object sender, EventArgs e)
         {
-            presenter = Presenter as EnterPassPresenter;
+            presenter = Presenter as UpgradeFormPresenter;
         }
     }
 }
