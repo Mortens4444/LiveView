@@ -146,6 +146,67 @@ namespace LiveView.Presenters
                     MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
                 }
             }
+
+            var joystickInitialized = JoystickHandler.InitializeJoystick(
+                    continuePulling: () => true,
+                    getDeltaModifier: () => 10,
+                    getMinimumDelta: () => 5,
+                    restAction: (deltaX, deltaY) =>
+                        {
+                            SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
+                            SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
+                        },
+                    forwardOrBackwardAction: (deltaX, deltaY) =>
+                        {
+                            if (deltaY < 0)
+                            {
+                                SendMessageToFullScreenCamera($"{NetworkCommand.TiltToNorth} {deltaY}");
+                            }
+                            else if (deltaY > 0)
+                            {
+                                SendMessageToFullScreenCamera($"{NetworkCommand.TiltToSouth} {deltaY}");
+                            }
+                        },
+                    forwardWithLeftTurnAction: (deltaX, deltaY) =>
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToNorth} {deltaX} {deltaY}");
+                        },
+                    forwardWithRightTurnAction: (deltaX, deltaY) =>
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToNorth} {deltaX} {deltaY}");
+                        },
+                    backwardWithLeftTurnAction: (deltaX, deltaY) =>
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToSouth} {deltaX} {deltaY}");
+                        },
+                    backwardWithRightTurnAction: (deltaX, deltaY) =>
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToSouth} {deltaX} {deltaY}");
+                        },
+                    turnLeftOrRightAction: (deltaX, deltaY) =>
+                        {
+                            if (deltaX < 0)
+                            {
+                                SendMessageToFullScreenCamera($"{NetworkCommand.PanToWest} {deltaX}");
+                            }
+                            else if (deltaX > 0)
+                            {
+                                SendMessageToFullScreenCamera($"{NetworkCommand.PanToEast} {deltaX}");
+                            }
+                        },
+                    afterPullingAction: () =>
+                        {
+                            SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
+                            SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
+                        },
+                    buttonActions: new Action[]
+                    {
+                        () => Console.WriteLine("Button 1 pressed."),
+                        () => Console.WriteLine("Button 2 pressed."),
+                        () => Console.WriteLine("Button 3 pressed."),
+                    }
+                );
+            view.TsslJoystick.Text = joystickInitialized ? Lng.Elem("Joystick initialized.") : Lng.Elem("Joystick not found.");
         }
 
         public void LoadLanguage(long userId)

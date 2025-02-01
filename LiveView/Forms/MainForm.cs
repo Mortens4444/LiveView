@@ -43,6 +43,8 @@ namespace LiveView.Forms
 
         public ToolStripStatusLabel TsslServerData => tsslServerData;
 
+        public ToolStripStatusLabel TsslJoystick => tsslJoystick;
+
         public MtfPictureBox PbMap => pbMap;
 
         public ToolTip TtHint => ttHint;
@@ -59,29 +61,12 @@ namespace LiveView.Forms
 
         static MainForm()
         {
+#if DEBUG
             HardwareKey = new VirtualSziltechHardwareKey();
-            //HardwareKey = new SziltechHardwareKey();
+#else
+            HardwareKey = new SziltechHardwareKey();
+#endif
             HardwareKey.GetDescription();
-
-            JoystickHandler.InitializeJoystick(
-                continuePulling: () => true,
-                getDeltaModifier: () => 10,
-                getMinimumDelta: () => 5,
-                restAction: (deltaX, deltaY) => Console.WriteLine("Joystick at rest."),
-                forwardOrBackwardAction: (deltaX, deltaY) => Console.WriteLine($"Moving forward/backward: {deltaY}"),
-                forwardWithLeftTurnAction: (deltaX, deltaY) => Console.WriteLine($"Forward with left turn: {deltaX}, {deltaY}"),
-                forwardWithRightTurnAction: (deltaX, deltaY) => Console.WriteLine($"Forward with right turn: {deltaX}, {deltaY}"),
-                backwardWithLeftTurnAction: (deltaX, deltaY) => Console.WriteLine($"Backward with left turn: {deltaX}, {deltaY}"),
-                backwardWithRightTurnAction: (deltaX, deltaY) => Console.WriteLine($"Backward with right turn: {deltaX}, {deltaY}"),
-                turnLeftOrRightAction: (deltaX, deltaY) => Console.WriteLine($"Turning left/right: {deltaX}"),
-                afterPullingAction: () => Console.WriteLine("Polling stopped."),
-                buttonActions: new Action[]
-                {
-                    () => Console.WriteLine("Button 1 pressed."),
-                    () => Console.WriteLine("Button 2 pressed."),
-                    () => Console.WriteLine("Button 3 pressed."),
-                }
-            );
         }
 
         public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))

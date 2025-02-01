@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -112,6 +112,7 @@ namespace LiveView.Forms
             msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
             timer = new Timer(components);
+            tsslJoystick = new ToolStripStatusLabel();
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
@@ -354,7 +355,7 @@ namespace LiveView.Forms
             // 
             // ssStatusStrip
             // 
-            ssStatusStrip.Items.AddRange(new ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage, tsslServerData, tsslOsUptime });
+            ssStatusStrip.Items.AddRange(new ToolStripItem[] { tsslLoggedOnUser, tsslSpaceHolder, tsslUptime, tsbDatabaseUsage, tsslServerData, tsslOsUptime, tsslJoystick });
             ssStatusStrip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             ssStatusStrip.Location = new System.Drawing.Point(0, 675);
             ssStatusStrip.Name = "ssStatusStrip";
@@ -625,11 +626,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "IO_Devices";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "IO_Devices";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -876,6 +877,12 @@ namespace LiveView.Forms
             timer.Interval = 500;
             timer.Tick += Timer_Tick;
             // 
+            // tsslJoystick
+            // 
+            tsslJoystick.Name = "tsslJoystick";
+            tsslJoystick.Size = new System.Drawing.Size(48, 17);
+            tsslJoystick.Text = "Joystick";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -988,5 +995,6 @@ namespace LiveView.Forms
         private Timer timer;
         private ToolStripStatusLabel tsslServerData;
         private ToolStripMenuItem tsmiKBD300ASimulator;
+        private ToolStripStatusLabel tsslJoystick;
     }
 }

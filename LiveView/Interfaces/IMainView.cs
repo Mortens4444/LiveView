@@ -12,6 +12,8 @@ namespace LiveView.Interfaces
 
         ToolStripStatusLabel TsslServerData { get; }
 
+        ToolStripStatusLabel TsslJoystick { get; }
+
         IntPtr GetHandle();
 
         void SetCursorPosition();
