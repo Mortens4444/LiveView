@@ -162,10 +162,6 @@ BEGIN
     EXEC sp_rename 'dbo.Languages.flag', 'Flag', 'COLUMN';
     EXEC sp_rename 'dbo.Languages.name', 'Name', 'COLUMN';
 
-    EXEC sp_rename 'dbo.LoggedinUser.ID', 'Id', 'COLUMN';
-    EXEC sp_rename 'dbo.LoggedinUser.login_date', 'LoginDate', 'COLUMN';
-    EXEC sp_rename 'dbo.LoggedinUser.user_id', 'UserId', 'COLUMN';
-
     EXEC sp_rename 'dbo.Logs.ID', 'Id', 'COLUMN';
     EXEC sp_rename 'dbo.Logs.event_id', 'EventId', 'COLUMN';
     EXEC sp_rename 'dbo.Logs.operation_id', 'OperationId', 'COLUMN';

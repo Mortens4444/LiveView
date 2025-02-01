@@ -1,3 +1,6 @@
+Motion popup
+Network encryption
+
 GeneralOptionsForm
 ------------------
 Show and Delete auto login user

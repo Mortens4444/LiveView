@@ -1,12 +1,4 @@
-﻿IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LogedinUser]') AND type = N'U')
-BEGIN
-    IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LoggedinUser]') AND type = N'U')
-    BEGIN
-        EXEC sp_rename N'[dbo].[LogedinUser]', N'LoggedinUser';
-    END
-END;
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pass_readings]') AND type = N'U')
+﻿IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pass_readings]') AND type = N'U')
 BEGIN
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PassReadings]') AND type = N'U')
     BEGIN

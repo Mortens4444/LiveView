@@ -40,7 +40,8 @@ namespace LiveView.Forms
 
         public void SetImagesEnabledState()
         {
-            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.PanTilt) ?? false))
+            var panTilt = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.PanTilt) ?? false;
+            if (!panTilt)
             {
                 btnMoveCameraNorthWest.Image = Properties.Resources.nw_g;
                 btnMoveCameraNorthEast.Image = Properties.Resources.ne_g;
@@ -56,8 +57,14 @@ namespace LiveView.Forms
                 btnMoveCameraSouthEast.Image = Properties.Resources.se;
                 btnMoveCameraToPresetZero.Image = Properties.Resources.house;
             }
+            btnMoveCameraNorthWest.Enabled = panTilt;
+            btnMoveCameraNorthEast.Enabled = panTilt;
+            btnMoveCameraSouthWest.Enabled = panTilt;
+            btnMoveCameraSouthEast.Enabled = panTilt;
+            btnMoveCameraToPresetZero.Enabled = panTilt;
 
-            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Pan) ?? false))
+            var pan = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Pan) ?? false;
+            if (!pan)
             {
                 btnMoveCameraEast.Image = Properties.Resources.e_g;
                 btnMoveCameraWest.Image = Properties.Resources.w_g;
@@ -67,8 +74,11 @@ namespace LiveView.Forms
                 btnMoveCameraEast.Image = Properties.Resources.arrow_right;
                 btnMoveCameraWest.Image = Properties.Resources.arrow_left;
             }
+            btnMoveCameraEast.Enabled = pan;
+            btnMoveCameraWest.Enabled = pan;
 
-            if (!(permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Tilt) ?? false))
+            var tilt = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Tilt) ?? false;
+            if (!tilt)
             {
                 btnMoveCameraNorth.Image = Properties.Resources.n_g;
                 btnMoveCameraSouth.Image = Properties.Resources.s_g;
@@ -78,6 +88,8 @@ namespace LiveView.Forms
                 btnMoveCameraNorth.Image = Properties.Resources.arrow_up;
                 btnMoveCameraSouth.Image = Properties.Resources.arrow_down;
             }
+            btnMoveCameraNorth.Enabled = tilt;
+            btnMoveCameraSouth.Enabled = tilt;
         }
 
         public Point HomeLocation

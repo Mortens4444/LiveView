@@ -345,18 +345,6 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects 
-               WHERE object_id = OBJECT_ID(N'[dbo].[LogedinUser]') AND type = N'U')
-    AND NOT EXISTS (SELECT * FROM sys.objects 
-                   WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type = N'U')
-BEGIN
-    CREATE TABLE LogedinUser (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        user_id nvarchar(200) NOT NULL,
-        login_date datetime NULL
-    );
-END;
-
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Databases]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Databases (

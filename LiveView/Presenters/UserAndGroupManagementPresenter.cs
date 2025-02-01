@@ -159,8 +159,9 @@ namespace LiveView.Presenters
                 {
                     if (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Update))
                     {
-                        if (node.Parent.Tag is Group parentGroup)
+                        if (group.ParentGroupId.HasValue)
                         {
+                            var parentGroup = groupRepository.Select(group.ParentGroupId.Value);
                             if (ShowDialog<AddGroup>(parentGroup, group))
                             {
                                 logger.LogInfo("Group '{0}' has been modified.", group);
