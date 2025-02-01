@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 
 namespace Database.Models
 {
@@ -14,12 +15,17 @@ namespace Database.Models
 
         public string FriendlyName { get; set; }
 
-        public int Direction { get; set; }
+        public PortDirection Direction { get; set; }
 
         public int State { get; set; }
 
         public int MinTriggerTime { get; set; }
 
         public int MaxCount { get; set; }
+
+        public override string ToString()
+        {
+            return FriendlyName ?? Name;
+        }
     }
 }

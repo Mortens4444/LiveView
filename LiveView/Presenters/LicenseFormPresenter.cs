@@ -35,6 +35,7 @@ namespace LiveView.Presenters
 
         public void Upgrade()
         {
+            //MainForm.HardwareKey.LiveViewEdition
             throw new NotImplementedException();
         }
 

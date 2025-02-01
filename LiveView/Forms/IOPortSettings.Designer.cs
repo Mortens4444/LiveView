@@ -144,13 +144,14 @@
             // 
             cmdDeleteRules.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { deleteRulesToolStripMenuItem });
             cmdDeleteRules.Name = "contextMenuStrip2";
-            cmdDeleteRules.Size = new System.Drawing.Size(136, 26);
+            cmdDeleteRules.Size = new System.Drawing.Size(181, 48);
             // 
             // deleteRulesToolStripMenuItem
             // 
             deleteRulesToolStripMenuItem.Name = "deleteRulesToolStripMenuItem";
-            deleteRulesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            deleteRulesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             deleteRulesToolStripMenuItem.Text = "Delete rules";
+            deleteRulesToolStripMenuItem.Click += DeleteRulesToolStripMenuItem_Click;
             // 
             // lblOutputIOPort
             // 
@@ -247,6 +248,7 @@
             changeFriendlyNameToolStripMenuItem.Name = "changeFriendlyNameToolStripMenuItem";
             changeFriendlyNameToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             changeFriendlyNameToolStripMenuItem.Text = "Change settings";
+            changeFriendlyNameToolStripMenuItem.Click += ChangeSettingsToolStripMenuItem_Click;
             // 
             // cmsChangeSettings
             // 

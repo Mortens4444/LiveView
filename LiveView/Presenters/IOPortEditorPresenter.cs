@@ -1,9 +1,8 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace LiveView.Presenters
 {
@@ -13,11 +12,11 @@ namespace LiveView.Presenters
         private readonly IIOPortRepository ioPortRepository;
         private readonly ILogger<IOPortEditor> logger;
 
-        public IOPortEditorPresenter(IGeneralOptionsRepository generalOptionsRepository, IIOPortRepository ioPortRepository, ILogger<IOPortEditor> logger)
-            : base(generalOptionsRepository)
+        public IOPortEditorPresenter(IOPortEditorPresenterDependencies iOPortEditorPresenterDependencies)
+            : base(iOPortEditorPresenterDependencies)
         {
-            this.ioPortRepository = ioPortRepository;
-            this.logger = logger;
+            ioPortRepository = iOPortEditorPresenterDependencies.IOPortRepository;
+            logger = iOPortEditorPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -26,9 +25,19 @@ namespace LiveView.Presenters
             this.view = view as IIOPortEditorView;
         }
 
+        public override void Load()
+        {
+            view.TbFriendlyName.Text = view.IOPort.FriendlyName;
+            view.NudMaxSignalPerDay.Value = view.IOPort.MaxCount;
+            view.NudMinTriggerTime.Value = view.IOPort.MinTriggerTime;
+        }
+
         public void Save()
         {
-            throw new NotImplementedException();
+            view.IOPort.FriendlyName = view.TbFriendlyName.Text;
+            view.IOPort.MaxCount = (int)view.NudMaxSignalPerDay.Value;
+            view.IOPort.MinTriggerTime = (int)view.NudMinTriggerTime.Value;
+            ioPortRepository.Update(view.IOPort);
         }
     }
 }
