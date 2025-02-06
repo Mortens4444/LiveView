@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
@@ -10,6 +11,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.VideoServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
@@ -27,6 +29,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -52,6 +55,7 @@ namespace LiveView.Presenters
         public static NetworkServer Server { get; private set; }
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
+        private readonly ICameraRepository cameraRepository;
         private readonly IServiceProvider serviceProvider;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
@@ -74,6 +78,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             logger = dependencies.Logger;
+            cameraRepository = dependencies.CameraRepository;
             rightRepository = dependencies.RightRepository;
             serviceProvider = dependencies.ServiceProvider;
             mapRepository = dependencies.MapRepository;
@@ -207,6 +212,22 @@ namespace LiveView.Presenters
                     }
                 );
             view.TsslJoystick.Text = joystickInitialized ? Lng.Elem("Joystick initialized.") : Lng.Elem("Joystick not found.");
+
+            var cameras = cameraRepository.SelectMotionTriggreredCameras();            
+            var motionCameras = cameras.Where(c => c.MotionTrigger != null);
+            var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
+            foreach (var motionCamera in motionCameras)
+            {
+                var partnerCamera = motionCamera.PartnerCameraId.HasValue ? cameras.FirstOrDefault(c => c.Id == motionCamera.PartnerCameraId) : null;
+                var motionPopup = CreateForm<MotionPopup>(motionCamera, partnerCamera);
+                _ = VideoCameraMotionTrigger.ConnectAsync(motionPopup, motionCamera, () =>
+                {
+                    if (!motionPopup.Visible)
+                    {
+                        motionPopup.ShowDialog();
+                    }
+                }, connectionTimeout);
+            }
         }
 
         public void LoadLanguage(long userId)

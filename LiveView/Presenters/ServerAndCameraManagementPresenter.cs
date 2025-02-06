@@ -179,7 +179,8 @@ namespace LiveView.Presenters
                 if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
                 {
                     var camerasInDatabase = cameraRepository.SelectWhere(new { ServerId = server.Id });
-                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server);
+                    var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
+                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server, connectionTimeout);
                     if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
                     {
                         foreach (var camera in connectionResult.Cameras)

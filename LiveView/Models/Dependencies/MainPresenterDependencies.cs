@@ -13,6 +13,7 @@ namespace LiveView.Models.Dependencies
             PermissionManager<Database.Models.User> permissionManager,
             FormFactory formfactory,
             IRightRepository rightRepository,
+            ICameraRepository cameraRepository,
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
@@ -28,6 +29,7 @@ namespace LiveView.Models.Dependencies
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
+            CameraRepository = cameraRepository;
             RightRepository = rightRepository;
             ServiceProvider = serviceProvider;
             DisplayRepository = displayRepository;
@@ -71,5 +73,7 @@ namespace LiveView.Models.Dependencies
         public ITemplateRepository TemplateRepository { get; private set; }
 
         public IOperationRepository OperationRepository { get; private set; }
+
+        public ICameraRepository CameraRepository { get; private set; }
     }
 }

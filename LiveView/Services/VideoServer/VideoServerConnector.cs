@@ -2,7 +2,6 @@
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
-using LiveView.Models;
 using LiveView.Models.VideoServer;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace LiveView.Services.VideoServer
 {
     public static class VideoServerConnector
     {
-        public static async Task<VideoServerConnectionResult> ConnectAsync(IVideoServerView videoServerView, Server server)
+        public static async Task<VideoServerConnectionResult> ConnectAsync(IVideoServerView videoServerView, Server server, int connectionTimeoutMs)
         {
             object recorderStatus = null;
             var cameras = new List<VideoServerCamera>();
@@ -47,7 +46,7 @@ namespace LiveView.Services.VideoServer
                 axVideoServer.Connect(server.IpAddress, server.Username, server.Password);
                 //axVideoServer.WaitForConnect(server.VideoServerInfo.ConnectionTimeoutMs); // It will hang the UI
 
-                await Task.WhenAny(connectTcs.Task, Task.Delay(GeneralSettings.ConnectionTimeoutMs));
+                await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs));
                 //server.VideoServerInfo.LastErrorCode = errorCode;
                 return new VideoServerConnectionResult(errorCode, cameras, recorderStatus);
             }

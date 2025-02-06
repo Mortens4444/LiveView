@@ -52,6 +52,9 @@
     <Compile Update="Forms\DisplayProperties.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\MotionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\UpgradeForm.cs">
       <SubType>Form</SubType>
     </Compile>

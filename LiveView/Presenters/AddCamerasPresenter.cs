@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -67,7 +68,8 @@ namespace LiveView.Presenters
         public async Task GetCamerasAsync()
         {
             var server = view.GetSelectedItem<Server>(view.Servers);
-            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server);
+            var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
+            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server, connectionTimeout);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
             {
                 view.ServerCameras.AddItems(connectionResult.Cameras, camera => new ListViewItem(camera.Name, CameraIconIndex)

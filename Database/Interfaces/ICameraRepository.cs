@@ -11,5 +11,7 @@ namespace Database.Interfaces
         string SelectCameraName(long cameraId);
 
         ReadOnlyCollection<Camera> SelectGroupCameras(long groupId);
+
+        ReadOnlyCollection<Camera> SelectMotionTriggreredCameras();
     }
 }

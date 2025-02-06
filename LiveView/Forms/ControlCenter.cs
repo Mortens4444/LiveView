@@ -7,6 +7,7 @@ using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -62,6 +63,9 @@ namespace LiveView.Forms
             btnMoveCameraSouthWest.Enabled = panTilt;
             btnMoveCameraSouthEast.Enabled = panTilt;
             btnMoveCameraToPresetZero.Enabled = panTilt;
+
+            btnCloseSequenceApplications.Enabled = permissionManager.CurrentUser?.HasPermission(SequenceManagementPermissions.Close) ?? false;
+            btnCloseFullScreenCamera.Enabled = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.CloseFullScreen) ?? false;
 
             var pan = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Pan) ?? false;
             if (!pan)

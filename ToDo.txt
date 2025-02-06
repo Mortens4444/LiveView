@@ -1,5 +1,5 @@
-Motion popup
 Network encryption
+Template should open remote displays
 
 GeneralOptionsForm
 ------------------

@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using LiveView.Enums;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -64,7 +65,8 @@ namespace LiveView.Presenters
                 view.TbModel.Text = Lng.Elem("Unknown");
             }
 
-            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), view.Server);
+            var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
+            var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), view.Server, connectionTimeout);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
             {
                 view.PbRemoteVideoServerConnectionStatus.Image = view.ImageList.Images[0];

@@ -21,5 +21,11 @@ namespace Database.Repositories
         {
             return Query("SelectGroupCameras", new { GroupId = groupId });
         }
+
+
+        public ReadOnlyCollection<Camera> SelectMotionTriggreredCameras()
+        {
+            return Query("SelectMotionTriggreredCameras");
+        }
     }
 }

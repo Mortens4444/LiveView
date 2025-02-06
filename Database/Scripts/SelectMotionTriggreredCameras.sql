@@ -1,0 +1,2 @@
+﻿SELECT c.Id, FullscreenMode, StreamId, c.Username, c.Password, Guid, CameraName, IpOrHost as IpAddress, s.Username as ServerUsername, s.Password as ServerPassword, s.Id as ServerId, MotionTrigger, MotionTriggerMinimumLength, PartnerCameraId, RecorderIndex, HttpStreamUrl, Priority
+FROM Cameras as c LEFT JOIN Servers as s ON c.ServerId = s.Id;

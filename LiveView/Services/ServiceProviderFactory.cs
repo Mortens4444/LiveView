@@ -64,6 +64,7 @@ namespace LiveView.Services
             services.AddTransient<LogViewerPresenterDependencies>();
             services.AddTransient<MainPresenterDependencies>();
             services.AddTransient<MapCreatorPresenterDependencies>();
+            services.AddTransient<MotionPopupPresenterDependencies>();
             services.AddTransient<MapLoaderDependencies>();            
             services.AddTransient<PersonalOptionsPresenterDependencies>();
             services.AddTransient<ProfilePresenterDependencies>();
@@ -103,6 +104,7 @@ namespace LiveView.Services
             services.AddTransient<LogViewerPresenter>();
             services.AddTransient<MainPresenter>();
             services.AddTransient<MapCreatorPresenter>();
+            services.AddTransient<MotionPopupPresenter>();
             services.AddTransient<PersonalOptionsPresenter>();
             services.AddTransient<ProfilePresenter>();
             services.AddTransient<SequentialChainsPresenter>();
@@ -179,6 +181,7 @@ namespace LiveView.Services
             services.AddTransient<LogViewer>();
             services.AddTransient<MainForm>();
             services.AddTransient<MapCreator>();
+            services.AddTransient<MotionPopup>();
             services.AddTransient<PersonalOptionsForm>();
             services.AddTransient<Profile>();
             services.AddTransient<SequentialChains>();
