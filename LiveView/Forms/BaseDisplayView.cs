@@ -1,5 +1,6 @@
 ﻿using LiveView.Core.Dto;
 using LiveView.Core.Services;
+using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -7,7 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace LiveView.Forms
 {
@@ -17,6 +21,7 @@ namespace LiveView.Forms
 
         private Timer mouseUpdateTimer;
         private IDisplayPresenter displayPresenter;
+        private static readonly Regex ButtonNameRegex = new Regex(@"btnCloseSequence(\d+)OnDisplay(\d+)", RegexOptions.Compiled);
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<DisplayDto> CachedDisplays { get; set; }
@@ -145,6 +150,27 @@ namespace LiveView.Forms
                         adjustedBounds.Top + delta);
                     panel.Controls.Add(sequenceEnvironment.CloseButton);
                     sequenceEnvironment.CloseButton.BringToFront();
+                }
+            }
+            RemoveInvalidButtons(panel, display);
+        }
+
+        private static void RemoveInvalidButtons(Panel panel, DisplayDto display)
+        {
+            foreach (var control in panel.Controls)
+            {
+                if (control is Button button && ButtonNameRegex.IsMatch(button.Name))
+                {
+                    var match = ButtonNameRegex.Match(button.Name);
+                    if (match.Success && Int64.TryParse(match.Groups[1].Value, out long sequenceId))
+                    {
+                        var sequenceProcessInfoList = MainPresenter.SequenceProcesses.Values;
+                        if (!(sequenceProcessInfoList.Any(sequenceProcessInfo => sequenceProcessInfo.SequenceId == sequenceId
+                            && sequenceProcessInfo.DisplayId.ToString() == match.Groups[2].Value)))
+                        {
+                            button.Dispose();
+                        }
+                    }
                 }
             }
         }

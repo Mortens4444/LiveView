@@ -361,7 +361,7 @@ namespace LiveView.Presenters
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });
             foreach (var process in processes)
             {
-                AppStarter.Start(process.ProcessName, process.ProcessParameters);
+                sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters));
             }
         }
     }

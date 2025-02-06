@@ -101,7 +101,7 @@ namespace LiveView.Presenters
                         BackColor = SystemColors.Control,
                         Image = Properties.Resources.btn_CloseSequenceApplications_Image,
                         Margin = new Padding(4, 3, 4, 3),
-                        Name = $"btnCloseSeuence{sequenceProcess.Value.SequenceId}OnDisplay{sequenceProcess.Value.DisplayId}",
+                        Name = $"btnCloseSequence{sequenceProcess.Value.SequenceId}OnDisplay{sequenceProcess.Value.DisplayId}",
                         Size = new Size(21, 21),
                         TabIndex = 0,
                         UseVisualStyleBackColor = false
