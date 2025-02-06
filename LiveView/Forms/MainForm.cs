@@ -6,7 +6,6 @@ using Mtf.Controls;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
 using Mtf.HardwareKey.Interfaces;
-using Mtf.Joystick;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
@@ -79,6 +78,7 @@ namespace LiveView.Forms
             presenter = Presenter as MainPresenter;
             presenter.Load();
             presenter.AutoLogin();
+            presenter.AutoLoadTemplate();
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)

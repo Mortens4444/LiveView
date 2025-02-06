@@ -68,6 +68,10 @@ namespace LiveView.Presenters
             {
                 view.TbModel.Text = Lng.Elem(deviceInfo.Model);
             }
+            else
+            {
+                ShowError("Validation failed! Sziltech SN is not recognized.");
+            }
         }
 
         private void OnHostDiscovered(HostDiscoveryResult result)

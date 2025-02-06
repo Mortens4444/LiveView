@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
@@ -29,7 +28,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -108,11 +106,6 @@ namespace LiveView.Presenters
             var handle = view.GetHandle();
             WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
 
-            if (generalOptionsRepository.Get(Setting.OpenControlCenterWhenProgramStarts, true))
-            {
-                MainForm.ControlCenter = ShowForm<ControlCenter>();
-            }
-
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var port))
             {
@@ -130,11 +123,28 @@ namespace LiveView.Presenters
                 view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }
 
-            LoadLanguage(2);
             LoadFirstMap();
 
             CheckLanguageFile();
 
+            StartJoystick();
+            StartMotionTriggeredCameras();
+        }
+
+        private void ShowControlCenter()
+        {
+            if (generalOptionsRepository.Get(Setting.OpenControlCenterWhenProgramStarts, true))
+            {
+                if (MainForm.ControlCenter != null)
+                {
+                    MainForm.ControlCenter.Close();
+                }
+                MainForm.ControlCenter = ShowForm<ControlCenter>();
+            }
+        }
+
+        public void AutoLoadTemplate()
+        {
             var templates = templateRepository.SelectAll();
             var templateToLoad = generalOptionsRepository.Get(Setting.AutoLoadedTemplate, String.Empty);
             var autoLoadTemplate = templates.FirstOrDefault(template => template.TemplateName == templateToLoad);
@@ -151,59 +161,62 @@ namespace LiveView.Presenters
                     MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
                 }
             }
+        }
 
+        private void StartJoystick()
+        {
             var joystickInitialized = JoystickHandler.InitializeJoystick(
                     continuePulling: () => true,
                     getDeltaModifier: () => 10,
                     getMinimumDelta: () => 5,
                     restAction: (deltaX, deltaY) =>
-                        {
-                            SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
-                            SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
-                        },
+                    {
+                        SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
+                        SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
+                    },
                     forwardOrBackwardAction: (deltaX, deltaY) =>
+                    {
+                        if (deltaY < 0)
                         {
-                            if (deltaY < 0)
-                            {
-                                SendMessageToFullScreenCamera($"{NetworkCommand.TiltToNorth} {deltaY}");
-                            }
-                            else if (deltaY > 0)
-                            {
-                                SendMessageToFullScreenCamera($"{NetworkCommand.TiltToSouth} {deltaY}");
-                            }
-                        },
+                            SendMessageToFullScreenCamera($"{NetworkCommand.TiltToNorth} {deltaY}");
+                        }
+                        else if (deltaY > 0)
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.TiltToSouth} {deltaY}");
+                        }
+                    },
                     forwardWithLeftTurnAction: (deltaX, deltaY) =>
-                        {
-                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToNorth} {deltaX} {deltaY}");
-                        },
+                    {
+                        SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToNorth} {deltaX} {deltaY}");
+                    },
                     forwardWithRightTurnAction: (deltaX, deltaY) =>
-                        {
-                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToNorth} {deltaX} {deltaY}");
-                        },
+                    {
+                        SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToNorth} {deltaX} {deltaY}");
+                    },
                     backwardWithLeftTurnAction: (deltaX, deltaY) =>
-                        {
-                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToSouth} {deltaX} {deltaY}");
-                        },
+                    {
+                        SendMessageToFullScreenCamera($"{NetworkCommand.PanToWestAndTiltToSouth} {deltaX} {deltaY}");
+                    },
                     backwardWithRightTurnAction: (deltaX, deltaY) =>
-                        {
-                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToSouth} {deltaX} {deltaY}");
-                        },
+                    {
+                        SendMessageToFullScreenCamera($"{NetworkCommand.PanToEastAndTiltToSouth} {deltaX} {deltaY}");
+                    },
                     turnLeftOrRightAction: (deltaX, deltaY) =>
+                    {
+                        if (deltaX < 0)
                         {
-                            if (deltaX < 0)
-                            {
-                                SendMessageToFullScreenCamera($"{NetworkCommand.PanToWest} {deltaX}");
-                            }
-                            else if (deltaX > 0)
-                            {
-                                SendMessageToFullScreenCamera($"{NetworkCommand.PanToEast} {deltaX}");
-                            }
-                        },
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToWest} {deltaX}");
+                        }
+                        else if (deltaX > 0)
+                        {
+                            SendMessageToFullScreenCamera($"{NetworkCommand.PanToEast} {deltaX}");
+                        }
+                    },
                     afterPullingAction: () =>
-                        {
-                            SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
-                            SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
-                        },
+                    {
+                        SendMessageToFullScreenCamera(NetworkCommand.StopPanAndTilt.ToString());
+                        SendMessageToFullScreenCamera(NetworkCommand.StopZoom.ToString());
+                    },
                     buttonActions: new Action[]
                     {
                         () => Console.WriteLine("Button 1 pressed."),
@@ -212,8 +225,11 @@ namespace LiveView.Presenters
                     }
                 );
             view.TsslJoystick.Text = joystickInitialized ? Lng.Elem("Joystick initialized.") : Lng.Elem("Joystick not found.");
+        }
 
-            var cameras = cameraRepository.SelectMotionTriggreredCameras();            
+        private void StartMotionTriggeredCameras()
+        {
+            var cameras = cameraRepository.SelectMotionTriggreredCameras();
             var motionCameras = cameras.Where(c => c.MotionTrigger != null);
             var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
             foreach (var motionCamera in motionCameras)
@@ -236,6 +252,7 @@ namespace LiveView.Presenters
             Lng.DefaultLanguage = Enum.TryParse(implementedLanguage.ToString(), out Mtf.LanguageService.Enums.Language selectedLanguage) ? selectedLanguage : Mtf.LanguageService.Enums.Language.Hungarian;
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
+            ShowControlCenter();
         }
 
         public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)
@@ -628,6 +645,7 @@ namespace LiveView.Presenters
                     };
                     SetGroups(permissionUser);
                     permissionManager.SetUser(view.GetSelf(), permissionUser);
+                    LoadLanguage(permissionUser.Tag.Id);
                     ChangeControlsOnLogin(user.Username);
                 }
             }
