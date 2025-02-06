@@ -123,6 +123,7 @@
             Name = "MotionPopup";
             Text = "MotionPopup";
             TopMost = true;
+            Shown += MotionPopup_Shown;
             pMain.ResumeLayout(false);
             pRight.ResumeLayout(false);
             pLeft.ResumeLayout(false);

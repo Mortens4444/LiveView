@@ -25,7 +25,14 @@ namespace LiveView.Presenters
         public override void Load()
         {
             view.AxVideoPlayerWindow.AxVideoPlayer.Start(view.Camera.IpAddress, view.Camera.Guid, view.Camera.ServerUsername, view.Camera.ServerPassword);
-            view.AxVideoPlayerWindow2.AxVideoPlayer.Start(view.PartnerCamera.IpAddress, view.PartnerCamera.Guid, view.PartnerCamera.ServerUsername, view.PartnerCamera.ServerPassword);
+            if (view.PartnerCamera != null)
+            {
+                view.AxVideoPlayerWindow2.AxVideoPlayer.Start(view.PartnerCamera.IpAddress, view.PartnerCamera.Guid, view.PartnerCamera.ServerUsername, view.PartnerCamera.ServerPassword);
+            }
+            else
+            {
+                view.PRight.Visible = false;
+            }
         }
     }
 }
