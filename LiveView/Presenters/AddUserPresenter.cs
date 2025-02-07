@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 
 namespace LiveView.Presenters
 {
@@ -38,7 +39,7 @@ namespace LiveView.Presenters
                 UserId = userId,
                 GroupId = parentGroup.Id
             });
-            logger.LogInfo("User '{0}' has been created in group '{1}'.", user.Username, parentGroup.Name);
+            logger.LogInfo(UserManagementPermissions.Create, "User '{0}' has been created in group '{1}'.", user.Username, parentGroup.Name);
         }
 
         public void LoadData(User user)

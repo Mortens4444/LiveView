@@ -10,6 +10,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -209,7 +210,7 @@ namespace LiveView.Presenters
             if (view.CbMap.SelectedItem is Map map)
             {
                 mapRepository.Delete(map.Id);
-                logger.LogInfo(MapHasBeenDeleted, map);
+                logger.LogInfo(MapManagementPermissions.Delete, MapHasBeenDeleted, map);
                 CreateNewMap();
                 Load();
             }
@@ -243,12 +244,12 @@ namespace LiveView.Presenters
                 map.Id = existingMap.Id;
                 mapId = map.Id;
                 mapRepository.Update(map);
-                logger.LogInfo(MapHasBeenUpdated, map);
+                logger.LogInfo(MapManagementPermissions.Update, MapHasBeenUpdated, map);
             }
             else
             {
                 mapId = mapRepository.InsertAndReturnId<int>(map);
-                logger.LogInfo(MapHasBeenCreated, map);
+                logger.LogInfo(MapManagementPermissions.Create, MapHasBeenCreated, map);
             }
 
             foreach (Control control in view.PCanvas.Controls)

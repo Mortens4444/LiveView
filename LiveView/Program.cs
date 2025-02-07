@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace LiveView
@@ -54,7 +55,8 @@ namespace LiveView
             BaseRepository.Execute("CreateTables");
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
-                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation" };
+                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation",
+                "MigrationDropLogsTableColumn"};
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();
@@ -70,7 +72,7 @@ namespace LiveView
 
             var serviceProvider = ServiceProviderFactory.Create();
             ExceptionHandler.SetLogger(serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>());
-
+            
             FillOrUpdateDisplaysTable(serviceProvider);
             FillOperationsTable(serviceProvider);
 

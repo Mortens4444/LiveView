@@ -6,6 +6,7 @@ using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Dto;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -102,6 +103,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
+            logger.LogInfo(ApplicationManagementPermissions.Start, "Application started.");
             //MousePointer.ShowOnCtrlKey();
             var handle = view.GetHandle();
             WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);

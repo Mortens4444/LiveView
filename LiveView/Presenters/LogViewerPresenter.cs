@@ -1,12 +1,13 @@
-﻿using Database.Enums;
-using Database.Interfaces;
+﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace LiveView.Presenters
     public class LogViewerPresenter : BasePresenter
     {
         private ILogViewerView view;
+        private readonly ReadOnlyCollection<Operation> operations;
         private readonly ILogRepository logRepository;
         private readonly ReadOnlyCollection<User> users;
         private readonly ILogger<LogViewer> logger;
@@ -26,6 +28,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             currentUserId = dependencies.PermissionManager.CurrentUser.Tag.Id;
+            operations = dependencies.OperationRepository.SelectAll();
             logRepository = dependencies.LogRepository;
             logger = dependencies.Logger;
             users = dependencies.UserRepository.SelectAll();
@@ -45,14 +48,7 @@ namespace LiveView.Presenters
             }
 
             logRepository.DeleteAll();
-            //logger.LogInfo();
-            logRepository.Insert(new LogEntry
-            {
-                Date = DateTime.UtcNow,
-                UserId = currentUserId,
-                LanguageElementId = (int)LogEntryType.AllLogEntryDeleted,
-                OperationId = (int)LogEntryType.AllLogEntryDeleted
-            });
+            logger.LogInfo(LogManagementPermissions.Delete, "All log entries has been deleted.");
         }
 
         public void GetLogs()
@@ -77,9 +73,16 @@ namespace LiveView.Presenters
             var result = new ListViewItem(Lng.Elem(entry.LogType.ToString()));
             result.SubItems.Add(entry.Date.ToLocalTime().ToString());
             result.SubItems.Add(users.FirstOrDefault(user => user.Id == entry.UserId)?.Username ?? String.Empty);
-            result.SubItems.Add("Code");
-            result.SubItems.Add(entry.LanguageElementId.ToString());
-            result.SubItems.Add(entry.OtherInformation);
+            if (entry.OperationId.HasValue)
+            {
+                var operation = operations.First(o => o.Id == entry.OperationId);
+                result.SubItems.Add($"{Lng.Elem(operation.PermissionGroup.Replace("ManagementPermissions", String.Empty))} {Lng.Elem(operation.PermissionValue)}");
+            }
+            else
+            {
+                result.SubItems.Add(String.Empty);
+            }
+            result.SubItems.Add(Lng.Elem(entry.OtherInformation));
             return result;
         }
     }

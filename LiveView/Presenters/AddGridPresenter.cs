@@ -14,6 +14,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -704,7 +705,7 @@ namespace LiveView.Presenters
                 }
             }
 
-            logger.LogInfo("Grid '{0}' has been saved.", view.TbGridName.Text);
+            logger.LogInfo(GridManagementPermissions.Create, "Grid '{0}' has been saved.", view.TbGridName.Text);
         }
 
         public void SetHeightForAspect16_10()

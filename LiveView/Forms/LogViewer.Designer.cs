@@ -54,7 +54,6 @@
             chDate = new System.Windows.Forms.ColumnHeader();
             chUser = new System.Windows.Forms.ColumnHeader();
             chOperationEventOrError = new System.Windows.Forms.ColumnHeader();
-            chDescription = new System.Windows.Forms.ColumnHeader();
             chOtherInformation = new System.Windows.Forms.ColumnHeader();
             cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
             tsmiCopyToClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,8 +66,6 @@
             lblOtherInformation = new System.Windows.Forms.Label();
             tbOtherInformationPart = new System.Windows.Forms.TextBox();
             cbMessageFilter = new System.Windows.Forms.CheckBox();
-            cbMessagePart = new System.Windows.Forms.ComboBox();
-            lblMessage = new System.Windows.Forms.Label();
             btnDeleteAllLogs = new System.Windows.Forms.Button();
             gbDates = new System.Windows.Forms.GroupBox();
             dtpFrom = new System.Windows.Forms.DateTimePicker();
@@ -314,7 +311,7 @@
             lvOperationsEventsAndErrors.AlternatingColorsAreInUse = true;
             lvOperationsEventsAndErrors.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvOperationsEventsAndErrors.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvOperationsEventsAndErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chKind, chDate, chUser, chOperationEventOrError, chDescription, chOtherInformation });
+            lvOperationsEventsAndErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chKind, chDate, chUser, chOperationEventOrError, chOtherInformation });
             lvOperationsEventsAndErrors.CompactView = false;
             lvOperationsEventsAndErrors.ContextMenuStrip = cmsMenu;
             lvOperationsEventsAndErrors.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -337,7 +334,7 @@
             // chKind
             // 
             chKind.Text = "Kind";
-            chKind.Width = 40;
+            chKind.Width = 90;
             // 
             // chDate
             // 
@@ -354,15 +351,10 @@
             chOperationEventOrError.Text = "Operation / Event / Error";
             chOperationEventOrError.Width = 147;
             // 
-            // chDescription
-            // 
-            chDescription.Text = "Description";
-            chDescription.Width = 181;
-            // 
             // chOtherInformation
             // 
             chOtherInformation.Text = "Other information";
-            chOtherInformation.Width = 261;
+            chOtherInformation.Width = 500;
             // 
             // cmsMenu
             // 
@@ -456,8 +448,6 @@
             gbMessageFilter.Controls.Add(lblOtherInformation);
             gbMessageFilter.Controls.Add(tbOtherInformationPart);
             gbMessageFilter.Controls.Add(cbMessageFilter);
-            gbMessageFilter.Controls.Add(cbMessagePart);
-            gbMessageFilter.Controls.Add(lblMessage);
             gbMessageFilter.Location = new System.Drawing.Point(0, 89);
             gbMessageFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbMessageFilter.Name = "gbMessageFilter";
@@ -470,7 +460,7 @@
             // lblOtherInformation
             // 
             lblOtherInformation.AutoSize = true;
-            lblOtherInformation.Location = new System.Drawing.Point(413, 20);
+            lblOtherInformation.Location = new System.Drawing.Point(14, 21);
             lblOtherInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblOtherInformation.Name = "lblOtherInformation";
             lblOtherInformation.Size = new System.Drawing.Size(103, 15);
@@ -479,10 +469,10 @@
             // 
             // tbOtherInformationPart
             // 
-            tbOtherInformationPart.Location = new System.Drawing.Point(413, 38);
+            tbOtherInformationPart.Location = new System.Drawing.Point(14, 38);
             tbOtherInformationPart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbOtherInformationPart.Name = "tbOtherInformationPart";
-            tbOtherInformationPart.Size = new System.Drawing.Size(391, 23);
+            tbOtherInformationPart.Size = new System.Drawing.Size(790, 23);
             tbOtherInformationPart.TabIndex = 5;
             // 
             // cbMessageFilter
@@ -495,26 +485,6 @@
             cbMessageFilter.TabIndex = 4;
             cbMessageFilter.Text = "Message filter";
             cbMessageFilter.UseVisualStyleBackColor = true;
-            // 
-            // cbMessagePart
-            // 
-            cbMessagePart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbMessagePart.FormattingEnabled = true;
-            cbMessagePart.Location = new System.Drawing.Point(14, 38);
-            cbMessagePart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbMessagePart.Name = "cbMessagePart";
-            cbMessagePart.Size = new System.Drawing.Size(391, 23);
-            cbMessagePart.TabIndex = 1;
-            // 
-            // lblMessage
-            // 
-            lblMessage.AutoSize = true;
-            lblMessage.Location = new System.Drawing.Point(14, 20);
-            lblMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblMessage.Name = "lblMessage";
-            lblMessage.Size = new System.Drawing.Size(53, 15);
-            lblMessage.TabIndex = 0;
-            lblMessage.Text = "Message";
             // 
             // btnDeleteAllLogs
             // 
@@ -651,7 +621,6 @@
         private System.Windows.Forms.ColumnHeader chDate;
         private System.Windows.Forms.ColumnHeader chUser;
         private System.Windows.Forms.ColumnHeader chOperationEventOrError;
-        private System.Windows.Forms.ColumnHeader chDescription;
         private System.Windows.Forms.ColumnHeader chOtherInformation;
         private System.Windows.Forms.ContextMenuStrip cmsMenu;
         private System.Windows.Forms.ToolStripMenuItem tsmiCopyToClipboard;
@@ -664,8 +633,6 @@
         private System.Windows.Forms.Label lblOtherInformation;
         private System.Windows.Forms.TextBox tbOtherInformationPart;
         private System.Windows.Forms.CheckBox cbMessageFilter;
-        private System.Windows.Forms.ComboBox cbMessagePart;
-        private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Button btnDeleteAllLogs;
         private System.Windows.Forms.GroupBox gbDates;
         private System.Windows.Forms.DateTimePicker dtpFrom;

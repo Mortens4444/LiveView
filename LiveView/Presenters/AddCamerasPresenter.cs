@@ -8,6 +8,7 @@ using LiveView.Models.Dependencies;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -103,7 +104,7 @@ namespace LiveView.Presenters
                     RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
                 };
                 cameraRepository.Insert(newCamera);
-                logger.LogInfo("Camera '{0}' has been added to the grid.", newCamera);
+                logger.LogInfo(CameraManagementPermissions.Create, "Camera '{0}' has been added to the grid.", newCamera);
             }
             view.Close();
         }

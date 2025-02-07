@@ -4,6 +4,7 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 
 namespace LiveView.Presenters
 {
@@ -40,7 +41,7 @@ namespace LiveView.Presenters
                 databaseServerRepository.Update(newServer);
             }
 
-            logger.LogInfo("Database server '{0}' has been created.", serverDto);
+            logger.LogInfo(ServerManagementPermissions.Create, "Database server '{0}' has been created.", serverDto);
         }
     }
 }

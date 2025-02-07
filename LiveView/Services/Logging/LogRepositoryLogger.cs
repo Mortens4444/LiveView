@@ -23,24 +23,19 @@ namespace LiveView.Services.Logging
 
         public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId logEventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))
             {
                 return;
             }
 
-            var logEntry = new LogEntry
+            if (state is LogEntry logEntry)
             {
-                Date = DateTime.UtcNow,
-                UserId = currentUserId,
-                OperationId = null,
-                EventId = null,//eventId.Id,
-                OtherInformation = formatter(state, exception),
-                LanguageElementId = null // Populate if necessary
-            };
-
-            logRepository.Insert(logEntry);
+                logEntry.Date = DateTime.UtcNow;
+                logEntry.UserId = currentUserId;
+                logRepository.Insert(logEntry);
+            }
         }
     }
 }

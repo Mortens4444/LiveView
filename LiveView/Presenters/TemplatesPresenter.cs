@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -59,7 +60,7 @@ namespace LiveView.Presenters
             });
             SaveProcesses(templateId, Process.GetProcessesByName("Sequence"));
             SaveProcesses(templateId, Process.GetProcessesByName("Camera"));
-            logger.LogInfo($"Template '{0}' has been saved.", view.TbTemplateName.Text);
+            logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' has been saved.", view.TbTemplateName.Text);
             Load();
         }
 

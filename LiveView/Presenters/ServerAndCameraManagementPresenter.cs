@@ -74,7 +74,7 @@ namespace LiveView.Presenters
                     {
                         if (ShowDialog<AddVideoServer>(server))
                         {
-                            logger.LogInfo("Video server '{0}' has been modified.", server);
+                            logger.LogInfo(ServerManagementPermissions.Update, "Video server '{0}' has been modified.", server);
                         }
                     }
                     else
@@ -89,7 +89,7 @@ namespace LiveView.Presenters
                     {
                         if (ShowDialog<CameraProperties>(camera))
                         {
-                            logger.LogInfo("Camera '{0}' has been modified.", camera);
+                            logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' has been modified.", camera);
                         }
                     }
                     else
@@ -104,7 +104,7 @@ namespace LiveView.Presenters
                     {
                         if (ShowDialog<AddDatabaseServer>(databaseServer))
                         {
-                            logger.LogInfo("Database server '{0}' has been modified.", databaseServer);
+                            logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been modified.", databaseServer);
                         }
                     }
                     else
@@ -132,7 +132,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete))
                     {
                         serverRepository.Delete(server.Id);
-                        logger.LogInfo("Video server '{0}' has been deleted.", server);
+                        logger.LogInfo(ServerManagementPermissions.Delete, "Video server '{0}' has been deleted.", server);
                     }
                     else
                     {
@@ -145,7 +145,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete))
                     {
                         cameraRepository.Delete(camera.Id);
-                        logger.LogInfo("Camera '{0}' has been deleted.", camera);
+                        logger.LogInfo(CameraManagementPermissions.Delete, "Camera '{0}' has been deleted.", camera);
                     }
                     else
                     {
@@ -158,7 +158,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Delete))
                     {
                         databaseServerRepository.Delete(databaseServer.Id);
-                        logger.LogInfo("Database server '{0}' has been deleted.", databaseServer);
+                        logger.LogInfo(DatabaseServerManagementPermissions.Delete, "Database server '{0}' has been deleted.", databaseServer);
                     }
                     else
                     {
@@ -194,7 +194,7 @@ namespace LiveView.Presenters
                                         actualCamera.CameraName = camera.Name;
                                         actualCamera.RecorderIndex = camera.Index;
                                         cameraRepository.Update(actualCamera);
-                                        logger.LogInfo("Camera '{0}' syncronized by GUID.", actualCamera);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by GUID.", actualCamera);
                                     }
                                     break;
                                 case SyncronizationMode.RecorderIndex:
@@ -204,7 +204,7 @@ namespace LiveView.Presenters
                                         actualCamera2.CameraName = camera.Name;
                                         actualCamera2.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera2);
-                                        logger.LogInfo("Camera '{0}' syncronized by recorder index.", actualCamera2);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by recorder index.", actualCamera2);
                                     }
                                     break;
                                 case SyncronizationMode.CameraName:
@@ -214,7 +214,7 @@ namespace LiveView.Presenters
                                         actualCamera3.RecorderIndex = camera.Index;
                                         actualCamera3.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera3);
-                                        logger.LogInfo("Camera '{0}' syncronized by camera name.", actualCamera3);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by camera name.", actualCamera3);
                                     }
                                     break;
                                 default:
@@ -369,7 +369,7 @@ namespace LiveView.Presenters
                 {
                     if (ShowDialog<CameraProperties>(camera))
                     {
-                        logger.LogInfo("Camera '{0}' has been modified.", camera);
+                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' has been modified.", camera);
                     }
                 }
                 else

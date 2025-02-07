@@ -7,6 +7,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -54,13 +55,13 @@ namespace LiveView.Presenters
                 displayRepository.Update(display.ToModel());
             }
 
-            generalOptionsRepository.Set<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter, view.RbShowOnControlCentersSelectedDisplay.Checked);
-            generalOptionsRepository.Set<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, view.RbShowOnFullscreenDisplay.Checked);
+            generalOptionsRepository.Set(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter, view.RbShowOnControlCentersSelectedDisplay.Checked);
+            generalOptionsRepository.Set(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, view.RbShowOnFullscreenDisplay.Checked);
 
-            generalOptionsRepository.Set<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, view.RbShowOnControlCentersSelectedDisplay2.Checked);
-            generalOptionsRepository.Set<bool>(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence, view.RbShowOnFullscreenDisplay2.Checked);
+            generalOptionsRepository.Set(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, view.RbShowOnControlCentersSelectedDisplay2.Checked);
+            generalOptionsRepository.Set(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence, view.RbShowOnFullscreenDisplay2.Checked);
 
-            logger.LogInfo("Display settings saved.");
+            logger.LogInfo(DisplayManagementPermissions.Update, "Display settings saved.");
         }
 
         public override void Load()

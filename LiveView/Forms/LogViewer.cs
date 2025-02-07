@@ -53,10 +53,10 @@ namespace LiveView.Forms
             {
                 From = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day, (int)nudFromHour.Value, (int)nudFromMinutes.Value, 0),
                 To = new DateTime(toDate.Year, toDate.Month, toDate.Day, (int)nudToHour.Value, (int)nudToMinutes.Value, 59),
-                LogType = rbAll.Checked ? LogType.Any : rbOperations.Checked ? LogType.Operation : rbEvents.Checked ? LogType.Event : LogType.Error,
-                MaxRows = (ushort)nudMaxRows.Value,
-                MessagePart = cbMessagePart.Text,
+                LogType = (int)(rbAll.Checked ? LogType.Any : rbOperations.Checked ? LogType.Operation : rbEvents.Checked ? LogType.Event : LogType.Error),
+                MaxRows = (int)nudMaxRows.Value,
                 OtherInformationPart = tbOtherInformationPart.Text,
+                UserId = 0,
                 Offset = 0
             };
         }

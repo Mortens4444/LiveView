@@ -58,7 +58,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Delete))
                     {
                         groupRepository.Delete(group.Id);
-                        logger.LogInfo("Group '{0}' has been deleted.", group);
+                        logger.LogInfo(GroupManagementPermissions.Delete, "Group '{0}' has been deleted.", group);
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace LiveView.Presenters
                     if (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Delete))
                     {
                         userRepository.Delete(user.Id);
-                        logger.LogInfo("User '{0}' has been deleted.", user);
+                        logger.LogInfo(UserManagementPermissions.Delete, "User '{0}' has been deleted.", user);
                     }
                     else
                     {
@@ -164,7 +164,7 @@ namespace LiveView.Presenters
                             var parentGroup = groupRepository.Select(group.ParentGroupId.Value);
                             if (ShowDialog<AddGroup>(parentGroup, group))
                             {
-                                logger.LogInfo("Group '{0}' has been modified.", group);
+                                logger.LogInfo(GroupManagementPermissions.Update, "Group '{0}' has been modified.", group);
                             }
                         }
                     }
@@ -182,7 +182,7 @@ namespace LiveView.Presenters
                         {
                             if (ShowDialog<AddUser>(userGroup, user))
                             {
-                                logger.LogInfo("User '{0}' has been modified.", user);
+                                logger.LogInfo(UserManagementPermissions.Update, "User '{0}' has been modified.", user);
                             }
                         }
                     }

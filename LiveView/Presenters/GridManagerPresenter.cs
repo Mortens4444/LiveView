@@ -7,6 +7,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -118,12 +119,13 @@ namespace LiveView.Presenters
                 grid.Name = view.TbGridName.Text;
                 gridRepository.Update(grid);
                 gridCameraRepository.DeleteCamerasOfGrid(grid.Id);
+                logger.LogInfo(GridManagementPermissions.Delete, "All cameras of grid '{0}' has been deleted.", grid.Name);
                 foreach (ListViewItem item in view.LvGridCameras.Items)
                 {
                     if (item.Tag is GridCamera gridCamera)
                     {
                         gridCameraRepository.Insert(gridCamera);
-                        logger.LogInfo("Camera '{0}' has been added to the grid.", gridCamera);
+                        logger.LogInfo(GridManagementPermissions.Update, "Camera '{0}' has been added to the grid.", gridCamera);
                     }
                 }
 

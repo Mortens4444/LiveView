@@ -316,6 +316,7 @@
             btnRearrangeGrid.Size = new System.Drawing.Size(28, 28);
             btnRearrangeGrid.TabIndex = 8;
             btnRearrangeGrid.UseVisualStyleBackColor = true;
+            btnRearrangeGrid.Visible = false;
             btnRearrangeGrid.Click += BtnRearrangeGrid_Click;
             // 
             // gbActiveSequence

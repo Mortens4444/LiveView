@@ -5,18 +5,18 @@ namespace Database.Models
 {
     public class LogEntryFilter
     {
-        public LogType LogType { get; set; }
+        public int LogType { get; set; }
 
         public DateTime From { get; set; }
 
         public DateTime To { get; set; }
         
-        public ushort MaxRows { get; set; }
-
-        public string MessagePart { get; set; }
+        public int MaxRows { get; set; }
 
         public string OtherInformationPart { get; set; }
 
-        public ulong Offset { get; set; }
+        public long Offset { get; set; }
+
+        public long UserId { get; set; }
     }
 }

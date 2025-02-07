@@ -8,6 +8,7 @@ using LiveView.Services;
 using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.Permissions.Enums;
 using System.Threading.Tasks;
 
 namespace LiveView.Presenters
@@ -46,7 +47,7 @@ namespace LiveView.Presenters
                 serverRepository.Update(newServer);
             }
 
-            logger.LogInfo("Video server '{0}' has been created.", serverDto);
+            logger.LogInfo(ServerManagementPermissions.Create, "Video server '{0}' has been created.", serverDto);
         }
 
         public async Task SearchForHostsAsync()

@@ -7,6 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -203,7 +204,7 @@ namespace LiveView.Presenters
                 }
                 gridIds.Clear();
                 grids.Clear();
-                logger.LogInfo(SequenceHasBeenCreated, actualSequence.Name);
+                logger.LogInfo(SequenceManagementPermissions.Create, SequenceHasBeenCreated, actualSequence.Name);
             }
         }
 
@@ -224,7 +225,7 @@ namespace LiveView.Presenters
                 actualGrid.Id = gridRepository.InsertAndReturnId<long>(actualGrid);
                 gridIds.Add(actualGrid.Id);
                 grids.Add(actualGrid);
-                logger.LogInfo(GridHasBeenCreated, actualGrid.Name);
+                logger.LogInfo(GridManagementPermissions.Create, GridHasBeenCreated, actualGrid.Name);
                 gridCount++;
 
                 var gridCameraIndex = 0;
