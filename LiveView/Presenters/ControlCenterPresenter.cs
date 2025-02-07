@@ -12,9 +12,11 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
 using Mtf.LanguageService;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -25,6 +27,11 @@ namespace LiveView.Presenters
     public class ControlCenterPresenter : BaseDisplayPresenter
     {
         private IControlCenterView view;
+        private SequenceProcessInfo selectedSequenceProcess;
+
+        private readonly IGridRepository gridRepository;
+        private readonly IGridCameraRepository gridCameraRepository;
+        private readonly IGridInSequenceRepository gridInSequenceRepository;
         private readonly IDisplayRepository displayRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly ITemplateProcessRepository templateProcessRepository;
@@ -39,6 +46,9 @@ namespace LiveView.Presenters
         public ControlCenterPresenter(ControlCenterPresenterDependencies dependencies)
             : base(dependencies)
         {
+            gridRepository = dependencies.GridRepository;
+            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            gridCameraRepository = dependencies.GridCameraRepository;
             templateRepository = dependencies.TemplateRepository;
             templateProcessRepository = dependencies.TemplateProcessRepository;
             displayRepository = dependencies.DisplayRepository;
@@ -362,6 +372,81 @@ namespace LiveView.Presenters
             foreach (var process in processes)
             {
                 sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters));
+            }
+        }
+
+        public void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)
+        {
+            try
+            {
+                if (sequenceProcess == null)
+                {
+                    selectedSequenceProcess = null;
+                    view.LblSequenceName.Text = String.Empty;
+                    view.LblGridName.Text = String.Empty;
+                    view.LblNumberOfCameras.Text = String.Empty;
+                    view.LblSecondsLeft.Text = String.Empty;
+                    view.LblGridNumber.Text = String.Empty;
+                    return;
+                }
+
+                if (selectedSequenceProcess != sequenceProcess && sequenceProcess.SequenceId.HasValue)
+                {
+                    selectedSequenceProcess = sequenceProcess;
+                    var sequence = sequenceRepository.Select(selectedSequenceProcess.SequenceId.Value);
+                    var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+                    if (gridsInSequence.Count == 0)
+                    {
+                        view.LblGridName.Text = $"{Lng.Elem("Grid name")}: N/A";
+                        view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: 0/0";
+                        view.LblGridNumber.Text = "0/0";
+                        view.LblSecondsLeft.Text = Lng.Elem("No grids in sequence.");
+                    }
+                    else if (gridsInSequence.Count == 1)
+                    {
+                        var grid = gridRepository.Select(gridsInSequence.Single().GridId);
+                        var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
+                        view.LblGridName.Text = $"{Lng.Elem("Grid name")}: {grid.Name}";
+                        view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: {gridCameras.Count}/{gridCameras.Count}";
+                        view.LblGridNumber.Text = "1/1";
+                        view.LblSecondsLeft.Text = Lng.Elem("Continuous playing.");
+                    }
+
+                    view.LblSequenceName.Text = $"{Lng.Elem("Sequence name")}: {sequence.Name}";
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
+        }
+
+        public void ShowGridInfo(long gridId, string secondsLeft)
+        {
+            if (selectedSequenceProcess == null || !selectedSequenceProcess.SequenceId.HasValue)
+            {
+                return;
+            }
+
+            var grid = gridRepository.Select(gridId);
+            var sequence = sequenceRepository.Select(selectedSequenceProcess.SequenceId.Value);
+            var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+            var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
+            var allCameraCount = sequenceRepository.SelectCameraCount(selectedSequenceProcess.SequenceId.Value);
+
+            try
+            {
+                view.InvokeAction(() =>
+                {
+                    view.LblGridName.Text = $"{Lng.Elem("Grid name")}: {grid.Name}";
+                    view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: {gridCameras.Count}/{allCameraCount}";
+                    view.LblGridNumber.Text = $"1/{gridsInSequence.Count}";
+                    view.LblSecondsLeft.Text = secondsLeft == "Paused" ? Lng.Elem("Continuous playing.") : secondsLeft.ToString();
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                DebugErrorBox.Show(ex);
             }
         }
     }

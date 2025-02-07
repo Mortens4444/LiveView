@@ -181,7 +181,7 @@
             // lblSecondsLeft
             // 
             lblSecondsLeft.AutoSize = true;
-            lblSecondsLeft.Location = new System.Drawing.Point(9, 105);
+            lblSecondsLeft.Location = new System.Drawing.Point(156, 112);
             lblSecondsLeft.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblSecondsLeft.Name = "lblSecondsLeft";
             lblSecondsLeft.Size = new System.Drawing.Size(0, 15);
@@ -1116,6 +1116,7 @@
             TopMost = true;
             Load += ControlCenter_Load;
             Shown += ControlCenter_Shown;
+            ResizeEnd += ControlCenter_ResizeEnd;
             gbDisplayDevices.ResumeLayout(false);
             gbDisplayDevices.PerformLayout();
             pCrossHair.ResumeLayout(false);

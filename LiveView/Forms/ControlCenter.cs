@@ -23,6 +23,16 @@ namespace LiveView.Forms
 
         private ControlCenterPresenter presenter;
 
+        public Label LblSequenceName => lblSequenceName;
+
+        public Label LblNumberOfCameras => lblNumberOfCameras;
+
+        public Label LblGridName => lblGridName;
+
+        public Label LblGridNumber => lblGridNumber;
+
+        public Label LblSecondsLeft => lblSecondsLeft;
+
         public ControlCenter(IServiceProvider serviceProvider, Camera camera = null, VideoSource videoSource = null) : this(serviceProvider)
         {
             this.camera = camera;
@@ -358,7 +368,7 @@ namespace LiveView.Forms
         {
             presenter.StartCameraApp(camera);
         }
-        
+
         public void StartVideoSource(VideoSource videoSource)
         {
             presenter.StartCameraApp(videoSource);
@@ -396,6 +406,21 @@ namespace LiveView.Forms
                 initializationCompleted.WaitOne();
                 presenter.StartTemplate(template);
             });
+        }
+
+        public void ShowGridInfo(long gridId, string secondsLeft)
+        {
+            presenter.ShowGridInfo(gridId, secondsLeft);
+        }
+
+        protected override void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)
+        {
+            presenter.ShowSequenceProcessData(sequenceProcess);
+        }
+
+        private void ControlCenter_ResizeEnd(object sender, EventArgs e)
+        {
+            CachedDisplays = null;
         }
     }
 }

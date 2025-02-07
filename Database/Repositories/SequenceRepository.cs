@@ -6,5 +6,9 @@ namespace Database.Repositories
 {
     public sealed class SequenceRepository : BaseRepository<Sequence>, ISequenceRepository
     {
+        public long SelectCameraCount(long sequenceId)
+        {
+            return ExecuteScalar<long>("SelectSequenceCameraCount", new { SequenceId = sequenceId });
+        }
     }
 }

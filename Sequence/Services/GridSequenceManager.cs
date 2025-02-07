@@ -18,6 +18,7 @@ using Sequence.Dto;
 using Sequence.Forms;
 using LiveView.Core.Enums.Display;
 using Mtf.Network;
+using LiveView.Core.Enums.Network;
 
 namespace Sequence.Services
 {
@@ -176,21 +177,33 @@ namespace Sequence.Services
             return result;
         }
 
-        private async Task WaitWithCancellationAsync(int millisecondsDelay, int checkInterval = 100)
+        private async Task WaitWithCancellationAsync((Grid grid, GridInSequence gridInSequence) gridInfo, int checkInterval = 100)
         {
+
 #if NET481
+            var millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
             var start = Environment.TickCount;
-            while (Environment.TickCount - start < millisecondsDelay)
+            var elapsedMilliseconds = Environment.TickCount - start;
 #else
+            long millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
             var start = Environment.TickCount64;
-            while ((Environment.TickCount64 - start < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
+            var elapsedMilliseconds = Environment.TickCount64 - start;
 #endif
+            while ((elapsedMilliseconds < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
             {
+                var secondsLeft = Math.Max(0, (millisecondsDelay - elapsedMilliseconds) / 1000);
+                var secondsLeftStr = IsPaused ? "Paused" : secondsLeft.ToString();
+                client?.Send($"{NetworkCommand.SecondsLeftFromGrid}|{gridInfo.grid.Id}|{secondsLeftStr}", true);
                 if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     break;
                 }
                 await Task.Delay(checkInterval, CancellationToken.None).ConfigureAwait(false);
+#if NET481
+                elapsedMilliseconds = Environment.TickCount - start;
+#else
+                elapsedMilliseconds = Environment.TickCount64 - start;
+#endif
             }
         }
 
@@ -282,14 +295,14 @@ namespace Sequence.Services
                     for (int i = currentGridIndex; i < sequenceGrids.Count; i++)
                     {
                         currentGridIndex = GetCurrentGridIndex(i);
-                        var grid = sequenceGrids[i];
-                        var gridCameras = GetCameras(grid);
+                        var gridInfo = sequenceGrids[i];
+                        var gridCameras = GetCameras(gridInfo);
 
-                        ShowGrid(sequenceGrids, grid, gridCameras);
+                        ShowGrid(sequenceGrids, gridInfo, gridCameras);
                         parentForm.ResumeLayout();
-                        await WaitWithCancellationAsync(grid.gridInSequence.TimeToShow * 1000).ConfigureAwait(false);
+                        await WaitWithCancellationAsync(gridInfo).ConfigureAwait(false);
                         parentForm.SuspendLayout();
-                        HideCameraWindows(grid.grid.Id);
+                        HideCameraWindows(gridInfo.grid.Id);
                     }
 
                     currentGridIndex = 0;

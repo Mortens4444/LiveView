@@ -403,6 +403,11 @@ namespace LiveView.Presenters
                     {
                         CameraProcessInfo.Remove(e.Socket);
                     }
+                    else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
+                    {
+                        var gridId = Convert.ToInt64(messageParts[1]);
+                        MainForm.ControlCenter.ShowGridInfo(gridId, messageParts[2]);
+                    }
                     else if (message.StartsWith($"{NetworkCommand.RegisterVideoSource}"))
                     {
                         CameraProcessInfo.Add(e.Socket, new CameraProcessInfo

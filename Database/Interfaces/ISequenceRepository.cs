@@ -5,5 +5,6 @@ namespace Database.Interfaces
 {
     public interface ISequenceRepository : IRepository<Sequence>
     {
+        long SelectCameraCount(long sequenceId);
     }
 }

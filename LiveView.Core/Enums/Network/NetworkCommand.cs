@@ -40,6 +40,7 @@
         RearrangeGrids,
         ShowNextGrid,
         PlayOrPauseSequence,
-        AgentDisconnected
+        AgentDisconnected,
+        SecondsLeftFromGrid
     }
 }

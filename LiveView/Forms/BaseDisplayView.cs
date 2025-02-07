@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace LiveView.Forms
 {
@@ -75,9 +74,16 @@ namespace LiveView.Forms
                 if (display.Host == hostname)
                 {
                     DrawDisplay(panel, graphics, display, displayDrawingTools);
+                    if (displayDrawingTools == DisplayDrawingTools.Selected && display.Selected)
+                    {
+                        var sequenceProcess = MainPresenter.SequenceProcesses.FirstOrDefault(sp => sp.Value.DisplayId.ToString() == display.Id);
+                        ShowSequenceProcessData(sequenceProcess.Value);
+                    }
                 }
             }
         }
+
+        protected virtual void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess) { }
 
         protected void GetAndCacheDisplays(Size size)
         {
@@ -134,6 +140,8 @@ namespace LiveView.Forms
             }
         }
 
+        private const int delta = 4;
+
         private void ShowSeqence(Panel panel, Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
         {
             var sequenceEnvironments = displayPresenter.GetSequenceEnvironments(display);
@@ -144,12 +152,17 @@ namespace LiveView.Forms
 
                 if (!panel.Controls.ContainsKey(sequenceEnvironment.CloseButton.Name))
                 {
-                    const int delta = 4;
                     sequenceEnvironment.CloseButton.Location = new Point(
                         adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta,
                         adjustedBounds.Top + delta);
                     panel.Controls.Add(sequenceEnvironment.CloseButton);
                     sequenceEnvironment.CloseButton.BringToFront();
+                }
+                else
+                {
+                    panel.Controls[sequenceEnvironment.CloseButton.Name].Location = new Point(
+                        adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta,
+                        adjustedBounds.Top + delta);
                 }
             }
             RemoveInvalidButtons(panel, display);
