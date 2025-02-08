@@ -1,5 +1,6 @@
 Network encryption
 Template should open remote displays
+Personal options not loaded correctly, not used...
 
 GeneralOptionsForm
 ------------------
@@ -32,6 +33,7 @@ MapCreator
 
 Log Viewer
 ----------
+- Log filters always works
 - Log exception do not log correctly the StackTrace
 - Log entry search
 

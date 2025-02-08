@@ -40,15 +40,14 @@ namespace LiveView.Extensions
             logger.Log(LogLevel.Error, new LogEntry
             {
                 Date = DateTime.UtcNow,
-                OtherInformation = message ?? exception.Message
+                OtherInformation = String.Concat(message, exception.ToString())
             }, exception);
         }
 
         public static void LogExceptionAndShowErrorBox<TLoggerType>(this ILogger<TLoggerType> logger, Exception exception, string message = null)
         {
-            var showMessage = message ?? exception.Message;
-            logger.LogException(exception, showMessage);
-            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem(showMessage));
+            logger.LogException(exception, String.Concat(message, exception.ToString()));
+            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem(message ?? exception.Message));
         }
     }
 }

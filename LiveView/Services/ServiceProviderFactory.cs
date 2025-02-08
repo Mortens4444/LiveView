@@ -65,7 +65,7 @@ namespace LiveView.Services
             services.AddTransient<MainPresenterDependencies>();
             services.AddTransient<MapCreatorPresenterDependencies>();
             services.AddTransient<MotionPopupPresenterDependencies>();
-            services.AddTransient<MapLoaderDependencies>();            
+            services.AddTransient<MapLoaderDependencies>();
             services.AddTransient<PersonalOptionsPresenterDependencies>();
             services.AddTransient<ProfilePresenterDependencies>();
             services.AddTransient<SequentialChainsPresenterDependencies>();
@@ -132,12 +132,15 @@ namespace LiveView.Services
             services.AddScoped<ICameraRightRepository, CameraRightRepository>();
             services.AddScoped<IDatabaseServerRepository, DatabaseServerRepository>();
             services.AddScoped<IDisplayRepository, DisplayRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IGeneralOptionsRepository, GeneralOptionsRepository>();
             services.AddScoped<IGridCameraRepository, GridCameraRepository>();
             services.AddScoped<IGridInSequenceRepository, GridInSequenceRepository>();
             services.AddScoped<IGridRepository, GridRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IIOPortRepository, IOPortRepository>();
+            services.AddScoped<IIOPortsLogRepository, IOPortsLogRepository>();
+            services.AddScoped<IIOPortsRuleRepository, IOPortsRuleRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IMapObjectRepository, MapObjectRepository>();

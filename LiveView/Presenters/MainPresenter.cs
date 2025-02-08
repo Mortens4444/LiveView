@@ -24,6 +24,8 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
+using Mtf.Serial.Enums;
+using Mtf.Serial.SerialDevices;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -42,6 +44,7 @@ namespace LiveView.Presenters
     public class MainPresenter : BasePresenter
     {
         private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
+        private SltWatchdog watchdog;
 
         public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
@@ -255,6 +258,33 @@ namespace LiveView.Presenters
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
             ShowControlCenter();
+            StartWatchdog();
+        }
+
+        private void StartWatchdog()
+        {
+            if (generalOptionsRepository.Get(Setting.UseWatchDog, false))
+            {
+                try
+                {
+                    string portName;
+                    try
+                    {
+                        portName = SltWatchdog.GetPortName(WatcdogType.USB);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        portName = SltWatchdog.GetPortName(WatcdogType.COM);
+                    }
+
+                    watchdog = new SltWatchdog(portName);
+                    watchdog.StartPetting();
+                }
+                catch (Exception ex)
+                {
+                    ShowError(ex.Message);
+                }
+            }
         }
 
         public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)
@@ -527,6 +557,7 @@ namespace LiveView.Presenters
                 var handle = view.GetHandle();
                 WinAPI.UnregisterHotKey(handle, 1);
                 Server.Stop();
+                watchdog?.StopPetting();
                 Environment.Exit(0);
                 return true;
             }

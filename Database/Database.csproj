@@ -20,6 +20,7 @@
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropLogsTableColumn.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
     <EmbeddedResource Include="Scripts\SelectSequenceCameraCount.sql" />
     <EmbeddedResource Include="Scripts\InsertAgent.sql" />
     <EmbeddedResource Include="Scripts\InsertCameraRight.sql" />
