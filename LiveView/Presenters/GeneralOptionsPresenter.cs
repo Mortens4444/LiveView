@@ -71,6 +71,7 @@ namespace LiveView.Presenters
                 .ToList();
 
             view.CbUsers.AddItems(filteredUsers);
+            view.CbUsers.Items.Insert(0, String.Empty);
             view.CbAutoLoadedTemplate.AddItems(templates);
             
             var templateToLoadAutomatically = generalOptionsRepository.Get(Setting.AutoLoadedTemplate, String.Empty);
@@ -275,6 +276,10 @@ namespace LiveView.Presenters
             if (view.CbUsers.SelectedItem is User user)
             {
                 generalOptionsRepository.Set(Setting.AutoLoginUser, user.Username);
+            }
+            else
+            {
+                generalOptionsRepository.Set(Setting.AutoLoginUser, String.Empty);
             }
 
             generalOptionsRepository.Set(Setting.ReduceSequenceUsageOfNetworkAndCPU, view.ChkReduceSequenceUsageOfNetworkAndCPU.Checked);

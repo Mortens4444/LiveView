@@ -2,10 +2,6 @@ Network encryption
 Template should open remote displays
 Personal options not loaded correctly, not used...
 
-GeneralOptionsForm
-------------------
-Show and Delete auto login user
-
 Sequence
 --------
 Close sequence on taskbar, close button stays on display on ControlCenter

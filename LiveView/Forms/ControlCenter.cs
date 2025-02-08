@@ -410,7 +410,7 @@ namespace LiveView.Forms
 
         public void ShowGridInfo(long gridId, string secondsLeft)
         {
-            presenter.ShowGridInfo(gridId, secondsLeft);
+            presenter?.ShowGridInfo(gridId, secondsLeft);
         }
 
         protected override void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)

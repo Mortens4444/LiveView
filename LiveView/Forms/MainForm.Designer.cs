@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -63,6 +63,7 @@ namespace LiveView.Forms
             ssStatusStrip = new StatusStrip();
             tsslServerData = new ToolStripStatusLabel();
             tsslOsUptime = new ToolStripStatusLabel();
+            tsslJoystick = new ToolStripStatusLabel();
             tsmiExit = new ToolStripMenuItem();
             tsmiLicense = new ToolStripMenuItem();
             tsmiMain = new ToolStripMenuItem();
@@ -112,7 +113,6 @@ namespace LiveView.Forms
             msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
             timer = new Timer(components);
-            tsslJoystick = new ToolStripStatusLabel();
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
@@ -131,7 +131,7 @@ namespace LiveView.Forms
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Image = Properties.Resources.system_options;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -148,7 +148,7 @@ namespace LiveView.Forms
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Image = Properties.Resources.personal_options;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -157,7 +157,7 @@ namespace LiveView.Forms
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = Properties.Resources.display_settings;
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
@@ -378,6 +378,12 @@ namespace LiveView.Forms
             tsslOsUptime.Size = new System.Drawing.Size(165, 17);
             tsslOsUptime.Text = "System uptime: 0 day 00:00:00";
             // 
+            // tsslJoystick
+            // 
+            tsslJoystick.Name = "tsslJoystick";
+            tsslJoystick.Size = new System.Drawing.Size(48, 17);
+            tsslJoystick.Text = "Joystick";
+            // 
             // tsmiExit
             // 
             tsmiExit.Alignment = ToolStripItemAlignment.Right;
@@ -413,6 +419,7 @@ namespace LiveView.Forms
             // 
             // tsmiMapCreator
             // 
+            tsmiMapCreator.Enabled = false;
             tsmiMapCreator.Image = Properties.Resources.map_creator;
             tsmiMapCreator.Name = "tsmiMapCreator";
             tsmiMapCreator.Size = new System.Drawing.Size(215, 22);
@@ -500,6 +507,7 @@ namespace LiveView.Forms
             // 
             // tsmiKBD300ASimulator
             // 
+            tsmiKBD300ASimulator.Enabled = false;
             tsmiKBD300ASimulator.Image = Properties.Resources.Kbd300ASimulator;
             tsmiKBD300ASimulator.Name = "tsmiKBD300ASimulator";
             tsmiKBD300ASimulator.Size = new System.Drawing.Size(215, 22);
@@ -626,11 +634,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "IO_Devices";
+            treeNode1.SelectedImageIndex = 0;
+            treeNode1.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 64);
@@ -876,12 +884,6 @@ namespace LiveView.Forms
             timer.Enabled = true;
             timer.Interval = 500;
             timer.Tick += Timer_Tick;
-            // 
-            // tsslJoystick
-            // 
-            tsslJoystick.Name = "tsslJoystick";
-            tsslJoystick.Size = new System.Drawing.Size(48, 17);
-            tsslJoystick.Text = "Joystick";
             // 
             // MainForm
             // 
