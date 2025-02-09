@@ -82,27 +82,30 @@ namespace LiveView.Presenters
         public override void Load()
         {
             view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
-
-            LoadAvailableCameras();
-            LoadAvailableOperations();
-
-            LoadCurrentCameraPermissions();
-            LoadCurrentOperationPermissions();
         }
 
-        private void LoadAvailableOperations()
+        public void LoadForEvent(long userEventId)
         {
-            var operations = view.ParentGroup != null && view.ParentGroup.ParentGroupId != null ? operationRepository.SelectGroupOperations(view.ParentGroup.Id) : operationRepository.SelectAll();
+            LoadAvailableCameras(userEventId);
+            LoadAvailableOperations(userEventId);
+
+            LoadCurrentCameraPermissions(userEventId);
+            LoadCurrentOperationPermissions(userEventId);
+        }
+
+        private void LoadAvailableOperations(long userEventId)
+        {
+            var operations = view.ParentGroup != null && view.ParentGroup.ParentGroupId != null ? operationRepository.SelectGroupOperations(view.ParentGroup.Id, userEventId) : operationRepository.SelectAll();
             AddOperationsToListView(operations, view.LvAvaialableOperationsAndCameras);
         }
 
-        private void LoadCurrentOperationPermissions()
+        private void LoadCurrentOperationPermissions(long userEventId)
         {
-            var operations = view.Group != null ? operationRepository.SelectGroupOperations(view.Group.Id) : new ReadOnlyCollection<Operation>(Array.Empty<Operation>());
+            var operations = view.Group != null ? operationRepository.SelectGroupOperations(view.Group.Id, userEventId) : new ReadOnlyCollection<Operation>(Array.Empty<Operation>());
             AddOperationsToListView(operations, view.LvOperationsAndCameras);
         }
 
-        private void LoadAvailableCameras()
+        private void LoadAvailableCameras(long userEventId) // Use CameraPermissions and userEvnetId!
         {
             view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(),
                 camera => new ListViewItem(camera.CameraName, CameraIconIndex)
@@ -113,7 +116,7 @@ namespace LiveView.Presenters
                 });
         }
 
-        private void LoadCurrentCameraPermissions()
+        private void LoadCurrentCameraPermissions(long userEventId) // Use CameraPermissions and userEvnetId!
         {
             var cameras = view.Group != null ? cameraRepository.SelectGroupCameras(view.Group.Id) : new ReadOnlyCollection<Camera>(Array.Empty<Camera>());
             view.LvOperationsAndCameras.AddItems(cameras,
@@ -177,6 +180,7 @@ namespace LiveView.Presenters
                 if (existingUserEvent == null)
                 {
                     userEventRepository.Insert(userEvent);
+                    view.CbEvents.AddItemsAndSelectFirst(userEventRepository.SelectAll());
                 }
             }
             catch (Exception ex)
@@ -232,6 +236,17 @@ namespace LiveView.Presenters
 
         public void SavePermissions()
         {
+            //long userEventId;
+            //if (view.CbEvents.SelectedItem is UserEvent selectedUserEvent)
+            //{
+            //    userEventId = selectedUserEvent.Id;
+            //}
+            //else
+            //{
+            //    ShowError("Select an event first.");
+            //    return;
+            //}
+
             if (view.ParentGroup == null)
             {
                 ShowError("Built-in developer group cannot be modified.");
@@ -246,7 +261,7 @@ namespace LiveView.Presenters
             }
 
             var existingGroup = groupRepository.Select(group.Id);
-            groupRepository.DeleteGroupPermissions(group.Id);
+            
             var userEvent = view.GetUserEvent();
             var existingUserEvent = userEventRepository.GetByName(userEvent.Name);
             if (existingUserEvent == null)
@@ -255,6 +270,7 @@ namespace LiveView.Presenters
                 return;
             }
 
+            groupRepository.DeleteGroupPermissions(group.Id, existingUserEvent.Id);
             foreach (ListViewItem item in view.LvOperationsAndCameras.Items)
             {
                 if (item.Tag is Operation operation)

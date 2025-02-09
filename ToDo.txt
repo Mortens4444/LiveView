@@ -2,18 +2,10 @@ Network encryption
 Template should open remote displays
 Personal options not loaded correctly, not used...
 
-Sequence
---------
-Close sequence on taskbar, close button stays on display on ControlCenter
-
 VideoSource
 -----------
 - Add synchron view
 - MapCreatorPresenter, MapLoader comments should be addressed
-
-Groups
-------
-- Add Events, Operations, Camera permissions
 
 Contol Panel
 ------------

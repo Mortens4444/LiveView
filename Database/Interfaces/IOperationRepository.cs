@@ -8,6 +8,6 @@ namespace Database.Interfaces
     {
         bool HasAnyRow();
 
-        ReadOnlyCollection<Operation> SelectGroupOperations(long groupId);
+        ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId);
     }
 }

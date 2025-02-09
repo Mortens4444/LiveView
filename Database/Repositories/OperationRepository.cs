@@ -12,9 +12,9 @@ namespace Database.Repositories
             return ExecuteScalar<int>("HasAnyRowOperation", null) != 0;
         }
 
-        public ReadOnlyCollection<Operation> SelectGroupOperations(long groupId)
+        public ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId)
         {
-            return Query("SelectGroupOperations", new { GroupId = groupId });
+            return Query("SelectGroupOperations", new { GroupId = groupId, UserEventId = userEventId });
         }
     }
 }

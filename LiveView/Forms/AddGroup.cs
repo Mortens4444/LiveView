@@ -157,6 +157,7 @@ namespace LiveView.Forms
             if (CbEvents.SelectedItem is UserEvent userEvent)
             {
                 tbUserEventNote.Text = userEvent.Note;
+                presenter.LoadForEvent(userEvent.Id);
             }
         }
 

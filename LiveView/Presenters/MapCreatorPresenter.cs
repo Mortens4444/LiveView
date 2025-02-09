@@ -118,17 +118,6 @@ namespace LiveView.Presenters
                     movableSizablePanel.Tag = menuItem.Tag;
                 }
             }
-            //else if (sender is ToolStripMenuItem videoSourceItem && videoSourceItem.Tag is VideoSource)
-            //{
-            //    var dropDownMenu = videoSourceItem.GetCurrentParent() as ToolStripDropDownMenu;
-            //    var contextMenu = dropDownMenu?.OwnerItem?.OwnerItem?.OwnerItem?.Owner as ContextMenuStrip;
-            //    var sourceControl = contextMenu?.SourceControl;
-
-            //    if (sourceControl is MovableSizablePanel movableSizablePanel)
-            //    {
-            //        movableSizablePanel.Tag = videoSourceItem.Tag;
-            //    }
-            //}
             else if (sender is ToolStripMenuItem mapMenuItem && mapMenuItem.Tag is Map)
             {
                 var dropDownMenu = mapMenuItem.GetCurrentParent() as ToolStripDropDownMenu;
