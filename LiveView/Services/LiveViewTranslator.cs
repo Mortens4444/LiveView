@@ -18,10 +18,10 @@ namespace LiveView.Services
             BaseBox.Copy = Lng.Elem("Copy");
             BaseBox.PleaseWait = Lng.Elem("Please wait...");
 
-            MainForm.Uptime = Lng.Elem("Uptime");
-            MainForm.SystemUptime = Lng.Elem("System uptime");
-            MainForm.Day = Lng.Elem("day");
-            MainForm.Days = Lng.Elem("days");
+            Globals.Uptime = Lng.Elem("Uptime");
+            Globals.SystemUptime = Lng.Elem("System uptime");
+            Globals.Day = Lng.Elem("day");
+            Globals.Days = Lng.Elem("days");
         }
     }
 }

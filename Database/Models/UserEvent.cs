@@ -6,8 +6,6 @@ namespace Database.Models
     {
         public long Id { get; set; }
 
-        public long LanguageElementId { get; set; }
-
         public string Note { get; set; }
 
         public string Name { get; set; }

@@ -131,7 +131,7 @@ namespace LiveView.Forms
             tsmiGeneralOptions.Enabled = false;
             tsmiGeneralOptions.Image = Properties.Resources.system_options;
             tsmiGeneralOptions.Name = "tsmiGeneralOptions";
-            tsmiGeneralOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiGeneralOptions.Size = new System.Drawing.Size(162, 22);
             tsmiGeneralOptions.Text = "General options";
             tsmiGeneralOptions.Click += TsmiGeneralOptions_Click;
             // 
@@ -148,7 +148,7 @@ namespace LiveView.Forms
             tsmiPersonalOptions.Enabled = false;
             tsmiPersonalOptions.Image = Properties.Resources.personal_options;
             tsmiPersonalOptions.Name = "tsmiPersonalOptions";
-            tsmiPersonalOptions.Size = new System.Drawing.Size(180, 22);
+            tsmiPersonalOptions.Size = new System.Drawing.Size(162, 22);
             tsmiPersonalOptions.Text = "Personal options";
             tsmiPersonalOptions.Click += TsmiPersonalOptions_Click;
             // 
@@ -157,7 +157,7 @@ namespace LiveView.Forms
             tsmiDisplaySettings.Enabled = false;
             tsmiDisplaySettings.Image = Properties.Resources.display_settings;
             tsmiDisplaySettings.Name = "tsmiDisplaySettings";
-            tsmiDisplaySettings.Size = new System.Drawing.Size(180, 22);
+            tsmiDisplaySettings.Size = new System.Drawing.Size(162, 22);
             tsmiDisplaySettings.Text = "Display settings";
             tsmiDisplaySettings.Click += TsmiDisplaySettings_Click;
             // 
@@ -528,11 +528,11 @@ namespace LiveView.Forms
             // 
             gbUserEvents.Controls.Add(lvUserEvents);
             gbUserEvents.Dock = DockStyle.Fill;
-            gbUserEvents.Location = new System.Drawing.Point(0, 147);
+            gbUserEvents.Location = new System.Drawing.Point(0, 269);
             gbUserEvents.Margin = new Padding(4, 3, 4, 3);
             gbUserEvents.Name = "gbUserEvents";
             gbUserEvents.Padding = new Padding(4, 3, 4, 3);
-            gbUserEvents.Size = new System.Drawing.Size(253, 343);
+            gbUserEvents.Size = new System.Drawing.Size(253, 221);
             gbUserEvents.TabIndex = 14;
             gbUserEvents.TabStop = false;
             gbUserEvents.Text = "Choose the active event";
@@ -560,10 +560,11 @@ namespace LiveView.Forms
             lvUserEvents.ReadonlyCheckboxes = false;
             lvUserEvents.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvUserEvents.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvUserEvents.Size = new System.Drawing.Size(245, 321);
+            lvUserEvents.Size = new System.Drawing.Size(245, 199);
             lvUserEvents.TabIndex = 0;
             lvUserEvents.UseCompatibleStateImageBehavior = false;
             lvUserEvents.View = View.Details;
+            lvUserEvents.ItemSelectionChanged += LvUserEvents_ItemSelectionChanged;
             // 
             // chEventName
             // 
@@ -613,7 +614,7 @@ namespace LiveView.Forms
             // splitter4
             // 
             splitter4.Dock = DockStyle.Top;
-            splitter4.Location = new System.Drawing.Point(0, 144);
+            splitter4.Location = new System.Drawing.Point(0, 266);
             splitter4.Margin = new Padding(4, 3, 4, 3);
             splitter4.Name = "splitter4";
             splitter4.Size = new System.Drawing.Size(253, 3);
@@ -641,7 +642,7 @@ namespace LiveView.Forms
             tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
-            tvIOPorts.Size = new System.Drawing.Size(253, 64);
+            tvIOPorts.Size = new System.Drawing.Size(253, 186);
             tvIOPorts.StateImageList = ilIOPortIcons;
             tvIOPorts.StateImageOrCheckBoxOnLeft = false;
             tvIOPorts.TabIndex = 3;

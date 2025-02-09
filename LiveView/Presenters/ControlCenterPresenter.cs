@@ -80,10 +80,10 @@ namespace LiveView.Presenters
             }
             else
             {
-                if (MainPresenter.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
+                if (Globals.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
                 {
                     MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcessId);
-                    MainPresenter.CameraProcesses.Remove(view.CbAgents.Text);
+                    Globals.CameraProcesses.Remove(view.CbAgents.Text);
                 }
             }
         }
@@ -232,7 +232,7 @@ namespace LiveView.Presenters
                     var selected = view.CbAgents.SelectedItem;
                     view.CbAgents.Items.Clear();
                     view.CbAgents.Items.Add(Lng.Elem("Localhost"));
-                    view.CbAgents.Items.AddRange(MainPresenter.Agents.OrderBy(agent => agent).ToArray());
+                    view.CbAgents.Items.AddRange(Globals.Agents.OrderBy(agent => agent).ToArray());
                     view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
                 }));
             }
@@ -363,9 +363,9 @@ namespace LiveView.Presenters
 
         public void StartTemplate(Template template)
         {
-            foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
+                Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
             }
 
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });

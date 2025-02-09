@@ -76,7 +76,7 @@ namespace LiveView.Forms
                     DrawDisplay(panel, graphics, display, displayDrawingTools);
                     if (displayDrawingTools == DisplayDrawingTools.Selected && display.Selected)
                     {
-                        var sequenceProcess = MainPresenter.SequenceProcesses.FirstOrDefault(sp => sp.Value.DisplayId.ToString() == display.Id);
+                        var sequenceProcess = Globals.SequenceProcesses.FirstOrDefault(sp => sp.Value.DisplayId.ToString() == display.Id);
                         ShowSequenceProcessData(sequenceProcess.Value);
                     }
                 }
@@ -177,7 +177,7 @@ namespace LiveView.Forms
                     var match = ButtonNameRegex.Match(button.Name);
                     if (match.Success && Int64.TryParse(match.Groups[1].Value, out long sequenceId))
                     {
-                        var sequenceProcessInfoList = MainPresenter.SequenceProcesses.Values;
+                        var sequenceProcessInfoList = Globals.SequenceProcesses.Values;
                         if (!(sequenceProcessInfoList.Any(sequenceProcessInfo => sequenceProcessInfo.SequenceId == sequenceId
                             && sequenceProcessInfo.DisplayId.ToString() == match.Groups[2].Value)))
                         {

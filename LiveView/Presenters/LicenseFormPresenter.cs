@@ -47,7 +47,7 @@ namespace LiveView.Presenters
             var dedicatedServerIds = servers.Where(server => server.SerialNumber != null).Select(server => server.Id).ToList();
             var notDedicatedServerIds = servers.Where(server => server.SerialNumber == null).Select(server => server.Id).ToList();
 
-            dynamic hardwareKey = MainForm.HardwareKey;
+            dynamic hardwareKey = Globals.HardwareKey;
             view.SetLabelText(view.LblLicenseStatusResult, hardwareKey.VideoSupervisorLicenseStatus ? Lng.Elem("Licensed") : Lng.Elem("Not licensed"));
             view.SetLabelText(view.LblId, hardwareKey.SziltechId);
             view.SetLabelText(view.LblUsersMaxPerAct, $"{hardwareKey.LiveViewUserNumber} / {users.Count}");

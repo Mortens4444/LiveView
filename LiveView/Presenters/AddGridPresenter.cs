@@ -304,7 +304,7 @@ namespace LiveView.Presenters
             }
 
             result.Items.AddRange(
-                MainPresenter.VideoCaptureSources
+                Globals.VideoCaptureSources
                     .SelectMany(vcs => vcs.Value, (vcs, camera) => new VideoSource
                     {
                         Socket = vcs.Key,

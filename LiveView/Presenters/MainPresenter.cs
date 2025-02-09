@@ -26,10 +26,9 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
+using SharpDX;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Linq;
@@ -46,15 +45,6 @@ namespace LiveView.Presenters
         private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
         private SltWatchdog watchdog;
 
-        public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
-        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
-        public readonly static ConcurrentDictionary<string, SequenceProcessInfo> SequenceProcesses = new ConcurrentDictionary<string, SequenceProcessInfo>();
-        public readonly static Dictionary<Socket, CameraProcessInfo> CameraProcessInfo = new Dictionary<Socket, CameraProcessInfo>();
-        
-        public static BindingList<string> Agents { get; } = new BindingList<string>();
-        //public readonly static Dictionary<string, DateTime> AgentPingTimes = new Dictionary<string, DateTime>();
-
-        public static NetworkServer Server { get; private set; }
         private readonly ILogger<MainForm> logger;
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
@@ -65,6 +55,7 @@ namespace LiveView.Presenters
         private readonly IGroupRepository groupRepository;
         private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
+        private readonly IUserEventRepository userEventRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IAgentRepository agentRepository;
@@ -94,6 +85,7 @@ namespace LiveView.Presenters
             permissionManager = dependencies.PermissionManager;
             agentRepository = dependencies.AgentRepository;
             operationRepository = dependencies.OperationRepository;
+            userEventRepository = dependencies.UserEventRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
         }
@@ -108,43 +100,61 @@ namespace LiveView.Presenters
         {
             logger.LogInfo(ApplicationManagementPermissions.Start, "Application started.");
             //MousePointer.ShowOnCtrlKey();
-            var handle = view.GetHandle();
-            WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
+            RegisterHotkey();
+            StartServer();
+            LoadFirstMap();
+            LoadEvents();
+            CheckLanguageFile();
+            StartJoystick();
+            StartMotionTriggeredCameras();
+        }
 
+        private void LoadEvents()
+        {
+            var userEvents = userEventRepository.SelectAll();
+            view.LvUserEvents.AddItems(userEvents, (userEvent) =>
+            {
+                var result = new ListViewItem(userEvent.Name) { Tag = userEvent, ToolTipText = userEvent.Note };
+                result.SubItems.Add(userEvent.Note);
+                return result;
+            });
+        }
+
+        private void StartServer()
+        {
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var port))
             {
                 try
                 {
-                    Server = new NetworkServer(listenerPort: port);
-                    Server.DataArrived += DataArrivedEventHandler;
-                    Server.Start();
+                    Globals.Server = new NetworkServer(listenerPort: port);
+                    Globals.Server.DataArrived += DataArrivedEventHandler;
+                    Globals.Server.Start();
                 }
                 catch (SocketException)
                 {
                     Application.Restart();
                 }
 
-                view.TsslServerData.Text = $"{Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
+                view.TsslServerData.Text = $"{Globals.Server.Socket.LocalEndPoint} ({Lng.Elem("Listening on")}: {String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
             }
+        }
 
-            LoadFirstMap();
-
-            CheckLanguageFile();
-
-            StartJoystick();
-            StartMotionTriggeredCameras();
+        private void RegisterHotkey()
+        {
+            var handle = view.GetHandle();
+            WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
         }
 
         private void ShowControlCenter()
         {
             if (generalOptionsRepository.Get(Setting.OpenControlCenterWhenProgramStarts, true))
             {
-                if (MainForm.ControlCenter != null)
+                if (Globals.ControlCenter != null)
                 {
-                    MainForm.ControlCenter.Close();
+                    Globals.ControlCenter.Close();
                 }
-                MainForm.ControlCenter = ShowForm<ControlCenter>();
+                Globals.ControlCenter = ShowForm<ControlCenter>();
             }
         }
 
@@ -155,15 +165,15 @@ namespace LiveView.Presenters
             var autoLoadTemplate = templates.FirstOrDefault(template => template.TemplateName == templateToLoad);
             if (autoLoadTemplate != null)
             {
-                if (MainForm.ControlCenter == null)
+                if (Globals.ControlCenter == null)
                 {
-                    MainForm.ControlCenter = ShowForm<ControlCenter>();
-                    MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
-                    MainForm.ControlCenter.Close();
+                    Globals.ControlCenter = ShowForm<ControlCenter>();
+                    Globals.ControlCenter.StartTemplate(autoLoadTemplate);
+                    Globals.ControlCenter.Close();
                 }
                 else
                 {
-                    MainForm.ControlCenter.StartTemplate(autoLoadTemplate);
+                    Globals.ControlCenter.StartTemplate(autoLoadTemplate);
                 }
             }
         }
@@ -289,11 +299,11 @@ namespace LiveView.Presenters
 
         public static void SendMessageToSequenceOnDisplay(DisplayDto display, string message)
         {
-            foreach (var sequenceProcess in SequenceProcesses)
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
                 if (sequenceProcess.Value.DisplayId == display.GetId())
                 {
-                    Server.SendMessageToClient(sequenceProcess.Value.Socket, message, true);
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, message, true);
                 }
             }
         }
@@ -303,13 +313,13 @@ namespace LiveView.Presenters
             var info = GetFullScreenInfo();
             if (info.Key != null)
             {
-                Server.SendMessageToClient(info.Key, message, true);
+                Globals.Server.SendMessageToClient(info.Key, message, true);
             }
         }
 
         private static KeyValuePair<Socket, CameraProcessInfo> GetFullScreenInfo()
         {
-            foreach (KeyValuePair<Socket, CameraProcessInfo> cameraProcessInfo in CameraProcessInfo)
+            foreach (KeyValuePair<Socket, CameraProcessInfo> cameraProcessInfo in Globals.CameraProcessInfo)
             {
                 if (cameraProcessInfo.Value.DisplayId != null)
                 {
@@ -332,7 +342,7 @@ namespace LiveView.Presenters
         {
             try
             {
-                var messages = $"{Server?.Encoding.GetString(e.Data)}";
+                var messages = $"{Globals.Server?.Encoding.GetString(e.Data)}";
                 var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var message in allMessages)
                 {
@@ -340,45 +350,43 @@ namespace LiveView.Presenters
 
                     if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
                     {
-                        Agents.Add(messageParts[1]);
-                        //AgentPingTimes.Add(messageParts[1], DateTime.UtcNow);
-                        MainForm.ControlCenter?.RefreshAgents();
+                        Globals.Agents.Add(messageParts[1]);
+                        Globals.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
                     {
-                        Agents.Remove(messageParts[1]);
-                        //AgentPingTimes.Remove(messageParts[1]);
-                        
+                        Globals.Agents.Remove(messageParts[1]);
+
                         //agentRepository.DeleteWhere(new { ServerIp = messageParts[1].Split(':')[0] });
-                        MainForm.ControlCenter?.RefreshAgents();
+                        Globals.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
                     {
                         var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
                         DisplayManager.RemoteDisplays.Add(display);
-                        if (MainForm.ControlCenter != null)
+                        if (Globals.ControlCenter != null)
                         {
-                            MainForm.ControlCenter.CachedDisplays = null;
+                            Globals.ControlCenter.CachedDisplays = null;
                         }
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
                     {
                         var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
                         DisplayManager.RemoteDisplays.Remove(display);
-                        if (MainForm.ControlCenter != null)
+                        if (Globals.ControlCenter != null)
                         {
-                            MainForm.ControlCenter.CachedDisplays = null;
+                            Globals.ControlCenter.CachedDisplays = null;
                         }
                     }
                     else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
                     {
                         var cameraProcessId = Convert.ToInt32(messageParts[1]);
-                        CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
+                        Globals.CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
                     {
                         var localEndPoint = messageParts[1];
-                        SequenceProcesses.TryAdd(localEndPoint, new SequenceProcessInfo
+                        Globals.SequenceProcesses.TryAdd(localEndPoint, new SequenceProcessInfo
                         {
                             Socket = e.Socket,
                             UserId = Convert.ToInt64(messageParts[2]),
@@ -393,7 +401,7 @@ namespace LiveView.Presenters
                         var localEndPoint = messageParts[1];
                         //var sequenceId = Convert.ToInt64(messageParts[2]);
                         //var processId = Convert.ToInt32(messageParts[3]);
-                        SequenceProcesses.TryRemove(localEndPoint, out _);
+                        Globals.SequenceProcesses.TryRemove(localEndPoint, out _);
                     }
                     else if (message.StartsWith($"{NetworkCommand.AgentDisconnected}|"))
                     {
@@ -404,7 +412,7 @@ namespace LiveView.Presenters
                         var videoCaptureSources = messageParts[1].Split(';')
                             .Select(vcs => vcs.Split('='))
                             .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
-                        VideoCaptureSources.Add(e.Socket, videoCaptureSources);
+                        Globals.VideoCaptureSources.Add(e.Socket, videoCaptureSources);
                         if (videoCaptureSources.Count > 0)
                         { 
                             agentRepository.DeleteWhere(new { ServerIp = videoCaptureSources.Values.First().Split(':')[0] });
@@ -422,7 +430,7 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
                     {
-                        CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        Globals.CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
                         {
                             LocalEndPoint = messageParts[1],
                             UserId = Convert.ToInt64(messageParts[2]),
@@ -433,16 +441,16 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}|"))
                     {
-                        CameraProcessInfo.Remove(e.Socket);
+                        Globals.CameraProcessInfo.Remove(e.Socket);
                     }
                     else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
                     {
                         var gridId = Convert.ToInt64(messageParts[1]);
-                        MainForm.ControlCenter.ShowGridInfo(gridId, messageParts[2]);
+                        Globals.ControlCenter.ShowGridInfo(gridId, messageParts[2]);
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterVideoSource}"))
                     {
-                        CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        Globals.CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
                         {
                             LocalEndPoint = messageParts[1],
                             UserId = Convert.ToInt64(messageParts[2]),
@@ -454,7 +462,7 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterVideoSource}|"))
                     {
-                        CameraProcessInfo.Remove(e.Socket);
+                        Globals.CameraProcessInfo.Remove(e.Socket);
                     }
                     else if (message.StartsWith($"{NetworkCommand.Ping}"))
                     {
@@ -521,14 +529,15 @@ namespace LiveView.Presenters
         private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
         {
             var group = new Mtf.Permissions.Models.Group();
-            var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId });
+            var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId, UserEventId = Globals.UserEvent?.Id ?? 1 });
             var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
             var operations = operationRepository.SelectWhere(new { Ids = operationIds });
-            var assembly = typeof(CameraManagementPermissions).Assembly;
+            var permissionType = typeof(CameraManagementPermissions);
+            var assembly = permissionType.Assembly;
 
             foreach (var operation in operations)
             {
-                var enumType = assembly.GetType($"Mtf.Permissions.Enums.{operation.PermissionGroup}");
+                var enumType = assembly.GetType($"{permissionType.Namespace}.{operation.PermissionGroup}");
                 if (enumType != null && Enum.IsDefined(enumType, operation.PermissionValue))
                 {
                     var enumValue = Enum.Parse(enumType, operation.PermissionValue);
@@ -556,8 +565,9 @@ namespace LiveView.Presenters
                 StopStartedApplications();
                 var handle = view.GetHandle();
                 WinAPI.UnregisterHotKey(handle, 1);
-                Server.Stop();
+                Globals.Server.Stop();
                 watchdog?.StopPetting();
+                logger.LogInfo(ApplicationManagementPermissions.Exit, "Application stopped.");
                 Environment.Exit(0);
                 return true;
             }
@@ -600,42 +610,42 @@ namespace LiveView.Presenters
 
         private void MapLoader_VideoSourceObjectClicked(CustomEventArgs.VideoSourceObjectClickedEventArgs e)
         {
-            if (MainForm.ControlCenter == null || MainForm.ControlCenter.IsDisposed)
+            if (Globals.ControlCenter == null || Globals.ControlCenter.IsDisposed)
             {
-                MainForm.ControlCenter = ShowForm<ControlCenter>(null, e.VideoSource);
+                Globals.ControlCenter = ShowForm<ControlCenter>(null, e.VideoSource);
             }
             else
             {
-                MainForm.ControlCenter.StartVideoSource(e.VideoSource);
+                Globals.ControlCenter.StartVideoSource(e.VideoSource);
             }
         }
 
         private void MapLoader_CameraObjectClicked(CustomEventArgs.CameraObjectClickedEventArgs e)
         {
-            if (MainForm.ControlCenter == null || MainForm.ControlCenter.IsDisposed)
+            if (Globals.ControlCenter == null || Globals.ControlCenter.IsDisposed)
             {
-                MainForm.ControlCenter = ShowForm<ControlCenter>(e.Camera);
+                Globals.ControlCenter = ShowForm<ControlCenter>(e.Camera);
             }
             else
             {
-                MainForm.ControlCenter.StartCamera(e.Camera);
+                Globals.ControlCenter.StartCamera(e.Camera);
             }
         }
 
         public static void StopStartedApplications()
         {
             ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
-            foreach (var cameraProcessInfo in CameraProcessInfo)
+            foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
             {
-                Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
+                Globals.Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
             }
-            foreach (var cameraProcess in CameraProcesses)
+            foreach (var cameraProcess in Globals.CameraProcesses)
             {
                 SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcess.Value);
             }
-            foreach (var sequenceProcess in SequenceProcesses)
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
+                Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
             }
         }
 
@@ -645,7 +655,7 @@ namespace LiveView.Presenters
             {
                 using (var clientSocket = CreateSocket(clientAddress))
                 {
-                    Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
+                    Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
                 }
             }
             catch (Exception ex)
@@ -697,7 +707,7 @@ namespace LiveView.Presenters
             view.TbPassword.Visible = false;
             view.GbPrimaryLogon.Size = new Size(253, 111);
             view.BtnLoginLogoutPrimary.Text = Lng.Elem("Logout");
-            MainForm.ControlCenter.SetImagesEnabledState();
+            Globals.ControlCenter.SetImagesEnabledState();
         }
 
         private void ChangeControlsOnLogout()
@@ -709,7 +719,7 @@ namespace LiveView.Presenters
             view.TbPassword.Text = String.Empty;
             view.GbPrimaryLogon.Size = new Size(253, 161);
             view.BtnLoginLogoutPrimary.Text = Lng.Elem("Login");
-            MainForm.ControlCenter.SetImagesEnabledState();
+            Globals.ControlCenter.SetImagesEnabledState();
         }
 
         public void Logout()
@@ -726,6 +736,15 @@ namespace LiveView.Presenters
                 permissionManager.SetUser(view.GetSelf(), user);
                 LoadLanguage(user.Tag.Id);
             }
+        }
+
+        public void ChangeEvent(UserEvent userEvent)
+        {
+            var user = permissionManager.CurrentUser;
+            logger.LogInfo(EventManagementPermissions.Update, $"User '{0}' changed the user event to '{1}'.", user, userEvent);
+            Globals.UserEvent = userEvent;
+            SetGroups(user);
+            permissionManager.ApplyPermissionsOnControls(view.GetSelf());
         }
     }
 }

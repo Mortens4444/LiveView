@@ -27,7 +27,7 @@ namespace LiveView.Presenters
         {
             if (UpgradeCodeManager.ValidateUpgradeCode(view.RtbUpgradeCode.Text, view.TbSecretCode.Text, out var edition))
             {
-                MainForm.HardwareKey.LiveViewEdition = edition;
+                Globals.HardwareKey.LiveViewEdition = edition;
                 ShowInfo("LiveView Edition has been upgraded successfully.");
             }
             else

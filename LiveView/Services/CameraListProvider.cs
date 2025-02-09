@@ -14,7 +14,7 @@ namespace LiveView.Services
         public static void AddCameras(ListView listView, ReadOnlyCollection<Camera> cameras, int cameraIconIndex = -1)
         {
             listView.AddItems(cameras, camera => new ListViewItem(camera.CameraName, cameraIconIndex) { Tag = camera });
-            foreach (var videoCaptureSource in MainPresenter.VideoCaptureSources)
+            foreach (var videoCaptureSource in Globals.VideoCaptureSources)
             {
                 foreach (var camera in videoCaptureSource.Value)
                 {
@@ -58,7 +58,7 @@ namespace LiveView.Services
 
                 rootItem.DropDownItems.Add(parentItem);
             }
-            foreach (var videoCaptureSource in MainPresenter.VideoCaptureSources)
+            foreach (var videoCaptureSource in Globals.VideoCaptureSources)
             {
                 var parentItem = new ToolStripMenuItem()
                 {

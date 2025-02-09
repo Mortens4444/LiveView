@@ -91,7 +91,7 @@ namespace LiveView.Presenters
         public List<SequenceEnvironment> GetSequenceEnvironments(DisplayDto display)
         {
             var result = new List<SequenceEnvironment>();
-            foreach (var sequenceProcess in MainPresenter.SequenceProcesses)
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
                 if (display.Id == sequenceProcess.Value.DisplayId.ToString()) // ToDo: Handle remote display sequences also
                 {
@@ -108,8 +108,8 @@ namespace LiveView.Presenters
                     };
                     closeButton.Click += (object sender, EventArgs e) =>
                     {
-                        MainPresenter.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
-                        MainPresenter.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
+                        Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
+                        Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
                         var button = sender as Button;
                         button.Parent.Controls.Remove(button);
                         button.Dispose();

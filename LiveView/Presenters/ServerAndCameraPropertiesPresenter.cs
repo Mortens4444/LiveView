@@ -43,7 +43,7 @@ namespace LiveView.Presenters
         
         public async override void Load()
         {
-            var hwKey = MainForm.HardwareKey as SiliconVideoHardwareKey;
+            var hwKey = Globals.HardwareKey as SiliconVideoHardwareKey;
             view.TbVideoServerName.Text = view.Server.Hostname;
             view.TbHost.Text = view.Server.IpAddress;
             view.TbVideoServerUsername.Text = view.Server.Username;

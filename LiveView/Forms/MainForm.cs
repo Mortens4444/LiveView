@@ -1,15 +1,13 @@
-﻿using LiveView.Core.Dto;
+﻿using Database.Models;
 using LiveView.Core.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
 using Mtf.HardwareKey;
 using Mtf.HardwareKey.Extensions;
-using Mtf.HardwareKey.Interfaces;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -19,26 +17,6 @@ namespace LiveView.Forms
     public partial class MainForm : BaseView, IMainView
     {
         private MainPresenter presenter;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static string Uptime { get; set; }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static string SystemUptime { get; set; }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static string Day { get; set; }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static string Days { get; set; }
-
-        public static readonly ISltHardwareKey HardwareKey;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static ControlCenter ControlCenter { get; set; }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public static DisplayDto FullScreenDisplay { get; set; }
 
         public ToolStripStatusLabel TsslServerData => tsslServerData;
 
@@ -58,14 +36,16 @@ namespace LiveView.Forms
 
         public Button BtnLoginLogoutPrimary => btnLoginLogoutPrimary;
 
+        public ListView LvUserEvents => lvUserEvents;
+
         static MainForm()
         {
 #if DEBUG
-            HardwareKey = new VirtualSziltechHardwareKey();
+            Globals.HardwareKey = new VirtualSziltechHardwareKey();
 #else
-            HardwareKey = new SziltechHardwareKey();
+            Globals.HardwareKey = new SziltechHardwareKey();
 #endif
-            HardwareKey.GetDescription();
+            Globals.HardwareKey.GetDescription();
         }
 
         public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))
@@ -83,15 +63,15 @@ namespace LiveView.Forms
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
         {
-            if (ControlCenter == null || ControlCenter.IsDisposed)
+            if (Globals.ControlCenter == null || Globals.ControlCenter.IsDisposed)
             {
-                ControlCenter = presenter.ShowForm<ControlCenter>();
+                Globals.ControlCenter = presenter.ShowForm<ControlCenter>();
             }
             else
             {
-                ControlCenter.Close();
-                ControlCenter.Dispose();
-                ControlCenter = null;
+                Globals.ControlCenter.Close();
+                Globals.ControlCenter.Dispose();
+                Globals.ControlCenter = null;
             }
         }
 
@@ -296,10 +276,10 @@ namespace LiveView.Forms
 
         public void SetCursorPosition()
         {
-            if (ControlCenter != null)
+            if (Globals.ControlCenter != null)
             {
-                Cursor.Position = ControlCenter.HomeLocation;
-                WinAPI.SetCursorPos(ControlCenter.HomeLocation.X, ControlCenter.HomeLocation.Y);
+                Cursor.Position = Globals.ControlCenter.HomeLocation;
+                WinAPI.SetCursorPos(Globals.ControlCenter.HomeLocation.X, Globals.ControlCenter.HomeLocation.Y);
             }
             else
             {
@@ -315,8 +295,15 @@ namespace LiveView.Forms
 
         public void SetUptime(TimeSpan osUptime, TimeSpan appUptime)
         {
-            tsslOsUptime.Text = osUptime.Days < 2 ? $"{SystemUptime}: {osUptime.Days} {Day} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{SystemUptime}: {osUptime.Days} {Days} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
-            tsslUptime.Text = appUptime.Days < 2 ? $"{Uptime}: {appUptime.Days} {Day} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Uptime}: {appUptime.Days} {Days} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
+            tsslOsUptime.Text = osUptime.Days < 2 ? $"{Globals.SystemUptime}: {osUptime.Days} {Globals.Day} {osUptime.Hours:D2}:{osUptime.Minutes:D2}:{osUptime.Seconds:D2}" : $"{Globals.SystemUptime}: {osUptime.Days} {Globals.Days} {osUptime.Hours:D2}:{appUptime.Minutes:D2}:{osUptime.Seconds:D2}";
+            tsslUptime.Text = appUptime.Days < 2 ? $"{Globals.Uptime}: {appUptime.Days} {Globals.Day} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}" : $"{Globals.Uptime}: {appUptime.Days} {Globals.Days} {appUptime.Hours:D2}:{appUptime.Minutes:D2}:{appUptime.Seconds:D2}";
+        }
+
+        [RequirePermission(EventManagementPermissions.Update)]
+        private void LvUserEvents_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter.ChangeEvent(e.Item.Tag as UserEvent);
         }
 
         [RequirePermission(ApplicationManagementPermissions.Exit)]

@@ -253,14 +253,14 @@ namespace LiveView.Presenters
         private static List<TreeNode> CreateAgentTreeNodes()
         {
             var agentTreeNodes = new List<TreeNode>();
-            foreach (var agent in MainPresenter.VideoCaptureSources.Keys)
+            foreach (var agent in Globals.VideoCaptureSources.Keys)
             {
                 var endPoint = agent.LocalEndPoint.ToString();
                 var agentTreeNode = new TreeNode(endPoint.ToString(), AgentIconIndex, AgentIconIndex)
                 {
                     Name = endPoint.ToString()
                 };
-                var agentCameras = MainPresenter.VideoCaptureSources[agent];
+                var agentCameras = Globals.VideoCaptureSources[agent];
                 foreach (var agentCamera in agentCameras)
                 {
                     var cameraTreeNode = new TreeNode(agentCamera.Key, CameraIconIndex, CameraIconIndex)

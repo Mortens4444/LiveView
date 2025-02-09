@@ -29,5 +29,7 @@ namespace LiveView.Interfaces
         GroupBox GbPrimaryLogon { get; }
 
         Button BtnLoginLogoutPrimary { get; }
+
+        ListView LvUserEvents { get; }
     }
 }
