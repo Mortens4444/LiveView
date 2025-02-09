@@ -105,6 +105,11 @@ namespace LiveView.Presenters
             );
         }
 
+        public void SetImageLocationAndSize()
+        {
+            imageLocationAndSize = MtfPictureBox.GetImageLocationAndSize(view.PCanvas.BackgroundImage, view.PCanvas.Size, PictureBoxSizeMode.Zoom);
+        }
+
         private void MapObjectMenuItem_Click(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem menuItem && (menuItem.Tag is Camera || menuItem.Tag is VideoSource))
@@ -144,7 +149,6 @@ namespace LiveView.Presenters
         {
             view.PCanvas.Controls.Clear();
             view.PCanvas.BackgroundImage = Services.ImageConverter.ByteArrayToImage(map.MapImage);
-            imageLocationAndSize = MtfPictureBox.GetImageLocationAndSize(view.PCanvas.BackgroundImage, view.PCanvas.Size, PictureBoxSizeMode.Zoom);
 
             foreach (MapObject mapObject in mapObjects)
             {

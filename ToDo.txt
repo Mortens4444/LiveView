@@ -25,13 +25,6 @@ Log Viewer
 - Log exception do not log correctly the StackTrace
 - Log entry search
 
-MainForm
---------
-- Add login functionality
-
-Motion popup
-------------
-
 IO Ports
 --------
 - Add listing, modifying, logic

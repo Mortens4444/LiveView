@@ -605,6 +605,7 @@ namespace LiveView.Presenters
             else
             {
                 view.PbMap.Image = Properties.Resources.IPVS37;
+                view.PbMap.Controls.Clear();
             }
         }
 

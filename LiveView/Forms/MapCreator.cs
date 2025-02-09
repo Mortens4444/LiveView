@@ -142,5 +142,10 @@ namespace LiveView.Forms
         {
             presenter?.CanvasResize();
         }
+
+        private void PCanvas_BackgroundImageChanged(object sender, EventArgs e)
+        {
+            presenter.SetImageLocationAndSize();
+        }
     }
 }

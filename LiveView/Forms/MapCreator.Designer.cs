@@ -309,6 +309,7 @@
             pCanvas.Name = "pCanvas";
             pCanvas.Size = new System.Drawing.Size(929, 484);
             pCanvas.TabIndex = 0;
+            pCanvas.BackgroundImageChanged += PCanvas_BackgroundImageChanged;
             pCanvas.DragDrop += PCanvas_DragDrop;
             pCanvas.DragEnter += PCanvas_DragEnter;
             pCanvas.Resize += PCanvas_Resize;
