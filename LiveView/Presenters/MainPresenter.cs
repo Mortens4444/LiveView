@@ -11,6 +11,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.Serial;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -65,7 +66,7 @@ namespace LiveView.Presenters
 
         private IMainView view;
         private MapLoader mapLoader;
-        //private KBD300A kBD300A = new KBD300A("COM1");
+        private KBD300A kBD300A;
 
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
@@ -88,6 +89,12 @@ namespace LiveView.Presenters
             userEventRepository = dependencies.UserEventRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
+
+            var KBD300ACOMPort = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
+            if (!String.IsNullOrEmpty(KBD300ACOMPort))
+            {
+                kBD300A = new KBD300A(KBD300ACOMPort);
+            }
         }
 
         public new void SetView(IView view)
@@ -273,21 +280,23 @@ namespace LiveView.Presenters
 
         private void StartWatchdog()
         {
-            if (generalOptionsRepository.Get(Setting.UseWatchDog, false))
+            var watchdogPort = generalOptionsRepository.Get(Setting.WatchdogPort, String.Empty);
+            if (!String.IsNullOrEmpty(watchdogPort))
             {
                 try
                 {
-                    string portName;
-                    try
+                    if (watchdogPort == GeneralOptionsPresenter.AutoDetect)
                     {
-                        portName = SltWatchdog.GetPortName(WatcdogType.USB);
+                        try
+                        {
+                            watchdogPort = SltWatchdog.GetPortName(WatcdogType.USB);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            watchdogPort = SltWatchdog.GetPortName(WatcdogType.COM);
+                        }
                     }
-                    catch (InvalidOperationException)
-                    {
-                        portName = SltWatchdog.GetPortName(WatcdogType.COM);
-                    }
-
-                    watchdog = new SltWatchdog(portName);
+                    watchdog = new SltWatchdog(watchdogPort);
                     watchdog.StartPetting();
                 }
                 catch (Exception ex)

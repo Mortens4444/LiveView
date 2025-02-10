@@ -37,8 +37,6 @@ namespace LiveView.Interfaces
 
         CheckBox ChkVerboseDebugLogging { get; }
 
-        CheckBox ChkUseWatchDog { get; }
-
         CheckBox ChkIntegratedSecurity { get; }
 
         ComboBox CbKBD300ACOMPort { get; }
@@ -78,5 +76,7 @@ namespace LiveView.Interfaces
         FolderBrowserDialog FolderBrowserDialog { get; }
 
         SaveFileDialog SaveFileDialog { get; }
+
+        ComboBox CbWatchdogPort { get; }
     }
 }

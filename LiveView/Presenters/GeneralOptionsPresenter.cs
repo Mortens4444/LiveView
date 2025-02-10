@@ -7,6 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
+using Mtf.LanguageService;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
@@ -14,6 +15,7 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
@@ -30,6 +32,7 @@ namespace LiveView.Presenters
         private readonly IGroupRepository groupRepository;
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly PermissionManager<User> permissionManager;
+        public const string AutoDetect = "Auto detect";
 
         public GeneralOptionsPresenter(GeneralOptionsPresenterDependencies dependencies)
             : base(dependencies)
@@ -117,8 +120,17 @@ namespace LiveView.Presenters
             view.ChkOpenControlCenterWhenProgramStarts.Checked = generalOptionsRepository.Get(Setting.OpenControlCenterWhenProgramStarts, true);
             view.ChkUseCustomNoSignalImage.Checked = generalOptionsRepository.Get(Setting.UseCustomNoSignalImage, false);
             view.ChkVerboseDebugLogging.Checked = generalOptionsRepository.Get(Setting.VerboseDebugLogging, false);
-            view.ChkUseWatchDog.Checked = generalOptionsRepository.Get(Setting.UseWatchDog, false);
-            
+
+            var portNames = SerialPort.GetPortNames();
+            view.CbKBD300ACOMPort.AddItems(portNames);
+            view.CbKBD300ACOMPort.Items.Insert(0, String.Empty);
+            view.CbWatchdogPort.AddItems(portNames);
+            view.CbWatchdogPort.Items.Insert(0, String.Empty);
+            view.CbWatchdogPort.Items.Insert(1, Lng.Elem(AutoDetect));
+
+            view.CbKBD300ACOMPort.SelectedItem = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
+            view.CbWatchdogPort.SelectedItem = generalOptionsRepository.Get(Setting.WatchdogPort, String.Empty);
+
             var usage = BaseRepository.GetDatabaseUsagePercentageWithLimit();
             view.TbDatabaseUsage.Text = usage == -1 ? "N/A" : $"{usage}%";
             var builder = new DbConnectionStringBuilder
@@ -198,12 +210,7 @@ namespace LiveView.Presenters
             view.ChkOpenControlCenterWhenProgramStarts.Checked = false;
             view.ChkUseCustomNoSignalImage.Checked = false;
             view.ChkVerboseDebugLogging.Checked = false;
-            view.ChkUseWatchDog.Checked = false;
 
-            if (view.CbKBD300ACOMPort.Items.Count > 0)
-            {
-                view.CbKBD300ACOMPort.SelectedIndex = 0;
-            }
             if (view.CbUsers.Items.Count > 0)
             {
                 view.CbUsers.SelectedIndex = 0;
@@ -238,12 +245,7 @@ namespace LiveView.Presenters
             view.ChkOpenControlCenterWhenProgramStarts.Checked = false;
             view.ChkUseCustomNoSignalImage.Checked = false;
             view.ChkVerboseDebugLogging.Checked = false;
-            view.ChkUseWatchDog.Checked = false;
 
-            if (view.CbKBD300ACOMPort.Items.Count > 0)
-            {
-                view.CbKBD300ACOMPort.SelectedIndex = 0;
-            }
             if (view.CbUsers.Items.Count > 0)
             {
                 view.CbUsers.SelectedIndex = 0;
@@ -291,7 +293,6 @@ namespace LiveView.Presenters
             generalOptionsRepository.Set(Setting.OpenControlCenterWhenProgramStarts, view.ChkOpenControlCenterWhenProgramStarts.Checked);
             generalOptionsRepository.Set(Setting.UseCustomNoSignalImage, view.ChkUseCustomNoSignalImage.Checked);
             generalOptionsRepository.Set(Setting.VerboseDebugLogging, view.ChkVerboseDebugLogging.Checked);
-            generalOptionsRepository.Set(Setting.UseWatchDog, view.ChkUseWatchDog.Checked);
 
             generalOptionsRepository.Set(Setting.FPS, (int)view.NudFPS.Value);
             generalOptionsRepository.Set(Setting.RestartTemplate, (int)view.NudRestartTemplate.Value);
@@ -300,6 +301,9 @@ namespace LiveView.Presenters
             generalOptionsRepository.Set(Setting.StatisticMessageAfterEveryMinutes, (int)view.NudStatisticMessageAfterEveryMinutes.Value);
             generalOptionsRepository.Set(Setting.TimeBetweenCheckVideoServers, (int)view.NudTimeBetweenCheckVideoServers.Value);
             generalOptionsRepository.Set(Setting.MaximumTimeToWaitForAVideoServerIs, (int)view.NudMaximumTimeToWaitForAVideoServerIs.Value);
+
+            generalOptionsRepository.Set(Setting.KBD300ACOMPort, view.CbKBD300ACOMPort.SelectedItem);
+            generalOptionsRepository.Set(Setting.WatchdogPort, view.CbWatchdogPort.SelectedIndex == 1 ? AutoDetect : view.CbWatchdogPort.SelectedItem);
         }
 
         public void GenerateConfigFile()

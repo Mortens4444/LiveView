@@ -34,6 +34,8 @@ namespace LiveView.Forms
             tabControl = new System.Windows.Forms.TabControl();
             tpGeneral = new System.Windows.Forms.TabPage();
             pMain = new System.Windows.Forms.Panel();
+            cbAutoLoadedTemplate = new System.Windows.Forms.ComboBox();
+            lblAutoLoadedTemplate = new System.Windows.Forms.Label();
             chkOpenControlCenterWhenProgramStarts = new System.Windows.Forms.CheckBox();
             chkOpenMotionPopupWhenProgramStarts = new System.Windows.Forms.CheckBox();
             lblMinutes2 = new System.Windows.Forms.Label();
@@ -97,7 +99,8 @@ namespace LiveView.Forms
             pbNoSignalImage = new Mtf.Controls.MtfPictureBox();
             btnNoSignalImageBrowse = new System.Windows.Forms.Button();
             tpSerialOptions = new System.Windows.Forms.TabPage();
-            chkUseWatchDog = new System.Windows.Forms.CheckBox();
+            lblWatchdogPort = new System.Windows.Forms.Label();
+            cbWatchdogPort = new System.Windows.Forms.ComboBox();
             lblKBD300ACOMPort = new System.Windows.Forms.Label();
             cbKBD300ACOMPort = new System.Windows.Forms.ComboBox();
             btnStandard = new System.Windows.Forms.Button();
@@ -105,8 +108,6 @@ namespace LiveView.Forms
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
             saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            cbAutoLoadedTemplate = new System.Windows.Forms.ComboBox();
-            lblAutoLoadedTemplate = new System.Windows.Forms.Label();
             tabControl.SuspendLayout();
             tpGeneral.SuspendLayout();
             pMain.SuspendLayout();
@@ -169,6 +170,26 @@ namespace LiveView.Forms
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(641, 431);
             pMain.TabIndex = 2;
+            // 
+            // cbAutoLoadedTemplate
+            // 
+            cbAutoLoadedTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbAutoLoadedTemplate.FormattingEnabled = true;
+            cbAutoLoadedTemplate.Location = new System.Drawing.Point(385, 134);
+            cbAutoLoadedTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbAutoLoadedTemplate.Name = "cbAutoLoadedTemplate";
+            cbAutoLoadedTemplate.Size = new System.Drawing.Size(193, 23);
+            cbAutoLoadedTemplate.TabIndex = 26;
+            // 
+            // lblAutoLoadedTemplate
+            // 
+            lblAutoLoadedTemplate.AutoSize = true;
+            lblAutoLoadedTemplate.Location = new System.Drawing.Point(6, 137);
+            lblAutoLoadedTemplate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAutoLoadedTemplate.Name = "lblAutoLoadedTemplate";
+            lblAutoLoadedTemplate.Size = new System.Drawing.Size(122, 15);
+            lblAutoLoadedTemplate.TabIndex = 25;
+            lblAutoLoadedTemplate.Text = "Auto loaded template";
             // 
             // chkOpenControlCenterWhenProgramStarts
             // 
@@ -894,7 +915,8 @@ namespace LiveView.Forms
             // 
             // tpSerialOptions
             // 
-            tpSerialOptions.Controls.Add(chkUseWatchDog);
+            tpSerialOptions.Controls.Add(lblWatchdogPort);
+            tpSerialOptions.Controls.Add(cbWatchdogPort);
             tpSerialOptions.Controls.Add(lblKBD300ACOMPort);
             tpSerialOptions.Controls.Add(cbKBD300ACOMPort);
             tpSerialOptions.Location = new System.Drawing.Point(4, 24);
@@ -904,21 +926,30 @@ namespace LiveView.Forms
             tpSerialOptions.Text = "Serial";
             tpSerialOptions.UseVisualStyleBackColor = true;
             // 
-            // chkUseWatchDog
+            // lblWatchdogPort
             // 
-            chkUseWatchDog.AutoSize = true;
-            chkUseWatchDog.Location = new System.Drawing.Point(9, 21);
-            chkUseWatchDog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            chkUseWatchDog.Name = "chkUseWatchDog";
-            chkUseWatchDog.Size = new System.Drawing.Size(101, 19);
-            chkUseWatchDog.TabIndex = 29;
-            chkUseWatchDog.Text = "Use watchdog";
-            chkUseWatchDog.UseVisualStyleBackColor = true;
+            lblWatchdogPort.AutoSize = true;
+            lblWatchdogPort.Location = new System.Drawing.Point(9, 10);
+            lblWatchdogPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblWatchdogPort.Name = "lblWatchdogPort";
+            lblWatchdogPort.Size = new System.Drawing.Size(87, 15);
+            lblWatchdogPort.TabIndex = 31;
+            lblWatchdogPort.Text = "Watchdog port";
+            // 
+            // cbWatchdogPort
+            // 
+            cbWatchdogPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbWatchdogPort.FormattingEnabled = true;
+            cbWatchdogPort.Location = new System.Drawing.Point(9, 28);
+            cbWatchdogPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbWatchdogPort.Name = "cbWatchdogPort";
+            cbWatchdogPort.Size = new System.Drawing.Size(193, 23);
+            cbWatchdogPort.TabIndex = 30;
             // 
             // lblKBD300ACOMPort
             // 
             lblKBD300ACOMPort.AutoSize = true;
-            lblKBD300ACOMPort.Location = new System.Drawing.Point(9, 61);
+            lblKBD300ACOMPort.Location = new System.Drawing.Point(9, 63);
             lblKBD300ACOMPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblKBD300ACOMPort.Name = "lblKBD300ACOMPort";
             lblKBD300ACOMPort.Size = new System.Drawing.Size(111, 15);
@@ -929,7 +960,7 @@ namespace LiveView.Forms
             // 
             cbKBD300ACOMPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbKBD300ACOMPort.FormattingEnabled = true;
-            cbKBD300ACOMPort.Location = new System.Drawing.Point(9, 79);
+            cbKBD300ACOMPort.Location = new System.Drawing.Point(9, 81);
             cbKBD300ACOMPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbKBD300ACOMPort.Name = "cbKBD300ACOMPort";
             cbKBD300ACOMPort.Size = new System.Drawing.Size(193, 23);
@@ -984,26 +1015,6 @@ namespace LiveView.Forms
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
-            // 
-            // cbAutoLoadedTemplate
-            // 
-            cbAutoLoadedTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbAutoLoadedTemplate.FormattingEnabled = true;
-            cbAutoLoadedTemplate.Location = new System.Drawing.Point(385, 134);
-            cbAutoLoadedTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbAutoLoadedTemplate.Name = "cbAutoLoadedTemplate";
-            cbAutoLoadedTemplate.Size = new System.Drawing.Size(193, 23);
-            cbAutoLoadedTemplate.TabIndex = 26;
-            // 
-            // lblAutoLoadedTemplate
-            // 
-            lblAutoLoadedTemplate.AutoSize = true;
-            lblAutoLoadedTemplate.Location = new System.Drawing.Point(6, 137);
-            lblAutoLoadedTemplate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblAutoLoadedTemplate.Name = "lblAutoLoadedTemplate";
-            lblAutoLoadedTemplate.Size = new System.Drawing.Size(122, 15);
-            lblAutoLoadedTemplate.TabIndex = 25;
-            lblAutoLoadedTemplate.Text = "Auto loaded template";
             // 
             // GeneralOptionsForm
             // 
@@ -1092,7 +1103,6 @@ After:
         private System.Windows.Forms.CheckBox chkUseCustomNoSignalImage;
         private Mtf.Controls.MtfPictureBox pbNoSignalImage;
         private System.Windows.Forms.Button btnNoSignalImageBrowse;
-        private System.Windows.Forms.CheckBox chkUseWatchDog;
         private System.Windows.Forms.Label lblKBD300ACOMPort;
         private System.Windows.Forms.ComboBox cbKBD300ACOMPort;
         private System.Windows.Forms.CheckBox chkLiveView;
@@ -1134,5 +1144,7 @@ After:
         private System.Windows.Forms.CheckBox chkOpenControlCenterWhenProgramStarts;
         private System.Windows.Forms.ComboBox cbAutoLoadedTemplate;
         private System.Windows.Forms.Label lblAutoLoadedTemplate;
+        private System.Windows.Forms.ComboBox cbWatchdogPort;
+        private System.Windows.Forms.Label lblWatchdogPort;
     }
 }

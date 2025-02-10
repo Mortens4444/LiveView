@@ -50,9 +50,10 @@
         OpenMotionPopupWhenProgramStarts,
         UseCustomNoSignalImage,
         VerboseDebugLogging,
-        UseWatchDog,
         AutoLoginUser,
         OpenControlCenterWhenProgramStarts,
         AutoLoadedTemplate,
+        WatchdogPort,
+        KBD300ACOMPort,
     }
 }

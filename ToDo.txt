@@ -15,10 +15,6 @@ Contol Panel
 Settings
 --------
 
-MapCreator
-----------
-- Map update not works when background is set.
-
 Log Viewer
 ----------
 - Log filters always works

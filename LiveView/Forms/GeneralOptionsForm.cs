@@ -45,9 +45,9 @@ namespace LiveView.Forms
 
         public CheckBox ChkVerboseDebugLogging => chkVerboseDebugLogging;
 
-        public CheckBox ChkUseWatchDog => chkUseWatchDog;
-
         public ComboBox CbKBD300ACOMPort => cbKBD300ACOMPort;
+
+        public ComboBox CbWatchdogPort => cbWatchdogPort;
 
         public ComboBox CbUsers => cbUsers;
 
