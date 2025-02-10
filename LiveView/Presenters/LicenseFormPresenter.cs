@@ -1,11 +1,9 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
-using System;
 using System.Linq;
 
 namespace LiveView.Presenters
@@ -36,7 +34,10 @@ namespace LiveView.Presenters
 
         public void Upgrade()
         {
-            ShowDialog<UpgradeForm>();
+            if (ShowDialog<UpgradeForm>())
+            {
+                Load();
+            }
         }
 
         public override void Load()

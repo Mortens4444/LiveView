@@ -17,9 +17,7 @@ namespace LiveView.Models.Dependencies
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
-            IDisplayRepository displayRepository,
             IGeneralOptionsRepository generalOptionsRepository,
-            IGroupRepository groupRepository,
             IUserRepository userRepository,
             ITemplateRepository templateRepository,
             IUsersInGroupsRepository userGroupRepository,
@@ -33,8 +31,6 @@ namespace LiveView.Models.Dependencies
             CameraRepository = cameraRepository;
             RightRepository = rightRepository;
             ServiceProvider = serviceProvider;
-            DisplayRepository = displayRepository;
-            GroupRepository = groupRepository;
             UserRepository = userRepository;
             UserGroupRepository = userGroupRepository;
             PersonalOptionsRepository = personalOptionsRepository;
@@ -53,10 +49,6 @@ namespace LiveView.Models.Dependencies
         public IRightRepository RightRepository { get; private set; }
 
         public IServiceProvider ServiceProvider { get; private set; }
-
-        public IDisplayRepository DisplayRepository { get; private set; }
-
-        public IGroupRepository GroupRepository { get; private set; }
 
         public IUserRepository UserRepository { get; private set; }
 

@@ -72,7 +72,7 @@ namespace LiveView.Forms
         {
             try
             {
-                DrawDisplays(pFunctionChooser, e.Graphics, DisplayDrawingTools.Functions, null);
+                DrawDisplays(pFunctionChooser, e.Graphics, DisplayDrawingTools.Functions, null, false);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace LiveView.Forms
         {
             try
             {
-                DrawDisplays(pFullscreenDisplay, e.Graphics, DisplayDrawingTools.Fullscreen, null);
+                DrawDisplays(pFullscreenDisplay, e.Graphics, DisplayDrawingTools.Fullscreen, null, false);
             }
             catch (Exception ex)
             {
@@ -100,6 +100,11 @@ namespace LiveView.Forms
         private void PFullscreenDisplay_MouseClick(object sender, MouseEventArgs e)
         {
             presenter.SelectFullscreenDisplay(e.Location);
+        }
+
+        private void DisplaySettings_ResizeEnd(object sender, EventArgs e)
+        {
+            CachedDisplays = null;
         }
     }
 }

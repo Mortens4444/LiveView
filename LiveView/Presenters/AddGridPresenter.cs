@@ -305,7 +305,7 @@ namespace LiveView.Presenters
 
             result.Items.AddRange(
                 Globals.VideoCaptureSources
-                    .SelectMany(vcs => vcs.Value, (vcs, camera) => new VideoSource
+                    .SelectMany(vcs => vcs.Value, (vcs, camera) => new VideoSourceDto
                     {
                         Socket = vcs.Key,
                         Name = camera.Key,
@@ -514,7 +514,7 @@ namespace LiveView.Presenters
                     view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
                     view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));
                 }
-                else if (comboBox.SelectedItem is VideoSource videoSource)
+                else if (comboBox.SelectedItem is VideoSourceDto videoSource)
                 {
                     view.MtfCamera.Visible = true;
                     view.AxVideoPlayerWindow.Visible = false;
@@ -695,7 +695,7 @@ namespace LiveView.Presenters
                     {
                         gridCamera.CameraId = cameraDto.Id;
                     }
-                    else if (comboBox.SelectedItem is VideoSource videoSource)
+                    else if (comboBox.SelectedItem is VideoSourceDto videoSource)
                     {
                         gridCamera.ServerIp = videoSource.ServerIp;
                         gridCamera.VideoSourceName = videoSource.Name;

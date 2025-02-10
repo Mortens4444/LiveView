@@ -26,6 +26,16 @@ namespace LiveView.Extensions
             });
         }
 
+        public static void LogWarning<TLoggerType>(this ILogger<TLoggerType> logger, Enum operation, string message, params object[] args)
+        {
+            logger.Log(LogLevel.Warning, new LogEntry
+            {
+                Date = DateTime.UtcNow,
+                OperationId = UniqueIdGenerator.Get(operation),
+                OtherInformation = String.Format(message, args)
+            });
+        }
+
         public static void LogError<TLoggerType>(this ILogger<TLoggerType> logger, string message, params object[] args)
         {
             logger.Log(LogLevel.Error, new LogEntry

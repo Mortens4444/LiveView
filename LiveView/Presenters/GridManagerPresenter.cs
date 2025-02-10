@@ -11,6 +11,7 @@ using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using static Dapper.SqlMapper;
 
 namespace LiveView.Presenters
 {
@@ -107,6 +108,7 @@ namespace LiveView.Presenters
             if (view.CbGrids.SelectedItem is Grid grid)
             {
                 gridRepository.Delete(grid.Id);
+                logger.LogInfo(GridManagementPermissions.Delete, "Grid '{0}' has been deleted.", grid.Name);
                 Load();
             }
         }
@@ -183,7 +185,6 @@ namespace LiveView.Presenters
                     else
                     {
                         item = CreateListViewItem(gridCamera, gridCamera.ServerIp, gridCamera.VideoSourceName);
-
                     }
 
                     if (item != null)

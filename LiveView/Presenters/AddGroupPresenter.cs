@@ -8,6 +8,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -292,6 +293,7 @@ namespace LiveView.Presenters
                     });
                 }
             }
+            logger.LogInfo(PermissionManagementPermissions.Update, "Permission has been changed for group {0}.", group.Name);
         }
 
         public void SelectAllCameras()

@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace LiveView.Dto
 {
-    public class VideoSource : IEquatable<VideoSource>
+    public class VideoSourceDto : IEquatable<VideoSourceDto>
     {
         private string endPoint;
 
@@ -27,7 +27,7 @@ namespace LiveView.Dto
             }
         }
 
-        public bool Equals(VideoSource other)
+        public bool Equals(VideoSourceDto other)
         {
             if (other == null)
             {
@@ -39,7 +39,7 @@ namespace LiveView.Dto
 
         public override bool Equals(object obj)
         {
-            if (obj is VideoSource other)
+            if (obj is VideoSourceDto other)
             {
                 return Equals(other);
             }

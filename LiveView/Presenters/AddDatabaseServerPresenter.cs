@@ -34,14 +34,14 @@ namespace LiveView.Presenters
             if (server == null)
             {
                 databaseServerRepository.Insert(newServer);
+                logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been updated.", serverDto);
             }
             else
             {
                 newServer.Id = server.Id;
                 databaseServerRepository.Update(newServer);
+                logger.LogInfo(DatabaseServerManagementPermissions.Create, "Database server '{0}' has been created.", serverDto);
             }
-
-            logger.LogInfo(ServerManagementPermissions.Create, "Database server '{0}' has been created.", serverDto);
         }
     }
 }

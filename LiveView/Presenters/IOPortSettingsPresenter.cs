@@ -6,6 +6,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -47,6 +48,7 @@ namespace LiveView.Presenters
                 ZeroSignaled = view.ChkZeroSignalled.Checked,
                 EventId = @event.Id
             });
+            logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device '{0}' rule has been created.", port.Name);
         }
 
         public override void Load()
@@ -85,11 +87,12 @@ namespace LiveView.Presenters
         {
             foreach (ListViewItem item in view.LvIOPortRules.SelectedItems)
             {
-                if (item.Tag is IOPortsRule iOPortsRule)
+                if (item.Tag is IOPortsRule ioPortsRule)
                 {
-                    eventRepository.Delete(iOPortsRule.Id);
+                    ioPortsRuleRepository.Delete(ioPortsRule.Id);
                 }
             }
+            logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device rules have been deleted.");
 
             Load();            
         }

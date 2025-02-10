@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LibVLCSharp.Shared;
 using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
@@ -10,7 +9,6 @@ using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;

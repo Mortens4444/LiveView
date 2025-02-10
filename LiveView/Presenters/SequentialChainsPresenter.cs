@@ -6,6 +6,8 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Permissions.Enums;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -58,26 +60,24 @@ namespace LiveView.Presenters
             if (sequence.Id == 0)
             {
                 sequenceId = sequenceRepository.InsertAndReturnId<long>(sequence);
+                logger.LogInfo(SequenceManagementPermissions.Create, "Sequence '{0}' has been created.", sequence.Name);
             }
             else
             {
                 sequenceRepository.Update(sequence);
+                logger.LogInfo(SequenceManagementPermissions.Update, "Sequence '{0}' has been changed.", sequence.Name);
+                gridInSequenceRepository.DeleteWhere(new { SequenceId = sequenceId });
+                logger.LogInfo(SequenceManagementPermissions.Update, "Grids have been deleted for sequence '{0}'.", sequence.Name);
             }
 
+            var gridS = gridRepository.SelectAll();
             foreach (ListViewItem item in view.LvGrids.Items)
             {
-                var gridInSequence = item.Tag as GridInSequence;
-                if (gridInSequence != null)
+                if (item.Tag is GridInSequence gridInSequence)
                 {
-                    if (sequenceId != null)
-                    {
-                        gridInSequence.SequenceId = sequenceId.Value;
-                        gridInSequenceRepository.Insert(gridInSequence);
-                    }
-                    else
-                    {
-                        gridInSequenceRepository.Update(gridInSequence);
-                    }
+                    gridInSequence.SequenceId = sequenceId.Value;
+                    gridInSequenceRepository.Insert(gridInSequence);
+                    logger.LogInfo(SequenceManagementPermissions.Update, "Grid '{0}' has been added.", gridS.First(g => g.Id == gridInSequence.GridId).Name);
                 }
             }
 
@@ -99,6 +99,7 @@ namespace LiveView.Presenters
             if (view.CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 sequenceRepository.Delete(sequence.Id);
+                logger.LogInfo(SequenceManagementPermissions.Delete, "Sequence '{0}' has been deleted.", sequence.Name);
                 Load();
             }
         }

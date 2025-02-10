@@ -82,6 +82,7 @@ namespace LiveView.Presenters
                             ProcessName = processNameWithExtension,
                             ProcessParameters = parameters
                         });
+                        logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' has been created.", view.TbTemplateName.Text);
                     }
                 }
             }

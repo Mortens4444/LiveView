@@ -1,8 +1,10 @@
 ﻿using Database.Interfaces;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 
 namespace LiveView.Presenters
 {
@@ -38,6 +40,7 @@ namespace LiveView.Presenters
             view.IOPort.MaxCount = (int)view.NudMaxSignalPerDay.Value;
             view.IOPort.MinTriggerTime = (int)view.NudMinTriggerTime.Value;
             ioPortRepository.Update(view.IOPort);
+            logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device '{0}' has been changed.", view.IOPort.Name);
         }
     }
 }

@@ -827,7 +827,7 @@ namespace LiveView.Forms
             pbMap.BackgroundImageLayout = ImageLayout.Zoom;
             pbMap.BackgroundPaintDebounceIntervalInMs = 0;
             pbMap.Dock = DockStyle.Fill;
-            pbMap.Image = Properties.Resources.IPVS37;
+            pbMap.Image = Properties.Resources.IPVS47;
             pbMap.Location = new System.Drawing.Point(0, 0);
             pbMap.Margin = new Padding(4, 3, 4, 3);
             pbMap.Name = "pbMap";

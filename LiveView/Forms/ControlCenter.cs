@@ -18,7 +18,7 @@ namespace LiveView.Forms
     public partial class ControlCenter : BaseDisplayView, IControlCenterView
     {
         private readonly Camera camera;
-        private readonly VideoSource videoSource;
+        private readonly VideoSourceDto videoSource;
         private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
 
         private ControlCenterPresenter presenter;
@@ -33,7 +33,7 @@ namespace LiveView.Forms
 
         public Label LblSecondsLeft => lblSecondsLeft;
 
-        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null, VideoSource videoSource = null) : this(serviceProvider)
+        public ControlCenter(IServiceProvider serviceProvider, Camera camera = null, VideoSourceDto videoSource = null) : this(serviceProvider)
         {
             this.camera = camera;
             this.videoSource = videoSource;
@@ -329,7 +329,7 @@ namespace LiveView.Forms
                     GetAndCacheDisplays(PDisplayDevices.Size);
                 }
 
-                DrawDisplays(PDisplayDevices, e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text);
+                DrawDisplays(PDisplayDevices, e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text, true);
                 DrawMouse(e.Graphics, PDisplayDevices.Size);
             }
             catch (Exception ex)
@@ -356,7 +356,7 @@ namespace LiveView.Forms
                 Thread.Sleep(1000);
                 e.Item.Selected = false;
             }
-            else if (e.IsSelected && e.Item.Tag is VideoSource videoSource)
+            else if (e.IsSelected && e.Item.Tag is VideoSourceDto videoSource)
             {
                 presenter.StartCameraApp(videoSource);
                 Thread.Sleep(1000);
@@ -369,7 +369,7 @@ namespace LiveView.Forms
             presenter.StartCameraApp(camera);
         }
 
-        public void StartVideoSource(VideoSource videoSource)
+        public void StartVideoSource(VideoSourceDto videoSource)
         {
             presenter.StartCameraApp(videoSource);
         }

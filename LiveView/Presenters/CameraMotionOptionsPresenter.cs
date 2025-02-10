@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -43,6 +44,7 @@ namespace LiveView.Presenters
                     camera.MotionTrigger = (long)view.NudMotionTrigger.Value;
                     camera.MotionTriggerMinimumLength = (long)view.NudMotionTriggerMinimumLength.Value;
                     cameraRepository.Update(camera);
+                    logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' motion settings has been changed.", camera.CameraName);
                 }
             }
             Load();
@@ -84,6 +86,7 @@ namespace LiveView.Presenters
                     camera.MotionTrigger = null;
                     camera.MotionTriggerMinimumLength = null;
                     cameraRepository.Update(camera);
+                    logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' motion settings has been deleted.", camera.CameraName);
                 }
             }
             Load();

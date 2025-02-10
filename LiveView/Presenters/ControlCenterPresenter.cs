@@ -16,7 +16,6 @@ using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -26,20 +25,19 @@ namespace LiveView.Presenters
 {
     public class ControlCenterPresenter : BaseDisplayPresenter
     {
+        private const string SelectDisplayFirst = "Select a display first.";
         private IControlCenterView view;
         private SequenceProcessInfo selectedSequenceProcess;
 
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly IGridInSequenceRepository gridInSequenceRepository;
-        private readonly IDisplayRepository displayRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
-        private readonly DisplayManager displayManager;
         private readonly List<Process> sequenceProcesses;
         public static Process CameraProcess { get; private set; }
 
@@ -51,10 +49,8 @@ namespace LiveView.Presenters
             gridCameraRepository = dependencies.GridCameraRepository;
             templateRepository = dependencies.TemplateRepository;
             templateProcessRepository = dependencies.TemplateProcessRepository;
-            displayRepository = dependencies.DisplayRepository;
             sequenceRepository = dependencies.SequenceRepository;
             cameraRepository = dependencies.CameraRepository;
-            displayManager = dependencies.DisplayManager;
             permissionManager = dependencies.PermissionManager;
             logger = dependencies.Logger;
             sequenceProcesses = new List<Process>();
@@ -161,7 +157,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                ShowError("Select a display first.");
+                ShowError(SelectDisplayFirst);
             }
         }
 
@@ -174,7 +170,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                ShowError("Select a display first.");
+                ShowError(SelectDisplayFirst);
             }
         }
 
@@ -187,7 +183,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                ShowError("Select a display first.");
+                ShowError(SelectDisplayFirst);
             }
         }
 
@@ -281,7 +277,7 @@ namespace LiveView.Presenters
             StartCameraAppInternal(parameters);
         }
 
-        public void StartCameraApp(VideoSource videoSource)
+        public void StartCameraApp(VideoSourceDto videoSource)
         {
             if (videoSource == null)
             {
@@ -321,7 +317,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    ShowError("Select a display first.");
+                    ShowError(SelectDisplayFirst);
                 }
             }
             else
@@ -357,7 +353,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                ShowError("Select a display first.");
+                ShowError(SelectDisplayFirst);
             }
         }
 
@@ -394,25 +390,28 @@ namespace LiveView.Presenters
                 {
                     selectedSequenceProcess = sequenceProcess;
                     var sequence = sequenceRepository.Select(selectedSequenceProcess.SequenceId.Value);
-                    var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
-                    if (gridsInSequence.Count == 0)
+                    if (sequence != null)
                     {
-                        view.LblGridName.Text = $"{Lng.Elem("Grid name")}: N/A";
-                        view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: 0/0";
-                        view.LblGridNumber.Text = "0/0";
-                        view.LblSecondsLeft.Text = Lng.Elem("No grids in sequence.");
-                    }
-                    else if (gridsInSequence.Count == 1)
-                    {
-                        var grid = gridRepository.Select(gridsInSequence.Single().GridId);
-                        var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
-                        view.LblGridName.Text = $"{Lng.Elem("Grid name")}: {grid.Name}";
-                        view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: {gridCameras.Count}/{gridCameras.Count}";
-                        view.LblGridNumber.Text = "1/1";
-                        view.LblSecondsLeft.Text = Lng.Elem("Continuous playing.");
-                    }
+                        var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+                        if (gridsInSequence.Count == 0)
+                        {
+                            view.LblGridName.Text = $"{Lng.Elem("Grid name")}: N/A";
+                            view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: 0/0";
+                            view.LblGridNumber.Text = "0/0";
+                            view.LblSecondsLeft.Text = Lng.Elem("No grids in sequence.");
+                        }
+                        else if (gridsInSequence.Count == 1)
+                        {
+                            var grid = gridRepository.Select(gridsInSequence.Single().GridId);
+                            var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
+                            view.LblGridName.Text = $"{Lng.Elem("Grid name")}: {grid.Name}";
+                            view.LblNumberOfCameras.Text = $"{Lng.Elem("Number of cameras")}: {gridCameras.Count}/{gridCameras.Count}";
+                            view.LblGridNumber.Text = "1/1";
+                            view.LblSecondsLeft.Text = Lng.Elem("Continuous playing.");
+                        }
 
-                    view.LblSequenceName.Text = $"{Lng.Elem("Sequence name")}: {sequence.Name}";
+                        view.LblSequenceName.Text = $"{Lng.Elem("Sequence name")}: {sequence.Name}";
+                    }
                 }
             }
             catch (InvalidOperationException ex)

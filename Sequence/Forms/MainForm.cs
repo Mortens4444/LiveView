@@ -3,6 +3,7 @@ using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -74,14 +75,14 @@ namespace Sequence.Forms
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
             var displayRepository = new DisplayRepository();
-            var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display does not found in repository with Id '{displayId}'.");
+            var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display not found in repository with Id '{displayId}'.");
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
 
             display = displays.FirstOrDefault(d => d.GetId() == sequenceDisplay.Id);
             if (display == null)
             {
-                throw new InvalidOperationException($"Display does not found with Id '{displayId}'.");
+                throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
             gridSequenceManager = new GridSequenceManager(client, permissionManager, this, display, isMdi, sequenceId);
@@ -135,6 +136,11 @@ namespace Sequence.Forms
 #else
             Size = new Size(display.MaxWidth, display.MaxHeight);
 #endif
+            if (gridSequenceManager.Invalid)
+            {
+                ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("Sequence does not exists."));
+                Close();
+            }
         }
 
         private async Task OnExitAsync()

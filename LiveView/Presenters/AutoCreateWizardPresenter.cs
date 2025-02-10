@@ -254,8 +254,8 @@ namespace LiveView.Presenters
                         Osd = templateCamera.Osd,
                         Ptz = templateCamera.Ptz,
                         ShowDateTime = templateCamera.ShowDateTime,
-                        ServerIp = gridCamera is VideoSource videoSource1 ? videoSource1.ServerIp : null,
-                        VideoSourceName = gridCamera is VideoSource videoSource2 ? videoSource2.Name : null
+                        ServerIp = gridCamera is VideoSourceDto videoSource1 ? videoSource1.ServerIp : null,
+                        VideoSourceName = gridCamera is VideoSourceDto videoSource2 ? videoSource2.Name : null
                     });
                     gridCameraIndex++;
                 }
@@ -267,8 +267,8 @@ namespace LiveView.Presenters
 
         private static object GetGridName(List<object> gridCameras)
         {
-            var firstCameraName = gridCameras.First() is Camera camera ? camera.CameraName : gridCameras.First() is VideoSource videoSource ? videoSource.Name : "N/A";
-            var lastCameraName = gridCameras.Last() is Camera camera2 ? camera2.CameraName : gridCameras.First() is VideoSource videoSource2 ? videoSource2.Name : "N/A";
+            var firstCameraName = gridCameras.First() is Camera camera ? camera.CameraName : gridCameras.First() is VideoSourceDto videoSource ? videoSource.Name : "N/A";
+            var lastCameraName = gridCameras.Last() is Camera camera2 ? camera2.CameraName : gridCameras.First() is VideoSourceDto videoSource2 ? videoSource2.Name : "N/A";
             return gridCameras.Count > 1 ? String.Concat(firstCameraName, " - ", lastCameraName) : firstCameraName;
         }
 

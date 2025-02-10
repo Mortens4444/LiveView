@@ -1,9 +1,11 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -16,7 +18,7 @@ namespace LiveView.Presenters
     {
         private IProfileView view;
         private readonly IUserRepository userRepository;
-        private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<Profile> logger;
         private readonly User user;
 
@@ -55,6 +57,7 @@ namespace LiveView.Presenters
             }
             else
             {
+                logger.LogWarning(SettingsManagementPermissions.UpdatePersonal, "Profile cannot be changed because the current password is incorrect.");
                 ShowError("The current password does not match.");
                 return;
             }
@@ -66,6 +69,7 @@ namespace LiveView.Presenters
             user.Phone = view.TbTelephoneNumber.Text;
             user.Image = ImageConverter.ImageToByteArray(view.PbPicture.Image);
             userRepository.Update(user);
+            logger.LogInfo(SettingsManagementPermissions.UpdatePersonal, "Profile has been changed.");
             CloseForm();
         }
 

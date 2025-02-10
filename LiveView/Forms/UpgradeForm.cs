@@ -25,7 +25,7 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(DatabaseServerManagementPermissions.FullControl)]
+        [RequirePermission(ApplicationManagementPermissions.Upgrade)]
         private void BtnUpgrade_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

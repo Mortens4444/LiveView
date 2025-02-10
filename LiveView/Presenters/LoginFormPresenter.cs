@@ -1,8 +1,10 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 
 namespace LiveView.Presenters
 {
@@ -30,9 +32,11 @@ namespace LiveView.Presenters
             var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
             if (user == null)
             {
+                logger.LogWarning(UserManagementPermissions.Login, "Login failed with user '{0}'.", view.TbUsername.Text);
                 ShowError("Invalid username or password");
                 return null;
             }
+            logger.LogInfo(UserManagementPermissions.Login, "User '{0}' logged in.", view.TbUsername.Text);
             return user;
         }
     }

@@ -8,6 +8,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.LanguageService;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
@@ -18,7 +19,6 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace LiveView.Presenters
@@ -216,12 +216,6 @@ namespace LiveView.Presenters
                 view.CbUsers.SelectedIndex = 0;
             }
 
-            //view.TbDatabaseFolder.Text = @"C:\Database";
-            //view.TbDataSource.Text = "127.0.0.1";
-            //view.TbPassword.Text = "password";
-            //view.TbUsername.Text = "admin";
-            //view.TbDatabaseName.Text = "MyDatabase";
-
             view.RbVerboseLogEveryEvents.Checked = false;
             view.RbVerboseLogOnlyErrors.Checked = true;
         }
@@ -250,12 +244,6 @@ namespace LiveView.Presenters
             {
                 view.CbUsers.SelectedIndex = 0;
             }
-
-            //view.TbDatabaseFolder.Text = @"C:\Database";
-            //view.TbDataSource.Text = "127.0.0.1";
-            //view.TbPassword.Text = "password";
-            //view.TbUsername.Text = "admin";
-            //view.TbDatabaseName.Text = "MyDatabase";
 
             view.RbVerboseLogEveryEvents.Checked = false;
             view.RbVerboseLogOnlyErrors.Checked = true;
@@ -304,6 +292,8 @@ namespace LiveView.Presenters
 
             generalOptionsRepository.Set(Setting.KBD300ACOMPort, view.CbKBD300ACOMPort.SelectedItem);
             generalOptionsRepository.Set(Setting.WatchdogPort, view.CbWatchdogPort.SelectedIndex == 1 ? AutoDetect : view.CbWatchdogPort.SelectedItem);
+
+            logger.LogInfo(SettingsManagementPermissions.UpdateStatic, "Settings has been changed.");
         }
 
         public void GenerateConfigFile()

@@ -1,10 +1,12 @@
 ﻿using Database.Enums;
+using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Database.Services;
+using Mtf.Permissions.Enums;
 using System.IO;
 using System.Windows.Forms;
 
@@ -36,6 +38,7 @@ namespace LiveView.Presenters
             {
                 var hash = Hasher.GetFileSha256Hash(LanguageFilePath);
                 generalOptionsRepository.Set(Setting.LanguageFileHash, hash);
+                logger.LogInfo(LanguageManagementPermissions.Update, "Language file modification has accepted.");
             }
             CloseForm();
         }
@@ -54,6 +57,7 @@ namespace LiveView.Presenters
                 csvStream.CopyTo(fileStream);
             }
             generalOptionsRepository.Set(Setting.LanguageFileHash, OriginalLanguageFileHash);
+            logger.LogInfo(LanguageManagementPermissions.Update, "Language file has been restored.");
             CloseForm();
         }
     }

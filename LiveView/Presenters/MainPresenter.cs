@@ -21,13 +21,11 @@ using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
-using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
-using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -52,8 +50,6 @@ namespace LiveView.Presenters
         private readonly IServiceProvider serviceProvider;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
-        private readonly IDisplayRepository displayRepository;
-        private readonly IGroupRepository groupRepository;
         private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
         private readonly IUserEventRepository userEventRepository;
@@ -77,8 +73,6 @@ namespace LiveView.Presenters
             serviceProvider = dependencies.ServiceProvider;
             mapRepository = dependencies.MapRepository;
             mapObjectRepository = dependencies.MapObjectRepository;
-            displayRepository = dependencies.DisplayRepository;
-            groupRepository = dependencies.GroupRepository;
             userRepository = dependencies.UserRepository;
             templateRepository = dependencies.TemplateRepository;
             userGroupRepository = dependencies.UserGroupRepository;
@@ -613,7 +607,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                view.PbMap.Image = Properties.Resources.IPVS37;
+                view.PbMap.Image = Properties.Resources.IPVS47;
                 view.PbMap.Controls.Clear();
             }
         }
@@ -751,7 +745,7 @@ namespace LiveView.Presenters
         public void ChangeEvent(UserEvent userEvent)
         {
             var user = permissionManager.CurrentUser;
-            logger.LogInfo(EventManagementPermissions.Update, $"User '{0}' changed the user event to '{1}'.", user, userEvent);
+            logger.LogInfo(EventManagementPermissions.Update, "User event changed to '{0}'.", userEvent);
             Globals.UserEvent = userEvent;
             SetGroups(user);
             permissionManager.ApplyPermissionsOnControls(view.GetSelf());

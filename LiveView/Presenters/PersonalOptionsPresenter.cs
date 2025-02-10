@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace LiveView.Presenters
         {
             personalOptionsRepository.Set(Setting.Language, permissionManager.CurrentUser.Tag.Id, view.CbLanguages.SelectedIndex);
             personalOptionsRepository.Set(Setting.UseCustomControlColors, permissionManager.CurrentUser.Tag.Id, view.ChkUseCustomColors.Checked);
+            logger.LogInfo(SettingsManagementPermissions.UpdatePersonal, "Personal settings has been changed.");
         }
 
         public override void Load()

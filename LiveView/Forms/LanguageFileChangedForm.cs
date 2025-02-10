@@ -1,6 +1,8 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
+using Mtf.Permissions.Attributes;
+using Mtf.Permissions.Enums;
 using System;
 using System.Windows.Forms;
 
@@ -32,6 +34,7 @@ namespace LiveView.Forms
             presenter.Load();
         }
 
+        [RequirePermission(LanguageManagementPermissions.Update)]
         private void BtnRestoreOriginal_Click(object sender, EventArgs e)
         {
             presenter.RestoreOriginalLanguageFile();

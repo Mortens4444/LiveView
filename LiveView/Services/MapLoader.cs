@@ -153,7 +153,7 @@ namespace LiveView.Services
                     break;
                 case MapActionType.OpenVideoSource:
                     var gridCamera = gridCameraRepository.Select(mapObject.ActionReferencedId); // Should use VideoSourceRepository
-                    var videoSource = new VideoSource
+                    var videoSource = new VideoSourceDto
                     {
                         EndPoint = $"{gridCamera.ServerIp}:0",
                         Name = gridCamera.VideoSourceName

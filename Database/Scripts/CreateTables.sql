@@ -563,3 +563,12 @@ BEGIN
         Name NVARCHAR(200)
     );
 END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoSources]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE VideoSources (
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ServerIp NVARCHAR(20),
+        VideoSourceName NVARCHAR(500)
+    );
+END;

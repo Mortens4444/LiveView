@@ -14,13 +14,16 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteGroupPermissions.sql" />
+    <EmbeddedResource Include="Scripts\DeleteWhereGridsInSequence.sql" />
     <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
+    <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
     <EmbeddedResource Include="Scripts\InsertUserEvent.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropLogsTableColumn.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
     <EmbeddedResource Include="Scripts\SelectSequenceCameraCount.sql" />
     <EmbeddedResource Include="Scripts\InsertAgent.sql" />
@@ -173,7 +176,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
     <PackageReference Include="Mtf.Database" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.1" />

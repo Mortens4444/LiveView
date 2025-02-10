@@ -61,7 +61,7 @@ namespace LiveView.Presenters
             generalOptionsRepository.Set(Setting.ShowOnSelectedDisplayWhenOpenedFromSequence, view.RbShowOnControlCentersSelectedDisplay2.Checked);
             generalOptionsRepository.Set(Setting.ShowOnFullscreenDisplayWhenOpenedFromSequence, view.RbShowOnFullscreenDisplay2.Checked);
 
-            logger.LogInfo(DisplayManagementPermissions.Update, "Display settings saved.");
+            logger.LogInfo(DisplayManagementPermissions.Update, "Display settings has been changed.");
         }
 
         public override void Load()

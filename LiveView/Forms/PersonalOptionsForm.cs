@@ -27,9 +27,22 @@ namespace LiveView.Forms
             originalTexts = Translator.Translate(this);
         }
 
+        private void PersonalOptionsForm_Shown(object sender, EventArgs e)
+        {
+            presenter = Presenter as PersonalOptionsPresenter;
+            presenter.Load();
+        }
+
         public void SetOriginalTexts()
         {
             Translator.SetOriginalTexts(originalTexts);
+        }
+
+        private void CbLanguages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CbLanguages.SelectedIndexChanged -= CbLanguages_SelectedIndexChanged;
+            presenter.ChangeLanguage();
+            CbLanguages.SelectedIndexChanged += CbLanguages_SelectedIndexChanged;
         }
 
         [RequirePermission(SettingsManagementPermissions.UpdatePersonal)]
@@ -42,19 +55,6 @@ namespace LiveView.Forms
         private void BtnClose_Click(object sender, EventArgs e)
         {
             presenter.CloseForm();
-        }
-
-        private void PersonalOptionsForm_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as PersonalOptionsPresenter;
-            presenter.Load();
-        }
-
-        private void CbLanguages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CbLanguages.SelectedIndexChanged -= CbLanguages_SelectedIndexChanged;
-            presenter.ChangeLanguage();
-            CbLanguages.SelectedIndexChanged += CbLanguages_SelectedIndexChanged;
         }
     }
 }

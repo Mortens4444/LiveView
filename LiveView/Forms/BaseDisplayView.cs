@@ -62,7 +62,7 @@ namespace LiveView.Forms
             }
         }
 
-        protected void DrawDisplays(Panel panel, Graphics graphics, DisplayDrawingTools displayDrawingTools, string hostname)
+        protected void DrawDisplays(Panel panel, Graphics graphics, DisplayDrawingTools displayDrawingTools, string hostname, bool showSeqences)
         {
             if (CachedDisplays == null)
             {
@@ -73,7 +73,7 @@ namespace LiveView.Forms
             {
                 if (display.Host == hostname)
                 {
-                    DrawDisplay(panel, graphics, display, displayDrawingTools);
+                    DrawDisplay(panel, graphics, display, displayDrawingTools, showSeqences);
                     if (displayDrawingTools == DisplayDrawingTools.Selected && display.Selected)
                     {
                         var sequenceProcess = Globals.SequenceProcesses.FirstOrDefault(sp => sp.Value.DisplayId.ToString() == display.Id);
@@ -95,7 +95,7 @@ namespace LiveView.Forms
             }
         }
 
-        private void DrawDisplay(Panel panel, Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools)
+        private void DrawDisplay(Panel panel, Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools, bool showSeqences)
         {
             if (!CachedBounds.TryGetValue(display.Id, out var bounds))
             {
@@ -104,7 +104,7 @@ namespace LiveView.Forms
 
             var adjustedBounds = GetAdjustedBounds(bounds);
             var (drawingPen, drawingBrush) = displayPresenter.GetDrawingTools(display, displayDrawingTools);
-            Draw(panel, graphics, display, bounds, adjustedBounds, drawingPen, drawingBrush);
+            Draw(panel, graphics, display, bounds, adjustedBounds, drawingPen, drawingBrush, showSeqences);
         }
 
         private static Rectangle GetAdjustedBounds(Rectangle bounds)
@@ -117,13 +117,16 @@ namespace LiveView.Forms
             );
         }
 
-        private void Draw(Panel panel, Graphics graphics, DisplayDto display, Rectangle bounds, Rectangle adjustedBounds, Pen drawingPen, SolidBrush drawingBrush)
+        private void Draw(Panel panel, Graphics graphics, DisplayDto display, Rectangle bounds, Rectangle adjustedBounds, Pen drawingPen, SolidBrush drawingBrush, bool showSeqences)
         {
             graphics.DrawRectangle(drawingPen, bounds);
             graphics.FillRegion(drawingBrush, new Region(bounds));
             graphics.DrawRectangle(drawingPen, adjustedBounds);
 
-            ShowSeqence(panel, graphics, display, adjustedBounds);
+            if (showSeqences)
+            {
+                ShowSeqence(panel, graphics, display, adjustedBounds);
+            }
             ShowDisplayName(graphics, display, adjustedBounds);
         }
 

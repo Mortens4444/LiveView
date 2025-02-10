@@ -1,8 +1,10 @@
-﻿using LiveView.Forms;
+﻿using LiveView.Extensions;
+using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Enums;
 
 namespace LiveView.Presenters
 {
@@ -28,6 +30,7 @@ namespace LiveView.Presenters
             if (UpgradeCodeManager.ValidateUpgradeCode(view.RtbUpgradeCode.Text, view.TbSecretCode.Text, out var edition))
             {
                 Globals.HardwareKey.LiveViewEdition = edition;
+                logger.LogInfo(ApplicationManagementPermissions.Upgrade, "LiveView Edition has been upgraded.");
                 ShowInfo("LiveView Edition has been upgraded successfully.");
             }
             else

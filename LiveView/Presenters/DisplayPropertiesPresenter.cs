@@ -1,10 +1,8 @@
 ﻿using Database.Interfaces;
-using Database.Models;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
 
 namespace LiveView.Presenters
@@ -37,7 +35,7 @@ namespace LiveView.Presenters
             view.TbDisplayName.Text = view.Display.DeviceName;
             view.TbAdapterName.Text = view.Display.AdapterName;
             view.TbTopLeftCoordinate.Text = $"{view.Display.X}, {view.Display.Y}";
-            view.TbResolution.Text = $"{view.Display.MaxWidth}, {view.Display.MaxHeight}"; ;
+            view.TbResolution.Text = $"{view.Display.MaxWidth}, {view.Display.MaxHeight}";
             view.TbWorkPlaceArea.Text = $"{view.Display.Width}, {view.Display.Height}";
             view.ChkShowSequences.Checked = display.CanShowSequence;
             view.ChkRemovable.Checked = view.Display.Removable;

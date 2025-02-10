@@ -51,8 +51,10 @@ namespace LiveView.Forms
             presenter.ChangePortSettings();
         }
 
+        [RequirePermission(IODeviceManagementPermissions.Update)]
         private void DeleteRulesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            permissionManager.EnsurePermissions();
             presenter.DeleteRules();
         }
     }

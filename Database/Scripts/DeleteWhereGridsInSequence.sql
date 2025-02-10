@@ -1,0 +1,1 @@
+﻿DELETE FROM GridsInSequences WHERE SequenceId = @SequenceId;

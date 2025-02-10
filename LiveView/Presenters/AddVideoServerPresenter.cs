@@ -40,14 +40,14 @@ namespace LiveView.Presenters
             if (server == null)
             {
                 serverRepository.Insert(newServer);
+                logger.LogInfo(ServerManagementPermissions.Create, "Video server '{0}' has been created.", serverDto);
             }
             else
             {
                 newServer.Id = server.Id;
                 serverRepository.Update(newServer);
+                logger.LogInfo(ServerManagementPermissions.Update, "Video server '{0}' has been updated.", serverDto);
             }
-
-            logger.LogInfo(ServerManagementPermissions.Create, "Video server '{0}' has been created.", serverDto);
         }
 
         public async Task SearchForHostsAsync()

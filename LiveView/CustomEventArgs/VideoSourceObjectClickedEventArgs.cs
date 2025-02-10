@@ -4,9 +4,9 @@ namespace LiveView.CustomEventArgs
 {
     public class VideoSourceObjectClickedEventArgs
     {
-        public VideoSource VideoSource { get; private set; }
+        public VideoSourceDto VideoSource { get; private set; }
 
-        public VideoSourceObjectClickedEventArgs(VideoSource videoSource)
+        public VideoSourceObjectClickedEventArgs(VideoSourceDto videoSource)
         {
             VideoSource = videoSource;
         }

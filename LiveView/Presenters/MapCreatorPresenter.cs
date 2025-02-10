@@ -178,7 +178,7 @@ namespace LiveView.Presenters
                         var gridCamera = gridCameras.FirstOrDefault(gc => gc.Id == mapObject.ActionReferencedId); // Should use videoSourceRepository
                         if (gridCamera != null)
                         {
-                            panel.Tag = new VideoSource
+                            panel.Tag = new VideoSourceDto
                             {
                                 EndPoint = $"{gridCamera.ServerIp}:0",
                                 Name = gridCamera.VideoSourceName
@@ -291,7 +291,7 @@ namespace LiveView.Presenters
                 mapObject.ActionType = MapActionType.OpenCamera;
                 mapObject.ActionReferencedId = camera.Id;
             }
-            if (control.Tag is VideoSource videoSource)
+            if (control.Tag is VideoSourceDto videoSource)
             {
                 mapObject.ActionType = MapActionType.OpenVideoSource;
                 var gridCamera = gridCameras.FirstOrDefault(gc => gc.ServerIp == videoSource.ServerIp && gc.VideoSourceName == videoSource.Name); // These data should not be in GridCamera, but in a separate table VideoSources

@@ -5,6 +5,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 
@@ -39,6 +40,7 @@ namespace LiveView.Presenters
             view.Camera.FullscreenMode = (FullscreenMode)view.CbFullscreenMode.SelectedIndex;
 
             cameraRepository.Update(view.Camera);
+            logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' properties has been changed.", view.Camera.CameraName);
         }
 
         public override void Load()

@@ -18,7 +18,7 @@ namespace LiveView.Services
             {
                 foreach (var camera in videoCaptureSource.Value)
                 {
-                    var videoSource = new VideoSource
+                    var videoSource = new VideoSourceDto
                     {
                         Socket = videoCaptureSource.Key,
                         Name = camera.Key,
@@ -66,7 +66,7 @@ namespace LiveView.Services
                 };
                 foreach (var camera in videoCaptureSource.Value)
                 {
-                    var videoSource = new VideoSource
+                    var videoSource = new VideoSourceDto
                     {
                         Socket = videoCaptureSource.Key,
                         Name = camera.Key,

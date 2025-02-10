@@ -30,7 +30,6 @@
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplaySettings));
             pMain = new System.Windows.Forms.Panel();
-            btnResetDisplays = new System.Windows.Forms.Button();
             gbFullscreenViewBehavior = new System.Windows.Forms.GroupBox();
             pRight = new System.Windows.Forms.Panel();
             lblOpenFromSequenceWindow = new System.Windows.Forms.Label();
@@ -40,11 +39,14 @@
             lblOpenFromControlCenter = new System.Windows.Forms.Label();
             rbShowOnFullscreenDisplay = new System.Windows.Forms.RadioButton();
             rbShowOnControlCentersSelectedDisplay = new System.Windows.Forms.RadioButton();
+            splitter2 = new System.Windows.Forms.Splitter();
+            gbFullscreenDisplay = new System.Windows.Forms.GroupBox();
+            pFullscreenDisplay = new Mtf.Controls.TransparentPanel();
+            splitter1 = new System.Windows.Forms.Splitter();
+            btnResetDisplays = new System.Windows.Forms.Button();
             btnIdentify = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
-            gbFullscreenDisplay = new System.Windows.Forms.GroupBox();
-            pFullscreenDisplay = new Mtf.Controls.TransparentPanel();
             gbFunctionChooser = new System.Windows.Forms.GroupBox();
             pFunctionChooser = new Mtf.Controls.TransparentPanel();
             pMain.SuspendLayout();
@@ -57,12 +59,14 @@
             // 
             // pMain
             // 
-            pMain.Controls.Add(btnResetDisplays);
             pMain.Controls.Add(gbFullscreenViewBehavior);
+            pMain.Controls.Add(splitter2);
+            pMain.Controls.Add(gbFullscreenDisplay);
+            pMain.Controls.Add(splitter1);
+            pMain.Controls.Add(btnResetDisplays);
             pMain.Controls.Add(btnIdentify);
             pMain.Controls.Add(btnClose);
             pMain.Controls.Add(btnSave);
-            pMain.Controls.Add(gbFullscreenDisplay);
             pMain.Controls.Add(gbFunctionChooser);
             pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             pMain.Location = new System.Drawing.Point(0, 0);
@@ -71,29 +75,17 @@
             pMain.Size = new System.Drawing.Size(630, 558);
             pMain.TabIndex = 0;
             // 
-            // btnResetDisplays
-            // 
-            btnResetDisplays.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnResetDisplays.Location = new System.Drawing.Point(5, 525);
-            btnResetDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnResetDisplays.Name = "btnResetDisplays";
-            btnResetDisplays.Size = new System.Drawing.Size(190, 27);
-            btnResetDisplays.TabIndex = 15;
-            btnResetDisplays.Text = "Reset displays";
-            btnResetDisplays.UseVisualStyleBackColor = true;
-            btnResetDisplays.Click += BtnResetDisplays_Click;
-            // 
             // gbFullscreenViewBehavior
             // 
             gbFullscreenViewBehavior.Controls.Add(pRight);
             gbFullscreenViewBehavior.Controls.Add(pLeft);
             gbFullscreenViewBehavior.Dock = System.Windows.Forms.DockStyle.Top;
-            gbFullscreenViewBehavior.Location = new System.Drawing.Point(0, 424);
+            gbFullscreenViewBehavior.Location = new System.Drawing.Point(0, 430);
             gbFullscreenViewBehavior.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbFullscreenViewBehavior.Name = "gbFullscreenViewBehavior";
             gbFullscreenViewBehavior.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbFullscreenViewBehavior.Size = new System.Drawing.Size(630, 96);
-            gbFullscreenViewBehavior.TabIndex = 10;
+            gbFullscreenViewBehavior.TabIndex = 19;
             gbFullscreenViewBehavior.TabStop = false;
             gbFullscreenViewBehavior.Text = "Behavior of opening full screen view";
             // 
@@ -189,10 +181,66 @@
             rbShowOnControlCentersSelectedDisplay.Text = "Show on control center's selected display";
             rbShowOnControlCentersSelectedDisplay.UseVisualStyleBackColor = true;
             // 
+            // splitter2
+            // 
+            splitter2.Dock = System.Windows.Forms.DockStyle.Top;
+            splitter2.Location = new System.Drawing.Point(0, 427);
+            splitter2.Name = "splitter2";
+            splitter2.Size = new System.Drawing.Size(630, 3);
+            splitter2.TabIndex = 18;
+            splitter2.TabStop = false;
+            // 
+            // gbFullscreenDisplay
+            // 
+            gbFullscreenDisplay.Controls.Add(pFullscreenDisplay);
+            gbFullscreenDisplay.Dock = System.Windows.Forms.DockStyle.Top;
+            gbFullscreenDisplay.Location = new System.Drawing.Point(0, 215);
+            gbFullscreenDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFullscreenDisplay.Name = "gbFullscreenDisplay";
+            gbFullscreenDisplay.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFullscreenDisplay.Size = new System.Drawing.Size(630, 212);
+            gbFullscreenDisplay.TabIndex = 17;
+            gbFullscreenDisplay.TabStop = false;
+            gbFullscreenDisplay.Text = "Full screen display";
+            // 
+            // pFullscreenDisplay
+            // 
+            pFullscreenDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            pFullscreenDisplay.Location = new System.Drawing.Point(4, 19);
+            pFullscreenDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pFullscreenDisplay.Name = "pFullscreenDisplay";
+            pFullscreenDisplay.Size = new System.Drawing.Size(622, 190);
+            pFullscreenDisplay.TabIndex = 0;
+            pFullscreenDisplay.TransparentColor = System.Drawing.Color.Black;
+            pFullscreenDisplay.UseTransparentColor = false;
+            pFullscreenDisplay.Paint += PFullscreenDisplay_Paint;
+            pFullscreenDisplay.MouseClick += PFullscreenDisplay_MouseClick;
+            // 
+            // splitter1
+            // 
+            splitter1.Dock = System.Windows.Forms.DockStyle.Top;
+            splitter1.Location = new System.Drawing.Point(0, 212);
+            splitter1.Name = "splitter1";
+            splitter1.Size = new System.Drawing.Size(630, 3);
+            splitter1.TabIndex = 16;
+            splitter1.TabStop = false;
+            // 
+            // btnResetDisplays
+            // 
+            btnResetDisplays.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnResetDisplays.Location = new System.Drawing.Point(5, 527);
+            btnResetDisplays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnResetDisplays.Name = "btnResetDisplays";
+            btnResetDisplays.Size = new System.Drawing.Size(190, 27);
+            btnResetDisplays.TabIndex = 15;
+            btnResetDisplays.Text = "Reset displays";
+            btnResetDisplays.UseVisualStyleBackColor = true;
+            btnResetDisplays.Click += BtnResetDisplays_Click;
+            // 
             // btnIdentify
             // 
             btnIdentify.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnIdentify.Location = new System.Drawing.Point(349, 525);
+            btnIdentify.Location = new System.Drawing.Point(349, 527);
             btnIdentify.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnIdentify.Name = "btnIdentify";
             btnIdentify.Size = new System.Drawing.Size(88, 27);
@@ -205,7 +253,7 @@
             // 
             btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnClose.Location = new System.Drawing.Point(537, 525);
+            btnClose.Location = new System.Drawing.Point(537, 527);
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
@@ -218,7 +266,7 @@
             // 
             btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnSave.Location = new System.Drawing.Point(443, 525);
+            btnSave.Location = new System.Drawing.Point(443, 527);
             btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(88, 27);
@@ -226,30 +274,6 @@
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
-            // 
-            // gbFullscreenDisplay
-            // 
-            gbFullscreenDisplay.Controls.Add(pFullscreenDisplay);
-            gbFullscreenDisplay.Dock = System.Windows.Forms.DockStyle.Top;
-            gbFullscreenDisplay.Location = new System.Drawing.Point(0, 212);
-            gbFullscreenDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbFullscreenDisplay.Name = "gbFullscreenDisplay";
-            gbFullscreenDisplay.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbFullscreenDisplay.Size = new System.Drawing.Size(630, 212);
-            gbFullscreenDisplay.TabIndex = 9;
-            gbFullscreenDisplay.TabStop = false;
-            gbFullscreenDisplay.Text = "Full screen display";
-            // 
-            // pFullscreenDisplay
-            // 
-            pFullscreenDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            pFullscreenDisplay.Location = new System.Drawing.Point(4, 19);
-            pFullscreenDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pFullscreenDisplay.Name = "pFullscreenDisplay";
-            pFullscreenDisplay.Size = new System.Drawing.Size(622, 190);
-            pFullscreenDisplay.TabIndex = 0;
-            pFullscreenDisplay.Paint += PFullscreenDisplay_Paint;
-            pFullscreenDisplay.MouseClick += PFullscreenDisplay_MouseClick;
             // 
             // gbFunctionChooser
             // 
@@ -272,6 +296,8 @@
             pFunctionChooser.Name = "pFunctionChooser";
             pFunctionChooser.Size = new System.Drawing.Size(622, 190);
             pFunctionChooser.TabIndex = 0;
+            pFunctionChooser.TransparentColor = System.Drawing.Color.Black;
+            pFunctionChooser.UseTransparentColor = false;
             pFunctionChooser.Paint += PFunctionChooser_Paint;
             pFunctionChooser.MouseClick += PFunctionChooser_MouseClick;
             // 
@@ -288,6 +314,7 @@
             Text = "Display settings";
             TopMost = true;
             Shown += DisplaySettings_Shown;
+            ResizeEnd += DisplaySettings_ResizeEnd;
             pMain.ResumeLayout(false);
             gbFullscreenViewBehavior.ResumeLayout(false);
             pRight.ResumeLayout(false);
@@ -303,6 +330,11 @@
 
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.Button btnResetDisplays;
+        private System.Windows.Forms.Button btnIdentify;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Splitter splitter2;
+        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.GroupBox gbFullscreenViewBehavior;
         private System.Windows.Forms.Panel pRight;
         private System.Windows.Forms.Label lblOpenFromSequenceWindow;
@@ -312,9 +344,6 @@
         private System.Windows.Forms.Label lblOpenFromControlCenter;
         private System.Windows.Forms.RadioButton rbShowOnFullscreenDisplay;
         private System.Windows.Forms.RadioButton rbShowOnControlCentersSelectedDisplay;
-        private System.Windows.Forms.Button btnIdentify;
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbFullscreenDisplay;
         private Mtf.Controls.TransparentPanel pFullscreenDisplay;
         private System.Windows.Forms.GroupBox gbFunctionChooser;
