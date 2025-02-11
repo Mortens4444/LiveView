@@ -54,28 +54,28 @@ namespace LiveView.Forms
             presenter.StepBack();
         }
 
-        [RequirePermission(CameraManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.Pause)]
         private void BtnPause_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.Pause();
         }
 
-        [RequirePermission(CameraManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.Play)]
         private void BtnPlay_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.Play();
         }
 
-        [RequirePermission(CameraManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.Next)]
         private void BtnStepNext_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.StepNext();
         }
 
-        [RequirePermission(CameraManagementPermissions.Select)]
+        [RequirePermission(CameraManagementPermissions.GoTo)]
         private void BtnGoto_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

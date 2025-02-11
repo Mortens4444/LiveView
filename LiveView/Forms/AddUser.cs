@@ -31,7 +31,7 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(UserManagementPermissions.Create)]
+        [RequirePermission(UserManagementPermissions.Create | UserManagementPermissions.Update)]
         private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -55,8 +55,9 @@ namespace LiveView.Forms
         {
             return new User
             {
+                Id = user?.Id ?? 0,
                 Username = tbUsername.Text,
-                Password = tbPassword.Password,
+                Password = String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : tbPassword.Password,
                 Email = tbEmail.Text,
                 NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,
                 SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value

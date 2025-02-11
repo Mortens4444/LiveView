@@ -53,8 +53,7 @@ namespace LiveView.Forms
             presenter.Load();
         }
 
-        [RequirePermission(GroupManagementPermissions.Create)]
-        [RequirePermission(GroupManagementPermissions.Update)]
+        [RequireAnyPermission(GroupManagementPermissions.Create | GroupManagementPermissions.Update)]
         private void BtnCreateOrModifyGroup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -92,40 +91,40 @@ namespace LiveView.Forms
             presenter.SelectAllCameras();
         }
 
-        [RequirePermission(CameraManagementPermissions.Create)]
-        [RequirePermission(PermissionManagementPermissions.Create)]
+        [RequireAnyPermission(CameraManagementPermissions.Create)]
+        [RequireAnyPermission(PermissionManagementPermissions.Create)]
         private void BtnAddSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.AddSelectedOperationsAndCameras();
         }
 
-        [RequirePermission(CameraManagementPermissions.Create)]
-        [RequirePermission(PermissionManagementPermissions.Create)]
+        [RequireAnyPermission(CameraManagementPermissions.Create)]
+        [RequireAnyPermission(PermissionManagementPermissions.Create)]
         private void BtnAddAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.AddAllOperationsAndCameras();
         }
 
-        [RequirePermission(CameraManagementPermissions.Delete)]
-        [RequirePermission(PermissionManagementPermissions.Delete)]
+        [RequireAnyPermission(CameraManagementPermissions.Delete)]
+        [RequireAnyPermission(PermissionManagementPermissions.Delete)]
         private void BtnRemoveSelected_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.RemoveSelectedOperationsAndCameras();
         }
 
-        [RequirePermission(CameraManagementPermissions.Delete)]
-        [RequirePermission(PermissionManagementPermissions.Delete)]
+        [RequireAnyPermission(CameraManagementPermissions.Delete)]
+        [RequireAnyPermission(PermissionManagementPermissions.Delete)]
         private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.RemoveAllOperationsAndCameras();
         }
 
-        [RequirePermission(CameraManagementPermissions.FullControl)]
-        [RequirePermission(PermissionManagementPermissions.FullControl)]
+        [RequireAnyPermission(CameraManagementPermissions.Create | CameraManagementPermissions.Update | CameraManagementPermissions.Delete)]
+        [RequireAnyPermission(PermissionManagementPermissions.Create | PermissionManagementPermissions.Update | PermissionManagementPermissions.Delete)]
         private void BtnSavePermissions_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

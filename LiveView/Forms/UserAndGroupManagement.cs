@@ -32,8 +32,8 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(GroupManagementPermissions.Select)]
-        [RequirePermission(UserManagementPermissions.Select)]
+        [RequireAnyPermission(GroupManagementPermissions.Select)]
+        [RequireAnyPermission(UserManagementPermissions.Select)]
         private void UserAndGroupManagement_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -64,13 +64,11 @@ namespace LiveView.Forms
 
         private void BtnModify_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
             presenter.Modify();
         }
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            permissionManager.EnsurePermissions();
             presenter.Delete();
         }
 

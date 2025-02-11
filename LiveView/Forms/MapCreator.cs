@@ -42,6 +42,15 @@ namespace LiveView.Forms
             Translator.Translate(cmsObjectMenu.Items);
         }
 
+        [RequirePermission(MapManagementPermissions.Select)]
+        private void MapCreator_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter = Presenter as MapCreatorPresenter;
+            presenter.Load();
+            PTemplate.BackColor = Color.Gold;
+        }
+
         [RequirePermission(MapManagementPermissions.Update)]
         private void BtnAddObject_Click(object sender, EventArgs e)
         {
@@ -63,19 +72,12 @@ namespace LiveView.Forms
             presenter.LoadMapImage();
         }
 
-        [RequirePermission(MapManagementPermissions.Update)]
+        [RequireAnyPermission(MapManagementPermissions.Create | MapManagementPermissions.Update)]
         private void BtnSaveMap_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.SaveMap();
             presenter.Load();
-        }
-
-        private void MapCreator_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as MapCreatorPresenter;
-            presenter.Load();
-            PTemplate.BackColor = Color.Gold;
         }
 
         private void PTemplate_MouseDown(object sender, MouseEventArgs e)

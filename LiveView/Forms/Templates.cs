@@ -25,6 +25,14 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
+        [RequirePermission(TemplateManagementPermissions.Select)]
+        private void Templates_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter = Presenter as TemplatesPresenter;
+            presenter.Load();
+        }
+
         [RequirePermission(TemplateManagementPermissions.Update)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -42,12 +50,6 @@ namespace LiveView.Forms
         private void BtnClose_Click(object sender, EventArgs e)
         {
             presenter.CloseForm();
-        }
-
-        private void Templates_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as TemplatesPresenter;
-            presenter.Load();
         }
     }
 }

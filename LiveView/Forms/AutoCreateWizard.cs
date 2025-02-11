@@ -46,9 +46,9 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(GridManagementPermissions.FullControl)]
-        [RequirePermission(SequenceManagementPermissions.FullControl)]
-        [RequirePermission(TemplateManagementPermissions.FullControl)]
+        [RequirePermission(GridManagementPermissions.Create)]
+        [RequirePermission(SequenceManagementPermissions.Create)]
+        [RequirePermission(TemplateManagementPermissions.Create)]
         private void BtnAutoCreate_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -60,33 +60,21 @@ namespace LiveView.Forms
             presenter.CloseForm();
         }
 
-        [RequirePermission(GridManagementPermissions.Create)]
-        [RequirePermission(SequenceManagementPermissions.Create)]
-        [RequirePermission(TemplateManagementPermissions.Create)]
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             presenter.AddSelected();
         }
 
-        [RequirePermission(GridManagementPermissions.Create)]
-        [RequirePermission(SequenceManagementPermissions.Create)]
-        [RequirePermission(TemplateManagementPermissions.Create)]
         private void BtnAddAll_Click(object sender, EventArgs e)
         {
             presenter.AddAll();
         }
 
-        [RequirePermission(GridManagementPermissions.Delete)]
-        [RequirePermission(SequenceManagementPermissions.Delete)]
-        [RequirePermission(TemplateManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             presenter.RemoveSelected();
         }
 
-        [RequirePermission(GridManagementPermissions.Delete)]
-        [RequirePermission(SequenceManagementPermissions.Delete)]
-        [RequirePermission(TemplateManagementPermissions.Delete)]
         private void BtnRemoveAll_Click(object sender, EventArgs e)
         {
             presenter.RemoveAll();

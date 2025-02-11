@@ -33,17 +33,19 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
+        [RequirePermission(IODeviceManagementPermissions.Select)]
+        private void IOPortSettings_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter = Presenter as IOPortSettingsPresenter;
+            presenter.Load();
+        }
+
         [RequirePermission(IODeviceManagementPermissions.Update)]
         private void BtnAddToRules_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.AddRule();
-        }
-
-        private void IOPortSettings_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as IOPortSettingsPresenter;
-            presenter.Load();
         }
 
         private void ChangeSettingsToolStripMenuItem_Click(object sender, EventArgs e)

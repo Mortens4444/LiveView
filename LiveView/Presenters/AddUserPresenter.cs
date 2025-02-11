@@ -33,13 +33,21 @@ namespace LiveView.Presenters
         public void CreateUserInGroup(Group parentGroup)
         {
             var user = view.GetUser();
-            int userId = userRepository.InsertAndReturnId<int>(user);
-            usersInGroupsRepository.Insert(new UserGroup
+            if (user.Id == 0)
             {
-                UserId = userId,
-                GroupId = parentGroup.Id
-            });
-            logger.LogInfo(UserManagementPermissions.Create, "User '{0}' has been created in group '{1}'.", user.Username, parentGroup.Name);
+                int userId = userRepository.InsertAndReturnId<int>(user);
+                usersInGroupsRepository.Insert(new UserGroup
+                {
+                    UserId = userId,
+                    GroupId = parentGroup.Id
+                });
+                logger.LogInfo(UserManagementPermissions.Create, "User '{0}' has been created in group '{1}'.", user.Username, parentGroup.Name);
+            }
+            else
+            {
+                userRepository.Update(user);
+                logger.LogInfo(UserManagementPermissions.Create, "User '{0}' has been modified in group '{1}'.", user.Username, parentGroup.Name);
+            }
         }
 
         public void LoadData(User user)

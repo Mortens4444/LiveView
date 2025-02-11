@@ -34,8 +34,8 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(ServerManagementPermissions.Select)]
-        [RequirePermission(CameraManagementPermissions.Select)]
+        [RequireAnyPermission(ServerManagementPermissions.Select)]
+        [RequireAnyPermission(CameraManagementPermissions.Select)]
         private void ServerAndCameraManagement_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ServerAndCameraManagementPresenter;
@@ -44,14 +44,14 @@ namespace LiveView.Forms
             presenter.Load();
         }
 
-        [RequirePermission(ServerManagementPermissions.Create)]
+        [RequireAnyPermission(ServerManagementPermissions.Create | ServerManagementPermissions.Update)]
         private void BtnNewVideoServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowDialogWithReload<AddVideoServer>();
         }
 
-        [RequirePermission(DatabaseServerManagementPermissions.Create)]
+        [RequireAnyPermission(DatabaseServerManagementPermissions.Create | DatabaseServerManagementPermissions.Update)]
         private void BtnNewDBServer_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

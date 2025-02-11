@@ -44,6 +44,14 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
+        [RequirePermission(UserManagementPermissions.Select)]
+        private void Profile_Shown(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter = Presenter as ProfilePresenter;
+            presenter.Load();
+        }
+
         [RequirePermission(UserManagementPermissions.Update)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -61,12 +69,6 @@ namespace LiveView.Forms
         {
             permissionManager.EnsurePermissions();
             presenter.SelectProfilePicture();
-        }
-
-        private void Profile_Shown(object sender, EventArgs e)
-        {
-            presenter = Presenter as ProfilePresenter;
-            presenter.Load();
         }
     }
 }

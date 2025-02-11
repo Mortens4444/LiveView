@@ -75,53 +75,53 @@ namespace LiveView.Forms
             }
         }
 
-        [RequirePermission(ServerManagementPermissions.FullControl)]
-        [RequirePermission(CameraManagementPermissions.FullControl)]
+        [RequirePermission(ServerManagementPermissions.Select | ServerManagementPermissions.Create | ServerManagementPermissions.Update | ServerManagementPermissions.Delete)]
+        [RequirePermission(CameraManagementPermissions.Select | CameraManagementPermissions.Create | CameraManagementPermissions.Update | CameraManagementPermissions.Delete)]
         private void TsmiServerAndCameraManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<ServerAndCameraManagement>();
         }
 
-        [RequirePermission(GridManagementPermissions.FullControl)]
+        [RequirePermission(GridManagementPermissions.Select | GridManagementPermissions.Create | GridManagementPermissions.Update | GridManagementPermissions.Delete)]
         private void TsmiGridManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<GridManager>();
         }
 
-        [RequirePermission(SequenceManagementPermissions.FullControl)]
+        [RequirePermission(SequenceManagementPermissions.Select | SequenceManagementPermissions.Create | SequenceManagementPermissions.Update | SequenceManagementPermissions.Delete)]
         private void TsmiSequentialChains_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<SequentialChains>();
         }
 
-        [RequirePermission(GridManagementPermissions.FullControl)]
-        [RequirePermission(SequenceManagementPermissions.FullControl)]
-        [RequirePermission(TemplateManagementPermissions.FullControl)]
+        [RequirePermission(GridManagementPermissions.Create)]
+        [RequirePermission(SequenceManagementPermissions.Create)]
+        [RequirePermission(TemplateManagementPermissions.Create)]
         private void TsmiAutoCreateWizard_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<AutoCreateWizard>();
         }
 
-        [RequirePermission(TemplateManagementPermissions.FullControl)]
+        [RequirePermission(TemplateManagementPermissions.Select | TemplateManagementPermissions.Create | TemplateManagementPermissions.Update | TemplateManagementPermissions.Delete)]
         private void TsmiTemplates_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<Templates>();
         }
 
-        [RequirePermission(UserManagementPermissions.FullControl)]
-        [RequirePermission(GroupManagementPermissions.FullControl)]
+        [RequirePermission(UserManagementPermissions.Select | UserManagementPermissions.Create | UserManagementPermissions.Update | UserManagementPermissions.Delete)]
+        [RequirePermission(GroupManagementPermissions.Select | GroupManagementPermissions.Create | GroupManagementPermissions.Update | GroupManagementPermissions.Delete)]
         private void TsmiUserAndGroupManagement_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<UserAndGroupManagement>();
         }
 
-        [RequirePermission(UserManagementPermissions.FullControl)]
+        [RequirePermission(UserManagementPermissions.Select | UserManagementPermissions.Update)]
         private void TsmiProfile_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -143,7 +143,7 @@ namespace LiveView.Forms
             presenter.ShowForm<GeneralOptionsForm>();
         }
 
-        [RequirePermission(DisplayManagementPermissions.FullControl)]
+        [RequirePermission(DisplayManagementPermissions.Select | DisplayManagementPermissions.Update)]
         private void TsmiDisplaySettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
@@ -169,35 +169,35 @@ namespace LiveView.Forms
             MainPresenter.MoveMouseToHome();
         }
 
-        [RequirePermission(SerialDeviceManagementPermissions.FullControl)]
+        [RequirePermission(SerialDeviceManagementPermissions.Select)]
         private void TsmiBarCodeReadings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<BarcodeReadings>();
         }
 
-        [RequirePermission(CameraManagementPermissions.FullControl)]
+        [RequirePermission(CameraManagementPermissions.Pause | CameraManagementPermissions.Play | CameraManagementPermissions.Next | CameraManagementPermissions.Previous | CameraManagementPermissions.GoTo)]
         private void TsmiSyncronView_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<SyncronView>();
         }
 
-        [RequirePermission(IODeviceManagementPermissions.FullControl)]
+        [RequirePermission(IODeviceManagementPermissions.Select | IODeviceManagementPermissions.Update)]
         private void TsmiIOPortsSettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<IOPortSettings>();
         }
 
-        [RequirePermission(CameraManagementPermissions.FullControl)]
+        [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]
         private void TsmiMotionPopup_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
             presenter.ShowForm<CameraMotionSettings>();
         }
 
-        [RequirePermission(MapManagementPermissions.FullControl)]
+        [RequirePermission(MapManagementPermissions.Create | MapManagementPermissions.Update | MapManagementPermissions.Delete | MapManagementPermissions.Select)]
         private void TsmiMapCreator_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

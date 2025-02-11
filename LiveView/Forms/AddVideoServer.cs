@@ -39,7 +39,7 @@ namespace LiveView.Forms
             presenter.Validate();
         }
 
-        [RequirePermission(ServerManagementPermissions.Create)]
+        [RequireAnyPermission(ServerManagementPermissions.Create | ServerManagementPermissions.Update)]
         private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
