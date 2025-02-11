@@ -45,6 +45,7 @@ namespace LiveView.Services
         private static void RegisterPresenterDependencies(ServiceCollection services)
         {
             services.AddTransient<AddCamerasPresenterDependencies>();
+            services.AddTransient<AddDatabaseServerPresenterDependencies>();            
             services.AddTransient<AddGridPresenterDependencies>();
             services.AddTransient<AddGroupPresenterDependencies>();
             services.AddTransient<AddUserPresenterDependencies>();

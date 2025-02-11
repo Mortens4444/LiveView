@@ -29,7 +29,7 @@ namespace LiveView.Forms
             Translator.Translate(this);
         }
 
-        [RequirePermission(ServerManagementPermissions.Create)]
+        [RequireAnyPermission(DatabaseServerManagementPermissions.Create | DatabaseServerManagementPermissions.Update)]
         private void BtnAddOrModify_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

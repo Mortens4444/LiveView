@@ -3,8 +3,11 @@ using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Enums;
+using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Presenters
 {
@@ -13,12 +16,14 @@ namespace LiveView.Presenters
         private IAddDatabaseServerView view;
         private readonly IDatabaseServerRepository databaseServerRepository;
         private readonly ILogger<AddDatabaseServer> logger;
+        private readonly PermissionManager<User> permissionManager;
 
-        public AddDatabaseServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IDatabaseServerRepository databaseServerRepository, ILogger<AddDatabaseServer> logger)
-            : base(generalOptionsRepository)
+        public AddDatabaseServerPresenter(AddDatabaseServerPresenterDependencies addDatabaseServerPresenterDependencies)
+            : base(addDatabaseServerPresenterDependencies)
         {
-            this.databaseServerRepository = databaseServerRepository;
-            this.logger = logger;
+            permissionManager = addDatabaseServerPresenterDependencies.PermissionManager;
+            databaseServerRepository = addDatabaseServerPresenterDependencies.DatabaseServerRepository;
+            logger = addDatabaseServerPresenterDependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -33,14 +38,30 @@ namespace LiveView.Presenters
             var newServer = serverDto.ToModel();
             if (server == null)
             {
-                databaseServerRepository.Insert(newServer);
-                logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been updated.", serverDto);
+                if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Create))
+                {
+                    databaseServerRepository.Insert(newServer);
+                    logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been created.", serverDto);
+                }
+                else
+                {
+                    logger.LogError("User '{0}' has no permission to create database server.", permissionManager.CurrentUser);
+                    throw new UnauthorizedAccessException();
+                }
             }
             else
             {
-                newServer.Id = server.Id;
-                databaseServerRepository.Update(newServer);
-                logger.LogInfo(DatabaseServerManagementPermissions.Create, "Database server '{0}' has been created.", serverDto);
+                if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Update))
+                {
+                    newServer.Id = server.Id;
+                    databaseServerRepository.Update(newServer);
+                    logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been changed.", serverDto);
+                }
+                else
+                {
+                    logger.LogError("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
+                    throw new UnauthorizedAccessException();
+                }
             }
         }
     }

@@ -1,3 +1,4 @@
+Presenters should check if has correct permissions when RequireAnyPermission is used
 Network encryption
 Template should open remote displays
 Personal options not loaded correctly, not used...
