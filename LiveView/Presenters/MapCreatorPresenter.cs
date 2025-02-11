@@ -195,17 +195,21 @@ namespace LiveView.Presenters
 
         public void DeleteMap()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
-            {
-                return;
-            }
-
             if (view.CbMap.SelectedItem is Map map)
             {
+                if (!ShowConfirm("Are you sure you want to delete this map?", Decide.No))
+                {
+                    return;
+                }
+
                 mapRepository.Delete(map.Id);
                 logger.LogInfo(MapManagementPermissions.Delete, MapHasBeenDeleted, map);
                 CreateNewMap();
                 Load();
+            }
+            else
+            {
+                ShowError("No map has been selected.");
             }
         }
 

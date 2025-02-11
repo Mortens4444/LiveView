@@ -91,16 +91,20 @@ namespace LiveView.Presenters
 
         public void DeleteSequence()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
-            {
-                return;
-            }
-
             if (view.CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
+                if (!ShowConfirm("Are you sure you want to delete this sequence?", Decide.No))
+                {
+                    return;
+                }
+
                 sequenceRepository.Delete(sequence.Id);
                 logger.LogInfo(SequenceManagementPermissions.Delete, "Sequence '{0}' has been deleted.", sequence.Name);
                 Load();
+            }
+            else
+            {
+                ShowError("No sequence has been selected.");
             }
         }
 

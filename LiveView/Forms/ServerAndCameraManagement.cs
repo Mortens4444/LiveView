@@ -109,11 +109,17 @@ namespace LiveView.Forms
             throw new NotSupportedException("SyncronizationMode is not supported yet.");
         }
 
+        [RequireAnyPermission(CameraManagementPermissions.Update)]
+        [RequireAnyPermission(ServerManagementPermissions.Update)]
+        [RequireAnyPermission(DatabaseServerManagementPermissions.Update)]
         private void BtnModify_Click(object sender, EventArgs e)
         {
             presenter.Modify();
         }
 
+        [RequireAnyPermission(CameraManagementPermissions.Delete)]
+        [RequireAnyPermission(ServerManagementPermissions.Delete)]
+        [RequireAnyPermission(DatabaseServerManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             presenter.Remove();

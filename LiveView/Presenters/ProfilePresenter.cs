@@ -51,16 +51,20 @@ namespace LiveView.Presenters
 
         public void Save()
         {
-            if (view.TbCurrentPassword.Password == user.Password && !String.IsNullOrEmpty(view.TbNewPassword.Password))
+            if (!String.IsNullOrEmpty(view.TbNewPassword.Password))
             {
-                user.Password = view.TbNewPassword.Password;
+                if (view.TbCurrentPassword.Password == user.Password)
+                {
+                    user.Password = view.TbNewPassword.Password;
+                }
+                else
+                {
+                    logger.LogWarning(SettingsManagementPermissions.UpdatePersonal, "Profile cannot be changed because the current password is incorrect.");
+                    ShowError("The current password does not match.");
+                    return;
+                }
             }
-            else
-            {
-                logger.LogWarning(SettingsManagementPermissions.UpdatePersonal, "Profile cannot be changed because the current password is incorrect.");
-                ShowError("The current password does not match.");
-                return;
-            }
+
             user.FullName = view.TbFullName.Text;
             user.Address = view.TbAddress.Text;
             user.Email = view.TbEmailAddress.Text;

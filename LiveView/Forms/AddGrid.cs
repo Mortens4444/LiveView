@@ -67,7 +67,6 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(GridManagementPermissions.Create)]
-        [RequirePermission(GridManagementPermissions.Update)]
         private void BtnSave_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();

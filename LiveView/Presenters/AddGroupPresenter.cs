@@ -192,7 +192,7 @@ namespace LiveView.Presenters
 
         public void DeleteEvent()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
+            if (!ShowConfirm("Are you sure you want to delete this event?", Decide.No))
             {
                 return;
             }

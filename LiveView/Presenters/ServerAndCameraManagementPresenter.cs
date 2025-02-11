@@ -119,16 +119,16 @@ namespace LiveView.Presenters
 
         public void Remove()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
-            {
-                return;
-            }
-
             var node = view.GetSelectedItem(view.ServersAndCameras);
             if (node != null)
             {
                 if (node.Tag is Server server)
                 {
+                    if (!ShowConfirm("Are you sure you want to delete this server?", Decide.No))
+                    {
+                        return;
+                    }
+
                     if (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete))
                     {
                         serverRepository.Delete(server.Id);
@@ -142,6 +142,11 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is Camera camera)
                 {
+                    if (!ShowConfirm("Are you sure you want to delete this camera?", Decide.No))
+                    {
+                        return;
+                    }
+
                     if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete))
                     {
                         cameraRepository.Delete(camera.Id);
@@ -155,6 +160,11 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is DatabaseServer databaseServer)
                 {
+                    if (!ShowConfirm("Are you sure you want to delete this database server?", Decide.No))
+                    {
+                        return;
+                    }
+
                     if (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Delete))
                     {
                         databaseServerRepository.Delete(databaseServer.Id);
@@ -165,6 +175,10 @@ namespace LiveView.Presenters
                         logger.LogError("User '{0}' has no permission to delete database server.", permissionManager.CurrentUser);
                         throw new UnauthorizedAccessException();
                     }
+                }
+                else
+                {
+                    ShowError("No item has been selected.");
                 }
                 Load();
             }
@@ -231,6 +245,7 @@ namespace LiveView.Presenters
             }
             else
             {
+                logger.LogError("User '{0}' has no permission to syncronize cameras.", permissionManager.CurrentUser);
                 throw new UnauthorizedAccessException();
             }
         }
@@ -361,6 +376,7 @@ namespace LiveView.Presenters
                 else
                 {
                     logger.LogError("User '{0}' has no permission to view server and camera properties.", permissionManager.CurrentUser);
+                    throw new UnauthorizedAccessException();
                 }
             }
             else if (view.ServersAndCameras.SelectedNode?.Tag is Camera camera)

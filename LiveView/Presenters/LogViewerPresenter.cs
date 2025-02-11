@@ -40,13 +40,13 @@ namespace LiveView.Presenters
 
         public void DeleteAllLogs()
         {
-            if (!ShowConfirm("Are you sure you want to delete item(s)?", Decide.No))
+            if (!ShowConfirm("Are you sure you want to delete all log entries?", Decide.No))
             {
                 return;
             }
 
             logRepository.DeleteAll();
-            logger.LogInfo(LogManagementPermissions.Delete, "All log entries has been deleted.");
+            logger.LogInfo(LogManagementPermissions.Delete, "All log entries have been deleted.");
         }
 
         public void GetLogs()

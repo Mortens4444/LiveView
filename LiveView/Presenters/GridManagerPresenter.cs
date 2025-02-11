@@ -100,16 +100,20 @@ namespace LiveView.Presenters
 
         public void DeleteGrid()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
-            {
-                return;
-            }
-
             if (view.CbGrids.SelectedItem is Grid grid)
             {
+                if (!ShowConfirm("Are you sure you want to delete this grid?", Decide.No))
+                {
+                    return;
+                }
+
                 gridRepository.Delete(grid.Id);
                 logger.LogInfo(GridManagementPermissions.Delete, "Grid '{0}' has been deleted.", grid.Name);
                 Load();
+            }
+            else
+            {
+                ShowError("No grid has been selected.");
             }
         }
 

@@ -5,6 +5,8 @@ namespace Database.Interfaces
 {
     public interface IGroupRepository : IRepository<Group>
     {
+        void DeleteGroupPermissions(long groupId);
+
         void DeleteGroupPermissions(long groupId, long userEventId);
     }
 }

@@ -200,9 +200,9 @@ namespace LiveView.Presenters
                     foreach (var query in queries)
                     {
                         var group = new ListViewGroup(query.Key, HorizontalAlignment.Left);
-                        view.LvHardwareInformation.Invoke((Action)(() => view.LvHardwareInformation.Groups.Add(group)));
                         try
                         {
+                            view.LvHardwareInformation.Invoke((Action)(() => view.LvHardwareInformation.Groups.Add(group)));
                             var wmiReaderResult = Wmi.GetObjects(query.Value, "CIMv2", view.Server.IpAddress, ImpersonationLevel.Impersonate, AuthenticationLevel.Default, true, view.TbWindowsUsername.Text, null, view.TbWindowsPassword.Text);
                             view.PbWindowsConnectionStatus.Image = view.ImageList.Images[0];
 
@@ -227,19 +227,27 @@ namespace LiveView.Presenters
                                 }
                             }
                         }
+                        catch (ObjectDisposedException _) { }
                         catch (Exception ex)
                         {
-                            view.PbWindowsConnectionStatus.Image = view.ImageList.Images[1];
-                            view.TbWindowErrorMessage.Text = ex.Message;
-                            var errorItem = new ListViewItem("Error fetching data")
+                            try
                             {
-                                Group = group,
-                                SubItems = { ex.Message }
-                            };
-                            view.LvHardwareInformation.Invoke((Action)(() =>
-                            {
-                                view.LvHardwareInformation.Items.Add(errorItem);
-                            }));
+                                if (view.ImageList.Images.Count > 1)
+                                { 
+                                    view.PbWindowsConnectionStatus.Image = view.ImageList.Images[1];
+                                }
+                                view.TbWindowErrorMessage.Text = ex.Message;
+                                var errorItem = new ListViewItem("Error fetching data")
+                                {
+                                    Group = group,
+                                    SubItems = { ex.Message }
+                                };
+                                view.LvHardwareInformation.Invoke((Action)(() =>
+                                {
+                                    view.LvHardwareInformation.Items.Add(errorItem);
+                                }));
+                            }
+                            catch (InvalidOperationException) { }
                         }
                     }
                 }, cancellationTokenSource.Token);

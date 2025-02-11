@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using Database.Repositories;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -45,18 +46,19 @@ namespace LiveView.Presenters
 
         public void Delete()
         {
-            if (!ShowConfirm("Are you sure you want to delete this item?", Decide.No))
-            {
-                return;
-            }
-
             var node = view.GetSelectedItem(view.TvUsersAndGroups);
             if (node != null)
             {
                 if (node.Tag is Group group)
                 {
+                    if (!ShowConfirm("Are you sure you want to delete this group?", Decide.No))
+                    {
+                        return;
+                    }
+
                     if (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Delete))
                     {
+                        groupRepository.DeleteGroupPermissions(group.Id);
                         groupRepository.Delete(group.Id);
                         logger.LogInfo(GroupManagementPermissions.Delete, "Group '{0}' has been deleted.", group);
                     }
@@ -68,6 +70,17 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is User user)
                 {
+                    if (user.Id == permissionManager.CurrentUser.Tag.Id)
+                    {
+                        ShowError("The logged in user cannot be deleted.");
+                        return;
+                    }
+
+                    if (!ShowConfirm("Are you sure you want to delete this user?", Decide.No))
+                    {
+                        return;
+                    }
+
                     if (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Delete))
                     {
                         userRepository.Delete(user.Id);
@@ -78,6 +91,10 @@ namespace LiveView.Presenters
                         logger.LogError("User '{0}' has no permission to delete user.", permissionManager.CurrentUser);
                         throw new UnauthorizedAccessException();
                     }
+                }
+                else
+                {
+                    ShowError("No item has been selected.");
                 }
                 Load();
             }
@@ -211,7 +228,7 @@ namespace LiveView.Presenters
             var dbServerSelected = treeNode?.Tag is DatabaseServer;
 
             view.BtnNewGroup.Enabled = (permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Create) && groupSelected);
-            view.BtnNewUser.Enabled = (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Create) && userSelected);
+            view.BtnNewUser.Enabled = (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Create) && groupSelected);
 
             view.BtnModify.Enabled = permissionManager.CurrentUser.HasPermission(GroupManagementPermissions.Update) && groupSelected ||
                 (permissionManager.CurrentUser.HasPermission(UserManagementPermissions.Update) && userSelected);

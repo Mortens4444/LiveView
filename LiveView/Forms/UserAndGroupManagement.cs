@@ -62,11 +62,15 @@ namespace LiveView.Forms
             presenter.AddUser();
         }
 
+        [RequireAnyPermission(UserManagementPermissions.Update)]
+        [RequireAnyPermission(GroupManagementPermissions.Update)]
         private void BtnModify_Click(object sender, EventArgs e)
         {
             presenter.Modify();
         }
 
+        [RequireAnyPermission(UserManagementPermissions.Delete)]
+        [RequireAnyPermission(GroupManagementPermissions.Delete)]
         private void BtnRemove_Click(object sender, EventArgs e)
         {
             presenter.Delete();
