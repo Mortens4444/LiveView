@@ -1,9 +1,14 @@
 ﻿SELECT * FROM Logs
 WHERE
-    Date BETWEEN @From AND @To      -- Filter by date range
-    --AND (LogType = @LogType OR @LogType = 0) -- Filter by LogType if not 'Any'
-    AND (@OtherInformationPart IS NULL OR OtherInformation LIKE '%' + @OtherInformationPart + '%') -- Filter by other information
-    AND (@UserId = 0 OR UserId = @UserId) -- Filter by UserId if not default
+    Date BETWEEN @From AND @To
+        AND (
+        @LogType = 0 
+        OR (@LogType = 1 AND OperationId IS NOT NULL) 
+        OR (@LogType = 2 AND EventId IS NOT NULL) 
+        OR (@LogType = 3 AND OperationId IS NULL AND EventId IS NULL)
+    )
+    AND (@OtherInformationPart IS NULL OR OtherInformation LIKE '%' + @OtherInformationPart + '%')
+    AND (@UserId = 0 OR UserId = @UserId)
 ORDER BY 
     Date DESC
-OFFSET @Offset ROWS FETCH NEXT @MaxRows ROWS ONLY; -- Pagination with OFFSET and FETCH
+OFFSET @Offset ROWS FETCH NEXT @MaxRows ROWS ONLY;
