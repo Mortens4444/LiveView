@@ -360,13 +360,14 @@
             // 
             cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiCopyToClipboard });
             cmsMenu.Name = "contextMenuStrip1";
-            cmsMenu.Size = new System.Drawing.Size(170, 26);
+            cmsMenu.Size = new System.Drawing.Size(181, 48);
             // 
             // tsmiCopyToClipboard
             // 
             tsmiCopyToClipboard.Name = "tsmiCopyToClipboard";
-            tsmiCopyToClipboard.Size = new System.Drawing.Size(169, 22);
+            tsmiCopyToClipboard.Size = new System.Drawing.Size(180, 22);
             tsmiCopyToClipboard.Text = "Copy to clipboard";
+            tsmiCopyToClipboard.Click += TsmiCopyToClipboard_Click;
             // 
             // ilImages
             // 

@@ -1,6 +1,8 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Microsoft.Extensions.Logging;
+using Mtf.MessageBoxes.Exceptions;
 using Mtf.Permissions.Services;
 using System;
 
@@ -35,6 +37,16 @@ namespace LiveView.Services.Logging
                 logEntry.Date = DateTime.UtcNow;
                 logEntry.UserId = currentUserId;
                 logRepository.Insert(logEntry);
+            }
+            else
+            {
+                var newEntry = new LogEntry
+                {
+                    Date = DateTime.UtcNow,
+                    UserId = currentUserId,
+                    OtherInformation = exception.GetDetails()
+                };
+                logRepository.Insert(newEntry);
             }
         }
     }

@@ -2,17 +2,19 @@
 using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using Mtf.Controls;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
-using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
     public partial class LogViewer : BaseView, ILogViewerView
     {
         private LogViewerPresenter presenter;
+
+        public MtfListView LvOperationsEventsAndErrors => lvOperationsEventsAndErrors;
 
         public LogViewer(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LogViewerPresenter))
         {
@@ -61,14 +63,9 @@ namespace LiveView.Forms
             };
         }
 
-        public void AddLogEntry(ListViewItem item)
+        private void TsmiCopyToClipboard_Click(object sender, EventArgs e)
         {
-            lvOperationsEventsAndErrors.Items.Add(item);
-        }
-
-        public void ClearLogItems()
-        {
-            lvOperationsEventsAndErrors.Items.Clear();
+            presenter.CopyToClipboard();
         }
     }
 }

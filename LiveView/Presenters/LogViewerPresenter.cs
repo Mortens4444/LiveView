@@ -6,6 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using System;
@@ -52,13 +53,8 @@ namespace LiveView.Presenters
         public void GetLogs()
         {
             var filter = view.GetLogEntryFilter();
-            view.ClearLogItems();
             var entries = logRepository.SelectWhere(filter);
-            foreach (var entry in entries)
-            {
-                var item = ToListViewItem(entry);
-                view.AddLogEntry(item);
-            }
+            view.LvOperationsEventsAndErrors.AddItems(entries, ToListViewItem);
         }
 
         public override void Load()
@@ -75,13 +71,33 @@ namespace LiveView.Presenters
             {
                 var operation = operations.First(o => o.Id == entry.OperationId);
                 result.SubItems.Add($"{Lng.Elem(operation.PermissionGroup.Replace("ManagementPermissions", String.Empty))} {Lng.Elem(operation.PermissionValue)}");
+                result.SubItems.Add(Lng.Elem(entry.OtherInformation));
+            }
+            if (entry.EventId.HasValue)
+            {
+                //var @event = events.First(o => o.Id == entry.OperationId);
+                result.SubItems.Add(Lng.Elem("Event"));
+                result.SubItems.Add(Lng.Elem(entry.OtherInformation));
             }
             else
             {
-                result.SubItems.Add(String.Empty);
+                result.SubItems.Add(Lng.Elem("Exception"));
+                result.SubItems.Add(entry.OtherInformation);
             }
-            result.SubItems.Add(Lng.Elem(entry.OtherInformation));
+            
             return result;
+        }
+
+        public void CopyToClipboard()
+        {
+            try
+            {
+                view.LvOperationsEventsAndErrors.CopyToClipboard();
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
         }
     }
 }

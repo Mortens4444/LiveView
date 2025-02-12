@@ -1,12 +1,12 @@
 ﻿using Database.Models;
-using System.Windows.Forms;
+using Mtf.Controls;
 
 namespace LiveView.Interfaces
 {
     public interface ILogViewerView : IView
     {
-        void AddLogEntry(ListViewItem item);
-        void ClearLogItems();
+        MtfListView LvOperationsEventsAndErrors { get; }
+
         LogEntryFilter GetLogEntryFilter();
     }
 }

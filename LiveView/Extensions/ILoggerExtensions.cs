@@ -3,6 +3,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.MessageBoxes.Exceptions;
 using System;
 
 namespace LiveView.Extensions
@@ -50,14 +51,14 @@ namespace LiveView.Extensions
             logger.Log(LogLevel.Error, new LogEntry
             {
                 Date = DateTime.UtcNow,
-                OtherInformation = String.Concat(message, exception.ToString())
+                OtherInformation = exception.GetDetails()
             }, exception);
         }
 
         public static void LogExceptionAndShowErrorBox<TLoggerType>(this ILogger<TLoggerType> logger, Exception exception, string message = null)
         {
-            logger.LogException(exception, String.Concat(message, exception.ToString()));
-            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem(message ?? exception.Message));
+            logger.LogException(exception, exception.GetDetails());
+            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem(message ?? exception.GetDetails()));
         }
     }
 }

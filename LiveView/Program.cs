@@ -71,8 +71,9 @@ namespace LiveView
             LiveViewTranslator.Translate();
 
             var serviceProvider = ServiceProviderFactory.Create();
-            ExceptionHandler.SetLogger(serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>());
-            
+            var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+            ExceptionHandler.SetLogger(exceptionLogger);
+
             FillOrUpdateDisplaysTable(serviceProvider);
             FillOperationsTable(serviceProvider);
 
