@@ -63,8 +63,10 @@ namespace LiveView.Forms
             };
         }
 
+        [RequirePermission(LogManagementPermissions.Select)]
         private void TsmiCopyToClipboard_Click(object sender, EventArgs e)
         {
+            permissionManager.EnsurePermissions();
             presenter.CopyToClipboard();
         }
     }
