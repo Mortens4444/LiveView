@@ -11,5 +11,7 @@ namespace LiveView.Interfaces
         TextBox TbGridName { get; }
 
         ToolStripMenuItem TsmiChangeCameraTo { get; }
+
+        ToolStripMenuItem TsmiChangeCameraMode { get; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Database.Interfaces;
 using Database.Repositories;
 using LiveView.Core.Services;
+using LiveView.Core.Services.Logging;
 using LiveView.Forms;
 using LiveView.Models.Dependencies;
 using LiveView.Presenters;
 using LiveView.Services.Coloring;
-using LiveView.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;

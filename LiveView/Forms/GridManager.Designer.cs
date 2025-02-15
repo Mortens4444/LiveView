@@ -41,6 +41,7 @@
             tsmiMoveDown = new System.Windows.Forms.ToolStripMenuItem();
             tsmiMoveUp = new System.Windows.Forms.ToolStripMenuItem();
             contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
+            tsmiChangeCameraMode = new System.Windows.Forms.ToolStripMenuItem();
             chGuid = new System.Windows.Forms.ColumnHeader();
             chVideoServerName = new System.Windows.Forms.ColumnHeader();
             chCameraName = new System.Windows.Forms.ColumnHeader();
@@ -52,6 +53,7 @@
             gbGridStructure = new System.Windows.Forms.GroupBox();
             gbGridName = new System.Windows.Forms.GroupBox();
             gbGridSelector = new System.Windows.Forms.GroupBox();
+            chCameraMode = new System.Windows.Forms.ColumnHeader();
             contextMenuStrip.SuspendLayout();
             gbGridStructure.SuspendLayout();
             gbGridName.SuspendLayout();
@@ -118,6 +120,7 @@
             tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
             tsmiChangeCameraTo.Size = new System.Drawing.Size(192, 22);
             tsmiChangeCameraTo.Text = "Change camera to ...";
+            tsmiChangeCameraTo.Visible = false;
             // 
             // toolStripSeparator1
             // 
@@ -138,6 +141,7 @@
             tsmiMoveDown.Size = new System.Drawing.Size(192, 22);
             tsmiMoveDown.Text = "Move down";
             tsmiMoveDown.Visible = false;
+            tsmiMoveDown.Click += BtnMoveDown_Click;
             // 
             // tsmiMoveUp
             // 
@@ -145,17 +149,24 @@
             tsmiMoveUp.Size = new System.Drawing.Size(192, 22);
             tsmiMoveUp.Text = "Move up";
             tsmiMoveUp.Visible = false;
+            tsmiMoveUp.Click += BtnMoveUp_Click;
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo });
+            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo, tsmiChangeCameraMode });
             contextMenuStrip.Name = "contextMenuStrip1";
-            contextMenuStrip.Size = new System.Drawing.Size(193, 98);
+            contextMenuStrip.Size = new System.Drawing.Size(193, 120);
+            // 
+            // tsmiChangeCameraMode
+            // 
+            tsmiChangeCameraMode.Name = "tsmiChangeCameraMode";
+            tsmiChangeCameraMode.Size = new System.Drawing.Size(192, 22);
+            tsmiChangeCameraMode.Text = "Change camera mode";
             // 
             // chGuid
             // 
             chGuid.Text = "GUID";
-            chGuid.Width = 229;
+            chGuid.Width = 100;
             // 
             // chVideoServerName
             // 
@@ -217,7 +228,7 @@
             lvGridCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvGridCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvGridCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvGridCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chNumber, chCameraName, chVideoServerName, chGuid });
+            lvGridCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chNumber, chCameraName, chVideoServerName, chGuid, chCameraMode });
             lvGridCameras.CompactView = false;
             lvGridCameras.ContextMenuStrip = contextMenuStrip;
             lvGridCameras.EnsureLastItemIsVisible = false;
@@ -279,6 +290,11 @@
             gbGridSelector.TabStop = false;
             gbGridSelector.Text = "Grid name";
             // 
+            // chCameraMode
+            // 
+            chCameraMode.Text = "Camera mode";
+            chCameraMode.Width = 100;
+            // 
             // GridManager
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -326,5 +342,7 @@
         private System.Windows.Forms.GroupBox gbGridStructure;
         private System.Windows.Forms.GroupBox gbGridName;
         private System.Windows.Forms.GroupBox gbGridSelector;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeCameraMode;
+        private System.Windows.Forms.ColumnHeader chCameraMode;
     }
 }

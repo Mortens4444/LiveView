@@ -1,7 +1,11 @@
 using Database.Repositories;
+using LiveView.Core.Services.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
+using Sequence.Services;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -35,10 +39,19 @@ namespace Sequence
             var sequenceId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
             var displayId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
             var isMdi = Convert.ToBoolean(args[3], CultureInfo.InvariantCulture);
-            using (var form = new MainForm(userId, sequenceId, displayId, isMdi))
+
+            //_ = Sdk.sdk_dev_init(null);
+            using (var serviceProvider = ServiceProviderFactory.Create())
             {
-                Application.Run(form);
+                var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+                ExceptionHandler.SetLogger(exceptionLogger);
+
+                using (var form = new MainForm(serviceProvider, userId, sequenceId, displayId, isMdi))
+                {
+                    Application.Run(form);
+                }
             }
+            //Sdk.sdk_dev_quit();
         }
     }
 }

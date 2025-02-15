@@ -21,5 +21,6 @@ SET
     CsrValue = @CsrValue,
     ShowDateTime = @ShowDateTime,
     ServerIp = @ServerIp,
-    VideoSourceName = @VideoSourceName
+    VideoSourceName = @VideoSourceName,
+    CameraMode = @CameraMode
 WHERE Id = @Id;

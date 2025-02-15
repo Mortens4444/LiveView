@@ -1,0 +1,1 @@
+﻿UPDATE GridCameras SET CameraMode = 1 WHERE CameraId IS NULL;

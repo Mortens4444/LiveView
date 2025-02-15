@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
     <PackageReference Include="Mtf.Network" Version="1.0.37" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.20" />
     <PackageReference Include="System.Text.Json" Version="9.0.2" />
   </ItemGroup>
 

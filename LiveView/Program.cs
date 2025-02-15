@@ -10,13 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
-using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace LiveView
@@ -56,7 +54,7 @@ namespace LiveView
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
                 "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation",
-                "MigrationDropLogsTableColumn"};
+                "MigrationDropLogsTableColumn", "MigrationAlterTableGridCameras", "MigrationUpdateGridCameras" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();
@@ -70,14 +68,17 @@ namespace LiveView
             }
             LiveViewTranslator.Translate();
 
-            var serviceProvider = ServiceProviderFactory.Create();
-            var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
-            ExceptionHandler.SetLogger(exceptionLogger);
+            using (var serviceProvider = ServiceProviderFactory.Create())
+            {
+                var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
 
-            FillOrUpdateDisplaysTable(serviceProvider);
-            FillOperationsTable(serviceProvider);
+                ExceptionHandler.SetLogger(exceptionLogger);
 
-            Application.Run(serviceProvider.GetRequiredService<MainForm>());
+                FillOrUpdateDisplaysTable(serviceProvider);
+                FillOperationsTable(serviceProvider);
+
+                Application.Run(serviceProvider.GetRequiredService<MainForm>());
+            }
         }
 
         private static void FillOrUpdateDisplaysTable(ServiceProvider serviceProvider)

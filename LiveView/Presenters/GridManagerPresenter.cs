@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -44,8 +45,23 @@ namespace LiveView.Presenters
         {
             var grids = gridRepository.SelectAll();
             view.CbGrids.AddItemsAndSelectFirst(grids);
-
+            FillCameraModeMenuItem();
             FillChangeCameraMenuItem();
+        }
+
+        private void FillCameraModeMenuItem()
+        {
+            view.TsmiChangeCameraMode.FillWithEnum<CameraMode>((tsmiChangeCameraMode, cameraMode) =>
+            {
+                foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
+                {
+                    if (item.Tag is GridCamera gridCamera)
+                    {
+                        gridCamera.CameraMode = cameraMode;
+                        item.SubItems[4].Text = cameraMode.ToString();
+                    }
+                }
+            });
         }
 
         private void FillChangeCameraMenuItem()
@@ -179,20 +195,16 @@ namespace LiveView.Presenters
                 view.LvGridCameras.Items.Clear();
                 foreach (var gridCamera in gridCameras)
                 {
-                    ListViewItem item = null;
                     if (gridCamera.CameraId.HasValue)
                     {
                         var camera = cameraRepository.Select(gridCamera.CameraId.Value);
                         var server = serverRepository.Select(camera.ServerId);
-                        item = CreateListViewItem(gridCamera, camera, server);
+                        var item = CreateListViewItem(gridCamera, camera, server);
+                        view.LvGridCameras.Items.Add(item);
                     }
                     else
                     {
-                        item = CreateListViewItem(gridCamera, gridCamera.ServerIp, gridCamera.VideoSourceName);
-                    }
-
-                    if (item != null)
-                    {
+                        var item = CreateListViewItem(gridCamera, gridCamera.ServerIp, gridCamera.VideoSourceName);
                         view.LvGridCameras.Items.Add(item);
                     }
                 }
@@ -208,6 +220,7 @@ namespace LiveView.Presenters
             item.SubItems.Add(camera.CameraName);
             item.SubItems.Add(server.Hostname);
             item.SubItems.Add(camera.Guid);
+            item.SubItems.Add(gridCamera.CameraMode.ToString());
             return item;
         }
 
@@ -220,6 +233,7 @@ namespace LiveView.Presenters
             item.SubItems.Add(videoSourceName);
             item.SubItems.Add(serverIp);
             item.SubItems.Add(Lng.Elem("N/A"));
+            item.SubItems.Add(gridCamera.CameraMode.ToString());
             return item;
         }
     }

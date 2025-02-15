@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
@@ -700,6 +701,7 @@ namespace LiveView.Presenters
                         gridCamera.ServerIp = videoSource.ServerIp;
                         gridCamera.VideoSourceName = videoSource.Name;
                         gridCamera.CameraId = null;
+                        gridCamera.CameraMode = CameraMode.VideoSource;
                     }
                     gridCameraRepository.Insert(gridCamera);
                 }

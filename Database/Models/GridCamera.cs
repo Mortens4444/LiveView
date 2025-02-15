@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 
 namespace Database.Models
 {
@@ -49,6 +50,8 @@ namespace Database.Models
         public string ServerIp { get; set; }
 
         public string VideoSourceName { get; set; }
+
+        public CameraMode CameraMode { get; set; }
 
         public MatrixRegion MatrixRegion => new MatrixRegion
         {

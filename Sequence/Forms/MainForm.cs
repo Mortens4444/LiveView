@@ -3,6 +3,7 @@ using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -28,7 +29,7 @@ namespace Sequence.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly GridSequenceManager gridSequenceManager;
 
-        public MainForm(long userId, long sequenceId, long displayId, bool isMdi)
+        public MainForm(ServiceProvider serviceProvider, long userId, long sequenceId, long displayId, bool isMdi)
         {
             var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
@@ -67,11 +68,13 @@ namespace Sequence.Forms
             var userRepository = new UserRepository();
             var user = userRepository.Select(userId);
 
-            permissionManager = new PermissionManager<User>();
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
+            permissionManager = serviceProvider.GetRequiredService<PermissionManager<User>>();
+            var permissionUser = new Mtf.Permissions.Models.User<User>
             {
-
-            });
+                Username = user.Username,
+                Tag = user
+            };
+            permissionManager.SetUser(this, permissionUser);
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
             var displayRepository = new DisplayRepository();
@@ -85,7 +88,14 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
-            gridSequenceManager = new GridSequenceManager(client, permissionManager, this, display, isMdi, sequenceId);
+            gridSequenceManager = new GridSequenceManager(serviceProvider, client, this, display, isMdi, sequenceId);
+            HandleCreated += MainForm_HandleCreated; ;
+
+        }
+
+        private void MainForm_HandleCreated(object sender, EventArgs e)
+        {
+            gridSequenceManager.StartSequence(sequenceId);
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
@@ -131,7 +141,7 @@ namespace Sequence.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             Location = new Point(display.X, display.Y);
-#if DEBUG
+#if !DEBUG
             Size = new Size(100, 100);
 #else
             Size = new Size(display.MaxWidth, display.MaxHeight);

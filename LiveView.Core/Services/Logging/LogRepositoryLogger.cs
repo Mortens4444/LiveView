@@ -1,12 +1,11 @@
-﻿using Database.Enums;
-using Database.Interfaces;
+﻿using Database.Interfaces;
 using Database.Models;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes.Exceptions;
 using Mtf.Permissions.Services;
 using System;
 
-namespace LiveView.Services.Logging
+namespace LiveView.Core.Services.Logging
 {
     public class LogRepositoryLogger : ILogger
     {
@@ -50,4 +49,5 @@ namespace LiveView.Services.Logging
             }
         }
     }
+
 }

@@ -3,7 +3,7 @@ using Database.Models;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 
-namespace LiveView.Services.Logging
+namespace LiveView.Core.Services.Logging
 {
     public class LogRepositoryLoggerProvider : ILoggerProvider
     {
