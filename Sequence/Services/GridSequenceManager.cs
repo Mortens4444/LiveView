@@ -59,7 +59,6 @@ namespace Sequence.Services
             this.isMdi = isMdi;
             permissionManager = serviceProvider.GetRequiredService<PermissionManager<User>>();
             logger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
-
             //StartSequence(sequenceId);
         }
 
@@ -172,49 +171,32 @@ namespace Sequence.Services
 
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
-                    videoForm = new AxVideoCamera(permissionManager, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
-                    {
-                        MdiParent = parentForm
-                    };
+                    videoForm = new AxVideoCamera(permissionManager, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token);
                 }
                 else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                 {
-                    videoForm = new VideoSourceCamera(client, permissionManager, videoCaptureSourceCameraInfo, rectangle)
-                    {
-                        MdiParent = parentForm
-                    };
+                    videoForm = new VideoSourceCamera(client, permissionManager, videoCaptureSourceCameraInfo, rectangle);
                 }
                 else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
                 {
-                    videoForm = new FFMpegCamera(permissionManager, fFMpegCameraInfo.Url, rectangle)
-                    {
-                        MdiParent = parentForm
-                    };
+                    videoForm = new FFMpegCamera(permissionManager, fFMpegCameraInfo.Url, rectangle);
                 }
-                //else if (camera is VlcCameraInfo vlcCameraInfo)
-                //{
-                //    videoForm = new VlcCamera(permissionManager, vlcCameraInfo.Url, rectangle)
-                //    {
-                //        MdiParent = parentForm
-                //    };
-                //}
+                else if (camera is VlcCameraInfo vlcCameraInfo)
+                {
+                    videoForm = new VlcCamera(permissionManager, vlcCameraInfo.Url, rectangle);
+                }
                 else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
                 {
-                    videoForm = new OpenCvSharpCamera(permissionManager, openCvSharpCameraInfo.Url, rectangle)
-                    {
-                        MdiParent = parentForm
-                    };
+                    videoForm = new OpenCvSharpCamera(permissionManager, openCvSharpCameraInfo.Url, rectangle);
                 }
                 else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
                 {
-                    videoForm = new OpenCvSharp4Camera(permissionManager, openCvSharp4CameraInfo.Url, rectangle)
-                    {
-                        MdiParent = parentForm
-                    };
+                    videoForm = new OpenCvSharp4Camera(permissionManager, openCvSharp4CameraInfo.Url, rectangle);
                 }
 
                 if (videoForm != null)
                 {
+                    videoForm.MdiParent = parentForm;
                     videoForm.Show();
                     result.Add(videoForm);
                 }
@@ -337,7 +319,7 @@ namespace Sequence.Services
                             {
                                 GridCamera = gridCamera,
                                 Url = vlcCamera.HttpStreamUrl
-                            };                            
+                            };
 
                         case CameraMode.FFMpeg:
                             var ffMpegCamera = allCameras.First(c => c.Id == gridCamera.CameraId);

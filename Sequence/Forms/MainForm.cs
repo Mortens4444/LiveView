@@ -89,8 +89,7 @@ namespace Sequence.Forms
             }
 
             gridSequenceManager = new GridSequenceManager(serviceProvider, client, this, display, isMdi, sequenceId);
-            HandleCreated += MainForm_HandleCreated; ;
-
+            HandleCreated += MainForm_HandleCreated;
         }
 
         private void MainForm_HandleCreated(object sender, EventArgs e)

@@ -49,5 +49,4 @@ namespace LiveView.Core.Services.Logging
             }
         }
     }
-
 }
