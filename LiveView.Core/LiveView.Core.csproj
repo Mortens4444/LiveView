@@ -4,6 +4,7 @@
     <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <WarningLevel>9999</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

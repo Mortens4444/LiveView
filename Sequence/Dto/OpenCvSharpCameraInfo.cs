@@ -1,4 +1,6 @@
-﻿namespace Sequence.Dto
+﻿using Database.Models;
+
+namespace Sequence.Dto
 {
     public class OpenCvSharpCameraInfo : CameraInfo
     {

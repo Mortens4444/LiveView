@@ -1,4 +1,5 @@
-﻿using Mtf.MessageBoxes;
+﻿using Microsoft.Extensions.Logging;
+using Mtf.MessageBoxes;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,7 @@ namespace LiveView.Core.Services
 {
     public static class AppStarter
     {
-        public static Process Start(string path, string arguments = "")
+        public static Process Start(string path, string arguments = "", ILogger logger = null)
         {
             try
             {
@@ -37,6 +38,7 @@ namespace LiveView.Core.Services
             }
             catch (Exception ex)
             {
+                logger?.LogError(ex, "Application start failed.");
                 ErrorBox.Show(ex);
                 return null;
             }

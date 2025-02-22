@@ -43,7 +43,7 @@ namespace LiveView.Core.Services.Logging
                 {
                     Date = DateTime.UtcNow,
                     UserId = currentUserId,
-                    OtherInformation = exception.GetDetails()
+                    OtherInformation = exception?.GetDetails()
                 };
                 logRepository.Insert(newEntry);
             }

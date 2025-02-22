@@ -15,7 +15,7 @@ namespace Database.Models
 
         public string IpAddress { get; set; }
 
-        public FullscreenMode FullscreenMode { get; set; }
+        public CameraMode FullscreenMode { get; set; }
 
         public int? StreamId { get; set; }
 

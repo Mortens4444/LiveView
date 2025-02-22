@@ -1,7 +1,7 @@
 using Database.Repositories;
-using LiveView.Core.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
@@ -40,7 +40,7 @@ namespace Sequence
             var displayId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
             var isMdi = Convert.ToBoolean(args[3], CultureInfo.InvariantCulture);
 
-            //_ = Sdk.sdk_dev_init(null);
+            _ = Sdk.sdk_dev_init(null);
             using (var serviceProvider = ServiceProviderFactory.Create())
             {
                 var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
@@ -51,7 +51,7 @@ namespace Sequence
                     Application.Run(form);
                 }
             }
-            //Sdk.sdk_dev_quit();
+            Sdk.sdk_dev_quit();
         }
     }
 }

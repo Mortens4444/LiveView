@@ -4,7 +4,7 @@ namespace Sequence.Dto
 {
     public class AxVideoPictureCameraInfo : CameraInfo
     {
-        public Camera Camera { get; set; }
+        public Database.Models.Camera Camera { get; set; }
 
         public Server Server { get; set; }
     }

@@ -59,6 +59,8 @@ namespace LiveView.Forms
             presenter.Load();
             presenter.AutoLogin();
             presenter.AutoLoadTemplate();
+            presenter.LoadKbd300A();
+            presenter.StartWatchdog();
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)
@@ -154,7 +156,7 @@ namespace LiveView.Forms
         private void TsmiLanguageEditor_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            AppStarter.Start(Path.Combine(Application.StartupPath, "Languages.ods"));
+            AppStarter.Start(Path.Combine(Application.StartupPath, "Languages.ods"), String.Empty, presenter.Logger);
         }
 
         [RequirePermission(LogManagementPermissions.Select)]

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <RootNamespace>CameraApp</RootNamespace>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningLevel>9999</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mtf.Database" Version="2.0.26" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
+    <PackageReference Include="Mtf.Network" Version="1.0.37" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.20" />
+    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.35" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
+    <PackageReference Include="System.Private.Uri" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CameraForms\CameraForms.csproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\LiveView.Core\LiveView.Core.csproj" />
+  </ItemGroup>
+
+</Project>

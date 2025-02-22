@@ -1,0 +1,224 @@
+using CameraApp.Services;
+using CameraForms.Forms;
+using Database.Enums;
+using Database.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Mtf.Controls.Sunell.IPR67.SunellSdk;
+using Mtf.Database;
+using Mtf.MessageBoxes;
+using Mtf.MessageBoxes.Exceptions;
+using System;
+using System.Configuration;
+using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
+
+namespace CameraApp
+{
+    internal static class Program
+    {
+        public static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
+        private static ILogger<ExceptionHandler> logger;
+
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        private static void Main(string[] args)
+        {
+            //System.Threading.Thread.Sleep(10000);
+            ExceptionHandler.CatchUnhandledExceptions();
+            try
+            {
+                //#if NETFRAMEWORK
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                //#else
+                //            ApplicationConfiguration.Initialize();
+                //#endif
+
+                BaseRepository.CommandTimeout = 240;
+                BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+                BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+
+                BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+                //InfoBox.Show("Camera app started", $"{String.Join(" ", args)}");
+
+                using (var serviceProvider = ServiceProviderFactory.Create())
+                {
+                    logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+                    ExceptionHandler.SetLogger(logger);
+                }
+
+                if (args.Length == 3)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+                    var cameraMode = (CameraMode)Convert.ToInt32(args[2], CultureInfo.InvariantCulture);
+                    switch (cameraMode)
+                    {
+                        case CameraMode.AxVideoPlayer:
+                            using (var form = new AxVideoCameraWindow(userId, cameraId, null))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        case CameraMode.SunellLegacyCameraWindow:
+                            using (var form = new SunellLegacyCameraWindow(userId, cameraId, null))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        case CameraMode.SunellCameraWindow:
+                            _ = Sdk.sdk_dev_init(null);
+                            using (var form = new SunellCameraWindow(userId, cameraId, null))
+                            {
+                                Application.Run(form);
+                            }
+                            Sdk.sdk_dev_quit();
+                            break;
+                        default:
+                            throw new NotSupportedException($"{cameraMode} is not supported.");
+                    }
+                }
+                if (args.Length == 4)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    var cameraMode = (CameraMode)Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+
+                    if (Int64.TryParse(args[1], out var cameraId))
+                    {
+                        long? displayId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
+
+                        switch (cameraMode)
+                        {
+                            case CameraMode.AxVideoPlayer:
+                                using (var form = new AxVideoCameraWindow(userId, cameraId, displayId))
+                                {
+                                    Application.Run(form);
+                                }
+                                break;
+                            case CameraMode.SunellLegacyCameraWindow:
+                                using (var form = new SunellLegacyCameraWindow(userId, cameraId, displayId))
+                                {
+                                    Application.Run(form);
+                                }
+                                break;
+                            case CameraMode.SunellCameraWindow:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new SunellCameraWindow(userId, cameraId, displayId))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            default:
+                                throw new NotSupportedException($"{cameraMode} is not supported.");
+                        }
+                    }
+                    else
+                    {
+                        switch (cameraMode)
+                        {
+                            case CameraMode.VideoSource:
+                                var serverIp = args[1];
+                                var videoCaptureSource = args[2];
+                                using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                break;
+                            default:
+                                throw new NotSupportedException($"{cameraMode} is not supported.");
+                        }
+                    }
+                }
+                else if (args.Length == 5)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    var serverIp = args[1];
+                    var videoCaptureSource = args[2];
+                    long? displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+                    var cameraMode = (CameraMode)Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    switch (cameraMode)
+                    {
+                        case CameraMode.VideoSource:
+                            using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, displayId))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        default:
+                            throw new NotSupportedException($"{cameraMode} is not supported.");
+                    }
+                }
+                else if (args.Length == 7)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    long cameraId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+                    int x = Convert.ToInt32(args[2], CultureInfo.InvariantCulture);
+                    int y = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+                    int width = Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    int height = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
+                    var cameraMode = (CameraMode)Convert.ToInt32(args[6], CultureInfo.InvariantCulture);
+                    var rectangle = new Rectangle(new Point(x, y), new Size(width, height));
+
+                    switch (cameraMode)
+                    {
+                        case CameraMode.AxVideoPlayer:
+                            using (var form = new AxVideoCameraWindow(userId, cameraId, new Point(x, y), new Size(width, height)))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        case CameraMode.SunellLegacyCameraWindow:
+                            using (var form = new SunellLegacyCameraWindow(userId, cameraId, rectangle))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        case CameraMode.SunellCameraWindow:
+                            _ = Sdk.sdk_dev_init(null);
+                            using (var form = new SunellCameraWindow(userId, cameraId, rectangle))
+                            {
+                                Application.Run(form);
+                            }
+                            Sdk.sdk_dev_quit();
+                            break;
+                        default:
+                            throw new NotSupportedException($"{cameraMode} is not supported.");
+                    }
+                }
+                else if (args.Length == 8)
+                {
+                    long userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+                    var serverIp = args[1];
+                    var videoCaptureSource = args[2];
+                    int x = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+                    int y = Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    int width = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
+                    int height = Convert.ToInt32(args[6], CultureInfo.InvariantCulture);
+                    var cameraMode = (CameraMode)Convert.ToInt32(args[7], CultureInfo.InvariantCulture);
+
+                    switch (cameraMode)
+                    {
+                        case CameraMode.VideoSource:
+                            using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, new Point(x, y), new Size(width, height)))
+                            {
+                                Application.Run(form);
+                            }
+                            break;
+                        default:
+                            throw new NotSupportedException($"{cameraMode} is not supported.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "CameraApp start error.");
+                ErrorBox.Show(ex);
+            }
+        }
+    }
+}

@@ -37,7 +37,7 @@ namespace LiveView.Presenters
             view.Camera.Password = view.TbCameraPassword.Password;
             view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
-            view.Camera.FullscreenMode = (FullscreenMode)view.CbFullscreenMode.SelectedIndex;
+            view.Camera.FullscreenMode = (CameraMode)view.CbFullscreenMode.SelectedIndex;
 
             cameraRepository.Update(view.Camera);
             logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' properties has been changed.", view.Camera.CameraName);
@@ -45,8 +45,8 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var fullscreenModes = Enum.GetValues(typeof(FullscreenMode))
-                .Cast<FullscreenMode>()
+            var fullscreenModes = Enum.GetValues(typeof(CameraMode))
+                .Cast<CameraMode>()
                 .Select(fullscreenMode => Lng.Elem(fullscreenMode.GetDescription()));
             view.AddItems(view.CbFullscreenMode, fullscreenModes);
 

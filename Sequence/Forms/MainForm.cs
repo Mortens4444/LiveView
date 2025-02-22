@@ -4,6 +4,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -28,9 +29,12 @@ namespace Sequence.Forms
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly GridSequenceManager gridSequenceManager;
+        private readonly ILogger<MainForm> logger;
 
         public MainForm(ServiceProvider serviceProvider, long userId, long sequenceId, long displayId, bool isMdi)
         {
+            logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
+
             var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var serverPort))
@@ -48,6 +52,7 @@ namespace Sequence.Forms
                 }
                 catch (Exception ex)
                 {
+                    logger.LogError(ex, "Connection failed.");
                     DebugErrorBox.Show(ex);
                 }
             }
@@ -133,6 +138,7 @@ namespace Sequence.Forms
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Client data cannot be parsed.");
                 DebugErrorBox.Show(ex);
             }
         }
@@ -168,6 +174,7 @@ namespace Sequence.Forms
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Cannot unregister sequence application.");
                 DebugErrorBox.Show(ex);
             }
         }

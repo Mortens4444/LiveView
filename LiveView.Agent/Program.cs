@@ -1,6 +1,8 @@
-﻿using Database.Repositories;
+﻿using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
@@ -25,6 +27,7 @@ namespace LiveView.Agent
     {
         private const string PressCtrlCToExit = "Press Ctrl+C to exit.";
         private static Client client;
+        private static ILogger<ExceptionHandler> logger;
 
         private static readonly Dictionary<long, Process> cameraProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<long, Process> sequenceProcesses = new Dictionary<long, Process>();
@@ -49,6 +52,12 @@ namespace LiveView.Agent
         static void Main(string[] args)
         {
             ExceptionHandler.CatchUnhandledExceptions();
+            using (var serviceProvider = ServiceProviderFactory.Create())
+            {
+                logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+                ExceptionHandler.SetLogger(logger);
+            }
+
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
@@ -96,6 +105,7 @@ namespace LiveView.Agent
                     }
                     catch (Exception ex)
                     {
+                        logger.LogError(ex, "Agent connection failed.");
                         Console.Error.WriteLine($"Connection failed: {ex}");
                         Thread.Sleep(5000);
                     }
@@ -103,7 +113,9 @@ namespace LiveView.Agent
             }
             else
             {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+                var message = "LiveViewServer.ListenerPort cannot be parsed as an ushort.";
+                logger.LogError(message);
+                ErrorBox.Show("General error", message);
             }
         }
 
@@ -134,6 +146,7 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
+                    logger.LogError(ex, "Start video capture servers failed.");
                     ErrorBox.Show(ex);
                 }
             }
@@ -189,7 +202,7 @@ namespace LiveView.Agent
                 {
                     var messageParts = message.Split('|');
 
-                    if (message.StartsWith($"{Core.Constants.CameraExe}|", StringComparison.InvariantCulture))
+                    if (message.StartsWith($"{Core.Constants.CameraAppExe}|", StringComparison.InvariantCulture))
                     {
                         var cameraProcessId = StartProcess(messageParts, cameraProcesses);
                         client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
@@ -203,7 +216,7 @@ namespace LiveView.Agent
                         long id = Convert.ToInt64(messageParts[2], CultureInfo.InvariantCulture);
                         switch (messageParts[1])
                         {
-                            case Core.Constants.CameraExe:
+                            case Core.Constants.CameraAppExe:
                                 ProcessUtils.Kill(cameraProcesses[id]);
                                 cameraProcesses.Remove(id);
                                 break;
@@ -215,7 +228,7 @@ namespace LiveView.Agent
                     }
                     else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
                     {
-                        var processes = messageParts[1] == Core.Constants.CameraExe ? cameraProcesses.Values : sequenceProcesses.Values;
+                        var processes = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses.Values : sequenceProcesses.Values;
                         ProcessUtils.Kill(processes);
                     }
                     else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesRequest}|", StringComparison.InvariantCulture))
@@ -312,6 +325,7 @@ namespace LiveView.Agent
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Message parse or execution failed in agent.");
                 Console.Error.WriteLine($"Message parse or execution failed: {ex}");
             }
         }
@@ -323,7 +337,7 @@ namespace LiveView.Agent
 
         private static int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
         {
-            var process = AppStarter.Start(messageParts[0], messageParts[1]);
+            var process = AppStarter.Start(messageParts[0], messageParts[1], logger);
             var parameters = messageParts[1].Split();
             var entityId = Convert.ToInt64(parameters[1], CultureInfo.InvariantCulture);
             processes.Add(entityId, process);

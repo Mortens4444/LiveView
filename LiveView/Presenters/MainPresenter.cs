@@ -44,7 +44,8 @@ namespace LiveView.Presenters
         private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
         private SltWatchdog watchdog;
 
-        private readonly ILogger<MainForm> logger;
+        public ILogger<MainForm> Logger { get; }
+
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
         private readonly IServiceProvider serviceProvider;
@@ -67,7 +68,7 @@ namespace LiveView.Presenters
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
         {
-            logger = dependencies.Logger;
+            Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
             rightRepository = dependencies.RightRepository;
             serviceProvider = dependencies.ServiceProvider;
@@ -83,12 +84,6 @@ namespace LiveView.Presenters
             userEventRepository = dependencies.UserEventRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
-
-            var KBD300ACOMPort = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
-            if (!String.IsNullOrEmpty(KBD300ACOMPort))
-            {
-                kBD300A = new KBD300A(KBD300ACOMPort);
-            }
         }
 
         public new void SetView(IView view)
@@ -99,7 +94,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            logger.LogInfo(ApplicationManagementPermissions.Start, "Application started.");
+            Logger.LogInfo(ApplicationManagementPermissions.Start, "Application started.");
             //MousePointer.ShowOnCtrlKey();
             RegisterHotkey();
             StartServer();
@@ -269,10 +264,9 @@ namespace LiveView.Presenters
             LiveViewTranslator.Translate();
             Translator.Translate(view.GetSelf());
             ShowControlCenter();
-            StartWatchdog();
         }
 
-        private void StartWatchdog()
+        public void StartWatchdog()
         {
             var watchdogPort = generalOptionsRepository.Get(Setting.WatchdogPort, String.Empty);
             if (!String.IsNullOrEmpty(watchdogPort))
@@ -570,7 +564,7 @@ namespace LiveView.Presenters
                 WinAPI.UnregisterHotKey(handle, 1);
                 Globals.Server.Stop();
                 watchdog?.StopPetting();
-                logger.LogInfo(ApplicationManagementPermissions.Exit, "Application stopped.");
+                Logger.LogInfo(ApplicationManagementPermissions.Exit, "Application stopped.");
                 Environment.Exit(0);
                 return true;
             }
@@ -645,7 +639,7 @@ namespace LiveView.Presenters
             }
             foreach (var cameraProcess in Globals.CameraProcesses)
             {
-                SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcess.Value);
+                SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcess.Value);
             }
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
@@ -745,10 +739,19 @@ namespace LiveView.Presenters
         public void ChangeEvent(UserEvent userEvent)
         {
             var user = permissionManager.CurrentUser;
-            logger.LogInfo(EventManagementPermissions.Update, "User event changed to '{0}'.", userEvent);
+            Logger.LogInfo(EventManagementPermissions.Update, "User event changed to '{0}'.", userEvent);
             Globals.UserEvent = userEvent;
             SetGroups(user);
             permissionManager.ApplyPermissionsOnControls(view.GetSelf());
+        }
+
+        public void LoadKbd300A()
+        {
+            var KBD300ACOMPort = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
+            if (!String.IsNullOrEmpty(KBD300ACOMPort))
+            {
+                kBD300A = new KBD300A(KBD300ACOMPort);
+            }
         }
     }
 }

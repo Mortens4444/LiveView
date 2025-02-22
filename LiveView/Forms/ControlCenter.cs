@@ -1,4 +1,5 @@
-﻿using Database.Models;
+﻿using Database.Enums;
+using Database.Models;
 using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
@@ -133,7 +134,7 @@ namespace LiveView.Forms
             presenter = Presenter as ControlCenterPresenter;
             initializationCompleted.Set();
             presenter.Load();
-            presenter.StartCameraApp(camera);
+            presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
             presenter.StartCameraApp(videoSource);
         }
 
@@ -352,7 +353,7 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
-                presenter.StartCameraApp(camera);
+                presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
                 Thread.Sleep(1000);
                 e.Item.Selected = false;
             }
@@ -366,7 +367,7 @@ namespace LiveView.Forms
 
         public void StartCamera(Camera camera)
         {
-            presenter.StartCameraApp(camera);
+            presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
         }
 
         public void StartVideoSource(VideoSourceDto videoSource)

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "StartSunellWindow": {
+      "commandName": "Project",
+      "commandLineArgs": "2 11 1 7"
+    },
+    "StartSunellLegacyWindow": {
+      "commandName": "Project",
+      "commandLineArgs": "1 10 5 6"
+    }
+  }
+}

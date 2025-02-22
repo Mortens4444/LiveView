@@ -11,7 +11,7 @@ namespace LiveView.Dto
 
         public string IpAddress { get; set; }
 
-        public FullscreenMode FullscreenMode { get; set; }
+        public CameraMode FullscreenMode { get; set; }
 
         public int? StreamId { get; set; }
 
@@ -33,7 +33,7 @@ namespace LiveView.Dto
 
         public int RecorderIndex { get; set; }
 
-        public static CameraDto FromModel(Camera camera, Server server = null)
+        public static CameraDto FromModel(Database.Models.Camera camera, Server server = null)
         {
             if (camera == null)
             {

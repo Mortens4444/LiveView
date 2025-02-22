@@ -39,14 +39,20 @@ namespace LiveView.Core.Services
         {
             foreach (var form in forms)
             {
-                mdiParent.Invoke((Action)(() =>
+                try
                 {
-                    if (!form.IsDisposed)
+                    mdiParent.Invoke((Action)(() =>
                     {
-                        form.Close();
-                        form.Dispose();
-                    }
-                }));
+                        if (!form.IsDisposed)
+                        {
+                            form.Close();
+                            form.Dispose();
+                        }
+                    }));
+                }
+                catch (InvalidOperationException)
+                {
+                }
             }
         }
     }

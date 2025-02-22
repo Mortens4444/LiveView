@@ -1,26 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35417.141
+VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView", "LiveView\LiveView.csproj", "{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveView", "LiveView\LiveView.csproj", "{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}"
 	ProjectSection(ProjectDependencies) = postProject
-		{20AC2A7B-3D31-4891-B335-914E0FD6E208} = {20AC2A7B-3D31-4891-B335-914E0FD6E208}
+		{5740EAB6-30B2-4481-935E-71292F85CCA5} = {5740EAB6-30B2-4481-935E-71292F85CCA5}
 		{9809F222-B010-4EFC-ACD4-23E18788E5F2} = {9809F222-B010-4EFC-ACD4-23E18788E5F2}
 		{AF6521C6-F1F1-4393-87E6-E3A8194388D6} = {AF6521C6-F1F1-4393-87E6-E3A8194388D6}
-		{CF46705B-BC31-45A3-8512-FC23BE84392C} = {CF46705B-BC31-45A3-8512-FC23BE84392C}
-		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A} = {F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Enums", "Mtf.Enums\Mtf.Enums.csproj", "{CF46705B-BC31-45A3-8512-FC23BE84392C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CameraApp", "CameraApp\CameraApp.csproj", "{9809F222-B010-4EFC-ACD4-23E18788E5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Extensions", "Mtf.Extensions\Mtf.Extensions.csproj", "{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Models", "Mtf.Models\Mtf.Models.csproj", "{20AC2A7B-3D31-4891-B335-914E0FD6E208}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera", "Camera\Camera.csproj", "{9809F222-B010-4EFC-ACD4-23E18788E5F2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{8B959B17-818D-4AF5-9DB0-2CB8C798F2B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,16 +20,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Core", "LiveView.Core\LiveView.Core.csproj", "{615A060D-7516-4A6C-B76B-7D30C50F5383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveView.Core", "LiveView.Core\LiveView.Core.csproj", "{615A060D-7516-4A6C-B76B-7D30C50F5383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequence", "Sequence\Sequence.csproj", "{AF6521C6-F1F1-4393-87E6-E3A8194388D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sequence", "Sequence\Sequence.csproj", "{AF6521C6-F1F1-4393-87E6-E3A8194388D6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9809F222-B010-4EFC-ACD4-23E18788E5F2} = {9809F222-B010-4EFC-ACD4-23E18788E5F2}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Agent", "LiveView.Agent\LiveView.Agent.csproj", "{188CBFCF-32A3-4920-8042-AF97AF1D15B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveView.Agent", "LiveView.Agent\LiveView.Agent.csproj", "{188CBFCF-32A3-4920-8042-AF97AF1D15B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9809F222-B010-4EFC-ACD4-23E18788E5F2} = {9809F222-B010-4EFC-ACD4-23E18788E5F2}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpgradeCodeGenerator", "UpgradeCodeGenerator\UpgradeCodeGenerator.csproj", "{0A01D8B1-C9AA-4100-BA2F-C7EA45A640E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpgradeCodeGenerator", "UpgradeCodeGenerator\UpgradeCodeGenerator.csproj", "{0A01D8B1-C9AA-4100-BA2F-C7EA45A640E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraForms", "CameraForms\CameraForms.csproj", "{5740EAB6-30B2-4481-935E-71292F85CCA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Controls.Sunell.IPR66", "Mtf.Controls.Sunell.IPR66\Mtf.Controls.Sunell.IPR66.csproj", "{C52DDB1D-34CD-482B-9962-F809FB75FDC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtf.Controls.Sunell.IPR67", "Mtf.Controls.Sunell.IPR67\Mtf.Controls.Sunell.IPR67.csproj", "{A1940465-7314-4528-8C04-419F3F8DAC83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,18 +50,6 @@ Global
 		{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27FBADA7-204F-4168-A8A4-CA530DB9EFB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF46705B-BC31-45A3-8512-FC23BE84392C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF46705B-BC31-45A3-8512-FC23BE84392C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF46705B-BC31-45A3-8512-FC23BE84392C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF46705B-BC31-45A3-8512-FC23BE84392C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1C2BDEF-E9EC-48FD-9CD9-190901B7282A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20AC2A7B-3D31-4891-B335-914E0FD6E208}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9809F222-B010-4EFC-ACD4-23E18788E5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -85,6 +74,18 @@ Global
 		{0A01D8B1-C9AA-4100-BA2F-C7EA45A640E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A01D8B1-C9AA-4100-BA2F-C7EA45A640E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A01D8B1-C9AA-4100-BA2F-C7EA45A640E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5740EAB6-30B2-4481-935E-71292F85CCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5740EAB6-30B2-4481-935E-71292F85CCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5740EAB6-30B2-4481-935E-71292F85CCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5740EAB6-30B2-4481-935E-71292F85CCA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52DDB1D-34CD-482B-9962-F809FB75FDC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52DDB1D-34CD-482B-9962-F809FB75FDC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52DDB1D-34CD-482B-9962-F809FB75FDC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52DDB1D-34CD-482B-9962-F809FB75FDC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1940465-7314-4528-8C04-419F3F8DAC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1940465-7314-4528-8C04-419F3F8DAC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1940465-7314-4528-8C04-419F3F8DAC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1940465-7314-4528-8C04-419F3F8DAC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

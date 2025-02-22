@@ -12,7 +12,6 @@ using Mtf.Permissions.Enums;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using static Dapper.SqlMapper;
 
 namespace LiveView.Presenters
 {
@@ -94,7 +93,7 @@ namespace LiveView.Presenters
 
         private void CameraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender is ToolStripMenuItem toolStripMenuItem && toolStripMenuItem.Tag is Camera camera)
+            if (sender is ToolStripMenuItem toolStripMenuItem && toolStripMenuItem.Tag is Database.Models.Camera camera)
             {
                 foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
                 {
@@ -211,7 +210,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private ListViewItem CreateListViewItem(GridCamera gridCamera, Camera camera, Server server)
+        private ListViewItem CreateListViewItem(GridCamera gridCamera, Database.Models.Camera camera, Server server)
         {
             var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
             {

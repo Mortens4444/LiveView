@@ -1,5 +1,6 @@
 ﻿using Database.Models;
 using System;
+using System.Drawing;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -69,6 +70,8 @@ namespace LiveView.Core.Dto
         public bool CanShowSequence { get; set; }
 
         public bool CanShowFullscreen { get; set; }
+
+        public Rectangle Bounds => new Rectangle(X, Y, MaxWidth, MaxHeight);
 
         public override string ToString()
         {

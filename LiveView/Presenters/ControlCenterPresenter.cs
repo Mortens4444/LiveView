@@ -78,7 +78,7 @@ namespace LiveView.Presenters
             {
                 if (Globals.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
                 {
-                    MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.Kill, Core.Constants.CameraExe, cameraProcessId);
+                    MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcessId);
                     Globals.CameraProcesses.Remove(view.CbAgents.Text);
                 }
             }
@@ -261,7 +261,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void StartCameraApp(IHaveId<long> camera)
+        public void StartCameraApp(IHaveId<long> camera, CameraMode cameraMode)
         {
             if (camera == null)
             {
@@ -271,7 +271,8 @@ namespace LiveView.Presenters
             var parameters = new[]
             {
                 permissionManager.CurrentUser.Tag.Id.ToString(),
-                camera.Id.ToString()
+                camera.Id.ToString(),
+                ((int)cameraMode).ToString()
             };
 
             StartCameraAppInternal(parameters);
@@ -288,7 +289,8 @@ namespace LiveView.Presenters
             {
                 permissionManager.CurrentUser.Tag.Id.ToString(),
                 videoSource.ServerIp,
-                videoSource.Name
+                videoSource.Name,
+                ((int)CameraMode.VideoSource).ToString()
             };
 
             StartCameraAppInternal(parameters);
@@ -298,7 +300,7 @@ namespace LiveView.Presenters
         {
             ProcessUtils.Kill(CameraProcess);
 
-            var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p);
+            var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
@@ -306,13 +308,14 @@ namespace LiveView.Presenters
                 if (selectedDisplay != null)
                 {
                     var displayId = selectedDisplay.Id.ToString();
+                    protectedParameters.Insert(protectedParameters.Count - 1, displayId);
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, $"{string.Join(" ", protectedParameters)} {displayId}");
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraAppExe, $"{String.Join(" ", protectedParameters)}", logger);
                     }
                     else
                     {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, protectedParameters.Concat(new[] { displayId }).ToArray());
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
                     }
                 }
                 else
@@ -326,11 +329,11 @@ namespace LiveView.Presenters
                 {
                     if (view.CbAgents.SelectedIndex == 0)
                     {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraExe, string.Join(" ", protectedParameters));
+                        CameraProcess = AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
                     }
                     else
                     {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraExe, protectedParameters.ToArray());
+                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
                     }
                 }
             }
@@ -344,7 +347,7 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (view.CbAgents.SelectedIndex == 0)
                 {
-                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}"));
+                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}", logger));
                 }
                 else
                 {
@@ -367,7 +370,7 @@ namespace LiveView.Presenters
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });
             foreach (var process in processes)
             {
-                sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters));
+                sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters, logger));
             }
         }
 

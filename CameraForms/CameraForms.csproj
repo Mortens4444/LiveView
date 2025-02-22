@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <RootNamespace>CameraForms</RootNamespace>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningLevel>9999</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\bigcam.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mtf.Controls" Version="1.0.31" />
+    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\LiveView.Core\LiveView.Core.csproj" />
+    <ProjectReference Include="..\Mtf.Controls.Sunell.IPR66\Mtf.Controls.Sunell.IPR66.csproj" />
+    <ProjectReference Include="..\Mtf.Controls.Sunell.IPR67\Mtf.Controls.Sunell.IPR67.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\AxVideoCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FFMpegCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OpenCvSharp4CameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OpenCvSharpCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SunellCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SunellLegacyCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\VideoSourceCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\VlcCameraWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Forms\AxVideoCameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\FFMpegCameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\OpenCvSharp4CameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\OpenCvSharpCameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\VideoSourceCameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\VlcCameraWindow.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
