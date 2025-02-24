@@ -261,11 +261,11 @@ namespace LiveView.Presenters
             }
         }
 
-        public void StartCameraApp(IHaveId<long> camera, CameraMode cameraMode)
+        public bool StartCameraApp(IHaveId<long> camera, CameraMode cameraMode)
         {
             if (camera == null)
             {
-                return;
+                return false;
             }
 
             var parameters = new[]
@@ -275,14 +275,14 @@ namespace LiveView.Presenters
                 ((int)cameraMode).ToString()
             };
 
-            StartCameraAppInternal(parameters);
+            return StartCameraAppInternal(parameters);
         }
 
-        public void StartCameraApp(VideoSourceDto videoSource)
+        public bool StartCameraApp(VideoSourceDto videoSource)
         {
             if (videoSource == null)
             {
-                return;
+                return false;
             }
 
             var parameters = new[]
@@ -293,10 +293,10 @@ namespace LiveView.Presenters
                 ((int)CameraMode.VideoSource).ToString()
             };
 
-            StartCameraAppInternal(parameters);
+            return StartCameraAppInternal(parameters);
         }
 
-        private void StartCameraAppInternal(string[] parameters)
+        private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
 
@@ -321,6 +321,7 @@ namespace LiveView.Presenters
                 else
                 {
                     ShowError(SelectDisplayFirst);
+                    return false;
                 }
             }
             else
@@ -337,9 +338,10 @@ namespace LiveView.Presenters
                     }
                 }
             }
+            return true;
         }
 
-        public void StartSequenceApp(Database.Models.Sequence sequence)
+        public bool StartSequenceApp(Database.Models.Sequence sequence)
         {
             var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
             if (selectedDisplay != null)
@@ -353,10 +355,12 @@ namespace LiveView.Presenters
                 {
                     MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id, isMdi);
                 }
+                return true;
             }
             else
             {
                 ShowError(SelectDisplayFirst);
+                return false;
             }
         }
 

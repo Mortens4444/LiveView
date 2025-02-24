@@ -72,7 +72,7 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
-            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, hardwareAcceleration: false);
+            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password);
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

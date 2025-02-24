@@ -343,9 +343,11 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Database.Models.Sequence sequence)
             {
-                presenter.StartSequenceApp(sequence);
-                Thread.Sleep(1000);
-                e.Item.Selected = false;
+                if (presenter.StartSequenceApp(sequence))
+                {
+                    Thread.Sleep(1000);
+                    e.Item.Selected = false;
+                }
             }
         }
 
@@ -353,15 +355,19 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
-                presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
-                Thread.Sleep(1000);
-                e.Item.Selected = false;
+                if (presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer))
+                {
+                    Thread.Sleep(1000);
+                    e.Item.Selected = false;
+                }
             }
             else if (e.IsSelected && e.Item.Tag is VideoSourceDto videoSource)
             {
-                presenter.StartCameraApp(videoSource);
-                Thread.Sleep(1000);
-                e.Item.Selected = false;
+                if (presenter.StartCameraApp(videoSource))
+                {
+                    Thread.Sleep(1000);
+                    e.Item.Selected = false;
+                }
             }
         }
 

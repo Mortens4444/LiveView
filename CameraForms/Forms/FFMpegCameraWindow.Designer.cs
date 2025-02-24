@@ -38,7 +38,7 @@
             fFmpegWindow.BackColor = System.Drawing.Color.Black;
             fFmpegWindow.BackgroundImage = Properties.Resources.nosignal;
             fFmpegWindow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            fFmpegWindow.Codec = "mjpeg";
+            fFmpegWindow.Codec = Mtf.Controls.Enums.Codec.mjpeg;
             fFmpegWindow.Dock = System.Windows.Forms.DockStyle.Fill;
             fFmpegWindow.Location = new System.Drawing.Point(0, 0);
             fFmpegWindow.Name = "fFmpegWindow";
