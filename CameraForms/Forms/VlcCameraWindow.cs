@@ -32,7 +32,7 @@ namespace CameraForms.Forms
 
         private void VideoSourceCamera_Shown(object sender, EventArgs e)
         {
-            vlcWindow.Start(url);
+            vlcWindow.Start(url, true, true, true, true, 0, 0);
         }
 
         private void VideoSourceCamera_FormClosing(object sender, FormClosingEventArgs e)

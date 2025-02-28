@@ -1,0 +1,12 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="LiveView.Installer"
+           Manufacturer="Mortens"
+           Version="1.0.0.0"
+           UpgradeCode="7e4a39ac-f309-4478-bfe6-e82a9856ab94">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="LiveViewComponents" />
+    </Feature>
+  </Package>
+</Wix>

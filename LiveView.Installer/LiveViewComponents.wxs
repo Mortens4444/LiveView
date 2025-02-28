@@ -1,0 +1,17 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER_NET9" Name="LiveView_NET9" />
+      <Directory Id="INSTALLFOLDER_NET8" Name="LiveView_NET8" />
+      <Directory Id="INSTALLFOLDER_NET481" Name="LiveView_NET481" />
+    </StandardDirectory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="LiveViewComponents">
+      <ComponentGroupRef Id="Net9Components"/>
+      <ComponentGroupRef Id="Net8Components"/>
+      <ComponentGroupRef Id="Net481Components"/>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

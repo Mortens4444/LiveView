@@ -1,0 +1,14 @@
+﻿<Project Sdk="WixToolset.Sdk/5.0.2">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <SuppressAllWarnings>false</SuppressAllWarnings>
+    <Pedantic>true</Pedantic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <SuppressAllWarnings>false</SuppressAllWarnings>
+    <Pedantic>true</Pedantic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <SuppressAllWarnings>false</SuppressAllWarnings>
+    <Pedantic>true</Pedantic>
+  </PropertyGroup>
+</Project>
