@@ -34,8 +34,8 @@
             lblSelectedLanguage = new System.Windows.Forms.Label();
             lblFontSizeSmall = new System.Windows.Forms.Label();
             lblFontSizeBig = new System.Windows.Forms.Label();
-            nudFontSizeSmall = new System.Windows.Forms.NumericUpDown();
-            nudFontSizeBig = new System.Windows.Forms.NumericUpDown();
+            nudSmallFontSize = new System.Windows.Forms.NumericUpDown();
+            nudLargeFontSize = new System.Windows.Forms.NumericUpDown();
             btnFontType = new System.Windows.Forms.Button();
             lblShowVideoServerIdentifier = new System.Windows.Forms.Label();
             rbNone = new System.Windows.Forms.RadioButton();
@@ -44,18 +44,19 @@
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
             rbDisplayedName = new System.Windows.Forms.RadioButton();
-            pbShadowColor = new Mtf.Controls.MtfPictureBox();
+            pbFontShadowColor = new Mtf.Controls.MtfPictureBox();
             pbFontColor = new Mtf.Controls.MtfPictureBox();
             lblFontColor = new System.Windows.Forms.Label();
             ttHint = new System.Windows.Forms.ToolTip(components);
             gbTexts = new System.Windows.Forms.GroupBox();
+            lblTest = new System.Windows.Forms.Label();
+            chkUseCustomColors = new System.Windows.Forms.CheckBox();
             lblShadowColor = new System.Windows.Forms.Label();
             pMain = new System.Windows.Forms.Panel();
             gbLanguage = new System.Windows.Forms.GroupBox();
-            chkUseCustomColors = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbShadowColor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudSmallFontSize).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudLargeFontSize).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbFontShadowColor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbFontColor).BeginInit();
             gbTexts.SuspendLayout();
             pMain.SuspendLayout();
@@ -92,31 +93,34 @@
             lblFontSizeBig.TabIndex = 7;
             lblFontSizeBig.Text = "Large font size";
             // 
-            // nudFontSizeSmall
+            // nudSmallFontSize
             // 
-            nudFontSizeSmall.Location = new System.Drawing.Point(243, 160);
-            nudFontSizeSmall.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudFontSizeSmall.Name = "nudFontSizeSmall";
-            nudFontSizeSmall.Size = new System.Drawing.Size(65, 23);
-            nudFontSizeSmall.TabIndex = 10;
+            nudSmallFontSize.Location = new System.Drawing.Point(243, 160);
+            nudSmallFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudSmallFontSize.Name = "nudSmallFontSize";
+            nudSmallFontSize.Size = new System.Drawing.Size(65, 23);
+            nudSmallFontSize.TabIndex = 10;
+            nudSmallFontSize.Value = new decimal(new int[] { 15, 0, 0, 0 });
             // 
-            // nudFontSizeBig
+            // nudLargeFontSize
             // 
-            nudFontSizeBig.Location = new System.Drawing.Point(243, 130);
-            nudFontSizeBig.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudFontSizeBig.Name = "nudFontSizeBig";
-            nudFontSizeBig.Size = new System.Drawing.Size(65, 23);
-            nudFontSizeBig.TabIndex = 8;
+            nudLargeFontSize.Location = new System.Drawing.Point(243, 130);
+            nudLargeFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudLargeFontSize.Name = "nudLargeFontSize";
+            nudLargeFontSize.Size = new System.Drawing.Size(65, 23);
+            nudLargeFontSize.TabIndex = 8;
+            nudLargeFontSize.Value = new decimal(new int[] { 30, 0, 0, 0 });
             // 
             // btnFontType
             // 
-            btnFontType.Location = new System.Drawing.Point(455, 23);
+            btnFontType.Location = new System.Drawing.Point(325, 23);
             btnFontType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnFontType.Name = "btnFontType";
             btnFontType.Size = new System.Drawing.Size(183, 27);
             btnFontType.TabIndex = 6;
             btnFontType.Text = "Font type";
             btnFontType.UseVisualStyleBackColor = true;
+            btnFontType.Click += BtnFontType_Click;
             // 
             // lblShowVideoServerIdentifier
             // 
@@ -202,29 +206,41 @@
             rbDisplayedName.Text = "Displayed name";
             rbDisplayedName.UseVisualStyleBackColor = true;
             // 
-            // pbShadowColor
+            // pbFontShadowColor
             // 
-            pbShadowColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pbShadowColor.Location = new System.Drawing.Point(325, 161);
-            pbShadowColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            pbShadowColor.Name = "pbShadowColor";
-            pbShadowColor.OriginalSize = new System.Drawing.Size(100, 50);
-            pbShadowColor.RepositioningAndResizingControlsOnResize = false;
-            pbShadowColor.Size = new System.Drawing.Size(33, 26);
-            pbShadowColor.TabIndex = 14;
-            pbShadowColor.TabStop = false;
+            pbFontShadowColor.BackgroundPaintDebounceIntervalInMs = 0;
+            pbFontShadowColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            pbFontShadowColor.Location = new System.Drawing.Point(325, 161);
+            pbFontShadowColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pbFontShadowColor.Name = "pbFontShadowColor";
+            pbFontShadowColor.OriginalSize = new System.Drawing.Size(100, 50);
+            pbFontShadowColor.PaintDebounceIntervalInMs = 0;
+            pbFontShadowColor.RepositioningAndResizingControlsOnResize = false;
+            pbFontShadowColor.ResizeDebounceIntervalInMs = 0;
+            pbFontShadowColor.ShowPaintErrors = false;
+            pbFontShadowColor.ShowResizeErrors = false;
+            pbFontShadowColor.Size = new System.Drawing.Size(33, 26);
+            pbFontShadowColor.TabIndex = 14;
+            pbFontShadowColor.TabStop = false;
+            pbFontShadowColor.Click += PbFontShadowColor_Click;
             // 
             // pbFontColor
             // 
+            pbFontColor.BackgroundPaintDebounceIntervalInMs = 0;
             pbFontColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             pbFontColor.Location = new System.Drawing.Point(325, 127);
             pbFontColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbFontColor.Name = "pbFontColor";
             pbFontColor.OriginalSize = new System.Drawing.Size(100, 50);
+            pbFontColor.PaintDebounceIntervalInMs = 0;
             pbFontColor.RepositioningAndResizingControlsOnResize = false;
+            pbFontColor.ResizeDebounceIntervalInMs = 0;
+            pbFontColor.ShowPaintErrors = false;
+            pbFontColor.ShowResizeErrors = false;
             pbFontColor.Size = new System.Drawing.Size(33, 26);
             pbFontColor.TabIndex = 13;
             pbFontColor.TabStop = false;
+            pbFontColor.Click += PbFontColor_Click;
             // 
             // lblFontColor
             // 
@@ -238,17 +254,18 @@
             // 
             // gbTexts
             // 
+            gbTexts.Controls.Add(lblTest);
             gbTexts.Controls.Add(chkUseCustomColors);
             gbTexts.Controls.Add(lblFontSizeSmall);
             gbTexts.Controls.Add(lblFontSizeBig);
-            gbTexts.Controls.Add(nudFontSizeSmall);
-            gbTexts.Controls.Add(nudFontSizeBig);
+            gbTexts.Controls.Add(nudSmallFontSize);
+            gbTexts.Controls.Add(nudLargeFontSize);
             gbTexts.Controls.Add(btnFontType);
             gbTexts.Controls.Add(lblShowVideoServerIdentifier);
             gbTexts.Controls.Add(rbNone);
             gbTexts.Controls.Add(rbIpAddress);
             gbTexts.Controls.Add(rbDisplayedName);
-            gbTexts.Controls.Add(pbShadowColor);
+            gbTexts.Controls.Add(pbFontShadowColor);
             gbTexts.Controls.Add(pbFontColor);
             gbTexts.Controls.Add(lblShadowColor);
             gbTexts.Controls.Add(lblFontColor);
@@ -261,6 +278,25 @@
             gbTexts.TabIndex = 1;
             gbTexts.TabStop = false;
             gbTexts.Text = "Texts";
+            // 
+            // lblTest
+            // 
+            lblTest.AutoSize = true;
+            lblTest.Location = new System.Drawing.Point(325, 72);
+            lblTest.Name = "lblTest";
+            lblTest.Size = new System.Drawing.Size(125, 15);
+            lblTest.TabIndex = 16;
+            lblTest.Text = "192.168.0.1 - Camera 1";
+            // 
+            // chkUseCustomColors
+            // 
+            chkUseCustomColors.AutoSize = true;
+            chkUseCustomColors.Location = new System.Drawing.Point(18, 190);
+            chkUseCustomColors.Name = "chkUseCustomColors";
+            chkUseCustomColors.Size = new System.Drawing.Size(123, 19);
+            chkUseCustomColors.TabIndex = 15;
+            chkUseCustomColors.Text = "Use custom colors";
+            chkUseCustomColors.UseVisualStyleBackColor = true;
             // 
             // lblShadowColor
             // 
@@ -299,16 +335,6 @@
             gbLanguage.TabStop = false;
             gbLanguage.Text = "Language";
             // 
-            // chkUseCustomColors
-            // 
-            chkUseCustomColors.AutoSize = true;
-            chkUseCustomColors.Location = new System.Drawing.Point(18, 190);
-            chkUseCustomColors.Name = "chkUseCustomColors";
-            chkUseCustomColors.Size = new System.Drawing.Size(123, 19);
-            chkUseCustomColors.TabIndex = 15;
-            chkUseCustomColors.Text = "Use custom colors";
-            chkUseCustomColors.UseVisualStyleBackColor = true;
-            // 
             // PersonalOptionsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -320,9 +346,9 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "Personal options";
             Shown += PersonalOptionsForm_Shown;
-            ((System.ComponentModel.ISupportInitialize)nudFontSizeSmall).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudFontSizeBig).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbShadowColor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudSmallFontSize).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudLargeFontSize).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbFontShadowColor).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbFontColor).EndInit();
             gbTexts.ResumeLayout(false);
             gbTexts.PerformLayout();
@@ -339,8 +365,8 @@
         private System.Windows.Forms.Label lblSelectedLanguage;
         private System.Windows.Forms.Label lblFontSizeSmall;
         private System.Windows.Forms.Label lblFontSizeBig;
-        private System.Windows.Forms.NumericUpDown nudFontSizeSmall;
-        private System.Windows.Forms.NumericUpDown nudFontSizeBig;
+        private System.Windows.Forms.NumericUpDown nudSmallFontSize;
+        private System.Windows.Forms.NumericUpDown nudLargeFontSize;
         private System.Windows.Forms.Button btnFontType;
         private System.Windows.Forms.Label lblShowVideoServerIdentifier;
         private System.Windows.Forms.RadioButton rbNone;
@@ -349,7 +375,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.RadioButton rbDisplayedName;
-        private Mtf.Controls.MtfPictureBox pbShadowColor;
+        private Mtf.Controls.MtfPictureBox pbFontShadowColor;
         private Mtf.Controls.MtfPictureBox pbFontColor;
         private System.Windows.Forms.Label lblFontColor;
         private System.Windows.Forms.ToolTip ttHint;
@@ -358,5 +384,6 @@
         private System.Windows.Forms.Panel pMain;
         private System.Windows.Forms.GroupBox gbLanguage;
         private System.Windows.Forms.CheckBox chkUseCustomColors;
+        private System.Windows.Forms.Label lblTest;
     }
 }

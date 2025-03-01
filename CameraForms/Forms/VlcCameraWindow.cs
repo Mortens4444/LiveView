@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using Mtf.Controls.Enums;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -32,7 +33,7 @@ namespace CameraForms.Forms
 
         private void VideoSourceCamera_Shown(object sender, EventArgs e)
         {
-            vlcWindow.Start(url, true, true, true, true, 0, 0);
+            vlcWindow.Start(url, true, true, false, 0, 0, Demux.live555);
         }
 
         private void VideoSourceCamera_FormClosing(object sender, FormClosingEventArgs e)

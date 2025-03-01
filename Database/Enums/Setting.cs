@@ -55,5 +55,13 @@
         AutoLoadedTemplate,
         WatchdogPort,
         KBD300ACOMPort,
+        VideoServerIdentifierDisplayName,
+        VideoServerIdentifierIpAddress,
+        VideoServerIdentifierNone,
+        CameraFont,
+        CameraLargeFontSize,
+        CameraSmallFontSize,
+        CameraFontColor,
+        CameraFontShadowColor,
     }
 }

@@ -57,7 +57,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.2" />
-    <PackageReference Include="Mtf.Controls" Version="1.0.34" />
+    <PackageReference Include="Mtf.Controls" Version="1.0.35" />
     <PackageReference Include="Mtf.Database" Version="2.0.26" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.10" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.2" />
