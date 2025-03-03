@@ -2,6 +2,7 @@
 using CameraForms.Services;
 using Database.Models;
 using Database.Repositories;
+using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -19,6 +20,8 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+            
             var display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
             Initialize(userId, cameraId, rectangle);
@@ -28,6 +31,8 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+            
             Initialize(userId, cameraId, rectangle);
         }
 
@@ -35,6 +40,7 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
             this.sunellCameraInfo = sunellCameraInfo;
             this.rectangle = rectangle;
@@ -72,7 +78,7 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
-            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password);
+            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, 1, StreamType.HighDensity, false);
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

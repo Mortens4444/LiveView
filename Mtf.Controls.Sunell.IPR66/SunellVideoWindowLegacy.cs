@@ -43,6 +43,7 @@ namespace Mtf.Controls.Sunell.IPR66
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             UpdateStyles();
+
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
@@ -203,7 +204,7 @@ namespace Mtf.Controls.Sunell.IPR66
         public void StopRecording(string filePath)
         {
             int recorderStatus = 0;
-            var returnCode = NvdcDll.Remote_LivePlayer2_GetRecorderStatus(nvdHandle, recorderStatus);
+            var returnCode = NvdcDll.Remote_LivePlayer2_GetRecorderStatus(nvdHandle, ref recorderStatus);
             CheckForError(returnCode);
             
             if (recorderStatus == 1)

@@ -11,5 +11,9 @@ namespace Database.Interfaces
         T Get<T>(Setting settingName, long userId, T defaultValue = default);
 
         void Set<T>(Setting settingName, long userId, T value);
+
+        string GetCameraName(long userId, Server server, Camera camera);
+
+        string GetCameraName(long userId, string url);
     }
 }

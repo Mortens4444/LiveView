@@ -66,6 +66,42 @@ namespace Database.Repositories
             }
         }
 
+        public string GetCameraName(long userId, Server server, Camera camera)
+        {
+            if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
+            {
+                return $"{server.Hostname} - {camera.CameraName}";
+            }
+            if (Get(Setting.VideoServerIdentifierIpAddress, userId, false))
+            {
+                return $"{server.IpAddress} - {camera.CameraName}";
+            }
+            if (Get(Setting.VideoServerIdentifierNone, userId, false))
+            {
+                return camera.CameraName;
+            }
+
+            return String.Empty;
+        }
+
+        public string GetCameraName(long userId, string url)
+        {
+            if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
+            {
+                return url;
+            }
+            if (Get(Setting.VideoServerIdentifierIpAddress, userId, false))
+            {
+                return url;
+            }
+            if (Get(Setting.VideoServerIdentifierNone, userId, false))
+            {
+                return url;
+            }
+
+            return String.Empty;
+        }
+
         private PersonalOption CreateOption<T>(string settingName, long userId, string settingValue, T value)
         {
             return new PersonalOption

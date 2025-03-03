@@ -18,6 +18,7 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
             this.url = url;
             this.rectangle = rectangle;

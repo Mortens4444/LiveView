@@ -2,6 +2,7 @@
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -22,6 +23,7 @@ namespace Mtf.Controls.Sunell.IPR67
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             UpdateStyles();
+
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
@@ -68,9 +70,15 @@ namespace Mtf.Controls.Sunell.IPR67
             IsConnected = true;
         }
 
-        private void PlayTimeCallback(uint handle, int stream_id, IntPtr p_obj, ref byte p_time) { }
+        private void PlayTimeCallback(uint handle, int stream_id, IntPtr p_obj, ref byte p_time)
+        {
+            Debug.WriteLine($"Handle: {handle}, Stream Id: {stream_id}, Obj: {p_obj}, Time: {p_time}");
+        }
 
-        private void DisconnectCallback(uint handle, IntPtr p_obj, uint type) { }
+        private void DisconnectCallback(uint handle, IntPtr p_obj, uint type)
+        {
+            Debug.WriteLine($"Handle: {handle}, Obj: {p_obj}, Type: {type}");
+        }
 
         public void Disconnect()
         {

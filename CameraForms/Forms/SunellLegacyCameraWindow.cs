@@ -20,6 +20,7 @@ namespace CameraForms.Forms
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
+
             var display = DisplayProvider.Get(displayId);
             Initialize(userId, cameraId, display.Bounds);
         }
@@ -29,6 +30,7 @@ namespace CameraForms.Forms
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
+
             Initialize(userId, cameraId, rectangle);
         }
 

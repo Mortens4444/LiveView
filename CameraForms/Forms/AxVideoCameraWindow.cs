@@ -1,10 +1,12 @@
 ﻿using CameraForms.Services;
 using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services.Pipe;
+using Mtf.Controls.x86;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -30,28 +32,39 @@ namespace CameraForms.Forms
         private readonly long cameraId;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
 
         private readonly Database.Models.Server server;
-        private readonly Database.Models.Camera camera;
+        private readonly Camera camera;
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, Database.Models.Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
+            InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
             this.rectangle = rectangle;
             this.server = server;
             this.camera = camera;
             this.cancellationToken = cancellationToken;
             this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
+            
+            cameraId = camera?.Id ?? 0;
+            Initialize(permissionManager?.CurrentUser?.Id ?? 0, cameraId);
         }
 
-        public AxVideoCameraWindow(long userId, long cameraId, Point location, Size size)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
+            this.personalOptionsRepository = personalOptionsRepository;
             this.cameraId = cameraId;
-            permissionManager = new PermissionManager<User>();
+            this.permissionManager = permissionManager;
             Initialize(userId, cameraId);
 #if DEBUG
             this.location = new Point(0, 0);
@@ -64,11 +77,15 @@ namespace CameraForms.Forms
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
-        public AxVideoCameraWindow(long userId, long cameraId, long? displayId)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
+            this.personalOptionsRepository = personalOptionsRepository;
             this.cameraId = cameraId;
-            permissionManager = new PermissionManager<User>();
+            this.permissionManager = permissionManager;
             Initialize(userId, cameraId);
             display = DisplayProvider.Get(displayId);
         }
@@ -236,11 +253,8 @@ namespace CameraForms.Forms
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
             //axVideoPlayerWindow.AxVideoPicture.Visible = false;
-            //axVideoPlayerWindow.OverlayText = $"{server.IpAddress} - {camera.CameraName}";
             //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
             //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
-
-            //Start();
 
             var cameraRepository = new CameraRepository();
             var serverRepository = new ServerRepository();
@@ -256,7 +270,12 @@ namespace CameraForms.Forms
             }
 
             axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-            axVideoPlayerWindow.OverlayText = $"{server.IpAddress} - {camera.CameraName}";
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
+            axVideoPlayerWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial"), largeFontSize, FontStyle.Bold);
+            axVideoPlayerWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, Color.Black.ToArgb()));
+            axVideoPlayerWindow.OverlayText = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Id, server, camera);
         }
 
         //private void Start(int waitTimeInMs = 500)

@@ -1,5 +1,6 @@
 ﻿using Database.Models;
 using Mtf.Controls.Enums;
+using Mtf.Controls.Video;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -19,6 +20,7 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
             this.url = url;
             this.rectangle = rectangle;

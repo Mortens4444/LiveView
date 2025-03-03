@@ -165,7 +165,7 @@ namespace Mtf.Controls.Sunell.IPR66.SunellSdk
         public static extern int Remote_LivePlayer2_StopRecord(IntPtr p_hHandle);
 
         [DllImport(NvdcDllDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv, ExactSpelling = true)]
-        public static extern int Remote_LivePlayer2_GetRecorderStatus(IntPtr p_hHandle, int p_nStatus);
+        public static extern int Remote_LivePlayer2_GetRecorderStatus(IntPtr p_hHandle, ref int p_nStatus);
         
         [DllImport(NvdcDllDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv, ExactSpelling = true)]
         public static extern int Remote_LivePlayer2_Pause(IntPtr p_hHandle);

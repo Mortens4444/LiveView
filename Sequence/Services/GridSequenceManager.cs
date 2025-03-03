@@ -1,6 +1,7 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Forms;
 using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
@@ -39,6 +40,7 @@ namespace Sequence.Services
         private readonly DisplayDto display;
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly bool isMdi;
         
         private List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
@@ -60,6 +62,7 @@ namespace Sequence.Services
             this.isMdi = isMdi;
             //this.isMdi = false;
             permissionManager = serviceProvider.GetRequiredService<PermissionManager<User>>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             logger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
             //StartSequence(sequenceId);
         }
@@ -172,7 +175,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };
@@ -188,7 +191,7 @@ namespace Sequence.Services
                 else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new FFMpegCameraWindow(permissionManager, fFMpegCameraInfo.Url, rectangle)
+                    videoForm = new FFMpegCameraWindow(permissionManager, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };

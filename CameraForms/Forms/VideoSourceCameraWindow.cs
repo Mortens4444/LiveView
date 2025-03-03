@@ -51,6 +51,7 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
             this.client = client;
             this.rectangle = rectangle;
