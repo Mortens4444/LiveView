@@ -1,10 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Extensions;
-using Mtf.Controls.x86;
-using Mtf.Network;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -33,13 +30,13 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
         }
 
-        private void VideoSourceCamera_Load(object sender, EventArgs e)
+        private void FFMpegCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
             Size = new Size(rectangle.Width, rectangle.Height);
         }
 
-        private void VideoSourceCamera_Shown(object sender, EventArgs e)
+        private void FFMpegCameraWindow_Shown(object sender, EventArgs e)
         {
             fFmpegWindow.Start(url);
 
@@ -53,7 +50,7 @@ namespace CameraForms.Forms
             fFmpegWindow.SetOsdText(fontName, largeFontSize, FontStyle.Bold, fontColor, cameraName);
         }
 
-        private void VideoSourceCamera_FormClosing(object sender, FormClosingEventArgs e)
+        private void FFMpegCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             fFmpegWindow.Stop();
         }

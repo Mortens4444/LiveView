@@ -1,9 +1,6 @@
-﻿using Database.Models;
-
-namespace Sequence.Dto
+﻿namespace Sequence.Dto
 {
-    public class FFMpegCameraInfo : CameraInfo
+    public class FFMpegCameraInfo : UrlCameraInfo
     {
-        public string Url { get; set; }
     }
 }

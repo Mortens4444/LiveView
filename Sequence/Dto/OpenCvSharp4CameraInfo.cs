@@ -1,9 +1,6 @@
-﻿using Database.Models;
-
-namespace Sequence.Dto
+﻿namespace Sequence.Dto
 {
-    public class OpenCvSharp4CameraInfo : CameraInfo
+    public class OpenCvSharp4CameraInfo : UrlCameraInfo
     {
-        public string Url { get; set; }
     }
 }

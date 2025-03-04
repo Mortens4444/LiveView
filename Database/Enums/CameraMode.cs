@@ -8,7 +8,8 @@
         FFMpeg = 3,
         OpenCvSharp = 4,
         OpenCvSharp4 = 5,
-        SunellLegacyCameraWindow = 6,
-        SunellCameraWindow = 7,
+        SunellLegacyCamera = 6,
+        SunellCamera = 7,
+        MortoGraphy = 8,
     }
 }

@@ -54,4 +54,3 @@ The `LiveView.Agent.exe` uses an `App.config` file for its settings. Below is an
 ---
 
 This document serves as a reference for setting up and configuring the LiveView application and its components.
-

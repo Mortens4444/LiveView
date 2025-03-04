@@ -196,6 +196,14 @@ namespace Sequence.Services
                         MdiParent = parentForm
                     };
                 }
+                else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
+                {
+                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
+                    videoForm = new MortoGraphyWindow(permissionManager, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
+                    {
+                        MdiParent = parentForm
+                    };
+                }
                 else if (camera is VlcCameraInfo vlcCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
@@ -268,6 +276,10 @@ namespace Sequence.Services
                 else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
                 {
                     result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {fFMpegCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                }
+                else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
+                {
+                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {mortoGraphyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
                 }
                 else if (camera is VlcCameraInfo vlcCameraInfo)
                 {
@@ -386,6 +398,14 @@ namespace Sequence.Services
                                 Url = vlcCamera.HttpStreamUrl
                             };
 
+                        case CameraMode.MortoGraphy:
+                            var mortoGraphyCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
+                            return new MortoGraphyCameraInfo
+                            {
+                                GridCamera = gridCamera,
+                                Url = mortoGraphyCamera.HttpStreamUrl
+                            };
+
                         case CameraMode.FFMpeg:
                             var ffMpegCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new FFMpegCameraInfo
@@ -410,7 +430,7 @@ namespace Sequence.Services
                                 Url = openCvSharp4Camera.HttpStreamUrl
                             };
 
-                        case CameraMode.SunellLegacyCameraWindow:
+                        case CameraMode.SunellLegacyCamera:
                             var sunellLegacyCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new SunellLegacyCameraInfo
                             {
@@ -421,7 +441,7 @@ namespace Sequence.Services
                                 Password = sunellLegacyCamera.Password
                             };
 
-                        case CameraMode.SunellCameraWindow:
+                        case CameraMode.SunellCamera:
                             var sunellCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new SunellCameraInfo
                             {

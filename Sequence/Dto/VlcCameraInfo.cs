@@ -1,9 +1,6 @@
-﻿using Database.Models;
-
-namespace Sequence.Dto
+﻿namespace Sequence.Dto
 {
-    public class VlcCameraInfo : CameraInfo
+    public class VlcCameraInfo : UrlCameraInfo
     {
-        public string Url { get; set; }
     }
 }

@@ -62,9 +62,9 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
-            FormClosing += VideoSourceCamera_FormClosing;
-            Load += VideoSourceCamera_Load;
-            Shown += VideoSourceCamera_Shown;
+            FormClosing += FFMpegCameraWindow_FormClosing;
+            Load += FFMpegCameraWindow_Load;
+            Shown += FFMpegCameraWindow_Shown;
             ((System.ComponentModel.ISupportInitialize)fFmpegWindow).EndInit();
             ResumeLayout(false);
         }

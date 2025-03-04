@@ -66,15 +66,23 @@ namespace CameraApp
                                     Application.Run(form);
                                 }
                                 break;
-                            case CameraMode.SunellLegacyCameraWindow:
+                            case CameraMode.SunellLegacyCamera:
                                 using (var form = new SunellLegacyCameraWindow(userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
-                            case CameraMode.SunellCameraWindow:
+                            case CameraMode.SunellCamera:
                                 _ = Sdk.sdk_dev_init(null);
                                 using (var form = new SunellCameraWindow(userId, cameraId, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.MortoGraphy:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
@@ -101,15 +109,23 @@ namespace CameraApp
                                         Application.Run(form);
                                     }
                                     break;
-                                case CameraMode.SunellLegacyCameraWindow:
+                                case CameraMode.SunellLegacyCamera:
                                     using (var form = new SunellLegacyCameraWindow(userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
                                     break;
-                                case CameraMode.SunellCameraWindow:
+                                case CameraMode.SunellCamera:
                                     _ = Sdk.sdk_dev_init(null);
                                     using (var form = new SunellCameraWindow(userId, cameraId, displayId))
+                                    {
+                                        Application.Run(form);
+                                    }
+                                    Sdk.sdk_dev_quit();
+                                    break;
+                                case CameraMode.MortoGraphy:
+                                    _ = Sdk.sdk_dev_init(null);
+                                    using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
@@ -174,15 +190,23 @@ namespace CameraApp
                                     Application.Run(form);
                                 }
                                 break;
-                            case CameraMode.SunellLegacyCameraWindow:
+                            case CameraMode.SunellLegacyCamera:
                                 using (var form = new SunellLegacyCameraWindow(userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
-                            case CameraMode.SunellCameraWindow:
+                            case CameraMode.SunellCamera:
                                 _ = Sdk.sdk_dev_init(null);
                                 using (var form = new SunellCameraWindow(userId, cameraId, rectangle))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.MortoGraphy:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }

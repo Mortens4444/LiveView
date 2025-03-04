@@ -83,7 +83,7 @@ namespace CameraForms.Forms
             InitializeComponent();
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
-            permissionManager = new PermissionManager<Database.Models.User>();
+            permissionManager = new PermissionManager<User>();
             Initialize(userId, serverIp, videoCaptureSource);
 
             var displayRepository = new DisplayRepository();
