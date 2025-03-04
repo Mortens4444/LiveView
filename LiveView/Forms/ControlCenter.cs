@@ -4,11 +4,13 @@ using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -418,6 +420,21 @@ namespace LiveView.Forms
         public void ShowGridInfo(long gridId, string secondsLeft)
         {
             presenter?.ShowGridInfo(gridId, secondsLeft);
+        }
+
+        public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
+        {
+            return presenter.StartSequence(sequenceId, selectedDisplayId, isMdi);
+        }
+
+        public void AddSequence(Process sequenceProcess)
+        {
+            presenter.AddSequence(sequenceProcess);
+        }
+        
+        public int RemoveSequence(int sequenceId)
+        {
+            return presenter.RemoveSequence(sequenceId);
         }
 
         protected override void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)

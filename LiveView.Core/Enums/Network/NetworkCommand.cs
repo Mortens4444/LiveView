@@ -41,6 +41,7 @@
         ShowNextGrid,
         PlayOrPauseSequence,
         AgentDisconnected,
-        SecondsLeftFromGrid
+        SecondsLeftFromGrid,
+        CheckSequenceProcess
     }
 }

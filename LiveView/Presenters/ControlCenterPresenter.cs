@@ -97,6 +97,16 @@ namespace LiveView.Presenters
             }
         }
 
+        public void AddSequence(Process sequenceProcess)
+        {
+            sequenceProcesses.Add(sequenceProcess);
+        }
+
+        public int RemoveSequence(int sequenceId)
+        {
+            return sequenceProcesses.RemoveAll(sp => sp.Id == sequenceId);
+        }
+
         public void MoveToEast()
         {
             MainPresenter.SendMessageToFullScreenCamera(NetworkCommand.PanToEast.ToString());
@@ -341,6 +351,11 @@ namespace LiveView.Presenters
             return true;
         }
 
+        public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
+        {
+            return AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger);
+        }
+
         public bool StartSequenceApp(Database.Models.Sequence sequence)
         {
             var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
@@ -349,7 +364,7 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (view.CbAgents.SelectedIndex == 0)
                 {
-                    sequenceProcesses.Add(AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequence.Id} {selectedDisplay.Id} {isMdi}", logger));
+                    sequenceProcesses.Add(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
                 }
                 else
                 {

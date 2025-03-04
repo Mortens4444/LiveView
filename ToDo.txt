@@ -1,3 +1,7 @@
+Show agent displays also on ControlCenter.
+Display identify (remote and local, if same do not draw it again, else draw it, in a fix order)
+If a machine dies, try to start the backup machine
+
 Presenters should check if has correct permissions when RequireAnyPermission is used
 Network encryption
 Template should open remote displays

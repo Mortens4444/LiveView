@@ -8,6 +8,12 @@ namespace LiveView.Services.Network
         {
             try
             {
+                var colonIndex = hostName.IndexOf(':');
+                if (colonIndex > -1)
+                {
+                    hostName = hostName.Substring(0, colonIndex);
+                }
+
                 var hostIPs = Dns.GetHostAddresses(hostName);
                 var localIPs = Dns.GetHostAddresses(Dns.GetHostName());
 

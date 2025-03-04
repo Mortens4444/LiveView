@@ -6,15 +6,18 @@ using LiveView.Core.Services;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Services;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
+using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LiveView
@@ -46,7 +49,17 @@ namespace LiveView
             BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"]?.ConnectionString;
-            BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
+            try
+            {
+                BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
+            }
+            catch (SqlException ex) when (ex.Number == 26)
+            {
+                Thread.Sleep(10000);
+                ErrorBox.Show(ex);
+                Application.Restart();
+            }
+            
             BaseRepository.ExecuteWithoutTransaction("CreateUser");
 
             BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;

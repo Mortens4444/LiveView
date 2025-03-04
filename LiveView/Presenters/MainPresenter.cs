@@ -11,6 +11,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.Network;
 using LiveView.Services.Serial;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,11 +30,15 @@ using Mtf.Serial.SerialDevices;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NetworkServer = Mtf.Network.Server;
 
@@ -46,6 +51,7 @@ namespace LiveView.Presenters
 
         public ILogger<MainForm> Logger { get; }
 
+        private readonly CancellationTokenSource cancellationTokenSource;
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
         private readonly IServiceProvider serviceProvider;
@@ -68,6 +74,7 @@ namespace LiveView.Presenters
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
         {
+            cancellationTokenSource = new CancellationTokenSource();
             Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
             rightRepository = dependencies.RightRepository;
@@ -84,6 +91,33 @@ namespace LiveView.Presenters
             userEventRepository = dependencies.UserEventRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
+
+            Task.Run(() =>
+            {
+                var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    var sequenceProcesses = Process.GetProcessesByName(sequence);
+                    foreach (var sequenceProcess in Globals.SequenceProcesses)
+                    {
+                        if (LocalIpAddressChecker.IsLocal(sequenceProcess.Key))
+                        {
+                            if (!sequenceProcesses.Any(sp => sp.Id == sequenceProcess.Value.ProcessId) && sequenceProcess.Value.SequenceId.HasValue)
+                            {
+                                Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
+                                Globals.ControlCenter.RemoveSequence(sequenceProcess.Value.ProcessId);
+                                var startedSequenceProcess = Globals.ControlCenter.StartSequence(sequenceProcess.Value.SequenceId.Value, sequenceProcess.Value.DisplayId.ToString(), sequenceProcess.Value.IsMdi);
+                                Globals.ControlCenter.AddSequence(startedSequenceProcess);
+                            }
+                        }
+                        else
+                        {
+                            Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, $"{NetworkCommand.CheckSequenceProcess} {sequenceProcess.Value.ProcessId}", true);
+                        }
+                    }
+                    Thread.Sleep(1000);
+                }
+            });
         }
 
         public new void SetView(IView view)
@@ -558,6 +592,7 @@ namespace LiveView.Presenters
         {
             if (view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
             {
+                cancellationTokenSource.Cancel();
                 JoystickHandler.StopJoystick();
                 StopStartedApplications();
                 var handle = view.GetHandle();
