@@ -62,11 +62,16 @@ namespace Mtf.Controls.Sunell.IPR67
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsConnected { get; set; }
 
-        public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
+        public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
         {
             var p_obj = IntPtr.Zero;
             sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
-            streamId = Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj);
+            this.streamId = Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj);
+            //if (this.streamId != streamId)
+            //{
+            //    _ = Sdk.sdk_md_chg_stream(sdkHandler, streamId, streamType);
+            //    this.streamId = streamId;
+            //}
             IsConnected = true;
         }
 

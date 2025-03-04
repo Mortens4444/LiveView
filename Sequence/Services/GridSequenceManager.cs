@@ -436,9 +436,10 @@ namespace Sequence.Services
                             {
                                 GridCamera = gridCamera,
                                 CameraIp = sunellLegacyCamera.IpAddress,
-                                CameraPort = 30001,
+                                CameraPort = SunellLegacyCameraInfo.PagoPort,
                                 Username = sunellLegacyCamera.Username,
-                                Password = sunellLegacyCamera.Password
+                                Password = sunellLegacyCamera.Password,
+                                StreamId = sunellLegacyCamera.StreamId ?? 1
                             };
 
                         case CameraMode.SunellCamera:
@@ -447,9 +448,10 @@ namespace Sequence.Services
                             {
                                 GridCamera = gridCamera,
                                 CameraIp = sunellCamera.IpAddress,
-                                CameraPort = 30001,
+                                CameraPort = SunellLegacyCameraInfo.PagoPort,
                                 Username = sunellCamera.Username,
-                                Password = sunellCamera.Password
+                                Password = sunellCamera.Password,
+                                StreamId = sunellCamera.StreamId ?? 1
                             };
 
                         default:

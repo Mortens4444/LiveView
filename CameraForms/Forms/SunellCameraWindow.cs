@@ -54,9 +54,10 @@ namespace CameraForms.Forms
             sunellCameraInfo = new SunellCameraInfo
             {
                 CameraIp = camera.IpAddress,
-                CameraPort = 30001,
+                CameraPort = SunellLegacyCameraInfo.PagoPort,
                 Username = camera.Username,
-                Password = camera.Password
+                Password = camera.Password,
+                StreamId = camera.StreamId ?? 1
             };
 
             this.rectangle = rectangle;
@@ -78,7 +79,7 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
-            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, 1, StreamType.HighDensity, false);
+            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.HighDensity, false);
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

@@ -60,7 +60,7 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         public static extern Int32 sdk_md_live_stop(UInt32 handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_chg_stream(UInt32 handle, Int32 stream_id, Int32 stream_type);
+        public static extern Int32 sdk_md_chg_stream(UInt32 handle, Int32 stream_id, StreamType stream_type);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_md_pb_start(UInt32 handle, Int32 chn, Int32 new_stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, IntPtr p_wnd, bool is_hw_dec, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_PLAY_TIME_CB play_cb, IntPtr p_obj);

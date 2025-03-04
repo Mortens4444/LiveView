@@ -82,7 +82,7 @@ namespace Mtf.Controls.Sunell.IPR66
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsConnected { get; set; }
 
-        public void Connect(Form parentForm, string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin")
+        public void Connect(Form parentForm, string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, bool autoConnect = true)
         {
             var deviceInfo = new ST_DeviceInfo
             {
@@ -102,8 +102,8 @@ namespace Mtf.Controls.Sunell.IPR66
 
             if (NvdcDll.NvdSdk_Is_Handle_Valid(nvdHandle))
             {
-                SetAutoConnectFlag(true);
-                SetDefaultStreamId(1);
+                SetAutoConnectFlag(autoConnect);
+                SetDefaultStreamId(streamId);
 
                 returnCode = NvdcDll.Remote_LivePlayer2_SetVideoWindow(nvdHandle, Handle, 0, 0, Width, Height);
                 CheckForError(returnCode);
