@@ -353,6 +353,7 @@ namespace LiveView.Presenters
 
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
         {
+            CloseSequenceOnDisplay(selectedDisplayId);
             return AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger);
         }
 
@@ -378,6 +379,23 @@ namespace LiveView.Presenters
                 return false;
             }
         }
+
+        public void CloseSequenceOnDisplay(string displayId)
+        {
+            var keysToRemove = Globals.SequenceProcesses
+                .Where(sp => sp.Value.DisplayId.ToString() == displayId)
+                .Select(sp => sp.Key)
+                .ToList();
+
+            foreach (var key in keysToRemove)
+            {
+                if (Globals.SequenceProcesses.TryRemove(key, out var sequenceProcess))
+                {
+                    Globals.Server.SendMessageToClient(sequenceProcess.Socket, NetworkCommand.Close.ToString(), true);
+                }
+            }
+        }
+
 
         public void StartTemplate(Template template)
         {

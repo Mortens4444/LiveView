@@ -28,8 +28,6 @@ namespace CameraForms.Forms
     public partial class VideoSourceCameraWindow : Form
     {
         private readonly DisplayDto display;
-        private readonly Point location;
-        private readonly Size size;
         private readonly string serverIp;
         private readonly string videoCaptureSource;
         private readonly PermissionManager<User> permissionManager;
@@ -68,14 +66,7 @@ namespace CameraForms.Forms
             this.videoCaptureSource = videoCaptureSource;
             permissionManager = new PermissionManager<User>();
             Initialize(userId, serverIp, videoCaptureSource);
-#if DEBUG
-            this.location = new Point(0, 0);
-            this.size = new Size(100, 100);
-            TopMost = false;
-#else
-            this.location = location;
-            this.size = size;
-#endif
+            rectangle = new Rectangle(location, size);
         }
 
         public VideoSourceCameraWindow(long userId, string serverIp, string videoCaptureSource, long? displayId)
@@ -96,6 +87,7 @@ namespace CameraForms.Forms
             {
                 throw new InvalidOperationException("Choose another fullscreen display.");
             }
+            rectangle = display.Bounds;
         }
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource)
@@ -152,9 +144,9 @@ namespace CameraForms.Forms
             var userRepository = new UserRepository();
             var user = userRepository.Select(userId);
 
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<Database.Models.User>
+            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
             {
-
+                Tag = user
             });
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
         }
@@ -303,22 +295,8 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
         {
-#if DEBUG
-            Location = new Point(0, 0);
-            Size = new Size(100, 100);
-            TopMost = false;
-#else
-            if (display != null)
-            {
-                Location = new Point(display.X, display.Y);
-                Size = new Size(display.MaxWidth, display.MaxHeight);
-            }
-            else
-            {
-                Location = location;
-                Size = size;
-            }
-#endif
+            Location = new Point(rectangle.X, rectangle.Y);
+            Size = new Size(rectangle.Width, rectangle.Height);
         }
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)

@@ -8,6 +8,7 @@ using Sequence.Forms;
 using Sequence.Services;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -20,7 +21,10 @@ namespace Sequence
         [STAThread]
         static void Main(string[] args)
         {
+#if DEBUG
+            //Debugger.Launch();
             //System.Threading.Thread.Sleep(10000);
+#endif
             ExceptionHandler.CatchUnhandledExceptions();
 
 #if NETFRAMEWORK

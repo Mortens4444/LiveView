@@ -9,7 +9,6 @@ using LiveView.Core.Enums.Display;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
 using LiveView.Core.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
@@ -20,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,16 +52,17 @@ namespace Sequence.Services
 
         public bool Invalid { get; private set; }
 
-        public GridSequenceManager(ServiceProvider serviceProvider, Client client, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
+        public GridSequenceManager(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, ILogger<GridSequenceManager> logger, Client client, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
         {
             this.client = client;
             this.parentForm = parentForm;
             this.display = display;
             this.isMdi = isMdi;
             //this.isMdi = false;
-            permissionManager = serviceProvider.GetRequiredService<PermissionManager<User>>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            logger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
+
+            this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
+            this.logger = logger;
             //StartSequence(sequenceId);
         }
 
@@ -175,7 +174,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, false, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };

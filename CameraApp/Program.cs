@@ -13,6 +13,7 @@ using Mtf.MessageBoxes.Exceptions;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -30,7 +31,10 @@ namespace CameraApp
         [STAThread]
         private static void Main(string[] args)
         {
+#if DEBUG
+            //Debugger.Launch();
             //System.Threading.Thread.Sleep(10000);
+#endif
             ExceptionHandler.CatchUnhandledExceptions();
             try
             {
@@ -61,7 +65,7 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.AxVideoPlayer:
-                                using (var form = new AxVideoCameraWindow(serviceProvider.GetRequiredService<PermissionManager<User>>(), serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, null))
+                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, null, true))
                                 {
                                     Application.Run(form);
                                 }
@@ -82,7 +86,7 @@ namespace CameraApp
                                 break;
                             case CameraMode.MortoGraphy:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, null))
+                                using (var form = new MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
@@ -104,7 +108,7 @@ namespace CameraApp
                             switch (cameraMode)
                             {
                                 case CameraMode.AxVideoPlayer:
-                                    using (var form = new AxVideoCameraWindow(serviceProvider.GetRequiredService<PermissionManager<User>>(), serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, displayId))
+                                    using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, displayId, true))
                                     {
                                         Application.Run(form);
                                     }
@@ -185,7 +189,7 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.AxVideoPlayer:
-                                using (var form = new AxVideoCameraWindow(serviceProvider.GetRequiredService<PermissionManager<User>>(), serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, new Point(x, y), new Size(width, height)))
+                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, new Point(x, y), new Size(width, height), true))
                                 {
                                     Application.Run(form);
                                 }

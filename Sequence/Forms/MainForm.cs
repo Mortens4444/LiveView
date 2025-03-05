@@ -1,3 +1,4 @@
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
@@ -70,16 +71,7 @@ namespace Sequence.Forms
             //closeToolStripMenuItem.Text = Lng.Elem("Close");
             this.sequenceId = sequenceId;
 
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-
-            permissionManager = serviceProvider.GetRequiredService<PermissionManager<User>>();
-            var permissionUser = new Mtf.Permissions.Models.User<User>
-            {
-                Username = user.Username,
-                Tag = user
-            };
-            permissionManager.SetUser(this, permissionUser);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
             var displayRepository = new DisplayRepository();
@@ -93,7 +85,10 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
-            gridSequenceManager = new GridSequenceManager(serviceProvider, client, this, display, isMdi, sequenceId);
+            var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
+
+            gridSequenceManager = new GridSequenceManager(permissionManager, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi, sequenceId);
             HandleCreated += MainForm_HandleCreated;
         }
 

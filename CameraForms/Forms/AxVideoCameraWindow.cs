@@ -5,8 +5,9 @@ using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
-using Mtf.Controls.x86;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -27,8 +28,6 @@ namespace CameraForms.Forms
         private short cameraMoveValue;
 
         private readonly DisplayDto display;
-        private readonly Point location;
-        private readonly Size size;
         private readonly long cameraId;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
@@ -39,7 +38,7 @@ namespace CameraForms.Forms
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, bool fullScreen, CancellationToken cancellationToken)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -53,44 +52,39 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             
             cameraId = camera?.Id ?? 0;
-            Initialize(permissionManager?.CurrentUser?.Id ?? 0, cameraId);
+            Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, fullScreen);
         }
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, Point location, Size size)
+        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size, bool fullScreen)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            this.personalOptionsRepository = personalOptionsRepository;
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             this.cameraId = cameraId;
-            this.permissionManager = permissionManager;
-            Initialize(userId, cameraId);
-#if DEBUG
-            this.location = new Point(0, 0);
-            this.size = new Size(100, 100);
-            TopMost = false;
-#else
-            this.location = location;
-            this.size = size;
-#endif
+            Initialize(userId, cameraId, fullScreen);
+
+            rectangle = new Rectangle(location, size);
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, long? displayId)
+        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId, bool fullScreen)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            this.personalOptionsRepository = personalOptionsRepository;
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             this.cameraId = cameraId;
-            this.permissionManager = permissionManager;
-            Initialize(userId, cameraId);
+            Initialize(userId, cameraId, fullScreen);
             display = DisplayProvider.Get(displayId);
+            rectangle = display.Bounds;
         }
 
-        private void Initialize(long userId, long cameraId)
+        private void Initialize(long userId, long cameraId, bool fullScreen)
         {
             var generalOptionsRepository = new GeneralOptionsRepository();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
@@ -100,43 +94,39 @@ namespace CameraForms.Forms
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
             FormClosing += (sender, e) => OnExit();
 
-            kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+            if (fullScreen)
+            {
+                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
 
-            var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
-            {
-                try
+                var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
+                var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+                if (UInt16.TryParse(listenerPort, out var serverPort))
                 {
-                    client = new Client(liveViewServerIp, serverPort);
-                    client.DataArrived += ClientDataArrivedEventHandler;
-                    client.Connect();
-                    var displayId = display?.Id ?? "";
-#if NET481
-                    client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}", true);
-#else
-                    client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}", true);
-#endif
+                    try
+                    {
+                        client = new Client(liveViewServerIp, serverPort);
+                        client.DataArrived += ClientDataArrivedEventHandler;
+                        client.Connect();
+                        var displayId = display?.Id ?? "";
+    #if NET481
+                        client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}", true);
+    #else
+                        client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}", true);
+    #endif
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugErrorBox.Show(ex);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    DebugErrorBox.Show(ex);
+                    ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
                 }
             }
-            else
-            {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
-            }
+
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
-
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
-            {
-
-            });
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
         }
 
@@ -232,22 +222,8 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Load(object sender, EventArgs e)
         {
-#if DEBUG
-            Location = new Point(0, 0);
-            Size = new Size(100, 100);
-            TopMost = false;
-#else
-            if (display != null)
-            {
-                Location = new Point(display.X, display.Y);
-                Size = new Size(display.MaxWidth, display.MaxHeight);
-            }
-            else
-            {
-                Location = location;
-                Size = size;
-            }
-#endif
+            Location = new Point(rectangle.X, rectangle.Y);
+            Size = new Size(rectangle.Width, rectangle.Height);
         }
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
