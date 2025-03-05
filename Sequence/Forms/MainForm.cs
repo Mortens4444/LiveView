@@ -85,10 +85,13 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
+            var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var gridCameraRepository = serviceProvider.GetRequiredService<IGridCameraRepository>();
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi, sequenceId);
+            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi, sequenceId);
             HandleCreated += MainForm_HandleCreated;
         }
 

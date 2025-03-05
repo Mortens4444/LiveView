@@ -94,30 +94,88 @@ namespace LiveView.Presenters
 
             Task.Run(() =>
             {
-                var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    var sequenceProcesses = Process.GetProcessesByName(sequence);
-                    foreach (var sequenceProcess in Globals.SequenceProcesses)
-                    {
-                        if (LocalIpAddressChecker.IsLocal(sequenceProcess.Key))
-                        {
-                            if (!sequenceProcesses.Any(sp => sp.Id == sequenceProcess.Value.ProcessId) && sequenceProcess.Value.SequenceId.HasValue)
-                            {
-                                Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
-                                Globals.ControlCenter.RemoveSequence(sequenceProcess.Value.ProcessId);
-                                var startedSequenceProcess = Globals.ControlCenter.StartSequence(sequenceProcess.Value.SequenceId.Value, sequenceProcess.Value.DisplayId.ToString(), sequenceProcess.Value.IsMdi);
-                                Globals.ControlCenter.AddSequence(startedSequenceProcess);
-                            }
-                        }
-                        else
-                        {
-                            Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, $"{NetworkCommand.CheckSequenceProcess} {sequenceProcess.Value.ProcessId}", true);
-                        }
-                    }
+                    CheckSequenceApplications();
+                    CheckCameraApplication();
                     Thread.Sleep(1000);
                 }
             });
+        }
+
+        private void CheckCameraApplication()
+        {
+            var camera = Path.GetFileNameWithoutExtension(Core.Constants.CameraAppExe);
+            var cameraProcesses = Process.GetProcessesByName(camera);
+            foreach (var cameraProcess in Globals.CameraProcessInfo)
+            {
+                var protectedParameters = GetProtectedParameters(permissionManager.CurrentUser.Tag.Id, cameraProcess.Value);
+                if (LocalIpAddressChecker.IsLocal(cameraProcess.Key.RemoteEndPoint.ToString()))
+                {
+                    if (!cameraProcesses.Any(sp => sp.Id == cameraProcess.Value.ProcessId))
+                    {
+                        Globals.CameraProcessInfo.TryRemove(cameraProcess.Key, out _);
+                        ControlCenterPresenter.CameraProcess = Globals.ControlCenter.StartCamera(protectedParameters);
+                    }
+                }
+                else
+                {
+                    SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                }
+            }
+        }
+
+        private List<string> GetProtectedParameters(long userId, CameraProcessInfo cameraProcessInfo)
+        {
+            string[] parameters;
+            switch (cameraProcessInfo.CameraMode)
+            {
+                case CameraMode.AxVideoPlayer:
+                    parameters = new[]
+                    {
+                            userId.ToString(),
+                            cameraProcessInfo.CameraId.ToString(),
+                            ((int)CameraMode.AxVideoPlayer).ToString()
+                    };
+                    break;
+                case CameraMode.VideoSource:
+                    parameters = new[]
+                    {
+                        permissionManager.CurrentUser.Tag.Id.ToString(),
+                        cameraProcessInfo.ServerIp,
+                        cameraProcessInfo.VideoCaptureSource,
+                        ((int)CameraMode.VideoSource).ToString()
+                    };
+                    break;
+                default:
+                    throw new NotSupportedException();
+
+            }
+
+            return Globals.ControlCenter.GetProtectedParameters(parameters);
+        }
+
+        private static void CheckSequenceApplications()
+        {
+            var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
+            var sequenceProcesses = Process.GetProcessesByName(sequence);
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
+            {
+                if (LocalIpAddressChecker.IsLocal(sequenceProcess.Key))
+                {
+                    if (!sequenceProcesses.Any(sp => sp.Id == sequenceProcess.Value.ProcessId) && sequenceProcess.Value.SequenceId.HasValue)
+                    {
+                        Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
+                        Globals.ControlCenter.RemoveSequence(sequenceProcess.Value.ProcessId);
+                        var startedSequenceProcess = Globals.ControlCenter.StartSequence(sequenceProcess.Value.SequenceId.Value, sequenceProcess.Value.DisplayId.ToString(), sequenceProcess.Value.IsMdi);
+                        Globals.ControlCenter.AddSequence(startedSequenceProcess);
+                    }
+                }
+                else
+                {
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, $"{NetworkCommand.CheckSequenceProcess} {sequenceProcess.Value.ProcessId}", true);
+                }
+            }
         }
 
         public new void SetView(IView view)
@@ -461,18 +519,19 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
                     {
-                        Globals.CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        Globals.CameraProcessInfo.TryAdd(e.Socket, new CameraProcessInfo
                         {
                             LocalEndPoint = messageParts[1],
                             UserId = Convert.ToInt64(messageParts[2]),
                             CameraId = Convert.ToInt64(messageParts[3]),
                             DisplayId = !String.IsNullOrEmpty(messageParts[4]) ? (long?)Convert.ToInt64(messageParts[4]) : null,
-                            ProcessId = Convert.ToInt32(messageParts[5])
+                            ProcessId = Convert.ToInt32(messageParts[5]),
+                            CameraMode = (CameraMode)Convert.ToInt32(messageParts[6])
                         });
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}|"))
                     {
-                        Globals.CameraProcessInfo.Remove(e.Socket);
+                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
                     }
                     else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
                     {
@@ -481,19 +540,20 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterVideoSource}"))
                     {
-                        Globals.CameraProcessInfo.Add(e.Socket, new CameraProcessInfo
+                        Globals.CameraProcessInfo.TryAdd(e.Socket, new CameraProcessInfo
                         {
                             LocalEndPoint = messageParts[1],
                             UserId = Convert.ToInt64(messageParts[2]),
                             ServerIp = messageParts[3],
                             VideoCaptureSource = messageParts[4],
                             DisplayId = !String.IsNullOrEmpty(messageParts[5]) ? (long?)Convert.ToInt64(messageParts[5]) : null,
-                            ProcessId = Convert.ToInt32(messageParts[6])
+                            ProcessId = Convert.ToInt32(messageParts[6]),
+                            CameraMode = (CameraMode)Convert.ToInt32(messageParts[7])
                         });
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterVideoSource}|"))
                     {
-                        Globals.CameraProcessInfo.Remove(e.Socket);
+                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
                     }
                     else if (message.StartsWith($"{NetworkCommand.Ping}"))
                     {

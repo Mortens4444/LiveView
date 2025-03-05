@@ -10,8 +10,10 @@ using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -420,6 +422,16 @@ namespace LiveView.Forms
         public void ShowGridInfo(long gridId, string secondsLeft)
         {
             presenter?.ShowGridInfo(gridId, secondsLeft);
+        }
+
+        public Process StartCamera(List<string> protectedParameters)
+        {
+            return presenter.StartCamera(protectedParameters);
+        }
+
+        public List<string> GetProtectedParameters(string[] parameters)
+        {
+            return presenter.GetProtectedParameters(parameters);
         }
 
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)

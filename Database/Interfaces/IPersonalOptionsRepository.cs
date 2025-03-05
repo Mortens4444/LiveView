@@ -14,6 +14,8 @@ namespace Database.Interfaces
 
         string GetCameraName(long userId, Server server, Camera camera);
 
+        string GetCameraName(long userId, string serverIp, string videoSourceName);
+
         string GetCameraName(long userId, string url);
     }
 }

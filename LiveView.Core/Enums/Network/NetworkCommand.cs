@@ -42,6 +42,7 @@
         PlayOrPauseSequence,
         AgentDisconnected,
         SecondsLeftFromGrid,
-        CheckSequenceProcess
+        CheckSequenceProcess,
+        RegisterCameraWithUrl
     }
 }

@@ -1,7 +1,12 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Services;
+using Database.Enums;
 using Database.Models;
 using Database.Repositories;
+using LiveView.Core.Services;
+using LiveView.Core.Services.Pipe;
+using Microsoft.Extensions.DependencyInjection;
+using Mtf.Network;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -11,28 +16,10 @@ namespace CameraForms.Forms
 {
     public partial class SunellLegacyCameraWindow : Form
     {
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
-
-        public SunellLegacyCameraWindow(long userId, long cameraId, long? displayId)
-        {
-            InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-
-            var display = DisplayProvider.Get(displayId);
-            Initialize(userId, cameraId, display.Bounds);
-        }
-
-        public SunellLegacyCameraWindow(long userId, long cameraId, Rectangle rectangle)
-        {
-            InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-
-            Initialize(userId, cameraId, rectangle);
-        }
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle)
         {
@@ -45,7 +32,30 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
         }
 
-        private void Initialize(long userId, long cameraId, Rectangle rectangle)
+        public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        {
+            InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            var display = DisplayProvider.Get(displayId);
+            Initialize( cameraId, display.Bounds, true);
+        }
+
+        public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        {
+            InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            Initialize(cameraId, rectangle, true);
+        }
+
+        private void Initialize(long cameraId, Rectangle rectangle, bool fullScreen)
         {
             var camerasRepository = new CameraRepository();
             var camera = camerasRepository.Select(cameraId);
@@ -58,15 +68,13 @@ namespace CameraForms.Forms
                 StreamId = camera.StreamId ?? 1
             };
 
-            this.rectangle = rectangle;
-
-            permissionManager = new PermissionManager<User>();
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
+            if (fullScreen)
             {
-                Tag = user
-            });
+                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                //client = CameraRegister.RegisterCameraWithUrl(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+            }
+
+            this.rectangle = rectangle;
         }
 
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)

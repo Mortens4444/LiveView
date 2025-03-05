@@ -30,7 +30,7 @@ namespace CameraForms.Forms
         private readonly DisplayDto display;
         private readonly long cameraId;
         private readonly PermissionManager<User> permissionManager;
-        private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
 
         private readonly Database.Models.Server server;
@@ -38,7 +38,7 @@ namespace CameraForms.Forms
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, bool fullScreen, CancellationToken cancellationToken)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -52,34 +52,36 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             
             cameraId = camera?.Id ?? 0;
-            Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, fullScreen);
+            Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, false);
         }
 
-        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size, bool fullScreen)
+        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             this.cameraId = cameraId;
-            Initialize(userId, cameraId, fullScreen);
+            Initialize(userId, cameraId, true);
 
             rectangle = new Rectangle(location, size);
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
-        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId, bool fullScreen)
+        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             this.cameraId = cameraId;
-            Initialize(userId, cameraId, fullScreen);
+            Initialize(userId, cameraId, true);
             display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
         }
@@ -97,34 +99,8 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-
-                var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-                var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
-                if (UInt16.TryParse(listenerPort, out var serverPort))
-                {
-                    try
-                    {
-                        client = new Client(liveViewServerIp, serverPort);
-                        client.DataArrived += ClientDataArrivedEventHandler;
-                        client.Connect();
-                        var displayId = display?.Id ?? "";
-    #if NET481
-                        client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}", true);
-    #else
-                        client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}", true);
-    #endif
-                    }
-                    catch (Exception ex)
-                    {
-                        DebugErrorBox.Show(ex);
-                    }
-                }
-                else
-                {
-                    ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
-                }
+                client = CameraRegister.RegisterAxVideoPlayer(userId, cameraId, display, ClientDataArrivedEventHandler);
             }
-
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);

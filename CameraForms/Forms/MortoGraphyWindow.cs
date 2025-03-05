@@ -2,7 +2,10 @@
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
+using LiveView.Core.Services;
+using LiveView.Core.Services.Pipe;
+using Microsoft.Extensions.DependencyInjection;
+using Mtf.Network;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -12,13 +15,15 @@ namespace CameraForms.Forms
 {
     public partial class MortoGraphyWindow: Form
     {
+        private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
 
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private string url;
 
-        public MortoGraphyWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public MortoGraphyWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -26,47 +31,50 @@ namespace CameraForms.Forms
 
             this.url = url;
             this.rectangle = rectangle;
+            this.cameraRepository = cameraRepository;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
         }
 
-        public MortoGraphyWindow(IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, long? displayId)
+        public MortoGraphyWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            this.personalOptionsRepository = personalOptionsRepository;
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
-            Initialize(userId, cameraId, rectangle);
+            Initialize(cameraId, rectangle, true);
         }
 
-        public MortoGraphyWindow(IPersonalOptionsRepository personalOptionsRepository, long userId, long cameraId, Rectangle rectangle)
+        public MortoGraphyWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            this.personalOptionsRepository = personalOptionsRepository;
-            Initialize(userId, cameraId, rectangle);
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            Initialize(cameraId, rectangle, true);
         }
 
-        private void Initialize(long userId, long cameraId, Rectangle rectangle)
+        private void Initialize(long cameraId, Rectangle rectangle, bool fullScreen)
         {
-            var camerasRepository = new CameraRepository();
-            var camera = camerasRepository.Select(cameraId);
-
+            var camera = cameraRepository.Select(cameraId);
             this.rectangle = rectangle;
             url = camera.HttpStreamUrl;
 
-            permissionManager = new PermissionManager<User>();
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
+            if (fullScreen)
             {
-                Tag = user
-            });
+                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                //client = CameraRegister.RegisterCameraWithUrl(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.MortoGraphy);
+            }
         }
 
         private void MortoGraphyWindow_Load(object sender, EventArgs e)

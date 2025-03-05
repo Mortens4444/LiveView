@@ -1,4 +1,7 @@
-﻿namespace LiveView.Dto
+﻿using Database.Enums;
+using System;
+
+namespace LiveView.Dto
 {
     public class CameraProcessInfo
     {
@@ -15,5 +18,7 @@
         public long? DisplayId { get; set; }
 
         public int ProcessId { get; set; }
+        
+        public CameraMode CameraMode { get; set; }
     }
 }

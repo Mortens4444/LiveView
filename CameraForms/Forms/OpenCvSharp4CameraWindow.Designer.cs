@@ -61,9 +61,9 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
-            FormClosing += VideoSourceCamera_FormClosing;
-            Load += VideoSourceCamera_Load;
-            Shown += VideoSourceCamera_Shown;
+            FormClosing += OpenCvSharp4_FormClosing;
+            Load += OpenCvSharp4_Load;
+            Shown += OpenCvSharp4_Shown;
             ((System.ComponentModel.ISupportInitialize)openCvSharp4VideoWindow).EndInit();
             ResumeLayout(false);
         }

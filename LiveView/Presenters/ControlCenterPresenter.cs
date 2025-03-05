@@ -39,7 +39,7 @@ namespace LiveView.Presenters
         private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
         private readonly List<Process> sequenceProcesses;
-        public static Process CameraProcess { get; private set; }
+        public static Process CameraProcess { get; set; }
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies dependencies)
             : base(dependencies)
@@ -306,11 +306,21 @@ namespace LiveView.Presenters
             return StartCameraAppInternal(parameters);
         }
 
+        public Process StartCamera(List<string> protectedParameters)
+        {
+            return AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
+        }
+
+        public List<string> GetProtectedParameters(string[] parameters)
+        {
+            return parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
+        }
+
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
 
-            var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
+            var protectedParameters = GetProtectedParameters(parameters);
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
@@ -319,14 +329,7 @@ namespace LiveView.Presenters
                 {
                     var displayId = selectedDisplay.Id.ToString();
                     protectedParameters.Insert(protectedParameters.Count - 1, displayId);
-                    if (view.CbAgents.SelectedIndex == 0)
-                    {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraAppExe, $"{String.Join(" ", protectedParameters)}", logger);
-                    }
-                    else
-                    {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
-                    }
+                    StartCameraApp(protectedParameters);
                 }
                 else
                 {
@@ -338,17 +341,22 @@ namespace LiveView.Presenters
             {
                 if (generalOptionsRepository.Get(Setting.ShowOnFullscreenDisplayWhenOpenedFromControlCenter, true))
                 {
-                    if (view.CbAgents.SelectedIndex == 0)
-                    {
-                        CameraProcess = AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
-                    }
-                    else
-                    {
-                        MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
-                    }
+                    StartCameraApp(protectedParameters);
                 }
             }
             return true;
+        }
+
+        private void StartCameraApp(List<string> protectedParameters)
+        {
+            if (view.CbAgents.SelectedIndex == 0)
+            {
+                CameraProcess = StartCamera(protectedParameters);
+            }
+            else
+            {
+                MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+            }
         }
 
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)

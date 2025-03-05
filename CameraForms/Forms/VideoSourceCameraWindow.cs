@@ -1,4 +1,7 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Services;
+using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.CustomEventArgs;
@@ -8,14 +11,13 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Net;
 using LiveView.Core.Services.Pipe;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -31,21 +33,18 @@ namespace CameraForms.Forms
         private readonly string serverIp;
         private readonly string videoCaptureSource;
         private readonly PermissionManager<User> permissionManager;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private readonly int frameTimeout = 1500;
+        private readonly Rectangle rectangle;
 
         private Image lastImage;
         private Timer frameTimer;
-        private readonly int frameTimeout = 1500;
-
         private VideoCaptureClient videoCaptureClient;
-        private readonly KBD300ASimulatorServer kBD300ASimulatorServer = new KBD300ASimulatorServer();
-
-        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
-        private readonly Rectangle rectangle;
         private Client client;
-
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
 
-        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
+        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -55,27 +54,38 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
+            this.personalOptionsRepository = personalOptionsRepository;
             StartVideoCapture();
+            SetOsd(videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
         }
 
-        public VideoSourceCameraWindow(long userId, string serverIp, string videoCaptureSource, Point location, Size size)
+        public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
         {
             InitializeComponent();
 
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
-            permissionManager = new PermissionManager<User>();
-            Initialize(userId, serverIp, videoCaptureSource);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+
+            Initialize(userId, serverIp, videoCaptureSource, true);
+            SetOsd(serverIp, videoCaptureSource);
+
             rectangle = new Rectangle(location, size);
         }
 
-        public VideoSourceCameraWindow(long userId, string serverIp, string videoCaptureSource, long? displayId)
+        public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
         {
             InitializeComponent();
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
-            permissionManager = new PermissionManager<User>();
-            Initialize(userId, serverIp, videoCaptureSource);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+
+            Initialize(userId, serverIp, videoCaptureSource, true);
+            SetOsd(serverIp, videoCaptureSource);
 
             var displayRepository = new DisplayRepository();
             var fullScreenDisplay = (displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose fullscreen display first.");
@@ -90,42 +100,19 @@ namespace CameraForms.Forms
             rectangle = display.Bounds;
         }
 
-        private void Initialize(long userId, string serverIp, string videoCaptureSource)
+        private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)
         {
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
             FormClosing += (sender, e) => OnExit();
 
-            kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-
-            var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
+            if (fullScreen)
             {
-                try
-                {
-                    client = new Client(liveViewServerIp, serverPort);
-                    client.DataArrived += ClientDataArrivedEventHandler;
-                    client.Connect();
-                    var displayId = display?.Id ?? "";
-#if NET481
-                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Process.GetCurrentProcess().Id}", true);
-#else
-                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Environment.ProcessId}", true);
-#endif
-                }
-                catch (Exception ex)
-                {
-                    DebugErrorBox.Show(ex);
-                }
+                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                var displayId = display?.Id ?? String.Empty;
+                client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
             }
-            else
-            {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
-            }
-
-            mtfCamera.SetOsdText("Arial", 20, FontStyle.Bold, Color.Red, $"{liveViewServerIp}:{listenerPort} - {videoCaptureSource}");
 
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
@@ -140,15 +127,17 @@ namespace CameraForms.Forms
             frameTimer.AutoReset = false;
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
-
-            var userRepository = new UserRepository();
-            var user = userRepository.Select(userId);
-
-            permissionManager.SetUser(this, new Mtf.Permissions.Models.User<User>
-            {
-                Tag = user
-            });
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+        }
+
+        private void SetOsd(string serverIp, string videoCaptureSource)
+        {
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
+            var fontFamily = personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial");
+            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb()));
+            var cameraName = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Tag.Id, serverIp, videoCaptureSource);
+            mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, cameraName);
         }
 
         private void StartVideoCapture()
@@ -169,7 +158,6 @@ namespace CameraForms.Forms
                 videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
                 videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                 videoCaptureClient.Start();
-                initializationCompleted.Set();
                 Invoke((Action)(() =>
                 {
                     frameTimer = new Timer(frameTimeout);
@@ -312,14 +300,6 @@ namespace CameraForms.Forms
                 videoCaptureClient.Start();
                 frameTimer.Start();
             }
-
-            //Task.Run(() =>
-            //{
-            //    initializationCompleted.WaitOne();
-            //    videoCaptureClient?.Start();
-            //});
-            //frameTimer?.Start();
-            //mtfCamera.SetOsdText("Arial", 20, FontStyle.Bold, Color.Red, $"{videoCaptureSourceCameraInfo.ServerIp} - {videoCaptureSourceCameraInfo.GridCamera.VideoSourceName}");
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)

@@ -28,17 +28,18 @@ namespace Sequence.Services
 {
     public class GridSequenceManager : IDisposable
     {
-        private static readonly ReadOnlyCollection<Database.Models.Server> servers = new ServerRepository().SelectAll();
-        private static readonly ReadOnlyCollection<Database.Models.Camera> allCameras = new CameraRepository().SelectAll();
-        private static readonly ReadOnlyCollection<GridCamera> gridCameras = new GridCameraRepository().SelectAll();
-
         private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
         private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
+
+        private readonly ReadOnlyCollection<Database.Models.Server> servers;
+        private readonly ReadOnlyCollection<Camera> allCameras;
+        private readonly ReadOnlyCollection<GridCamera> gridCameras;
         private readonly Form parentForm;
         private readonly DisplayDto display;
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly bool isMdi;
         
         private List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
@@ -52,7 +53,13 @@ namespace Sequence.Services
 
         public bool Invalid { get; private set; }
 
-        public GridSequenceManager(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, ILogger<GridSequenceManager> logger, Client client, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
+        public GridSequenceManager(PermissionManager<User> permissionManager,
+            IServerRepository serverRepository,
+            ICameraRepository cameraRepository,
+            IGridCameraRepository gridCameraRepository,
+            IPersonalOptionsRepository personalOptionsRepository,
+            ILogger<GridSequenceManager> logger,
+            Client client, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
         {
             this.client = client;
             this.parentForm = parentForm;
@@ -63,6 +70,10 @@ namespace Sequence.Services
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.logger = logger;
+
+            servers = serverRepository.SelectAll();
+            allCameras = cameraRepository.SelectAll();
+            gridCameras = gridCameraRepository.SelectAll();
             //StartSequence(sequenceId);
         }
 
@@ -174,7 +185,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, false, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };
@@ -182,7 +193,7 @@ namespace Sequence.Services
                 else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VideoSourceCameraWindow(client, permissionManager, videoCaptureSourceCameraInfo, rectangle)
+                    videoForm = new VideoSourceCameraWindow(client, permissionManager, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle)
                     {
                         MdiParent = parentForm
                     };
@@ -198,7 +209,7 @@ namespace Sequence.Services
                 else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyWindow(permissionManager, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
+                    videoForm = new MortoGraphyWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };
@@ -364,7 +375,7 @@ namespace Sequence.Services
             }
         }
 
-        private static List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
+        private List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
         {
             return gridCameras
                 .Where(gc => gc.GridId == grid.grid.Id)

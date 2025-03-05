@@ -60,9 +60,9 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "FullScreenCamera";
             TopMost = true;
-            FormClosing += VideoSourceCamera_FormClosing;
-            Load += VideoSourceCamera_Load;
-            Shown += VideoSourceCamera_Shown;
+            FormClosing += VlcCameraWindow_FormClosing;
+            Load += VlcCameraWindow_Load;
+            Shown += VlcCameraWindow_Shown;
             ((System.ComponentModel.ISupportInitialize)vlcWindow).EndInit();
             ResumeLayout(false);
         }

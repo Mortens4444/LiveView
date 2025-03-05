@@ -1,8 +1,6 @@
 using CameraApp.Services;
 using CameraForms.Forms;
 using Database.Enums;
-using Database.Interfaces;
-using Database.Models;
 using Database.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,10 +8,8 @@ using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
-using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -65,20 +61,20 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.AxVideoPlayer:
-                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, null, true))
+                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
                             case CameraMode.SunellLegacyCamera:
-                                using (var form = new SunellLegacyCameraWindow(userId, cameraId, null))
+                                using (var form = new SunellLegacyCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
                             case CameraMode.SunellCamera:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new SunellCameraWindow(userId, cameraId, null))
+                                using (var form = new SunellCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
@@ -86,7 +82,39 @@ namespace CameraApp
                                 break;
                             case CameraMode.MortoGraphy:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, null))
+                                using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.FFMpeg:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.OpenCvSharp:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.OpenCvSharp4:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, null))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.Vlc:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
@@ -108,20 +136,20 @@ namespace CameraApp
                             switch (cameraMode)
                             {
                                 case CameraMode.AxVideoPlayer:
-                                    using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, displayId, true))
+                                    using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
                                     break;
                                 case CameraMode.SunellLegacyCamera:
-                                    using (var form = new SunellLegacyCameraWindow(userId, cameraId, displayId))
+                                    using (var form = new SunellLegacyCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
                                     break;
                                 case CameraMode.SunellCamera:
                                     _ = Sdk.sdk_dev_init(null);
-                                    using (var form = new SunellCameraWindow(userId, cameraId, displayId))
+                                    using (var form = new SunellCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
@@ -129,7 +157,39 @@ namespace CameraApp
                                     break;
                                 case CameraMode.MortoGraphy:
                                     _ = Sdk.sdk_dev_init(null);
-                                    using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, displayId))
+                                    using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, displayId))
+                                    {
+                                        Application.Run(form);
+                                    }
+                                    Sdk.sdk_dev_quit();
+                                    break;
+                                case CameraMode.FFMpeg:
+                                    _ = Sdk.sdk_dev_init(null);
+                                    using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, displayId))
+                                    {
+                                        Application.Run(form);
+                                    }
+                                    Sdk.sdk_dev_quit();
+                                    break;
+                                case CameraMode.OpenCvSharp:
+                                    _ = Sdk.sdk_dev_init(null);
+                                    using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, displayId))
+                                    {
+                                        Application.Run(form);
+                                    }
+                                    Sdk.sdk_dev_quit();
+                                    break;
+                                case CameraMode.OpenCvSharp4:
+                                    _ = Sdk.sdk_dev_init(null);
+                                    using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, displayId))
+                                    {
+                                        Application.Run(form);
+                                    }
+                                    Sdk.sdk_dev_quit();
+                                    break;
+                                case CameraMode.Vlc:
+                                    _ = Sdk.sdk_dev_init(null);
+                                    using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
@@ -146,7 +206,7 @@ namespace CameraApp
                                 case CameraMode.VideoSource:
                                     var serverIp = args[1];
                                     var videoCaptureSource = args[2];
-                                    using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, null))
+                                    using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, null))
                                     {
                                         Application.Run(form);
                                     }
@@ -166,7 +226,7 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.VideoSource:
-                                using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, displayId))
+                                using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, displayId))
                                 {
                                     Application.Run(form);
                                 }
@@ -189,20 +249,20 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.AxVideoPlayer:
-                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, new Point(x, y), new Size(width, height), true))
+                                using (var form = new AxVideoCameraWindow(serviceProvider, userId, cameraId, new Point(x, y), new Size(width, height)))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
                             case CameraMode.SunellLegacyCamera:
-                                using (var form = new SunellLegacyCameraWindow(userId, cameraId, rectangle))
+                                using (var form = new SunellLegacyCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
                                 break;
                             case CameraMode.SunellCamera:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new SunellCameraWindow(userId, cameraId, rectangle))
+                                using (var form = new SunellCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
@@ -210,7 +270,39 @@ namespace CameraApp
                                 break;
                             case CameraMode.MortoGraphy:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new CameraForms.Forms.MortoGraphyWindow(serviceProvider.GetRequiredService<IPersonalOptionsRepository>(), userId, cameraId, rectangle))
+                                using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, rectangle))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.FFMpeg:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, rectangle))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.OpenCvSharp:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, rectangle))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.OpenCvSharp4:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, rectangle))
+                                {
+                                    Application.Run(form);
+                                }
+                                Sdk.sdk_dev_quit();
+                                break;
+                            case CameraMode.Vlc:
+                                _ = Sdk.sdk_dev_init(null);
+                                using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
@@ -234,7 +326,7 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.VideoSource:
-                                using (var form = new VideoSourceCameraWindow(userId, serverIp, videoCaptureSource, new Point(x, y), new Size(width, height)))
+                                using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, new Point(x, y), new Size(width, height)))
                                 {
                                     Application.Run(form);
                                 }

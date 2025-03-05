@@ -84,6 +84,24 @@ namespace Database.Repositories
             return String.Empty;
         }
 
+        public string GetCameraName(long userId, string serverIp, string videoSourceName)
+        {
+            if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
+            {
+                return $"{serverIp} - {videoSourceName}";
+            }
+            if (Get(Setting.VideoServerIdentifierIpAddress, userId, false))
+            {
+                return $"{serverIp} - {videoSourceName}";
+            }
+            if (Get(Setting.VideoServerIdentifierNone, userId, false))
+            {
+                return videoSourceName;
+            }
+
+            return String.Empty;
+        }
+
         public string GetCameraName(long userId, string url)
         {
             if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
