@@ -14,8 +14,6 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -24,7 +22,7 @@ namespace CameraForms.Forms
 {
     public partial class AxVideoCameraWindow : Form
     {
-        private static Client client;
+        private Client client;
         private short cameraMoveValue;
 
         private readonly DisplayDto display;
@@ -91,28 +89,19 @@ namespace CameraForms.Forms
             var generalOptionsRepository = new GeneralOptionsRepository();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
-            Console.CancelKeyPress += (sender, e) => OnExit();
-            Application.ApplicationExit += (sender, e) => OnExit();
-            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            FormClosing += (sender, e) => OnExit();
-
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-                client = CameraRegister.RegisterAxVideoPlayer(userId, cameraId, display, ClientDataArrivedEventHandler);
+                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.AxVideoPlayer);
+
+                Console.CancelKeyPress += (sender, e) => OnExit();
+                Application.ApplicationExit += (sender, e) => OnExit();
+                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+                FormClosing += (sender, e) => OnExit();
             }
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
-        }
-
-        private static void OnExit()
-        {
-#if NET481
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
-#else
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
-#endif
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
@@ -257,6 +246,11 @@ namespace CameraForms.Forms
         {
             axVideoPlayerWindow.AxVideoPlayer.Stop();
             axVideoPlayerWindow.AxVideoPlayer.Dispose();
+        }
+
+        private void OnExit()
+        {
+            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)

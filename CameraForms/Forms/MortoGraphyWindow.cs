@@ -2,10 +2,14 @@
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dto;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.MessageBoxes;
 using Mtf.Network;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -22,6 +26,7 @@ namespace CameraForms.Forms
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private string url;
+        private Client client;
 
         public MortoGraphyWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
         {
@@ -48,7 +53,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
-            Initialize(cameraId, rectangle, true);
+            Initialize(userId, cameraId, rectangle, display, true);
         }
 
         public MortoGraphyWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
@@ -61,10 +66,10 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            Initialize(cameraId, rectangle, true);
+            Initialize(userId, cameraId, rectangle, null, true);
         }
 
-        private void Initialize(long cameraId, Rectangle rectangle, bool fullScreen)
+        private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
         {
             var camera = cameraRepository.Select(cameraId);
             this.rectangle = rectangle;
@@ -73,7 +78,80 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-                //client = CameraRegister.RegisterCameraWithUrl(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.MortoGraphy);
+                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.MortoGraphy);
+
+                Console.CancelKeyPress += (sender, e) => OnExit();
+                Application.ApplicationExit += (sender, e) => OnExit();
+                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+                FormClosing += (sender, e) => OnExit();
+            }
+        }
+
+        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
+        {
+            try
+            {
+                var messages = $"{client?.Encoding.GetString(e.Data)}";
+                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var message in allMessages)
+                {
+                    var messageParts = message.Split('|');
+                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else
+                    {
+                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
             }
         }
 
@@ -98,6 +176,11 @@ namespace CameraForms.Forms
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
             mortoGraphyWindow.OverlayText = cameraName;
+        }
+
+        private void OnExit()
+        {
+            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void MortoGraphyWindow_FormClosing(object sender, FormClosingEventArgs e)

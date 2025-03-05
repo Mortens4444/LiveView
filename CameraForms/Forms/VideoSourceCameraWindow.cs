@@ -102,16 +102,16 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)
         {
-            Console.CancelKeyPress += (sender, e) => OnExit();
-            Application.ApplicationExit += (sender, e) => OnExit();
-            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            FormClosing += (sender, e) => OnExit();
-
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
                 var displayId = display?.Id ?? String.Empty;
                 client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
+
+                Console.CancelKeyPress += (sender, e) => OnExit();
+                Application.ApplicationExit += (sender, e) => OnExit();
+                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+                FormClosing += (sender, e) => OnExit();
             }
 
             frameTimer = new Timer(frameTimeout);
@@ -189,15 +189,6 @@ namespace CameraForms.Forms
                 videoCaptureClient = null;
                 StartVideoCapture();
             });
-        }
-
-        private void OnExit()
-        {
-#if NET481
-            client?.Send($"{NetworkCommand.UnregisterVideoSource}", true);
-#else
-            client?.Send($"{NetworkCommand.UnregisterVideoSource}", true);
-#endif
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
@@ -327,6 +318,11 @@ namespace CameraForms.Forms
         {
             videoCaptureClient?.Stop();
             Application.Exit();
+        }
+
+        private void OnExit()
+        {
+            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void VideoSourceCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

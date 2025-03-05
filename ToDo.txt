@@ -1,4 +1,3 @@
-//client = CameraRegister.RegisterCameraWithUrl(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
 no permission to view this camera
 
 Show agent displays also on ControlCenter.

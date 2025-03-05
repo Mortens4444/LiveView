@@ -3,10 +3,14 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Models;
 using Database.Repositories;
+using LiveView.Core.Dto;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.MessageBoxes;
 using Mtf.Network;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -17,9 +21,11 @@ namespace CameraForms.Forms
     public partial class SunellLegacyCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
+        private Client client;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle)
         {
@@ -41,7 +47,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             var display = DisplayProvider.Get(displayId);
-            Initialize( cameraId, display.Bounds, true);
+            Initialize(userId, cameraId, display.Bounds, display, true);
         }
 
         public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
@@ -52,10 +58,10 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            Initialize(cameraId, rectangle, true);
+            Initialize(userId, cameraId, rectangle, null, true);
         }
 
-        private void Initialize(long cameraId, Rectangle rectangle, bool fullScreen)
+        private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
         {
             var camerasRepository = new CameraRepository();
             var camera = camerasRepository.Select(cameraId);
@@ -71,10 +77,83 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-                //client = CameraRegister.RegisterCameraWithUrl(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+
+                Console.CancelKeyPress += (sender, e) => OnExit();
+                Application.ApplicationExit += (sender, e) => OnExit();
+                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+                FormClosing += (sender, e) => OnExit();
             }
 
             this.rectangle = rectangle;
+        }
+
+        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
+        {
+            try
+            {
+                var messages = $"{client?.Encoding.GetString(e.Data)}";
+                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var message in allMessages)
+                {
+                    var messageParts = message.Split('|');
+                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
+                    {
+                        Close();
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
+                    {
+                    }
+                    else
+                    {
+                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
@@ -86,6 +165,11 @@ namespace CameraForms.Forms
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
             sunellVideoWindowLegacy1.Connect(this, sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+        }
+
+        private void OnExit()
+        {
+            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void SunellLegacyCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
