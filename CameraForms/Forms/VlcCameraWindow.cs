@@ -163,7 +163,6 @@ namespace CameraForms.Forms
 
         private void VlcCameraWindow_Shown(object sender, EventArgs e)
         {
-            vlcWindow.Start(url, true, true, false, 0, 0, Demux.mjpeg);
             var userId = permissionManager.CurrentUser.Tag.Id;
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -171,6 +170,7 @@ namespace CameraForms.Forms
             vlcWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             vlcWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
+            vlcWindow.Start(url, true, true, false, 0, 0, Demux.mjpeg);
         }
 
         private void OnExit()

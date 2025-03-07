@@ -1,7 +1,6 @@
 Sunell Legacy has no title, when connected
 Sunell has no title, when connected
 
-Vlc has no title when started with connected state
 Vlc image falls apart
 
 OpenCvSharp has no image
