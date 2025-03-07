@@ -652,6 +652,7 @@ namespace LiveView.Presenters
         {
             if (view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
             {
+                Globals.ControlCenter.CloseSequenceApplications();
                 cancellationTokenSource.Cancel();
                 JoystickHandler.StopJoystick();
                 StopStartedApplications();

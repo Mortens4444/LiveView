@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+//using Mtf.Controls.Extensions;
 
 namespace Mtf.Controls.Sunell.IPR66
 {
@@ -13,6 +14,11 @@ namespace Mtf.Controls.Sunell.IPR66
     public class SunellVideoWindowLegacy : PictureBox
     {
         private IntPtr nvdHandle = IntPtr.Zero;
+        private string overlayText = String.Empty;
+        private Font overlayFont = new Font("Arial", 32, FontStyle.Bold);
+        private Brush overlayBrush = Brushes.White;
+        private Point overlayLocation = new Point(10, 10);
+        private Label label;
 
         private const int WM_USER = 0x400;
         private const int WM_LIVEPLAY_MESSAGE = WM_USER + 1000;
@@ -47,6 +53,27 @@ namespace Mtf.Controls.Sunell.IPR66
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
+
+            SetLabelProperties();
+            Controls.Add(label);
+        }
+
+        private void SetLabelProperties()
+        {
+            label = new Label
+            {
+                Text = OverlayText,
+                ForeColor = Color.White,
+                BackColor = Color.Transparent,
+                Font = OverlayFont,
+                Parent = Parent,
+                Location = OverlayLocation,
+                //AutoSize = true,
+                AutoSize = false,
+                MaximumSize = new Size(Width, 0),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            label.BringToFront();
         }
 
         protected override void Dispose(bool disposing)
@@ -61,27 +88,70 @@ namespace Mtf.Controls.Sunell.IPR66
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Text to be displayed on the control.")]
-        public string OverlayText { get; set; } = String.Empty;
+        public string OverlayText
+        {
+            get => overlayText;
+            set
+            {
+                if (overlayText != value)
+                {
+                    overlayText = value;
+                    SetLabelProperties();
+                    Invalidate();
+                }
+            }
+        }
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Font type of the text to be displayed on the control.")]
-        public Font OverlayFont { get; set; } = new Font("Arial", 32, FontStyle.Bold);
+        public Font OverlayFont
+        {
+            get => overlayFont;
+            set
+            {
+                if (overlayFont != value)
+                {
+                    overlayFont = value;
+                    SetLabelProperties();
+                    Invalidate();
+                }
+            }
+        }
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Color of the text to be displayed on the control.")]
-        public Brush OverlayBrush { get; set; } = Brushes.White;
+        public Brush OverlayBrush
+        {
+            get => overlayBrush;
+            set
+            {
+                if (overlayBrush != value)
+                {
+                    overlayBrush = value;
+                    SetLabelProperties();
+                    Invalidate();
+                }
+            }
+        }
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Location of the text to be displayed on the control.")]
-        public Point OverlayLocation { get; set; } = new Point(10, 10);
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool IsConnected { get; set; }
-
+        public Point OverlayLocation
+        {
+            get => overlayLocation;
+            set
+            {
+                if (overlayLocation != value)
+                {
+                    overlayLocation = value;
+                    SetLabelProperties();
+                    Invalidate();
+                }
+            }
+        }
         public void Connect(Form parentForm, string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, bool autoConnect = true)
         {
             var deviceInfo = new ST_DeviceInfo
@@ -105,8 +175,7 @@ namespace Mtf.Controls.Sunell.IPR66
                 SetAutoConnectFlag(autoConnect);
                 SetDefaultStreamId(streamId);
 
-                returnCode = NvdcDll.Remote_LivePlayer2_SetVideoWindow(nvdHandle, Handle, 0, 0, Width, Height);
-                CheckForError(returnCode);
+                SetVideoWindow();
 
                 returnCode = NvdcDll.Remote_LivePlayer2_SetNotifyWindow(nvdHandle, Handle, WM_LIVEPLAY_MESSAGE, IntPtr.Zero);
                 CheckForError(returnCode);
@@ -118,7 +187,6 @@ namespace Mtf.Controls.Sunell.IPR66
                 CheckForError(returnCode);
 
                 //BackgroundImage = null;
-                IsConnected = true;
             }
             else
             {
@@ -126,142 +194,230 @@ namespace Mtf.Controls.Sunell.IPR66
             }
         }
 
-        public void SetUseTimeStamp(bool useTimeStamp)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetUseTimeStamp(nvdHandle, useTimeStamp);
-            CheckForError(returnCode);
-        }
-
-        public void SetStretchMode(bool stretch)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetStretchMode(nvdHandle, stretch);
-            CheckForError(returnCode);
-        }
-
-        public void SetAutoConnectFlag(bool autoConnect)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetAutoConnectFlag(nvdHandle, autoConnect);
-            CheckForError(returnCode);
-        }
-
-        public void SetContrast(int percent)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentContrast(nvdHandle, percent);
-            CheckForError(returnCode);
-        }
-
-        public void SetDefaultStreamId(int streamId)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetDefaultStreamId(nvdHandle, streamId);
-            CheckForError(returnCode);
-        }
-
-        public void SetBrightness(int percent)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentBrightness(nvdHandle, percent);
-            CheckForError(returnCode);
-        }
-
-        public void SetHue(int percent)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentHue(nvdHandle, percent);
-            CheckForError(returnCode);
-        }
-
-        public void SetSaturation(int percent)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentSaturation(nvdHandle, percent);
-            CheckForError(returnCode);
-        }
-
-        public void PlaySound()
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_PlaySound(nvdHandle);
-            CheckForError(returnCode);
-        }
-
-        public void Pause()
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_Pause(nvdHandle);
-            CheckForError(returnCode);
-        }
-
-        public void CreateSnapShot(string filePath)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SnapShot(nvdHandle, filePath);
-            CheckForError(returnCode);
-        }
-
-        public void StartRecording(string filePath)
-        {
-            var returnCode = NvdcDll.Remote_LivePlayer2_SetRecorderFile(nvdHandle, filePath);
-            CheckForError(returnCode);
-
-            returnCode = NvdcDll.Remote_LivePlayer2_StartRecord(nvdHandle);
-            CheckForError(returnCode);
-        }
-
-        public void StopRecording(string filePath)
-        {
-            int recorderStatus = 0;
-            var returnCode = NvdcDll.Remote_LivePlayer2_GetRecorderStatus(nvdHandle, ref recorderStatus);
-            CheckForError(returnCode);
-            
-            if (recorderStatus == 1)
-            {
-                returnCode = NvdcDll.Remote_LivePlayer2_StopRecord(nvdHandle);
-                CheckForError(returnCode);
-            }
-        }
-
         public void Disconnect()
         {
-            _ = NvdcDll.Remote_LivePlayer2_Close(nvdHandle);
-            _ = NvdcDll.Remote_Nvd_UnInit(nvdHandle);
-            IsConnected = false;
+            if (nvdHandle != IntPtr.Zero)
+            {
+                _ = NvdcDll.Remote_LivePlayer2_Close(nvdHandle);
+                _ = NvdcDll.Remote_Nvd_UnInit(nvdHandle);
+            }
+
             BackgroundImage = Properties.Resources.NoSignal;
             //Invoke((Action)(() => { Invalidate(); }));
         }
 
-        public int PTZ_Open(int cameraId)
+        #region Sunell Functions
+
+        private bool SetVideoWindow()
         {
-            return NvdcDll.Remote_PTZEx_Open(nvdHandle, cameraId);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetVideoWindow(nvdHandle, Handle, 0, 0, Width, Height);
+                CheckForError(returnCode);
+                return true;
+            }
+
+            return false;
         }
 
-        public int PTZ_Close()
+        public void SetUseTimeStamp(bool useTimeStamp)
         {
-            return NvdcDll.Remote_PTZEx_Close(nvdHandle);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetUseTimeStamp(nvdHandle, useTimeStamp);
+                CheckForError(returnCode);
+            }
         }
 
-        public int PTZ_Stop()
+        public void SetStretchMode(bool stretch)
         {
-            return NvdcDll.Remote_PTZEx_Stop(nvdHandle);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetStretchMode(nvdHandle, stretch);
+                CheckForError(returnCode);
+            }
         }
 
-        public int PTZ_RotateUp(int speed)
+        public void SetAutoConnectFlag(bool autoConnect)
         {
-            return NvdcDll.Remote_PTZEx_RotateUp(nvdHandle, speed);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetAutoConnectFlag(nvdHandle, autoConnect);
+                CheckForError(returnCode);
+            }
         }
 
-        public int PTZ_RotateDown(int speed)
+        public void SetContrast(int percent)
         {
-            return NvdcDll.Remote_PTZEx_RotateDown(nvdHandle, speed);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentContrast(nvdHandle, percent);
+                CheckForError(returnCode);
+            }
         }
 
-        public int PTZ_RotateRight(int speed)
+        public void SetDefaultStreamId(int streamId)
         {
-            return NvdcDll.Remote_PTZEx_RotateRight(nvdHandle, speed);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetDefaultStreamId(nvdHandle, streamId);
+                CheckForError(returnCode);
+            }
         }
 
-        public int PTZ_RotateLeft(int speed)
+        public void SetBrightness(int percent)
         {
-            return NvdcDll.Remote_PTZEx_RotateLeft(nvdHandle, speed);
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentBrightness(nvdHandle, percent);
+                CheckForError(returnCode);
+            }
         }
+
+        public void SetHue(int percent)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentHue(nvdHandle, percent);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void SetSaturation(int percent)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentSaturation(nvdHandle, percent);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PlaySound()
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_PlaySound(nvdHandle);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void Pause()
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_Pause(nvdHandle);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void CreateSnapShot(string filePath)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SnapShot(nvdHandle, filePath);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void StartRecording(string filePath)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_LivePlayer2_SetRecorderFile(nvdHandle, filePath);
+                CheckForError(returnCode);
+
+                returnCode = NvdcDll.Remote_LivePlayer2_StartRecord(nvdHandle);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void StopRecording(string filePath)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                int recorderStatus = 0;
+                var returnCode = NvdcDll.Remote_LivePlayer2_GetRecorderStatus(nvdHandle, ref recorderStatus);
+                CheckForError(returnCode);
+            
+                if (recorderStatus == 1)
+                {
+                    returnCode = NvdcDll.Remote_LivePlayer2_StopRecord(nvdHandle);
+                    CheckForError(returnCode);
+                }
+            }
+        }
+
+        public void PTZ_Open(int cameraId)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_Open(nvdHandle, cameraId);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_Close()
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_Close(nvdHandle);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_Stop()
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_Stop(nvdHandle);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_RotateUp(int speed)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_RotateUp(nvdHandle, speed);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_RotateDown(int speed)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_RotateDown(nvdHandle, speed);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_RotateRight(int speed)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_RotateRight(nvdHandle, speed);
+                CheckForError(returnCode);
+            }
+        }
+
+        public void PTZ_RotateLeft(int speed)
+        {
+            if (nvdHandle != IntPtr.Zero)
+            {
+                var returnCode = NvdcDll.Remote_PTZEx_RotateLeft(nvdHandle, speed);
+                CheckForError(returnCode);
+            }
+        }
+
+        #endregion
 
         public void RefreshImage()
         {
-            _ = NvdcDll.Remote_LivePlayer2_SetVideoWindow(nvdHandle, Handle, 0, 0, Width, Height);
-            Invoke((Action)(() => { Invalidate(); }));
+            if (SetVideoWindow())
+            {
+                Invoke((Action)(() => { Invalidate(); }));
+            }
         }
 
         protected override void OnResize(EventArgs e)
@@ -278,8 +434,6 @@ namespace Mtf.Controls.Sunell.IPR66
 
         protected override void WndProc(ref Message m)
         {
-            base.WndProc(ref m);
-
             switch ((int)m.WParam)
             {
                 case EVENTID_CREATE_VIDEO_SESSION_SUCCESS:
@@ -314,10 +468,8 @@ namespace Mtf.Controls.Sunell.IPR66
             if (!String.IsNullOrEmpty(OverlayText))
             {
                 var graphics = e.Graphics;
-                {
-                    //_ = graphics.MeasureString(OverlayText, OverlayFont);
-                    graphics.DrawString(OverlayText, OverlayFont, OverlayBrush, OverlayLocation);
-                }
+                //_ = graphics.MeasureString(OverlayText, OverlayFont);
+                graphics.DrawString(OverlayText, OverlayFont, OverlayBrush, OverlayLocation);
             }
         }
 

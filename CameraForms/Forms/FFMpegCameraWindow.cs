@@ -4,18 +4,15 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
-using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.x86;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -23,7 +20,6 @@ namespace CameraForms.Forms
     public partial class FFMpegCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
-        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -167,15 +163,22 @@ namespace CameraForms.Forms
         private void FFMpegCameraWindow_Shown(object sender, EventArgs e)
         {
             fFmpegWindow.Start(url);
+            var userId = permissionManager.CurrentUser.Tag.Id;
+            //var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            ////var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            //var fontName = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
+            //var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            ////var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
 
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
-            var fontName = personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial");
-            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb()));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, Color.Black.ToArgb()));
+            //var cameraName = personalOptionsRepository.GetCameraName(userId, url);
+            //fFmpegWindow.SetOsdText(fontName, largeFontSize, FontStyle.Bold, fontColor, cameraName);
 
-            var cameraName = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Id, url);
-            fFmpegWindow.SetOsdText(fontName, largeFontSize, FontStyle.Bold, fontColor, cameraName);
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            fFmpegWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
+            fFmpegWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            fFmpegWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
         }
 
         private void OnExit()

@@ -29,6 +29,8 @@ namespace CameraForms.Forms
         private readonly long cameraId;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private readonly ICameraRepository cameraRepository;
+        private readonly IServerRepository serverRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
 
         private readonly Database.Models.Server server;
@@ -36,7 +38,8 @@ namespace CameraForms.Forms
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IServerRepository serverRepository, ICameraRepository cameraRepository,
+            IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -47,6 +50,8 @@ namespace CameraForms.Forms
             this.camera = camera;
             this.cancellationToken = cancellationToken;
             this.permissionManager = permissionManager;
+            this.cameraRepository = cameraRepository;
+            this.serverRepository = serverRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             
             cameraId = camera?.Id ?? 0;
@@ -62,6 +67,8 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
             this.cameraId = cameraId;
             Initialize(userId, cameraId, true);
 
@@ -78,6 +85,8 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
             this.cameraId = cameraId;
             Initialize(userId, cameraId, true);
             display = DisplayProvider.Get(displayId);
@@ -196,9 +205,7 @@ namespace CameraForms.Forms
             //axVideoPlayerWindow.AxVideoPicture.Visible = false;
             //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
             //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
-
-            var cameraRepository = new CameraRepository();
-            var serverRepository = new ServerRepository();
+            var userId = permissionManager.CurrentUser.Tag.Id;
             var camera = cameraRepository.Select(cameraId);
             if (camera == null)
             {
@@ -211,12 +218,12 @@ namespace CameraForms.Forms
             }
 
             axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
-            axVideoPlayerWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial"), largeFontSize, FontStyle.Bold);
-            axVideoPlayerWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, Color.Black.ToArgb()));
-            axVideoPlayerWindow.OverlayText = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Id, server, camera);
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            axVideoPlayerWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
+            axVideoPlayerWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            axVideoPlayerWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, server, camera);
         }
 
         //private void Start(int waitTimeInMs = 500)

@@ -164,14 +164,14 @@ namespace CameraForms.Forms
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
             mortoGraphyWindow.Start(url);
+            var userId = permissionManager.CurrentUser.Tag.Id;
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            var fontName = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
+            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
 
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
-            var fontName = personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial");
-            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb()));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, Color.Black.ToArgb()));
-
-            var cameraName = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Id, url);
+            var cameraName = personalOptionsRepository.GetCameraName(userId, url);
 
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);

@@ -146,7 +146,7 @@ namespace LiveView.Forms
         private void BtnCloseSequenceApplications_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.CloseSequenceApplications();
+            CloseSequenceApplications();
         }
 
         [RequirePermission(CameraManagementPermissions.CloseFullScreen)]
@@ -447,6 +447,11 @@ namespace LiveView.Forms
         public int RemoveSequence(int sequenceId)
         {
             return presenter.RemoveSequence(sequenceId);
+        }
+
+        public void CloseSequenceApplications()
+        {
+            presenter.CloseSequenceApplications();
         }
 
         protected override void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)

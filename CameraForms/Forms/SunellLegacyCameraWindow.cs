@@ -1,6 +1,7 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Services;
 using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
@@ -21,13 +22,14 @@ namespace CameraForms.Forms
     public partial class SunellLegacyCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
 
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
         private Client client;
 
-        public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle)
+        public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -36,6 +38,7 @@ namespace CameraForms.Forms
             this.sunellLegacyCameraInfo = sunellLegacyCameraInfo;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
         }
 
         public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -44,6 +47,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             var display = DisplayProvider.Get(displayId);
@@ -56,6 +60,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             Initialize(userId, cameraId, rectangle, null, true);
@@ -164,6 +169,14 @@ namespace CameraForms.Forms
 
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
+            var userId = permissionManager.CurrentUser.Tag.Id;
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            sunellVideoWindowLegacy1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
+            sunellVideoWindowLegacy1.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            sunellVideoWindowLegacy1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
+
             sunellVideoWindowLegacy1.Connect(this, sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
         }
 

@@ -1,3 +1,15 @@
+Sunell Legacy has no title, when connected
+Sunell has no title, when connected
+
+Vlc has no title when started with connected state
+Vlc image falls apart
+
+OpenCvSharp has no image
+OpenCvSharp4 has no image
+FFMPEGhas no image
+
+MortoGraphy has no title
+
 no permission to view this camera
 
 Show agent displays also on ControlCenter.

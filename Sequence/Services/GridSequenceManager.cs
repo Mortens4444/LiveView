@@ -39,6 +39,7 @@ namespace Sequence.Services
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly bool isMdi;
         
@@ -68,6 +69,8 @@ namespace Sequence.Services
             //this.isMdi = false;
 
             this.permissionManager = permissionManager;
+            this.cameraRepository = cameraRepository;
+            this.serverRepository = serverRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.logger = logger;
 
@@ -123,8 +126,6 @@ namespace Sequence.Services
         {
             if (Interlocked.Exchange(ref disposed, 1) == 0 && disposing)
             {
-                await DisposeCameraWindowsAsync().ConfigureAwait(false);
-                
                 cancellationTokenSource?.Dispose();
                 cancellationTokenSource = null;
             }
@@ -185,7 +186,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };
@@ -217,7 +218,7 @@ namespace Sequence.Services
                 else if (camera is VlcCameraInfo vlcCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VlcCameraWindow(permissionManager, vlcCameraInfo.Url, rectangle)
+                    videoForm = new VlcCameraWindow(permissionManager, personalOptionsRepository, vlcCameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };
@@ -225,7 +226,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharpCameraWindow(permissionManager, openCvSharpCameraInfo.Url, rectangle)
+                    videoForm = new OpenCvSharpCameraWindow(permissionManager, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };
@@ -233,7 +234,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, openCvSharp4CameraInfo.Url, rectangle)
+                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };
@@ -241,7 +242,7 @@ namespace Sequence.Services
                 else if (camera is SunellCameraInfo sunellCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellCameraWindow(permissionManager, sunellCameraInfo, rectangle)
+                    videoForm = new SunellCameraWindow(permissionManager, personalOptionsRepository, sunellCameraInfo, rectangle)
                     {
                         TopMost = true
                     };
@@ -249,7 +250,7 @@ namespace Sequence.Services
                 else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellLegacyCameraWindow(permissionManager, sunellLegacyCameraInfo, rectangle)
+                    videoForm = new SunellLegacyCameraWindow(permissionManager, personalOptionsRepository, sunellLegacyCameraInfo, rectangle)
                     {
                         TopMost = true
                     };

@@ -19,6 +19,8 @@ namespace Mtf.Controls.Sunell.IPR67
         private UInt32 sdkHandler;
         private int streamId;
 
+        public const int NoStream = -1;
+
         public SunellVideoWindow()
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
@@ -62,17 +64,22 @@ namespace Mtf.Controls.Sunell.IPR67
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsConnected { get; set; }
 
-        public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
+        public int Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
         {
             var p_obj = IntPtr.Zero;
             sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
-            this.streamId = Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj);
+            Invoke((Action)(() =>
+            {
+                this.streamId = sdkHandler != 0 ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
+            }));
+
             //if (this.streamId != streamId)
             //{
             //    _ = Sdk.sdk_md_chg_stream(sdkHandler, streamId, streamType);
             //    this.streamId = streamId;
             //}
             IsConnected = true;
+            return this.streamId;
         }
 
         private void PlayTimeCallback(uint handle, int stream_id, IntPtr p_obj, ref byte p_time)

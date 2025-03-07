@@ -44,6 +44,13 @@ namespace CameraForms.Forms
         private Client client;
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
 
+        private int largeFontSize;
+        private string fontFamily;
+        private Color fontColor;
+        private SolidBrush fontBrush;
+        private Point location = new Point(10, 10);
+        private string cameraName;
+
         public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
@@ -56,7 +63,7 @@ namespace CameraForms.Forms
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
             this.personalOptionsRepository = personalOptionsRepository;
             StartVideoCapture();
-            SetOsd(videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
+            SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
         }
 
         public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
@@ -65,14 +72,12 @@ namespace CameraForms.Forms
 
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
+            rectangle = new Rectangle(location, size);
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
             Initialize(userId, serverIp, videoCaptureSource, true);
-            SetOsd(serverIp, videoCaptureSource);
-
-            rectangle = new Rectangle(location, size);
         }
 
         public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
@@ -85,7 +90,6 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
             Initialize(userId, serverIp, videoCaptureSource, true);
-            SetOsd(serverIp, videoCaptureSource);
 
             var displayRepository = new DisplayRepository();
             var fullScreenDisplay = (displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose fullscreen display first.");
@@ -102,6 +106,8 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)
         {
+            SetOsdParameters(userId, serverIp, videoCaptureSource);
+
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
@@ -130,14 +136,29 @@ namespace CameraForms.Forms
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
         }
 
-        private void SetOsd(string serverIp, string videoCaptureSource)
+        private void SetOsdParameters(long userId, string serverIp, string videoCaptureSource)
         {
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
-            var fontFamily = personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial");
-            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb()));
-            var cameraName = personalOptionsRepository.GetCameraName(permissionManager.CurrentUser.Tag.Id, serverIp, videoCaptureSource);
+            largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            fontFamily = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
+            fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            fontBrush = new SolidBrush(fontColor);
+            cameraName = personalOptionsRepository.GetCameraName(userId, serverIp, videoCaptureSource);
             mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, cameraName);
+            mtfCamera.Paint += MtfCamera_Paint;
+        }
+
+        private void MtfCamera_Paint(object sender, PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            if (!String.IsNullOrEmpty(cameraName))
+            {
+                var graphics = e.Graphics;
+                {
+                    //_ = graphics.MeasureString(OverlayText, OverlayFont);
+                    graphics.DrawString(cameraName, mtfCamera.Font, fontBrush, location);
+                }
+            }
         }
 
         private void StartVideoCapture()

@@ -15,7 +15,6 @@
         {
             if (disposing && (components != null))
             {
-                initializationCompleted.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -29,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenCvSharp4CameraWindow));
             openCvSharp4VideoWindow = new Mtf.Controls.Video.OpenCvSharp4VideoWindow();
             ((System.ComponentModel.ISupportInitialize)openCvSharp4VideoWindow).BeginInit();
             SuspendLayout();
@@ -41,6 +41,9 @@
             openCvSharp4VideoWindow.Dock = System.Windows.Forms.DockStyle.Fill;
             openCvSharp4VideoWindow.Location = new System.Drawing.Point(0, 0);
             openCvSharp4VideoWindow.Name = "openCvSharp4VideoWindow";
+            openCvSharp4VideoWindow.OverlayFont = (System.Drawing.Font)resources.GetObject("openCvSharp4VideoWindow.OverlayFont");
+            openCvSharp4VideoWindow.OverlayLocation = new System.Drawing.Point(10, 10);
+            openCvSharp4VideoWindow.OverlayText = "";
             openCvSharp4VideoWindow.Size = new System.Drawing.Size(800, 450);
             openCvSharp4VideoWindow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             openCvSharp4VideoWindow.TabIndex = 0;

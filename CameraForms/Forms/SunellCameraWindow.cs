@@ -1,6 +1,7 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Services;
 using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
@@ -15,20 +16,25 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using Mtf.Controls.Sunell.IPR67;
 
 namespace CameraForms.Forms
 {
     public partial class SunellCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
 
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellCameraInfo sunellCameraInfo;
         private Client client;
+        private CancellationTokenSource cts;
 
-        public SunellCameraWindow(PermissionManager<User> permissionManager, SunellCameraInfo sunellCameraInfo, Rectangle rectangle)
+        public SunellCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -37,6 +43,7 @@ namespace CameraForms.Forms
             this.sunellCameraInfo = sunellCameraInfo;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
         }
 
         public SunellCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -45,6 +52,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             var display = DisplayProvider.Get(displayId);
@@ -58,6 +66,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             Initialize(userId, cameraId, rectangle, null, true);
@@ -166,8 +175,48 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
-            sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.HighDensity, false);
+            var userId = permissionManager.CurrentUser.Tag.Id;
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            sunellVideoWindow1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
+            sunellVideoWindow1.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            sunellVideoWindow1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
+
+            var streamId = Connect();
+            if (streamId == SunellVideoWindow.NoStream)
+            {
+                cts?.Cancel();
+                cts = new CancellationTokenSource();
+                _ = TryReconnectAsync(cts.Token);
+            }
         }
+
+        private int Connect()
+        {
+            return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.HighDensity, false);
+        }
+
+        private async Task TryReconnectAsync(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                if (Connect() != SunellVideoWindow.NoStream)
+                {
+                    return;
+                }
+
+                try
+                {
+                    await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
+            }
+        }
+
 
         private void OnExit()
         {

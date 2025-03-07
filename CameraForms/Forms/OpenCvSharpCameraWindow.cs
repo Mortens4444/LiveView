@@ -13,7 +13,6 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -21,7 +20,6 @@ namespace CameraForms.Forms
     public partial class OpenCvSharpCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
-        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -30,7 +28,7 @@ namespace CameraForms.Forms
         private Rectangle rectangle;
         private Client client;
 
-        public OpenCvSharpCameraWindow(PermissionManager<User> permissionManager, string url, Rectangle rectangle)
+        public OpenCvSharpCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -39,6 +37,7 @@ namespace CameraForms.Forms
             this.url = url;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
         }
 
         public OpenCvSharpCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -164,6 +163,13 @@ namespace CameraForms.Forms
         private void OpenCvSharp_Shown(object sender, EventArgs e)
         {
             openCvSharpVideoWindow.Start(url);
+            var userId = permissionManager.CurrentUser.Tag.Id;
+            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            openCvSharpVideoWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
+            openCvSharpVideoWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
+            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            openCvSharpVideoWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
         }
 
         private void OnExit()
