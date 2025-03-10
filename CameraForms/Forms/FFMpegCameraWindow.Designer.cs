@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            fFmpegWindow = new Mtf.Controls.Video.FFmpegWindow();
+            fFmpegWindow = new Mtf.Controls.Video.FFmpeg.FFmpegWindow();
             ((System.ComponentModel.ISupportInitialize)fFmpegWindow).BeginInit();
             SuspendLayout();
             // 
@@ -70,6 +70,6 @@
 
         #endregion
 
-        private Mtf.Controls.Video.FFmpegWindow fFmpegWindow;
+        private Mtf.Controls.Video.FFmpeg.FFmpegWindow fFmpegWindow;
     }
 }

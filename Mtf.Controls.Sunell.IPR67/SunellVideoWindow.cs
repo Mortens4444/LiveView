@@ -16,7 +16,7 @@ namespace Mtf.Controls.Sunell.IPR67
 
         public event VideoSignalChangedEventHandler VideoSignalChanged;
 
-        private UInt32 sdkHandler;
+        private IntPtr sdkHandler;
         private int streamId;
 
         public const int NoStream = -1;
@@ -68,9 +68,11 @@ namespace Mtf.Controls.Sunell.IPR67
         {
             var p_obj = IntPtr.Zero;
             sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
+            //sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
             Invoke((Action)(() =>
             {
-                this.streamId = sdkHandler != 0 ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
+                this.streamId = sdkHandler != IntPtr.Zero ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
+                //this.streamId = sdkHandler != 0 ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
             }));
 
             //if (this.streamId != streamId)
@@ -82,12 +84,12 @@ namespace Mtf.Controls.Sunell.IPR67
             return this.streamId;
         }
 
-        private void PlayTimeCallback(uint handle, int stream_id, IntPtr p_obj, ref byte p_time)
+        private void PlayTimeCallback(IntPtr handle, int stream_id, IntPtr p_obj, ref byte p_time)
         {
             Debug.WriteLine($"Handle: {handle}, Stream Id: {stream_id}, Obj: {p_obj}, Time: {p_time}");
         }
 
-        private void DisconnectCallback(uint handle, IntPtr p_obj, uint type)
+        private void DisconnectCallback(IntPtr handle, IntPtr p_obj, uint type)
         {
             Debug.WriteLine($"Handle: {handle}, Obj: {p_obj}, Type: {type}");
         }

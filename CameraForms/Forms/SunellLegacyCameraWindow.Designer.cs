@@ -37,7 +37,6 @@ namespace CameraForms.Forms
             // 
             // sunellVideoWindowLegacy1
             // 
-            sunellVideoWindowLegacy1.BackgroundImage = Properties.Resources.nosignal;
             sunellVideoWindowLegacy1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             sunellVideoWindowLegacy1.Dock = System.Windows.Forms.DockStyle.Fill;
             sunellVideoWindowLegacy1.Location = new System.Drawing.Point(0, 0);
@@ -55,6 +54,8 @@ namespace CameraForms.Forms
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Black;
+            BackgroundImage = Properties.Resources.nosignal;
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(800, 450);
             Controls.Add(sunellVideoWindowLegacy1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

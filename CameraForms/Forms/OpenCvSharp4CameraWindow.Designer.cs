@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenCvSharp4CameraWindow));
-            openCvSharp4VideoWindow = new Mtf.Controls.Video.OpenCvSharp4VideoWindow();
+            openCvSharp4VideoWindow = new Mtf.Controls.Video.OpenCvSharp.OpenCvSharp4VideoWindow();
             ((System.ComponentModel.ISupportInitialize)openCvSharp4VideoWindow).BeginInit();
             SuspendLayout();
             // 
@@ -73,6 +73,6 @@
 
         #endregion
 
-        private Mtf.Controls.Video.OpenCvSharp4VideoWindow openCvSharp4VideoWindow;
+        private Mtf.Controls.Video.OpenCvSharp.OpenCvSharp4VideoWindow openCvSharp4VideoWindow;
     }
 }

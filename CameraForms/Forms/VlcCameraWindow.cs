@@ -170,7 +170,7 @@ namespace CameraForms.Forms
             vlcWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             vlcWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
-            vlcWindow.Start(url, true, true, false, 0, 0, Demux.mjpeg);
+            vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
         }
 
         private void OnExit()

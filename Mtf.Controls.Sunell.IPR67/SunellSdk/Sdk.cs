@@ -9,114 +9,114 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         private const CallingConvention CallingConv = CallingConvention.Cdecl;
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_MICROPHONE_CB(UInt32 handle, IntPtr p_data, ref Int32 data_len, IntPtr p_obj);
+        public delegate void SDK_MICROPHONE_CB(IntPtr handle, IntPtr p_data, ref Int32 data_len, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_FACEBASE_CB(UInt32 handle, IntPtr p_data, ref Int32 data_len, ref IntPtr p_result, IntPtr p_obj);
+        public delegate void SDK_FACEBASE_CB(IntPtr handle, IntPtr p_data, ref Int32 data_len, ref IntPtr p_result, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
         public delegate void SDK_INTERCOM_DB_CB(UInt32 db, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_FACE_CB(UInt32 handle, Int32 pic_type, IntPtr p_data, ref Int32 data_len, ref IntPtr p_result, IntPtr p_obj);
+        public delegate void SDK_FACE_CB(IntPtr handle, Int32 pic_type, IntPtr p_data, ref Int32 data_len, ref IntPtr p_result, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_DETECT_CB(UInt32 handle, Int32 stream_id, ref IntPtr p_result, IntPtr p_data, IntPtr p_obj);
+        public delegate void SDK_DETECT_CB(IntPtr handle, Int32 stream_id, ref IntPtr p_result, IntPtr p_data, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
         public delegate void SDK_STREAM_DATE_LEN(UInt32 len);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_PLAY_TIME_CB(UInt32 handle, Int32 stream_id, IntPtr p_obj, ref byte p_time);
+        public delegate void SDK_PLAY_TIME_CB(IntPtr handle, Int32 stream_id, IntPtr p_obj, ref byte p_time);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_CONNECT_CB(UInt32 handle, IntPtr p_obj);
+        public delegate void SDK_CONNECT_CB(IntPtr handle, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_DISCONN_CB(UInt32 handle, IntPtr p_obj, UInt32 type);
+        public delegate void SDK_DISCONN_CB(IntPtr handle, IntPtr p_obj, UInt32 type);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_STREAM_CB(UInt32 handle, Int32 stream_id, IntPtr p_data, IntPtr p_obj);
+        public delegate void SDK_STREAM_CB(IntPtr handle, Int32 stream_id, IntPtr p_data, IntPtr p_obj);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_ALARM_CB(UInt32 handle, ref IntPtr p_data, IntPtr p_ob);
+        public delegate void SDK_ALARM_CB(IntPtr handle, ref IntPtr p_data, IntPtr p_ob);
 
         [UnmanagedFunctionPointerAttribute(CallingConv)]
-        public delegate void SDK_WIFI_CB(UInt32 handle, ref byte p_data, IntPtr p_ob);
+        public delegate void SDK_WIFI_CB(IntPtr handle, ref byte p_data, IntPtr p_ob);
 
-        public delegate void SDK_MUTI_COMPARE_CB(UInt32 handle, IntPtr p_pic1, Int32 data_len1, IntPtr p_pic2, Int32 data_len2, IntPtr p_result, IntPtr p_obj);
+        public delegate void SDK_MUTI_COMPARE_CB(IntPtr handle, IntPtr p_pic1, Int32 data_len1, IntPtr p_pic2, Int32 data_len2, IntPtr p_result, IntPtr p_obj);
 
-        public delegate void SDK_NVR_SNAP_MSG_CB(UInt32 handle, IntPtr p_data, IntPtr p_ob);
+        public delegate void SDK_NVR_SNAP_MSG_CB(IntPtr handle, IntPtr p_data, IntPtr p_ob);
 
-        public delegate void SDK_MUTI_OBJ_DOWNLOAD_CB(UInt32 handle, IntPtr p_pic1, Int32 data_len1, ref byte key1, IntPtr p_pic2, Int32 data_len2, ref byte key2, IntPtr p_obj);
-
-        [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern UInt32 sdk_dev_conn([MarshalAs(UnmanagedType.LPStr)] string p_ip, UInt16 port, [MarshalAs(UnmanagedType.LPStr)] string p_user, [MarshalAs(UnmanagedType.LPStr)] string p_passwd, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DISCONN_CB disconn_cb_func, IntPtr p_obj);
+        public delegate void SDK_MUTI_OBJ_DOWNLOAD_CB(IntPtr handle, IntPtr p_pic1, Int32 data_len1, ref byte key1, IntPtr p_pic2, Int32 data_len2, ref byte key2, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_live_start(UInt32 handle, Int32 chn, StreamType stream_type, IntPtr p_wnd, bool is_hw_dec, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_PLAY_TIME_CB play_cb, IntPtr p_obj);
+        public static extern IntPtr sdk_dev_conn([MarshalAs(UnmanagedType.LPStr)] string p_ip, UInt16 port, [MarshalAs(UnmanagedType.LPStr)] string p_user, [MarshalAs(UnmanagedType.LPStr)] string p_passwd, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DISCONN_CB disconn_cb_func, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_live_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_live_start(IntPtr handle, Int32 chn, StreamType stream_type, IntPtr p_wnd, bool is_hw_dec, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_PLAY_TIME_CB play_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_chg_stream(UInt32 handle, Int32 stream_id, StreamType stream_type);
+        public static extern Int32 sdk_md_live_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_pb_start(UInt32 handle, Int32 chn, Int32 new_stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, IntPtr p_wnd, bool is_hw_dec, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_PLAY_TIME_CB play_cb, IntPtr p_obj);
+        public static extern Int32 sdk_md_chg_stream(IntPtr handle, Int32 stream_id, StreamType stream_type);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_pb_seek(UInt32 handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string time);
+        public static extern Int32 sdk_md_pb_start(IntPtr handle, Int32 chn, Int32 new_stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, IntPtr p_wnd, bool is_hw_dec, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_PLAY_TIME_CB play_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_pb_pause(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_pb_seek(IntPtr handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_pb_resume(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_pb_pause(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_pb_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_pb_resume(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_set_pb_speed(UInt32 handle, Int32 stream_id, Int32 rate);
+        public static extern Int32 sdk_md_pb_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_start(UInt32 handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
+        public static extern Int32 sdk_md_set_pb_speed(IntPtr handle, Int32 stream_id, Int32 rate);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_start_width_time(UInt32 handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
+        public static extern Int32 sdk_md_rec_start(IntPtr handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_rec_start_width_time(IntPtr handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_percent(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_rec_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_download_start(UInt32 handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
+        public static extern Int32 sdk_md_rec_percent(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_rec_download_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_rec_download_start(IntPtr handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_capture(UInt32 handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string p_path);
+        public static extern Int32 sdk_md_rec_download_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_audio_start(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_md_capture(IntPtr handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string p_path);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_audio_stop(UInt32 handle, Int32 stream_id);
-        [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_talk_start(UInt32 handle, Int32 chn, SDK_INTERCOM_DB_CB intercom_db_cb, IntPtr obj);
+        public static extern Int32 sdk_md_audio_start(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_md_talk_stop(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_md_audio_stop(IntPtr handle, Int32 stream_id);
+        [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
+        public static extern Int32 sdk_md_talk_start(IntPtr handle, Int32 chn, SDK_INTERCOM_DB_CB intercom_db_cb, IntPtr obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_view_zoomin(UInt32 handle, Int32 stream_id, Int32 x, Int32 y, Int32 w, Int32 h);
+        public static extern Int32 sdk_md_talk_stop(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_view_zoominout_centern(UInt32 handle, Int32 stream_id, Int32 scale);
+        public static extern Int32 sdk_view_zoomin(IntPtr handle, Int32 stream_id, Int32 x, Int32 y, Int32 w, Int32 h);
+
+        [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
+        public static extern Int32 sdk_view_zoominout_centern(IntPtr handle, Int32 stream_id, Int32 scale);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_dev_init([MarshalAs(UnmanagedType.LPStr)] string p_param);
@@ -140,76 +140,76 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         public static extern void sdk_dev_conn_close(UInt32 handle);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_addr_req(UInt32 handle, Int32 ipprotover, ref byte p_result);
+        public static extern Int32 sdk_dev_addr_req(IntPtr handle, Int32 ipprotover, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_live_start(UInt32 handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_STREAM_CB stream_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_live_start(IntPtr handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_STREAM_CB stream_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_live_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_live_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_chg_stream(UInt32 handle, Int32 stream_id, Int32 new_stream_type);
+        public static extern Int32 sdk_dev_chg_stream(IntPtr handle, Int32 stream_id, Int32 new_stream_type);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_video_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_video_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_video_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_video_param);
+        public static extern Int32 sdk_set_video_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_video_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_video_control(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_audio_para);
+        public static extern Int32 sdk_dev_video_control(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_audio_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_audio_start(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_audio_start(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_audio_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_audio_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_open_snap(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
+        public static extern Int32 sdk_open_snap(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_close_snap(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
+        public static extern Int32 sdk_close_snap(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_snap_data(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param, ref byte p_buf, ref int len);
+        public static extern Int32 sdk_get_snap_data(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param, ref byte p_buf, ref int len);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_snap_picture(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
+        public static extern Int32 sdk_get_snap_picture(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_open_picture_edit(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
+        public static extern Int32 sdk_open_picture_edit(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_snap_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_date_list(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string s_date, [MarshalAs(UnmanagedType.LPStr)] string e_date, ref byte p_result);
+        public static extern Int32 sdk_dev_pb_date_list(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string s_date, [MarshalAs(UnmanagedType.LPStr)] string e_date, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_chns_in_date(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_date, ref byte p_result);
+        public static extern Int32 sdk_dev_pb_chns_in_date(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_date, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_get_rec_list(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_date, ref byte p_result);
+        public static extern Int32 sdk_dev_pb_get_rec_list(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_date, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_start(UInt32 handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_STREAM_CB stream_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_pb_start(IntPtr handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_STREAM_CB stream_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_seek(UInt32 handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string time);
+        public static extern Int32 sdk_dev_pb_seek(IntPtr handle, Int32 stream_id, [MarshalAs(UnmanagedType.LPStr)] string time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_pause(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_pb_pause(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_resume(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_pb_resume(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_pb_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_pb_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_pb_video_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_pb_video_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_pb_video_speed(UInt32 handle, Int32 stream_id, Int32 rate);
+        public static extern Int32 sdk_set_pb_video_speed(IntPtr handle, Int32 stream_id, Int32 rate);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_dev_open_rec([MarshalAs(UnmanagedType.LPStr)] string p_path, [MarshalAs(UnmanagedType.LPStr)] string p_filename);
@@ -221,61 +221,61 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         public static extern Int32 sdk_dev_stop_rec(Int32 record_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_start_alarm(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_ALARM_CB alarm_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_start_alarm(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_ALARM_CB alarm_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_dev_stop_alarm(UInt32 handle);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_io_alarm_event(UInt32 handle, Int32 chn, Int32 alarm_source_id, ref byte p_result);
+        public static extern Int32 sdk_dev_get_io_alarm_event(IntPtr handle, Int32 chn, Int32 alarm_source_id, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_io_alarm_para(UInt32 handle, ref _io_alarm_event_para_list_ p_io_alarm_para);
+        public static extern Int32 sdk_dev_set_io_alarm_para(IntPtr handle, ref _io_alarm_event_para_list_ p_io_alarm_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_io_alarm_para(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_io_alarm_para);
+        public static extern Int32 sdk_dev_json_set_io_alarm_para(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_io_alarm_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_disk_alarm_para(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_disk_alarm_para);
+        public static extern Int32 sdk_dev_json_set_disk_alarm_para(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_disk_alarm_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_disk_alarm_para(UInt32 handle, ref _disk_alarm_event_para_list_ p_disk_alarm_list);
+        public static extern Int32 sdk_dev_set_disk_alarm_para(IntPtr handle, ref _disk_alarm_event_para_list_ p_disk_alarm_list);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_disk_alarm_para(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_disk_alarm_para(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_match_alarm_date_list(UInt32 handle, ref _qry_info_list_ p_qry_info, ref byte p_result);
+        public static extern Int32 sdk_dev_get_match_alarm_date_list(IntPtr handle, ref _qry_info_list_ p_qry_info, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_match_alarm_date_list(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_qry_info, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_match_alarm_date_list(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_qry_info, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_alarm_camera_info_list(UInt32 handle, ref _alarm_info_qry_ p_qry_info, ref byte p_result);
+        public static extern Int32 sdk_dev_get_alarm_camera_info_list(IntPtr handle, ref _alarm_info_qry_ p_qry_info, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_alarm_camera_info_list(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_info_qry, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_alarm_camera_info_list(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_info_qry, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_alarm_list(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, ref byte p_result);
+        public static extern Int32 sdk_dev_get_alarm_list(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_manual_alarmout(UInt32 handle, Int32 chn, Int32 alarmout_id, Int32 control_flag);
+        public static extern Int32 sdk_dev_manual_alarmout(IntPtr handle, Int32 chn, Int32 alarmout_id, Int32 control_flag);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_record_policy(UInt32 handle, Int32 chn, Int32 record_mode, ref byte p_result);
+        public static extern Int32 sdk_dev_get_record_policy(IntPtr handle, Int32 chn, Int32 record_mode, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_record_policy(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_record_para);
+        public static extern Int32 sdk_dev_set_record_policy(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_record_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_record_state(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_record_state(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_last_record_time(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_qry_info, ref byte p_result);
+        public static extern Int32 sdk_dev_get_last_record_time(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string s_time, [MarshalAs(UnmanagedType.LPStr)] string e_time, [MarshalAs(UnmanagedType.LPStr)] string p_qry_info, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_open_wifi_push(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_WIFI_CB wifi_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_open_wifi_push(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_WIFI_CB wifi_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_dev_close_wifi_push(UInt32 handle);
@@ -287,671 +287,671 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         public static extern Int32 sdk_dev_close_ptz(UInt32 handle);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_stop(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_dev_ptz_stop(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_rotate(UInt32 handle, Int32 chn, Int32 operation, Int32 speed);
+        public static extern Int32 sdk_dev_ptz_rotate(IntPtr handle, Int32 chn, Int32 operation, Int32 speed);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_zoom(UInt32 handle, Int32 chn, Int32 operation, Int32 speed);
+        public static extern Int32 sdk_dev_ptz_zoom(IntPtr handle, Int32 chn, Int32 operation, Int32 speed);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_focus(UInt32 handle, Int32 chn, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_focus(IntPtr handle, Int32 chn, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_iris(UInt32 handle, Int32 chn, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_iris(IntPtr handle, Int32 chn, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_preset(UInt32 handle, Int32 chn, Int32 id, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_preset(IntPtr handle, Int32 chn, Int32 id, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_track(UInt32 handle, Int32 chn, Int32 id, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_track(IntPtr handle, Int32 chn, Int32 id, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_scan(UInt32 handle, Int32 chn, Int32 id, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_scan(IntPtr handle, Int32 chn, Int32 id, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_tour(UInt32 handle, Int32 chn, Int32 id, Int32 operation, Int32 speed, Int32 time);
+        public static extern Int32 sdk_dev_ptz_tour(IntPtr handle, Int32 chn, Int32 id, Int32 operation, Int32 speed, Int32 time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_keeper(UInt32 handle, Int32 chn, Int32 operation, Int32 enable, Int32 type, Int32 id, Int32 time);
+        public static extern Int32 sdk_dev_ptz_keeper(IntPtr handle, Int32 chn, Int32 operation, Int32 enable, Int32 type, Int32 id, Int32 time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_threeDimensionalPos(UInt32 handle, Int32 chn, Int32 nX, Int32 nY, Int32 nZoomaTate);
+        public static extern Int32 sdk_dev_ptz_threeDimensionalPos(IntPtr handle, Int32 chn, Int32 nX, Int32 nY, Int32 nZoomaTate);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_brush(UInt32 handle, Int32 chn, Int32 operation, Int32 mode, Int32 waittime);
+        public static extern Int32 sdk_dev_ptz_brush(IntPtr handle, Int32 chn, Int32 operation, Int32 mode, Int32 waittime);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_light(UInt32 handle, Int32 chn, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_light(IntPtr handle, Int32 chn, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_defog(UInt32 handle, Int32 chn, Int32 operation);
+        public static extern Int32 sdk_dev_ptz_defog(IntPtr handle, Int32 chn, Int32 operation);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_ptz_postion(UInt32 handle, Int32 chn, Int32 operation, Int32 type, Int32 p_nPan, Int32 p_nTilt, Int32 p_nZoom);
+        public static extern Int32 sdk_dev_ptz_postion(IntPtr handle, Int32 chn, Int32 operation, Int32 type, Int32 p_nPan, Int32 p_nTilt, Int32 p_nZoom);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ptz_req(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ptz_req(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ptz_postion(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ptz_postion(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_ptz_speed(UInt32 handle, Int32 chn, Int32 speed);
+        public static extern Int32 sdk_dev_set_ptz_speed(IntPtr handle, Int32 chn, Int32 speed);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ptz_configue(UInt32 handle, Int32 chn, Int32 operation, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ptz_configue(IntPtr handle, Int32 chn, Int32 operation, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ptz_timer(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ptz_timer(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_ptz_timer(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_dev_set_ptz_timer(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_hw_cap(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_hw_cap(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_sw_cap(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_sw_cap(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_nw_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_nw_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_video_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_video_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_nvr_cap(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_get_nvr_cap(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_language_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_language_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_time_zone_cap(UInt32 handle, Int32 chn, Int32 language_id, ref byte p_result);
+        public static extern Int32 sdk_dev_get_time_zone_cap(IntPtr handle, Int32 chn, Int32 language_id, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_audio_cap(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_audio_cap(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ptz_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ptz_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_osd_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_osd_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_general_info(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_general_info(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_dev_name(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_dev_name(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_dev_name(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_name);
+        public static extern Int32 sdk_dev_json_set_dev_name(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_name);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_dev_time(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_dev_time(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_dev_time(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_time);
+        public static extern Int32 sdk_dev_json_set_dev_time(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_dev_ntp(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_dev_ntp(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_dev_ntp(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_ntp_param);
+        public static extern Int32 sdk_dev_json_set_dev_ntp(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_ntp_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_dev_id(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_dev_id(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_dev_id(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_dev_id);
+        public static extern Int32 sdk_dev_set_dev_id(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_dev_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_get_dev_port(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_json_get_dev_port(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_json_set_dev_port(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_port);
+        public static extern Int32 sdk_dev_json_set_dev_port(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_port);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_dev_language(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_dev_language(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_dev_language(UInt32 handle, Int32 chn, Int32 language_id);
+        public static extern Int32 sdk_dev_set_dev_language(IntPtr handle, Int32 chn, Int32 language_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_dev_time_zone(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_dev_time_zone(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_dev_time_zone(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_time);
+        public static extern Int32 sdk_set_dev_time_zone(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_dev_time);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_chn_info(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_get_chn_info(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_p2p_para(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_p2p_para(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_alarm_push_para(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_push_para);
+        public static extern Int32 sdk_dev_set_alarm_push_para(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_push_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_delete_alarm_push_para(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_push_para);
+        public static extern Int32 sdk_dev_delete_alarm_push_para(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_alarm_push_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_security_para(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_security_para(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_security_para(UInt32 handle, Int32 web_mode, byte encrypt_enable);
+        public static extern Int32 sdk_dev_set_security_para(IntPtr handle, Int32 web_mode, byte encrypt_enable);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_nvr_channel_name(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_nvr_channel_name(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_net_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_get_net_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_net_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_param);
+        public static extern Int32 sdk_dev_set_net_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ddns(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ddns(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_ddns(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_ddns);
+        public static extern Int32 sdk_dev_set_ddns(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_ddns);
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        // public static extern Int32 sdk_dev_ddns_test(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_net_ddns);
+        // public static extern Int32 sdk_dev_ddns_test(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_net_ddns);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ddns_provider(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ddns_provider(IntPtr handle, Int32 chn, ref byte p_result);
 
         //FTP参数
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_ftp(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_ftp(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_ftp(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_net_ftp);
+        public static extern Int32 sdk_dev_set_ftp(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_net_ftp);
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //  public static extern Int32 sdk_dev_ftp_test(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_ftp_para);
+        //  public static extern Int32 sdk_dev_ftp_test(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_ftp_para);
         //SMTP参数
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_smtp(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_dev_get_smtp(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_smtp(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_smtp);
+        public static extern Int32 sdk_dev_set_smtp(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_net_smtp);
 
         //  [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        // public static extern Int32 sdk_dev_smtp_test(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_smtp);
+        // public static extern Int32 sdk_dev_smtp_test(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_smtp);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_mtu(UInt32 handle, ref Int32 p_mtu);
+        public static extern Int32 sdk_dev_get_mtu(IntPtr handle, ref Int32 p_mtu);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_set_mtu(UInt32 handle, Int32 p_mtu);
+        public static extern Int32 sdk_dev_set_mtu(IntPtr handle, Int32 p_mtu);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_osd_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_osd_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_osd_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_osd_param);
+        public static extern Int32 sdk_set_osd_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_osd_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_blind_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_blind_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_blind_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_blind_param);
+        public static extern Int32 sdk_set_blind_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_blind_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_svc_stream_para(UInt32 handle, Int32 chn, Int32 stream_id, ref byte p_result);
+        public static extern Int32 sdk_get_svc_stream_para(IntPtr handle, Int32 chn, Int32 stream_id, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_roi_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_roi_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_roi_param(UInt32 handle, Int32 chn, Int32 stream, [MarshalAs(UnmanagedType.LPStr)] string p_roi_param);
+        public static extern Int32 sdk_set_roi_param(IntPtr handle, Int32 chn, Int32 stream, [MarshalAs(UnmanagedType.LPStr)] string p_roi_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_mot_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_mot_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_mot_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_mot_param);
+        public static extern Int32 sdk_set_mot_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_mot_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ip_filter_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_ip_filter_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ip_filter_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_ip_param);
+        public static extern Int32 sdk_set_ip_filter_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_ip_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_get_dev_list(ref byte p_json_out);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_protocol_security_param(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_protocol_security_param(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_protocol_security_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_protocol_security_param);
+        public static extern Int32 sdk_set_protocol_security_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_protocol_security_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_modify_password_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_system_user_param);
+        public static extern Int32 sdk_modify_password_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_system_user_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_create_login_password_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_creat_login_password_param);
+        public static extern Int32 sdk_create_login_password_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_creat_login_password_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_operator_privilege_user(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_user_list, ref byte p_result);
+        public static extern Int32 sdk_operator_privilege_user(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_user_list, ref byte p_result);
 
 
         //sensor
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_reset_sensor_param(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_reset_sensor_param(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_save_sensor_param(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_save_sensor_param(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_reset_sensor_to_last_param(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_reset_sensor_to_last_param(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_sensor_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_sensor_para);
+        public static extern Int32 sdk_set_sensor_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_sensor_para);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_sensor_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_sensor_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         // [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //   public static extern Int32 sdk_dev_abb_add_user_info(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
+        //   public static extern Int32 sdk_dev_abb_add_user_info(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
 
         //  [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //  public static extern Int32 sdk_dev_abb_delete_user_info(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
+        //  public static extern Int32 sdk_dev_abb_delete_user_info(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
 
         //  [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //public static extern Int32 sdk_dev_abb_modify_user_info(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
+        //public static extern Int32 sdk_dev_abb_modify_user_info(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        // public static extern Int32 sdk_dev_abb_check_user_info(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
+        // public static extern Int32 sdk_dev_abb_check_user_info(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //  public static extern Int32 sdk_dev_abb_update_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
+        //  public static extern Int32 sdk_dev_abb_update_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)]string p_abb_user_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_reboot(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_dev_reboot(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_reset(UInt32 handle, Int32 chn, Int32 type);
+        public static extern Int32 sdk_dev_reset(IntPtr handle, Int32 chn, Int32 type);
 
         //热成像
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_thermal_cap(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_get_thermal_cap(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_thermal_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_abb_user_info);
+        public static extern Int32 sdk_set_thermal_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_abb_user_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_thermal_area_temperature_measure(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_thermal_area_temperature_measure(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_area_temperature_measure(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_area_temperature_measure(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_area_feature_temperature(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_area_feature_temperature(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_one_point_temperature(UInt32 handle, Int32 chn, Int32 x, Int32 y, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_one_point_temperature(IntPtr handle, Int32 chn, Int32 x, Int32 y, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_any_point_temperature(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_any_point_temperature(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_map_relation(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_map_relation(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_map_relation(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_map_relation(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_temperature_calibration(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_temperature_calibration(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_temperature_calibration(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_temperature_calibration(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_version(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_version(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_test_thermal_bad_point_correct(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_test_thermal_bad_point_correct(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_thermal_bad_point_correct(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_set_thermal_bad_point_correct(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_reset_thermal_bad_point_correct(UInt32 handle, Int32 chn);
+        public static extern Int32 sdk_reset_thermal_bad_point_correct(IntPtr handle, Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_alarm_linkage_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_alarm_linkage_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_thermal_alarm_linkage_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_thermal_alarm_linkage_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_thermal_measurement_parameter(UInt32 handle, int channel, ref byte p_result);
+        public static extern Int32 sdk_get_thermal_measurement_parameter(IntPtr handle, int channel, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_thermal_measurement_parameter(UInt32 handle, int channel, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_thermal_measurement_parameter(IntPtr handle, int channel, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_thermal_live_start(UInt32 handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DETECT_CB detect_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_thermal_live_start(IntPtr handle, Int32 chn, Int32 stream_type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DETECT_CB detect_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_thermal_live_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_thermal_live_stop(IntPtr handle, Int32 stream_id);
 
 
 
         //人脸接口
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_face_detect_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_face_detect_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_face_detect_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_face_detect_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_detect_start(UInt32 handle, Int32 chn, Int32 stream_type, Int32 type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DETECT_CB detect_cb, IntPtr p_obj);
+        public static extern Int32 sdk_dev_face_detect_start(IntPtr handle, Int32 chn, Int32 stream_type, Int32 type, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_DETECT_CB detect_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_detect_stop(UInt32 handle, Int32 stream_id);
+        public static extern Int32 sdk_dev_face_detect_stop(IntPtr handle, Int32 stream_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_get_group_num(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_dev_face_get_group_num(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_get_member(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_dev_face_get_member(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_check_data(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_dev_face_check_data(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_get_statis(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_dev_face_get_statis(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_face_get_attendance_data(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, [MarshalAs(UnmanagedType.LPStr)] string path_file);
+        public static extern Int32 sdk_dev_face_get_attendance_data(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, [MarshalAs(UnmanagedType.LPStr)] string path_file);
 
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        // public static extern Int32 sdk_start_database(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)]SDK_FACEBASE_CB facebase_cb_func, IntPtr p_obj);
+        // public static extern Int32 sdk_start_database(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)]SDK_FACEBASE_CB facebase_cb_func, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_database_index(UInt32 handle, Int32 chn, byte[] face_data, Int32 size, [MarshalAs(UnmanagedType.LPStr)] string param, ref byte p_result);
+        public static extern Int32 sdk_dev_get_database_index(IntPtr handle, Int32 chn, byte[] face_data, Int32 size, [MarshalAs(UnmanagedType.LPStr)] string param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_get_database_info(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_dev_get_database_info(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         //[DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         //public static extern Int32 sdk_stop_database(UInt32 handle);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_start_face(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_FACE_CB face_cb, IntPtr p_obj);
+        public static extern Int32 sdk_start_face(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_FACE_CB face_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 sdk_stop_face(UInt32 handle);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_get_group(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_face_get_group(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_add_group(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
+        public static extern Int32 sdk_face_add_group(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_del_group(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
+        public static extern Int32 sdk_face_del_group(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_rename_group(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
+        public static extern Int32 sdk_face_rename_group(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_get_group_type(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_face_get_group_type(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_add_group_type(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
+        public static extern Int32 sdk_face_add_group_type(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_face_del_group_type(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
+        public static extern Int32 sdk_face_del_group_type(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_db_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_face_all_node(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_face_all_node(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_face_by_node(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_info);
+        public static extern Int32 sdk_get_face_by_node(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_info);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_channel_type(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_channel_type(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_channel_type(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_channel_type(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_lpr_detect_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_lpr_detect_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_lpr_detect_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_lpr_detect_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_lpr_link_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_lpr_link_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_lpr_link_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_lpr_link_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_add(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_lpr_ipfilter_list_add(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_delete(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_lpr_ipfilter_list_delete(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_modify(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_lpr_ipfilter_list_modify(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_lpr_ipfilter_list_num(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_lpr_ipfilter_list_num(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_lpr_ipfilter_list(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_lpr_ipfilter_list(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_search_open(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_lpr_ipfilter_list_search_open(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_search_get(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_lpr_ipfilter_list_search_get(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_search_close(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_lpr_ipfilter_list_search_close(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         // [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        //  public static extern Int32 sdk_lpr_ipfilter_list_file_upload(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_param);
+        //  public static extern Int32 sdk_lpr_ipfilter_list_file_upload(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)]string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_lpr_ipfilter_list_file_download(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_lpr_ipfilter_list_file_download(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ai_multi_object_detect_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ai_multi_object_detect_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ai_multi_object_detect_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ai_multi_object_detect_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ai_multi_object_detect_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ai_multi_object_detect_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_device_log(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref IntPtr p_result);
+        public static extern Int32 sdk_get_device_log(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref IntPtr p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_version(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_version(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_perimeter_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_perimeter_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_svf_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_svf_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_dvf_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_dvf_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_loiter_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_loiter_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_multi_loiter_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_multi_loiter_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_object_left_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_object_left_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_object_removed_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_object_removed_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_abnormal_speed_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_abnormal_speed_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_converse_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_converse_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_legal_parking_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_legal_parking_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_signal_bad_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_signal_bad_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_advanced_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_advanced_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_perimeter_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_perimeter_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_perimeter_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_perimeter_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_svf_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_svf_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_svf_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_svf_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_dvf_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_dvf_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_dvf_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_dvf_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_loiter_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_loiter_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_loiter_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_loiter_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_multi_loiter_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_multi_loiter_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_multi_loiter_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_multi_loiter_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_object_left_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_object_left_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_object_left_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_object_left_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_object_removed_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_object_removed_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_object_removed_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_object_removed_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_abnormal_speed_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_abnormal_speed_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_abnormal_speed_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_abnormal_speed_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_converse_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_converse_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_converse_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_converse_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_legal_parking_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_legal_parking_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_legal_parking_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_legal_parking_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_signal_bad_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_signal_bad_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_signal_bad_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_signal_bad_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_ia_advanced_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_ia_advanced_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_ia_advanced_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_ia_advanced_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_fisheye_ability(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_fisheye_ability(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_fisheye_param(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_fisheye_param(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_fisheye_param(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_fisheye_param(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_fisheye_video_layout(UInt32 handle, Int32 chn, ref byte p_result);
+        public static extern Int32 sdk_get_fisheye_video_layout(IntPtr handle, Int32 chn, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_open_microphone(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MICROPHONE_CB microphone_cb, IntPtr p_obj);
+        public static extern Int32 sdk_open_microphone(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MICROPHONE_CB microphone_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_dev_send_audio_data(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, Int32 audio_len);
-        // public static extern Int32 sdk_dev_send_audio_data(UInt32 handle, IntPtr  p_param, Int32 audio_len);
+        public static extern Int32 sdk_dev_send_audio_data(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param, Int32 audio_len);
+        // public static extern Int32 sdk_dev_send_audio_data(IntPtr handle, IntPtr  p_param, Int32 audio_len);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_close_microphone(UInt32 handle, Int32 audio_id);
+        public static extern Int32 sdk_close_microphone(IntPtr handle, Int32 audio_id);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_wifi_conn_hots(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_wifi_conn_hots(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_disk_format(UInt32 handle, Int32 chn, Int32 diskid);
+        public static extern Int32 sdk_disk_format(IntPtr handle, Int32 chn, Int32 diskid);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
         public static extern Int32 format(Int32 chn);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_update_ipc(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_path);
+        public static extern Int32 sdk_update_ipc(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_path);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_update_nvr(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_path);
+        public static extern Int32 sdk_update_nvr(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_path);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_mutil_object_downlow_pic_open(UInt32 handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MUTI_OBJ_DOWNLOAD_CB cb, IntPtr p_obj);
+        public static extern Int32 sdk_mutil_object_downlow_pic_open(IntPtr handle, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MUTI_OBJ_DOWNLOAD_CB cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_nvr_realtime_compare_start(UInt32 handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MUTI_COMPARE_CB detect_cb, IntPtr p_obj);
+        public static extern Int32 sdk_nvr_realtime_compare_start(IntPtr handle, Int32 chn, [MarshalAs(UnmanagedType.LPStr)] string p_param, [MarshalAs(UnmanagedType.FunctionPtr)] SDK_MUTI_COMPARE_CB detect_cb, IntPtr p_obj);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_group_compare_alarm_strategy_param(UInt32 handle, Int32 stratege_type, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
+        public static extern Int32 sdk_get_group_compare_alarm_strategy_param(IntPtr handle, Int32 stratege_type, [MarshalAs(UnmanagedType.LPStr)] string p_param, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_group_compare_alarm_strategy_param(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_group_compare_alarm_strategy_param(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_person_temperature_strategy(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_person_temperature_strategy(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_person_temperature_strategy(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_person_temperature_strategy(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_get_mask_detect_strategy(UInt32 handle, ref byte p_result);
+        public static extern Int32 sdk_get_mask_detect_strategy(IntPtr handle, ref byte p_result);
 
         [DllImport(SdkDll, CharSet = CharSet.Ansi, CallingConvention = CallingConv)]
-        public static extern Int32 sdk_set_mask_detect_strategy(UInt32 handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
+        public static extern Int32 sdk_set_mask_detect_strategy(IntPtr handle, [MarshalAs(UnmanagedType.LPStr)] string p_param);
 
         [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct _time_struct_

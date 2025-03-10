@@ -9,6 +9,7 @@ using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
 using System.Windows.Forms;
 
@@ -58,8 +59,10 @@ namespace LiveView.Presenters
             {
                 TemplateName = view.TbTemplateName.Text
             });
-            SaveProcesses(templateId, Process.GetProcessesByName("Sequence"));
-            SaveProcesses(templateId, Process.GetProcessesByName("Camera"));
+            var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
+            SaveProcesses(templateId, Process.GetProcessesByName(sequence));
+            var cameraApp = Path.GetFileNameWithoutExtension(Core.Constants.CameraAppExe);
+            SaveProcesses(templateId, Process.GetProcessesByName(cameraApp));
             logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' has been saved.", view.TbTemplateName.Text);
             Load();
         }

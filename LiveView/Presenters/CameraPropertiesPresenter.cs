@@ -45,9 +45,8 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var fullscreenModes = Enum.GetValues(typeof(CameraMode))
-                .Cast<CameraMode>()
-                .Select(fullscreenMode => Lng.Elem(fullscreenMode.GetDescription()));
+            var fullscreenModes = Database.Extensions.EnumExtensions.GetEnabledValues<CameraMode>()
+                .Select(mode => Lng.Elem(mode.GetDescription()));
             view.AddItems(view.CbFullscreenMode, fullscreenModes);
 
             view.TbCameraName.Text = view.Camera.CameraName;

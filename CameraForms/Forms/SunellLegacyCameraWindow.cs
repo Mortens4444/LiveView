@@ -9,6 +9,7 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.Sunell.IPR66.CustomEventArgs;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -177,7 +178,14 @@ namespace CameraForms.Forms
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             sunellVideoWindowLegacy1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
 
+            sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
             sunellVideoWindowLegacy1.Connect(this, sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+        }
+
+        private void SunellVideoWindowLegacy1_VideoSignalChanged(object sender, VideoSignalChangedEventArgs e)
+        {
+            Invoke((Action)(() => sunellVideoWindowLegacy1.Visible = e.HasSignal));
+
         }
 
         private void OnExit()

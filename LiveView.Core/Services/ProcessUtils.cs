@@ -1,6 +1,7 @@
 ﻿using LiveView.Core.Enums.Window;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace LiveView.Core.Services
 {
@@ -11,11 +12,14 @@ namespace LiveView.Core.Services
             var handles = WinAPI.FindMainWindows(processes);
             foreach (var process in processes)
             {
-                if (!process.HasExited)
+                Task.Run(() =>
                 {
-                    var handle = handles[process];
-                    WinAPI.ShowWindow(handle, cmdShow);
-                }
+                    if (!process.HasExited)
+                    {
+                        var handle = handles[process];
+                        WinAPI.ShowWindow(handle, cmdShow);
+                    }
+                });
             }
         }
 

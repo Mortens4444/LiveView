@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Controls" Version="1.0.39" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.31" />
     <PackageReference Include="Mtf.Network" Version="1.0.37" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.20" />

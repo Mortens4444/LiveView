@@ -131,11 +131,18 @@ namespace LiveView.Presenters
             switch (cameraProcessInfo.CameraMode)
             {
                 case CameraMode.AxVideoPlayer:
+                case CameraMode.SunellCamera:
+                case CameraMode.SunellLegacyCamera:
+                case CameraMode.FFMpeg:
+                case CameraMode.OpenCvSharp:
+                case CameraMode.OpenCvSharp4:
+                case CameraMode.MortoGraphy:
+                case CameraMode.Vlc:
                     parameters = new[]
                     {
                             userId.ToString(),
                             cameraProcessInfo.CameraId.ToString(),
-                            ((int)CameraMode.AxVideoPlayer).ToString()
+                            ((int)cameraProcessInfo.CameraMode).ToString()
                     };
                     break;
                 case CameraMode.VideoSource:
@@ -381,7 +388,7 @@ namespace LiveView.Presenters
                 }
                 catch (Exception ex)
                 {
-                    ShowError(ex.Message);
+                    ShowError($"{ex.Message} ({watchdogPort})");
                 }
             }
         }

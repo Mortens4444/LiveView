@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Services
@@ -17,10 +18,13 @@ namespace LiveView.Core.Services
         {
             foreach (var form in forms)
             {
-                mdiParent.Invoke((Action)(() =>
+                Task.Run(() =>
                 {
-                    ShowWindow(form.Handle, SW_SHOW);
-                }));
+                    mdiParent.Invoke((Action)(() =>
+                    {
+                        ShowWindow(form.Handle, SW_SHOW);
+                    }));
+                });
             }
         }
 

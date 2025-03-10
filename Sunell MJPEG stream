@@ -1,0 +1,36 @@
+Working:
+--------
+http://192.168.0.202/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MSZtanBlZ3BsYXk9MUAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ==&mjpegplay=1
+
+Base64 decoded Auth:
+--------------------
+admin@SNL_CGI To 1AE666@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&mjpegplay=1@2bc214aeedcf62e9dc0f3d7b312f3b0e
+
+Hashes in decoded string
+------------------------
+7a5aee96e45016dbb44abd68b9d1fbb8
+2bc214aeedcf62e9dc0f3d7b312f3b0e
+
+Forged non-MJPEG:
+-----------------
+http://192.168.0.202/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MSZtanBlZ3BsYXk9MEAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ==&mjpegplay=0 => Error,return=-8
+
+Not working:
+------------
+http://192.168.0.201/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAwOUEzQkJAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MSZtanBlZ3BsYXk9MUAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ==&mjpegplay=1 => Error,return=-8
+
+http://192.168.0.201/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MUAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ== => Error,return=-8
+
+Forged Base64 encoded Auth:
+---------------------------
+admin@SNL_CGI To 09A3BB@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&mjpegplay=1@2bc214aeedcf62e9dc0f3d7b312f3b0e
+
+
+
+
+
+Other
+-----
+cgi-bin/image.cgi?userName=#USERNAME&password=#PASSWORD&cameraID=1&quality=1
+http://192.168.0.202/cgi-bin/image.cgi?userName=admin&password=Tibi2025&cameraID=1&quality=1
+

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            openCvSharpVideoWindow = new Mtf.Controls.Video.OpenCvSharpVideoWindow();
+            openCvSharpVideoWindow = new Mtf.Controls.Video.OpenCvSharp.OpenCvSharpVideoWindow();
             ((System.ComponentModel.ISupportInitialize)openCvSharpVideoWindow).BeginInit();
             SuspendLayout();
             // 
@@ -69,6 +69,6 @@
 
         #endregion
 
-        private Mtf.Controls.Video.OpenCvSharpVideoWindow openCvSharpVideoWindow;
+        private Mtf.Controls.Video.OpenCvSharp.OpenCvSharpVideoWindow openCvSharpVideoWindow;
     }
 }

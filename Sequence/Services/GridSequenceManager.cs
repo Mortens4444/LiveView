@@ -165,14 +165,17 @@ namespace Sequence.Services
             var result = new List<Form>();
             foreach (var camera in gridCameras)
             {
-                if (parentForm.InvokeRequired)
+                Task.Run(() =>
                 {
-                    parentForm.Invoke((Action)(() => ShowVideoWindow(result, camera, gridInSequence)));
-                }
-                else
-                {
-                    ShowVideoWindow(result, camera, gridInSequence);
-                }
+                    if (parentForm.InvokeRequired)
+                    {
+                        parentForm.Invoke((Action)(() => ShowVideoWindow(result, camera, gridInSequence)));
+                    }
+                    else
+                    {
+                        ShowVideoWindow(result, camera, gridInSequence);
+                    }
+                });
             }
             return result;
         }
@@ -275,43 +278,46 @@ namespace Sequence.Services
 
             foreach (var camera in cameras)
             {
-                var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
+                Task.Run(() =>
                 {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoPictureCameraInfo.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is VideoCaptureSourceCameraInfo videoCatureSourceCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoCatureSourceCameraInfo.ServerIp} {videoCatureSourceCameraInfo.VideoSourceName} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {fFMpegCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {mortoGraphyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is VlcCameraInfo vlcCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {vlcCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharpCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharp4CameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is SunellCameraInfo sunellCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
-                else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
-                {
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellLegacyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                }
+                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
+                    if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoPictureCameraInfo.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is VideoCaptureSourceCameraInfo videoCatureSourceCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoCatureSourceCameraInfo.ServerIp} {videoCatureSourceCameraInfo.VideoSourceName} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {fFMpegCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {mortoGraphyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is VlcCameraInfo vlcCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {vlcCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharpCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharp4CameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is SunellCameraInfo sunellCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                    else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
+                    {
+                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellLegacyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    }
+                });
             }
             return result;
         }

@@ -163,7 +163,6 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
-            mortoGraphyWindow.Start(url);
             var userId = permissionManager.CurrentUser.Tag.Id;
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -172,10 +171,10 @@ namespace CameraForms.Forms
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
 
             var cameraName = personalOptionsRepository.GetCameraName(userId, url);
-
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
             mortoGraphyWindow.OverlayText = cameraName;
+            mortoGraphyWindow.Start(url);
         }
 
         private void OnExit()

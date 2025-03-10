@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-//using Mtf.Controls.Extensions;
+using Mtf.Controls.Extensions;
 
 namespace Mtf.Controls.Sunell.IPR66
 {
@@ -54,26 +54,42 @@ namespace Mtf.Controls.Sunell.IPR66
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
 
+            HandleCreated += SunellVideoWindowLegacy_HandleCreated;
+        }
+
+        private void SunellVideoWindowLegacy_HandleCreated(object sender, EventArgs e)
+        {
             SetLabelProperties();
-            Controls.Add(label);
         }
 
         private void SetLabelProperties()
         {
-            label = new Label
+            if (IsHandleCreated)
             {
-                Text = OverlayText,
-                ForeColor = Color.White,
-                BackColor = Color.Transparent,
-                Font = OverlayFont,
-                Parent = Parent,
-                Location = OverlayLocation,
-                //AutoSize = true,
-                AutoSize = false,
-                MaximumSize = new Size(Width, 0),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-            label.BringToFront();
+                Invoke((Action)(() =>
+                {
+                    if (label != null)
+                    {
+                        Controls.Remove(label);
+                    }
+
+                    label = new Label
+                    {
+                        Text = OverlayText,
+                        ForeColor = OverlayBrush.ToColor(),
+                        BackColor = Color.Transparent,
+                        Font = OverlayFont,
+                        Parent = Parent,
+                        Location = OverlayLocation,
+                        AutoSize = false,
+                        MaximumSize = new Size(Width, 0),
+                        TextAlign = ContentAlignment.MiddleLeft
+                    };
+                    Controls.Add(label);
+                    label.BringToFront();
+                    Invalidate();
+                }));
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -97,7 +113,6 @@ namespace Mtf.Controls.Sunell.IPR66
                 {
                     overlayText = value;
                     SetLabelProperties();
-                    Invalidate();
                 }
             }
         }
@@ -114,7 +129,6 @@ namespace Mtf.Controls.Sunell.IPR66
                 {
                     overlayFont = value;
                     SetLabelProperties();
-                    Invalidate();
                 }
             }
         }
@@ -131,7 +145,6 @@ namespace Mtf.Controls.Sunell.IPR66
                 {
                     overlayBrush = value;
                     SetLabelProperties();
-                    Invalidate();
                 }
             }
         }
@@ -148,7 +161,6 @@ namespace Mtf.Controls.Sunell.IPR66
                 {
                     overlayLocation = value;
                     SetLabelProperties();
-                    Invalidate();
                 }
             }
         }
@@ -416,7 +428,7 @@ namespace Mtf.Controls.Sunell.IPR66
         {
             if (SetVideoWindow())
             {
-                Invoke((Action)(() => { Invalidate(); }));
+                Invoke((Action)(() => Invalidate()));
             }
         }
 

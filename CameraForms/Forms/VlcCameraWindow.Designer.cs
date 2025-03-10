@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            vlcWindow = new Mtf.Controls.Video.VlcWindow();
+            vlcWindow = new Mtf.Controls.Video.VLC.VlcWindow();
             ((System.ComponentModel.ISupportInitialize)vlcWindow).BeginInit();
             SuspendLayout();
             // 
@@ -68,6 +68,6 @@
 
         #endregion
 
-        private Mtf.Controls.Video.VlcWindow vlcWindow;
+        private Mtf.Controls.Video.VLC.VlcWindow vlcWindow;
     }
 }
