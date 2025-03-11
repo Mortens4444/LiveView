@@ -213,7 +213,7 @@ namespace Sequence.Services
                 else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
+                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
                     {
                         MdiParent = parentForm
                     };

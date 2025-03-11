@@ -15,6 +15,13 @@ Forged non-MJPEG:
 -----------------
 http://192.168.0.202/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MSZtanBlZ3BsYXk9MEAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ==&mjpegplay=0 => Error,return=-8
 
+http://192.168.0.202/cgi-bin/video.cgi?type=RTSP&cameraID=1&EncoderType=H264&AudioFlag=0&User=CustomAuthAuth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vcGFyYW0uY2dpP1VzZXI9Q3VzdG9tQXV0aEAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ== => Error,return=-402
+
+http://192.168.0.202/cgi-bin/video.cgi?type=RTSP&cameraID=1&streamID=1&EncoderType=H264&AudioFlag=0&userName=admin&password=Tibi2025
+http://192.168.0.202/cgi-bin/video.cgi?type=RTSP&cameraID=1&EncoderType=H264&AudioFlag=0&User=CustomAuthAuth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP3R5cGU9UlRTUCZjYW1lcmFJRD0xJnN0cmVhbUlEPTEmRW5jb2RlclR5cGU9SDI2NCZBdWRpb0ZsYWc9MCZVc2VyPUN1c3RvbUF1dGhAMmJjMjE0YWVlZGNmNjJlOWRjMGYzZDdiMzEyZjNiMGU=
+
+admin@SNL_CGI To 1AE666@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/video.cgi?User=CustomAuth@2bc214aeedcf62e9dc0f3d7b312f3b0e
+
 Not working:
 ------------
 http://192.168.0.201/cgi-bin/video.cgi?User=CustomAuth&type=http&cameraID=1&Auth=YWRtaW5AU05MX0NHSSBUbyAwOUEzQkJAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vdmlkZW8uY2dpP1VzZXI9Q3VzdG9tQXV0aCZ0eXBlPWh0dHAmY2FtZXJhSUQ9MSZtanBlZ3BsYXk9MUAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ==&mjpegplay=1 => Error,return=-8
@@ -31,6 +38,191 @@ admin@SNL_CGI To 09A3BB@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/video.cgi?User
 
 Other
 -----
-cgi-bin/image.cgi?userName=#USERNAME&password=#PASSWORD&cameraID=1&quality=1
-http://192.168.0.202/cgi-bin/image.cgi?userName=admin&password=Tibi2025&cameraID=1&quality=1
+Snapshot
+http://<servername>/cgi-bin/image.cgi?userName=<username>&password=<password>&cameraID=<cameraID>&quality=<quality>
+http://192.168.0.202/cgi-bin/image.cgi?userName=admin&password=Tibi2025&cameraID=1&quality=9
+http://192.168.0.202/cgi-bin/image.cgi?cameraID=1&quality=1&User=CustomAuthAuth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vcGFyYW0uY2dpP1VzZXI9Q3VzdG9tQXV0aEAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ== => admin@SNL_CGI To 1AE666@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/param.cgi?User=CustomAuth@2bc214aeedcf62e9dc0f3d7b312f3b0e
 
+GetDeviceInfo
+http://192.168.0.202/cgi-bin/param.cgi?userName=admin&password=Tibi2025&action=get&type=deviceInfo
+http://192.168.0.202/cgi-bin/param.cgi?action=get&type=deviceInfo&User=CustomAuthAuth=YWRtaW5AU05MX0NHSSBUbyAxQUU2NjZAN2E1YWVlOTZlNDUwMTZkYmI0NGFiZDY4YjlkMWZiYjhAL2NnaS1iaW4vcGFyYW0uY2dpP1VzZXI9Q3VzdG9tQXV0aEAyYmMyMTRhZWVkY2Y2MmU5ZGMwZjNkN2IzMTJmM2IwZQ== => admin@SNL_CGI To 1AE666@7a5aee96e45016dbb44abd68b9d1fbb8@/cgi-bin/param.cgi?User=CustomAuth@2bc214aeedcf62e9dc0f3d7b312f3b0e
+
+Get RTSP stream
+http://192.168.0.202/cgi-bin/video.cgi?type=RTSP&cameraID=1&streamID=1&EncoderType=H264&AudioFlag=0&userName=admin&password=Tibi2025
+
+Recording
+http://<servername>/cgi-bin/record.cgi?userName=<username>&password=<password>&action=query&cameraID=<cameraID>&startTime=<startTime>&endTime=<endTime >
+http://<servername>/cgi-bin/record.cgi?userName=<username>&password=<password>&action=query&type=bookmarkRecord&cameraID=<cameraID>&startTime=<startTime>&endTime=<endTime>
+http://<servername>/cgi-bin/record.cgi?userName=<username>&password=<password>&action=playBack&startTime=<startTime>&endTime=<endTime>
+http://192.168.0.202/cgi-bin/record.cgi?userName=admin&password=Tibi2025&action=query&cameraID=1&startTime=20250311104000&endTime=20250311104200&dataLenth=1024&resultCount=10
+http://192.168.0.202/cgi-bin/record.cgi?userName=admin&password=Tibi2025&action=playback&cameraID=1&startTime=20250311104000&endTime=20250311104200&dataLenth=1024&resultCount=10
+
+Alarm information
+http://192.168.0.202/cgi-bin/alarm.cgi?userName=admin&password=Tibi2025&action=get&type=currentAlarmStatus
+http://192.168.0.202/cgi-bin/alarm.cgi?userName=admin&password=Tibi2025&action=attach&type=currentAlarmStatus
+http://192.168.0.202/cgi-bin/alarm.cgi?userName=admin&password=Tibi2025&action=manual&type=currentAlarmStatus&alarmInID=1&alarmAttionFlag=1&AlarmSourceType=1
+http://<servername>/cgi-bin/alarm.cgi?userName=<username>&password=<password>&action=manualControl&alarmOutID=1&controlFlag=1
+
+PTZ
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=<cameraID>&action=<action> [&<argument>=<value>...]
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=stop
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=rotate
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=zoom
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=focusFar
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=focusNear
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=runAutoFocus
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=irisIncrease
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=irisDecrease
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=runAutoIris
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=presetAdd
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=presetInvoke
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=presetDelete
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=listPrest
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=trackAddBegin
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=trackAddEnd
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=trackInvoke
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=trackDelete
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=listTrack
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=scanAddBegin
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=scanAddEnd
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=scanInvoke
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=scanDelete
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=listScan
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourAdd
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourAddBegin
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourAddPreset
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourAddEnd
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourRun
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourStop
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=tourDelete
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=listTour
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=keeperSet
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=keeperRun
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=getPosition
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=setPosition
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&cameraID=1&action=setNorthPosition
+
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&&action=zoom&cameraID=1&pan=1&PTZID=1
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&&action=zoom&cameraID=1&pan=-1&PTZID=1
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&&action=zoom&cameraID=1&pan=60&PTZID=1
+http://192.168.0.202/cgi-bin/ptz.cgi?userName=admin&password=Tibi2025&&action=zoom&cameraID=1&pan=-60&PTZID=1
+
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=stop&cameraID=1&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=rotate&pan=-60&tilt=0&cameraID=1&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=rotate&pan=-60&tilt=60&cameraID=1&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=presetAdd&presetID=<preset ID>&presetName=<presetName>&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=presetInvoke&presetID=<preset ID>&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=presetDelete&presetID=<preset ID>&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=listPreset&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=listPreset&[PTZID=<PTZID>]
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=trackAddEnd&trackID=<trackID>&trackName=<trackName>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=trackInvoke&trackID=<trackID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=trackDelete&trackID=<trackID>
+http://<servername>/cgi-bin/ptz.cgi?userName=admin&password=<password>&cameraID=1&action=listTrack
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=scanAddBegin&scanID=<scanID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=scanAddEnd&scanID=<scanID>&scanName=<scanName>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=scanInvoke&scanID=<scanID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=scanDelete&scanID=<scanID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=listScan
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=tourAddBegin&tourID=<tourID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=tourAddPreset&tourID=<tourID>&presetID=<presetID>&speed=<speed>&time=<time>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=tourAddEnd&tourID=<tourID>&tourName=<tourName>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=tourRun&tourID=<tourID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=tourDelete&tourID=<tourID>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=listTour
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=keeperSet&keeperType=<keeperType>&keeperID=<keeperID>&time=<time>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=getKeeper
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=keeperRun&StatusId=0
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&action=getPosition
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=setPosition&pan=<pan>&tilt=<tilt>&zoom=<zoom>
+http://<servername>/cgi-bin/ptz.cgi?userName=<username>&password=<password>&cameraID=1&action=setNorthPosition
+
+Misc
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=<action>&type=<type>[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=deviceInfo
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>& action =set&type= deviceName [&deviceName=< deviceName >]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= localNetwork&IPProtoVer=<IPProtoVer>[&netCardId=<netCardId>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=localNetwork&netCardId=<netCardId>&IPProtoVer=<IPProtoVer>[&<argument>=<value>...]
+http://192.168.1.20/cgi-bin/param.cgi?userName=admin&password=admin&action=set&type=localNetwork&netCardId=1&IPProtoVer=1&IPAddress=192.168.1.21&subNetmask=255.255.255.0&subGetway=192.168.1.1&preferredDNS=128.0.0.1&alternateDNS=128.0.0.2
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type= WI-FI
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type= WI-FI [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= ADSLNetwork &IPProtoVer=<IPProtoVer>
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=devicePort
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type= devicePort[&<argument>=<value>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=cameraInfo[& cameraID =<cameraID>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=cameraInfo& cameraID =<cameraID>[&cameraName =<cameraName>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=dateTime
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=dateTime [&<argument>=<value>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=timeZone 
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=timeZone [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=OSD& cameraID =< cameraID >
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=OSD&cameraID=<cameraID>[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=OSDCanvas& cameraID =< cameraID >& canvasID =< canvasID >
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=OSDCanvas&cameraID=<cameraID>& canvasID =< canvasID >
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= microphone [&cameraID=< cameraID>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=microphone&cameraID=<cameraID>[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=IPDomePTZID&cameraID=< cameraID>
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=IPDomePTZID &cameraID=< cameraID>[&domePTZId=<domePTZId>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=deviceDiskInfo
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= PTZTimer&cameraID=<cameraID>
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=PTZTimer&cameraID=<cameraID>[&<argument>=<value>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=PTZTimer&cameraID=1&enableFlag=1&mode=1&timerAction=cover&timerBegin=1&operatorType=16&operatorValue=3&timeSegmentBegin=1200&timeSegmentEnd=3600&nextTimeSegmentFlag=2&operatorType=19&operatorValue=4&timeSegmentBegin=5000&timeSegmentEnd=8600&timerEnd=2
+http://<servername>/cgi-bin/param.cgi?userName=<userName>&password=<password>&action=get&type=AVStream&cameraID=<cameraID>&streamID=<streamID>
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=AVStream&cameraID=<cameraID>&streamID=<streamID>[&<argument>=<value>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=streamAbility&cameraID=<cameraID>[&streamID=<streamID>]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=recordPolicy&cameraID=<cameraID>
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=recordPolicy&cameraID=<cameraID>& StreamId =< StreamId >
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=recordDirInfo[&diskId=<diskId>]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=recordDirInfo&diskId=1&enableFlag=1&diskName=diskName&alarmThreshold=90&groupID=1&fileSystemFormat=1
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=alarmOut &alarmOutID=<alarmOutID>
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=alarmOut [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=alarmCenter&IPProtoVer=< IPProtoVer >
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=alarmCenter&IPProtoVer=<IPProtoVer> [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=motionAlarm&cameraID =<cameraID>
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=motionAlarm&cameraID =1[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=IOalarmLinkage&alarmInID=1
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=IOalarmLinkage &alarmInID=1[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=diskAlarm&alarmInID=1
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=diskAlarm&alarmInID=1 [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=blindArea&cameraID=1
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=blindArea&cameraID=1 [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password> action=delete&type=blindArea&cameraID=1 [&<argument>=<value>...]
+http://192.168.0.168:64003/cgi-bin/param.cgi?userName=admin&password=admin& action=delete&&type=blindArea&cameraID=1&areaID=1
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type= PTZ&cameraID=< cameraID >
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type= PTZ [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=PTZKeyboard
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=PTZKeyboard[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=RS485Device&comID=1
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=RS485Device&comID=1[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=SMTP
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=SMTP [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type=NTP
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=NTP [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=DDNS
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=set&type=DDNS [&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=PPPoE
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=PPPoE[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=get&type=UPNP
+http://<servername>/cgi-bin/param.cgi?userName=<user name>&password=<password>&action=set&type=UPNP[&<argument>=<value>...]
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= protocolInfo
+http://<servername>/cgi-bin/param.cgi?userName=<username>&password=<password>&action=get&type= protocolSecurity
+http://<servername>/cgi-bin/operate.cgi?userName=<username>&password=<password>&action=reset
+http://<servername>/cgi-bin/operate.cgi?userName=<username>&password=<password>&action=reset
+http://<servername>/cgi-bin/operate.cgi?userName=<username>&password=<password>&action=restart
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=brightness
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=brightnessRange
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=brightness&value=%d
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=contrast
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type= contrastRange
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=contrast&value=%d
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=hue
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type= hueRange
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=hue&value=%d
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=saturation
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type=saturationRange
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=saturation&value=%d
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type= sharpness
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type= sharpnessRange
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=sharpness&value=%d
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=get&type= mirror
+http://<servername>/cgi-bin/sensor.cgi?userName=<username>&password=<password>&action=set&type=mirror&vertical=%d&horizontal=%d

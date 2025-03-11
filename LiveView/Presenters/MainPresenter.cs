@@ -109,18 +109,25 @@ namespace LiveView.Presenters
             var cameraProcesses = Process.GetProcessesByName(camera);
             foreach (var cameraProcess in Globals.CameraProcessInfo)
             {
-                var protectedParameters = GetProtectedParameters(permissionManager.CurrentUser.Tag.Id, cameraProcess.Value);
-                if (LocalIpAddressChecker.IsLocal(cameraProcess.Key.RemoteEndPoint.ToString()))
+                try
                 {
-                    if (!cameraProcesses.Any(sp => sp.Id == cameraProcess.Value.ProcessId))
+                    var protectedParameters = GetProtectedParameters(permissionManager.CurrentUser.Tag.Id, cameraProcess.Value);
+                    if (LocalIpAddressChecker.IsLocal(cameraProcess.Key.RemoteEndPoint.ToString()))
                     {
-                        Globals.CameraProcessInfo.TryRemove(cameraProcess.Key, out _);
-                        ControlCenterPresenter.CameraProcess = Globals.ControlCenter.StartCamera(protectedParameters);
+                        if (!cameraProcesses.Any(sp => sp.Id == cameraProcess.Value.ProcessId))
+                        {
+                            Globals.CameraProcessInfo.TryRemove(cameraProcess.Key, out _);
+                            ControlCenterPresenter.CameraProcess = Globals.ControlCenter.StartCamera(protectedParameters);
+                        }
+                    }
+                    else
+                    {
+                        SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                    DebugErrorBox.Show(ex);
                 }
             }
         }
@@ -536,9 +543,9 @@ namespace LiveView.Presenters
                             CameraMode = (CameraMode)Convert.ToInt32(messageParts[6])
                         });
                     }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}|"))
+                    else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}"))
                     {
-                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
+                        Globals.CameraProcessInfo.TryRemove(e.Socket, out CameraProcessInfo cameraProcessInfo);
                     }
                     else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
                     {
@@ -738,15 +745,36 @@ namespace LiveView.Presenters
             ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
             foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
             {
-                Globals.Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
+                try
+                {
+                    Globals.Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
             foreach (var cameraProcess in Globals.CameraProcesses)
             {
-                SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcess.Value);
+                try
+                {
+                    SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcess.Value);
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
+                try
+                {
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
         }
 

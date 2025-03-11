@@ -83,7 +83,7 @@ namespace CameraApp
                                 break;
                             case CameraMode.MortoGraphy:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, null))
+                                using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
@@ -158,7 +158,7 @@ namespace CameraApp
                                     break;
                                 case CameraMode.MortoGraphy:
                                     _ = Sdk.sdk_dev_init(null);
-                                    using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, displayId))
+                                    using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
@@ -271,7 +271,7 @@ namespace CameraApp
                                 break;
                             case CameraMode.MortoGraphy:
                                 _ = Sdk.sdk_dev_init(null);
-                                using (var form = new MortoGraphyWindow(serviceProvider, userId, cameraId, rectangle))
+                                using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }

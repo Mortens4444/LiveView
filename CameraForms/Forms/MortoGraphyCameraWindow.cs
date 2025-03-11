@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace CameraForms.Forms
 {
-    public partial class MortoGraphyWindow: Form
+    public partial class MortoGraphyCameraWindow : Form
     {
         private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -28,7 +28,7 @@ namespace CameraForms.Forms
         private string url;
         private Client client;
 
-        public MortoGraphyWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -41,7 +41,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
         }
 
-        public MortoGraphyWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public MortoGraphyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -56,7 +56,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, display, true);
         }
 
-        public MortoGraphyWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public MortoGraphyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

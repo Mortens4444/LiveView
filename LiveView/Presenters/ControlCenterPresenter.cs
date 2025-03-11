@@ -71,6 +71,14 @@ namespace LiveView.Presenters
         {
             if (view.CbAgents.SelectedIndex == 0)
             {
+                foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
+                {
+                    if (cameraProcessInfo.Value.ProcessId == CameraProcess.Id)
+                    {
+                        Globals.CameraProcessInfo.TryRemove(cameraProcessInfo.Key, out _);
+                        break;
+                    }
+                }
                 ProcessUtils.Kill(CameraProcess);
                 CameraProcess = null;
             }
@@ -415,7 +423,14 @@ namespace LiveView.Presenters
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });
             foreach (var process in processes)
             {
-                sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters, logger));
+                if (process.ProcessName == Core.Constants.CameraAppExe)
+                {
+                    CameraProcess = AppStarter.Start(process.ProcessName, process.ProcessParameters, logger);
+                }
+                else
+                {
+                    sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters, logger));
+                }
             }
         }
 

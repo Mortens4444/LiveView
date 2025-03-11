@@ -37,7 +37,7 @@ namespace LiveView.Presenters
             view.Camera.Password = view.TbCameraPassword.Password;
             view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
-            view.Camera.FullscreenMode = (CameraMode)view.CbFullscreenMode.SelectedIndex;
+            view.Camera.FullscreenMode = (CameraMode)Enum.Parse(typeof(CameraMode), view.CbFullscreenMode.SelectedItem.ToString());
 
             cameraRepository.Update(view.Camera);
             logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' properties has been changed.", view.Camera.CameraName);
@@ -56,7 +56,15 @@ namespace LiveView.Presenters
             view.TbCameraPassword.Password = view.Camera.Password;
             view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
-            view.CbFullscreenMode.SelectedIndex = (int)view.Camera.FullscreenMode;
+            if (Enum.TryParse(view.Camera.FullscreenMode.ToString(), out CameraMode cameraMode))
+            {
+                view.CbFullscreenMode.SelectedItem = cameraMode;
+            }
+            else
+            {
+                view.CbFullscreenMode.SelectedIndex = 0;
+            }
+            ////view.CbFullscreenMode.SelectedItem = view.Camera.FullscreenMode;
         }
     }
 }
