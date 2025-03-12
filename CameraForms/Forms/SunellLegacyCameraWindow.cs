@@ -9,6 +9,7 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.Extensions;
 using Mtf.Controls.Sunell.IPR66.CustomEventArgs;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -24,11 +25,12 @@ namespace CameraForms.Forms
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly PermissionManager<User> permissionManager;
 
-        private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
         private Client client;
+        private Label label;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle)
         {
@@ -162,6 +164,26 @@ namespace CameraForms.Forms
             }
         }
 
+        public void SetOsd()
+        {
+            Invoke((Action)(() =>
+            {
+                label = new Label
+                {
+                    Text = sunellVideoWindowLegacy1.OverlayText,
+                    ForeColor = sunellVideoWindowLegacy1.OverlayColor,
+                    BackColor = sunellVideoWindowLegacy1.OverlayBackgroundColor,
+                    Font = sunellVideoWindowLegacy1.OverlayFont,
+                    Parent = Parent,
+                    Location = sunellVideoWindowLegacy1.OverlayLocation,
+                    AutoSize = true
+                };
+                Controls.Add(label);
+                label.BringToFront();
+                Invalidate();
+            }));
+        }
+        
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
@@ -174,18 +196,18 @@ namespace CameraForms.Forms
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
             sunellVideoWindowLegacy1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            sunellVideoWindowLegacy1.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            sunellVideoWindowLegacy1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            sunellVideoWindowLegacy1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             sunellVideoWindowLegacy1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
 
             sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
-            sunellVideoWindowLegacy1.Connect(this, sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+            sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+            SetOsd();
         }
 
         private void SunellVideoWindowLegacy1_VideoSignalChanged(object sender, VideoSignalChangedEventArgs e)
         {
             Invoke((Action)(() => sunellVideoWindowLegacy1.Visible = e.HasSignal));
-
         }
 
         private void OnExit()

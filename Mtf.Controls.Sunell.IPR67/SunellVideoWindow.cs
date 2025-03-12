@@ -1,8 +1,6 @@
-﻿using Mtf.Controls.Sunell.IPR67.CustomEventArgs;
-using Mtf.Controls.Sunell.IPR67.SunellSdk;
+﻿using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,9 +10,8 @@ namespace Mtf.Controls.Sunell.IPR67
     [ToolboxBitmap(typeof(SunellVideoWindow), "Resources.VideoSource.png")]
     public class SunellVideoWindow : PictureBox
     {
-        public delegate void VideoSignalChangedEventHandler(object sender, VideoSignalChangedEventArgs e);
-
-        public event VideoSignalChangedEventHandler VideoSignalChanged;
+        //private Sdk.SDK_PLAY_TIME_CB playTimeCallback;
+        //private Sdk.SDK_DISCONN_CB disconnectCallback;
 
         private IntPtr sdkHandler;
         private int streamId;
@@ -29,6 +26,9 @@ namespace Mtf.Controls.Sunell.IPR67
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
+
+            //playTimeCallback = new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback);
+            //disconnectCallback = new Sdk.SDK_DISCONN_CB(DisconnectCallback);
         }
 
         protected override void Dispose(bool disposing)
@@ -53,7 +53,12 @@ namespace Mtf.Controls.Sunell.IPR67
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Color of the text to be displayed on the control.")]
-        public Brush OverlayBrush { get; set; } = Brushes.White;
+        public Color OverlayColor { get; set; } = Color.White;
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Background color of the text to be displayed on the control.")]
+        public Color OverlayBackgroundColor { get; set; } = Color.White;
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -66,15 +71,13 @@ namespace Mtf.Controls.Sunell.IPR67
 
         public int Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
         {
-            var p_obj = IntPtr.Zero;
-            sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
-            //sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, new Sdk.SDK_DISCONN_CB(DisconnectCallback), p_obj);
+            var pObj = IntPtr.Zero;
             Invoke((Action)(() =>
             {
-                this.streamId = sdkHandler != IntPtr.Zero ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
-                //this.streamId = sdkHandler != 0 ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, new Sdk.SDK_PLAY_TIME_CB(PlayTimeCallback), p_obj) : NoStream;
+                sdkHandler = Sdk.sdk_dev_conn(cameraIp, cameraPort, username, password, null, pObj);
+                this.streamId = sdkHandler != IntPtr.Zero ? Sdk.sdk_md_live_start(sdkHandler, channel, streamType, Handle, hardwareAcceleration, null, pObj) : NoStream;
             }));
-
+             
             //if (this.streamId != streamId)
             //{
             //    _ = Sdk.sdk_md_chg_stream(sdkHandler, streamId, streamType);
@@ -84,33 +87,20 @@ namespace Mtf.Controls.Sunell.IPR67
             return this.streamId;
         }
 
-        private void PlayTimeCallback(IntPtr handle, int stream_id, IntPtr p_obj, ref byte p_time)
-        {
-            Debug.WriteLine($"Handle: {handle}, Stream Id: {stream_id}, Obj: {p_obj}, Time: {p_time}");
-        }
+        //private void PlayTimeCallback(IntPtr handle, int stream_id, IntPtr p_obj, ref IntPtr p_time)
+        //{
+        //    //Debug.WriteLine($"Handle: {handle}, Stream Id: {stream_id}, Obj: {p_obj}, Time: {p_time}");
+        //}
 
-        private void DisconnectCallback(IntPtr handle, IntPtr p_obj, uint type)
-        {
-            Debug.WriteLine($"Handle: {handle}, Obj: {p_obj}, Type: {type}");
-        }
+        //private void DisconnectCallback(IntPtr handle, IntPtr p_obj, uint type)
+        //{
+        //    //Debug.WriteLine($"Handle: {handle}, Obj: {p_obj}, Type: {type}");
+        //}
 
         public void Disconnect()
         {
             var returnCode = Sdk.sdk_md_live_stop(sdkHandler, streamId);
             IsConnected = false;
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            if (!String.IsNullOrEmpty(OverlayText))
-            {
-                var graphics = e.Graphics;
-                {
-                    //_ = graphics.MeasureString(OverlayText, OverlayFont);
-                    graphics.DrawString(OverlayText, OverlayFont, OverlayBrush, OverlayLocation);
-                }
-            }
         }
     }
 }

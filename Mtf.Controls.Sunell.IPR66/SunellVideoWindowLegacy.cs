@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using Mtf.Controls.Extensions;
 
 namespace Mtf.Controls.Sunell.IPR66
 {
@@ -14,11 +13,6 @@ namespace Mtf.Controls.Sunell.IPR66
     public class SunellVideoWindowLegacy : PictureBox
     {
         private IntPtr nvdHandle = IntPtr.Zero;
-        private string overlayText = String.Empty;
-        private Font overlayFont = new Font("Arial", 32, FontStyle.Bold);
-        private Brush overlayBrush = Brushes.White;
-        private Point overlayLocation = new Point(10, 10);
-        private Label label;
 
         private const int WM_USER = 0x400;
         private const int WM_LIVEPLAY_MESSAGE = WM_USER + 1000;
@@ -53,43 +47,6 @@ namespace Mtf.Controls.Sunell.IPR66
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;
             SizeMode = PictureBoxSizeMode.StretchImage;
-
-            HandleCreated += SunellVideoWindowLegacy_HandleCreated;
-        }
-
-        private void SunellVideoWindowLegacy_HandleCreated(object sender, EventArgs e)
-        {
-            SetLabelProperties();
-        }
-
-        private void SetLabelProperties()
-        {
-            if (IsHandleCreated)
-            {
-                Invoke((Action)(() =>
-                {
-                    if (label != null)
-                    {
-                        Controls.Remove(label);
-                    }
-
-                    label = new Label
-                    {
-                        Text = OverlayText,
-                        ForeColor = OverlayBrush.ToColor(),
-                        BackColor = Color.Transparent,
-                        Font = OverlayFont,
-                        Parent = Parent,
-                        Location = OverlayLocation,
-                        AutoSize = false,
-                        MaximumSize = new Size(Width, 0),
-                        TextAlign = ContentAlignment.MiddleLeft
-                    };
-                    Controls.Add(label);
-                    label.BringToFront();
-                    Invalidate();
-                }));
-            }
         }
 
         protected override void Dispose(bool disposing)
@@ -104,67 +61,28 @@ namespace Mtf.Controls.Sunell.IPR66
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Text to be displayed on the control.")]
-        public string OverlayText
-        {
-            get => overlayText;
-            set
-            {
-                if (overlayText != value)
-                {
-                    overlayText = value;
-                    SetLabelProperties();
-                }
-            }
-        }
+        public string OverlayText { get; set; } = String.Empty;
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Font type of the text to be displayed on the control.")]
-        public Font OverlayFont
-        {
-            get => overlayFont;
-            set
-            {
-                if (overlayFont != value)
-                {
-                    overlayFont = value;
-                    SetLabelProperties();
-                }
-            }
-        }
+        public Font OverlayFont { get; set; } = new Font("Arial", 32, FontStyle.Bold);
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Color of the text to be displayed on the control.")]
-        public Brush OverlayBrush
-        {
-            get => overlayBrush;
-            set
-            {
-                if (overlayBrush != value)
-                {
-                    overlayBrush = value;
-                    SetLabelProperties();
-                }
-            }
-        }
+        public Color OverlayColor { get; set; } = Color.White;
+        
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Color of the background text to be displayed on the control.")]
+        public Color OverlayBackgroundColor { get; set; } = Color.Black;
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Location of the text to be displayed on the control.")]
-        public Point OverlayLocation
-        {
-            get => overlayLocation;
-            set
-            {
-                if (overlayLocation != value)
-                {
-                    overlayLocation = value;
-                    SetLabelProperties();
-                }
-            }
-        }
-        public void Connect(Form parentForm, string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, bool autoConnect = true)
+        public Point OverlayLocation { get; set; } = new Point(10, 10);
+        public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int cameraId = 1, bool autoConnect = true, int ipProtocolVersion = 1, int transferProtocol = 2)
         {
             var deviceInfo = new ST_DeviceInfo
             {
@@ -174,11 +92,10 @@ namespace Mtf.Controls.Sunell.IPR66
                 {
                     HostIP = cameraIp,
                     Port = cameraPort,
-                    IPProtocolVersion = 1
+                    IPProtocolVersion = ipProtocolVersion
                 }
             };
 
-            const int transferProtocol = 2;
             var returnCode = NvdcDll.Remote_Nvd_Init(ref nvdHandle, ref deviceInfo, transferProtocol);
             CheckForError(returnCode);
 
@@ -186,13 +103,12 @@ namespace Mtf.Controls.Sunell.IPR66
             {
                 SetAutoConnectFlag(autoConnect);
                 SetDefaultStreamId(streamId);
-
                 SetVideoWindow();
 
                 returnCode = NvdcDll.Remote_LivePlayer2_SetNotifyWindow(nvdHandle, Handle, WM_LIVEPLAY_MESSAGE, IntPtr.Zero);
                 CheckForError(returnCode);
 
-                returnCode = NvdcDll.Remote_LivePlayer2_Open(nvdHandle, 1);
+                returnCode = NvdcDll.Remote_LivePlayer2_Open(nvdHandle, cameraId);
                 CheckForError(returnCode);
 
                 returnCode = NvdcDll.Remote_LivePlayer2_Play(nvdHandle);
@@ -343,7 +259,7 @@ namespace Mtf.Controls.Sunell.IPR66
             }
         }
 
-        public void StopRecording(string filePath)
+        public void StopRecording()
         {
             if (nvdHandle != IntPtr.Zero)
             {
@@ -474,16 +390,16 @@ namespace Mtf.Controls.Sunell.IPR66
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            if (!String.IsNullOrEmpty(OverlayText))
-            {
-                var graphics = e.Graphics;
-                //_ = graphics.MeasureString(OverlayText, OverlayFont);
-                graphics.DrawString(OverlayText, OverlayFont, OverlayBrush, OverlayLocation);
-            }
-        }
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    if (!String.IsNullOrEmpty(OverlayText))
+        //    {
+        //        var graphics = e.Graphics;
+        //        //_ = graphics.MeasureString(OverlayText, OverlayFont);
+        //        graphics.DrawString(OverlayText, OverlayFont, OverlayBrush, OverlayLocation);
+        //    }
+        //}
 
         private void CheckForError(int errorCode, [CallerMemberName] string callerFunction = "", [CallerFilePath] string callerFile = "", [CallerLineNumber] int callerLine = 0)
         {

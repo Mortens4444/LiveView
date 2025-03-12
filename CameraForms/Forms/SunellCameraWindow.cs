@@ -27,12 +27,13 @@ namespace CameraForms.Forms
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly PermissionManager<User> permissionManager;
 
-        private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private SunellCameraInfo sunellCameraInfo;
         private Client client;
         private CancellationTokenSource cts;
+        private Label label;
 
         public SunellCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle)
         {
@@ -179,8 +180,8 @@ namespace CameraForms.Forms
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
             sunellVideoWindow1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            sunellVideoWindow1.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
+            sunellVideoWindow1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            sunellVideoWindow1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             sunellVideoWindow1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
 
             var streamId = Connect();
@@ -190,11 +191,32 @@ namespace CameraForms.Forms
                 cts = new CancellationTokenSource();
                 _ = TryReconnectAsync(cts.Token);
             }
+            SetOsd();
+        }
+
+        public void SetOsd()
+        {
+            Invoke((Action)(() =>
+            {
+                label = new Label
+                {
+                    Text = sunellVideoWindow1.OverlayText,
+                    ForeColor = sunellVideoWindow1.OverlayColor,
+                    BackColor = sunellVideoWindow1.OverlayBackgroundColor,
+                    Font = sunellVideoWindow1.OverlayFont,
+                    Parent = Parent,
+                    Location = sunellVideoWindow1.OverlayLocation,
+                    AutoSize = true
+                };
+                Controls.Add(label);
+                label.BringToFront();
+                Invalidate();
+            }));
         }
 
         private int Connect()
         {
-            return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.HighDensity, false);
+            return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.D1, true);
         }
 
         private async Task TryReconnectAsync(CancellationToken cancellationToken)
