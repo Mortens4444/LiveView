@@ -30,6 +30,7 @@
         {
             pMain = new System.Windows.Forms.Panel();
             panel1 = new System.Windows.Forms.Panel();
+            cbIpAddress = new System.Windows.Forms.ComboBox();
             btnCopy = new System.Windows.Forms.Button();
             lblManufacturer = new System.Windows.Forms.Label();
             cbManufacturer = new System.Windows.Forms.ComboBox();
@@ -49,7 +50,6 @@
             lblIpAddress = new System.Windows.Forms.Label();
             lblCameraUrls = new System.Windows.Forms.Label();
             cbCameraUrls = new System.Windows.Forms.ComboBox();
-            cbIpAddress = new System.Windows.Forms.ComboBox();
             pMain.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTimeout).BeginInit();
@@ -94,6 +94,14 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(542, 201);
             panel1.TabIndex = 2;
+            // 
+            // cbIpAddress
+            // 
+            cbIpAddress.FormattingEnabled = true;
+            cbIpAddress.Location = new System.Drawing.Point(12, 115);
+            cbIpAddress.Name = "cbIpAddress";
+            cbIpAddress.Size = new System.Drawing.Size(165, 23);
+            cbIpAddress.TabIndex = 22;
             // 
             // btnCopy
             // 
@@ -142,7 +150,7 @@
             nudTimeout.Name = "nudTimeout";
             nudTimeout.Size = new System.Drawing.Size(57, 23);
             nudTimeout.TabIndex = 17;
-            nudTimeout.Value = new decimal(new int[] { 5000, 0, 0, 0 });
+            nudTimeout.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
             // lblTimeout
             // 
@@ -212,7 +220,7 @@
             tbPassword.PasswordChar = '*';
             tbPassword.Size = new System.Drawing.Size(167, 23);
             tbPassword.TabIndex = 9;
-            tbPassword.Text = "Tibi2025";
+            tbPassword.Text = "admin";
             // 
             // lblPassword
             // 
@@ -267,14 +275,6 @@
             cbCameraUrls.Name = "cbCameraUrls";
             cbCameraUrls.Size = new System.Drawing.Size(489, 23);
             cbCameraUrls.TabIndex = 2;
-            // 
-            // cbIpAddress
-            // 
-            cbIpAddress.FormattingEnabled = true;
-            cbIpAddress.Location = new System.Drawing.Point(12, 115);
-            cbIpAddress.Name = "cbIpAddress";
-            cbIpAddress.Size = new System.Drawing.Size(165, 23);
-            cbIpAddress.TabIndex = 22;
             // 
             // SearchCameraUrlForm
             // 
