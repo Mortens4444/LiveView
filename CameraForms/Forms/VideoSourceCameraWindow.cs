@@ -50,8 +50,9 @@ namespace CameraForms.Forms
         private SolidBrush fontBrush;
         private Point location = new Point(10, 10);
         private string cameraName;
+        private GridCamera gridCamera;
 
-        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle)
+        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -64,6 +65,12 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             StartVideoCapture();
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
@@ -143,7 +150,25 @@ namespace CameraForms.Forms
             fontFamily = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
             fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
             fontBrush = new SolidBrush(fontColor);
-            cameraName = personalOptionsRepository.GetCameraName(userId, serverIp, videoCaptureSource);
+
+            var text = personalOptionsRepository.GetCameraName(userId, serverIp, videoCaptureSource);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    cameraName = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                cameraName += DateTime.Now.ToString();
+            }
+
             mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, cameraName);
             mtfCamera.Paint += MtfCamera_Paint;
         }
@@ -304,6 +329,7 @@ namespace CameraForms.Forms
             var agentRepository = new AgentRepository();
             var agents = agentRepository.SelectAll();
             var agent = agents.FirstOrDefault(a => a.ServerIp == serverIp && a.VideoCaptureSourceName == videoCaptureSource);
+
             if (agent != null)
             {
                 videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);

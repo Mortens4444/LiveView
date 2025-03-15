@@ -53,6 +53,7 @@ namespace LiveView.Services
             services.AddTransient<BarcodeScanOptionsPresenterDependencies>();
             services.AddTransient<BarcodeScanReadingsPresenterDependencies>();
             services.AddTransient<CameraMotionOptionsPresenterDependencies>();
+            services.AddTransient<CameraPropertiesPresenterDependencies>();
             services.AddTransient<ControlCenterPresenterDependencies>();
             services.AddTransient<DisplayPropertiesPresenterDependencies>();
             services.AddTransient<UpgradeFormPresenterDependencies>();
@@ -69,6 +70,7 @@ namespace LiveView.Services
             services.AddTransient<MapLoaderDependencies>();
             services.AddTransient<PersonalOptionsPresenterDependencies>();
             services.AddTransient<ProfilePresenterDependencies>();
+            services.AddTransient<SearchCameraUrlDependencies>();
             services.AddTransient<SequentialChainsPresenterDependencies>();
             services.AddTransient<ServerAndCameraManagementPresenterDependencies>();
             services.AddTransient<ServerAndCameraPropertiesPresenterDependencies>();
@@ -108,6 +110,7 @@ namespace LiveView.Services
             services.AddTransient<MotionPopupPresenter>();
             services.AddTransient<PersonalOptionsPresenter>();
             services.AddTransient<ProfilePresenter>();
+            services.AddTransient<SearchCameraUrlPresenter>();
             services.AddTransient<SequentialChainsPresenter>();
             services.AddTransient<ServerAndCameraManagementPresenter>();
             services.AddTransient<ServerAndCameraPropertiesPresenter>();
@@ -188,6 +191,7 @@ namespace LiveView.Services
             services.AddTransient<MotionPopup>();
             services.AddTransient<PersonalOptionsForm>();
             services.AddTransient<Profile>();
+            services.AddTransient<SearchCameraUrlForm>();
             services.AddTransient<SequentialChains>();
             services.AddTransient<ServerAndCameraManagement>();
             services.AddTransient<ServerAndCameraProperties>();

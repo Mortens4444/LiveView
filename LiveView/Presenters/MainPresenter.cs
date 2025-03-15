@@ -395,7 +395,7 @@ namespace LiveView.Presenters
                 }
                 catch (Exception ex)
                 {
-                    ShowError($"{ex.Message} ({watchdogPort})");
+                    ShowError($"{Lng.Elem(ex.Message)} ({watchdogPort})");
                 }
             }
         }

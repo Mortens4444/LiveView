@@ -27,8 +27,9 @@ namespace CameraForms.Forms
         private Rectangle rectangle;
         private string url;
         private Client client;
+        private GridCamera gridCamera;
 
-        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -39,6 +40,12 @@ namespace CameraForms.Forms
             this.cameraRepository = cameraRepository;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public MortoGraphyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -173,7 +180,24 @@ namespace CameraForms.Forms
             var cameraName = personalOptionsRepository.GetCameraName(userId, url);
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
-            mortoGraphyWindow.OverlayText = cameraName;
+ 
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = cameraName;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    mortoGraphyWindow.OverlayText = cameraName;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                mortoGraphyWindow.OverlayText += DateTime.Now.ToString();
+            }
+
             mortoGraphyWindow.Start(url);
         }
 

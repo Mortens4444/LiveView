@@ -35,7 +35,7 @@ namespace LiveView.Forms
         public NumericUpDown NudPatternNumber => nudPatternNumber;
 
         public ComboBox CbFullscreenMode => cbFullscreenMode;
-        
+
         public ComboBox CbPresetName => cbPresetName;
 
         public ComboBox CbPatternName => cbPatternName;
@@ -66,6 +66,11 @@ namespace LiveView.Forms
         {
             presenter = Presenter as CameraPropertiesPresenter;
             presenter.Load();
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            presenter.ShowSearchCameraUrlForm();
         }
     }
 }

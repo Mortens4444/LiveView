@@ -51,7 +51,7 @@ namespace LiveView.Presenters
 
         public void RestoreOriginalLanguageFile()
         {
-            var csvStream = ResourceHelper.GetEmbeddedResourceStream("LiveView.Resources.Languages.ods", typeof(LanguageFileChangedPresenter).Assembly);
+            var csvStream = Mtf.Database.Services.ResourceHelper.GetEmbeddedResourceStream("LiveView.Resources.Languages.ods", typeof(LanguageFileChangedPresenter).Assembly);
             using (var fileStream = File.Create(LanguageFilePath))
             {
                 csvStream.CopyTo(fileStream);

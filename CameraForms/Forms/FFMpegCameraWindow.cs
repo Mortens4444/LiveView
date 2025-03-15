@@ -27,8 +27,9 @@ namespace CameraForms.Forms
         private string url;
         private Rectangle rectangle;
         private Client client;
+        private GridCamera gridCamera;
 
-        public FFMpegCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public FFMpegCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -38,6 +39,12 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public FFMpegCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -162,7 +169,6 @@ namespace CameraForms.Forms
 
         private void FFMpegCameraWindow_Shown(object sender, EventArgs e)
         {
-            fFmpegWindow.Start(url);
             var userId = permissionManager.CurrentUser.Tag.Id;
             //var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             ////var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -178,7 +184,26 @@ namespace CameraForms.Forms
             fFmpegWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             fFmpegWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            fFmpegWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
+
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    fFmpegWindow.OverlayText = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                fFmpegWindow.OverlayText += DateTime.Now.ToString();
+            }
+
+            fFmpegWindow.Start(url);
         }
 
         private void OnExit()

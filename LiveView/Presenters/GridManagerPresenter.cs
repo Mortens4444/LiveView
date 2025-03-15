@@ -23,6 +23,7 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly IServerRepository serverRepository;
         private readonly ILogger<GridManager> logger;
+        private static readonly bool[] boolItems = new[] { true, false };
 
         public GridManagerPresenter(GridManagerPresenterDependencies dependencies)
             : base(dependencies)
@@ -44,11 +45,14 @@ namespace LiveView.Presenters
         {
             var grids = gridRepository.SelectAll();
             view.CbGrids.AddItemsAndSelectFirst(grids);
-            FillCameraModeMenuItem();
+            FillChangeCameraModeMenuItem();
             FillChangeCameraMenuItem();
+            FillChangeFrameVisibilityMenuItem();
+            FillChangeOsdMenuItem();
+            FillSetDateAndTimeDisplayMenuItem();
         }
 
-        private void FillCameraModeMenuItem()
+        private void FillChangeCameraModeMenuItem()
         {
             view.TsmiChangeCameraMode.FillWithEnum<CameraMode>((tsmiChangeCameraMode, cameraMode) =>
             {
@@ -58,6 +62,51 @@ namespace LiveView.Presenters
                     {
                         gridCamera.CameraMode = cameraMode;
                         item.SubItems[4].Text = cameraMode.ToString();
+                    }
+                }
+            });
+        }
+
+        private void FillChangeFrameVisibilityMenuItem()
+        {
+            view.TsmiChangeFrameVisibility.FillWithItems(boolItems, (tsmiChangeCameraMode, frame) =>
+            {
+                foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
+                {
+                    if (item.Tag is GridCamera gridCamera)
+                    {
+                        gridCamera.Frame = frame;
+                        item.SubItems[5].Text = frame.ToString();
+                    }
+                }
+            });
+        }
+
+        private void FillChangeOsdMenuItem()
+        {
+            view.TsmiChangeOsd.FillWithItems(boolItems, (tsmiChangeCameraMode, osd) =>
+            {
+                foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
+                {
+                    if (item.Tag is GridCamera gridCamera)
+                    {
+                        gridCamera.Osd = osd;
+                        item.SubItems[6].Text = osd.ToString();
+                    }
+                }
+            });
+        }
+
+        private void FillSetDateAndTimeDisplayMenuItem()
+        {
+            view.TsmiSetDateAndTimeDisplay.FillWithItems(boolItems, (tsmiChangeCameraMode, displayDateTime) =>
+            {
+                foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
+                {
+                    if (item.Tag is GridCamera gridCamera)
+                    {
+                        gridCamera.ShowDateTime = displayDateTime;
+                        item.SubItems[7].Text = displayDateTime.ToString();
                     }
                 }
             });
@@ -210,7 +259,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private ListViewItem CreateListViewItem(GridCamera gridCamera, Database.Models.Camera camera, Server server)
+        private ListViewItem CreateListViewItem(GridCamera gridCamera, Camera camera, Server server)
         {
             var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
             {
@@ -220,6 +269,9 @@ namespace LiveView.Presenters
             item.SubItems.Add(server.Hostname);
             item.SubItems.Add(camera.Guid);
             item.SubItems.Add(gridCamera.CameraMode.ToString());
+            item.SubItems.Add(gridCamera.Frame.ToString());
+            item.SubItems.Add(gridCamera.Osd.ToString());
+            item.SubItems.Add(gridCamera.ShowDateTime.ToString());
             return item;
         }
 
@@ -233,6 +285,9 @@ namespace LiveView.Presenters
             item.SubItems.Add(serverIp);
             item.SubItems.Add(Lng.Elem("N/A"));
             item.SubItems.Add(gridCamera.CameraMode.ToString());
+            item.SubItems.Add(gridCamera.Frame.ToString());
+            item.SubItems.Add(gridCamera.Osd.ToString());
+            item.SubItems.Add(gridCamera.ShowDateTime.ToString());
             return item;
         }
     }

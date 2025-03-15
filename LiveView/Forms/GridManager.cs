@@ -22,6 +22,12 @@ namespace LiveView.Forms
 
         public ToolStripMenuItem TsmiChangeCameraMode => tsmiChangeCameraMode;
 
+        public ToolStripMenuItem TsmiChangeFrameVisibility => tsmiChangeFrameVisibility;
+
+        public ToolStripMenuItem TsmiChangeOsd => tsmiChangeOsd;
+
+        public ToolStripMenuItem TsmiSetDateAndTimeDisplay => tsmiSetDateAndTimeDisplay;
+
         public GridManager(IServiceProvider serviceProvider) : base(serviceProvider, typeof(GridManagerPresenter))
         {
             InitializeComponent();

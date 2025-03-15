@@ -42,13 +42,13 @@ namespace Sequence.Services
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly bool isMdi;
+        private readonly Client client;
         
         private List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int currentGridIndex;
         private int disposed;
         private bool showNextGrid, showPreviousGrid;
-        private Client client;
 
         public bool IsPaused { get; private set; }
 
@@ -60,7 +60,7 @@ namespace Sequence.Services
             IGridCameraRepository gridCameraRepository,
             IPersonalOptionsRepository personalOptionsRepository,
             ILogger<GridSequenceManager> logger,
-            Client client, Form parentForm, DisplayDto display, bool isMdi, long sequenceId)
+            Client client, Form parentForm, DisplayDto display, bool isMdi)
         {
             this.client = client;
             this.parentForm = parentForm;
@@ -108,7 +108,7 @@ namespace Sequence.Services
                 else if (grids.Count == 1)
                 {
                     var gridCameras = GetCameras(grids[0]);
-                    ShowGrid(grids, grids[0], gridCameras);
+                    ShowGrid(grids[0], gridCameras);
                 }
                 else
                 {
@@ -160,7 +160,7 @@ namespace Sequence.Services
             }
         }
 
-        private List<Form> ShowGridInWindow(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
+        private List<Form> ShowGridInWindow((Grid grid, GridInSequence gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
         {
             var result = new List<Form>();
             foreach (var camera in gridCameras)
@@ -189,7 +189,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };
@@ -197,7 +197,7 @@ namespace Sequence.Services
                 else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VideoSourceCameraWindow(client, permissionManager, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle)
+                    videoForm = new VideoSourceCameraWindow(client, permissionManager, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -205,7 +205,7 @@ namespace Sequence.Services
                 else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new FFMpegCameraWindow(permissionManager, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle)
+                    videoForm = new FFMpegCameraWindow(permissionManager, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -213,7 +213,7 @@ namespace Sequence.Services
                 else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle)
+                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -221,7 +221,7 @@ namespace Sequence.Services
                 else if (camera is VlcCameraInfo vlcCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VlcCameraWindow(permissionManager, personalOptionsRepository, vlcCameraInfo.Url, rectangle)
+                    videoForm = new VlcCameraWindow(permissionManager, personalOptionsRepository, vlcCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -229,7 +229,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharpCameraWindow(permissionManager, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle)
+                    videoForm = new OpenCvSharpCameraWindow(permissionManager, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -237,7 +237,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle)
+                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -245,7 +245,7 @@ namespace Sequence.Services
                 else if (camera is SunellCameraInfo sunellCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellCameraWindow(permissionManager, personalOptionsRepository, sunellCameraInfo, rectangle)
+                    videoForm = new SunellCameraWindow(permissionManager, personalOptionsRepository, sunellCameraInfo, rectangle, camera.GridCamera)
                     {
                         TopMost = true
                     };
@@ -253,7 +253,7 @@ namespace Sequence.Services
                 else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellLegacyCameraWindow(permissionManager, personalOptionsRepository, sunellLegacyCameraInfo, rectangle)
+                    videoForm = new SunellLegacyCameraWindow(permissionManager, personalOptionsRepository, sunellLegacyCameraInfo, rectangle, camera.GridCamera)
                     {
                         TopMost = true
                     };
@@ -271,7 +271,7 @@ namespace Sequence.Services
             }
         }
 
-        private List<Process> ShowGridOnScreen(List<(Grid grid, GridInSequence gridInSequence)> grids, (Grid grid, GridInSequence gridInSequence) gridInSequence)
+        private List<Process> ShowGridOnScreen((Grid grid, GridInSequence gridInSequence) gridInSequence)
         {
             var result = new List<Process>();
             var cameras = GetCameras(gridInSequence);
@@ -352,7 +352,7 @@ namespace Sequence.Services
             }
         }
 
-        private void ShowGrid(List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids, (Grid grid, GridInSequence gridInSequence) grid, List<CameraInfo> gridCameras)
+        private void ShowGrid((Grid grid, GridInSequence gridInSequence) grid, List<CameraInfo> gridCameras)
         {
             if (cancellationTokenSource.Token.IsCancellationRequested)
             {
@@ -366,7 +366,7 @@ namespace Sequence.Services
                 }
                 else
                 {
-                    cameraForms[grid.grid.Id] = ShowGridInWindow(sequenceGrids, grid, gridCameras);
+                    cameraForms[grid.grid.Id] = ShowGridInWindow(grid, gridCameras);
                 }
             }
             else
@@ -377,7 +377,7 @@ namespace Sequence.Services
                 }
                 else
                 {
-                    processes[grid.grid.Id] = ShowGridOnScreen(sequenceGrids, grid);
+                    processes[grid.grid.Id] = ShowGridOnScreen(grid);
                 }
             }
         }
@@ -510,7 +510,7 @@ namespace Sequence.Services
                         var gridInfo = sequenceGrids[i];
                         var gridCameras = GetCameras(gridInfo);
 
-                        ShowGrid(sequenceGrids, gridInfo, gridCameras);
+                        ShowGrid(gridInfo, gridCameras);
                         parentForm.ResumeLayout();
                         await WaitWithCancellationAsync(gridInfo).ConfigureAwait(false);
                         parentForm.SuspendLayout();

@@ -26,7 +26,7 @@ namespace LiveView.Services
         {
             var result = new List<SziltechDeviceInfo>();
 
-            using (var stream = ResourceHelper.GetEmbeddedResourceStream(@"LiveView.Resources.SziltechDevices.txt", typeof(SziltechDeviceChecker).Assembly))
+            using (var stream = Mtf.Database.Services.ResourceHelper.GetEmbeddedResourceStream(@"LiveView.Resources.SziltechDevices.txt", typeof(SziltechDeviceChecker).Assembly))
             using (var streamReader = new StreamReader(stream))
             {
                 string line;

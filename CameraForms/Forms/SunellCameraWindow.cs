@@ -34,8 +34,9 @@ namespace CameraForms.Forms
         private Client client;
         private CancellationTokenSource cts;
         private Label label;
+        private GridCamera gridCamera;
 
-        public SunellCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle)
+        public SunellCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -45,6 +46,12 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public SunellCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -182,7 +189,24 @@ namespace CameraForms.Forms
             sunellVideoWindow1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             sunellVideoWindow1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
             sunellVideoWindow1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            sunellVideoWindow1.OverlayText = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
+            
+            var text = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    sunellVideoWindow1.OverlayText = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                sunellVideoWindow1.OverlayText += DateTime.Now.ToString();
+            }
 
             var streamId = Connect();
             if (streamId == SunellVideoWindow.NoStream)

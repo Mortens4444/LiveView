@@ -15,6 +15,8 @@
         {
             if (disposing && (components != null))
             {
+                client?.Dispose();
+                cts?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

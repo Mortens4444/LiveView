@@ -28,8 +28,9 @@ namespace CameraForms.Forms
         private string url;
         private Rectangle rectangle;
         private Client client;
+        private GridCamera gridCamera;
 
-        public VlcCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public VlcCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -39,6 +40,12 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public VlcCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -169,7 +176,25 @@ namespace CameraForms.Forms
             vlcWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             vlcWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            vlcWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
+
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    vlcWindow.OverlayText = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                vlcWindow.OverlayText += DateTime.Now.ToString();
+            }
+
             vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
         }
 

@@ -27,8 +27,9 @@ namespace CameraForms.Forms
         private string url;
         private Rectangle rectangle;
         private Client client;
+        private GridCamera gridCamera;
 
-        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle)
+        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -38,6 +39,12 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public OpenCvSharp4CameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -169,7 +176,24 @@ namespace CameraForms.Forms
             openCvSharp4VideoWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             openCvSharp4VideoWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            openCvSharp4VideoWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, url);
+
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    openCvSharp4VideoWindow.OverlayText = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                openCvSharp4VideoWindow.OverlayText += DateTime.Now.ToString();
+            }
         }
 
         private void OnExit()

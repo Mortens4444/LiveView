@@ -1,15 +1,12 @@
-Sunell Legacy has no title, when connected
-Sunell has no title, when connected
+Fix sequence close from ControlCenter
 
 Vlc image falls apart
 
 OpenCvSharp has no image
 OpenCvSharp4 has no image
-FFMPEGhas no image
+FFMPEGhas has no image
 
-MortoGraphy has no title
-
-no permission to view this camera
+Add no permission to view this camera functionality
 
 Show agent displays also on ControlCenter.
 Display identify (remote and local, if same do not draw it again, else draw it, in a fix order)

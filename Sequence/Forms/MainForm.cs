@@ -91,7 +91,7 @@ namespace Sequence.Forms
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi, sequenceId);
+            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }
 

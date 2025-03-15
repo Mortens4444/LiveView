@@ -54,6 +54,7 @@
             tbCameraIpAddress = new System.Windows.Forms.TextBox();
             lblCameraIpAddress = new System.Windows.Forms.Label();
             lblCameraGUID = new System.Windows.Forms.Label();
+            btnSearch = new System.Windows.Forms.Button();
             pMain.SuspendLayout();
             gbProperties.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudPatternNumber).BeginInit();
@@ -73,6 +74,7 @@
             // 
             // gbProperties
             // 
+            gbProperties.Controls.Add(btnSearch);
             gbProperties.Controls.Add(tbCameraName);
             gbProperties.Controls.Add(tbCameraGuid);
             gbProperties.Controls.Add(tbHttpStream);
@@ -135,7 +137,7 @@
             tbHttpStream.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbHttpStream.MaxLength = 200;
             tbHttpStream.Name = "tbHttpStream";
-            tbHttpStream.Size = new System.Drawing.Size(181, 23);
+            tbHttpStream.Size = new System.Drawing.Size(155, 23);
             tbHttpStream.TabIndex = 15;
             // 
             // lblHttpStream
@@ -361,6 +363,17 @@
             lblCameraGUID.TabIndex = 2;
             lblCameraGUID.Text = "GUID";
             // 
+            // btnSearch
+            // 
+            btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSearch.Image = Properties.Resources.magnifier;
+            btnSearch.Location = new System.Drawing.Point(308, 192);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(25, 25);
+            btnSearch.TabIndex = 26;
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += BtnSearch_Click;
+            // 
             // CameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -409,5 +422,6 @@
         private System.Windows.Forms.Label lblCameraGUID;
         private System.Windows.Forms.TextBox tbCameraName;
         private System.Windows.Forms.TextBox tbCameraGuid;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

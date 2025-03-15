@@ -13,5 +13,11 @@ namespace LiveView.Interfaces
         ToolStripMenuItem TsmiChangeCameraTo { get; }
 
         ToolStripMenuItem TsmiChangeCameraMode { get; }
+
+        ToolStripMenuItem TsmiChangeFrameVisibility { get; }
+
+        ToolStripMenuItem TsmiChangeOsd { get; }
+
+        ToolStripMenuItem TsmiSetDateAndTimeDisplay { get; }
     }
 }

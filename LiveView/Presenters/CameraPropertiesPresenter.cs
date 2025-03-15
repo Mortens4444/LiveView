@@ -3,6 +3,7 @@ using Database.Interfaces;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
+using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
@@ -17,11 +18,11 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<CameraProperties> logger;
 
-        public CameraPropertiesPresenter(IGeneralOptionsRepository generalOptionsRepository, ICameraRepository cameraRepository, ILogger<CameraProperties> logger)
-            : base(generalOptionsRepository)
+        public CameraPropertiesPresenter(CameraPropertiesPresenterDependencies dependencies)
+            : base(dependencies)
         {
-            this.cameraRepository = cameraRepository;
-            this.logger = logger;
+            cameraRepository = dependencies.CameraRepository;
+            logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)
@@ -58,13 +59,17 @@ namespace LiveView.Presenters
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
             if (Enum.TryParse(view.Camera.FullscreenMode.ToString(), out CameraMode cameraMode))
             {
-                view.CbFullscreenMode.SelectedItem = cameraMode;
+                view.CbFullscreenMode.SelectedItem = cameraMode.ToString();
             }
             else
             {
                 view.CbFullscreenMode.SelectedIndex = 0;
             }
-            ////view.CbFullscreenMode.SelectedItem = view.Camera.FullscreenMode;
+        }
+
+        public void ShowSearchCameraUrlForm()
+        {
+            ShowForm<SearchCameraUrlForm>();
         }
     }
 }

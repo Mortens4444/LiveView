@@ -37,9 +37,11 @@ namespace CameraForms.Forms
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private CancellationToken cancellationToken;
+        private GridCamera gridCamera;
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, IServerRepository serverRepository, ICameraRepository cameraRepository,
-            IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, CancellationToken cancellationToken)
+            IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera,
+            CancellationToken cancellationToken)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -56,6 +58,12 @@ namespace CameraForms.Forms
             
             cameraId = camera?.Id ?? 0;
             Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, false);
+            this.gridCamera = gridCamera;
+
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
         }
 
         public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size)
@@ -217,13 +225,31 @@ namespace CameraForms.Forms
                 DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
             }
 
-            axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
             axVideoPlayerWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             axVideoPlayerWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            axVideoPlayerWindow.OverlayText = personalOptionsRepository.GetCameraName(userId, server, camera);
+
+            var text = personalOptionsRepository.GetCameraName(userId, server, camera);
+            if (gridCamera?.Frame ?? false)
+            {
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+                Text = text;
+            }
+            else
+            {
+                if (gridCamera?.Osd ?? false)
+                {
+                    axVideoPlayerWindow.OverlayText = text;
+                }
+            }
+            if (gridCamera?.ShowDateTime ?? false)
+            {
+                axVideoPlayerWindow.OverlayText += DateTime.Now.ToString();
+            }
+
+            axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
         }
 
         //private void Start(int waitTimeInMs = 500)

@@ -42,6 +42,9 @@
             tsmiMoveUp = new System.Windows.Forms.ToolStripMenuItem();
             contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
             tsmiChangeCameraMode = new System.Windows.Forms.ToolStripMenuItem();
+            tsmiChangeFrameVisibility = new System.Windows.Forms.ToolStripMenuItem();
+            tsmiChangeOsd = new System.Windows.Forms.ToolStripMenuItem();
+            tsmiSetDateAndTimeDisplay = new System.Windows.Forms.ToolStripMenuItem();
             chGuid = new System.Windows.Forms.ColumnHeader();
             chVideoServerName = new System.Windows.Forms.ColumnHeader();
             chCameraName = new System.Windows.Forms.ColumnHeader();
@@ -50,10 +53,13 @@
             btnMoveUp = new System.Windows.Forms.Button();
             btnModify = new System.Windows.Forms.Button();
             lvGridCameras = new Mtf.Controls.MtfListView();
+            chCameraMode = new System.Windows.Forms.ColumnHeader();
+            chFrame = new System.Windows.Forms.ColumnHeader();
+            chOsd = new System.Windows.Forms.ColumnHeader();
+            chShowDateTime = new System.Windows.Forms.ColumnHeader();
             gbGridStructure = new System.Windows.Forms.GroupBox();
             gbGridName = new System.Windows.Forms.GroupBox();
             gbGridSelector = new System.Windows.Forms.GroupBox();
-            chCameraMode = new System.Windows.Forms.ColumnHeader();
             contextMenuStrip.SuspendLayout();
             gbGridStructure.SuspendLayout();
             gbGridName.SuspendLayout();
@@ -118,27 +124,27 @@
             // tsmiChangeCameraTo
             // 
             tsmiChangeCameraTo.Name = "tsmiChangeCameraTo";
-            tsmiChangeCameraTo.Size = new System.Drawing.Size(192, 22);
+            tsmiChangeCameraTo.Size = new System.Drawing.Size(243, 22);
             tsmiChangeCameraTo.Text = "Change camera to ...";
             tsmiChangeCameraTo.Visible = false;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(240, 6);
             toolStripSeparator1.Visible = false;
             // 
             // tsmiDeleteGridFromChain
             // 
             tsmiDeleteGridFromChain.Name = "tsmiDeleteGridFromChain";
-            tsmiDeleteGridFromChain.Size = new System.Drawing.Size(192, 22);
+            tsmiDeleteGridFromChain.Size = new System.Drawing.Size(243, 22);
             tsmiDeleteGridFromChain.Text = "Delete grid from chain";
             tsmiDeleteGridFromChain.Visible = false;
             // 
             // tsmiMoveDown
             // 
             tsmiMoveDown.Name = "tsmiMoveDown";
-            tsmiMoveDown.Size = new System.Drawing.Size(192, 22);
+            tsmiMoveDown.Size = new System.Drawing.Size(243, 22);
             tsmiMoveDown.Text = "Move down";
             tsmiMoveDown.Visible = false;
             tsmiMoveDown.Click += BtnMoveDown_Click;
@@ -146,22 +152,40 @@
             // tsmiMoveUp
             // 
             tsmiMoveUp.Name = "tsmiMoveUp";
-            tsmiMoveUp.Size = new System.Drawing.Size(192, 22);
+            tsmiMoveUp.Size = new System.Drawing.Size(243, 22);
             tsmiMoveUp.Text = "Move up";
             tsmiMoveUp.Visible = false;
             tsmiMoveUp.Click += BtnMoveUp_Click;
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo, tsmiChangeCameraMode });
+            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiMoveUp, tsmiMoveDown, tsmiDeleteGridFromChain, toolStripSeparator1, tsmiChangeCameraTo, tsmiChangeCameraMode, tsmiChangeFrameVisibility, tsmiChangeOsd, tsmiSetDateAndTimeDisplay });
             contextMenuStrip.Name = "contextMenuStrip1";
-            contextMenuStrip.Size = new System.Drawing.Size(193, 120);
+            contextMenuStrip.Size = new System.Drawing.Size(244, 208);
             // 
             // tsmiChangeCameraMode
             // 
             tsmiChangeCameraMode.Name = "tsmiChangeCameraMode";
-            tsmiChangeCameraMode.Size = new System.Drawing.Size(192, 22);
+            tsmiChangeCameraMode.Size = new System.Drawing.Size(243, 22);
             tsmiChangeCameraMode.Text = "Change camera mode";
+            // 
+            // tsmiChangeFrameVisibility
+            // 
+            tsmiChangeFrameVisibility.Name = "tsmiChangeFrameVisibility";
+            tsmiChangeFrameVisibility.Size = new System.Drawing.Size(243, 22);
+            tsmiChangeFrameVisibility.Text = "Change frame visibility";
+            // 
+            // tsmiChangeOsd
+            // 
+            tsmiChangeOsd.Name = "tsmiChangeOsd";
+            tsmiChangeOsd.Size = new System.Drawing.Size(243, 22);
+            tsmiChangeOsd.Text = "Change OSD state";
+            // 
+            // tsmiSetDateAndTimeDisplay
+            // 
+            tsmiSetDateAndTimeDisplay.Name = "tsmiSetDateAndTimeDisplay";
+            tsmiSetDateAndTimeDisplay.Size = new System.Drawing.Size(243, 22);
+            tsmiSetDateAndTimeDisplay.Text = "Change timestamp display state";
             // 
             // chGuid
             // 
@@ -228,7 +252,7 @@
             lvGridCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvGridCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvGridCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvGridCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chNumber, chCameraName, chVideoServerName, chGuid, chCameraMode });
+            lvGridCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chNumber, chCameraName, chVideoServerName, chGuid, chCameraMode, chFrame, chOsd, chShowDateTime });
             lvGridCameras.CompactView = false;
             lvGridCameras.ContextMenuStrip = contextMenuStrip;
             lvGridCameras.EnsureLastItemIsVisible = false;
@@ -245,6 +269,23 @@
             lvGridCameras.TabIndex = 0;
             lvGridCameras.UseCompatibleStateImageBehavior = false;
             lvGridCameras.View = System.Windows.Forms.View.Details;
+            // 
+            // chCameraMode
+            // 
+            chCameraMode.Text = "Camera mode";
+            chCameraMode.Width = 100;
+            // 
+            // chFrame
+            // 
+            chFrame.Text = "Frame";
+            // 
+            // chOsd
+            // 
+            chOsd.Text = "OSD";
+            // 
+            // chShowDateTime
+            // 
+            chShowDateTime.Text = "Display timestamp";
             // 
             // gbGridStructure
             // 
@@ -289,11 +330,6 @@
             gbGridSelector.TabIndex = 8;
             gbGridSelector.TabStop = false;
             gbGridSelector.Text = "Grid name";
-            // 
-            // chCameraMode
-            // 
-            chCameraMode.Text = "Camera mode";
-            chCameraMode.Width = 100;
             // 
             // GridManager
             // 
@@ -344,5 +380,11 @@
         private System.Windows.Forms.GroupBox gbGridSelector;
         private System.Windows.Forms.ToolStripMenuItem tsmiChangeCameraMode;
         private System.Windows.Forms.ColumnHeader chCameraMode;
+        private System.Windows.Forms.ColumnHeader chFrame;
+        private System.Windows.Forms.ColumnHeader chOsd;
+        private System.Windows.Forms.ColumnHeader chShowDateTime;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeFrameVisibility;
+        private System.Windows.Forms.ToolStripMenuItem tsmiChangeOsd;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSetDateAndTimeDisplay;
     }
 }

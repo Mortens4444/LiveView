@@ -17,7 +17,7 @@ namespace LiveView.Services.Network
 
         public OuiLookupService()
         {
-            var ouiContent = ResourceHelper.ReadEmbeddedResource("LiveView.Resources.oui.csv", typeof(OuiLookupService).Assembly, Encoding.UTF8);
+            var ouiContent = Mtf.Database.Services.ResourceHelper.ReadEmbeddedResource("LiveView.Resources.oui.csv", typeof(OuiLookupService).Assembly, Encoding.UTF8);
             ouiDatabase = CsvReader.GetRecords(ouiContent);
         }
 
