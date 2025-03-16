@@ -29,7 +29,7 @@ namespace CameraApp
         private static void Main(string[] args)
         {
 #if DEBUG
-            Debugger.Launch();
+            //Debugger.Launch();
             //System.Threading.Thread.Sleep(10000);
 #endif
             ExceptionHandler.CatchUnhandledExceptions();
