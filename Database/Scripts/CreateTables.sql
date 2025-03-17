@@ -572,3 +572,54 @@ BEGIN
         VideoSourceName NVARCHAR(500)
     );
 END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraFunctions]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE CameraFunctions (
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraId BIGINT,
+        FunctionId INT,
+        FunctionCallback NVARCHAR(MAX),
+        Param1 NVARCHAR(100),
+        Param2 NVARCHAR(100),
+        Param3 NVARCHAR(100),
+        Param4 NVARCHAR(100),
+        Param5 NVARCHAR(100),
+        Param6 NVARCHAR(100),
+        Param7 NVARCHAR(100),
+        Param8 NVARCHAR(100),
+        Param9 NVARCHAR(100),
+        Param10 NVARCHAR(100),
+        Param11 NVARCHAR(100),
+        Param12 NVARCHAR(100),
+        Param13 NVARCHAR(100),
+        Param14 NVARCHAR(100),
+        Param15 NVARCHAR(100),
+        Param16 NVARCHAR(100),
+        Param17 NVARCHAR(100),
+        Param18 NVARCHAR(100),
+        Param19 NVARCHAR(100),
+        Param20 NVARCHAR(100),
+        Param21 NVARCHAR(100),
+        Param22 NVARCHAR(100),
+        Param23 NVARCHAR(100),
+        Param24 NVARCHAR(100),
+        Param25 NVARCHAR(100),
+        Param26 NVARCHAR(100),
+        Param27 NVARCHAR(100),
+        Param28 NVARCHAR(100),
+        Param29 NVARCHAR(100),
+        Param30 NVARCHAR(100),
+        Param31 NVARCHAR(100),
+        Param32 NVARCHAR(100),
+        Param33 NVARCHAR(100),
+        Param34 NVARCHAR(100),
+        Param35 NVARCHAR(100),
+        Param36 NVARCHAR(100),
+        Param37 NVARCHAR(100),
+        Param38 NVARCHAR(100),
+        Param39 NVARCHAR(100),
+        Param40 NVARCHAR(100),
+        FOREIGN KEY (CameraId) REFERENCES Cameras(Id)
+    );
+END;

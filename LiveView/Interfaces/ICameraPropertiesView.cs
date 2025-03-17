@@ -19,17 +19,25 @@ namespace LiveView.Interfaces
         PasswordBox TbCameraPassword { get; }
         
         TextBox TbHttpStream { get; }
-        
+
+        TextBox TbCameraFunctionCallback { get; }
+
+        TextBox TbCameraFunctionCallbackParameters { get; }
+
         NumericUpDown NudStreamId { get; }
         
         NumericUpDown NudPresetNumber { get; }
         
         NumericUpDown NudPatternNumber { get; }
         
+        ComboBox CbCameraFunctionType { get; }
+
         ComboBox CbFullscreenMode { get; }
-        
+
         ComboBox CbPresetName { get; }
         
         ComboBox CbPatternName { get; }
+
+        ListView LvCameraFunctions { get; }
     }
 }

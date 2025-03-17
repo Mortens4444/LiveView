@@ -133,6 +133,7 @@ namespace LiveView.Services
             services.AddScoped<IBarcodeScanOptionsRepository, BarcodeScanOptionsRepository>();
             services.AddScoped<IBarcodeScanReadingRepository, BarcodeScanReadingRepository>();
             services.AddScoped<ICameraRepository, CameraRepository>();
+            services.AddScoped<ICameraFunctionRepository, CameraFunctionRepository>();
             services.AddScoped<ICameraRightRepository, CameraRightRepository>();
             services.AddScoped<IDatabaseServerRepository, DatabaseServerRepository>();
             services.AddScoped<IDisplayRepository, DisplayRepository>();

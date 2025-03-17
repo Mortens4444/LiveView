@@ -1,5 +1,6 @@
 Fix sequence close from ControlCenter
 
+Vlc not reconnecting to Maginon
 Vlc image falls apart
 
 OpenCvSharp has no image

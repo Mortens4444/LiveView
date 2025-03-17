@@ -34,11 +34,19 @@ namespace LiveView.Forms
 
         public NumericUpDown NudPatternNumber => nudPatternNumber;
 
+        public ComboBox CbCameraFunctionType => cbCameraFunctionType;
+
         public ComboBox CbFullscreenMode => cbFullscreenMode;
 
         public ComboBox CbPresetName => cbPresetName;
 
         public ComboBox CbPatternName => cbPatternName;
+
+        public TextBox TbCameraFunctionCallback => tbCameraFunctionCallback;
+
+        public TextBox TbCameraFunctionCallbackParameters => tbCameraFunctionCallbackParameters;
+
+        public ListView LvCameraFunctions => lvCameraFunctions;
 
         public CameraProperties(IServiceProvider serviceProvider, Camera camera) : base(serviceProvider, typeof(CameraPropertiesPresenter))
         {
@@ -71,6 +79,16 @@ namespace LiveView.Forms
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             presenter.ShowSearchCameraUrlForm();
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            presenter.AddNewCameraFunction();
+        }
+
+        private void TsmiDeleteCameraFunction_Click(object sender, EventArgs e)
+        {
+            presenter.DeleteSelectedCameraFunctions();
         }
     }
 }

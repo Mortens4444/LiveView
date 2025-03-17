@@ -1,5 +1,7 @@
-﻿using Database.Enums;
+﻿using Accord;
+using Database.Enums;
 using Database.Interfaces;
+using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -8,7 +10,9 @@ using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
@@ -16,12 +20,14 @@ namespace LiveView.Presenters
     {
         private ICameraPropertiesView view;
         private readonly ICameraRepository cameraRepository;
+        private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly ILogger<CameraProperties> logger;
 
         public CameraPropertiesPresenter(CameraPropertiesPresenterDependencies dependencies)
             : base(dependencies)
         {
             cameraRepository = dependencies.CameraRepository;
+            cameraFunctionRepository = dependencies.CameraFunctionRepository;
             logger = dependencies.Logger;
         }
 
@@ -49,6 +55,12 @@ namespace LiveView.Presenters
             var fullscreenModes = Database.Extensions.EnumExtensions.GetEnabledValues<CameraMode>()
                 .Select(mode => Lng.Elem(mode.GetDescription()));
             view.AddItems(view.CbFullscreenMode, fullscreenModes);
+            
+            var cameraFunctionTypes = Enum.GetValues(typeof(CameraFunctionType))
+                .Cast<CameraFunctionType>()
+                .Select(cameraFunctionType => cameraFunctionType.GetDescription());
+            view.AddItems(view.CbCameraFunctionType, cameraFunctionTypes);
+            view.CbCameraFunctionType.SelectFirst();
 
             view.TbCameraName.Text = view.Camera.CameraName;
             view.TbCameraGuid.Text = view.Camera.Guid;
@@ -65,11 +77,86 @@ namespace LiveView.Presenters
             {
                 view.CbFullscreenMode.SelectedIndex = 0;
             }
+
+            view.LvCameraFunctions.AddItems(cameraFunctionRepository.SelectWhere(new { CameraId = view.Camera.Id }),
+                cameraFunction =>
+                {
+                    var result = new ListViewItem(cameraFunction.FunctionCallback.GetDescription())
+                    {
+                        Tag = cameraFunction
+                    };
+                    result.SubItems.Add(cameraFunction.FunctionCallback);
+                    result.SubItems.Add(GetCameraFunctionParametersString(cameraFunction));
+                    return result;
+                });
         }
 
         public void ShowSearchCameraUrlForm()
         {
             ShowForm<SearchCameraUrlForm>();
+        }
+
+        public void AddNewCameraFunction()
+        {
+            var cameraFunction = new CameraFunction
+            {
+                FunctionId = (CameraFunctionType)view.CbCameraFunctionType.SelectedIndex,
+                FunctionCallback = view.TbCameraFunctionCallback.Text
+            };
+            var parameters = view.TbCameraFunctionCallbackParameters.Text.Split(';');
+            for (int i = 0; i < Math.Min(parameters.Length, 40); i++)
+            {
+                var propertyName = $"Param{i + 1}";
+                var property = cameraFunction.GetType().GetProperty(propertyName);
+
+                if (property != null)
+                {
+                    property.SetValue(cameraFunction, parameters[i]);
+                }
+            }
+            cameraFunctionRepository.Insert(cameraFunction);
+            var listViewItem = new ListViewItem(cameraFunction.FunctionId.GetDescription())
+            {
+                Tag = cameraFunction
+            };
+            listViewItem.SubItems.Add(cameraFunction.FunctionCallback);
+            listViewItem.SubItems.Add(GetCameraFunctionParametersString(cameraFunction));
+            view.LvCameraFunctions.Items.Add(listViewItem);
+        }
+
+        public void DeleteSelectedCameraFunctions()
+        {
+            foreach (ListViewItem item in view.LvCameraFunctions.SelectedItems)
+            {
+                cameraFunctionRepository.Delete(((CameraFunction)item.Tag).Id);
+            }
+            view.RemoveSelectedItems(view.LvCameraFunctions);
+        }
+
+        public string GetCameraFunctionParametersString(CameraFunction cameraFunction)
+        {
+            var parameters = new List<string>();
+
+            for (int i = 1; i <= 40; i++)
+            {
+                var propertyName = $"Param{i}";
+                var property = cameraFunction.GetType().GetProperty(propertyName);
+
+                if (property != null)
+                {
+                    var value = property.GetValue(cameraFunction);
+                    if (value != null)
+                    {
+                        parameters.Add(value.ToString());
+                    }
+                    else
+                    {
+                        parameters.Add(String.Empty);
+                    }
+                }
+            }
+
+            return String.Join(";", parameters);
         }
     }
 }
