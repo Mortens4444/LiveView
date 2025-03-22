@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using Mtf.Controls.Sunell.IPR67;
+using System.Configuration;
+using Mtf.Controls.Sunell.IPR67.Enums;
 
 namespace CameraForms.Forms
 {
@@ -90,6 +92,7 @@ namespace CameraForms.Forms
                 CameraPort = SunellLegacyCameraInfo.PagoPort,
                 Username = camera.Username,
                 Password = camera.Password,
+                CameraId = camera.CameraId ?? 1,
                 StreamId = camera.StreamId ?? 1
             };
 
@@ -126,42 +129,58 @@ namespace CameraForms.Forms
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
                     }
                     else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
                     }
                     else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
                     {
                     }
                     else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
                     }
                     else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Stop);
                     }
                     else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.Stop);
                     }
                     else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.In);
                     }
                     else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
                     {
+                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.Out);
                     }
                     else
                     {
@@ -178,7 +197,14 @@ namespace CameraForms.Forms
         private void SunellCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            Size = new Size(rectangle.Width, rectangle.Height);
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            {
+                Size = new Size(100, 100);
+            }
+            else
+            {
+                Size = new Size(rectangle.Width, rectangle.Height);
+            }
         }
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
@@ -271,6 +297,7 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            kBD300ASimulatorServer?.Stop();
             sunellVideoWindow1.Disconnect();
         }
     }

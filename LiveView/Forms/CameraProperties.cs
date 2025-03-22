@@ -46,7 +46,11 @@ namespace LiveView.Forms
 
         public TextBox TbCameraFunctionCallbackParameters => tbCameraFunctionCallbackParameters;
 
-        public ListView LvCameraFunctions => lvCameraFunctions;
+        public MtfListView LvCameraFunctions => lvCameraFunctions;
+
+        public OpenFileDialog OpenFileDialog => openFileDialog;
+
+        public SaveFileDialog SaveFileDialog => saveFileDialog;
 
         public CameraProperties(IServiceProvider serviceProvider, Camera camera) : base(serviceProvider, typeof(CameraPropertiesPresenter))
         {
@@ -89,6 +93,16 @@ namespace LiveView.Forms
         private void TsmiDeleteCameraFunction_Click(object sender, EventArgs e)
         {
             presenter.DeleteSelectedCameraFunctions();
+        }
+
+        private void BtnExport_Click(object sender, EventArgs e)
+        {
+            presenter.ExportCustomFunctions();
+        }
+
+        private void BtnImport_Click(object sender, EventArgs e)
+        {
+            presenter.ImportCustomFunctions();
         }
     }
 }

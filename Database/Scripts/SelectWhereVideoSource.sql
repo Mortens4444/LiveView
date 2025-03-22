@@ -1,0 +1,1 @@
+﻿SELECT * FROM VideoSources WHERE ServerIp = @ServerIp AND VideoSourceName = @VideoSourceName;

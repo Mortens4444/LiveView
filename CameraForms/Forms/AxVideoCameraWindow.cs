@@ -14,6 +14,7 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Configuration;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -205,7 +206,14 @@ namespace CameraForms.Forms
         private void AxVideoCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            Size = new Size(rectangle.Width, rectangle.Height);
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            {
+                Size = new Size(100, 100);
+            }
+            else
+            {
+                Size = new Size(rectangle.Width, rectangle.Height);
+            }
         }
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
@@ -288,6 +296,7 @@ namespace CameraForms.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            kBD300ASimulatorServer?.Stop();
             Application.Exit();
         }
     }

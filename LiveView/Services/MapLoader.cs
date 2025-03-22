@@ -26,6 +26,7 @@ namespace LiveView.Services
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IGridCameraRepository gridCameraRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
 
         public MapLoader(Control mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {
@@ -35,6 +36,7 @@ namespace LiveView.Services
             mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
             gridCameraRepository = mapLoaderDependencies.GridCameraRepository;
+            videoSourceRepository = mapLoaderDependencies.VideoSourceRepository;
         }
 
         public void LoadMap(MapDto map)
@@ -152,11 +154,11 @@ namespace LiveView.Services
                     OnCameraObjectClicked(new CameraObjectClickedEventArgs(camera));
                     break;
                 case MapActionType.OpenVideoSource:
-                    var gridCamera = gridCameraRepository.Select(mapObject.ActionReferencedId); // Should use VideoSourceRepository
+                    var videoSourceModel = videoSourceRepository.Select(mapObject.ActionReferencedId);
                     var videoSource = new VideoSourceDto
                     {
-                        EndPoint = $"{gridCamera.ServerIp}:0",
-                        Name = gridCamera.VideoSourceName
+                        EndPoint = $"{videoSourceModel.ServerIp}:0",
+                        Name = videoSourceModel.VideoSourceName
                     };
                     OnVideoSourceObjectClicked(new VideoSourceObjectClickedEventArgs(videoSource));
                     break;

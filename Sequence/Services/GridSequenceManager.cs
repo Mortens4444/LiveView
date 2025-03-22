@@ -41,6 +41,7 @@ namespace Sequence.Services
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly bool isMdi;
         private readonly Client client;
         
@@ -57,6 +58,7 @@ namespace Sequence.Services
         public GridSequenceManager(PermissionManager<User> permissionManager,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
+            ICameraFunctionRepository cameraFunctionRepository,
             IGridCameraRepository gridCameraRepository,
             IPersonalOptionsRepository personalOptionsRepository,
             ILogger<GridSequenceManager> logger,
@@ -70,6 +72,7 @@ namespace Sequence.Services
 
             this.permissionManager = permissionManager;
             this.cameraRepository = cameraRepository;
+            this.cameraFunctionRepository = cameraFunctionRepository;
             this.serverRepository = serverRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.logger = logger;
@@ -197,7 +200,7 @@ namespace Sequence.Services
                 else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VideoSourceCameraWindow(client, permissionManager, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
+                    videoForm = new VideoSourceCameraWindow(client, permissionManager, cameraFunctionRepository, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -205,7 +208,7 @@ namespace Sequence.Services
                 else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new FFMpegCameraWindow(permissionManager, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new FFMpegCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -213,7 +216,7 @@ namespace Sequence.Services
                 else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, cameraFunctionRepository, personalOptionsRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -221,7 +224,7 @@ namespace Sequence.Services
                 else if (camera is VlcCameraInfo vlcCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VlcCameraWindow(permissionManager, personalOptionsRepository, vlcCameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new VlcCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, vlcCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -229,7 +232,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharpCameraWindow(permissionManager, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new OpenCvSharpCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -237,7 +240,7 @@ namespace Sequence.Services
                 else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -456,6 +459,7 @@ namespace Sequence.Services
                                 CameraPort = SunellLegacyCameraInfo.PagoPort,
                                 Username = sunellLegacyCamera.Username,
                                 Password = sunellLegacyCamera.Password,
+                                CameraId = sunellLegacyCamera.CameraId ?? 1,
                                 StreamId = sunellLegacyCamera.StreamId ?? 1
                             };
 
@@ -468,6 +472,7 @@ namespace Sequence.Services
                                 CameraPort = SunellLegacyCameraInfo.PagoPort,
                                 Username = sunellCamera.Username,
                                 Password = sunellCamera.Password,
+                                CameraId = sunellCamera.CameraId ?? 1,
                                 StreamId = sunellCamera.StreamId ?? 1
                             };
 

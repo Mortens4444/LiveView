@@ -82,6 +82,7 @@ namespace Mtf.Controls.Sunell.IPR66
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("Location of the text to be displayed on the control.")]
         public Point OverlayLocation { get; set; } = new Point(10, 10);
+
         public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int cameraId = 1, bool autoConnect = true, int ipProtocolVersion = 1, int transferProtocol = 2)
         {
             var deviceInfo = new ST_DeviceInfo

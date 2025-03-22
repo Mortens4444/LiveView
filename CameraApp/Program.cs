@@ -1,11 +1,10 @@
 using CameraApp.Services;
 using CameraForms.Forms;
 using Database.Enums;
-using Database.Repositories;
+using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
@@ -13,6 +12,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraApp
@@ -28,10 +28,15 @@ namespace CameraApp
         [STAThread]
         private static void Main(string[] args)
         {
-#if DEBUG
-            //Debugger.Launch();
-            //System.Threading.Thread.Sleep(10000);
-#endif
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["AttachDebugger"], out var attach) && attach)
+            {
+                Debugger.Launch();
+            }
+            if (Int32.TryParse(ConfigurationManager.AppSettings["WaitAtStartup"], out var waitTime))
+            {
+                Thread.Sleep(waitTime);
+            }
+
             ExceptionHandler.CatchUnhandledExceptions();
             try
             {
@@ -42,11 +47,8 @@ namespace CameraApp
                 //            ApplicationConfiguration.Initialize();
                 //#endif
 
-                BaseRepository.CommandTimeout = 240;
-                BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-                BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+                DatabaseInitializer.Initialize("LiveViewConnectionString");
 
-                BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
                 //InfoBox.Show("Camera app started", $"{String.Join(" ", args)}");
 
                 using (var serviceProvider = ServiceProviderFactory.Create())
@@ -207,6 +209,7 @@ namespace CameraApp
                                 case CameraMode.VideoSource:
                                     var serverIp = args[1];
                                     var videoCaptureSource = args[2];
+
                                     using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, null))
                                     {
                                         Application.Run(form);
@@ -224,6 +227,7 @@ namespace CameraApp
                         var videoCaptureSource = args[2];
                         long? displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
                         var cameraMode = (CameraMode)Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+
                         switch (cameraMode)
                         {
                             case CameraMode.VideoSource:
@@ -323,6 +327,7 @@ namespace CameraApp
                         int width = Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
                         int height = Convert.ToInt32(args[6], CultureInfo.InvariantCulture);
                         var cameraMode = (CameraMode)Convert.ToInt32(args[7], CultureInfo.InvariantCulture);
+                        long cameraId;
 
                         switch (cameraMode)
                         {

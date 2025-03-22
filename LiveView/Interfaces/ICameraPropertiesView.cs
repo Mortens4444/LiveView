@@ -38,6 +38,10 @@ namespace LiveView.Interfaces
         
         ComboBox CbPatternName { get; }
 
-        ListView LvCameraFunctions { get; }
+        MtfListView LvCameraFunctions { get; }
+
+        OpenFileDialog OpenFileDialog { get; }
+
+        SaveFileDialog SaveFileDialog { get; }
     }
 }

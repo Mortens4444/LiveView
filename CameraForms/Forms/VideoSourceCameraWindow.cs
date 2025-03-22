@@ -15,9 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
-using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -33,6 +33,7 @@ namespace CameraForms.Forms
         private readonly string serverIp;
         private readonly string videoCaptureSource;
         private readonly PermissionManager<User> permissionManager;
+        private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly int frameTimeout = 1500;
@@ -40,9 +41,10 @@ namespace CameraForms.Forms
 
         private Image lastImage;
         private Timer frameTimer;
-        private VideoCaptureClient videoCaptureClient;
         private Client client;
+        private VideoCaptureClient videoCaptureClient;
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
+        private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
         private int largeFontSize;
         private string fontFamily;
@@ -52,7 +54,7 @@ namespace CameraForms.Forms
         private string cameraName;
         private GridCamera gridCamera;
 
-        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -62,8 +64,9 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
+            this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
-            StartVideoCapture();
+            StartVideoCaptureImageReceiver();
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
 
@@ -93,6 +96,7 @@ namespace CameraForms.Forms
             this.serverIp = serverIp;
             this.videoCaptureSource = videoCaptureSource;
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
@@ -113,13 +117,20 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)
         {
+            videoCaptureSourceCameraInfo = new VideoCaptureSourceCameraInfo
+            {
+                ServerIp = serverIp,
+                VideoSourceName = videoCaptureSource,
+                GridCamera = null
+            };
+            StartVideoCaptureImageReceiver();
             SetOsdParameters(userId, serverIp, videoCaptureSource);
 
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
                 var displayId = display?.Id ?? String.Empty;
-                client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
+                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
@@ -186,22 +197,26 @@ namespace CameraForms.Forms
             }
         }
 
-        private void StartVideoCapture()
+        private void StartVideoCaptureImageReceiver()
         {
             var agentRepository = new AgentRepository();
+            var videoSourceRepository = new VideoSourceRepository();
 
             Task.Run(() =>
             {
                 Agent agent = null;
+                VideoSource videoSource = null;
                 do
                 {
                     var agents = agentRepository.SelectAll();
-                    agent = agents.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoCaptureSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                    var videoSources = videoSourceRepository.SelectAll();
+                    videoSource = videoSources.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                    agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
                     Thread.Sleep(500);
                 }
                 while (agent == null);
 
-                videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
+                videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
                 videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                 videoCaptureClient.Start();
                 Invoke((Action)(() =>
@@ -212,7 +227,8 @@ namespace CameraForms.Forms
                         Invoke((Action)(() =>
                         {
                             mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                            client.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}", true);
+
+                            client?.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}|{videoCaptureSourceCameraInfo.VideoSourceName}", true);
                             Thread.Sleep(200);
                             ReconnectVideoCapture();
                         }));
@@ -233,108 +249,37 @@ namespace CameraForms.Forms
                 videoCaptureClient.FrameArrived -= VideoCaptureClient_FrameArrived;
                 videoCaptureClient?.Stop();
                 videoCaptureClient = null;
-                StartVideoCapture();
+                StartVideoCaptureImageReceiver();
             });
-        }
-
-        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
-        {
-            try
-            {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
-                {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                        //videoCaptureClient.
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
-            }
         }
 
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            Size = new Size(rectangle.Width, rectangle.Height);
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            {
+                Size = new Size(100, 100);
+            }
+            else
+            {
+                Size = new Size(rectangle.Width, rectangle.Height);
+            }
         }
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
             var agentRepository = new AgentRepository();
+            var videoSourceRepository = new VideoSourceRepository();
+
+            var videoSources = videoSourceRepository.SelectAll();
+            var videoSource = videoSources.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
             var agents = agentRepository.SelectAll();
-            var agent = agents.FirstOrDefault(a => a.ServerIp == serverIp && a.VideoCaptureSourceName == videoCaptureSource);
+            var agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
 
             if (agent != null)
             {
-                videoCaptureClient = new VideoCaptureClient(agent.ServerIp, agent.Port);
+                videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
                 videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-
                 videoCaptureClient.Start();
                 frameTimer.Start();
             }
@@ -369,11 +314,12 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            fullScreenCameraMessageHandler.Exit();
         }
 
         private void VideoSourceCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            kBD300ASimulatorServer?.Stop();
             frameTimer?.Stop();
             videoCaptureClient?.Stop();
         }

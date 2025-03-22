@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             pMain = new System.Windows.Forms.Panel();
+            btnImport = new System.Windows.Forms.Button();
+            btnExport = new System.Windows.Forms.Button();
             tabControl = new System.Windows.Forms.TabControl();
             tpGeneral = new System.Windows.Forms.TabPage();
             lblCameraName = new System.Windows.Forms.Label();
@@ -71,6 +73,8 @@
             btnSave = new System.Windows.Forms.Button();
             contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
             tsmiDeleteCameraFunction = new System.Windows.Forms.ToolStripMenuItem();
+            saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            openFileDialog = new System.Windows.Forms.OpenFileDialog();
             pMain.SuspendLayout();
             tabControl.SuspendLayout();
             tpGeneral.SuspendLayout();
@@ -83,6 +87,8 @@
             // 
             // pMain
             // 
+            pMain.Controls.Add(btnImport);
+            pMain.Controls.Add(btnExport);
             pMain.Controls.Add(tabControl);
             pMain.Controls.Add(btnClose);
             pMain.Controls.Add(btnSave);
@@ -92,6 +98,28 @@
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(904, 458);
             pMain.TabIndex = 1;
+            // 
+            // btnImport
+            // 
+            btnImport.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnImport.Location = new System.Drawing.Point(7, 423);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new System.Drawing.Size(75, 23);
+            btnImport.TabIndex = 29;
+            btnImport.Text = "Import";
+            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
+            // 
+            // btnExport
+            // 
+            btnExport.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnExport.Location = new System.Drawing.Point(88, 423);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new System.Drawing.Size(75, 23);
+            btnExport.TabIndex = 28;
+            btnExport.Text = "Export";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += BtnExport_Click;
             // 
             // tabControl
             // 
@@ -406,6 +434,7 @@
             lvCameraFunctions.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             lvCameraFunctions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chCameraFunction, chCameraFunctionCallback, chCameraFunctionCallbackParameters });
             lvCameraFunctions.CompactView = false;
+            lvCameraFunctions.ContextMenuStrip = contextMenuStrip;
             lvCameraFunctions.EnsureLastItemIsVisible = false;
             lvCameraFunctions.FirstItemIsGray = false;
             lvCameraFunctions.FullRowSelect = true;
@@ -492,6 +521,7 @@
             // 
             // cbCameraFunctionType
             // 
+            cbCameraFunctionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbCameraFunctionType.FormattingEnabled = true;
             cbCameraFunctionType.Location = new System.Drawing.Point(6, 32);
             cbCameraFunctionType.Name = "cbCameraFunctionType";
@@ -604,5 +634,9 @@
         private System.Windows.Forms.ColumnHeader chCameraFunctionCallbackParameters;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteCameraFunction;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

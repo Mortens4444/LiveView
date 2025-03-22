@@ -4,6 +4,11 @@ namespace Database.Enums
 {
     public enum CameraFunctionType
     {
+        [Description("Snapshot")]
+        Snapshot,
+        [Description("Live stream")]
+        Live_Stream,
+
         [Description("Stop PTZ movement")]
         PTZ_Stop,
         [Description("Move PTZ up")]
@@ -14,18 +19,6 @@ namespace Database.Enums
         PTZ_Left,
         [Description("Move PTZ right")]
         PTZ_Right,
-
-        [Description("Calibrate PTZ")]
-        PTZ_Calibrate,
-        [Description("Zoom in")]
-        PTZ_Zoom_In,
-        [Description("Zoom out")]
-        PTZ_Zoom_Out,
-        [Description("Enable auto-focus")]
-        PTZ_Auto_Focus,
-        [Description("Enable manual focus")]
-        PTZ_Manual_Focus,
-
         [Description("Move PTZ up and left")]
         PTZ_Up_And_Left,
         [Description("Move PTZ up and right")]
@@ -43,93 +36,6 @@ namespace Database.Enums
         PTZ_Start_Horizontal_Patrol,
         [Description("Stop horizontal patrol")]
         PTZ_Stop_Horizontal_Patrol,
-
-        [Description("Move PTZ to home position")]
-        PTZ_Go_To_Home,
-
-        [Description("Turn digital output on")]
-        Digital_Output_On,
-        [Description("Turn digital output off")]
-        Digital_Output_Off,
-
-        [Description("Flip image horizontally")]
-        Flip_Image_Horizontally,
-        [Description("Flip image vertically")]
-        Flip_Image_Vertically,
-
-        [Description("Set exposure to auto")]
-        Set_Exposure_To_Auto,
-        [Description("Set exposure to manual")]
-        Set_Exposure_To_Manual,
-
-        [Description("Enable night vision")]
-        Enable_Night_Vision,
-        [Description("Disable night vision")]
-        Disable_Night_Vision,
-
-        [Description("Set IR LED mode to auto")]
-        Set_IR_Led_To_Auto,
-        [Description("Turn IR LED on")]
-        Set_IR_Led_To_On,
-        [Description("Turn IR LED off")]
-        Set_IR_Led_To_Off,
-
-        [Description("Enable motion detection")]
-        Enable_Motion_Detection,
-        [Description("Disable motion detection")]
-        Disable_Motion_Detection,
-        [Description("Enable sound detection")]
-        Enable_Sound_Detection,
-        [Description("Disable sound detection")]
-        Disable_Sound_Detection,
-        [Description("Turn alarm output on")]
-        Set_Alarm_Output_On,
-        [Description("Turn alarm output off")]
-        Set_Alarm_Output_Off,
-
-        [Description("Enable Wide Dynamic Range (WDR)")]
-        Enable_Wide_Dynamic_Range,
-        [Description("Disable Wide Dynamic Range (WDR)")]
-        Disable_Wide_Dynamic_Range,
-        [Description("Enable RTSP")]
-        Enable_RTSP,
-        [Description("Disable RTSP")]
-        Disable_RTSP,
-        [Description("Set RTSP port")]
-        Set_RTSP_Port,
-        [Description("Set HTTP port")]
-        Set_HTTP_Port,
-        [Description("Set HTTPS port")]
-        Set_HTTPS_Port,
-        [Description("Enable FTP")]
-        Enable_FTP,
-        [Description("Disable FTP")]
-        Disable_FTP,
-        [Description("Enable DDNS")]
-        Enable_DDNS,
-        [Description("Disable DDNS")]
-        Disable_DDNS,
-        [Description("Enable UPNP")]
-        Enable_UPNP,
-        [Description("Disable UPNP")]
-        Disable_UPNP,
-        [Description("Enable SSH")]
-        Enable_SSH,
-        [Description("Disable SSH")]
-        Disable_SSH,
-        [Description("Enable Telnet")]
-        Enable_Telnet,
-        [Description("Disable Telnet")]
-        Disable_Telnet,
-        [Description("Reset camera to factory settings")]
-        Factory_Reset,
-        [Description("Reboot camera")]
-        Reboot,
-
-        [Description("Test email configuration")]
-        Test_Mail,
-        [Description("Test FTP configuration")]
-        Test_FTP,
 
         [Description("PTZ save preset 0 position")]
         PTZ_Save_Preset_0,
@@ -216,6 +122,105 @@ namespace Database.Enums
         PTZ_Load_Preset_19,
         [Description("PTZ load preset 20 position")]
         PTZ_Load_Preset_20,
+
+        [Description("Move PTZ to home position")]
+        PTZ_Go_To_Home,
+
+        [Description("Calibrate PTZ")]
+        PTZ_Calibrate,
+        [Description("Zoom in")]
+        PTZ_Zoom_In,
+        [Description("Zoom out")]
+        PTZ_Zoom_Out,
+        [Description("Enable auto-focus")]
+        PTZ_Auto_Focus,
+        [Description("Enable manual focus")]
+        PTZ_Manual_Focus,
+
+
+        [Description("Turn digital output on")]
+        Digital_Output_On,
+        [Description("Turn digital output off")]
+        Digital_Output_Off,
+
+        [Description("Flip image horizontally")]
+        Flip_Image_Horizontally,
+        [Description("Flip image vertically")]
+        Flip_Image_Vertically,
+
+        [Description("Set exposure to auto")]
+        Set_Exposure_To_Auto,
+        [Description("Set exposure to manual")]
+        Set_Exposure_To_Manual,
+
+        [Description("Enable night vision")]
+        Enable_Night_Vision,
+        [Description("Disable night vision")]
+        Disable_Night_Vision,
+
+        [Description("Set IR LED mode to auto")]
+        Set_IR_Led_To_Auto,
+        [Description("Turn IR LED on")]
+        Set_IR_Led_To_On,
+        [Description("Turn IR LED off")]
+        Set_IR_Led_To_Off,
+
+        [Description("Enable motion detection")]
+        Enable_Motion_Detection,
+        [Description("Disable motion detection")]
+        Disable_Motion_Detection,
+        [Description("Enable sound detection")]
+        Enable_Sound_Detection,
+        [Description("Disable sound detection")]
+        Disable_Sound_Detection,
+        [Description("Turn alarm output on")]
+        Set_Alarm_Output_On,
+        [Description("Turn alarm output off")]
+        Set_Alarm_Output_Off,
+
+        [Description("Enable Wide Dynamic Range (WDR)")]
+        Enable_Wide_Dynamic_Range,
+        [Description("Disable Wide Dynamic Range (WDR)")]
+        Disable_Wide_Dynamic_Range,
+        [Description("Enable RTSP")]
+        Enable_RTSP,
+        [Description("Disable RTSP")]
+        Disable_RTSP,
+        [Description("Set RTSP port")]
+        Set_RTSP_Port,
+        [Description("Set HTTP port")]
+        Set_HTTP_Port,
+        [Description("Set HTTPS port")]
+        Set_HTTPS_Port,
+        [Description("Enable FTP")]
+        Enable_FTP,
+        [Description("Disable FTP")]
+        Disable_FTP,
+        [Description("Enable DDNS")]
+        Enable_DDNS,
+        [Description("Disable DDNS")]
+        Disable_DDNS,
+        [Description("Enable UPNP")]
+        Enable_UPNP,
+        [Description("Disable UPNP")]
+        Disable_UPNP,
+        [Description("Enable SSH")]
+        Enable_SSH,
+        [Description("Disable SSH")]
+        Disable_SSH,
+        [Description("Enable Telnet")]
+        Enable_Telnet,
+        [Description("Disable Telnet")]
+        Disable_Telnet,
+        [Description("Reset camera to factory settings")]
+        Factory_Reset,
+        [Description("Reboot camera")]
+        Reboot,
+
+        [Description("Test email configuration")]
+        Test_Mail,
+        [Description("Test FTP configuration")]
+        Test_FTP,
 
         [Description("Set saturation to 0")]
         Set_Saturation_To_0,
@@ -379,6 +384,6 @@ namespace Database.Enums
         [Description("Set alarm")]
         Set_Alarm,
         [Description("Set misc")]
-        Set_Misc,
+        Set_Misc
     }
 }

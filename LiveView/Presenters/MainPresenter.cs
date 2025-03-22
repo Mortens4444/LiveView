@@ -22,6 +22,7 @@ using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
+using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
@@ -63,6 +64,7 @@ namespace LiveView.Presenters
         private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IAgentRepository agentRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IOperationRepository operationRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
@@ -89,6 +91,7 @@ namespace LiveView.Presenters
             agentRepository = dependencies.AgentRepository;
             operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
+            videoSourceRepository = dependencies.VideoSourceRepository;
             agentRepository.DeleteAll();
             uptime = new Uptime();
 
@@ -459,8 +462,12 @@ namespace LiveView.Presenters
                     else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
                     {
                         Globals.Agents.Remove(messageParts[1]);
-
-                        //agentRepository.DeleteWhere(new { ServerIp = messageParts[1].Split(':')[0] });
+                        var serverIp = messageParts[1].Split(':')[0];
+                        var videoSources = videoSourceRepository.SelectWhere(new { ServerIp = serverIp, VideoSourceName = messageParts[2] });
+                        foreach (var videoSource in videoSources)
+                        {
+                            agentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
+                        }
                         Globals.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
@@ -508,7 +515,11 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.AgentDisconnected}|"))
                     {
-                        agentRepository.DeleteWhere(new { ServerIp = messageParts[1] });
+                        var videoSources = videoSourceRepository.SelectWhere(new { ServerIp = messageParts[1], VideoSourceName = messageParts[2] });
+                        foreach (var videoSource in videoSources)
+                        {
+                            agentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
+                        }
                     }
                     else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                     {
@@ -517,18 +528,38 @@ namespace LiveView.Presenters
                             .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
                         Globals.VideoCaptureSources.Add(e.Socket, videoCaptureSources);
                         if (videoCaptureSources.Count > 0)
-                        { 
-                            agentRepository.DeleteWhere(new { ServerIp = videoCaptureSources.Values.First().Split(':')[0] });
+                        {
+                            var videoSources = videoSourceRepository.SelectAll();
+                            var serverIp = videoCaptureSources.Values.First().Split(':')[0];
+                            var relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == serverIp);
+                            foreach (var relevantVideoSource in relevantVideoSources)
+                            {
+                                agentRepository.DeleteWhere(new { VideoSourceId = relevantVideoSource.Id });
+                            }
                         }
                         foreach (var videoCaptureSource in videoCaptureSources)
                         {
                             var hostInfo = videoCaptureSource.Value.Split(':');
-                            agentRepository.Insert(new Database.Models.Agent
+                            var videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new VideoSource
                             {
-                                VideoCaptureSourceName = videoCaptureSource.Key,
-                                ServerIp = hostInfo[0],
-                                Port = Convert.ToInt32(hostInfo[1])
+                                VideoSourceName = videoCaptureSource.Key,
+                                ServerIp = hostInfo[0]
                             });
+                            var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
+                            var newAgent = new Database.Models.Agent
+                            {
+                                Id = agent?.Id ?? 0,
+                                VideoSourceId = videoSourceId,
+                                Port = Convert.ToInt32(hostInfo[1])
+                            };
+                            if (agent == null)
+                            {
+                                agentRepository.Insert(newAgent);
+                            }
+                            else
+                            {
+                                agentRepository.Update(newAgent);
+                            }
                         }
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
@@ -878,10 +909,10 @@ namespace LiveView.Presenters
 
         public void LoadKbd300A()
         {
-            var KBD300ACOMPort = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
-            if (!String.IsNullOrEmpty(KBD300ACOMPort))
+            var kbd300ACOMPort = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
+            if (!String.IsNullOrEmpty(kbd300ACOMPort))
             {
-                kBD300A = new KBD300A(KBD300ACOMPort);
+                kBD300A = new KBD300A(kbd300ACOMPort);
             }
         }
     }

@@ -7,12 +7,17 @@ using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 
-namespace LiveView.Services
+namespace LiveView.Core.Services
 {
     public static class StreamTester
     {
-        public static bool TestUrl(string url, int timeoutMs)
+        public static bool TestUrl(string url, int timeoutMs = 100)
         {
+            if (String.IsNullOrWhiteSpace(url))
+            {
+                return false;
+            }
+
             if (url.StartsWith("rtsp:"))
             {
                 return TestRtspUrl(url, timeoutMs);

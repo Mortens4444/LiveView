@@ -1,0 +1,1 @@
+﻿SELECT * FROM Agents WHERE VideoSourceId = @VideoSourceId;

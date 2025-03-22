@@ -73,7 +73,7 @@ namespace LiveView.Presenters
             {
                 foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
                 {
-                    if (cameraProcessInfo.Value.ProcessId == CameraProcess.Id)
+                    if (CameraProcess == null || cameraProcessInfo.Value.ProcessId == CameraProcess.Id)
                     {
                         Globals.CameraProcessInfo.TryRemove(cameraProcessInfo.Key, out _);
                         break;

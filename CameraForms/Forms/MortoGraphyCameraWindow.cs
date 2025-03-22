@@ -12,7 +12,9 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Configuration;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -20,16 +22,17 @@ namespace CameraForms.Forms
     public partial class MortoGraphyCameraWindow : Form
     {
         private readonly ICameraRepository cameraRepository;
+        private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
 
         private PermissionManager<User> permissionManager;
         private Rectangle rectangle;
         private string url;
-        private Client client;
         private GridCamera gridCamera;
+        private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -38,6 +41,7 @@ namespace CameraForms.Forms
             this.url = url;
             this.rectangle = rectangle;
             this.cameraRepository = cameraRepository;
+            this.cameraFunctionRepository = cameraFunctionRepository;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
@@ -56,6 +60,7 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = DisplayProvider.Get(displayId);
@@ -71,6 +76,7 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             Initialize(userId, cameraId, rectangle, null, true);
@@ -85,7 +91,7 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
-                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.MortoGraphy);
+                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
@@ -94,78 +100,17 @@ namespace CameraForms.Forms
             }
         }
 
-        private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
-        {
-            try
-            {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
-                {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
-            }
-        }
-
         private void MortoGraphyWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            Size = new Size(rectangle.Width, rectangle.Height);
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            {
+                Size = new Size(100, 100);
+            }
+            else
+            {
+                Size = new Size(rectangle.Width, rectangle.Height);
+            }
         }
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
@@ -203,11 +148,12 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            fullScreenCameraMessageHandler.Exit();
         }
 
         private void MortoGraphyWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            kBD300ASimulatorServer?.Stop();
             mortoGraphyWindow.Stop();
         }
     }

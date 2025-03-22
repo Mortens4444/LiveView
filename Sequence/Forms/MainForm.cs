@@ -87,11 +87,12 @@ namespace Sequence.Forms
 
             var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             var gridCameraRepository = serviceProvider.GetRequiredService<IGridCameraRepository>();
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
+            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }
 
@@ -144,7 +145,15 @@ namespace Sequence.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             Location = new Point(display.X, display.Y);
-            Size = new Size(display.MaxWidth, display.MaxHeight);
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            {
+                Size = new Size(100, 100);
+            }
+            else
+            {
+                Size = new Size(display.MaxWidth, display.MaxHeight);
+            }
+
             if (gridSequenceManager.Invalid)
             {
                 ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("Sequence does not exists."));

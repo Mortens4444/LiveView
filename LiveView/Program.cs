@@ -44,11 +44,7 @@ namespace LiveView
             //ApplicationConfiguration.Initialize();
             //#endif
 
-            BaseRepository.CommandTimeout = 240;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-            BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
-
-            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"]?.ConnectionString;
+            DatabaseInitializer.Initialize("MasterConnectionString");
             try
             {
                 BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
@@ -66,8 +62,8 @@ namespace LiveView
             BaseRepository.Execute("CreateTables");
             var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
-                "MigrationCreateAgentsTable", "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation",
-                "MigrationDropLogsTableColumn", "MigrationAlterTableGridCameras", "MigrationUpdateGridCameras", "MigrationUpdateCamerasHttpStreamUrlLength" };
+                "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation", "MigrationDropLogsTableColumn",
+                "MigrationAlterTableGridCameras", "MigrationUpdateGridCameras", "MigrationUpdateCamerasHttpStreamUrlLength" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();

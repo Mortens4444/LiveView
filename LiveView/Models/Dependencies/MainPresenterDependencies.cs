@@ -1,6 +1,6 @@
 ﻿using Database.Interfaces;
+using LiveView.Core.Services;
 using LiveView.Forms;
-using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 using System;
@@ -25,6 +25,7 @@ namespace LiveView.Models.Dependencies
             IAgentRepository agentRepository,
             IOperationRepository operationRepository,
             IUserEventRepository userEventRepository,
+            IVideoSourceRepository videoSourceRepository,
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
@@ -41,8 +42,11 @@ namespace LiveView.Models.Dependencies
             TemplateRepository = templateRepository;
             OperationRepository = operationRepository;
             UserEventRepository = userEventRepository;
+            VideoSourceRepository = videoSourceRepository;
             Logger = logger;
         }
+        
+        public IVideoSourceRepository VideoSourceRepository { get; private set; }
 
         public IAgentRepository AgentRepository { get; private set; }
 

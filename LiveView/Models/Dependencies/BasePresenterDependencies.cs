@@ -1,5 +1,5 @@
 ﻿using Database.Interfaces;
-using LiveView.Services;
+using LiveView.Core.Services;
 
 namespace LiveView.Models.Dependencies
 {

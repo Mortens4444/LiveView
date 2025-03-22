@@ -1,1 +1,1 @@
-﻿DELETE FROM Agents WHERE ServerIp = @ServerIp;
+﻿DELETE FROM Agents WHERE VideoSourceId = @VideoSourceId;

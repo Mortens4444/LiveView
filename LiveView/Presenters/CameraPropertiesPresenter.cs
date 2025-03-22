@@ -1,4 +1,5 @@
 ﻿using Accord;
+using Accord.IO;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
@@ -11,6 +12,7 @@ using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -81,7 +83,7 @@ namespace LiveView.Presenters
             view.LvCameraFunctions.AddItems(cameraFunctionRepository.SelectWhere(new { CameraId = view.Camera.Id }),
                 cameraFunction =>
                 {
-                    var result = new ListViewItem(cameraFunction.FunctionCallback.GetDescription())
+                    var result = new ListViewItem(cameraFunction.FunctionId.ToString())
                     {
                         Tag = cameraFunction
                     };
@@ -100,6 +102,7 @@ namespace LiveView.Presenters
         {
             var cameraFunction = new CameraFunction
             {
+                CameraId = view.Camera.Id,
                 FunctionId = (CameraFunctionType)view.CbCameraFunctionType.SelectedIndex,
                 FunctionCallback = view.TbCameraFunctionCallback.Text
             };
@@ -157,6 +160,56 @@ namespace LiveView.Presenters
             }
 
             return String.Join(";", parameters);
+        }
+
+        public void ExportCustomFunctions()
+        {
+            view.SaveFileDialog.FileName = $"{view.Camera} {Lng.Elem("Custom functions")}.csv";
+            if (view.SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                view.LvCameraFunctions.ExportItemsToCsv(view.SaveFileDialog.FileName);
+            }
+        }
+
+        public void ImportCustomFunctions()
+        {
+            if (view.OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var lines = new List<string>();
+                using (var fileStream = new FileStream(view.OpenFileDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    using (var streamReader = new StreamReader(fileStream))
+                    {
+                        while (!streamReader.EndOfStream)
+                        {
+                            lines.Add(streamReader.ReadLine());
+                        }
+                    }
+                }
+
+                foreach (var line in lines.Skip(1))
+                {
+                    var columns = line.Split(',');
+                    var cameraFunction = new CameraFunction
+                    {
+                        CameraId = view.Camera.Id,
+                        FunctionId = EnumExtensions.GetFromDescription<CameraFunctionType>(columns[0]),
+                        FunctionCallback = columns[1]
+                    };
+
+                    var parameters = columns[2].Split(';');
+                    for (int i = 0; i < Math.Min(parameters.Length, 40); i++)
+                    {
+                        var propertyName = $"Param{i + 1}";
+                        var property = cameraFunction.GetType().GetProperty(propertyName);
+                        property?.SetValue(cameraFunction, parameters[i]);
+                    }
+
+                    cameraFunctionRepository.Insert(cameraFunction);
+                }
+
+                view.LvCameraFunctions.ImportItemsFromCsv(view.OpenFileDialog.FileName);
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using Mtf.Network;
@@ -32,7 +31,7 @@ namespace LiveView.Agent
         private static readonly Dictionary<long, Process> cameraProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<long, Process> sequenceProcesses = new Dictionary<long, Process>();
         private static readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
-        private static readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures shoul be in the same dictionary
+        private static readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures should be in the same dictionary
         private static readonly Dictionary<string, VideoCapture> videoCaptures = new Dictionary<string, VideoCapture>();
         //private static readonly GeneralOptionsRepository generalOptionsRepository;
         private static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
@@ -45,7 +44,7 @@ namespace LiveView.Agent
 
         static Program()
         {
-            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+            DatabaseInitializer.Initialize("LiveViewConnectionString");
             //generalOptionsRepository = new GeneralOptionsRepository();
         }
 

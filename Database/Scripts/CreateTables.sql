@@ -573,6 +573,16 @@ BEGIN
     );
 END;
 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Agents]') AND type = N'U')
+BEGIN
+    CREATE TABLE [dbo].Agents (
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        VideoSourceId BIGINT,
+        Port INT NOT NULL,
+        FOREIGN KEY (VideoSourceId) REFERENCES VideoSources(Id)
+    );
+END;
+
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraFunctions]') AND type in (N'U'))
 BEGIN
     CREATE TABLE CameraFunctions (

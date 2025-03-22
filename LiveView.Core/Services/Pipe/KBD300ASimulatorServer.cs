@@ -1,28 +1,61 @@
 ﻿using System.IO.Pipes;
 using System.IO;
 using Mtf.MessageBoxes;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 
 namespace LiveView.Core.Services.Pipe
 {
     public class KBD300ASimulatorServer
     {
-        public async void StartPipeServerAsync(string pipeName)
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        private Task serverTask;
+
+        public void StartPipeServerAsync(string pipeName)
         {
-            while (true)
+            cts = new CancellationTokenSource();
+            var token = cts.Token;
+
+            serverTask = Task.Run(async () =>
             {
-                using (var server = new NamedPipeServerStream(pipeName, PipeDirection.In))
+                while (!token.IsCancellationRequested)
                 {
-                    await server.WaitForConnectionAsync().ConfigureAwait(false);
-                    using (var reader = new StreamReader(server))
+                    using (var server = new NamedPipeServerStream(pipeName, PipeDirection.In, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous))
                     {
-                        string message;
-                        while ((message = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
+                        try
                         {
-                            InfoBox.Show("Information", $"Unknown message arrived: {message}");
+                            await server.WaitForConnectionAsync(token).ConfigureAwait(false);
+
+                            using (var reader = new StreamReader(server))
+                            {
+                                string message;
+
+                                while (!token.IsCancellationRequested && (message = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
+                                {
+                                    InfoBox.Show("Information", $"Unknown message arrived: {message}");
+                                }
+                            }
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            break;
+                        }
+                        catch (IOException)
+                        {
+                            // Client disconnected, continue listening
                         }
                     }
                 }
-            }
+            }, token);
+        }
+
+        public void Stop()
+        {
+            cts.Cancel();
+            serverTask?.Wait();
+            cts.Dispose();
+            cts = new CancellationTokenSource();
         }
     }
 }

@@ -1,8 +1,7 @@
-using Database.Repositories;
+using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.Database;
 using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
 using Sequence.Services;
@@ -10,6 +9,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Sequence
@@ -21,10 +21,15 @@ namespace Sequence
         [STAThread]
         static void Main(string[] args)
         {
-#if DEBUG
-            //Debugger.Launch();
-            //System.Threading.Thread.Sleep(10000);
-#endif
+            if (Boolean.TryParse(ConfigurationManager.AppSettings["AttachDebugger"], out var attach) && attach)
+            {
+                Debugger.Launch();
+            }
+            if (Int32.TryParse(ConfigurationManager.AppSettings["WaitAtStartup"], out var waitTime))
+            {
+                Thread.Sleep(waitTime);
+            }
+
             ExceptionHandler.CatchUnhandledExceptions();
 
 #if NETFRAMEWORK
@@ -33,11 +38,7 @@ namespace Sequence
 #else
             ApplicationConfiguration.Initialize();
 #endif
-            BaseRepository.CommandTimeout = 240;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-            BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
-
-            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+            DatabaseInitializer.Initialize("LiveViewConnectionString");
 
             var userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
             var sequenceId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);

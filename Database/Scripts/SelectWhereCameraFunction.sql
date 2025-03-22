@@ -1,1 +1,1 @@
-﻿SELECT * FROM CameraFunctions WHERE CameraId = @CameraId;
+﻿SELECT * FROM CameraFunctions WHERE CameraId = @CameraId ORDER BY FunctionId;

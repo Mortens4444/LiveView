@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace LiveView.Services
+namespace LiveView.Core.Services
 {
     public class FormFactory
     {

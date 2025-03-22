@@ -59,8 +59,10 @@
     <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
     <EmbeddedResource Include="Scripts\HasAnyRowOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
@@ -77,7 +79,6 @@
     <EmbeddedResource Include="Scripts\MigrationData.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropChecksums.sql" />
     <EmbeddedResource Include="Scripts\MigrationRenameTables.sql" />
-    <EmbeddedResource Include="Scripts\MigrationCreateAgentsTable.sql" />
     <EmbeddedResource Include="Scripts\MigrationRenameColumns.sql" />
     <EmbeddedResource Include="Scripts\MigrationAddConstraints.sql" />
   </ItemGroup>
@@ -186,6 +187,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Mtf.Database" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />

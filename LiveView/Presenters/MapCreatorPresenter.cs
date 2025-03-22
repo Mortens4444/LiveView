@@ -27,6 +27,7 @@ namespace LiveView.Presenters
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
@@ -46,6 +47,7 @@ namespace LiveView.Presenters
             mapRepository = dependencies.MapRepository;
             mapObjectRepository = dependencies.MapObjectRepository;
             objectInMapRepository = dependencies.ObjectInMapRepository;
+            videoSourceRepository = dependencies.VideoSourceRepository;
             logger = dependencies.Logger;
 
             gridCameras = gridCameraRepository.SelectAll();
@@ -175,15 +177,13 @@ namespace LiveView.Presenters
                         panel.Tag = cameraRepository.Select(mapObject.ActionReferencedId);
                         break;
                     case MapActionType.OpenVideoSource:
-                        var gridCamera = gridCameras.FirstOrDefault(gc => gc.Id == mapObject.ActionReferencedId); // Should use videoSourceRepository
-                        if (gridCamera != null)
+                        var videoSourceModel = videoSourceRepository.Select(mapObject.ActionReferencedId);
+                        var videoSource = new VideoSourceDto
                         {
-                            panel.Tag = new VideoSourceDto
-                            {
-                                EndPoint = $"{gridCamera.ServerIp}:0",
-                                Name = gridCamera.VideoSourceName
-                            };
-                        }
+                            EndPoint = $"{videoSourceModel.ServerIp}:0",
+                            Name = videoSourceModel.VideoSourceName
+                        };
+                        panel.Tag = videoSource;
                         break;
                 }
                 view.PCanvas.Controls.Add(panel);
