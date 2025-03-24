@@ -30,17 +30,24 @@ namespace CameraForms.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(SunellLegacyCameraWindow));
             sunellVideoWindowLegacy1 = new SunellVideoWindowLegacy();
+            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)sunellVideoWindowLegacy1).BeginInit();
+            cmsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // sunellVideoWindowLegacy1
             // 
             sunellVideoWindowLegacy1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            sunellVideoWindowLegacy1.ContextMenuStrip = cmsMenu;
             sunellVideoWindowLegacy1.Dock = System.Windows.Forms.DockStyle.Fill;
             sunellVideoWindowLegacy1.Location = new System.Drawing.Point(0, 0);
             sunellVideoWindowLegacy1.Name = "sunellVideoWindowLegacy1";
+            sunellVideoWindowLegacy1.OverlayBackgroundColor = System.Drawing.Color.Black;
+            sunellVideoWindowLegacy1.OverlayColor = System.Drawing.Color.White;
             sunellVideoWindowLegacy1.OverlayFont = (System.Drawing.Font)resources.GetObject("sunellVideoWindowLegacy1.OverlayFont");
             sunellVideoWindowLegacy1.OverlayLocation = new System.Drawing.Point(10, 10);
             sunellVideoWindowLegacy1.OverlayText = "";
@@ -48,6 +55,19 @@ namespace CameraForms.Forms
             sunellVideoWindowLegacy1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             sunellVideoWindowLegacy1.TabIndex = 0;
             sunellVideoWindowLegacy1.TabStop = false;
+            // 
+            // cmsMenu
+            // 
+            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { closeToolStripMenuItem });
+            cmsMenu.Name = "cmsMenu";
+            cmsMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // closeToolStripMenuItem
+            // 
+            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            closeToolStripMenuItem.Text = "Close";
+            closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
             // 
             // SunellLegacyCameraWindow
             // 
@@ -66,11 +86,14 @@ namespace CameraForms.Forms
             Load += SunellLegacyCameraWindow_Load;
             Shown += SunellLegacyCameraWindow_Shown;
             ((System.ComponentModel.ISupportInitialize)sunellVideoWindowLegacy1).EndInit();
+            cmsMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Mtf.Controls.Sunell.IPR66.SunellVideoWindowLegacy sunellVideoWindowLegacy1;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }

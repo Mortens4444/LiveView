@@ -3,18 +3,13 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
-using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
-using Mtf.Network;
-using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -96,7 +91,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
         }
 
@@ -125,7 +119,7 @@ namespace CameraForms.Forms
             var cameraName = personalOptionsRepository.GetCameraName(userId, url);
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
- 
+
             if (gridCamera?.Frame ?? false)
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -149,12 +143,18 @@ namespace CameraForms.Forms
         private void OnExit()
         {
             fullScreenCameraMessageHandler.Exit();
+            kBD300ASimulatorServer?.Stop();
+            mortoGraphyWindow.Stop();
         }
 
         private void MortoGraphyWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            mortoGraphyWindow.Stop();
+            OnExit();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

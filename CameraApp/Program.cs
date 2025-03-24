@@ -1,10 +1,12 @@
 using CameraApp.Services;
 using CameraForms.Forms;
 using Database.Enums;
+using Database.Repositories;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
@@ -12,6 +14,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -20,6 +23,7 @@ namespace CameraApp
     internal static class Program
     {
         public static ExceptionHandler ExceptionHandler { get; } = new ExceptionHandler();
+
         private static ILogger<ExceptionHandler> logger;
 
         /// <summary>
@@ -84,44 +88,34 @@ namespace CameraApp
                                 Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.MortoGraphy:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.FFMpeg:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.OpenCvSharp:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.OpenCvSharp4:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.Vlc:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, null))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             default:
                                 throw new NotSupportedException($"{cameraMode} is not supported.");
@@ -159,44 +153,34 @@ namespace CameraApp
                                     Sdk.sdk_dev_quit();
                                     break;
                                 case CameraMode.MortoGraphy:
-                                    _ = Sdk.sdk_dev_init(null);
                                     using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
-                                    Sdk.sdk_dev_quit();
                                     break;
                                 case CameraMode.FFMpeg:
-                                    _ = Sdk.sdk_dev_init(null);
                                     using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
-                                    Sdk.sdk_dev_quit();
                                     break;
                                 case CameraMode.OpenCvSharp:
-                                    _ = Sdk.sdk_dev_init(null);
                                     using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
-                                    Sdk.sdk_dev_quit();
                                     break;
                                 case CameraMode.OpenCvSharp4:
-                                    _ = Sdk.sdk_dev_init(null);
                                     using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
-                                    Sdk.sdk_dev_quit();
                                     break;
                                 case CameraMode.Vlc:
-                                    _ = Sdk.sdk_dev_init(null);
                                     using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, displayId))
                                     {
                                         Application.Run(form);
                                     }
-                                    Sdk.sdk_dev_quit();
                                     break;
                                 default:
                                     throw new NotSupportedException($"{cameraMode} is not supported.");
@@ -274,44 +258,34 @@ namespace CameraApp
                                 Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.MortoGraphy:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.FFMpeg:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new FFMpegCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.OpenCvSharp:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new OpenCvSharpCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.OpenCvSharp4:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new OpenCvSharp4CameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             case CameraMode.Vlc:
-                                _ = Sdk.sdk_dev_init(null);
                                 using (var form = new VlcCameraWindow(serviceProvider, userId, cameraId, rectangle))
                                 {
                                     Application.Run(form);
                                 }
-                                Sdk.sdk_dev_quit();
                                 break;
                             default:
                                 throw new NotSupportedException($"{cameraMode} is not supported.");

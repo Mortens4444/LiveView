@@ -53,12 +53,12 @@
             // 
             cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { closeToolStripMenuItem });
             cmsMenu.Name = "cmsMenu";
-            cmsMenu.Size = new System.Drawing.Size(104, 26);
+            cmsMenu.Size = new System.Drawing.Size(181, 48);
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             closeToolStripMenuItem.Text = "Close";
             closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
             // 

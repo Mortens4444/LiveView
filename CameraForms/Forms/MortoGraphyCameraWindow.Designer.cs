@@ -32,15 +32,20 @@ namespace CameraForms.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MortoGraphyCameraWindow));
             mortoGraphyWindow = new MortoGraphyWindow();
+            cmsMenu = new ContextMenuStrip(components);
+            closeToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)mortoGraphyWindow).BeginInit();
+            cmsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // mortoGraphyWindow
             // 
             mortoGraphyWindow.BackgroundImage = (System.Drawing.Image)resources.GetObject("mortoGraphyWindow.BackgroundImage");
             mortoGraphyWindow.BackgroundImageLayout = ImageLayout.Stretch;
+            mortoGraphyWindow.ContextMenuStrip = cmsMenu;
             mortoGraphyWindow.Dock = DockStyle.Fill;
             mortoGraphyWindow.Location = new System.Drawing.Point(0, 0);
             mortoGraphyWindow.Name = "mortoGraphyWindow";
@@ -48,12 +53,25 @@ namespace CameraForms.Forms
             mortoGraphyWindow.OverlayLocation = new System.Drawing.Point(10, 10);
             mortoGraphyWindow.OverlayText = "";
             mortoGraphyWindow.Password = null;
-            mortoGraphyWindow.Size = new System.Drawing.Size(100, 50);
+            mortoGraphyWindow.Size = new System.Drawing.Size(800, 450);
             mortoGraphyWindow.SizeMode = PictureBoxSizeMode.StretchImage;
             mortoGraphyWindow.StreamType = Mtf.Controls.Enums.StreamType.Mjpeg;
             mortoGraphyWindow.TabIndex = 0;
             mortoGraphyWindow.TabStop = false;
             mortoGraphyWindow.Username = null;
+            // 
+            // cmsMenu
+            // 
+            cmsMenu.Items.AddRange(new ToolStripItem[] { closeToolStripMenuItem });
+            cmsMenu.Name = "cmsMenu";
+            cmsMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // closeToolStripMenuItem
+            // 
+            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            closeToolStripMenuItem.Text = "Close";
+            closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
             // 
             // MortoGraphyCameraWindow
             // 
@@ -69,11 +87,14 @@ namespace CameraForms.Forms
             Load += MortoGraphyWindow_Load;
             Shown += MortoGraphyWindow_Shown;
             ((System.ComponentModel.ISupportInitialize)mortoGraphyWindow).EndInit();
+            cmsMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Mtf.Controls.Video.MortoGraphyWindow mortoGraphyWindow;
+        private ContextMenuStrip cmsMenu;
+        private ToolStripMenuItem closeToolStripMenuItem;
     }
 }

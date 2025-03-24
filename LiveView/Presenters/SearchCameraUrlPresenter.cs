@@ -120,7 +120,7 @@ namespace LiveView.Presenters
                         });
 
                         url = SearchCameraUrlService.ModifyUrl(camera, itemText);
-                        if (StreamTester.TestUrl(url, timeoutMs))
+                        if (UriCaller.CallUrl(url, timeoutMs))
                         {
                             progress.Report(new ProgressReport
                             {
@@ -183,7 +183,7 @@ namespace LiveView.Presenters
             {
                 var url = cameraUrl.ToString();
                 url = SearchCameraUrlService.ModifyUrl(camera, url);
-                if (StreamTester.TestUrl(url, timeoutMs))
+                if (UriCaller.CallUrl(url, timeoutMs))
                 {
                     return url;
                 }

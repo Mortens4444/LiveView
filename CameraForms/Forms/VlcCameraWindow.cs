@@ -95,7 +95,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
         }
 
@@ -144,13 +143,19 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
+            kBD300ASimulatorServer?.Stop();
+            vlcWindow.Stop();
             fullScreenCameraMessageHandler.Exit();
         }
 
         private void VlcCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            vlcWindow.Stop();
+            OnExit();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

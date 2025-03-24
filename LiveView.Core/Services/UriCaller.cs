@@ -9,9 +9,9 @@ using System.Text;
 
 namespace LiveView.Core.Services
 {
-    public static class StreamTester
+    public static class UriCaller
     {
-        public static bool TestUrl(string url, int timeoutMs = 100)
+        public static bool CallUrl(string url, int timeoutMs = 100)
         {
             if (String.IsNullOrWhiteSpace(url))
             {
@@ -20,16 +20,16 @@ namespace LiveView.Core.Services
 
             if (url.StartsWith("rtsp:"))
             {
-                return TestRtspUrl(url, timeoutMs);
+                return CallRtspUrl(url, timeoutMs);
             }
             else if (url.StartsWith("mms:"))
             {
-                return TestMmsUrl(url, timeoutMs);
+                return CallMmsUrl(url, timeoutMs);
             }
-            return TestHttpUrl(url, timeoutMs);
+            return CallHttpUrl(url, timeoutMs);
         }
 
-        private static bool TestHttpUrl(string url, int timeoutMs)
+        private static bool CallHttpUrl(string url, int timeoutMs)
         {
             try
             {
@@ -51,8 +51,9 @@ namespace LiveView.Core.Services
                     string cleanedUrl;
                     if (!String.IsNullOrEmpty(uri.UserInfo))
                     {
-                        var user = uri.UserInfo.Split(':')[0];
-                        var pass = uri.UserInfo.Split(':')[1];
+                        var userInfo = uri.UserInfo.Split(':');
+                        var user = userInfo[0];
+                        var pass = userInfo[1];
                         cleanedUrl = $"{uri.Scheme}://{uri.Host}{uri.PathAndQuery}";
                         client = new HttpClient(new HttpClientHandler
                         {
@@ -88,7 +89,7 @@ namespace LiveView.Core.Services
             }
         }
 
-        private static bool TestRtspUrl(string url, int timeoutMs)
+        private static bool CallRtspUrl(string url, int timeoutMs)
         {
             try
             {
@@ -141,7 +142,7 @@ namespace LiveView.Core.Services
             }
         }
 
-        private static bool TestMmsUrl(string url, int timeoutMs)
+        private static bool CallMmsUrl(string url, int timeoutMs)
         {
             try
             {

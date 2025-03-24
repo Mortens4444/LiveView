@@ -76,29 +76,31 @@ namespace LiveView.Agent
                 {
                     try
                     {
+                        Console.WriteLine($"Attempt to connect {serverIp}:{serverPort}.");
                         client = new Client(serverIp, serverPort);
                         client.DataArrived += ClientDataArrivedEventHandler;
                         client.Connect();
-                        client.Send($"{NetworkCommand.RegisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true);
-
-                        var displayManager = new DisplayManager();
-                        var displays = displayManager.GetAll();
-                        foreach (var display in displays)
+                        if (client.Send($"{NetworkCommand.RegisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true))
                         {
-                            display.Host = client.Socket.LocalEndPoint.ToString();
-                            client.Send($"{NetworkCommand.RegisterDisplay}|{display.Serialize()}", true);
-                        }
-
-                        SendVideoCaptureSourcesToLiveView();
-                        Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
-                        Console.WriteLine(PressCtrlCToExit);
-
-                        while (true)
-                        {
-                            Thread.Sleep(1000);
-                            if (!client.Send($"{NetworkCommand.Ping}", true))
+                            var displayManager = new DisplayManager();
+                            var displays = displayManager.GetAll();
+                            foreach (var display in displays)
                             {
-                                break;
+                                display.Host = client.Socket.LocalEndPoint.ToString();
+                                client.Send($"{NetworkCommand.RegisterDisplay}|{display.Serialize()}", true);
+                            }
+
+                            SendVideoCaptureSourcesToLiveView();
+                            Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
+                            Console.WriteLine(PressCtrlCToExit);
+
+                            while (true)
+                            {
+                                Thread.Sleep(1000);
+                                if (!client.Send($"{NetworkCommand.Ping}", true))
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -160,7 +162,7 @@ namespace LiveView.Agent
                 var displays = displayManager.GetAll();
                 foreach (var display in displays)
                 {
-                    display.Host = client.Socket.LocalEndPoint.ToString();
+                    display.Host = client.Socket?.LocalEndPoint?.ToString();
                     client.Send($"{NetworkCommand.UnregisterDisplay}|{display.Serialize()}", true);
                 }
 

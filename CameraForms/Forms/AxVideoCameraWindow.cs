@@ -115,7 +115,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
@@ -285,19 +284,20 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            axVideoPlayerWindow.AxVideoPlayer.Stop();
-            axVideoPlayerWindow.AxVideoPlayer.Dispose();
+            OnExit();
         }
 
         private void OnExit()
         {
+            kBD300ASimulatorServer?.Stop();
+            axVideoPlayerWindow.AxVideoPlayer.Stop();
+            axVideoPlayerWindow.AxVideoPlayer.Dispose();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            Application.Exit();
+            Close();
         }
     }
 }

@@ -30,8 +30,6 @@ namespace CameraForms.Forms
     public partial class VideoSourceCameraWindow : Form
     {
         private readonly DisplayDto display;
-        private readonly string serverIp;
-        private readonly string videoCaptureSource;
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -80,8 +78,6 @@ namespace CameraForms.Forms
         {
             InitializeComponent();
 
-            this.serverIp = serverIp;
-            this.videoCaptureSource = videoCaptureSource;
             rectangle = new Rectangle(location, size);
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
@@ -93,8 +89,7 @@ namespace CameraForms.Forms
         public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
         {
             InitializeComponent();
-            this.serverIp = serverIp;
-            this.videoCaptureSource = videoCaptureSource;
+
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
@@ -135,7 +130,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
 
             frameTimer = new Timer(frameTimeout);
@@ -308,20 +302,20 @@ namespace CameraForms.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            videoCaptureClient?.Stop();
-            Application.Exit();
+            Close();
         }
 
         private void OnExit()
         {
-            fullScreenCameraMessageHandler.Exit();
+            fullScreenCameraMessageHandler.ExitVideoSource();
+            kBD300ASimulatorServer?.Stop();
+            frameTimer?.Stop();
+            videoCaptureClient?.Stop();
         }
 
         private void VideoSourceCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            frameTimer?.Stop();
-            videoCaptureClient?.Stop();
+            OnExit();
         }
     }
 }

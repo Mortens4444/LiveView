@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(OpenCvSharp4CameraWindow));
             openCvSharp4VideoWindow = new Mtf.Controls.Video.OpenCvSharp.OpenCvSharp4VideoWindow();
+            cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
+            closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)openCvSharp4VideoWindow).BeginInit();
+            cmsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // openCvSharp4VideoWindow
@@ -38,6 +42,7 @@
             openCvSharp4VideoWindow.BackColor = System.Drawing.Color.Black;
             openCvSharp4VideoWindow.BackgroundImage = Properties.Resources.nosignal;
             openCvSharp4VideoWindow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            openCvSharp4VideoWindow.ContextMenuStrip = cmsMenu;
             openCvSharp4VideoWindow.Dock = System.Windows.Forms.DockStyle.Fill;
             openCvSharp4VideoWindow.Location = new System.Drawing.Point(0, 0);
             openCvSharp4VideoWindow.Name = "openCvSharp4VideoWindow";
@@ -48,6 +53,19 @@
             openCvSharp4VideoWindow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             openCvSharp4VideoWindow.TabIndex = 0;
             openCvSharp4VideoWindow.TabStop = false;
+            // 
+            // cmsMenu
+            // 
+            cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { closeToolStripMenuItem });
+            cmsMenu.Name = "cmsMenu";
+            cmsMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // closeToolStripMenuItem
+            // 
+            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            closeToolStripMenuItem.Text = "Close";
+            closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
             // 
             // OpenCvSharp4CameraWindow
             // 
@@ -68,11 +86,14 @@
             Load += OpenCvSharp4_Load;
             Shown += OpenCvSharp4_Shown;
             ((System.ComponentModel.ISupportInitialize)openCvSharp4VideoWindow).EndInit();
+            cmsMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Mtf.Controls.Video.OpenCvSharp.OpenCvSharp4VideoWindow openCvSharp4VideoWindow;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }

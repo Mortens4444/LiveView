@@ -25,11 +25,11 @@ namespace CameraForms.Services
                     client.Connect();
                     var displayId = display?.Id ?? String.Empty;
 #if NET481
-                        client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)cameraMode}", true);
+                    client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)cameraMode}", true);
 #else
                     client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}|{(int)cameraMode}", true);
-                    return client;
 #endif
+                    return client;
                 }
                 catch (Exception ex)
                 {
@@ -61,6 +61,7 @@ namespace CameraForms.Services
 #else
                     client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Environment.ProcessId}|{(int)CameraMode.VideoSource}", true);
 #endif
+                    return client;
                 }
                 catch (Exception ex)
                 {

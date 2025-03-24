@@ -9,19 +9,19 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.Sunell.IPR67;
+using Mtf.Controls.Sunell.IPR67.Enums;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Windows.Forms;
-using Mtf.Controls.Sunell.IPR67;
 using System.Configuration;
-using Mtf.Controls.Sunell.IPR67.Enums;
+using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CameraForms.Forms
 {
@@ -104,7 +104,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
 
             this.rectangle = rectangle;
@@ -215,7 +214,7 @@ namespace CameraForms.Forms
             sunellVideoWindow1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             sunellVideoWindow1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
             sunellVideoWindow1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            
+
             var text = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
             if (gridCamera?.Frame ?? false)
             {
@@ -292,13 +291,19 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
+            kBD300ASimulatorServer?.Stop();
+            sunellVideoWindow1.Disconnect();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            sunellVideoWindow1.Disconnect();
+            OnExit();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

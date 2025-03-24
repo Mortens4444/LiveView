@@ -19,13 +19,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
     public class ControlCenterPresenter : BaseDisplayPresenter
     {
+        private const string StreamUrlFormatErrorMessage = "Stream URL should be in this format: '[IP address]|[Video source name]', example: '192.168.0.1|0'";
         private const string SelectDisplayFirst = "Select a display first.";
+
         private IControlCenterView view;
         private SequenceProcessInfo selectedSequenceProcess;
 
@@ -75,6 +78,7 @@ namespace LiveView.Presenters
                 {
                     if (CameraProcess == null || cameraProcessInfo.Value.ProcessId == CameraProcess.Id)
                     {
+                        Globals.Server.SendMessageToClient(cameraProcessInfo.Key, NetworkCommand.Close.ToString());
                         Globals.CameraProcessInfo.TryRemove(cameraProcessInfo.Key, out _);
                         break;
                     }
@@ -279,11 +283,39 @@ namespace LiveView.Presenters
             }
         }
 
-        public bool StartCameraApp(IHaveId<long> camera, CameraMode cameraMode)
+        public bool StartCameraApp(Camera camera, CameraMode cameraMode)
         {
             if (camera == null)
             {
                 return false;
+            }
+
+            if (cameraMode == CameraMode.VideoSource)
+            {
+                var videoCaptureSourceParts = camera.HttpStreamUrl.Split('|');
+                if (videoCaptureSourceParts.Length != 2)
+                {
+                    ShowError(StreamUrlFormatErrorMessage);
+                    return false;
+                }
+                else
+                {
+                    var serverIp = videoCaptureSourceParts[0];
+                    if (IPAddress.TryParse(serverIp, out var ipAddress))
+                    {
+                        var videoSource = new VideoSourceDto
+                        {
+                            EndPoint = $"{videoCaptureSourceParts[0]}:0",
+                            Name = videoCaptureSourceParts[1]
+                        };
+                        return StartCameraApp(videoSource);
+                    }
+                    else
+                    {
+                        ShowError(StreamUrlFormatErrorMessage);
+                        return false;
+                    }
+                }
             }
 
             var parameters = new[]
@@ -319,16 +351,11 @@ namespace LiveView.Presenters
             return AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
         }
 
-        public List<string> GetProtectedParameters(string[] parameters)
-        {
-            return parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
-        }
-
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
 
-            var protectedParameters = GetProtectedParameters(parameters);
+            var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
 
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {

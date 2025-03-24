@@ -45,7 +45,7 @@ namespace LiveView.Services
                 var url = cameraUrl.ToString();
                 url = ModifyUrl(camera, url);
 
-                if (StreamTester.TestUrl(url, timeoutMs))
+                if (UriCaller.CallUrl(url, timeoutMs))
                 {
                     return url;
                 }

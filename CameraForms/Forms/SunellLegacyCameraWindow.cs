@@ -106,7 +106,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
 
             this.rectangle = rectangle;
@@ -215,7 +214,7 @@ namespace CameraForms.Forms
                 Invalidate();
             }));
         }
-        
+
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
@@ -268,14 +267,20 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
+            kBD300ASimulatorServer?.Stop();
+            sunellVideoWindowLegacy1.PTZ_Close();
+            sunellVideoWindowLegacy1.Disconnect();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
         }
 
         private void SunellLegacyCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            sunellVideoWindowLegacy1.PTZ_Close();
-            sunellVideoWindowLegacy1.Disconnect();
+            OnExit();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

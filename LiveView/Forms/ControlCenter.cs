@@ -429,11 +429,6 @@ namespace LiveView.Forms
             return presenter.StartCamera(protectedParameters);
         }
 
-        public List<string> GetProtectedParameters(string[] parameters)
-        {
-            return presenter.GetProtectedParameters(parameters);
-        }
-
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
         {
             return presenter.StartSequence(sequenceId, selectedDisplayId, isMdi);

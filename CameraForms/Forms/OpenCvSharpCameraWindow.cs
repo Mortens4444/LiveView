@@ -3,13 +3,9 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
-using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
-using Mtf.Network;
-using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
@@ -94,7 +90,6 @@ namespace CameraForms.Forms
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-                FormClosing += (sender, e) => OnExit();
             }
         }
 
@@ -120,7 +115,7 @@ namespace CameraForms.Forms
             openCvSharpVideoWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
             openCvSharpVideoWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
             //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            
+
             var text = personalOptionsRepository.GetCameraName(userId, url);
             if (gridCamera?.Frame ?? false)
             {
@@ -143,12 +138,18 @@ namespace CameraForms.Forms
         private void OnExit()
         {
             fullScreenCameraMessageHandler.Exit();
+            kBD300ASimulatorServer?.Stop();
+            openCvSharpVideoWindow.Stop();
         }
 
         private void OpenCvSharp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            kBD300ASimulatorServer?.Stop();
-            openCvSharpVideoWindow.Stop();
+            OnExit();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

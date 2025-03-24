@@ -61,14 +61,19 @@ namespace CameraForms.Services
 
         public void Exit()
         {
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            client.Send($"{NetworkCommand.UnregisterCamera}", true);
+        }
+
+        public void ExitVideoSource()
+        {
+            client.Send($"{NetworkCommand.UnregisterVideoSource}", true);
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
+                var messages = $"{client.Encoding.GetString(e.Data)}";
                 var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var message in allMessages)
                 {
@@ -83,55 +88,55 @@ namespace CameraForms.Services
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzRight?.FunctionCallback);
+                        UriCaller.CallUrl(ptzRight?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzUp?.FunctionCallback);
+                        UriCaller.CallUrl(ptzUp?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzUpRight?.FunctionCallback);
+                        UriCaller.CallUrl(ptzUpRight?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzUpLeft?.FunctionCallback);
+                        UriCaller.CallUrl(ptzUpLeft?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzMoveToPresetZero?.FunctionCallback);
+                        UriCaller.CallUrl(ptzMoveToPresetZero?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzDown?.FunctionCallback);
+                        UriCaller.CallUrl(ptzDown?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzDownRight?.FunctionCallback);
+                        UriCaller.CallUrl(ptzDownRight?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzDownLeft?.FunctionCallback);
+                        UriCaller.CallUrl(ptzDownLeft?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzLeft?.FunctionCallback);
+                        UriCaller.CallUrl(ptzLeft?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzStop?.FunctionCallback);
+                        UriCaller.CallUrl(ptzStop?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzStop?.FunctionCallback);
+                        UriCaller.CallUrl(ptzStop?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzZoomIn?.FunctionCallback);
+                        UriCaller.CallUrl(ptzZoomIn?.FunctionCallback);
                     }
                     else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
                     {
-                        StreamTester.TestUrl(ptzZoomOut?.FunctionCallback);
+                        UriCaller.CallUrl(ptzZoomOut?.FunctionCallback);
                     }
                     else
                     {

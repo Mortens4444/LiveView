@@ -22,7 +22,6 @@ using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
-using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
@@ -114,7 +113,7 @@ namespace LiveView.Presenters
             {
                 try
                 {
-                    var protectedParameters = GetProtectedParameters(permissionManager.CurrentUser.Tag.Id, cameraProcess.Value);
+                    var protectedParameters = cameraProcess.Value.GetProtectedParameters(permissionManager.CurrentUser.Tag.Id);
                     if (LocalIpAddressChecker.IsLocal(cameraProcess.Key.RemoteEndPoint.ToString()))
                     {
                         if (!cameraProcesses.Any(sp => sp.Id == cameraProcess.Value.ProcessId))
@@ -130,48 +129,11 @@ namespace LiveView.Presenters
                 }
                 catch (Exception ex)
                 {
+                    Globals.CameraProcessInfo.TryRemove(cameraProcess.Key, out _);
                     DebugErrorBox.Show(ex);
                 }
             }
         }
-
-        private List<string> GetProtectedParameters(long userId, CameraProcessInfo cameraProcessInfo)
-        {
-            string[] parameters;
-            switch (cameraProcessInfo.CameraMode)
-            {
-                case CameraMode.AxVideoPlayer:
-                case CameraMode.SunellCamera:
-                case CameraMode.SunellLegacyCamera:
-                case CameraMode.FFMpeg:
-                case CameraMode.OpenCvSharp:
-                case CameraMode.OpenCvSharp4:
-                case CameraMode.MortoGraphy:
-                case CameraMode.Vlc:
-                    parameters = new[]
-                    {
-                            userId.ToString(),
-                            cameraProcessInfo.CameraId.ToString(),
-                            ((int)cameraProcessInfo.CameraMode).ToString()
-                    };
-                    break;
-                case CameraMode.VideoSource:
-                    parameters = new[]
-                    {
-                        permissionManager.CurrentUser.Tag.Id.ToString(),
-                        cameraProcessInfo.ServerIp,
-                        cameraProcessInfo.VideoCaptureSource,
-                        ((int)CameraMode.VideoSource).ToString()
-                    };
-                    break;
-                default:
-                    throw new NotSupportedException();
-
-            }
-
-            return Globals.ControlCenter.GetProtectedParameters(parameters);
-        }
-
         private static void CheckSequenceApplications()
         {
             var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
@@ -576,7 +538,7 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}"))
                     {
-                        Globals.CameraProcessInfo.TryRemove(e.Socket, out CameraProcessInfo cameraProcessInfo);
+                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
                     }
                     else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
                     {
@@ -596,7 +558,7 @@ namespace LiveView.Presenters
                             CameraMode = (CameraMode)Convert.ToInt32(messageParts[7])
                         });
                     }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterVideoSource}|"))
+                    else if (message.StartsWith(NetworkCommand.UnregisterVideoSource.ToString()))
                     {
                         Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
                     }
