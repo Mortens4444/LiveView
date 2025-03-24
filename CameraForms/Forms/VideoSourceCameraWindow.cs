@@ -36,6 +36,7 @@ namespace CameraForms.Forms
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly int frameTimeout = 1500;
         private readonly Rectangle rectangle;
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         private Image lastImage;
         private Timer frameTimer;
@@ -64,7 +65,6 @@ namespace CameraForms.Forms
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
-            StartVideoCaptureImageReceiver();
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
 
@@ -118,7 +118,6 @@ namespace CameraForms.Forms
                 VideoSourceName = videoCaptureSource,
                 GridCamera = null
             };
-            StartVideoCaptureImageReceiver();
             SetOsdParameters(userId, serverIp, videoCaptureSource);
 
             if (fullScreen)
@@ -202,17 +201,55 @@ namespace CameraForms.Forms
                 VideoSource videoSource = null;
                 do
                 {
-                    var agents = agentRepository.SelectAll();
-                    var videoSources = videoSourceRepository.SelectAll();
-                    videoSource = videoSources.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
-                    agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
-                    Thread.Sleep(500);
+                    try
+                    {
+                        var agents = agentRepository.SelectAll();
+                        var videoSources = videoSourceRepository.SelectAll();
+                        videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                        if (videoSource != null)
+                        {
+                            agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
+                            if (agent == null)
+                            {
+                                ErrorBox.Show(Lng.Elem("General error"), "Agent not found.");
+                                break;
+                            }
+                            Thread.Sleep(500);
+                        }
+                        else
+                        {
+                            var message = String.Format(Lng.Elem("VideoSource ({0}) is not registered."), videoCaptureSourceCameraInfo.ToString());
+                            ErrorBox.Show(Lng.Elem("General error"), message);
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugErrorBox.Show(ex);
+                    }
                 }
                 while (agent == null);
 
-                videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
-                videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-                videoCaptureClient.Start();
+                if (agent == null)
+                {
+                    return;
+                }
+
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    try
+                    {
+                        videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
+                        videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+                        videoCaptureClient.Start();
+                        cancellationTokenSource.Cancel();
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugErrorBox.Show(ex);
+                    }
+                }
+
                 Invoke((Action)(() =>
                 {
                     frameTimer = new Timer(frameTimeout);
@@ -262,21 +299,22 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
-            var agentRepository = new AgentRepository();
-            var videoSourceRepository = new VideoSourceRepository();
+            //var agentRepository = new AgentRepository();
+            //var videoSourceRepository = new VideoSourceRepository();
 
-            var videoSources = videoSourceRepository.SelectAll();
-            var videoSource = videoSources.FirstOrDefault(a => a.ServerIp == videoCaptureSourceCameraInfo.ServerIp && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
-            var agents = agentRepository.SelectAll();
-            var agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
+            //var videoSources = videoSourceRepository.SelectAll();
+            //var videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+            //var agents = agentRepository.SelectAll();
+            //var agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
 
-            if (agent != null)
-            {
-                videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
-                videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-                videoCaptureClient.Start();
-                frameTimer.Start();
-            }
+            StartVideoCaptureImageReceiver();
+            //if (agent != null)
+            //{
+            //    videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
+            //    videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
+            //    videoCaptureClient.Start();
+            //    frameTimer.Start();
+            //}
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
@@ -307,6 +345,7 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
+            cancellationTokenSource.Cancel();
             fullScreenCameraMessageHandler.ExitVideoSource();
             kBD300ASimulatorServer?.Stop();
             frameTimer?.Stop();

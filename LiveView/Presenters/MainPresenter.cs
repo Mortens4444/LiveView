@@ -489,24 +489,40 @@ namespace LiveView.Presenters
                             .Select(vcs => vcs.Split('='))
                             .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
                         Globals.VideoCaptureSources.Add(e.Socket, videoCaptureSources);
+
+                        List<VideoSource> relevantVideoSources;
                         if (videoCaptureSources.Count > 0)
                         {
                             var videoSources = videoSourceRepository.SelectAll();
                             var serverIp = videoCaptureSources.Values.First().Split(':')[0];
-                            var relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == serverIp);
+                            relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == serverIp).ToList();
                             foreach (var relevantVideoSource in relevantVideoSources)
                             {
                                 agentRepository.DeleteWhere(new { VideoSourceId = relevantVideoSource.Id });
                             }
                         }
+                        else
+                        {
+                            relevantVideoSources = new List<VideoSource>();
+                        }
+
                         foreach (var videoCaptureSource in videoCaptureSources)
                         {
                             var hostInfo = videoCaptureSource.Value.Split(':');
-                            var videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new VideoSource
+                            long videoSourceId;
+                            var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.VideoSourceName == videoCaptureSource.Key);
+                            if (foundVideoSource != null)
                             {
-                                VideoSourceName = videoCaptureSource.Key,
-                                ServerIp = hostInfo[0]
-                            });
+                                videoSourceId = foundVideoSource.Id;
+                            }
+                            else
+                            {
+                                videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new VideoSource
+                                {
+                                    VideoSourceName = videoCaptureSource.Key,
+                                    ServerIp = hostInfo[0]
+                                });
+                            }
                             var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
                             var newAgent = new Database.Models.Agent
                             {
