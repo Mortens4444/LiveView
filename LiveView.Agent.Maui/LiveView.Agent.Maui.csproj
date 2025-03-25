@@ -40,6 +40,15 @@
     <SkipCheckForMauiMinimumSupportedWorkloadVersion>true</SkipCheckForMauiMinimumSupportedWorkloadVersion>
 
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyAlias>LiveView.Agent.Maui</AndroidSigningKeyAlias>
+    <AndroidSigningKeyStore>C:\Work\KeyStore\LiveView.Agent.MAUI\keystore.jks</AndroidSigningKeyStore>
+    <AndroidSigningKeyPass>file:C:\Work\KeyStore\LiveView.Agent.MAUI\AndroidSigningKeyPass.txt</AndroidSigningKeyPass>
+    <AndroidSigningStorePass>file:C:\Work\KeyStore\LiveView.Agent.MAUI\AndroidSigningStorePass.txt</AndroidSigningStorePass>
+    <AndroidPackageFormats>aab;apk</AndroidPackageFormats>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->

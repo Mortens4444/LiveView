@@ -7,21 +7,8 @@
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="10">
 
-            <!-- Server Address Entry -->
-            <Entry x:Name="serverEntry"
-                   Text="192.168.0.1:4444"
-                   Placeholder="Enter server address"
-                   Keyboard="Url" />
-
-            <!-- Camera View -->
-            <camera:CameraView x:Name="cameraView"
-                               WidthRequest="300"
-                               HeightRequest="400" />
-
-            <!-- Start/Stop Button -->
-            <Button x:Name="startStopButton"
-                    Text="Start"
-                    Clicked="StartCamera_Clicked" />
+            <camera:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="400" />
+            <Button x:Name="startStopButton" Text="Start" Clicked="StartCamera_Clicked" />
 
         </VerticalStackLayout>
     </ScrollView>
