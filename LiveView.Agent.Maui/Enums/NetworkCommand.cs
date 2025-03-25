@@ -1,4 +1,4 @@
-﻿namespace LiveView.Core.Enums.Network
+﻿namespace LiveView.Agent.Maui.Enums.Network
 {
     public enum NetworkCommand
     {
