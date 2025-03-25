@@ -45,8 +45,6 @@ Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "LiveView.Installer", "LiveV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Agent.Maui", "LiveView.Agent.Maui\LiveView.Agent.Maui.csproj", "{4238B2E0-ABE4-483E-8B40-BF2EF4D439DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.Maui.Agent", "LiveView.Maui.Agent\LiveView.Maui.Agent.csproj", "{20DB7321-E679-4B95-BEB5-E921E4420811}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,22 +257,6 @@ Global
 		{4238B2E0-ABE4-483E-8B40-BF2EF4D439DD}.Release|x86.ActiveCfg = Release|Any CPU
 		{4238B2E0-ABE4-483E-8B40-BF2EF4D439DD}.Release|x86.Build.0 = Release|Any CPU
 		{4238B2E0-ABE4-483E-8B40-BF2EF4D439DD}.Release|x86.Deploy.0 = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|x64.Build.0 = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Debug|x86.Build.0 = Debug|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|ARM64.Build.0 = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|x64.ActiveCfg = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|x64.Build.0 = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|x86.ActiveCfg = Release|Any CPU
-		{20DB7321-E679-4B95-BEB5-E921E4420811}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

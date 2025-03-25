@@ -435,6 +435,7 @@ namespace LiveView.Presenters
                     else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
                     {
                         var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+                        display.Socket = e.Socket;
                         DisplayManager.RemoteDisplays.Add(display);
                         if (Globals.ControlCenter != null)
                         {
