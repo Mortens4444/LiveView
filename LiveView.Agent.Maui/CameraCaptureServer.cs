@@ -1,38 +1,40 @@
 ﻿using Camera.MAUI;
 using LiveView.Agent.Maui.Enums.Network;
 using Mtf.Network;
-using System.Text;
 
 namespace LiveView.Agent.Maui
 {
-    public static class CameraCaptureServer
+    public class CameraCaptureServer
     {
-        public static Server Capture(
-            Dictionary<string, CancellationTokenSource> cancellationTokenSources,
-            CameraView cameraView,
-            string cameraIdentifier,
-            byte fps = 25)
+        private const int maxRetryCount = 3;
+        private const int fps = 25;
+
+        private CameraView cameraView;
+        private string cameraIdentifier;
+
+        public CameraCaptureServer(CameraView cameraView, string cameraIdentifier)
         {
-            const int maxRetryCount = 3;
+            this.cameraView = cameraView;
+            this.cameraIdentifier = cameraIdentifier;
+        }
+
+        public Server StartVideoCaptureServer(CancellationTokenSource cancellationTokenSource)
+        {
             int retryCount = 0;
 
             var server = new Server();
-            Thread.Sleep(100);
+            _ = Task.Delay(100, cancellationTokenSource.Token);
             server.Start();
             server.SetBufferSize(409600);
 
             Task.Run(async () =>
             {
-                var delay = 1000 / fps;
+                var waitTime = 1000 / fps;
                 while (retryCount < maxRetryCount)
                 {
                     try
                     {
-                        var cancellationTokenSource = new CancellationTokenSource();
-                        cancellationTokenSources.Add(cameraIdentifier, cancellationTokenSource);
-
-                        await CaptureAndSendLoop(server, cameraView, cameraIdentifier, delay, cancellationTokenSource.Token);
-                        break;
+                        await CaptureAndSendLoop(server, cameraView, cameraIdentifier, waitTime, cancellationTokenSource.Token);
                     }
                     catch (Exception ex)
                     {
@@ -45,7 +47,7 @@ namespace LiveView.Agent.Maui
 
                         if (retryCount < maxRetryCount)
                         {
-                            await Task.Delay(2000);
+                            _ = Task.Delay(2000, cancellationTokenSource.Token);
                         }
                         else
                         {
@@ -72,7 +74,7 @@ namespace LiveView.Agent.Maui
                         await stream.CopyToAsync(memoryStream);
                         var imageBytes = memoryStream.ToArray();
 
-                        SendData(server, imageBytes);
+                        server.SendBytesInChunksToAllClients(imageBytes);
                     }
                 }
                 catch (Exception ex)
@@ -84,25 +86,11 @@ namespace LiveView.Agent.Maui
             }
         }
 
-        public static void SendBarcode(Server server, string barcode)
-        {
-            var message = $"{NetworkCommand.BarcodeDetected}|{barcode}";
-            var messageBytes = Encoding.UTF8.GetBytes(message);
-            SendData(server, messageBytes);
-        }
-
-        private static void SendData(Server server, byte[] data)
-        {
-            var chunkSize = server.Socket.SendBufferSize - 500;
-            var totalParts = (int)Math.Ceiling((double)data.Length / chunkSize);
-            for (int i = 0; i < totalParts; i++)
-            {
-                var offset = i * chunkSize;
-                var partSize = Math.Min(chunkSize, data.Length - offset);
-                var partBytes = new byte[partSize];
-                Buffer.BlockCopy(data, offset, partBytes, 0, partSize);
-                server.SendBytesToAllClients(partBytes, true);
-            }
-        }
+        //public static void SendBarcode(Server server, string barcode)
+        //{
+        //    var message = $"{NetworkCommand.BarcodeDetected}|{barcode}";
+        //    var messageBytes = Encoding.UTF8.GetBytes(message);
+        //    server.SendBytesInChunksToAllClients(messageBytes);
+        //}
     }
 }

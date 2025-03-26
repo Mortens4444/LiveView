@@ -4,7 +4,6 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
-using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
@@ -15,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
@@ -41,7 +41,7 @@ namespace CameraForms.Forms
         private Image lastImage;
         private Timer frameTimer;
         private Client client;
-        private VideoCaptureClient videoCaptureClient;
+        private MyVideoCaptureClient videoCaptureClient;
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
@@ -239,7 +239,7 @@ namespace CameraForms.Forms
                 {
                     try
                     {
-                        videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
+                        videoCaptureClient = new MyVideoCaptureClient(videoSource.ServerIp, agent.Port);
                         videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                         videoCaptureClient.Start();
                         cancellationTokenSource.Cancel();

@@ -1,4 +1,9 @@
-﻿using Camera.MAUI;
+﻿#if ANDROID
+using Android.Content;
+using Android.OS;
+#endif
+
+using Camera.MAUI;
 using Mtf.Network;
 
 namespace LiveView.Agent.Maui
@@ -8,13 +13,33 @@ namespace LiveView.Agent.Maui
         private bool playing;
         private CancellationTokenSource? cancellationTokenSource;
         private Server? server;
-        private readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new();
         private string cameraId = "default";
+
+#if ANDROID
+        private static PowerManager.WakeLock? wakeLock;
+#endif
 
         public MainPage()
         {
             InitializeComponent();
+
+#if ANDROID
+            var powerManager = (PowerManager)Android.App.Application.Context.GetSystemService(Context.PowerService);
+            wakeLock = powerManager.NewWakeLock(WakeLockFlags.Partial, "CameraView:WakeLock");
+            wakeLock.Acquire();
+#endif
+
             cameraView.CamerasLoaded += CameraView_CamerasLoaded;
+        }
+
+        ~MainPage()
+        {
+
+#if ANDROID
+            wakeLock?.Release();
+            wakeLock = null;
+#endif
+
         }
 
         private void CameraView_CamerasLoaded(object? sender, EventArgs e)
@@ -38,13 +63,21 @@ namespace LiveView.Agent.Maui
                     });
 
                     cancellationTokenSource = new CancellationTokenSource();
-
-                    server = CameraCaptureServer.Capture(
-                        cancellationTokenSources,
-                        cameraView,
-                        cameraId,
-                        fps: 25
-                    );
+                    
+                    var connectionInfo = serverEntry.Text.Split(":", StringSplitOptions.RemoveEmptyEntries);
+                    if (connectionInfo.Length != 2)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "IP address and port is needed in this format: 192.168.0.1:4444", "OK");
+                        return;
+                    }
+                    var cameraCaptureServer = new CameraCaptureServer(cameraView, cameraId);
+                    server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        serverLabel.Text = $"Server: {server}";
+                    });
+                    var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
+                    _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));
                 }
             }
             else
@@ -58,16 +91,11 @@ namespace LiveView.Agent.Maui
                         server = null;
                     }
 
-                    if (cancellationTokenSources.ContainsKey(cameraId))
-                    {
-                        cancellationTokenSources[cameraId].Cancel();
-                        cancellationTokenSources.Remove(cameraId);
-                    }
-
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         startStopButton.Text = "Start";
                         playing = false;
+                        serverLabel.Text = "Server: Not started";
                     });
                 }
             }

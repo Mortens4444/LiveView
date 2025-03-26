@@ -270,7 +270,7 @@ namespace LiveView.Presenters
             var agentTreeNodes = new List<TreeNode>();
             foreach (var agent in Globals.VideoCaptureSources.Keys)
             {
-                var endPoint = agent.LocalEndPoint.ToString();
+                var endPoint = agent.RemoteEndPoint.ToString();
                 var agentTreeNode = new TreeNode(endPoint.ToString(), AgentIconIndex, AgentIconIndex)
                 {
                     Name = endPoint.ToString()

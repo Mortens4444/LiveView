@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -15,6 +14,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ namespace LiveView.Presenters
 
         private bool gridSettingsChanged = true;
         private bool gridSelectionMatrixChanged = true;
-        private VideoCaptureClient videoCaptureClient;
+        private MyVideoCaptureClient videoCaptureClient;
 
         public AddGridPresenter(AddGridPresenterDependencies dependencies)
             : base(dependencies)
@@ -526,7 +526,7 @@ namespace LiveView.Presenters
                         videoCaptureClient = null;
                         Thread.Sleep(100);
                     }
-                    videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
+                    videoCaptureClient = new MyVideoCaptureClient(videoSource.ServerIp, videoSource.ServerPort);
                     videoCaptureClient.Start();
                     videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                     var matrixRegion = comboBox.Tag as MatrixRegion;

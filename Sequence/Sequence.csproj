@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.37" />
-    <PackageReference Include="Mtf.Network" Version="1.0.37" />
+    <PackageReference Include="Mtf.Network" Version="1.0.38" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.20" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.35" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
