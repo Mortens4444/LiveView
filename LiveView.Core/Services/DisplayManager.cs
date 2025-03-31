@@ -31,8 +31,6 @@ namespace LiveView.Core.Services
             uint deviceIndex = 0;
             while (WinAPI.EnumDisplayDevices(null, deviceIndex, ref adapter, 0))
             {
-                deviceIndex++;
-
                 Console.WriteLine($"Checking: {adapter.DeviceName} - {adapter.DeviceString}");
                 if ((adapter.StateFlags & DisplayDeviceStateFlags.MirroringDriver) == DisplayDeviceStateFlags.MirroringDriver)
                 {
@@ -46,6 +44,7 @@ namespace LiveView.Core.Services
                     }
                     else
                     {
+                        deviceIndex++;
                         continue;
                     }
                 }

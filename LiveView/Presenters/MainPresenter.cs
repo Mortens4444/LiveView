@@ -781,6 +781,8 @@ namespace LiveView.Presenters
         public static void StopStartedApplications()
         {
             ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
+            ControlCenterPresenter.CameraProcess = null;
+
             foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
             {
                 try

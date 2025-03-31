@@ -354,6 +354,7 @@ namespace LiveView.Presenters
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
+            CameraProcess = null;
 
             var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
 

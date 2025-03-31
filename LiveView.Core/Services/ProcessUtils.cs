@@ -37,6 +37,10 @@ namespace LiveView.Core.Services
             {
                 return;
             }
+            if (process.HasExited)
+            {
+                return;
+            }
 
             process.CloseMainWindow();
             process.WaitForExit(300);
