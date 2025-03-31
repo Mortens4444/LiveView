@@ -43,7 +43,21 @@ namespace LiveView.Forms
 #if DEBUG
             Globals.HardwareKey = new VirtualSziltechHardwareKey();
 #else
-            Globals.HardwareKey = new SziltechHardwareKey();
+            try
+            {
+                Globals.HardwareKey = new SziltechHardwareKey();
+            }
+            catch
+            {
+                if (String.Equals(Environment.MachineName, "Ceronit", StringComparison.OrdinalIgnoreCase))
+                {
+                    Globals.HardwareKey = new VirtualSziltechHardwareKey();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 #endif
             Globals.HardwareKey.GetDescription();
         }

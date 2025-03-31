@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Network" Version="1.0.43" />
+    <PackageReference Include="Mtf.Network" Version="1.0.46" />
   </ItemGroup>
 
   <ItemGroup>

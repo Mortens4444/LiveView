@@ -31,10 +31,23 @@ namespace LiveView.Core.Services
             uint deviceIndex = 0;
             while (WinAPI.EnumDisplayDevices(null, deviceIndex, ref adapter, 0))
             {
+                deviceIndex++;
+
+                Console.WriteLine($"Checking: {adapter.DeviceName} - {adapter.DeviceString}");
                 if ((adapter.StateFlags & DisplayDeviceStateFlags.MirroringDriver) == DisplayDeviceStateFlags.MirroringDriver)
                 {
-                    deviceIndex++;
-                    continue; // Skip virtual mirror displays
+                    if ((adapter.StateFlags & DisplayDeviceStateFlags.PrimaryDevice) == DisplayDeviceStateFlags.PrimaryDevice)
+                    {
+                        Console.WriteLine($"Primary Display Found: {adapter.DeviceName}");
+                    }
+                    else if ((adapter.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) == DisplayDeviceStateFlags.AttachedToDesktop)
+                    {
+                        Console.WriteLine($"Attached to Desktop: {adapter.DeviceName}");
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
 
                 var displayDevice = new DISPLAY_DEVICE();
@@ -114,7 +127,35 @@ namespace LiveView.Core.Services
                 {
                     result.Add(remoteDisplay);
                 }
-            }            
+            }
+
+            if (result.Count == 0)
+            {
+                int i = 0;
+                foreach (var screen in Screen.AllScreens)
+                {
+                    i++;
+                    result.Add(new DisplayDto
+                    {
+                        DeviceId = i.ToString(),
+                        X = screen.Bounds.Left,
+                        Y = screen.Bounds.Top,
+                        Width = screen.Bounds.Right - screen.Bounds.Left,
+                        Height = screen.Bounds.Bottom - screen.Bounds.Top,
+                        MaxWidth = screen.Bounds.Width,
+                        MaxHeight = screen.Bounds.Height,
+                        MonitorName = adapter.DeviceName,
+                        AdapterName = adapter.DeviceString,
+                        DeviceName = $"\\\\.\\DISPLAY{i}",
+                        SziltechId = $"M-{i}",
+                        IsPrimary = screen.Primary,
+                        Removable = true,
+                        AttachedToDesktop = true,
+                        MainForm = screen.Primary,
+                        Fullscreen = false,
+                    });
+                }
+            }
 
             return result;
         }

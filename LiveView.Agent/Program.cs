@@ -118,9 +118,9 @@ namespace LiveView.Agent
                 catch (Exception ex)
                 {
 #if NET6_0_OR_GREATER
-                    logger.LogError(ex, "Start video capture servers failed.");
+                    logger.LogError(ex, $"Start video capture server {videoCaptureId} failed.");
 #else
-                    logger.LogError($"Start video capture servers failed: {ex}");
+                    logger.LogError($"Start video capture server {videoCaptureId} failed: {ex}");
 #endif
                     ErrorBox.Show(ex);
                 }
