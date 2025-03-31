@@ -32,7 +32,7 @@ namespace Sequence.Forms
         private readonly GridSequenceManager gridSequenceManager;
         private readonly ILogger<MainForm> logger;
 
-        public MainForm(ServiceProvider serviceProvider, long userId, long sequenceId, long displayId, bool isMdi)
+        public MainForm(IServiceProvider serviceProvider, long userId, long sequenceId, long displayId, bool isMdi)
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 
@@ -45,15 +45,19 @@ namespace Sequence.Forms
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-#if NET481
-                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}", true);
-#else
+#if NET6_0_OR_GREATER
                     client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Environment.ProcessId}", true);
+#else
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}", true);
 #endif
                 }
                 catch (Exception ex)
                 {
+#if NET6_0_OR_GREATER
                     logger.LogError(ex, "Connection failed.");
+#else
+                    logger.LogError($"Connection failed: {ex}");
+#endif
                     DebugErrorBox.Show(ex);
                 }
             }
@@ -137,7 +141,12 @@ namespace Sequence.Forms
             }
             catch (Exception ex)
             {
+#if NET6_0_OR_GREATER
                 logger.LogError(ex, "Client data cannot be parsed.");
+#else
+                logger.LogError($"Client data cannot be parsed: {ex}");
+#endif
+
                 DebugErrorBox.Show(ex);
             }
         }
@@ -168,16 +177,21 @@ namespace Sequence.Forms
 
             try
             {
-#if NET481
-                var processId = Process.GetCurrentProcess().Id;
-#else
+#if NET6_0_OR_GREATER
                 var processId = Environment.ProcessId;
+#else
+                var processId = Process.GetCurrentProcess().Id;
 #endif
                 client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)
             {
+#if NET6_0_OR_GREATER
                 logger.LogError(ex, "Cannot unregister sequence application.");
+#else
+                logger.LogError($"Cannot unregister sequence application: {ex}");
+#endif
+
                 DebugErrorBox.Show(ex);
             }
         }

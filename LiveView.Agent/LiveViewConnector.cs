@@ -52,6 +52,7 @@ namespace LiveView.Agent
                         foreach (var display in displays)
                         {
                             display.Host = client.Socket.LocalEndPoint.ToString();
+                            Console.WriteLine($"Registering display {display}.");
                             client.Send($"{NetworkCommand.RegisterDisplay}|{display.Serialize()}", true);
                         }
 
@@ -62,7 +63,7 @@ namespace LiveView.Agent
                         while (true)
                         {
                             Thread.Sleep(1000);
-                            if (!client.Send($"{NetworkCommand.Ping}", true))
+                            if (!client.Send($"{NetworkCommand.Ping}|{client.Socket.LocalEndPoint}", true))
                             {
                                 break;
                             }
@@ -71,7 +72,12 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
+#if NET462
+                    logger.LogError($"Agent connection failed: {ex}");
+#else
                     logger.LogError(ex, "Agent connection failed.");
+#endif
+
                     Console.Error.WriteLine($"Connection failed: {ex}");
                     Thread.Sleep(5000);
                 }
@@ -213,7 +219,11 @@ namespace LiveView.Agent
             {
                 var message = $"Message parse or execution failed in agent: {ex}.";
                 Console.Error.WriteLine(message);
+#if NET462
+                logger.LogError(message);
+#else
                 logger.LogError(ex, message);
+#endif
             }
         }
 

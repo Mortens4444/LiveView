@@ -6,12 +6,13 @@ using LiveView.Models.Dependencies;
 using LiveView.Presenters;
 using LiveView.Services.Coloring;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace LiveView.Services
 {
     public static class ServiceProviderFactory
     {
-        public static ServiceProvider Create()
+        public static IServiceProvider Create()
         {
             var services = new ServiceCollection();
 

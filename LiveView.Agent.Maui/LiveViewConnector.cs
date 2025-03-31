@@ -1,5 +1,4 @@
-﻿using Camera.MAUI;
-using LiveView.Agent.Maui.Enums.Network;
+﻿using LiveView.Agent.Maui.Enums.Network;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using System.Net;
@@ -39,7 +38,7 @@ namespace LiveView.Agent.Maui
                             while (!cancellationTokenSource.IsCancellationRequested)
                             {
                                 await Task.Delay(1000);
-                                if (!client.Send($"{NetworkCommand.Ping}", true))
+                                if (!client.Send($"{NetworkCommand.Ping}|{client.Socket.LocalEndPoint}", true))
                                 {
                                     break;
                                 }

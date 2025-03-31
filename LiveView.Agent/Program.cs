@@ -4,12 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
+using Mtf.Network;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,6 +17,8 @@ namespace LiveView.Agent
 {
     class Program
     {
+        private static bool databaseInitialized;
+
         private static ILogger<ExceptionHandler> logger;
 
         private static LiveViewConnector liveViewConnector;
@@ -30,16 +32,24 @@ namespace LiveView.Agent
         [DllImport("User32.dll", SetLastError = true)]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        private static CancellationTokenSource cancellationTokenSource;
+
         static Program()
         {
-            DatabaseInitializer.Initialize("LiveViewConnectionString");
+            databaseInitialized = DatabaseInitializer.Initialize("LiveViewConnectionString");
             //generalOptionsRepository = new GeneralOptionsRepository();
         }
 
         static void Main(string[] args)
         {
+            if (!databaseInitialized)
+            {
+                return;
+            }
+
             ExceptionHandler.CatchUnhandledExceptions();
-            using (var serviceProvider = ServiceProviderFactory.Create())
+            var serviceProvider = ServiceProviderFactory.Create();
+            //using (var serviceProvider = ServiceProviderFactory.Create())
             {
                 logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                 ExceptionHandler.SetLogger(logger);
@@ -74,7 +84,12 @@ namespace LiveView.Agent
         private static void StartVideoCaptureServers()
         {
             var json = ConfigurationManager.AppSettings["StartCameras"];
-            var videoCaptureIds = JsonSerializer.Deserialize<List<string>>(json);
+            cancellationTokenSource = new CancellationTokenSource();
+#if NET462
+            var videoCaptureIds = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(json);
+#else
+            var videoCaptureIds = System.Text.Json.JsonSerializer.Deserialize<List<string>>(json);
+#endif
             foreach (var videoCaptureId in videoCaptureIds)
             {
                 try
@@ -92,14 +107,21 @@ namespace LiveView.Agent
                     //var gain = generalOptionsRepository.Get<int>(Database.Enums.Setting.Gain, 0);
                     //videoCapture.Set(VideoCaptureProperties.Gain, gain); // 10
 
-                    var videoCaptureServer = new VideoCaptureServer();
-                    var server = videoCaptureServer.StartVideoCaptureServer(liveViewConnector, videoCapture, videoCaptureId);
-                    liveViewConnector.AddVideoCaptureWithServer(videoCaptureId, videoCapture, server);
+                    var imageCaptureServer = new ImageCaptureServer(new VideoCaptureImageSource(videoCapture), videoCaptureId);
+                    var videoCaptureServer = imageCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
+                    //var videoCaptureServer = new VideoCaptureServer();
+                    //var server = videoCaptureServer.StartVideoCaptureServer(liveViewConnector, videoCapture, videoCaptureId);
+                    Console.WriteLine($"Video capture server ({videoCaptureId}): {videoCaptureServer}");
+                    liveViewConnector.AddVideoCaptureWithServer(videoCaptureId, videoCapture, videoCaptureServer);
 
                 }
                 catch (Exception ex)
                 {
+#if NET6_0_OR_GREATER
                     logger.LogError(ex, "Start video capture servers failed.");
+#else
+                    logger.LogError($"Start video capture servers failed: {ex}");
+#endif
                     ErrorBox.Show(ex);
                 }
             }

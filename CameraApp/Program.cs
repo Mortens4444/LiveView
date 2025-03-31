@@ -51,11 +51,15 @@ namespace CameraApp
                 //            ApplicationConfiguration.Initialize();
                 //#endif
 
-                DatabaseInitializer.Initialize("LiveViewConnectionString");
+                if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
+                {
+                    return;
+                }
 
                 //InfoBox.Show("Camera app started", $"{String.Join(" ", args)}");
 
-                using (var serviceProvider = ServiceProviderFactory.Create())
+                var serviceProvider = ServiceProviderFactory.Create();
+                //using (var serviceProvider = ServiceProviderFactory.Create())
                 {
                     logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                     ExceptionHandler.SetLogger(logger);
@@ -319,7 +323,11 @@ namespace CameraApp
             }
             catch (Exception ex)
             {
+#if NET462
+                logger.LogError($"CameraApp start error: {ex}");
+#else
                 logger.LogError(ex, "CameraApp start error.");
+#endif
                 ErrorBox.Show(ex);
             }
         }

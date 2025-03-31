@@ -1,13 +1,14 @@
 ﻿using Database.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Permissions.Services;
+using System;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Services
 {
     public static class PermissionManagerBuilder
     {
-        public static PermissionManager<Database.Models.User> Build(ServiceProvider serviceProvider, Form form, long userId)
+        public static PermissionManager<Database.Models.User> Build(IServiceProvider serviceProvider, Form form, long userId)
         {
             var userRepository = serviceProvider.GetRequiredService<IUserRepository>();
             var user = userRepository.Select(userId);

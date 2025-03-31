@@ -59,7 +59,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -72,7 +72,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, display.Bounds, display, true);
         }
 
-        public SunellLegacyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -271,6 +271,7 @@ namespace CameraForms.Forms
             sunellVideoWindowLegacy1.PTZ_Close();
             sunellVideoWindowLegacy1.Disconnect();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            client?.Dispose();
         }
 
         private void SunellLegacyCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

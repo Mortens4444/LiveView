@@ -5,7 +5,6 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.Database.Services;
 using Mtf.Permissions.Enums;
 using System.IO;
 using System.Windows.Forms;
@@ -15,7 +14,7 @@ namespace LiveView.Presenters
     public class LanguageFileChangedPresenter : BasePresenter
     {
         public static string LanguageFilePath = Path.Combine(Application.StartupPath, "Languages.ods");
-        public static string OriginalLanguageFileHash = "8cce4e26c1b3b018ecbc693714b0bfe8de3ea2359eb5bd20d18d49ef616bb705";
+        public static string OriginalLanguageFileHash = "271b497bf59ee821d1bdc9b9dab636b27dc3628ab3b8c8e714f72b023c00d3ee";
 
         private ILanguageFileChangedView view;
         private readonly ILogger<LanguageFileChangedForm> logger;

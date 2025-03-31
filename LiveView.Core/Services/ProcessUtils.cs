@@ -42,10 +42,10 @@ namespace LiveView.Core.Services
             process.WaitForExit(300);
             if (!process.HasExited)
             {
-#if NET481
-                process.Kill();
-#else
+#if NET5_0_OR_GREATER
                 process.Kill(true);
+#else
+                process.Kill();
 #endif
             }
         }

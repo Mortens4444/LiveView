@@ -46,7 +46,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public FFMpegCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public FFMpegCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -62,7 +62,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, display, true);
         }
 
-        public FFMpegCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public FFMpegCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net452</TargetFrameworks>
     <WarningLevel>9999</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
@@ -184,13 +184,21 @@
     <EmbeddedResource Include="Scripts\SelectCameraName.sql" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
-    <PackageReference Include="Mtf.Database" Version="2.0.26" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mtf.Database" Version="2.0.29" />
   </ItemGroup>
 
 </Project>

@@ -12,13 +12,15 @@ using Database.Interfaces;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace CameraForms.Services
 {
-    public class FullScreenCameraMessageHandler
+    public class FullScreenCameraMessageHandler : IDisposable
     {
         private readonly Client client;
         private readonly Form form;
+        private volatile int disposed;
 
         private readonly CameraFunction ptzStop;
         private readonly CameraFunction ptzUp;
@@ -57,6 +59,30 @@ namespace CameraForms.Services
         {
             this.form = form;
             client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
+        }
+
+        ~FullScreenCameraMessageHandler()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (Interlocked.Exchange(ref disposed, 1) != 0)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                client.Dispose();
+            }
         }
 
         public void Exit()

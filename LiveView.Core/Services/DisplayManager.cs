@@ -173,7 +173,7 @@ namespace LiveView.Core.Services
             }
         }
 
-        public (Rectangle, Point) GetScreensBounds()
+        public DisplayDimensions GetScreensBounds()
         {
             var minX = Int32.MaxValue;
             var minY = Int32.MaxValue;
@@ -206,22 +206,22 @@ namespace LiveView.Core.Services
                 maxY += minY;
                 deltaPoint.Y = minY;
             }
-            return (new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
+            return new DisplayDimensions(new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
         }
 
         public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size drawnSize)
         {
             var result = new Dictionary<string, Rectangle>();
-            var (screenBounds, deltaPoint) = GetScreensBounds();
-            var scale = GetScaleFactor(screenBounds, drawnSize);
+            var displayDimensions = GetScreensBounds();
+            var scale = GetScaleFactor(displayDimensions.Bounds, drawnSize);
 
-            var offsetX = screenBounds.Left / scale;
-            var offsetY = screenBounds.Top / scale;
+            var offsetX = displayDimensions.Bounds.Left / scale;
+            var offsetY = displayDimensions.Bounds.Top / scale;
 
             foreach (var display in displays)
             {
-                var scaledX = offsetX + (display.X + deltaPoint.X) / scale + FrameWidth;
-                var scaledY = offsetY + (display.Y + deltaPoint.Y) / scale + FrameWidth;
+                var scaledX = offsetX + (display.X + displayDimensions.Location.X) / scale + FrameWidth;
+                var scaledY = offsetY + (display.Y + displayDimensions.Location.Y) / scale + FrameWidth;
 
                 result.Add(display.Id, new Rectangle(
                     (int)Math.Round(scaledX),

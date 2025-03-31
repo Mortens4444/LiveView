@@ -270,7 +270,11 @@ namespace Sequence.Services
             }
             catch (Exception ex)
             {
+#if NET6_0_OR_GREATER
                 logger.LogError(ex, "Cannot open video window.");
+#else
+                logger.LogError($"Cannot open video window: {ex}");
+#endif
             }
         }
 
@@ -328,14 +332,14 @@ namespace Sequence.Services
         private async Task WaitWithCancellationAsync((Grid grid, GridInSequence gridInSequence) gridInfo, int checkInterval = 100)
         {
 
-#if NET481
-            var millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
-            var start = Environment.TickCount;
-            var elapsedMilliseconds = Environment.TickCount - start;
-#else
+#if NET6_0_OR_GREATER
             long millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
             var start = Environment.TickCount64;
             var elapsedMilliseconds = Environment.TickCount64 - start;
+#else
+            var millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
+            var start = (uint)Environment.TickCount;
+            var elapsedMilliseconds = ((uint)Environment.TickCount - start);
 #endif
             while ((elapsedMilliseconds < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
             {
@@ -347,10 +351,10 @@ namespace Sequence.Services
                     break;
                 }
                 await Task.Delay(checkInterval, CancellationToken.None).ConfigureAwait(false);
-#if NET481
-                elapsedMilliseconds = Environment.TickCount - start;
-#else
+#if NET6_0_OR_GREATER
                 elapsedMilliseconds = Environment.TickCount64 - start;
+#else
+                elapsedMilliseconds = ((uint)Environment.TickCount - start);
 #endif
             }
         }
@@ -547,10 +551,10 @@ namespace Sequence.Services
 
         public async Task DisposeCameraWindowsAsync()
         {
-#if NET481
-            cancellationTokenSource.Cancel();
-#else
+#if NET6_0_OR_GREATER
             await cancellationTokenSource.CancelAsync().ConfigureAwait(false);
+#else
+            cancellationTokenSource.Cancel();
 #endif
             await Task.Delay(0).ConfigureAwait(false);
 

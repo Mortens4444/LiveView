@@ -18,6 +18,7 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -74,7 +75,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
+        public VideoSourceCameraWindow(IServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
         {
             InitializeComponent();
 
@@ -86,7 +87,7 @@ namespace CameraForms.Forms
             Initialize(userId, serverIp, videoCaptureSource, true);
         }
 
-        public VideoSourceCameraWindow(ServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
+        public VideoSourceCameraWindow(IServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
         {
             InitializeComponent();
 
@@ -299,22 +300,7 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
-            //var agentRepository = new AgentRepository();
-            //var videoSourceRepository = new VideoSourceRepository();
-
-            //var videoSources = videoSourceRepository.SelectAll();
-            //var videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
-            //var agents = agentRepository.SelectAll();
-            //var agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
-
             StartVideoCaptureImageReceiver();
-            //if (agent != null)
-            //{
-            //    videoCaptureClient = new VideoCaptureClient(videoSource.ServerIp, agent.Port);
-            //    videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
-            //    videoCaptureClient.Start();
-            //    frameTimer.Start();
-            //}
         }
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)

@@ -4,6 +4,7 @@ using Mtf.MessageBoxes;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace LiveView.Core.Services.Pipe
 {
@@ -25,7 +26,11 @@ namespace LiveView.Core.Services.Pipe
                     {
                         try
                         {
+#if NET452
+                            server.WaitForConnection();
+#else
                             await server.WaitForConnectionAsync(token).ConfigureAwait(false);
+#endif
 
                             using (var reader = new StreamReader(server))
                             {

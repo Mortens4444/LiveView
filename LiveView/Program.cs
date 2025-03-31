@@ -6,7 +6,11 @@ using LiveView.Core.Services;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Services;
+#if NET462
+using System.Data.SqlClient;
+#else
 using Microsoft.Data.SqlClient;
+#endif
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
@@ -44,7 +48,11 @@ namespace LiveView
             //ApplicationConfiguration.Initialize();
             //#endif
 
-            DatabaseInitializer.Initialize("MasterConnectionString");
+            if (!DatabaseInitializer.Initialize("MasterConnectionString"))
+            {
+                return;
+            }
+
             try
             {
                 BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
@@ -77,7 +85,8 @@ namespace LiveView
             }
             LiveViewTranslator.Translate();
 
-            using (var serviceProvider = ServiceProviderFactory.Create())
+            var serviceProvider = ServiceProviderFactory.Create();
+            //using (var serviceProvider = ServiceProviderFactory.Create())
             {
                 var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
 
@@ -90,7 +99,7 @@ namespace LiveView
             }
         }
 
-        private static void FillOrUpdateDisplaysTable(ServiceProvider serviceProvider)
+        private static void FillOrUpdateDisplaysTable(IServiceProvider serviceProvider)
         {
             var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var displays = displayRepository.SelectAll();
@@ -102,7 +111,7 @@ namespace LiveView
             InsertOrUpdateDisplay(displayRepository, displays, currentDisplays);
         }
 
-        private static void FillOperationsTable(ServiceProvider serviceProvider)
+        private static void FillOperationsTable(IServiceProvider serviceProvider)
         {
             var operationRepository = serviceProvider.GetRequiredService<IOperationRepository>();
             if (!operationRepository.HasAnyRow())

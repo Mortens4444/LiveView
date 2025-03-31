@@ -57,7 +57,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-#if NET481
+#if NET462 || NET48 || NET481
             var languages = Enum.GetValues(typeof(ImplementedLanguage))
                 .Cast<ImplementedLanguage>()
                 .Select(language => $"{language} ({language.GetDescription()})");

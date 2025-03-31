@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Mtf.Permissions.Services;
 
 namespace LiveView.Core.Services.Logging
@@ -9,6 +10,16 @@ namespace LiveView.Core.Services.Logging
     {
         public static void RegisterLogServices(ServiceCollection services)
         {
+#if NET452
+            services.AddLogging();
+
+            services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
+                sp.GetRequiredService<PermissionManager<Database.Models.User>>(),
+                sp.GetRequiredService<ILogRepository>()
+            ));
+
+            services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
+#else
             services.AddLogging(builder =>
             {
                 builder.ClearProviders();
@@ -18,6 +29,7 @@ namespace LiveView.Core.Services.Logging
                     sp.GetRequiredService<ILogRepository>()
                 ));
             });
+#endif
         }
     }
 }

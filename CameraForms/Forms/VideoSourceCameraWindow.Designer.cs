@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 frameTimer?.Dispose();
+                fullScreenCameraMessageHandler?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

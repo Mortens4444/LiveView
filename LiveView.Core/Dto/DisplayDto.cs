@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Net.Sockets;
-using System.Text.Json;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Dto
@@ -81,10 +80,18 @@ namespace LiveView.Core.Dto
             return SziltechId;
         }
 
+#if NET452
         public string Serialize()
         {
-            return JsonSerializer.Serialize(this);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
+#else
+        public string Serialize()
+        {
+            return System.Text.Json.JsonSerializer.Serialize(this);
+        }
+#endif
+
 
         public Display ToModel()
         {

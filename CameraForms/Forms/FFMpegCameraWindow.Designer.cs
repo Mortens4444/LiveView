@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                fullScreenCameraMessageHandler?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

@@ -46,7 +46,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public OpenCvSharpCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public OpenCvSharpCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -62,7 +62,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, display, true);
         }
 
-        public OpenCvSharpCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public OpenCvSharpCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

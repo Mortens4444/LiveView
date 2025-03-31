@@ -38,7 +38,11 @@ namespace LiveView.Core.Services
             }
             catch (Exception ex)
             {
+#if NET452
+                logger?.LogError(String.Concat("Application start failed.", ex.ToString()));
+#else
                 logger?.LogError(ex, "Application start failed.");
+#endif
                 ErrorBox.Show(ex);
                 return null;
             }

@@ -3,6 +3,7 @@ using LiveView.Core.Dto;
 using LiveView.Dto;
 using LiveView.Forms;
 using Mtf.HardwareKey.Interfaces;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,8 @@ namespace LiveView
         public readonly static ConcurrentDictionary<Socket, CameraProcessInfo> CameraProcessInfo = new ConcurrentDictionary<Socket, CameraProcessInfo>();
 
         public static BindingList<string> Agents { get; } = new BindingList<string>();
+
+        public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>();
 
         public static string Uptime { get; set; }
 

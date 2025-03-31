@@ -47,7 +47,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public MortoGraphyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -63,7 +63,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, display, true);
         }
 
-        public MortoGraphyCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

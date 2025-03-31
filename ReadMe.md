@@ -2,7 +2,7 @@
 
 ## Overview
 
-The application can be started with the `LiveView.exe`. When you want to show a full-screen camera application on a display device, it will start the `Camera.exe`.
+The application can be started with the `LiveView.exe`. When you want to show a full-screen camera application on a display device, it will start the `CameraApp.exe`.
 
 You can create predefined grids in the LiveView application, which can be shown in a Sequence application (`Sequence.exe`) continuously, or multiple grids with specific timings for each grid.
 
@@ -47,7 +47,7 @@ The `LiveView.Agent.exe` uses an `App.config` file for its settings. Below is an
 ## Usage
 
 - **LiveView.exe**: The main application to manage and view live camera feeds.
-- **Camera.exe**: The full-screen camera viewer, automatically started when needed.
+- **CameraApp.exe**: The full-screen camera viewer, automatically started when needed.
 - **Sequence.exe**: Manages the predefined grids and sequences for display.
 - **LiveView.Agent.exe**: Handles background processing and configurations for video sources.
 

@@ -36,7 +36,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -100,9 +99,30 @@ namespace LiveView.Presenters
                 {
                     CheckSequenceApplications();
                     CheckCameraApplication();
+                    CheckAgents();
                     Thread.Sleep(1000);
                 }
             });
+        }
+
+        private void CheckAgents()
+        {
+            var now = DateTimeOffset.Now;
+            var toRemove = new List<string>();
+
+            foreach (var agent in Globals.AgentPingTimes)
+            {
+                if (now - agent.Value > TimeSpan.FromSeconds(3))
+                {
+                    toRemove.Add(agent.Key);
+                }
+            }
+
+            foreach (var key in toRemove)
+            {
+                Globals.Agents.Remove(key);
+                Globals.AgentPingTimes.Remove(key);
+            }
         }
 
         private void CheckCameraApplication()
@@ -434,7 +454,11 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
                     {
-                        var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+#if NET462
+                        var display = Newtonsoft.Json.JsonConvert.DeserializeObject<DisplayDto>(messageParts[1]);
+#else
+                        var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+#endif
                         display.Socket = e.Socket;
                         DisplayManager.RemoteDisplays.Add(display);
                         if (Globals.ControlCenter != null)
@@ -444,7 +468,11 @@ namespace LiveView.Presenters
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
                     {
-                        var display = JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+#if NET462
+                        var display = Newtonsoft.Json.JsonConvert.DeserializeObject<DisplayDto>(messageParts[1]);
+#else
+                        var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
+#endif
                         DisplayManager.RemoteDisplays.Remove(display);
                         if (Globals.ControlCenter != null)
                         {
@@ -579,9 +607,9 @@ namespace LiveView.Presenters
                     {
                         Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
                     }
-                    else if (message.StartsWith($"{NetworkCommand.Ping}"))
+                    else if (message.StartsWith($"{NetworkCommand.Ping}|"))
                     {
-                        //AgentPingTimes.Add(messageParts[1], DateTime.UtcNow);
+                        Globals.AgentPingTimes[messageParts[1]] = DateTimeOffset.UtcNow;
                     }
                     else
                     {

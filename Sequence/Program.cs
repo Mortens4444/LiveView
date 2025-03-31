@@ -38,7 +38,10 @@ namespace Sequence
 #else
             ApplicationConfiguration.Initialize();
 #endif
-            DatabaseInitializer.Initialize("LiveViewConnectionString");
+            if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
+            {
+                return;
+            }
 
             var userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
             var sequenceId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
@@ -46,7 +49,9 @@ namespace Sequence
             var isMdi = Convert.ToBoolean(args[3], CultureInfo.InvariantCulture);
 
             _ = Sdk.sdk_dev_init(null);
-            using (var serviceProvider = ServiceProviderFactory.Create())
+
+            var serviceProvider = ServiceProviderFactory.Create();
+            //using (var serviceProvider = ServiceProviderFactory.Create())
             {
                 var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                 ExceptionHandler.SetLogger(exceptionLogger);

@@ -19,6 +19,7 @@ namespace CameraForms.Forms
         {
             if (disposing && (components != null))
             {
+                fullScreenCameraMessageHandler?.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

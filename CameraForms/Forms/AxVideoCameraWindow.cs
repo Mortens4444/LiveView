@@ -67,7 +67,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size)
+        public AxVideoCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -85,7 +85,7 @@ namespace CameraForms.Forms
             axVideoPlayerWindow.ContextMenuStrip = null;
         }
 
-        public AxVideoCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public AxVideoCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

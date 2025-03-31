@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net9.0-windows;net8.0-windows;net481</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net462</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <AnalysisLevel>latest-all</AnalysisLevel>
@@ -10,9 +10,18 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Mtf.Network" Version="1.0.38" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Windows.Forms" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
     <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mtf.Network" Version="1.0.43" />
   </ItemGroup>
 
   <ItemGroup>

@@ -56,7 +56,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public SunellCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public SunellCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -70,7 +70,7 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, display, true);
         }
 
-        public SunellCameraWindow(ServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
+        public SunellCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -294,6 +294,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer?.Stop();
             sunellVideoWindow1.Disconnect();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            client?.Dispose();
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

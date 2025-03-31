@@ -26,7 +26,7 @@ namespace Mtf.Controls.Sunell.IPR67
         {
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             UpdateStyles();
-            
+
             if (Int32.TryParse(ConfigurationManager.AppSettings["SunellCameraWindowRotate"], out var currentRotateSpeed))
             {
                 rotateSpeed = currentRotateSpeed;

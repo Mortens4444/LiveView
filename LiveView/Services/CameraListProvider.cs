@@ -21,7 +21,8 @@ namespace LiveView.Services
                     {
                         Socket = videoCaptureSource.Key,
                         Name = camera.Key,
-                        EndPoint = camera.Value
+                        //EndPoint = camera.Value,
+                        EndPoint = $"{videoCaptureSource.Key.RemoteEndPoint.ToString().Split(':')[0]}:{camera.Value.Split(':')[1]}"
                     };
                     listView.Items.Add(new ListViewItem($"{videoSource.ServerIp} - {videoSource.Name}") { Tag = videoSource });
                 }

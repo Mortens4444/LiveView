@@ -70,7 +70,8 @@ namespace LiveView.Agent.Maui
                         await Application.Current.MainPage.DisplayAlert("Error", "IP address and port is needed in this format: 192.168.0.1:4444", "OK");
                         return;
                     }
-                    var cameraCaptureServer = new CameraCaptureServer(cameraView, cameraId);
+                    var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraId);
+                    //var cameraCaptureServer = new CameraCaptureServer(cameraView, cameraId);
                     server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                     MainThread.BeginInvokeOnMainThread(() =>
                     {

@@ -74,12 +74,12 @@ namespace LiveView.Presenters
 
         public Point GetMouseLocation(Size drawnSize)
         {
-            var (screenBounds, deltaPoint) = displayManager.GetScreensBounds();
-            var diminutive = displayManager.GetScaleFactor(screenBounds, drawnSize);
+            var displayDimensions = displayManager.GetScreensBounds();
+            var diminutive = displayManager.GetScaleFactor(displayDimensions.Bounds, drawnSize);
             WinAPI.GetCursorPos(out var point);
-            var mouseLeft = (int)(screenBounds.Left + point.X / diminutive + DisplayManager.FrameWidth / 2 + 1);
-            var mouseTop = (int)(screenBounds.Top + point.Y / diminutive + DisplayManager.FrameWidth / 2 + 1);
-            return new Point(mouseLeft + deltaPoint.X, mouseTop + deltaPoint.Y);
+            var mouseLeft = (int)(displayDimensions.Bounds.Left + point.X / diminutive + DisplayManager.FrameWidth / 2 + 1);
+            var mouseTop = (int)(displayDimensions.Bounds.Top + point.Y / diminutive + DisplayManager.FrameWidth / 2 + 1);
+            return new Point(mouseLeft + displayDimensions.Location.X, mouseTop + displayDimensions.Location.Y);
         }
 
         public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size size)

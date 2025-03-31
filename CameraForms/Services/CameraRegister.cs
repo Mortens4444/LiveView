@@ -24,10 +24,10 @@ namespace CameraForms.Services
                     client.DataArrived += dataArrivedEventHandler;
                     client.Connect();
                     var displayId = display?.Id ?? String.Empty;
-#if NET481
-                    client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)cameraMode}", true);
-#else
+#if NET8_0 || NET9_0
                     client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}|{(int)cameraMode}", true);
+#else
+                    client.Send($"{NetworkCommand.RegisterCamera}|{client.Socket.LocalEndPoint}|{userId}|{cameraId}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)cameraMode}", true);
 #endif
                     return client;
                 }
@@ -56,10 +56,10 @@ namespace CameraForms.Services
                     client.DataArrived += dataArrivedEventHandler;
                     client.Connect();
                     var displayId = display?.Id ?? String.Empty;
-#if NET481
-                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)CameraMode.VideoSource}", true);
-#else
+#if NET8_0 || NET9_0
                     client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Environment.ProcessId}|{(int)CameraMode.VideoSource}", true);
+#else
+                    client.Send($"{NetworkCommand.RegisterVideoSource}|{client.Socket.LocalEndPoint}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Process.GetCurrentProcess().Id}|{(int)CameraMode.VideoSource}", true);
 #endif
                     return client;
                 }
