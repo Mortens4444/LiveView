@@ -16,15 +16,15 @@ namespace LiveView
     {
         public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
 
-        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>();
+        public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>(); // Agent IP address:port, Camera process Id
 
         public readonly static ConcurrentDictionary<string, SequenceProcessInfo> SequenceProcesses = new ConcurrentDictionary<string, SequenceProcessInfo>();
 
         public readonly static ConcurrentDictionary<Socket, CameraProcessInfo> CameraProcessInfo = new ConcurrentDictionary<Socket, CameraProcessInfo>();
 
-        public static Dictionary<string, Socket> Agents { get; } = new Dictionary<string, Socket>();
+        public static Dictionary<string, Socket> Agents { get; } = new Dictionary<string, Socket>(); // Agent IP address:port, Agent socket
 
-        public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>();
+        public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>(); // Agent IP address:port, last ping time
 
         public static string Uptime { get; set; }
 

@@ -96,15 +96,18 @@ namespace LiveView.Agent
 
                     if (message.StartsWith($"{Core.Constants.CameraAppExe}|", StringComparison.InvariantCulture))
                     {
+                        Console.WriteLine($"Starting process {Core.Constants.CameraAppExe} ({message}).");
                         var cameraProcessId = StartProcess(messageParts, cameraProcesses);
                         client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
                     }
                     else if (message.StartsWith($"{Core.Constants.SequenceExe}|", StringComparison.InvariantCulture))
                     {
+                        Console.WriteLine($"Starting process {Core.Constants.SequenceExe} ({message}).");
                         StartProcess(messageParts, sequenceProcesses);
                     }
                     else if (message.StartsWith($"{NetworkCommand.Kill}|", StringComparison.InvariantCulture))
                     {
+                        Console.WriteLine($"Killing process {messageParts[1]} ({message}).");
                         long id = Convert.ToInt64(messageParts[2], CultureInfo.InvariantCulture);
                         switch (messageParts[1])
                         {
@@ -120,6 +123,7 @@ namespace LiveView.Agent
                     }
                     else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
                     {
+                        Console.WriteLine($"Killing all processes of {messageParts[1]} ({message}).");
                         var processes = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses.Values : sequenceProcesses.Values;
                         ProcessUtils.Kill(processes);
                     }
@@ -300,9 +304,7 @@ namespace LiveView.Agent
         private int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
         {
             var process = AppStarter.Start(messageParts[0], messageParts[1], logger);
-            var parameters = messageParts[1].Split();
-            var entityId = Convert.ToInt64(parameters[1], CultureInfo.InvariantCulture);
-            processes.Add(entityId, process);
+            processes.Add(process.Id, process);
             return process.Id;
         }
     }

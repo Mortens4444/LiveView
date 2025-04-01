@@ -482,7 +482,13 @@ namespace LiveView.Presenters
                     else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
                     {
                         var cameraProcessId = Convert.ToInt32(messageParts[1]);
-                        Globals.CameraProcesses.Add(e.Socket.LocalEndPoint.ToString(), cameraProcessId);
+                        var key = e.Socket.RemoteEndPoint.ToString();
+                        if (Globals.CameraProcesses.ContainsKey(key))
+                        {
+                            SentToClient(key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcessId);
+                            Globals.CameraProcesses.Remove(key);
+                        }
+                        Globals.CameraProcesses.Add(key, cameraProcessId);
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
                     {
@@ -823,7 +829,7 @@ namespace LiveView.Presenters
             try
             {
                 var clientSocket = Globals.Agents[clientAddress];
-                Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
+                Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters.SelectMany(p => p is IEnumerable<string> enumerable ? enumerable : new[] { p?.ToString() ?? String.Empty })), true);
             }
             catch (Exception ex)
             {
