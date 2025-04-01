@@ -7,6 +7,10 @@
     "StartSunellLegacyWindow": {
       "commandName": "Project",
       "commandLineArgs": "1 10 5 6"
+    },
+    "VideoSourceCameraWindow": {
+      "commandName": "Project",
+      "commandLineArgs": "2 192.168.0.59 \"E:\\Video\\Natasha Bedingfield - Pocketful of Sunshine (Official Video).mp4\" 1 1"
     }
   }
 }

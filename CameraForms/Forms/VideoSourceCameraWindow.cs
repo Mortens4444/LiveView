@@ -248,6 +248,7 @@ namespace CameraForms.Forms
                     catch (Exception ex)
                     {
                         DebugErrorBox.Show(ex);
+                        Thread.Sleep(100);
                     }
                 }
 

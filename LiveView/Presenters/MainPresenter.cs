@@ -524,56 +524,6 @@ namespace LiveView.Presenters
                             .Select(vcs => vcs.Split('='))
                             .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
                         Globals.VideoCaptureSources.Add(e.Socket, videoCaptureSources);
-
-                        List<VideoSource> relevantVideoSources;
-                        if (videoCaptureSources.Count > 0)
-                        {
-                            var videoSources = videoSourceRepository.SelectAll();
-                            var serverIp = videoCaptureSources.Values.First().Split(':')[0];
-                            relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == serverIp).ToList();
-                            foreach (var relevantVideoSource in relevantVideoSources)
-                            {
-                                agentRepository.DeleteWhere(new { VideoSourceId = relevantVideoSource.Id });
-                            }
-                        }
-                        else
-                        {
-                            relevantVideoSources = new List<VideoSource>();
-                        }
-
-                        foreach (var videoCaptureSource in videoCaptureSources)
-                        {
-                            var hostInfo = videoCaptureSource.Value.Split(':');
-                            long videoSourceId;
-                            var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.VideoSourceName == videoCaptureSource.Key);
-                            if (foundVideoSource != null)
-                            {
-                                videoSourceId = foundVideoSource.Id;
-                            }
-                            else
-                            {
-                                videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new VideoSource
-                                {
-                                    VideoSourceName = videoCaptureSource.Key,
-                                    ServerIp = hostInfo[0]
-                                });
-                            }
-                            var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
-                            var newAgent = new Database.Models.Agent
-                            {
-                                Id = agent?.Id ?? 0,
-                                VideoSourceId = videoSourceId,
-                                Port = Convert.ToInt32(hostInfo[1])
-                            };
-                            if (agent == null)
-                            {
-                                agentRepository.Insert(newAgent);
-                            }
-                            else
-                            {
-                                agentRepository.Update(newAgent);
-                            }
-                        }
                     }
                     else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
                     {

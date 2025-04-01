@@ -1,12 +1,10 @@
 using CameraApp.Services;
 using CameraForms.Forms;
 using Database.Enums;
-using Database.Repositories;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
@@ -14,7 +12,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 

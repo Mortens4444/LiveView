@@ -1,4 +1,5 @@
-﻿using LiveView.Agent.Services;
+﻿using Database.Interfaces;
+using LiveView.Agent.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -53,7 +54,10 @@ namespace LiveView.Agent
             {
                 logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                 ExceptionHandler.SetLogger(logger);
-                liveViewConnector = new LiveViewConnector(serviceProvider.GetRequiredService<ILogger<LiveViewConnector>>());
+                var liveViewConnectorLogger = serviceProvider.GetRequiredService<ILogger<LiveViewConnector>>();
+                var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+                var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
+                liveViewConnector = new LiveViewConnector(liveViewConnectorLogger, agentRepository, videoSourceRepository);
             }
 
             Console.CancelKeyPress += (sender, e) => OnExit();

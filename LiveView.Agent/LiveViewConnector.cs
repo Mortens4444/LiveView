@@ -1,4 +1,6 @@
-﻿using LiveView.Core.Enums.Network;
+﻿using Database.Interfaces;
+using Database.Repositories;
+using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
@@ -26,13 +28,17 @@ namespace LiveView.Agent
         private readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures should be in the same dictionary
         private readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
 
-        private ILogger<LiveViewConnector> logger;
-
+        private readonly ILogger<LiveViewConnector> logger;
+        private readonly IAgentRepository agentRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
+        
         private Client client;
 
-        public LiveViewConnector(ILogger<LiveViewConnector> logger)
+        public LiveViewConnector(ILogger<LiveViewConnector> logger, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository)
         {
             this.logger = logger;
+            this.agentRepository = agentRepository;
+            this.videoSourceRepository = videoSourceRepository;
         }
 
         public async Task ConnectAsync(string serverIp, ushort serverPort)
@@ -56,7 +62,7 @@ namespace LiveView.Agent
                             client.Send($"{NetworkCommand.RegisterDisplay}|{display.Serialize()}", true);
                         }
 
-                        SendVideoCaptureSourcesToLiveView();
+                        UpdateVideoCaptureSources();
                         Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
                         Console.WriteLine(PressCtrlCToExit);
 
@@ -299,6 +305,58 @@ namespace LiveView.Agent
         private void SendVideoCaptureSourcesToLiveView()
         {
             client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
+        }
+
+        private void UpdateVideoCaptureSources()
+        {
+            SendVideoCaptureSourcesToLiveView();
+
+            List<Database.Models.VideoSource> relevantVideoSources;
+            if (cameraServers.Count > 0)
+            {
+                var videoSources = videoSourceRepository.SelectAll();
+                var hostInfo = cameraServers.First().Value.ToString().Split(':');
+
+                relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == hostInfo[0]).ToList();
+                foreach (var relevantVideoSource in relevantVideoSources)
+                {
+                    agentRepository.DeleteWhere(new { VideoSourceId = relevantVideoSource.Id });
+                }
+
+                foreach (var cameraServer in cameraServers)
+                {
+                    hostInfo = cameraServer.Value.ToString().Split(':');
+                    long videoSourceId;
+                    var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.VideoSourceName == cameraServer.Key);
+                    if (foundVideoSource != null)
+                    {
+                        videoSourceId = foundVideoSource.Id;
+                    }
+                    else
+                    {
+                        videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new Database.Models.VideoSource
+                        {
+                            VideoSourceName = cameraServer.Key,
+                            ServerIp = hostInfo[0]
+                        });
+                    }
+                    var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
+                    var newAgent = new Database.Models.Agent
+                    {
+                        Id = agent?.Id ?? 0,
+                        VideoSourceId = videoSourceId,
+                        Port = Convert.ToInt32(hostInfo[1])
+                    };
+                    if (agent == null)
+                    {
+                        agentRepository.Insert(newAgent);
+                    }
+                    else
+                    {
+                        agentRepository.Update(newAgent);
+                    }
+                }
+            }
         }
 
         private int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
