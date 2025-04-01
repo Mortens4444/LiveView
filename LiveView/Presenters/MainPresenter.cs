@@ -438,7 +438,7 @@ namespace LiveView.Presenters
 
                     if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
                     {
-                        Globals.Agents.Add(messageParts[1]);
+                        Globals.Agents.Add(messageParts[1], e.Socket);
                         Globals.ControlCenter?.RefreshAgents();
                     }
                     else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
@@ -822,28 +822,13 @@ namespace LiveView.Presenters
         {
             try
             {
-                using (var clientSocket = CreateSocket(clientAddress))
-                {
-                    Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
-                }
+                var clientSocket = Globals.Agents[clientAddress];
+                Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters), true);
             }
             catch (Exception ex)
             {
                 DebugErrorBox.Show(ex);
             }
-        }
-
-        private static Socket CreateSocket(string clientAddress)
-        {
-            var parts = clientAddress.Split(':');
-            string ipString = parts[0];
-            int port = int.Parse(parts[1]);
-
-            var ipAddress = IPAddress.Parse(ipString);
-            var endPoint = new IPEndPoint(ipAddress, port);
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Connect(endPoint);
-            return socket;
         }
 
         public void AutoLogin()

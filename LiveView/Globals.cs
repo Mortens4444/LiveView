@@ -22,7 +22,7 @@ namespace LiveView
 
         public readonly static ConcurrentDictionary<Socket, CameraProcessInfo> CameraProcessInfo = new ConcurrentDictionary<Socket, CameraProcessInfo>();
 
-        public static BindingList<string> Agents { get; } = new BindingList<string>();
+        public static Dictionary<string, Socket> Agents { get; } = new Dictionary<string, Socket>();
 
         public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>();
 

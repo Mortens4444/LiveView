@@ -250,7 +250,7 @@ namespace LiveView.Presenters
                     var selected = view.CbAgents.SelectedItem;
                     view.CbAgents.Items.Clear();
                     view.CbAgents.Items.Add(Lng.Elem("Localhost"));
-                    view.CbAgents.Items.AddRange(Globals.Agents.OrderBy(agent => agent).ToArray());
+                    view.CbAgents.Items.AddRange(Globals.Agents.Keys.OrderBy(key => key).ToArray());
                     view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
                 }));
             }

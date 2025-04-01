@@ -7193,8 +7193,8 @@
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.14" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.3" />
     <PackageReference Include="Mtf.MessageBoxes" Version="3.0.39" />
-    <PackageReference Include="Mtf.Network" Version="1.0.46" />
-    <PackageReference Include="Mtf.Permissions" Version="3.0.21" />
+    <PackageReference Include="Mtf.Network" Version="1.0.48" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.23" />
     <PackageReference Include="Mtf.Serial" Version="1.0.9" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.37" />
     <PackageReference Include="Mtf.Wmi" Version="1.0.10" />
