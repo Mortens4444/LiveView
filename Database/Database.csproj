@@ -198,7 +198,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Database" Version="2.0.29" />
+    <PackageReference Include="Mtf.Database" Version="2.0.30" />
   </ItemGroup>
 
 </Project>
