@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LiveView.Agent
@@ -75,7 +76,7 @@ namespace LiveView.Agent
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
-                liveViewConnector.ConnectAsync(serverIp, serverPort);
+                Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, cancellationTokenSource.Token)).Wait();
             }
             else
             {

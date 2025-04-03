@@ -10,7 +10,7 @@ namespace LiveView.Core.Services.Logging
     {
         public static void RegisterLogServices(ServiceCollection services)
         {
-#if NET452
+#if NET452 || NET462
             services.AddLogging();
 
             services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
@@ -18,7 +18,6 @@ namespace LiveView.Core.Services.Logging
                 sp.GetRequiredService<ILogRepository>()
             ));
 
-            services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
 #else
             services.AddLogging(builder =>
             {

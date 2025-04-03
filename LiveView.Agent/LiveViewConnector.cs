@@ -1,5 +1,4 @@
 ﻿using Database.Interfaces;
-using Database.Repositories;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
@@ -41,9 +40,9 @@ namespace LiveView.Agent
             this.videoSourceRepository = videoSourceRepository;
         }
 
-        public async Task ConnectAsync(string serverIp, ushort serverPort)
+        public async Task ConnectAsync(string serverIp, ushort serverPort, CancellationToken cancellationToken = default)
         {
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
@@ -51,6 +50,7 @@ namespace LiveView.Agent
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
+
                     if (client.Send($"{NetworkCommand.RegisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true))
                     {
                         var displayManager = new DisplayManager();
@@ -66,9 +66,9 @@ namespace LiveView.Agent
                         Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
                         Console.WriteLine(PressCtrlCToExit);
 
-                        while (true)
+                        while (!cancellationToken.IsCancellationRequested)
                         {
-                            Thread.Sleep(1000);
+                            await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
                             if (!client.Send($"{NetworkCommand.Ping}|{client.Socket.LocalEndPoint}", true))
                             {
                                 break;
@@ -78,15 +78,11 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
-#if NET462
-                    logger.LogError($"Agent connection failed: {ex}");
-#else
                     logger.LogError(ex, "Agent connection failed.");
-#endif
-
                     Console.Error.WriteLine($"Connection failed: {ex}");
-                    Thread.Sleep(5000);
                 }
+
+                await Task.Delay(5000, cancellationToken).ConfigureAwait(false);
             }
         }
 
@@ -341,19 +337,22 @@ namespace LiveView.Agent
                         });
                     }
                     var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
-                    var newAgent = new Database.Models.Agent
+                    if (Int32.TryParse(hostInfo[1], out var port))
                     {
-                        Id = agent?.Id ?? 0,
-                        VideoSourceId = videoSourceId,
-                        Port = Convert.ToInt32(hostInfo[1])
-                    };
-                    if (agent == null)
-                    {
-                        agentRepository.Insert(newAgent);
-                    }
-                    else
-                    {
-                        agentRepository.Update(newAgent);
+                        var newAgent = new Database.Models.Agent
+                        {
+                            Id = agent?.Id ?? 0,
+                            VideoSourceId = videoSourceId,
+                            Port = port
+                        };
+                        if (agent == null)
+                        {
+                            agentRepository.Insert(newAgent);
+                        }
+                        else
+                        {
+                            agentRepository.Update(newAgent);
+                        }
                     }
                 }
             }

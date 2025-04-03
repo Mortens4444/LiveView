@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace Mtf.Controls.Sunell.IPR67.SunellSdk
@@ -1151,3 +1153,5 @@ namespace Mtf.Controls.Sunell.IPR67.SunellSdk
         }
     }
 }
+
+#pragma warning restore

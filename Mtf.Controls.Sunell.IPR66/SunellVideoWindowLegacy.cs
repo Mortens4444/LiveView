@@ -17,23 +17,23 @@ namespace Mtf.Controls.Sunell.IPR66
         private const int WM_USER = 0x400;
         private const int WM_LIVEPLAY_MESSAGE = WM_USER + 1000;
 
-        public const int EVENTID_CREATE_VIDEO_SESSION_SUCCESS = 1;
-        public const int EVENTID_CREATE_AUDIO_SESSION_SUCCESS = 2;
-        public const int EVENTID_CREATE_VIDEO_SESSION_FAILED = 3;
-        public const int EVENTID_CREATE_AUDIO_SESSION_FAILED = 4;
-        public const int EVENTID_VIDEO_SESSION_CLOSED_SUCCESS = 5;
-        public const int EVENTID_AUDIO_SESSION_CLOSED_SUCCESS = 6;
-        public const int EVENTID_LOGIN_USERNAME_WRONG = 7;
-        public const int EVENTID_LOGIN_PASSWORD_WRONG = 8;
-        public const int EVENTID_RECEIVE_VIDEO_ERROR = 9;
-        public const int EVENTID_RECEIVE_AUDIO_ERROR = 10;
-        public const int EVENTID_DEVICE_NOT_SUPPORT_VIDEO = 11;
-        public const int EVENTID_DEVICE_NOT_SUPPORT_AUDIO = 12;
-        public const int EVENTID_DEVICE_NO_PRIVILEGE = 13;
-        public const int EVENTID_DEVICE_MAX_CONNECTION = 14;
-        public const int EVENTID_FILE_PLAYBACK_END = 15;
-        public const int EVENTID_LOGIN_USER_REPEATED = 16;
-        public const int EVENTID_LOGIN_USER_LOCKED = 17;
+        public const int EventIdCreateVideoSessionSuccess = 1;
+        public const int EventIdCreateAudioSessionSuccess = 2;
+        public const int EventIdCreateVideoSessionFailed = 3;
+        public const int EventIdCreateAudioSessionFailed = 4;
+        public const int EventIdVideoSessionClosedSuccess = 5;
+        public const int EventIdAudioSessionClosedSuccess = 6;
+        public const int EventIdLoginUserNameWrong = 7;
+        public const int EventIdLoginPasswordWrong = 8;
+        public const int EventIdReceiveVideoError = 9;
+        public const int EventIdReceiveAudioError = 10;
+        public const int EventIdDeviceNotSupportVideo = 11;
+        public const int EventIdDeviceNotSupportAudio = 12;
+        public const int EventIdDeviceNoPrivilege = 13;
+        public const int EventIdDeviceMaxConnection = 14;
+        public const int EventIdFilePlaybackEnd = 15;
+        public const int EventIdLoginUserRepeated = 16;
+        public const int EventIdLoginUserLocked = 17;
 
         public delegate void VideoSignalChangedEventHandler(object sender, VideoSignalChangedEventArgs e);
 
@@ -276,6 +276,8 @@ namespace Mtf.Controls.Sunell.IPR66
             }
         }
 
+        #pragma warning disable CA1707
+
         public void PTZ_Open(int cameraId)
         {
             if (nvdHandle != IntPtr.Zero)
@@ -338,6 +340,7 @@ namespace Mtf.Controls.Sunell.IPR66
                 CheckForError(returnCode);
             }
         }
+        #pragma warning restore CA1707
 
         #endregion
 
@@ -365,26 +368,26 @@ namespace Mtf.Controls.Sunell.IPR66
         {
             switch ((int)m.WParam)
             {
-                case EVENTID_CREATE_VIDEO_SESSION_SUCCESS:
+                case EventIdCreateVideoSessionSuccess:
                     Invoke((Action)(() => { BackgroundImage = null; }));
                     VideoSignalChanged?.Invoke(this, new VideoSignalChangedEventArgs(true));
                     base.WndProc(ref m);
                     break;
-                case EVENTID_CREATE_VIDEO_SESSION_FAILED:
-                case EVENTID_VIDEO_SESSION_CLOSED_SUCCESS:
-                case EVENTID_RECEIVE_VIDEO_ERROR:
-                case EVENTID_DEVICE_NOT_SUPPORT_VIDEO:
+                case EventIdCreateVideoSessionFailed:
+                case EventIdVideoSessionClosedSuccess:
+                case EventIdReceiveVideoError:
+                case EventIdDeviceNotSupportVideo:
                     Invoke((Action)(() => { BackgroundImage = Properties.Resources.NoSignal; }));
                     VideoSignalChanged?.Invoke(this, new VideoSignalChangedEventArgs(false));
                     base.WndProc(ref m);
                     break;
-                case EVENTID_CREATE_AUDIO_SESSION_SUCCESS:
-                case EVENTID_CREATE_AUDIO_SESSION_FAILED:
-                case EVENTID_AUDIO_SESSION_CLOSED_SUCCESS:
-                case EVENTID_LOGIN_USERNAME_WRONG:
-                case EVENTID_LOGIN_PASSWORD_WRONG:
-                case EVENTID_RECEIVE_AUDIO_ERROR:
-                case EVENTID_DEVICE_NOT_SUPPORT_AUDIO:
+                case EventIdCreateAudioSessionSuccess:
+                case EventIdCreateAudioSessionFailed:
+                case EventIdAudioSessionClosedSuccess:
+                case EventIdLoginUserNameWrong:
+                case EventIdLoginPasswordWrong:
+                case EventIdReceiveAudioError:
+                case EventIdDeviceNotSupportAudio:
                 default:
                     base.WndProc(ref m);
                     break;
@@ -402,7 +405,7 @@ namespace Mtf.Controls.Sunell.IPR66
         //    }
         //}
 
-        private void CheckForError(int errorCode, [CallerMemberName] string callerFunction = "", [CallerFilePath] string callerFile = "", [CallerLineNumber] int callerLine = 0)
+        private static void CheckForError(int errorCode, [CallerMemberName] string callerFunction = "", [CallerFilePath] string callerFile = "", [CallerLineNumber] int callerLine = 0)
         {
             if (errorCode != 0)
             {
