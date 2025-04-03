@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.MessageBoxes" />
-    <PackageReference Include="Mtf.Network" />
-    <PackageReference Include="Mtf.Permissions" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="4.0.45" />
+    <PackageReference Include="Mtf.Network" Version="1.0.55" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.23" />
   </ItemGroup>
 
   <ItemGroup>

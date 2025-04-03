@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.MessageBoxes" />
-    <PackageReference Include="Mtf.Network" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="4.0.45" />
+    <PackageReference Include="Mtf.Network" Version="1.0.55" />
   </ItemGroup>
 
   <ItemGroup>
