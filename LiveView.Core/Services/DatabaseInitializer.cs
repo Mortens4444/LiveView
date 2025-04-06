@@ -10,6 +10,14 @@ namespace LiveView.Core.Services
     {
         public static bool Initialize(string connectionStringName)
         {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (config.ConnectionStrings.SectionInformation.IsProtected)
+            {
+                config.ConnectionStrings.SectionInformation.UnprotectSection();
+                config.Save();
+                ConfigurationManager.RefreshSection("connectionStrings");
+            }
+
             BaseRepository.CommandTimeout = 240;
             BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
             BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
@@ -20,6 +28,7 @@ namespace LiveView.Core.Services
             }
             catch (Exception ex)
             {
+                Console.Error.WriteLine(ex);
                 ErrorBox.Show("General error", ex.Message);
             }
             return false;

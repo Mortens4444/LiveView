@@ -11,13 +11,8 @@ namespace LiveView.Core.Services.Logging
         public static void RegisterLogServices(ServiceCollection services)
         {
 #if NET452 || NET462
-            services.AddLogging();
-
-            services.AddSingleton<ILoggerProvider>(sp => new LogRepositoryLoggerProvider(
-                sp.GetRequiredService<PermissionManager<Database.Models.User>>(),
-                sp.GetRequiredService<ILogRepository>()
-            ));
-
+            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 #else
             services.AddLogging(builder =>
             {

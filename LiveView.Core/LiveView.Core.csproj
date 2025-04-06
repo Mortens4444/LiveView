@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net452</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net462;net452</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <WarningLevel>9999</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.MessageBoxes" Version="4.0.45" />
-    <PackageReference Include="Mtf.Network" Version="1.0.55" />
-    <PackageReference Include="Mtf.Permissions" Version="3.0.23" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="4.0.46" />
+    <PackageReference Include="Mtf.Network" Version="1.0.57" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.24" />
   </ItemGroup>
 
   <ItemGroup>

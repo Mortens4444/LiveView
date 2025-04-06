@@ -3,6 +3,7 @@ using LiveView.Agent.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using Mtf.Network;
@@ -10,6 +11,7 @@ using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +40,7 @@ namespace LiveView.Agent
 
         static Program()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             databaseInitialized = DatabaseInitializer.Initialize("LiveViewConnectionString");
             //generalOptionsRepository = new GeneralOptionsRepository();
         }
@@ -53,12 +56,22 @@ namespace LiveView.Agent
             var serviceProvider = ServiceProviderFactory.Create();
             //using (var serviceProvider = ServiceProviderFactory.Create())
             {
-                logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
-                ExceptionHandler.SetLogger(logger);
-                var liveViewConnectorLogger = serviceProvider.GetRequiredService<ILogger<LiveViewConnector>>();
-                var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
-                var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
-                liveViewConnector = new LiveViewConnector(liveViewConnectorLogger, agentRepository, videoSourceRepository);
+                try
+                {
+                    logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+                    ExceptionHandler.SetLogger(logger);
+
+                    var liveViewConnectorLogger = serviceProvider.GetRequiredService<ILogger<LiveViewConnector>>();
+                    var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+                    var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
+                    liveViewConnector = new LiveViewConnector(liveViewConnectorLogger, agentRepository, videoSourceRepository);
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine(ex);
+                    Console.Error.WriteLine($"Used connection string: {BaseRepository.ConnectionString}");
+                    throw;
+                }
             }
 
             Console.CancelKeyPress += (sender, e) => OnExit();
@@ -70,7 +83,16 @@ namespace LiveView.Agent
             var handle = GetConsoleWindow();
             ShowWindow(handle, SW_HIDE);
 #endif
-            StartVideoCaptureServers();
+
+            try
+            {
+                StartVideoCaptureServers();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+                throw;
+            }
 
             var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
             var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];

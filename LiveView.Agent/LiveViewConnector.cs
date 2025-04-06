@@ -78,7 +78,7 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Agent connection failed.");
+                    logger?.LogError(ex, "Agent connection failed.");
                     Console.Error.WriteLine($"Connection failed: {ex}");
                 }
 
@@ -226,9 +226,9 @@ namespace LiveView.Agent
                 var message = $"Message parse or execution failed in agent: {ex}.";
                 Console.Error.WriteLine(message);
 #if NET462
-                logger.LogError(message);
+                logger?.LogError(message);
 #else
-                logger.LogError(ex, message);
+                logger?.LogError(ex, message);
 #endif
             }
         }
