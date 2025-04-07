@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace Watchdog
 {
@@ -11,17 +13,30 @@ namespace Watchdog
 
         public void EnsureRunning()
         {
-            if (process?.HasExited != false)
+            if (process == null || process.HasExited)
             {
-                StartProcess();
+                process = FindProcess() ?? StartProcess();
             }
         }
 
-        public void Kill() => process?.Kill();
-
-        private void StartProcess()
+        public void Kill()
         {
-            process = new Process
+            if (process != null && !process.HasExited)
+            {
+                process.Kill();
+                process.WaitForExit();
+            }
+        }
+
+        private Process FindProcess()
+        {
+            var exeName = Path.GetFileNameWithoutExtension(settings.ProcessPath);
+            return Process.GetProcessesByName(exeName).FirstOrDefault();
+        }
+
+        private Process StartProcess()
+        {
+            var newProcess = new Process
             {
                 StartInfo = new ProcessStartInfo(settings.ProcessPath)
                 {
@@ -29,7 +44,8 @@ namespace Watchdog
                 }
             };
 
-            process.Start();
+            newProcess.Start();
+            return newProcess;
         }
 
         public int? ProcessId => process?.Id;
