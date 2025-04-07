@@ -227,7 +227,7 @@ namespace LiveView.Presenters
                                 }
                             }
                         }
-                        catch (ObjectDisposedException _) { }
+                        catch (ObjectDisposedException) { }
                         catch (Exception ex)
                         {
                             try
