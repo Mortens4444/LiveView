@@ -89,7 +89,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.Vlc, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
@@ -101,7 +101,7 @@ namespace CameraForms.Forms
         private void VlcCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }

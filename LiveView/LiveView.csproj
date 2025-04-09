@@ -7188,12 +7188,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
-    <PackageReference Include="Mtf.Controls" Version="1.0.75" />
+    <PackageReference Include="Mtf.Controls" Version="1.0.89" />
     <PackageReference Include="Mtf.Database" Version="2.0.33" />
-    <PackageReference Include="Mtf.HardwareKey" />
+    <PackageReference Include="Mtf.HardwareKey" Version="1.0.22" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.5" />
     <PackageReference Include="Mtf.MessageBoxes" Version="4.0.46" />
-    <PackageReference Include="Mtf.Network" Version="1.0.57" />
+    <PackageReference Include="Mtf.Network" Version="1.0.79" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.24" />
     <PackageReference Include="Mtf.Serial" Version="1.0.12" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.39" />
@@ -7207,6 +7207,13 @@
     <ProjectReference Include="..\Sequence\Sequence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="sx32w.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Remove="sx32w.dll" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Update="Forms\BaseDisplayView.cs">
       <SubType>Form</SubType>

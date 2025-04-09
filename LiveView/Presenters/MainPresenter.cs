@@ -209,7 +209,7 @@ namespace LiveView.Presenters
 
         private void StartServer()
         {
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            var listenerPort = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var port))
             {
                 try

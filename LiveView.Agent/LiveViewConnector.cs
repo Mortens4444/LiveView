@@ -78,6 +78,7 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
+                    client.Disconnect();
                     logger?.LogError(ex, "Agent connection failed.");
                     Console.Error.WriteLine($"Connection failed: {ex}");
                 }

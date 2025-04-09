@@ -20,7 +20,16 @@ namespace LiveView.Agent
             {
                 if (videoCapture.Read(frame) && !frame.Empty())
                 {
-                    return Task.FromResult(frame.ToBytes());
+                    //var imageBytes = frame.ToBytes(".png");
+                    //return Task.FromResult(imageBytes);
+                    return Task.FromResult(frame.ToBytes(".png",
+                        new ImageEncodingParam(ImwriteFlags.PngCompression, 9),
+                        new ImageEncodingParam(ImwriteFlags.PngStrategy, (int)ImwritePNGFlags.StrategyRLE)
+                    ));
+                }
+                else
+                {
+                    videoCapture.PosFrames = 0;
                 }
             }
             return Task.FromResult<byte[]>(null);

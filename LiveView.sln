@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		App.config = App.config
 		BuildAndGenerateApk.ps1 = BuildAndGenerateApk.ps1
+		CreateHardlinks.bat = CreateHardlinks.bat
 		Directory.Packages.props = Directory.Packages.props
+		sx32w.dll = sx32w.dll
 		ToDo.txt = ToDo.txt
 	EndProjectSection
 EndProject

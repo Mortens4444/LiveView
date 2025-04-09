@@ -123,7 +123,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
                 var displayId = display?.Id ?? String.Empty;
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
 
@@ -289,7 +289,7 @@ namespace CameraForms.Forms
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }

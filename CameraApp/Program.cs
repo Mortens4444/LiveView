@@ -29,11 +29,11 @@ namespace CameraApp
         [STAThread]
         private static void Main(string[] args)
         {
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["AttachDebugger"], out var attach) && attach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.AttachDebugger], out var attach) && attach)
             {
                 Debugger.Launch();
             }
-            if (Int32.TryParse(ConfigurationManager.AppSettings["WaitAtStartup"], out var waitTime))
+            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.WaitAtStartup], out var waitTime))
             {
                 Thread.Sleep(waitTime);
             }

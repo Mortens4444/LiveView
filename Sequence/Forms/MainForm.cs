@@ -1,6 +1,7 @@
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
+using LibVLCSharp.Shared;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -36,8 +37,8 @@ namespace Sequence.Forms
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 
-            var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            var serverIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
+            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
                 try
@@ -63,7 +64,7 @@ namespace Sequence.Forms
             }
             else
             {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
             }
 
             Console.CancelKeyPress += async (sender, e) => await OnExitAsync().ConfigureAwait(false);
@@ -154,7 +155,7 @@ namespace Sequence.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             Location = new Point(display.X, display.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }

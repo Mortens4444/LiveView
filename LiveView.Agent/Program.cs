@@ -38,6 +38,8 @@ namespace LiveView.Agent
 
         private static CancellationTokenSource cancellationTokenSource;
 
+        private static List<ImageCaptureServer> imageCaptureServers = new List<ImageCaptureServer>();
+
         static Program()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -78,11 +80,16 @@ namespace LiveView.Agent
             Application.ApplicationExit += (sender, e) => OnExit();
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
 
-#if !DEBUG
-            const int SW_HIDE = 0;
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, SW_HIDE);
-#endif
+            var hideConsoleWindow = ConfigurationManager.AppSettings[Core.Constants.LiveViewAgentHideConsoleWindow];
+            if (Boolean.TryParse(hideConsoleWindow, out var hideWindow))
+            {
+                if (hideWindow)
+                {
+                    const int SW_HIDE = 0;
+                    var handle = GetConsoleWindow();
+                    ShowWindow(handle, SW_HIDE);
+                }
+            }
 
             try
             {
@@ -94,15 +101,15 @@ namespace LiveView.Agent
                 throw;
             }
 
-            var serverIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            var serverIp = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerIpAddress];
+            var listenerPort = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
                 Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, cancellationTokenSource.Token)).Wait();
             }
             else
             {
-                var message = "LiveViewServer.ListenerPort cannot be parsed as an ushort.";
+                var message = $"{Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.";
                 logger.LogError(message);
                 ErrorBox.Show("General error", message);
             }
@@ -117,6 +124,14 @@ namespace LiveView.Agent
 #else
             var videoCaptureIds = System.Text.Json.JsonSerializer.Deserialize<List<string>>(json);
 #endif
+
+            var imageCaptureServerBufferSize = ConfigurationManager.AppSettings[Core.Constants.ImageCaptureServerBufferSize];
+            int bufferSize;
+            if (!Int32.TryParse(imageCaptureServerBufferSize, out bufferSize))
+            {
+                bufferSize = 409600;
+            }
+
             foreach (var videoCaptureId in videoCaptureIds)
             {
                 try
@@ -134,13 +149,23 @@ namespace LiveView.Agent
                     //var gain = generalOptionsRepository.Get<int>(Database.Enums.Setting.Gain, 0);
                     //videoCapture.Set(VideoCaptureProperties.Gain, gain); // 10
 
-                    var imageCaptureServer = new ImageCaptureServer(new VideoCaptureImageSource(videoCapture), videoCaptureId);
+                    var imageCaptureServer = new ImageCaptureServer(new VideoCaptureImageSource(videoCapture), videoCaptureId)
+                    {
+                        //BufferSize = bufferSize
+                    };
+                    imageCaptureServers.Add(imageCaptureServer);
+                    var imageCaptureServerFps = ConfigurationManager.AppSettings[Core.Constants.LiveViewAgentImageCaptureServerFps];
+                    if (Byte.TryParse(imageCaptureServerFps, out var fps))
+                    {
+                        imageCaptureServer.FPS = fps;
+                    }
+
                     var videoCaptureServer = imageCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                     //var videoCaptureServer = new VideoCaptureServer();
                     //var server = videoCaptureServer.StartVideoCaptureServer(liveViewConnector, videoCapture, videoCaptureId);
                     Console.WriteLine($"Video capture server ({videoCaptureId}): {videoCaptureServer}");
                     liveViewConnector.AddVideoCaptureWithServer(videoCaptureId, videoCapture, videoCaptureServer);
-
+                    Console.Title = $"LiveView Agent: {videoCaptureServer}";
                 }
                 catch (Exception ex)
                 {
@@ -156,6 +181,10 @@ namespace LiveView.Agent
 
         private static void OnExit()
         {
+            foreach (var imageCaptureServer in imageCaptureServers)
+            {
+                imageCaptureServer.Dispose();
+            }
             liveViewConnector.Disconnect();
             Application.Exit();
         }

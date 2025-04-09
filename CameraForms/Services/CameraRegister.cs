@@ -14,8 +14,8 @@ namespace CameraForms.Services
     {
         public static Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler, CameraMode cameraMode)
         {
-            var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            var liveViewServerIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
+            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
                 try
@@ -38,7 +38,7 @@ namespace CameraForms.Services
             }
             else
             {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
             }
 
             return null;
@@ -46,8 +46,8 @@ namespace CameraForms.Services
 
         public static Client RegisterVideoSource(long userId, string serverIp, string videoCaptureSource, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler)
         {
-            var liveViewServerIp = ConfigurationManager.AppSettings["LiveViewServer.IpAddress"];
-            var listenerPort = ConfigurationManager.AppSettings["LiveViewServer.ListenerPort"];
+            var liveViewServerIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
+            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
                 try
@@ -70,7 +70,7 @@ namespace CameraForms.Services
             }
             else
             {
-                ErrorBox.Show("General error", "LiveViewServer.ListenerPort cannot be parsed as an ushort.");
+                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
             }
 
             return null;

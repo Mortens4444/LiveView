@@ -42,7 +42,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            if (Int32.TryParse(ConfigurationManager.AppSettings["SunellLegacyCameraWindowRotate"], out var currentRotateSpeed))
+            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.SunellLegacyCameraWindowRotateSpeed], out var currentRotateSpeed))
             {
                 rotateSpeed = currentRotateSpeed;
             }
@@ -100,7 +100,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
                 client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
@@ -218,7 +218,7 @@ namespace CameraForms.Forms
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }

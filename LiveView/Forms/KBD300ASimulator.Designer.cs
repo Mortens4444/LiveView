@@ -29,45 +29,44 @@
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(KBD300ASimulator));
-            kbd300aSimulator2 = new Mtf.Controls.Kbd300ASimulator();
-            ((System.ComponentModel.ISupportInitialize)kbd300aSimulator2).BeginInit();
+            kbd300aSimulator = new Mtf.Controls.Kbd300ASimulator();
+            ((System.ComponentModel.ISupportInitialize)kbd300aSimulator).BeginInit();
             SuspendLayout();
             // 
             // kbd300aSimulator2
             // 
-            kbd300aSimulator2.BackgroundPaintDebounceIntervalInMs = 0;
-            kbd300aSimulator2.Dock = System.Windows.Forms.DockStyle.Fill;
-            kbd300aSimulator2.Image = (System.Drawing.Image)resources.GetObject("kbd300aSimulator2.Image");
-            kbd300aSimulator2.Location = new System.Drawing.Point(0, 0);
-            kbd300aSimulator2.Name = "kbd300aSimulator2";
-            kbd300aSimulator2.OriginalSize = new System.Drawing.Size(673, 427);
-            kbd300aSimulator2.PaintDebounceIntervalInMs = 0;
-            kbd300aSimulator2.PipeName = "KBD300A_Pipe";
-            kbd300aSimulator2.RepositioningAndResizingControlsOnResize = true;
-            kbd300aSimulator2.ResizeDebounceIntervalInMs = 0;
-            kbd300aSimulator2.Shift = false;
-            kbd300aSimulator2.ShowPaintErrors = false;
-            kbd300aSimulator2.ShowResizeErrors = false;
-            kbd300aSimulator2.Size = new System.Drawing.Size(673, 427);
-            kbd300aSimulator2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            kbd300aSimulator2.TabIndex = 0;
-            kbd300aSimulator2.TabStop = false;
+            kbd300aSimulator.BackgroundPaintDebounceIntervalInMs = 0;
+            kbd300aSimulator.Dock = System.Windows.Forms.DockStyle.Fill;
+            kbd300aSimulator.Image = (System.Drawing.Image)resources.GetObject("kbd300aSimulator2.Image");
+            kbd300aSimulator.Location = new System.Drawing.Point(0, 0);
+            kbd300aSimulator.Name = "kbd300aSimulator2";
+            kbd300aSimulator.OriginalSize = new System.Drawing.Size(673, 427);
+            kbd300aSimulator.PaintDebounceIntervalInMs = 0;
+            kbd300aSimulator.PipeName = LiveView.Core.Constants.PipeServerName;
+            kbd300aSimulator.RepositioningAndResizingControlsOnResize = true;
+            kbd300aSimulator.ResizeDebounceIntervalInMs = 0;
+            kbd300aSimulator.Shift = false;
+            kbd300aSimulator.ShowPaintErrors = false;
+            kbd300aSimulator.ShowResizeErrors = false;
+            kbd300aSimulator.Size = new System.Drawing.Size(673, 427);
+            kbd300aSimulator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            kbd300aSimulator.TabIndex = 0;
+            kbd300aSimulator.TabStop = false;
             // 
             // KBD300ASimulator
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(673, 427);
-            Controls.Add(kbd300aSimulator2);
+            Controls.Add(kbd300aSimulator);
             Name = "KBD300ASimulator";
             Text = "KBD300ASimulator";
-            ((System.ComponentModel.ISupportInitialize)kbd300aSimulator2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)kbd300aSimulator).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Mtf.Controls.Kbd300ASimulator kbd300aSimulator1;
-        private Mtf.Controls.Kbd300ASimulator kbd300aSimulator2;
+        private Mtf.Controls.Kbd300ASimulator kbd300aSimulator;
     }
 }

@@ -2,6 +2,7 @@
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LibVLCSharp.Shared;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
@@ -26,6 +27,7 @@ namespace CameraForms.Forms
         private string url;
         private GridCamera gridCamera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
+        private int bufferSize;
 
         public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -45,6 +47,7 @@ namespace CameraForms.Forms
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
             }
+            SetBufferSize();
         }
 
         public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
@@ -77,15 +80,25 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, null, true);
         }
 
+        private void SetBufferSize()
+        {
+            var videoCaptureClientBufferSize = ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoCaptureClientBufferSize];
+            if (!Int32.TryParse(videoCaptureClientBufferSize, out bufferSize))
+            {
+                bufferSize = 409600;
+            }
+        }
+
         private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
         {
+            SetBufferSize();
             var camera = cameraRepository.Select(cameraId);
             this.rectangle = rectangle;
             url = camera.HttpStreamUrl;
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
@@ -97,7 +110,7 @@ namespace CameraForms.Forms
         private void MortoGraphyWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }
@@ -119,7 +132,7 @@ namespace CameraForms.Forms
             var cameraName = personalOptionsRepository.GetCameraName(userId, url);
             mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
             mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
-
+            mortoGraphyWindow.BufferSize = bufferSize;
             if (gridCamera?.Frame ?? false)
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;

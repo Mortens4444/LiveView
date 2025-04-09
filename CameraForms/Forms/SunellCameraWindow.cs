@@ -98,7 +98,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync("KBD300A_Pipe");
+                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
                 client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
@@ -196,7 +196,7 @@ namespace CameraForms.Forms
         private void SunellCameraWindow_Load(object sender, EventArgs e)
         {
             Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings["UseMiniSizeForFullscreenWindows"], out var useMiniWindowattach) && useMiniWindowattach)
+            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
             {
                 Size = new Size(100, 100);
             }
