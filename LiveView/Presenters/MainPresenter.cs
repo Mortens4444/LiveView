@@ -230,7 +230,7 @@ namespace LiveView.Presenters
         private void RegisterHotkey()
         {
             var handle = view.GetHandle();
-            WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
+            Core.Services.WinAPI.RegisterHotKey(handle, 1, ModifierKeys.NO_MODIFIER, VirtualKeyCodes.VK_HOME);
         }
 
         private void ShowControlCenter()
@@ -665,7 +665,7 @@ namespace LiveView.Presenters
                 JoystickHandler.StopJoystick();
                 StopStartedApplications();
                 var handle = view.GetHandle();
-                WinAPI.UnregisterHotKey(handle, 1);
+                Core.Services.WinAPI.UnregisterHotKey(handle, 1);
                 Globals.Server.Stop();
                 watchdog?.StopPetting();
                 Logger.LogInfo(ApplicationManagementPermissions.Exit, "Application stopped.");
@@ -736,7 +736,7 @@ namespace LiveView.Presenters
 
         public static void StopStartedApplications()
         {
-            ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
+            Core.Services.ProcessUtils.Kill(ControlCenterPresenter.CameraProcess);
             ControlCenterPresenter.CameraProcess = null;
 
             foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
