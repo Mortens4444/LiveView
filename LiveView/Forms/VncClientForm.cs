@@ -26,6 +26,7 @@ namespace LiveView.Forms
             vncClient = new VncClient(ipOrHostname, port);
             vncClient.ErrorOccurred += VncClient_ErrorOccurred;
             vncClient.FrameArrived += VncClient_FrameArrived;
+            vncClient.Start();
             //ClientSize = new Size(width, height);
         }
 

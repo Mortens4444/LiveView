@@ -7184,17 +7184,17 @@
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
-    <PackageReference Include="Mtf.Controls" Version="1.0.91" />
+    <PackageReference Include="Mtf.Controls" Version="1.0.93" />
     <PackageReference Include="Mtf.Database" Version="2.0.33" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.22" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.5" />
     <PackageReference Include="Mtf.MessageBoxes" Version="4.0.46" />
-    <PackageReference Include="Mtf.Network" Version="1.0.83" />
-    <PackageReference Include="Mtf.Permissions" Version="3.0.24" />
+    <PackageReference Include="Mtf.Network" Version="1.0.93" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.25" />
     <PackageReference Include="Mtf.Serial" Version="1.0.12" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.39" />
     <PackageReference Include="Mtf.Wmi" Version="1.0.13" />

@@ -38,6 +38,7 @@ namespace LiveView.Forms
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(800, 450);
             Name = "VncClientForm";
             StartPosition = FormStartPosition.CenterScreen;

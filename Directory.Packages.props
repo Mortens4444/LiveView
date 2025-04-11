@@ -9,15 +9,15 @@
     <PackageVersion Include="Mtf.Database" Version="2.0.33" />
     <PackageVersion Include="Mtf.HardwareKey" Version="1.0.15" />
     <PackageVersion Include="Mtf.Joystick" Version="2.0.5" />
-    <PackageVersion Include="Mtf.Permissions" Version="3.0.24" />
+    <PackageVersion Include="Mtf.Permissions" Version="3.0.25" />
     <PackageVersion Include="Mtf.Windows.Forms.LanguageService" Version="3.0.39" />
-    <PackageVersion Include="Mtf.Controls" Version="1.0.91" />
-    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.46" />
-    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.21" />
-    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.19" />
-    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.20" />
+    <PackageVersion Include="Mtf.Controls" Version="1.0.93" />
+    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.53" />
+    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.22" />
+    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.20" />
+    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.21" />
     <PackageVersion Include="Mtf.MessageBoxes" Version="4.0.46" />
-    <PackageVersion Include="Mtf.Network" Version="1.0.83" />
+    <PackageVersion Include="Mtf.Network" Version="1.0.93" />
     <PackageVersion Include="Mtf.Serial" Version="1.0.12" />
     <PackageVersion Include="Mtf.Wmi" Version="1.0.13" />
 

@@ -7,6 +7,7 @@ using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using Mtf.Network;
+using Mtf.Network.EventArg;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace LiveView.Agent
 
         private static List<ImageCaptureServer> imageCaptureServers = new List<ImageCaptureServer>();
 
-        private static VncServer vncServer = new VncServer(new ScreenInfoProvider());
+        private static VncServer vncServer;
 
         static Program()
         {
@@ -55,6 +56,9 @@ namespace LiveView.Agent
             {
                 return;
             }
+            vncServer = new VncServer(new ScreenInfoProvider());
+            vncServer.ErrorOccurred += VncServer_ErrorOccurred;
+            vncServer.Start();
             Console.WriteLine($"VNC server started at: {vncServer}");
 
             ExceptionHandler.CatchUnhandledExceptions();
@@ -116,6 +120,11 @@ namespace LiveView.Agent
                 logger.LogError(message);
                 ErrorBox.Show("General error", message);
             }
+        }
+
+        private static void VncServer_ErrorOccurred(object sender, ExceptionEventArgs e)
+        {
+            Console.Error.WriteLine(e.Exception);
         }
 
         private static void StartVideoCaptureServers()
