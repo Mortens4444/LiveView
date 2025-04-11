@@ -332,5 +332,12 @@ namespace LiveView.Forms
             }
             // This point is never reached - Do all exit login in the Exit function!!!
         }
+
+        [RequirePermission(ServerManagementPermissions.Update)]
+        private void TsmiVncClient_Click(object sender, EventArgs e)
+        {
+            permissionManager.EnsurePermissions();
+            presenter.OpenVncClientWindow();
+        }
     }
 }

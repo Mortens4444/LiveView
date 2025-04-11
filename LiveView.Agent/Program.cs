@@ -40,6 +40,8 @@ namespace LiveView.Agent
 
         private static List<ImageCaptureServer> imageCaptureServers = new List<ImageCaptureServer>();
 
+        private static VncServer vncServer = new VncServer(new ScreenInfoProvider());
+
         static Program()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -53,6 +55,7 @@ namespace LiveView.Agent
             {
                 return;
             }
+            Console.WriteLine($"VNC server started at: {vncServer}");
 
             ExceptionHandler.CatchUnhandledExceptions();
             var serviceProvider = ServiceProviderFactory.Create();

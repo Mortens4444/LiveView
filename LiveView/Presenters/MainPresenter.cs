@@ -865,5 +865,21 @@ namespace LiveView.Presenters
                 kBD300A = new KBD300A(kbd300ACOMPort);
             }
         }
+
+        public void OpenVncClientWindow()
+        {
+            var connectionInfo = InputBox.Show("VNC server", "Have you checked the IP Address and the port of VNC server?", "192.168.0.1:10000");
+            if (!String.IsNullOrWhiteSpace(connectionInfo))
+            {
+                var connectionInfoData = connectionInfo.Split(':');
+                if (connectionInfoData.Length == 2)
+                {
+                    if (UInt16.TryParse(connectionInfoData[1], out var port))
+                    {
+                        ShowForm<VncClientForm>(connectionInfoData[0], port);
+                    }
+                }
+            }
+        }
     }
 }

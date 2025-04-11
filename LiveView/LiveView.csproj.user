@@ -118,6 +118,9 @@
     <Compile Update="Forms\UserAndGroupManagement.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\VncClientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Forms\AutoCreateWizard.resx">

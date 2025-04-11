@@ -32,7 +32,7 @@ namespace LiveView.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            var treeNode1 = new TreeNode("I/O Devices", 0, 0);
+            var treeNode2 = new TreeNode("I/O Devices", 0, 0);
             tsmiGeneralOptions = new ToolStripMenuItem();
             tsmiOptions = new ToolStripMenuItem();
             tsmiPersonalOptions = new ToolStripMenuItem();
@@ -113,6 +113,7 @@ namespace LiveView.Forms
             msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
             timer = new Timer(components);
+            tsmiVncClient = new ToolStripMenuItem();
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
@@ -499,7 +500,7 @@ namespace LiveView.Forms
             // 
             // tsmiTools
             // 
-            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator });
+            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator, tsmiVncClient });
             tsmiTools.Image = (System.Drawing.Image)resources.GetObject("tsmiTools.Image");
             tsmiTools.Name = "tsmiTools";
             tsmiTools.Size = new System.Drawing.Size(63, 20);
@@ -635,11 +636,11 @@ namespace LiveView.Forms
             tvIOPorts.Margin = new Padding(4, 3, 4, 3);
             tvIOPorts.MultiSelect = false;
             tvIOPorts.Name = "tvIOPorts";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "IO_Devices";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeNode2.ImageIndex = 0;
+            treeNode2.Name = "IO_Devices";
+            treeNode2.SelectedImageIndex = 0;
+            treeNode2.Text = "I/O Devices";
+            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
             tvIOPorts.SelectedImageIndex = 0;
             tvIOPorts.ShowPlusMinusOnRootNodes = true;
             tvIOPorts.Size = new System.Drawing.Size(253, 186);
@@ -886,6 +887,14 @@ namespace LiveView.Forms
             timer.Interval = 500;
             timer.Tick += Timer_Tick;
             // 
+            // tsmiVncClient
+            // 
+            tsmiVncClient.Image = Properties.Resources.server_link;
+            tsmiVncClient.Name = "tsmiVncClient";
+            tsmiVncClient.Size = new System.Drawing.Size(215, 22);
+            tsmiVncClient.Text = "VNC client";
+            tsmiVncClient.Click += TsmiVncClient_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -999,5 +1008,6 @@ namespace LiveView.Forms
         private ToolStripStatusLabel tsslServerData;
         private ToolStripMenuItem tsmiKBD300ASimulator;
         private ToolStripStatusLabel tsslJoystick;
+        private ToolStripMenuItem tsmiVncClient;
     }
 }
