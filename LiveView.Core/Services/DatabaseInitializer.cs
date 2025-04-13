@@ -14,7 +14,7 @@ namespace LiveView.Core.Services
             if (config.ConnectionStrings.SectionInformation.IsProtected)
             {
                 config.ConnectionStrings.SectionInformation.UnprotectSection();
-                config.Save();
+                //config.Save();
                 ConfigurationManager.RefreshSection("connectionStrings");
             }
 

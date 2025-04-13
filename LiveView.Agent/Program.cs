@@ -3,6 +3,7 @@ using LiveView.Agent.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.Video.OpenCvSharp;
 using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
@@ -163,7 +164,7 @@ namespace LiveView.Agent
 
                     var imageCaptureServer = new ImageCaptureServer(new VideoCaptureImageSource(videoCapture), videoCaptureId)
                     {
-                        //BufferSize = bufferSize
+                        BufferSize = bufferSize
                     };
                     imageCaptureServers.Add(imageCaptureServer);
                     var imageCaptureServerFps = ConfigurationManager.AppSettings[Core.Constants.LiveViewAgentImageCaptureServerFps];
