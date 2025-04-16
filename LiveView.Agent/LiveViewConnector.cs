@@ -1,15 +1,16 @@
 ﻿using Database.Interfaces;
+using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
+using Mtf.Network.Extensions;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -50,8 +51,8 @@ namespace LiveView.Agent
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-
-                    if (client.Send($"{NetworkCommand.RegisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true))
+                    var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
+                    if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}", true))
                     {
                         var displayManager = new DisplayManager();
                         var displays = displayManager.GetAll();
@@ -59,7 +60,7 @@ namespace LiveView.Agent
                         {
                             display.Host = client.Socket.LocalEndPoint.ToString();
                             Console.WriteLine($"Registering display {display}.");
-                            client.Send($"{NetworkCommand.RegisterDisplay}|{display.Serialize()}", true);
+                            client.Send($"{NetworkCommand.RegisterDisplay}|{hostInfo}|{display.Serialize()}", true);
                         }
 
                         UpdateVideoCaptureSources();
@@ -69,7 +70,7 @@ namespace LiveView.Agent
                         while (!cancellationToken.IsCancellationRequested)
                         {
                             await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
-                            if (!client.Send($"{NetworkCommand.Ping}|{client.Socket.LocalEndPoint}", true))
+                            if (!client.Send($"{NetworkCommand.Ping}|{hostInfo}", true))
                             {
                                 break;
                             }
@@ -91,135 +92,10 @@ namespace LiveView.Agent
         {
             try
             {
-                var messages = $"{client.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var commands = CommandFactory.Create(logger, cameraServers, cameraProcesses, sequenceProcesses, client, e.Data, e.Socket, videoCaptures, cancellationTokenSources);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-
-                    if (message.StartsWith($"{Core.Constants.CameraAppExe}|", StringComparison.InvariantCulture))
-                    {
-                        Console.WriteLine($"Starting process {Core.Constants.CameraAppExe} ({message}).");
-                        var cameraProcessId = StartProcess(messageParts, cameraProcesses);
-                        client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
-                    }
-                    else if (message.StartsWith($"{Core.Constants.SequenceExe}|", StringComparison.InvariantCulture))
-                    {
-                        Console.WriteLine($"Starting process {Core.Constants.SequenceExe} ({message}).");
-                        StartProcess(messageParts, sequenceProcesses);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.Kill}|", StringComparison.InvariantCulture))
-                    {
-                        Console.WriteLine($"Killing process {messageParts[1]} ({message}).");
-                        long id = Convert.ToInt64(messageParts[2], CultureInfo.InvariantCulture);
-                        switch (messageParts[1])
-                        {
-                            case Core.Constants.CameraAppExe:
-                                ProcessUtils.Kill(cameraProcesses[id]);
-                                cameraProcesses.Remove(id);
-                                break;
-                            case Core.Constants.SequenceExe:
-                                ProcessUtils.Kill(sequenceProcesses[id]);
-                                sequenceProcesses.Remove(id);
-                                break;
-                        }
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
-                    {
-                        Console.WriteLine($"Killing all processes of {messageParts[1]} ({message}).");
-                        var processes = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses.Values : sequenceProcesses.Values;
-                        ProcessUtils.Kill(processes);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesRequest}|", StringComparison.InvariantCulture))
-                    {
-                        SendVideoCaptureSourcesToLiveView();
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopVideoCapture}|", StringComparison.InvariantCulture))
-                    {
-                        if (cancellationTokenSources.TryGetValue(messageParts[1], out var value))
-                        {
-                            value.Cancel();
-                            cancellationTokenSources.Remove(messageParts[1]);
-                        }
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEast}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.TiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.MoveToPresetZero}|", StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.TiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                        videoCaptures[videoCaptureId].Tilt = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWest}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Pan = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopPanAndTilt}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        videoCaptures[videoCaptureId].Pan = 0;
-                        videoCaptures[videoCaptureId].Tilt = 0;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopZoom}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        videoCaptures[videoCaptureId].Zoom = 0;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.ZoomIn}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Zoom = value;
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.ZoomOut}|", StringComparison.InvariantCulture))
-                    {
-                        var videoCaptureId = messageParts[1];
-                        var value = Convert.ToDouble(messageParts[2].Replace(',', '.'), CultureInfo.InvariantCulture);
-                        videoCaptures[videoCaptureId].Zoom = value;
-                    }
+                    command.Execute();
                 }
             }
             catch (Exception ex)
@@ -251,7 +127,8 @@ namespace LiveView.Agent
         {
             if (client != null && client.Socket != null)
             {
-                client.Send($"{NetworkCommand.UnregisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true);
+                var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
+                client.Send($"{NetworkCommand.UnregisterAgent}|{hostInfo}|{Dns.GetHostName()}", true);
                 var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();
                 foreach (var display in displays)
@@ -357,13 +234,6 @@ namespace LiveView.Agent
                     }
                 }
             }
-        }
-
-        private int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
-        {
-            var process = AppStarter.Start(messageParts[0], messageParts[1], logger);
-            processes.Add(process.Id, process);
-            return process.Id;
         }
     }
 }

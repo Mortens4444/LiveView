@@ -390,7 +390,7 @@ namespace LiveView.Forms
 
         public void RefreshAgents()
         {
-            presenter.RefreshAgents();
+            presenter?.RefreshAgents();
         }
 
         private void ControlCenter_Load(object sender, EventArgs e)

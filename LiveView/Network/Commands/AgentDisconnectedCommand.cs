@@ -1,0 +1,30 @@
+﻿using LiveView.Core.Interfaces;
+using LiveView.Core.Interfaces;
+using LiveView.Models.Dependencies;
+using System.Net.Sockets;
+
+namespace LiveView.Network.Commands
+{
+    public class AgentDisconnectedCommand : ICommand
+    {
+        private readonly string serverIp;
+        private readonly string videoSourceName;
+        private readonly MainPresenterDependencies mainPresenterDependencies;
+
+        public AgentDisconnectedCommand(string serverIp, string videoSourceName, Socket agentSocket, MainPresenterDependencies mainPresenterDependencies)
+        {
+            this.serverIp = serverIp;
+            this.videoSourceName = videoSourceName;
+            this.mainPresenterDependencies = mainPresenterDependencies;
+        }
+
+        public void Execute()
+        {
+            var videoSources = mainPresenterDependencies.VideoSourceRepository.SelectWhere(new { ServerIp = serverIp, VideoSourceName = videoSourceName });
+            foreach (var videoSource in videoSources)
+            {
+                mainPresenterDependencies.AgentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
+            }
+        }
+    }
+}

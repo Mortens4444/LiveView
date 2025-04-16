@@ -37,5 +37,7 @@ namespace Database.Models
         public bool CanShowSequence { get; set; }
 
         public bool CanShowFullscreen { get; set; }
+
+        public long? AgentId { get; set; }
     }
 }

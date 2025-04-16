@@ -1,0 +1,1 @@
+﻿SELECT ag.* FROM Agents ag INNER JOIN VideoSources vs ON ag.VideoSourceId = vs.Id WHERE vs.ServerIp = @HostInfo;

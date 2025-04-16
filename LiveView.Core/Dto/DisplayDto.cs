@@ -75,6 +75,8 @@ namespace LiveView.Core.Dto
 
         public Rectangle Bounds => new Rectangle(X, Y, MaxWidth, MaxHeight);
 
+        public long? AgentId { get; set; }
+
         public override string ToString()
         {
             return SziltechId;

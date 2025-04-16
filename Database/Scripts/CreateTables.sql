@@ -568,7 +568,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Vi
 BEGIN
     CREATE TABLE VideoSources (
         Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerIp NVARCHAR(20),
+        ServerIp NVARCHAR(200),
         VideoSourceName NVARCHAR(500)
     );
 END;

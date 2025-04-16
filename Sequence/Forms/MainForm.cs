@@ -11,6 +11,7 @@ using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
+using Mtf.Network.Extensions;
 using Mtf.Permissions.Services;
 using Sequence.Services;
 using System;
@@ -183,7 +184,8 @@ namespace Sequence.Forms
 #else
                 var processId = Process.GetCurrentProcess().Id;
 #endif
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{client.Socket.LocalEndPoint}|{sequenceId}|{processId}", true);
+                var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
+                client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)
             {

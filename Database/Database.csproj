@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net462;net452</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net462</TargetFrameworks>
     <WarningLevel>9999</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
@@ -26,6 +26,8 @@
     <EmbeddedResource Include="Scripts\InsertCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
     <EmbeddedResource Include="Scripts\InsertUserEvent.sql" />
+    <EmbeddedResource Include="Scripts\SelectAgentByHost.sql" />
+    <EmbeddedResource Include="Scripts\MigrationAlterTableDisplay.sql" />
     <EmbeddedResource Include="Scripts\MigrationUpdateCamerasHttpStreamUrlLength.sql" />
     <EmbeddedResource Include="Scripts\MigrationUpdateGridCameras.sql" />
     <EmbeddedResource Include="Scripts\MigrationAlterTableGridCameras.sql" />

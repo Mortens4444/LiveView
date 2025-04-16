@@ -66,6 +66,7 @@ namespace LiveView.Presenters
         private readonly IOperationRepository operationRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
+        private readonly MainPresenterDependencies mainPresenterDependencies;
 
         private IMainView view;
         private MapLoader mapLoader;
@@ -74,6 +75,7 @@ namespace LiveView.Presenters
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
         {
+            mainPresenterDependencies = dependencies;
             cancellationTokenSource = new CancellationTokenSource();
             Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
@@ -90,7 +92,6 @@ namespace LiveView.Presenters
             operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
             videoSourceRepository = dependencies.VideoSourceRepository;
-            agentRepository.DeleteAll();
             uptime = new Uptime();
 
             Task.Run(() =>
@@ -430,147 +431,10 @@ namespace LiveView.Presenters
         {
             try
             {
-                var messages = $"{Globals.Server?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var commands = CommandFactory.Create(e.Data, e.Socket, mainPresenterDependencies);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-
-                    if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
-                    {
-                        Globals.Agents.Add(messageParts[1], e.Socket);
-                        Globals.ControlCenter?.RefreshAgents();
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
-                    {
-                        Globals.Agents.Remove(messageParts[1]);
-                        var serverIp = messageParts[1].Split(':')[0];
-                        var videoSources = videoSourceRepository.SelectWhere(new { ServerIp = serverIp, VideoSourceName = messageParts[2] });
-                        foreach (var videoSource in videoSources)
-                        {
-                            agentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
-                        }
-                        Globals.ControlCenter?.RefreshAgents();
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
-                    {
-#if NET462
-                        var display = Newtonsoft.Json.JsonConvert.DeserializeObject<DisplayDto>(messageParts[1]);
-#else
-                        var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
-#endif
-                        display.Socket = e.Socket;
-                        DisplayManager.RemoteDisplays.Add(display);
-                        if (Globals.ControlCenter != null)
-                        {
-                            Globals.ControlCenter.CachedDisplays = null;
-                        }
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterDisplay}|"))
-                    {
-#if NET462
-                        var display = Newtonsoft.Json.JsonConvert.DeserializeObject<DisplayDto>(messageParts[1]);
-#else
-                        var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(messageParts[1]);
-#endif
-                        DisplayManager.RemoteDisplays.Remove(display);
-                        if (Globals.ControlCenter != null)
-                        {
-                            Globals.ControlCenter.CachedDisplays = null;
-                        }
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.SendCameraProcessId}|"))
-                    {
-                        var cameraProcessId = Convert.ToInt32(messageParts[1]);
-                        var key = e.Socket.RemoteEndPoint.ToString();
-                        if (Globals.CameraProcesses.ContainsKey(key))
-                        {
-                            SentToClient(key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcessId);
-                            Globals.CameraProcesses.Remove(key);
-                        }
-                        Globals.CameraProcesses.Add(key, cameraProcessId);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
-                    {
-                        var localEndPoint = messageParts[1];
-                        Globals.SequenceProcesses.TryAdd(localEndPoint, new SequenceProcessInfo
-                        {
-                            Socket = e.Socket,
-                            UserId = Convert.ToInt64(messageParts[2]),
-                            SequenceId = Convert.ToInt64(messageParts[3]),
-                            DisplayId = Convert.ToInt64(messageParts[4]),
-                            IsMdi = Convert.ToBoolean(messageParts[5]),
-                            ProcessId = Convert.ToInt32(messageParts[6])
-                        });
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterSequence}|"))
-                    {
-                        var localEndPoint = messageParts[1];
-                        //var sequenceId = Convert.ToInt64(messageParts[2]);
-                        //var processId = Convert.ToInt32(messageParts[3]);
-                        Globals.SequenceProcesses.TryRemove(localEndPoint, out _);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.AgentDisconnected}|"))
-                    {
-                        var videoSources = videoSourceRepository.SelectWhere(new { ServerIp = messageParts[1], VideoSourceName = messageParts[2] });
-                        foreach (var videoSource in videoSources)
-                        {
-                            agentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
-                        }
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
-                    {
-                        var videoCaptureSources = messageParts[1].Split(';')
-                            .Select(vcs => vcs.Split('='))
-                            .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
-                        Globals.VideoCaptureSources.Add(e.Socket, videoCaptureSources);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
-                    {
-                        Globals.CameraProcessInfo.TryAdd(e.Socket, new CameraProcessInfo
-                        {
-                            LocalEndPoint = messageParts[1],
-                            UserId = Convert.ToInt64(messageParts[2]),
-                            CameraId = Convert.ToInt64(messageParts[3]),
-                            DisplayId = !String.IsNullOrEmpty(messageParts[4]) ? (long?)Convert.ToInt64(messageParts[4]) : null,
-                            ProcessId = Convert.ToInt32(messageParts[5]),
-                            CameraMode = (CameraMode)Convert.ToInt32(messageParts[6])
-                        });
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}"))
-                    {
-                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
-                    {
-                        var gridId = Convert.ToInt64(messageParts[1]);
-                        Globals.ControlCenter.ShowGridInfo(gridId, messageParts[2]);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.RegisterVideoSource}"))
-                    {
-                        Globals.CameraProcessInfo.TryAdd(e.Socket, new CameraProcessInfo
-                        {
-                            LocalEndPoint = messageParts[1],
-                            UserId = Convert.ToInt64(messageParts[2]),
-                            ServerIp = messageParts[3],
-                            VideoCaptureSource = messageParts[4],
-                            DisplayId = !String.IsNullOrEmpty(messageParts[5]) ? (long?)Convert.ToInt64(messageParts[5]) : null,
-                            ProcessId = Convert.ToInt32(messageParts[6]),
-                            CameraMode = (CameraMode)Convert.ToInt32(messageParts[7])
-                        });
-                    }
-                    else if (message.StartsWith(NetworkCommand.UnregisterVideoSource.ToString()))
-                    {
-                        Globals.CameraProcessInfo.TryRemove(e.Socket, out _);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.Ping}|"))
-                    {
-                        Globals.AgentPingTimes[messageParts[1]] = DateTimeOffset.UtcNow;
-                    }
-                    else
-                    {
-                        DebugErrorBox.Show("Unknown message arrived", message);
-                    }
+                    command.Execute();
                 }
             }
             catch (Exception ex)
