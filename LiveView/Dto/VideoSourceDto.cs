@@ -21,7 +21,7 @@ namespace LiveView.Dto
             set
             {
                 endPoint = value;
-                var connectionData = value.Split(':');
+                var connectionData = value.Split(new char[] { ':', ' ' });
                 ServerIp = connectionData[0];
                 ServerPort = Convert.ToUInt16(connectionData[1]);
             }

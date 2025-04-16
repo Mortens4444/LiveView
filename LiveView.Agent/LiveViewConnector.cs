@@ -176,14 +176,9 @@ namespace LiveView.Agent
             }
         }
 
-        private void SendVideoCaptureSourcesToLiveView()
-        {
-            client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
-        }
-
         private void UpdateVideoCaptureSources()
         {
-            SendVideoCaptureSourcesToLiveView();
+            client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
 
             List<Database.Models.VideoSource> relevantVideoSources;
             if (cameraServers.Count > 0)

@@ -4,7 +4,6 @@ using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
-using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -61,8 +60,6 @@ namespace LiveView.Presenters
         private readonly IUserEventRepository userEventRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IAgentRepository agentRepository;
-        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IOperationRepository operationRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
@@ -88,10 +85,8 @@ namespace LiveView.Presenters
             userGroupRepository = dependencies.UserGroupRepository;
             personalOptionsRepository = dependencies.PersonalOptionsRepository;
             permissionManager = dependencies.PermissionManager;
-            agentRepository = dependencies.AgentRepository;
             operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
-            videoSourceRepository = dependencies.VideoSourceRepository;
             uptime = new Uptime();
 
             Task.Run(() =>
@@ -732,7 +727,7 @@ namespace LiveView.Presenters
 
         public void OpenVncClientWindow()
         {
-            var connectionInfo = InputBox.Show("VNC server", "Have you checked the IP Address and the port of VNC server?", "192.168.0.1:10000");
+            var connectionInfo = InputBox.Show("VNC server", "Is the IP address and port correct for connecting to the VNC server?", "192.168.0.100:10000");
             if (!String.IsNullOrWhiteSpace(connectionInfo))
             {
                 var connectionInfoData = connectionInfo.Split(':');

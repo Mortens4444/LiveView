@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Core;
 using LiveView.Core.Dto;
 using LiveView.Dto;
 using LiveView.Forms;
@@ -6,7 +7,6 @@ using Mtf.HardwareKey.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net.Sockets;
 using NetworkServer = Mtf.Network.Server;
 
@@ -14,7 +14,7 @@ namespace LiveView
 {
     public static class Globals
     {
-        public readonly static Dictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new Dictionary<Socket, Dictionary<string, string>>();
+        public readonly static ObservableDictionary<Socket, Dictionary<string, string>> VideoCaptureSources = new ObservableDictionary<Socket, Dictionary<string, string>>();
 
         public readonly static Dictionary<string, int> CameraProcesses = new Dictionary<string, int>(); // Agent IP address:port, Camera process Id
 
