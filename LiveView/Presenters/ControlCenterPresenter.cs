@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Dto;
@@ -20,6 +21,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters
@@ -234,14 +236,21 @@ namespace LiveView.Presenters
             view.InitializeMouseUpdateTimer(view.PDisplayDevices);
 
             view.LvSequences.AddItems(sequenceRepository.SelectAll(), sequence => new ListViewItem(sequence.Name) { Tag = sequence });
-            CameraListProvider.AddCameras(view.LvCameras, cameraRepository.SelectAll());
-            
             view.LvTemplates.AddItems(templateRepository.SelectAll(), template => new ListViewItem(template.TemplateName) { Tag = template });
 
             RefreshAgents();
         }
 
         public void RefreshAgents()
+        {
+            LoadItems();
+            Globals.Agents.Changed += (object sender, DictionaryChangedEventArgs<string, Socket> e) =>
+            {
+                LoadItems();
+            };
+        }
+
+        private void LoadItems()
         {
             if (!view.GetSelf().IsDisposed)
             {
@@ -253,6 +262,8 @@ namespace LiveView.Presenters
                     view.CbAgents.Items.AddRange(Globals.Agents.Keys.OrderBy(key => key).ToArray());
                     view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
                 }));
+
+                CameraListProvider.AddCameras(view.LvCameras, cameraRepository.SelectAll());
             }
         }
 

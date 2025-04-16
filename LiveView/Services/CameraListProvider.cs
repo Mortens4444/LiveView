@@ -14,22 +14,43 @@ namespace LiveView.Services
     {
         public static void AddCameras(ListView listView, ReadOnlyCollection<Camera> cameras, int cameraIconIndex = -1)
         {
-            listView.AddItems(cameras, camera => new ListViewItem(camera.CameraName, cameraIconIndex) { Tag = camera });
-            AddVideoSources(listView);
-            Globals.VideoCaptureSources.Changed += (object sender, DictionaryChangedEventArgs<Socket, Dictionary<string, string>> e) =>
+            if (!listView.IsHandleCreated)
             {
-                listView.Invoke((Action)(() =>
+                listView.HandleCreated += (_, __) => AddCameras(listView, cameras, cameraIconIndex);
+                return;
+            }
+
+            listView.Invoke((Action)(() =>
+            {
+                listView.AddItems(cameras, camera => new ListViewItem(camera.CameraName, cameraIconIndex) { Tag = camera });
+                AddVideoSources(listView);
+                Globals.VideoCaptureSources.Changed += (object sender, DictionaryChangedEventArgs<Socket, Dictionary<string, string>> e) =>
                 {
-                    for (int i = listView.Items.Count - 1; i >= 0; i--)
+                    if (!listView.IsHandleCreated)
                     {
-                        if (listView.Items[i].Tag is VideoSourceDto)
-                        {
-                            listView.Items.RemoveAt(i);
-                        }
+                        listView.HandleCreated += (_, __) => AddSources(listView);
                     }
-                    AddVideoSources(listView);
-                }));
-            };
+                    else
+                    {
+                        AddSources(listView);
+                    }
+                };
+            }));
+        }
+
+        private static void AddSources(ListView listView)
+        {
+            listView.Invoke((Action)(() =>
+            {
+                for (int i = listView.Items.Count - 1; i >= 0; i--)
+                {
+                    if (listView.Items[i].Tag is VideoSourceDto)
+                    {
+                        listView.Items.RemoveAt(i);
+                    }
+                }
+                AddVideoSources(listView);
+            }));
         }
 
         private static void AddVideoSources(ListView listView)

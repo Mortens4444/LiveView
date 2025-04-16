@@ -116,8 +116,10 @@ namespace LiveView.Presenters
 
             foreach (var key in toRemove)
             {
+                var agentSocket = Globals.Agents[key];
                 Globals.Agents.Remove(key);
                 Globals.AgentPingTimes.Remove(key);
+                Globals.VideoCaptureSources.Remove(agentSocket);
             }
         }
 

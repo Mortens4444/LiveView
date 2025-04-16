@@ -388,11 +388,6 @@ namespace LiveView.Forms
             presenter.SelectDisplay(e.Location);
         }
 
-        public void RefreshAgents()
-        {
-            presenter?.RefreshAgents();
-        }
-
         private void ControlCenter_Load(object sender, EventArgs e)
         {
             pbSziltechLogo.BackColor = Color.WhiteSmoke;

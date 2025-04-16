@@ -1,5 +1,6 @@
 ﻿using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
+using SharpDX.DirectInput;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -22,13 +23,8 @@ namespace LiveView.Network.Commands
         public void Execute()
         {
             Globals.Agents.Remove(hostInfo);
-            var serverIp = hostInfo.Split(':')[0];
-            //var videoSources = dependencies.VideoSourceRepository.SelectWhere(new { ServerIp = serverIp, VideoSourceName = hostName }); /// VideoSourceName = hostName <- This is a bug, it never worked, but I think it should not delete them
-            //foreach (var videoSource in videoSources)
-            //{
-            //    dependencies.AgentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
-            //}
-            Globals.ControlCenter?.RefreshAgents();
+            Globals.AgentPingTimes.Remove(hostInfo);
+            Globals.VideoCaptureSources.Remove(agentSocket);
         }
     }
 }

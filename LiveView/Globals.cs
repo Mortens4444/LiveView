@@ -22,7 +22,7 @@ namespace LiveView
 
         public readonly static ConcurrentDictionary<Socket, CameraProcessInfo> CameraProcessInfo = new ConcurrentDictionary<Socket, CameraProcessInfo>();
 
-        public static Dictionary<string, Socket> Agents { get; } = new Dictionary<string, Socket>(); // Agent IP address:port, Agent socket
+        public static ObservableDictionary<string, Socket> Agents { get; } = new ObservableDictionary<string, Socket>(); // Agent IP address:port, Agent socket
 
         public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>(); // Agent IP address:port, last ping time
 
