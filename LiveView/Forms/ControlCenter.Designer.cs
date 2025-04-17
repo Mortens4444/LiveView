@@ -41,7 +41,6 @@
             lblGridName = new System.Windows.Forms.Label();
             lblSequenceName = new System.Windows.Forms.Label();
             gbDisplayDevices = new System.Windows.Forms.GroupBox();
-            cbAgents = new System.Windows.Forms.ComboBox();
             pCrossHair = new System.Windows.Forms.Panel();
             pbCrossHair = new Mtf.Controls.MtfPictureBox();
             lblDisplayDeviceName = new System.Windows.Forms.Label();
@@ -216,7 +215,6 @@
             // 
             // gbDisplayDevices
             // 
-            gbDisplayDevices.Controls.Add(cbAgents);
             gbDisplayDevices.Controls.Add(pCrossHair);
             gbDisplayDevices.Controls.Add(lblDisplayDeviceName);
             gbDisplayDevices.Controls.Add(btnIdentify);
@@ -230,15 +228,6 @@
             gbDisplayDevices.TabIndex = 0;
             gbDisplayDevices.TabStop = false;
             gbDisplayDevices.Text = "Primary display";
-            // 
-            // cbAgents
-            // 
-            cbAgents.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbAgents.FormattingEnabled = true;
-            cbAgents.Location = new System.Drawing.Point(43, 154);
-            cbAgents.Name = "cbAgents";
-            cbAgents.Size = new System.Drawing.Size(188, 23);
-            cbAgents.TabIndex = 2;
             // 
             // pCrossHair
             // 
@@ -272,7 +261,7 @@
             // lblDisplayDeviceName
             // 
             lblDisplayDeviceName.AutoSize = true;
-            lblDisplayDeviceName.Font = (System.Drawing.Font)resources.GetObject("lblDisplayDeviceName.Font");
+            lblDisplayDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             lblDisplayDeviceName.Location = new System.Drawing.Point(44, 164);
             lblDisplayDeviceName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDisplayDeviceName.Name = "lblDisplayDeviceName";
@@ -585,7 +574,7 @@
             // btnZoomOut
             // 
             btnZoomOut.Enabled = false;
-            btnZoomOut.Font = (System.Drawing.Font)resources.GetObject("btnZoomOut.Font");
+            btnZoomOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             btnZoomOut.Location = new System.Drawing.Point(122, 3);
             btnZoomOut.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnZoomOut.Name = "btnZoomOut";
@@ -599,7 +588,7 @@
             // btnZoomIn
             // 
             btnZoomIn.Enabled = false;
-            btnZoomIn.Font = (System.Drawing.Font)resources.GetObject("btnZoomIn.Font");
+            btnZoomIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             btnZoomIn.Location = new System.Drawing.Point(74, 3);
             btnZoomIn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnZoomIn.Name = "btnZoomIn";
@@ -1225,6 +1214,5 @@
         private System.Windows.Forms.Panel pActiveSequence;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.Panel pDisplays;
-        private System.Windows.Forms.ComboBox cbAgents;
     }
 }

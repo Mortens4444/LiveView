@@ -117,9 +117,7 @@ namespace LiveView.Presenters
             foreach (var key in toRemove)
             {
                 var agentSocket = Globals.Agents[key];
-                Globals.Agents.Remove(key);
-                Globals.AgentPingTimes.Remove(key);
-                Globals.VideoCaptureSources.Remove(agentSocket);
+                Globals.RemoveAgent(key, agentSocket);
             }
         }
 
@@ -432,6 +430,7 @@ namespace LiveView.Presenters
                 foreach (var command in commands)
                 {
                     command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed.");
                 }
             }
             catch (Exception ex)

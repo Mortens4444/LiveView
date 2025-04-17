@@ -1,6 +1,7 @@
 ﻿using Database.Models;
 using LiveView.Core;
 using LiveView.Core.Dto;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Forms;
 using Mtf.HardwareKey.Interfaces;
@@ -43,5 +44,20 @@ namespace LiveView
         public static UserEvent UserEvent { get; set; }
         
         public static NetworkServer Server { get; set; }
+
+        public static void RemoveAgent(string hostInfo, Socket agentSocket)
+        {
+            Agents.Remove(hostInfo);
+            AgentPingTimes.Remove(hostInfo);
+            VideoCaptureSources.Remove(agentSocket);
+
+            for (int i = DisplayManager.RemoteDisplays.Count - 1; i >= 0; i--)
+            {
+                if (DisplayManager.RemoteDisplays[i].Socket == agentSocket) //if (DisplayManager.RemoteDisplays[i].Host == hostInfo)
+                {
+                    DisplayManager.RemoteDisplays.RemoveAt(i);
+                }
+            }
+        }
     }
 }

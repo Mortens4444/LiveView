@@ -22,9 +22,7 @@ namespace LiveView.Network.Commands
 
         public void Execute()
         {
-            Globals.Agents.Remove(hostInfo);
-            Globals.AgentPingTimes.Remove(hostInfo);
-            Globals.VideoCaptureSources.Remove(agentSocket);
+            Globals.RemoveAgent(hostInfo, agentSocket);
         }
     }
 }

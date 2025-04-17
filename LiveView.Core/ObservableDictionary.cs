@@ -23,14 +23,14 @@ namespace LiveView.Core
         public void Add(TKey key, TValue value)
         {
             dictionary.Add(key, value);
-            Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(key, value, DictionaryChangeType.Add));
+            Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(key, value, ChangeType.Add));
         }
 
         public bool Remove(TKey key)
         {
             if (dictionary.TryGetValue(key, out var value) && dictionary.Remove(key))
             {
-                Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(key, value, DictionaryChangeType.Remove));
+                Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(key, value, ChangeType.Remove));
                 return true;
             }
             return false;
@@ -39,7 +39,7 @@ namespace LiveView.Core
         public void Clear()
         {
             dictionary.Clear();
-            Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(default, default, DictionaryChangeType.Clear));
+            Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(default, default, ChangeType.Clear));
         }
 
         public bool TryGetValue(TKey key, out TValue value) => dictionary.TryGetValue(key, out value);
@@ -51,7 +51,7 @@ namespace LiveView.Core
             get => dictionary[key];
             set
             {
-                var changeType = dictionary.ContainsKey(key) ? DictionaryChangeType.Update : DictionaryChangeType.Add;
+                var changeType = dictionary.ContainsKey(key) ? ChangeType.Update : ChangeType.Add;
                 dictionary[key] = value;
                 Changed?.Invoke(this, new DictionaryChangedEventArgs<TKey, TValue>(key, value, changeType));
             }

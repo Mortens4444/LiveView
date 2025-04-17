@@ -1,5 +1,8 @@
 ﻿using Database.Enums;
 using Database.Models;
+using LiveView.Core.CustomEventArgs;
+using LiveView.Core.Dto;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
@@ -40,6 +43,11 @@ namespace LiveView.Forms
         {
             this.camera = camera;
             this.videoSource = videoSource;
+
+            DisplayManager.RemoteDisplays.Changed += (object sender, ListChangedEventArgs<DisplayDto> e) =>
+            {
+                CachedDisplays = null;
+            };
         }
 
         private ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
@@ -128,8 +136,6 @@ namespace LiveView.Forms
         public ListView LvSequences => lvSequences;
 
         public ListView LvTemplates => lvTemplates;
-
-        public ComboBox CbAgents => cbAgents;
 
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
@@ -332,7 +338,7 @@ namespace LiveView.Forms
                     GetAndCacheDisplays(PDisplayDevices.Size);
                 }
 
-                DrawDisplays(PDisplayDevices, e.Graphics, DisplayDrawingTools.Selected, CbAgents.SelectedIndex == 0 ? null : CbAgents.Text, true);
+                DrawDisplays(PDisplayDevices, e.Graphics, DisplayDrawingTools.Selected, true);
                 DrawMouse(e.Graphics, PDisplayDevices.Size);
             }
             catch (Exception ex)

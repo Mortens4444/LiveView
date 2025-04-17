@@ -5,14 +5,10 @@ namespace LiveView.Network.Commands
 {
     public class UnregisterCameraCommand : ICommand
     {
-        private readonly string hostInfo;
-        private readonly string hostName;
         private readonly Socket agentSocket;
 
-        public UnregisterCameraCommand(string hostInfo, string hostName, Socket agentSocket)
+        public UnregisterCameraCommand(Socket agentSocket)
         {
-            this.hostInfo = hostInfo;
-            this.hostName = hostName;
             this.agentSocket = agentSocket;
         }
 

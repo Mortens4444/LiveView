@@ -1,3 +1,7 @@
+- Start CameraApp on agent
+- Start Sequence on agent
+- Start Template on agent
+
 Fix sequence close from ControlCenter
 
 Vlc not reconnecting to Maginon

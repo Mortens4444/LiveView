@@ -62,7 +62,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.UnregisterCamera}"))
                 {
-                    result.Add(new UnregisterCameraCommand(messageParts[1], messageParts[2], socket));
+                    result.Add(new UnregisterCameraCommand(socket));
                 }
                 else if (message.StartsWith($"{NetworkCommand.SecondsLeftFromGrid}|"))
                 {

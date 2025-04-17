@@ -28,13 +28,15 @@ namespace LiveView.Network.Commands
 #else
             var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(displayJson);
 #endif
-            display.AgentId = mainPresenterDependencies.AgentRepository.SelectByHost(hostInfo)?.Id;
+            var agent = mainPresenterDependencies.AgentRepository.SelectByHost(hostInfo);
+            if (agent != null)
+            {
+                display.AgentId = agent.Id;
+                display.AgentHostInfo = hostInfo;
+            }
+
             display.Socket = agentSocket;
             DisplayManager.RemoteDisplays.Add(display);
-            if (Globals.ControlCenter != null)
-            {
-                Globals.ControlCenter.CachedDisplays = null;
-            }
         }
     }
 }

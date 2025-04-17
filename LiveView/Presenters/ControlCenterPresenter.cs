@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
+using Mtf.Network.Extensions;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ namespace LiveView.Presenters
 
         public void CloseFullScreenCameraApplication()
         {
-            if (view.CbAgents.SelectedIndex == 0)
+            if (CameraProcess != null)
             {
                 foreach (var cameraProcessInfo in Globals.CameraProcessInfo)
                 {
@@ -90,24 +91,21 @@ namespace LiveView.Presenters
             }
             else
             {
-                if (Globals.CameraProcesses.TryGetValue(view.CbAgents.Text, out var cameraProcessId))
+                foreach (var remoteCameraProcess in Globals.CameraProcesses)
                 {
-                    MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcessId);
-                    Globals.CameraProcesses.Remove(view.CbAgents.Text);
+                    MainPresenter.SentToClient(remoteCameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, remoteCameraProcess.Value);
+                    Globals.CameraProcesses.Remove(remoteCameraProcess.Key);
                 }
             }
         }
 
         public void CloseSequenceApplications()
         {
-            if (view.CbAgents.SelectedIndex == 0)
+            ProcessUtils.Kill(sequenceProcesses);
+            sequenceProcesses.Clear();
+            foreach (var agent in Globals.Agents)
             {
-                ProcessUtils.Kill(sequenceProcesses);
-                sequenceProcesses.Clear();
-            }
-            else
-            {
-                MainPresenter.SentToClient(view.CbAgents.Text, NetworkCommand.KillAll, Core.Constants.SequenceExe);
+                MainPresenter.SentToClient(agent.Key, NetworkCommand.KillAll, Core.Constants.SequenceExe);
             }
         }
 
@@ -254,27 +252,8 @@ namespace LiveView.Presenters
         {
             if (!view.GetSelf().IsDisposed)
             {
-                view.CbAgents.Invoke((Action)(() =>
-                {
-                    var selected = view.CbAgents.SelectedItem;
-                    view.CbAgents.Items.Clear();
-                    view.CbAgents.Items.Add(Lng.Elem("Localhost"));
-                    view.CbAgents.Items.AddRange(Globals.Agents.Keys.OrderBy(key => key).ToArray());
-                    view.CbAgents.SelectedIndex = GetSelectedIndex(selected);
-                }));
-
                 CameraListProvider.AddCameras(view.LvCameras, cameraRepository.SelectAll());
             }
-        }
-
-        private int GetSelectedIndex(object selected)
-        {
-            if (selected == null)
-            {
-                return 0;
-            }
-            var index = view.CbAgents.Items.IndexOf(selected);
-            return index == -1 ? 0 : index;
         }
 
         public void SelectDisplay(Point location)
@@ -374,7 +353,7 @@ namespace LiveView.Presenters
                 var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
                 if (selectedDisplay != null)
                 {
-                    var displayId = selectedDisplay.Id.ToString();
+                    var displayId = selectedDisplay.Id.ToString().Remove(selectedDisplay.Host);
                     protectedParameters.Insert(protectedParameters.Count - 1, displayId);
                     StartCameraApp(protectedParameters);
                 }
@@ -396,13 +375,14 @@ namespace LiveView.Presenters
 
         private void StartCameraApp(List<string> protectedParameters)
         {
-            if (view.CbAgents.SelectedIndex == 0)
+            var selectedDisplay = view.CachedDisplays.FirstOrDefault(d => d.Selected);
+            if (selectedDisplay.AgentId == null)
             {
                 CameraProcess = StartCamera(protectedParameters);
             }
             else
             {
-                MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.CameraAppExe, protectedParameters.ToArray());
             }
         }
 
@@ -418,13 +398,13 @@ namespace LiveView.Presenters
             if (selectedDisplay != null)
             {
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
-                if (view.CbAgents.SelectedIndex == 0)
+                if (selectedDisplay.AgentId == null)
                 {
                     sequenceProcesses.Add(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
                 }
                 else
                 {
-                    MainPresenter.SentToClient(view.CbAgents.Text, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id, isMdi);
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id, isMdi);
                 }
                 return true;
             }

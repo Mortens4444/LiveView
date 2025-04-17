@@ -77,6 +77,8 @@ namespace LiveView.Core.Dto
 
         public long? AgentId { get; set; }
 
+        public string AgentHostInfo { get; set; }
+
         public override string ToString()
         {
             return SziltechId;

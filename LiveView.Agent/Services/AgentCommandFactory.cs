@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace LiveView.Agent.Services
 {
-    public static class CommandFactory
+    public static class AgentCommandFactory
     {
         public static List<ICommand> Create(ILogger<LiveViewConnector> logger, Dictionary<string, Server> cameraServers, Dictionary<long, Process> cameraProcesses, Dictionary<long, Process> sequenceProcesses, Client client, byte[] data, Socket socket, Dictionary<string, VideoCapture> videoCaptures, Dictionary<string, CancellationTokenSource> cancellationTokenSources)
         {

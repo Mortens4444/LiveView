@@ -16,7 +16,7 @@ namespace LiveView.Core.Services
         public const int FrameWidth = 3;
         private const int Delta = 5;
 
-        public static List<DisplayDto> RemoteDisplays = new List<DisplayDto>();
+        public static ObservableList<DisplayDto> RemoteDisplays = new ObservableList<DisplayDto>();
 
         /// <summary>
         /// Retrieves all connected display devices.
@@ -224,7 +224,10 @@ namespace LiveView.Core.Services
             var screens = Screen.AllScreens;
             foreach (var screen in screens)
             {
-                if (screen is null) continue;
+                if (screen is null)
+                {
+                    continue;
+                }
 
                 var bounds = screen.Bounds;
 
@@ -250,30 +253,60 @@ namespace LiveView.Core.Services
             return new DisplayDimensions(new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
         }
 
-        public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size drawnSize)
+        private static Size GetDisplayGroupSizesByAgent(List<DisplayDto> displays)
         {
-            var result = new Dictionary<string, Rectangle>();
-            var displayDimensions = GetScreensBounds();
-            var scale = GetScaleFactor(displayDimensions.Bounds, drawnSize);
-
-            var offsetX = displayDimensions.Bounds.Left / scale;
-            var offsetY = displayDimensions.Bounds.Top / scale;
-
-            foreach (var display in displays)
-            {
-                var scaledX = offsetX + (display.X + displayDimensions.Location.X) / scale + FrameWidth;
-                var scaledY = offsetY + (display.Y + displayDimensions.Location.Y) / scale + FrameWidth;
-
-                result.Add(display.Id, new Rectangle(
-                    (int)Math.Round(scaledX),
-                    (int)Math.Round(scaledY) + Delta,
-                    (int)Math.Round(display.Width / scale),
-                    (int)Math.Round(display.Height / scale) + Delta
-                ));
-            }
-            return result;
+            var dimensionsByAgents = displays?
+                .GroupBy(d => d.Host ?? String.Empty)
+                .ToDictionary(
+                    g => g.Key,
+                    g => new Size(
+                        g.Sum(d => d.MaxWidth),
+                        g.Max(d => d.MaxHeight)
+                    )
+                );
+            return GetTotalDisplayArea(dimensionsByAgents);
         }
 
+        private static Size GetTotalDisplayArea(Dictionary<string, Size> groupedSizes)
+        {
+            var totalWidth = groupedSizes.Values.Sum(s => s.Width);
+            var maxHeight = groupedSizes.Values.Max(s => s.Height);
+            return new Size(totalWidth, maxHeight);
+        }
+
+        public Dictionary<string, Rectangle> GetScaledDisplayBounds(List<DisplayDto> displays, Size drawnSize)
+        {
+            var displayDimensions = GetDisplayGroupSizesByAgent(displays);
+            var result = new Dictionary<string, Rectangle>();
+            var scale = GetScaleFactor(new Rectangle(new Point(0, 0), displayDimensions), drawnSize);
+
+            var displaysGroupedByHost = displays
+                .GroupBy(d => d.Host)
+                .OrderBy(g => g.Key);
+
+            int width = 0;
+            foreach (var agentDisplays in displaysGroupedByHost)
+            {
+                var offset = new Point(width, 0);
+                foreach (var display in agentDisplays)
+                {
+                    var scaledX = (int)Math.Round((/*offset.X +*/ display.X) / scale + FrameWidth);
+                    var scaledY = (int)Math.Round((/*offset.Y +*/ display.Y) / scale + FrameWidth);
+                    var scaledBounds = new Rectangle(
+                        scaledX + offset.X,
+                        scaledY + offset.Y + Delta,
+                        (int)Math.Round(display.Width / scale),
+                        (int)Math.Round(display.Height / scale) + Delta
+                    );
+                    result.Add(display.Id, scaledBounds);
+
+                    width = Math.Max(width, scaledX + scaledBounds.Width + offset.X);
+                }
+            }
+
+            return result;
+        }
+        
         public double GetScaleFactor(Rectangle screenBounds, Size drawnSize)
         {
             const double adjustmentFactor = 5;

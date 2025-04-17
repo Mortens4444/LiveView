@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Core.Enums
 {
-    public enum DictionaryChangeType
+    public enum ChangeType
     {
         Add,
         Remove,

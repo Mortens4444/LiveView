@@ -21,10 +21,6 @@ namespace LiveView.Network.Commands
             var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(displayJson);
 #endif
             DisplayManager.RemoteDisplays.Remove(display);
-            if (Globals.ControlCenter != null)
-            {
-                Globals.ControlCenter.CachedDisplays = null;
-            }
         }
     }
 }

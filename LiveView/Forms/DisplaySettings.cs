@@ -72,7 +72,7 @@ namespace LiveView.Forms
         {
             try
             {
-                DrawDisplays(pFunctionChooser, e.Graphics, DisplayDrawingTools.Functions, null, false);
+                DrawDisplays(pFunctionChooser, e.Graphics, DisplayDrawingTools.Functions, false);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace LiveView.Forms
         {
             try
             {
-                DrawDisplays(pFullscreenDisplay, e.Graphics, DisplayDrawingTools.Fullscreen, null, false);
+                DrawDisplays(pFullscreenDisplay, e.Graphics, DisplayDrawingTools.Fullscreen, false);
             }
             catch (Exception ex)
             {

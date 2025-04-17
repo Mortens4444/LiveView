@@ -92,10 +92,11 @@ namespace LiveView.Agent
         {
             try
             {
-                var commands = CommandFactory.Create(logger, cameraServers, cameraProcesses, sequenceProcesses, client, e.Data, e.Socket, videoCaptures, cancellationTokenSources);
+                var commands = AgentCommandFactory.Create(logger, cameraServers, cameraProcesses, sequenceProcesses, client, e.Data, e.Socket, videoCaptures, cancellationTokenSources);
                 foreach (var command in commands)
                 {
                     command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
                 }
             }
             catch (Exception ex)
