@@ -26,12 +26,14 @@ namespace LiveView.Services
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IGridCameraRepository gridCameraRepository;
+        private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
 
         public MapLoader(Control mapContainer, ToolTip toolTip, MapLoaderDependencies mapLoaderDependencies)
         {
             this.mapContainer = mapContainer;
             this.toolTip = toolTip;
+            agentRepository = mapLoaderDependencies.AgentRepository;
             mapRepository = mapLoaderDependencies.MapRepository;
             mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
@@ -155,10 +157,11 @@ namespace LiveView.Services
                     break;
                 case MapActionType.OpenVideoSource:
                     var videoSourceModel = videoSourceRepository.Select(mapObject.ActionReferencedId);
+                    var agent = agentRepository.Select(videoSourceModel.AgentId);
                     var videoSource = new VideoSourceDto
                     {
-                        EndPoint = $"{videoSourceModel.ServerIp}:0",
-                        Name = videoSourceModel.VideoSourceName
+                        EndPoint = $"{agent.ServerIp}:0",
+                        Name = videoSourceModel.Name
                     };
                     OnVideoSourceObjectClicked(new VideoSourceObjectClickedEventArgs(videoSource));
                     break;

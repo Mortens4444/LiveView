@@ -1,4 +1,4 @@
 ﻿INSERT INTO VideoSources
-	(ServerIp, VideoSourceName)
+	(AgentId, Name, Port)
 VALUES
-	(@ServerIp, @VideoSourceName);
+	(@AgentId, @Name, @Port);

@@ -328,7 +328,7 @@ namespace LiveView.Presenters
             var parameters = new[]
             {
                 permissionManager.CurrentUser.Tag.Id.ToString(),
-                videoSource.ServerIp,
+                videoSource.Agent.ServerIp,
                 videoSource.Name,
                 ((int)CameraMode.VideoSource).ToString()
             };

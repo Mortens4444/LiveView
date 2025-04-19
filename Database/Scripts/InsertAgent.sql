@@ -1,4 +1,4 @@
 ﻿INSERT INTO Agents
-	(Port, VideoSourceId)
+	(ServerIp, AgentPort, VncServerPort)
 VALUES
-	(@Port, @VideoSourceId)
+	(@ServerIp, @AgentPort, @VncServerPort)

@@ -1,7 +1,9 @@
 ﻿using Database.Models;
 using LiveView.Core.CustomEventArgs;
+using LiveView.Core.Extensions;
 using LiveView.Dto;
 using LiveView.Extensions;
+using Mtf.Network.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -65,14 +67,15 @@ namespace LiveView.Services
         {
             foreach (var camera in videoCaptureSource.Value)
             {
+                var ipAddress = videoCaptureSource.Key.RemoteEndPoint.ToString().GetIpAddessFromEndPoint();
                 var videoSource = new VideoSourceDto
                 {
                     Socket = videoCaptureSource.Key,
                     Name = camera.Key,
                     //EndPoint = camera.Value,
-                    EndPoint = $"{videoCaptureSource.Key.RemoteEndPoint.ToString().Split(':')[0]}:{camera.Value.Split(':')[1]}"
+                    EndPoint = $"{ipAddress}:{camera.Value.Split()[0].GetPortFromEndPoint()}"
                 };
-                listView.Items.Add(new ListViewItem($"{videoSource.ServerIp} - {videoSource.Name}") { Tag = videoSource });
+                listView.Items.Add(new ListViewItem($"{ipAddress} - {videoSource.Name}") { Tag = videoSource });
             }
         }
 
@@ -123,8 +126,10 @@ namespace LiveView.Services
                     {
                         Tag = videoSource
                     };
+
+                    var serverIp = videoCaptureSource.Key.GetLocalEndPointInfo().GetIpAddessFromEndPoint();
                     childItem.Click += leafItemClickHandler;
-                    parentItem.Text = videoSource.ServerIp;
+                    parentItem.Text = serverIp;
                     parentItem.DropDownItems.Add(childItem);
                 }
                 rootItem.DropDownItems.Add(parentItem);

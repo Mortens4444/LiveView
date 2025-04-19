@@ -29,7 +29,7 @@ namespace Sequence
             {
                 Thread.Sleep(waitTime);
             }
-
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
             ExceptionHandler.CatchUnhandledExceptions();
 
 #if NETFRAMEWORK

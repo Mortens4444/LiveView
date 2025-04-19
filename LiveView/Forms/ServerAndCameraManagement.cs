@@ -1,4 +1,5 @@
-﻿using Database.Enums;
+﻿using AxVIDEOCONTROL4Lib;
+using Database.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class ServerAndCameraManagement : BaseView, IServerAndCameraManagementView
+    public partial class ServerAndCameraManagement : BaseView, IServerAndCameraManagementView, IVideoServerView
     {
         private ServerAndCameraManagementPresenter presenter;
 
@@ -24,6 +25,8 @@ namespace LiveView.Forms
         public Button BtnMotionDetection => btnMotionDetection;
 
         public Button BtnSyncronize => btnSyncronize;
+
+        public AxVideoServer AxVideoServer => axVideoServer;
 
         public ServerAndCameraManagement(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ServerAndCameraManagementPresenter))
         {

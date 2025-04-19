@@ -31,7 +31,11 @@ namespace LiveView.Core.Services
                 {
                     FileName = path,
                     Arguments = arguments,
-                    UseShellExecute = true
+                    UseShellExecute = true,
+
+                    //UseShellExecute = false,
+                    //RedirectStandardOutput = true,
+                    //RedirectStandardError = true
                 };
 
                 return Process.Start(processStartInfo);

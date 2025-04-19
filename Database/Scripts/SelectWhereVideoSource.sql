@@ -1,1 +1,1 @@
-﻿SELECT * FROM VideoSources WHERE ServerIp = @ServerIp AND VideoSourceName = @VideoSourceName;
+﻿SELECT * FROM VideoSources WHERE AgentId = @AgentId AND Name = @Name;

@@ -2,7 +2,6 @@
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LibVLCSharp.Shared;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
@@ -11,15 +10,18 @@ using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
 {
     public partial class MortoGraphyCameraWindow : Form
     {
+        private readonly IAgentRepository agentRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
 
         private PermissionManager<User> permissionManager;
@@ -29,7 +31,10 @@ namespace CameraForms.Forms
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
         private int bufferSize;
 
-        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository,
+            ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository,
+            IPersonalOptionsRepository personalOptionsRepository, IVideoSourceRepository videoSourceRepository,
+            string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -37,8 +42,10 @@ namespace CameraForms.Forms
 
             this.url = url;
             this.rectangle = rectangle;
+            this.agentRepository = agentRepository;
             this.cameraRepository = cameraRepository;
             this.cameraFunctionRepository = cameraFunctionRepository;
+            this.videoSourceRepository = videoSourceRepository;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
@@ -60,6 +67,8 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
@@ -76,6 +85,8 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             Initialize(userId, cameraId, rectangle, null, true);
         }
@@ -150,6 +161,19 @@ namespace CameraForms.Forms
                 mortoGraphyWindow.OverlayText += DateTime.Now.ToString();
             }
 
+            if (url.IndexOf('|') > 0)
+            {
+                var videoSourceNameInfo = url.Split('|');
+                var agent = agentRepository.SelectWhere(new { ServerIp = videoSourceNameInfo[0] }).FirstOrDefault();
+                if (agent != null)
+                {
+                    var videoSource = videoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoSourceNameInfo[1] }).FirstOrDefault();
+                    if (videoSource != null)
+                    {
+                        url = $"{videoSourceNameInfo[0]}:{videoSource.Port}";
+                    }
+                }
+            }
             mortoGraphyWindow.Start(url);
         }
 

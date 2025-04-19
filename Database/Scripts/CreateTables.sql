@@ -564,22 +564,24 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoSources]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE VideoSources (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerIp NVARCHAR(200),
-        VideoSourceName NVARCHAR(500)
-    );
-END;
-
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Agents]') AND type = N'U')
 BEGIN
     CREATE TABLE [dbo].Agents (
         Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        VideoSourceId BIGINT,
+        ServerIp NVARCHAR(200),
+        AgentPort INT NOT NULL,
+        VncServerPort INT NOT NULL,
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoSources]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE VideoSources (
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        AgentId BIGINT,
+        Name NVARCHAR(500),
         Port INT NOT NULL,
-        FOREIGN KEY (VideoSourceId) REFERENCES VideoSources(Id)
+        FOREIGN KEY (AgentId) REFERENCES Agents(Id)
     );
 END;
 

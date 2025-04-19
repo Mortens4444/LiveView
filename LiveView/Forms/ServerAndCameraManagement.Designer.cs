@@ -52,8 +52,10 @@
             btnNewCamera = new System.Windows.Forms.Button();
             gbRegisteredServersAndCameras = new System.Windows.Forms.GroupBox();
             pMain = new System.Windows.Forms.Panel();
+            axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
             gbRegisteredServersAndCameras.SuspendLayout();
             pMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
             SuspendLayout();
             // 
             // ilImages
@@ -284,6 +286,7 @@
             // gbRegisteredServersAndCameras
             // 
             gbRegisteredServersAndCameras.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            gbRegisteredServersAndCameras.Controls.Add(axVideoServer);
             gbRegisteredServersAndCameras.Controls.Add(btnMotionDetection);
             gbRegisteredServersAndCameras.Controls.Add(btnNewDbServer);
             gbRegisteredServersAndCameras.Controls.Add(lblHorizontalLine);
@@ -318,6 +321,16 @@
             pMain.Size = new System.Drawing.Size(681, 515);
             pMain.TabIndex = 2;
             // 
+            // axVideoServer
+            // 
+            axVideoServer.Enabled = true;
+            axVideoServer.Location = new System.Drawing.Point(495, 253);
+            axVideoServer.Name = "axVideoServer";
+            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
+            axVideoServer.Size = new System.Drawing.Size(100, 50);
+            axVideoServer.TabIndex = 26;
+            axVideoServer.Visible = false;
+            // 
             // ServerAndCameraManagement
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -334,6 +347,7 @@
             gbRegisteredServersAndCameras.ResumeLayout(false);
             gbRegisteredServersAndCameras.PerformLayout();
             pMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
             ResumeLayout(false);
         }
 
@@ -358,5 +372,6 @@
         private System.Windows.Forms.Button btnNewCamera;
         private System.Windows.Forms.GroupBox gbRegisteredServersAndCameras;
         private System.Windows.Forms.Panel pMain;
+        private AxVIDEOCONTROL4Lib.AxVideoServer axVideoServer;
     }
 }

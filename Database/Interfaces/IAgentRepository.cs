@@ -5,8 +5,5 @@ namespace Database.Interfaces
 {
     public interface IAgentRepository : IRepository<Agent>
     {
-        Agent SelectByHost(string hostInfo);
-
-        void DeleteAll();
     }
 }

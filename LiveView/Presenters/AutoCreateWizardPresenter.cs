@@ -254,7 +254,7 @@ namespace LiveView.Presenters
                         Osd = templateCamera.Osd,
                         Ptz = templateCamera.Ptz,
                         ShowDateTime = templateCamera.ShowDateTime,
-                        ServerIp = gridCamera is VideoSourceDto videoSource1 ? videoSource1.ServerIp : null,
+                        ServerIp = gridCamera is VideoSourceDto videoSource1 ? videoSource1.Agent.ServerIp : null,
                         VideoSourceName = gridCamera is VideoSourceDto videoSource2 ? videoSource2.Name : null
                     });
                     gridCameraIndex++;

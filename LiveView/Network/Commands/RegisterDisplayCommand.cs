@@ -1,7 +1,9 @@
 ﻿using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using LiveView.Models.Dependencies;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -28,7 +30,7 @@ namespace LiveView.Network.Commands
 #else
             var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(displayJson);
 #endif
-            var agent = mainPresenterDependencies.AgentRepository.SelectByHost(hostInfo);
+            var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = hostInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
             if (agent != null)
             {
                 display.AgentId = agent.Id;

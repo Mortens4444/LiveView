@@ -97,8 +97,10 @@ namespace Sequence.Forms
             var gridCameraRepository = serviceProvider.GetRequiredService<IGridCameraRepository>();
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
+            var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, serverRepository, cameraRepository, cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
+            gridSequenceManager = new GridSequenceManager(permissionManager, agentRepository, videoSourceRepository, serverRepository, cameraRepository, cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }
 
@@ -184,7 +186,7 @@ namespace Sequence.Forms
 #else
                 var processId = Process.GetCurrentProcess().Id;
 #endif
-                var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
+                var hostInfo = client.Socket.GetLocalEndPointInfo();
                 client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)

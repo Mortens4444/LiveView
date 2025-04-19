@@ -37,8 +37,10 @@ namespace CameraApp
             {
                 Thread.Sleep(waitTime);
             }
-
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
             ExceptionHandler.CatchUnhandledExceptions();
+            Console.WriteLine($"Camera app started with args: {String.Join(" ", args)}");
+
             try
             {
                 //#if NETFRAMEWORK

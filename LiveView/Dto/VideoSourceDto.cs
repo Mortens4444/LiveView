@@ -11,10 +11,8 @@ namespace LiveView.Dto
 
         public string Name { get; set; }
 
-        public string ServerIp { get; private set; }
+        public Database.Models.Agent Agent { get; private set; }
         
-        public ushort ServerPort { get; private set; }
-
         public string EndPoint
         {
             get => endPoint;
@@ -22,8 +20,11 @@ namespace LiveView.Dto
             {
                 endPoint = value;
                 var connectionData = value.Split(new char[] { ':', ' ' });
-                ServerIp = connectionData[0];
-                ServerPort = Convert.ToUInt16(connectionData[1]);
+                Agent = new Database.Models.Agent
+                {
+                    ServerIp = connectionData[0],
+                    AgentPort = Convert.ToUInt16(connectionData[1])
+                };
             }
         }
 
@@ -34,7 +35,7 @@ namespace LiveView.Dto
                 return false;
             }
 
-            return Name == other.Name && ServerIp == other.ServerIp;
+            return Name == other.Name && Agent.ServerIp == other.Agent.ServerIp;
         }
 
         public override bool Equals(object obj)
@@ -53,14 +54,14 @@ namespace LiveView.Dto
             {
                 int hash = 17;
                 hash = hash * 23 + (Name?.GetHashCode() ?? 0);
-                hash = hash * 23 + (ServerIp?.GetHashCode() ?? 0);
+                hash = hash * 23 + (Agent.ServerIp?.GetHashCode() ?? 0);
                 return hash;
             }
         }
 
         public override string ToString()
         {
-            return $"{Name} - {ServerIp}:{ServerPort}";
+            return $"{Name} - {Agent.ServerIp}:{Agent.AgentPort}";
         }
     }
 }

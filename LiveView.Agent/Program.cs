@@ -13,6 +13,7 @@ using OpenCvSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -57,6 +58,8 @@ namespace LiveView.Agent
             {
                 return;
             }
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
             vncServer = new VncServer(new ScreenInfoProvider());
             vncServer.ErrorOccurred += VncServer_ErrorOccurred;
             vncServer.Start();
@@ -113,7 +116,7 @@ namespace LiveView.Agent
             var listenerPort = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerListenerPort];
             if (UInt16.TryParse(listenerPort, out var serverPort))
             {
-                Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, cancellationTokenSource.Token)).Wait();
+                Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, vncServer.CommandServer.ListenerPortOfServer, cancellationTokenSource.Token)).Wait();
             }
             else
             {

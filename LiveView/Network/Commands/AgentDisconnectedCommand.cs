@@ -1,6 +1,6 @@
 ﻿using LiveView.Core.Interfaces;
-using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -20,7 +20,8 @@ namespace LiveView.Network.Commands
 
         public void Execute()
         {
-            var videoSources = mainPresenterDependencies.VideoSourceRepository.SelectWhere(new { ServerIp = serverIp, VideoSourceName = videoSourceName });
+            var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = serverIp }).FirstOrDefault();
+            var videoSources = mainPresenterDependencies.VideoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoSourceName });
             foreach (var videoSource in videoSources)
             {
                 mainPresenterDependencies.AgentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });

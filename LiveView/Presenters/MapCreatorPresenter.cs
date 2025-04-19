@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Repositories;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -25,6 +26,7 @@ namespace LiveView.Presenters
         private const string MapHasBeenCreated = "Map '{0}' has been created.";
         private const string MapHasBeenUpdated = "Map '{0}' has been updated.";
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
+        private readonly IAgentRepository agentRepository;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
@@ -41,6 +43,7 @@ namespace LiveView.Presenters
         public MapCreatorPresenter(MapCreatorPresenterDependencies dependencies)
             : base(dependencies)
         {
+            agentRepository = dependencies.AgentRepository;
             serverRepository = dependencies.ServerRepository;
             cameraRepository = dependencies.CameraRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
@@ -178,10 +181,11 @@ namespace LiveView.Presenters
                         break;
                     case MapActionType.OpenVideoSource:
                         var videoSourceModel = videoSourceRepository.Select(mapObject.ActionReferencedId);
+                        var agent = agentRepository.Select(videoSourceModel.AgentId);
                         var videoSource = new VideoSourceDto
                         {
-                            EndPoint = $"{videoSourceModel.ServerIp}:0",
-                            Name = videoSourceModel.VideoSourceName
+                            EndPoint = $"{agent.ServerIp}:0",
+                            Name = videoSourceModel.Name
                         };
                         panel.Tag = videoSource;
                         break;
@@ -298,7 +302,7 @@ namespace LiveView.Presenters
             if (control.Tag is VideoSourceDto videoSource)
             {
                 mapObject.ActionType = MapActionType.OpenVideoSource;
-                var gridCamera = gridCameras.FirstOrDefault(gc => gc.ServerIp == videoSource.ServerIp && gc.VideoSourceName == videoSource.Name); // These data should not be in GridCamera, but in a separate table VideoSources
+                var gridCamera = gridCameras.FirstOrDefault(gc => gc.ServerIp == videoSource.Agent.ServerIp && gc.VideoSourceName == videoSource.Name); // These data should not be in GridCamera, but in a separate table VideoSources
                 if (gridCamera != null)
                 {
                     mapObject.ActionReferencedId = gridCamera.Id; // VideoSource.Id should be saved here

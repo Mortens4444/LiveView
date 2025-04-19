@@ -22,11 +22,11 @@ namespace LiveView.Services
 
                 if (message.StartsWith($"{NetworkCommand.RegisterAgent}|"))
                 {
-                    result.Add(new RegisterAgentCommand(messageParts[1], socket));
+                    result.Add(new RegisterAgentCommand(messageParts[1], messageParts[2], messageParts[3], socket, dependencies));
                 }
                 else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
                 {
-                    result.Add(new UnregisterAgentCommand(messageParts[1], messageParts[2], socket, dependencies));
+                    result.Add(new UnregisterAgentCommand(messageParts[1], socket));
                 }
                 else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
                 {

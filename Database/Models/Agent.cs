@@ -6,8 +6,10 @@ namespace Database.Models
     {
         public long Id { get; set; }
 
-        public long VideoSourceId { get; set; }
+        public string ServerIp { get; set; }
 
-        public int Port { get; set; }
+        public int AgentPort { get; set; }
+
+        public int VncServerPort { get; set; }
     }
 }

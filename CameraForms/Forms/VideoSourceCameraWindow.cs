@@ -15,7 +15,6 @@ using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
-using Mtf.Network.Services;
 using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
@@ -204,20 +203,16 @@ namespace CameraForms.Forms
                 {
                     try
                     {
-                        var agents = agentRepository.SelectAll();
-                        var videoSources = videoSourceRepository.SelectAll();
-                        videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
-                        if (videoSource != null)
+                        agent = agentRepository.SelectWhere(videoCaptureSourceCameraInfo.ServerIp).FirstOrDefault();
+                        if (agent == null)
                         {
-                            agent = agents.FirstOrDefault(a => a.VideoSourceId == videoSource.Id);
-                            if (agent == null)
-                            {
-                                ErrorBox.Show(Lng.Elem("General error"), "Agent not found.");
-                                break;
-                            }
-                            Thread.Sleep(500);
+                            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("Agent not found."));
+                            break;
                         }
-                        else
+
+                        videoSource = videoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoCaptureSourceCameraInfo.VideoSourceName }).FirstOrDefault();
+                        //videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                        if (videoSource == null)
                         {
                             var message = String.Format(Lng.Elem("VideoSource ({0}) is not registered."), videoCaptureSourceCameraInfo.ToString());
                             ErrorBox.Show(Lng.Elem("General error"), message);
@@ -240,7 +235,7 @@ namespace CameraForms.Forms
                 {
                     try
                     {
-                        videoCaptureClient = new MyVideoCaptureClient(videoSource.ServerIp, agent.Port);
+                        videoCaptureClient = new MyVideoCaptureClient(agent.ServerIp, videoSource.Port);
                         videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                         videoCaptureClient.Start();
                         cancellationTokenSource.Cancel();

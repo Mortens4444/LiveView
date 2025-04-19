@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
@@ -41,7 +42,7 @@ namespace LiveView.Agent
             this.videoSourceRepository = videoSourceRepository;
         }
 
-        public async Task ConnectAsync(string serverIp, ushort serverPort, CancellationToken cancellationToken = default)
+        public async Task ConnectAsync(string serverIp, ushort serverPort, ushort vncServerPort, CancellationToken cancellationToken = default)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -51,8 +52,8 @@ namespace LiveView.Agent
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-                    var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
-                    if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}", true))
+                    var hostInfo = client.Socket.GetLocalEndPointInfo();
+                    if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true))
                     {
                         var displayManager = new DisplayManager();
                         var displays = displayManager.GetAll();
@@ -63,7 +64,7 @@ namespace LiveView.Agent
                             client.Send($"{NetworkCommand.RegisterDisplay}|{hostInfo}|{display.Serialize()}", true);
                         }
 
-                        UpdateVideoCaptureSources();
+                        UpdateVideoCaptureSources(client.Socket.GetLocalEndPointInfo(), client.ListenerPortOfClient, vncServerPort);
                         Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
                         Console.WriteLine(PressCtrlCToExit);
 
@@ -128,7 +129,7 @@ namespace LiveView.Agent
         {
             if (client != null && client.Socket != null)
             {
-                var hostInfo = client.Socket.GetLocalIPAddressesInfo("|");
+                var hostInfo = client.Socket.GetLocalEndPointInfo();
                 client.Send($"{NetworkCommand.UnregisterAgent}|{hostInfo}|{Dns.GetHostName()}", true);
                 var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();
@@ -177,7 +178,7 @@ namespace LiveView.Agent
             }
         }
 
-        private void UpdateVideoCaptureSources()
+        private void UpdateVideoCaptureSources(string localEndPointInfo, int agentPort, int vncServerPort)
         {
             client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
 
@@ -185,48 +186,28 @@ namespace LiveView.Agent
             if (cameraServers.Count > 0)
             {
                 var videoSources = videoSourceRepository.SelectAll();
-                var hostInfo = cameraServers.First().Value.ToString().Split(':');
+                var agent = agentRepository.SelectWhere(new { ServerIp = localEndPointInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
 
-                relevantVideoSources = videoSources.Where(videoSource => videoSource.ServerIp == hostInfo[0]).ToList();
-                foreach (var relevantVideoSource in relevantVideoSources)
-                {
-                    agentRepository.DeleteWhere(new { VideoSourceId = relevantVideoSource.Id });
-                }
-
+                relevantVideoSources = videoSources.Where(videoSource => videoSource.AgentId == agent.Id).ToList();
                 foreach (var cameraServer in cameraServers)
                 {
-                    hostInfo = cameraServer.Value.ToString().Split(':');
                     long videoSourceId;
-                    var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.VideoSourceName == cameraServer.Key);
+                    var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.Name == cameraServer.Key);
+                    var videoSource = new Database.Models.VideoSource
+                    {
+                        AgentId = agent.Id,
+                        Name = cameraServer.Key,
+                        Port = cameraServer.Value.ListenerPortOfServer
+                    };
                     if (foundVideoSource != null)
                     {
+                        videoSource.Id = foundVideoSource.Id;
                         videoSourceId = foundVideoSource.Id;
+                        videoSourceRepository.Update(videoSource);
                     }
                     else
                     {
-                        videoSourceId = videoSourceRepository.InsertAndReturnId<long>(new Database.Models.VideoSource
-                        {
-                            VideoSourceName = cameraServer.Key,
-                            ServerIp = hostInfo[0]
-                        });
-                    }
-                    var agent = agentRepository.SelectWhere(new { VideoSourceId = videoSourceId }).FirstOrDefault();
-                    if (Int32.TryParse(hostInfo[1], out var port))
-                    {
-                        var newAgent = new Database.Models.Agent
-                        {
-                            Id = agent?.Id ?? 0,
-                            VideoSourceId = videoSourceId,
-                            Port = port
-                        };
-                        if (agent == null)
-                        {
-                            agentRepository.Insert(newAgent);
-                        }
-                        else
-                        {
-                            agentRepository.Update(newAgent);
-                        }
+                        videoSourceRepository.Insert(videoSource);
                     }
                 }
             }
