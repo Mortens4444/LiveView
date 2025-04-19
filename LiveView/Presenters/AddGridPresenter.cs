@@ -35,6 +35,8 @@ namespace LiveView.Presenters
 
         private GridType gridType = GridType.OneWay;
         private IAddGridView view;
+
+        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly ILogger<AddGrid> logger;
@@ -54,6 +56,7 @@ namespace LiveView.Presenters
         public AddGridPresenter(AddGridPresenterDependencies dependencies)
             : base(dependencies)
         {
+            videoSourceRepository = dependencies.VideoSourceRepository;
             displayManager = dependencies.DisplayManager;
             gridRepository = dependencies.GridRepository;
             gridCameraRepository = dependencies.GridCameraRepository;

@@ -9,6 +9,7 @@ namespace LiveView.Models.Dependencies
     {
         public AddGridPresenterDependencies(
             DisplayManager displayManager,
+            IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IGridRepository gridRepository,
             IServerRepository serverRepository,
@@ -17,6 +18,7 @@ namespace LiveView.Models.Dependencies
             ILogger<AddGrid> logger)
             : base(generalOptionsRepository)
         {
+            VideoSourceRepository = videoSourceRepository;
             DisplayManager = displayManager;
             GridRepository = gridRepository;
             ServerRepository = serverRepository;
@@ -26,6 +28,8 @@ namespace LiveView.Models.Dependencies
         }
 
         public DisplayManager DisplayManager { get; private set; }
+
+        public IVideoSourceRepository VideoSourceRepository { get; private set; }
 
         public IGridRepository GridRepository { get; private set; }
 
