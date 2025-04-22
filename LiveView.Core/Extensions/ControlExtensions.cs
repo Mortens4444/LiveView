@@ -32,16 +32,17 @@ namespace LiveView.Core.Extensions
         private static void InternalSetImage(Control control, Image image, bool useClone)
         {
             Image oldImage;
+            var newImage = useClone ? (Image)image.Clone() : image;
             if (control is PictureBox pictureBox)
             {
                 oldImage = pictureBox.Image;
-                pictureBox.Image = useClone ? (Image)image.Clone() : image;
+                pictureBox.Image = newImage;
                 SetTextOnImage(control, pictureBox.Image);
             }
             else
             {
                 oldImage = control.BackgroundImage;
-                control.BackgroundImage = useClone ? (Image)image.Clone() : image;
+                control.BackgroundImage = newImage;
                 SetTextOnImage(control, control.BackgroundImage);
             }
             control.Invalidate();

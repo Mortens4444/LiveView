@@ -12,6 +12,7 @@ using System;
 using System.Configuration;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -31,6 +32,7 @@ namespace CameraForms.Forms
         private GridCamera gridCamera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
         private int bufferSize;
+        private int onExit;
 
         public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository,
             ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository,
@@ -73,7 +75,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = DisplayProvider.Get(displayId);
             rectangle = display.Bounds;
-            Initialize(userId, cameraId, rectangle, display, true);
+            Initialize(userId, cameraId, display, true);
         }
 
         public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
@@ -82,6 +84,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            this.rectangle = rectangle;
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
@@ -89,7 +92,7 @@ namespace CameraForms.Forms
             agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            Initialize(userId, cameraId, rectangle, null, true);
+            Initialize(userId, cameraId, null, true);
         }
 
         public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, string ipAddress, string videoSourceName, long? displayId)
@@ -111,6 +114,7 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
             var display = DisplayProvider.Get(displayId);
+            rectangle = display.Bounds;
             fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, ipAddress, videoSourceName, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
 
             Console.CancelKeyPress += (sender, e) => OnExit();
@@ -127,11 +131,10 @@ namespace CameraForms.Forms
             }
         }
 
-        private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
             SetBufferSize();
             var camera = cameraRepository.Select(cameraId);
-            this.rectangle = rectangle;
             url = camera.HttpStreamUrl;
 
             if (fullScreen)
@@ -198,9 +201,12 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            fullScreenCameraMessageHandler.Exit();
-            kBD300ASimulatorServer?.Stop();
-            mortoGraphyWindow.Stop();
+            if (Interlocked.Exchange(ref onExit, 1) == 0)
+            {
+                fullScreenCameraMessageHandler?.Exit();
+                kBD300ASimulatorServer?.Stop();
+                mortoGraphyWindow.Stop();
+            }
         }
 
         private void MortoGraphyWindow_FormClosing(object sender, FormClosingEventArgs e)
