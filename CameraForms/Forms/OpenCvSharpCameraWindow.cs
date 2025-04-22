@@ -1,4 +1,5 @@
-﻿using CameraForms.Services;
+﻿using CameraForms.Extensions;
+using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
@@ -95,15 +96,7 @@ namespace CameraForms.Forms
 
         private void OpenCvSharp_Load(object sender, EventArgs e)
         {
-            Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
-            {
-                Size = new Size(100, 100);
-            }
-            else
-            {
-                Size = new Size(rectangle.Width, rectangle.Height);
-            }
+            this.SetFormSizeAndPosition(rectangle);
         }
 
         private void OpenCvSharp_Shown(object sender, EventArgs e)

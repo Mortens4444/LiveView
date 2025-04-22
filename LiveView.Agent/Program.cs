@@ -60,10 +60,17 @@ namespace LiveView.Agent
             }
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
-            vncServer = new VncServer(new ScreenInfoProvider());
-            vncServer.ErrorOccurred += VncServer_ErrorOccurred;
-            vncServer.Start();
-            Console.WriteLine($"VNC server started at: {vncServer}");
+            try
+            {
+                vncServer = new VncServer(new ScreenInfoProvider());
+                vncServer.ErrorOccurred += VncServer_ErrorOccurred;
+                vncServer.Start();
+                Console.WriteLine($"VNC server started at: {vncServer}");
+            }
+            catch (Exception ex)
+            {
+                ErrorBox.Show(ex);
+            }
 
             ExceptionHandler.CatchUnhandledExceptions();
             var serviceProvider = ServiceProviderFactory.Create();

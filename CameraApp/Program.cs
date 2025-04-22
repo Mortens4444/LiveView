@@ -218,6 +218,10 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.VideoSource:
+                                //using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, displayId))
+                                //{
+                                //    Application.Run(form);
+                                //}
                                 using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, displayId))
                                 {
                                     Application.Run(form);
@@ -323,9 +327,9 @@ namespace CameraApp
             catch (Exception ex)
             {
 #if NET462
-                logger.LogError($"CameraApp start error: {ex}");
+                logger?.LogError($"CameraApp start error: {ex}");
 #else
-                logger.LogError(ex, "CameraApp start error.");
+                logger?.LogError(ex, "CameraApp start error.");
 #endif
                 ErrorBox.Show(ex);
             }

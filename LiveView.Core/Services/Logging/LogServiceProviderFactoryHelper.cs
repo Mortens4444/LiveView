@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Mtf.Permissions.Services;
+using System.Reflection;
 
 namespace LiveView.Core.Services.Logging
 {
@@ -11,7 +12,17 @@ namespace LiveView.Core.Services.Logging
         public static void RegisterLogServices(ServiceCollection services)
         {
 #if NET452 || NET462
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            services.AddSingleton<ILoggerFactory>(sp =>
+            {
+                return LoggerFactory.Create(builder =>
+                {
+                    builder.ClearProviders();
+                    builder.AddConsole();
+                    builder.AddProvider(new LogRepositoryLoggerProvider(
+                        sp.GetRequiredService<PermissionManager<Database.Models.User>>(),
+                        sp.GetRequiredService<ILogRepository>()));
+                });
+            });
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 #else
             services.AddLogging(builder =>

@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Agent.Network.Commands;
 using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -344,6 +345,7 @@ namespace LiveView.Presenters
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
+            Globals.Server.SendMessageToAllClients($"{NetworkCommand.KillAll}|{Core.Constants.CameraAppExe}");
             CameraProcess = null;
 
             var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
@@ -353,7 +355,7 @@ namespace LiveView.Presenters
                 var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
                 if (selectedDisplay != null)
                 {
-                    var displayId = selectedDisplay.Id.ToString().Remove(selectedDisplay.Host);
+                    var displayId = selectedDisplay.Host != null ? selectedDisplay.Id.ToString().Remove(selectedDisplay.Host) : selectedDisplay.Id.ToString();
                     protectedParameters.Insert(protectedParameters.Count - 1, displayId);
                     StartCameraApp(protectedParameters);
                 }

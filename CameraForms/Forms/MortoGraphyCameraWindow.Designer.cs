@@ -46,11 +46,12 @@ namespace CameraForms.Forms
             // 
             mortoGraphyWindow.BackgroundImage = (System.Drawing.Image)resources.GetObject("mortoGraphyWindow.BackgroundImage");
             mortoGraphyWindow.BackgroundImageLayout = ImageLayout.Stretch;
+            mortoGraphyWindow.BufferSize = 409600;
             mortoGraphyWindow.ContextMenuStrip = cmsMenu;
             mortoGraphyWindow.Dock = DockStyle.Fill;
             mortoGraphyWindow.Location = new System.Drawing.Point(0, 0);
             mortoGraphyWindow.Name = "mortoGraphyWindow";
-            mortoGraphyWindow.OverlayFont = (System.Drawing.Font)resources.GetObject("mortoGraphyWindow.OverlayFont");
+            mortoGraphyWindow.OverlayFont = new System.Drawing.Font("Arial", 32F, System.Drawing.FontStyle.Bold);
             mortoGraphyWindow.OverlayLocation = new System.Drawing.Point(10, 10);
             mortoGraphyWindow.OverlayText = "";
             mortoGraphyWindow.Password = null;
@@ -65,12 +66,12 @@ namespace CameraForms.Forms
             // 
             cmsMenu.Items.AddRange(new ToolStripItem[] { closeToolStripMenuItem });
             cmsMenu.Name = "cmsMenu";
-            cmsMenu.Size = new System.Drawing.Size(181, 48);
+            cmsMenu.Size = new System.Drawing.Size(104, 26);
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             closeToolStripMenuItem.Text = "Close";
             closeToolStripMenuItem.Click += CloseToolStripMenuItem_Click;
             // 
@@ -83,6 +84,7 @@ namespace CameraForms.Forms
             Controls.Add(mortoGraphyWindow);
             FormBorderStyle = FormBorderStyle.None;
             Name = "MortoGraphyCameraWindow";
+            ShowInTaskbar = false;
             Text = "MortoGraphyWindow";
             FormClosing += MortoGraphyWindow_FormClosing;
             Load += MortoGraphyWindow_Load;

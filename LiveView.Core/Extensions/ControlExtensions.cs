@@ -16,24 +16,40 @@ namespace LiveView.Core.Extensions
 
         public static void SetImage(this Control control, Image image, bool useClone)
         {
-            control.Invoke((Action)(() =>
+            if (control.InvokeRequired)
             {
-                Image oldImage;
-                if (control is PictureBox pictureBox)
+                control.Invoke((Action)(() =>
                 {
-                    oldImage = pictureBox.Image;
-                    pictureBox.Image = useClone ? (Image)image.Clone() : image;
-                    SetTextOnImage(control, pictureBox.Image);
-                }
-                else
-                {
-                    oldImage = control.BackgroundImage;
-                    control.BackgroundImage = useClone ? (Image)image.Clone() : image;
-                    SetTextOnImage(control, control.BackgroundImage);
-                }
-                
-                oldImage?.Dispose();
-            }));
+                    InternalSetImage(control, image, useClone);
+                }));
+            }
+            else
+            {
+                InternalSetImage(control, image, useClone);
+            }
+        }
+
+        private static void InternalSetImage(Control control, Image image, bool useClone)
+        {
+            Image oldImage;
+            if (control is PictureBox pictureBox)
+            {
+                oldImage = pictureBox.Image;
+                pictureBox.Image = useClone ? (Image)image.Clone() : image;
+                SetTextOnImage(control, pictureBox.Image);
+            }
+            else
+            {
+                oldImage = control.BackgroundImage;
+                control.BackgroundImage = useClone ? (Image)image.Clone() : image;
+                SetTextOnImage(control, control.BackgroundImage);
+            }
+            control.Invalidate();
+            control.Update();
+            if (oldImage != null && !ReferenceEquals(oldImage, image))
+            {
+                oldImage.Dispose();
+            }
         }
 
         private static void SetTextOnImage(Control control, Image image)
@@ -43,10 +59,14 @@ namespace LiveView.Core.Extensions
 
         private static void SetTextOnImage(Control control, Image image, Color shadowColor, int shadowOffset)
         {
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                return;
+            }
+
             using (var g = Graphics.FromImage(image))
             {
                 var textLocation = new PointF(10, 10);
-
                 using (var shadowBrush = new SolidBrush(shadowColor))
                 {
                     var shadowLocation = new PointF(textLocation.X + shadowOffset, textLocation.Y + shadowOffset);

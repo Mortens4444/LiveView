@@ -17,6 +17,8 @@
 
         public const string SunellLegacyCameraWindowRotateSpeed = "SunellLegacyCameraWindowRotateSpeed";
         public const string UseMiniSizeForFullscreenWindows = "UseMiniSizeForFullscreenWindows";
+        public const string MiniFullscreenWindowWidth = "MiniFullscreenWindowWidth";
+        public const string MiniFullscreenWindowHeight = "MiniFullscreenWindowHeight";
         public const string PipeServerName = "KBD300A_Pipe";
 
         public const string VideoCaptureClientBufferSize = "VideoCaptureClient.BufferSize";

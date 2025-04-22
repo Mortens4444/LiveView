@@ -45,8 +45,9 @@ namespace LiveView
         
         public static NetworkServer Server { get; set; }
 
-        public static void RemoveAgent(string hostInfo, Socket agentSocket)
+        public static void RemoveAgent(string hostInfo)
         {
+            var agentSocket = Agents[hostInfo];
             Agents.Remove(hostInfo);
             AgentPingTimes.Remove(hostInfo);
             VideoCaptureSources.Remove(agentSocket);

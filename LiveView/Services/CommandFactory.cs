@@ -26,7 +26,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.UnregisterAgent}|"))
                 {
-                    result.Add(new UnregisterAgentCommand(messageParts[1], socket));
+                    result.Add(new UnregisterAgentCommand(messageParts[1]));
                 }
                 else if (message.StartsWith($"{NetworkCommand.RegisterDisplay}|"))
                 {
@@ -74,7 +74,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith(NetworkCommand.UnregisterVideoSource.ToString()))
                 {
-                    result.Add(new UnregisterVideoSourceCommand(messageParts[1], messageParts[2], socket));
+                    result.Add(new UnregisterVideoSourceCommand(socket));
                 }
                 else if (message.StartsWith($"{NetworkCommand.Ping}|"))
                 {

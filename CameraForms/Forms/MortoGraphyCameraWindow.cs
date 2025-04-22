@@ -1,4 +1,5 @@
-﻿using CameraForms.Services;
+﻿using CameraForms.Extensions;
+using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
@@ -91,6 +92,32 @@ namespace CameraForms.Forms
             Initialize(userId, cameraId, rectangle, null, true);
         }
 
+        public MortoGraphyCameraWindow(IServiceProvider serviceProvider, long userId, string ipAddress, string videoSourceName, long? displayId)
+        {
+            InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
+
+            kBD300ASimulatorServer = new KBD300ASimulatorServer();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+
+            SetBufferSize();
+            url = $"{ipAddress}|{videoSourceName}";
+
+            kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+            var display = DisplayProvider.Get(displayId);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, ipAddress, videoSourceName, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
+
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
+        }
+
         private void SetBufferSize()
         {
             var videoCaptureClientBufferSize = ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoCaptureClientBufferSize];
@@ -120,15 +147,7 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Load(object sender, EventArgs e)
         {
-            Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
-            {
-                Size = new Size(100, 100);
-            }
-            else
-            {
-                Size = new Size(rectangle.Width, rectangle.Height);
-            }
+            this.SetFormSizeAndPosition(rectangle);
         }
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)

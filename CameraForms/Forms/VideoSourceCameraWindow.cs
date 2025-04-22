@@ -1,11 +1,11 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
-using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Net;
@@ -17,7 +17,6 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -45,6 +44,7 @@ namespace CameraForms.Forms
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
+        private bool frameUnchanged;
         private int largeFontSize;
         private string fontFamily;
         private Color fontColor;
@@ -52,6 +52,7 @@ namespace CameraForms.Forms
         private Point location = new Point(10, 10);
         private string cameraName;
         private GridCamera gridCamera;
+        private Pen red = new Pen(new SolidBrush(Color.Red), 3);
 
         public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -186,6 +187,10 @@ namespace CameraForms.Forms
                 {
                     //_ = graphics.MeasureString(OverlayText, OverlayFont);
                     graphics.DrawString(cameraName, mtfCamera.Font, fontBrush, location);
+                    if (frameUnchanged)
+                    {
+                        graphics.DrawRectangle(red, Bounds);
+                    }
                 }
             }
         }
@@ -203,7 +208,7 @@ namespace CameraForms.Forms
                 {
                     try
                     {
-                        agent = agentRepository.SelectWhere(videoCaptureSourceCameraInfo.ServerIp).FirstOrDefault();
+                        agent = agentRepository.SelectWhere(new { videoCaptureSourceCameraInfo.ServerIp }).FirstOrDefault();
                         if (agent == null)
                         {
                             ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("Agent not found."));
@@ -236,6 +241,7 @@ namespace CameraForms.Forms
                     try
                     {
                         videoCaptureClient = new MyVideoCaptureClient(agent.ServerIp, videoSource.Port);
+                        videoCaptureClient.FrameUnchanged += VideoCaptureClient_FrameUnchanged;
                         videoCaptureClient.FrameArrived += VideoCaptureClient_FrameArrived;
                         videoCaptureClient.Start();
                         cancellationTokenSource.Cancel();
@@ -256,7 +262,7 @@ namespace CameraForms.Forms
                         {
                             mtfCamera.SetImage(Properties.Resources.nosignal, false);
 
-                            client?.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}|{videoCaptureSourceCameraInfo.VideoSourceName}", true);
+                            //client?.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}|{videoCaptureSourceCameraInfo.VideoSourceName}", true);
                             Thread.Sleep(200);
                             ReconnectVideoCapture();
                         }));
@@ -267,6 +273,11 @@ namespace CameraForms.Forms
             });
         }
 
+        private void VideoCaptureClient_FrameUnchanged(object sender, EventArgs e)
+        {
+            frameUnchanged = true;
+        }
+
         /// <summary>
         /// Can only be called after the Agents table has been cleared.
         /// </summary>
@@ -274,24 +285,20 @@ namespace CameraForms.Forms
         {
             Task.Run(() =>
             {
-                videoCaptureClient.FrameArrived -= VideoCaptureClient_FrameArrived;
-                videoCaptureClient?.Stop();
-                videoCaptureClient = null;
+                if (videoCaptureClient != null)
+                {
+                    videoCaptureClient.FrameUnchanged -= VideoCaptureClient_FrameUnchanged;
+                    videoCaptureClient.FrameArrived -= VideoCaptureClient_FrameArrived;
+                    videoCaptureClient.Stop();
+                    videoCaptureClient = null;
+                }
                 StartVideoCaptureImageReceiver();
             });
         }
 
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
         {
-            Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
-            {
-                Size = new Size(100, 100);
-            }
-            else
-            {
-                Size = new Size(rectangle.Width, rectangle.Height);
-            }
+            this.SetFormSizeAndPosition(rectangle);
         }
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
@@ -301,6 +308,7 @@ namespace CameraForms.Forms
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
         {
+            frameUnchanged = false;
             try
             {
                 frameTimer.Stop();
@@ -331,6 +339,7 @@ namespace CameraForms.Forms
             fullScreenCameraMessageHandler.ExitVideoSource();
             kBD300ASimulatorServer?.Stop();
             frameTimer?.Stop();
+            red.Dispose();
             videoCaptureClient?.Stop();
         }
 

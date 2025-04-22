@@ -27,6 +27,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -108,7 +109,18 @@ namespace LiveView.Presenters
 
             foreach (var agent in Globals.AgentPingTimes)
             {
-                if (now - agent.Value > TimeSpan.FromSeconds(3))
+                try
+                {
+                    if (now - agent.Value > TimeSpan.FromSeconds(3))
+                    {
+                        toRemove.Add(agent.Key);
+                    }
+                    if (!Globals.Agents[agent.Key].Connected)
+                    {
+                        toRemove.Add(agent.Key);
+                    }
+                }
+                catch
                 {
                     toRemove.Add(agent.Key);
                 }
@@ -116,8 +128,7 @@ namespace LiveView.Presenters
 
             foreach (var key in toRemove)
             {
-                var agentSocket = Globals.Agents[key];
-                Globals.RemoveAgent(key, agentSocket);
+                Globals.RemoveAgent(key);
             }
         }
 
@@ -140,7 +151,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                        //SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
                     }
                 }
                 catch (Exception ex)
