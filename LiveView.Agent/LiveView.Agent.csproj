@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.24" />
+    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.26" />
     <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
     <PackageReference Include="Mtf.MessageBoxes" Version="4.0.50" />
-    <PackageReference Include="Mtf.Network" Version="1.0.98" />
+    <PackageReference Include="Mtf.Network" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>

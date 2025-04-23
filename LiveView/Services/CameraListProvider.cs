@@ -127,7 +127,7 @@ namespace LiveView.Services
                         Tag = videoSource
                     };
 
-                    var serverIp = videoCaptureSource.Key.GetLocalEndPointInfo().GetIpAddessFromEndPoint();
+                    var serverIp = videoCaptureSource.Key.LocalEndPoint.GetEndPointInfo().GetIpAddessFromEndPoint();
                     childItem.Click += leafItemClickHandler;
                     parentItem.Text = serverIp;
                     parentItem.DropDownItems.Add(childItem);

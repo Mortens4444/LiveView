@@ -25,7 +25,7 @@ namespace CameraForms.Services
                     client.DataArrived += dataArrivedEventHandler;
                     client.Connect();
                     var displayId = display?.Id ?? String.Empty;
-                    var hostInfo = client.Socket.GetLocalEndPointInfo();
+                    var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
 #if NET8_0 || NET9_0
                     client.Send($"{NetworkCommand.RegisterCamera}|{hostInfo}|{userId}|{cameraId}|{displayId}|{Environment.ProcessId}|{(int)cameraMode}", true);
 #else
@@ -58,7 +58,7 @@ namespace CameraForms.Services
                     client.DataArrived += dataArrivedEventHandler;
                     client.Connect();
                     var displayId = display?.Id ?? String.Empty;
-                    var hostInfo = client.Socket.GetLocalEndPointInfo();
+                    var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
 #if NET8_0 || NET9_0
                     client.Send($"{NetworkCommand.RegisterVideoSource}|{hostInfo}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{Environment.ProcessId}|{(int)CameraMode.VideoSource}", true);
 #else

@@ -11,13 +11,13 @@
     <PackageVersion Include="Mtf.Joystick" Version="2.0.5" />
     <PackageVersion Include="Mtf.Permissions" Version="3.0.25" />
     <PackageVersion Include="Mtf.Windows.Forms.LanguageService" Version="3.0.39" />
-    <PackageVersion Include="Mtf.Controls" Version="1.0.94" />
-    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.55" />
-    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.23" />
-    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.21" />
-    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.22" />
+    <PackageVersion Include="Mtf.Controls" Version="1.0.99" />
+    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.60" />
+    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.27" />
+    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.25" />
+    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.25" />
     <PackageVersion Include="Mtf.MessageBoxes" Version="4.0.46" />
-    <PackageVersion Include="Mtf.Network" Version="1.0.95" />
+    <PackageVersion Include="Mtf.Network" Version="1.0.100" />
     <PackageVersion Include="Mtf.Serial" Version="1.0.12" />
     <PackageVersion Include="Mtf.Wmi" Version="1.0.13" />
 

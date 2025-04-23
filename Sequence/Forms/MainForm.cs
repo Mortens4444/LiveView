@@ -186,7 +186,7 @@ namespace Sequence.Forms
 #else
                 var processId = Process.GetCurrentProcess().Id;
 #endif
-                var hostInfo = client.Socket.GetLocalEndPointInfo();
+                var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
                 client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)
