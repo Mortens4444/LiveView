@@ -349,7 +349,6 @@ namespace LiveView.Presenters
             CameraProcess = null;
 
             var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
-
             if (generalOptionsRepository.Get<bool>(Setting.ShowOnSelectedDisplayWhenOpenedFromControlCenter))
             {
                 var selectedDisplay = view.CachedDisplays?.FirstOrDefault(d => d.Selected);
@@ -406,7 +405,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id, isMdi);
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
                 }
                 return true;
             }
