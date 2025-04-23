@@ -336,7 +336,7 @@ namespace CameraForms.Forms
         private void OnExit()
         {
             cancellationTokenSource.Cancel();
-            fullScreenCameraMessageHandler.ExitVideoSource();
+            fullScreenCameraMessageHandler?.ExitVideoSource();
             kBD300ASimulatorServer?.Stop();
             frameTimer?.Stop();
             red.Dispose();

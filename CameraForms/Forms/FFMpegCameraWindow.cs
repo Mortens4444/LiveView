@@ -142,7 +142,7 @@ namespace CameraForms.Forms
         {
             kBD300ASimulatorServer?.Stop();
             fFmpegWindow.Stop();
-            fullScreenCameraMessageHandler.Exit();
+            fullScreenCameraMessageHandler?.Exit();
         }
 
         private void FFMpegCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

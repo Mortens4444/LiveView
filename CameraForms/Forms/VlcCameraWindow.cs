@@ -138,7 +138,7 @@ namespace CameraForms.Forms
         {
             kBD300ASimulatorServer?.Stop();
             vlcWindow.Stop();
-            fullScreenCameraMessageHandler.Exit();
+            fullScreenCameraMessageHandler?.Exit();
         }
 
         private void VlcCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

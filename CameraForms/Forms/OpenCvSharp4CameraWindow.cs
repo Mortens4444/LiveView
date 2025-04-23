@@ -130,7 +130,7 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            fullScreenCameraMessageHandler.Exit();
+            fullScreenCameraMessageHandler?.Exit();
             kBD300ASimulatorServer?.Stop();
             openCvSharp4VideoWindow.Stop();
         }

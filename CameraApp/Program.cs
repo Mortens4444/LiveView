@@ -218,10 +218,6 @@ namespace CameraApp
                         switch (cameraMode)
                         {
                             case CameraMode.VideoSource:
-                                //using (var form = new MortoGraphyCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, displayId))
-                                //{
-                                //    Application.Run(form);
-                                //}
                                 using (var form = new VideoSourceCameraWindow(serviceProvider, userId, serverIp, videoCaptureSource, displayId))
                                 {
                                     Application.Run(form);
