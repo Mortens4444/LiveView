@@ -5,7 +5,6 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Dto;
-using LiveView.Enums;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -75,7 +74,7 @@ namespace LiveView.Presenters
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
         {
-            //selector.SelectMonitor(MonitorAddress.Monitor01);
+            //selector.SelectMonitors(Enums.LiveView.LiveView1);
 
             mainPresenterDependencies = dependencies;
             cancellationTokenSource = new CancellationTokenSource();
@@ -100,13 +99,13 @@ namespace LiveView.Presenters
                 {
                     CheckSequenceApplications();
                     CheckCameraApplication();
-                    CheckAgents();
+                    MainPresenter.CheckAgents();
                     Thread.Sleep(1000);
                 }
             });
         }
 
-        private void CheckAgents()
+        private static void CheckAgents()
         {
             var now = DateTimeOffset.Now;
             var toRemove = new List<string>();
