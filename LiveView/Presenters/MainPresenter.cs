@@ -5,11 +5,13 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Dto;
+using LiveView.Enums;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.Moxa;
 using LiveView.Services.Network;
 using LiveView.Services.Serial;
 using LiveView.Services.VideoServer;
@@ -27,7 +29,6 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
-using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -65,6 +66,7 @@ namespace LiveView.Presenters
         private readonly PermissionManager<User> permissionManager;
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly MainPresenterDependencies mainPresenterDependencies;
+        private readonly MonitorSelector selector = new MonitorSelector(new TtlOutput());
 
         private IMainView view;
         private MapLoader mapLoader;
@@ -73,6 +75,8 @@ namespace LiveView.Presenters
         public MainPresenter(MainPresenterDependencies dependencies)
             : base(dependencies)
         {
+            //selector.SelectMonitor(MonitorAddress.Monitor01);
+
             mainPresenterDependencies = dependencies;
             cancellationTokenSource = new CancellationTokenSource();
             Logger = dependencies.Logger;
