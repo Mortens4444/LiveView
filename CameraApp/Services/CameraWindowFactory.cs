@@ -1,6 +1,5 @@
 ﻿using CameraApp.Interfaces;
 using CameraForms.Dto;
-using CameraForms.Enums;
 using CameraForms.Forms;
 using Database.Enums;
 using System;
@@ -12,100 +11,28 @@ namespace CameraApp.Services
     {
         public Form Create(CameraLaunchContext context, IServiceProvider serviceProvider)
         {
-            switch (context.StartType)
+            switch (context.CameraMode)
             {
-                case StartType.StartCamera:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context);
-                        case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context);
-                        case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
-                        case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
-                case StartType.StartCameraOnDisplay:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context);
-                        case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context);
-                        case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
-                        case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
-                case StartType.StartVideoSource:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.VideoSource:
-                            return new VideoSourceCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
-                case StartType.StartVideoSourceOnDisplay:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.VideoSource:
-                            return new VideoSourceCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
-                case StartType.StartCameraInRectangle:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context);
-                        case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context);
-                        case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context);
-                        case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context);
-                        case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
-                        case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
-                case StartType.StartVideoSourceInRectangle:
-                    switch (context.CameraMode)
-                    {
-                        case CameraMode.VideoSource:
-                            return new VideoSourceCameraWindow(serviceProvider, context);
-                        default:
-                            throw new NotSupportedException($"{context.CameraMode} is not supported.");
-                    }
+                case CameraMode.AxVideoPlayer:
+                    return new AxVideoCameraWindow(serviceProvider, context);
+                case CameraMode.FFMpeg:
+                    return new FFMpegCameraWindow(serviceProvider, context);
+                case CameraMode.MortoGraphy:
+                    return new MortoGraphyCameraWindow(serviceProvider, context);
+                case CameraMode.OpenCvSharp:
+                    return new OpenCvSharpCameraWindow(serviceProvider, context);
+                case CameraMode.OpenCvSharp4:
+                    return new OpenCvSharp4CameraWindow(serviceProvider, context);
+                case CameraMode.SunellCamera:
+                    return new SunellCameraWindow(serviceProvider, context);
+                case CameraMode.SunellLegacyCamera:
+                    return new SunellLegacyCameraWindow(serviceProvider, context);
+                case CameraMode.VideoSource:
+                    return new VideoSourceCameraWindow(serviceProvider, context);
+                case CameraMode.Vlc:
+                    return new VlcCameraWindow(serviceProvider, context);
                 default:
-                    throw new NotSupportedException($"{context.StartType} is not supported.");
+                    throw new NotSupportedException($"{context.CameraMode} is not supported.");
             }
         }
     }
