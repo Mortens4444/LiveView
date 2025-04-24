@@ -18,21 +18,21 @@ namespace CameraApp.Services
                     switch (context.CameraMode)
                     {
                         case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new AxVideoCameraWindow(serviceProvider, context);
                         case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new SunellLegacyCameraWindow(serviceProvider, context);
                         case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new SunellCameraWindow(serviceProvider, context);
                         case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new MortoGraphyCameraWindow(serviceProvider, context);
                         case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new FFMpegCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new OpenCvSharpCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
                         case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context.UserId, context.CameraId, null);
+                            return new VlcCameraWindow(serviceProvider, context);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }
@@ -40,21 +40,21 @@ namespace CameraApp.Services
                     switch (context.CameraMode)
                     {
                         case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new AxVideoCameraWindow(serviceProvider, context);
                         case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new SunellLegacyCameraWindow(serviceProvider, context);
                         case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new SunellCameraWindow(serviceProvider, context);
                         case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new MortoGraphyCameraWindow(serviceProvider, context);
                         case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new FFMpegCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new OpenCvSharpCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
                         case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context.UserId, context.CameraId, context.DisplayId);
+                            return new VlcCameraWindow(serviceProvider, context);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }
@@ -63,7 +63,6 @@ namespace CameraApp.Services
                     {
                         case CameraMode.VideoSource:
                             return new VideoSourceCameraWindow(serviceProvider, context);
-                            //return new VideoSourceCameraWindow(serviceProvider, context.UserId, context.ServerIp, context.VideoCaptureSource, null);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }
@@ -71,8 +70,7 @@ namespace CameraApp.Services
                     switch (context.CameraMode)
                     {
                         case CameraMode.VideoSource:
-                            return new VideoSourceCameraWindow(serviceProvider, context); // Need a refactor where all form uses context.
-                            //return new VideoSourceCameraWindow(serviceProvider, context.UserId, context.ServerIp, context.VideoCaptureSource, context.DisplayId);
+                            return new VideoSourceCameraWindow(serviceProvider, context);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }
@@ -80,21 +78,21 @@ namespace CameraApp.Services
                     switch (context.CameraMode)
                     {
                         case CameraMode.AxVideoPlayer:
-                            return new AxVideoCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle.Location, context.Rectangle.Size);
+                            return new AxVideoCameraWindow(serviceProvider, context);
                         case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new SunellLegacyCameraWindow(serviceProvider, context);
                         case CameraMode.SunellCamera:
-                            return new SunellCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new SunellCameraWindow(serviceProvider, context);
                         case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new MortoGraphyCameraWindow(serviceProvider, context);
                         case CameraMode.FFMpeg:
-                            return new FFMpegCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new FFMpegCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new OpenCvSharpCameraWindow(serviceProvider, context);
                         case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new OpenCvSharp4CameraWindow(serviceProvider, context);
                         case CameraMode.Vlc:
-                            return new VlcCameraWindow(serviceProvider, context.UserId, context.CameraId, context.Rectangle);
+                            return new VlcCameraWindow(serviceProvider, context);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }
@@ -103,7 +101,6 @@ namespace CameraApp.Services
                     {
                         case CameraMode.VideoSource:
                             return new VideoSourceCameraWindow(serviceProvider, context);
-                            //return new VideoSourceCameraWindow(serviceProvider, context.UserId, context.ServerIp, context.VideoCaptureSource, context.Rectangle.Location, context.Rectangle.Size);
                         default:
                             throw new NotSupportedException($"{context.CameraMode} is not supported.");
                     }

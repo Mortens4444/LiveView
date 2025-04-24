@@ -1,4 +1,5 @@
-﻿using CameraForms.Extensions;
+﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -68,39 +69,24 @@ namespace CameraForms.Forms
             }
         }
 
-        public AxVideoCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Point location, Size size)
+        public AxVideoCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
-            this.cameraId = cameraId;
-            Initialize(userId, cameraId, true);
+            cameraId = cameraLaunchContext.CameraId;
+            Initialize(cameraLaunchContext.UserId, cameraId, true);
 
-            rectangle = new Rectangle(location, size);
+            display = cameraLaunchContext.GetDisplay();
+            rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
+
             axVideoPlayerWindow.ContextMenuStrip = null;
-        }
-
-        public AxVideoCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
-        {
-            InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-
-            kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
-            this.cameraId = cameraId;
-            Initialize(userId, cameraId, true);
-            display = DisplayProvider.Get(displayId);
-            rectangle = display.Bounds;
         }
 
         private void Initialize(long userId, long cameraId, bool fullScreen)

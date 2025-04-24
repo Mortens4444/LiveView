@@ -83,25 +83,7 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-
-            if (cameraLaunchContext.Rectangle != Rectangle.Empty)
-            {
-                rectangle = cameraLaunchContext.Rectangle;
-            }
-            else
-            {
-                var displayRepository = new DisplayRepository();
-                var fullScreenDisplay = (cameraLaunchContext.DisplayId.HasValue ? displayRepository.Select(cameraLaunchContext.DisplayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose fullscreen display first.");
-                var displayManager = new DisplayManager();
-                var displays = displayManager.GetAll();
-
-                display = displays.FirstOrDefault(d => d.GetId() == fullScreenDisplay.Id);
-                if (display == null)
-                {
-                    throw new InvalidOperationException("Choose another fullscreen display.");
-                }
-                rectangle = display.Bounds;
-            }
+            rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
 
             Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
         }

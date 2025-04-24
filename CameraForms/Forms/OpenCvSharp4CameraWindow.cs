@@ -1,4 +1,5 @@
-﻿using CameraForms.Extensions;
+﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -9,7 +10,6 @@ using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -47,40 +47,25 @@ namespace CameraForms.Forms
             }
         }
 
-        public OpenCvSharp4CameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public OpenCvSharp4CameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            var display = DisplayProvider.Get(displayId);
-            rectangle = display.Bounds;
-            Initialize(userId, cameraId, rectangle, display, true);
+            var display = cameraLaunchContext.GetDisplay();
+            rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
+            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
         }
 
-        public OpenCvSharp4CameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
-        {
-            InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-
-            kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            Initialize(userId, cameraId, rectangle, null, true);
-        }
-
-        private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
             var camera = cameraRepository.Select(cameraId);
-            this.rectangle = rectangle;
             url = camera.HttpStreamUrl;
 
             if (fullScreen)

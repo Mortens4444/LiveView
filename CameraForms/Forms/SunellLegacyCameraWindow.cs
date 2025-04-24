@@ -10,7 +10,6 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.Extensions;
 using Mtf.Controls.Sunell.IPR66.CustomEventArgs;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -19,7 +18,6 @@ using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -60,7 +58,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, long? displayId)
+        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -68,24 +66,14 @@ namespace CameraForms.Forms
 
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            var display = DisplayProvider.Get(displayId);
-            Initialize(userId, cameraId, display.Bounds, display, true);
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+
+            var display = cameraLaunchContext.GetDisplay();
+            rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
+            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
         }
 
-        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, long userId, long cameraId, Rectangle rectangle)
-        {
-            InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            Initialize(userId, cameraId, rectangle, null, true);
-        }
-
-        private void Initialize(long userId, long cameraId, Rectangle rectangle, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
             var camerasRepository = new CameraRepository();
             var camera = camerasRepository.Select(cameraId);
@@ -108,8 +96,6 @@ namespace CameraForms.Forms
                 Application.ApplicationExit += (sender, e) => OnExit();
                 AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
             }
-
-            this.rectangle = rectangle;
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
