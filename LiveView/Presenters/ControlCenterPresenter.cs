@@ -339,6 +339,7 @@ namespace LiveView.Presenters
 
         public Process StartCamera(List<string> protectedParameters)
         {
+            protectedParameters.Insert(0, "0"); // Add 0 as agent Id for local agent.
             return AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
         }
 
@@ -383,14 +384,14 @@ namespace LiveView.Presenters
             }
             else
             {
-                MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.CameraAppExe, selectedDisplay.AgentId, protectedParameters.ToArray());
             }
         }
 
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
         {
             CloseSequenceOnDisplay(selectedDisplayId);
-            return AppStarter.Start(Core.Constants.SequenceExe, $"{permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger);
+            return AppStarter.Start(Core.Constants.SequenceExe, $"0 {permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger); // Add 0 as agent Id for local agent.
         }
 
         public bool StartSequenceApp(Database.Models.Sequence sequence)
@@ -405,7 +406,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, selectedDisplay.AgentId, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
                 }
                 return true;
             }
@@ -419,7 +420,7 @@ namespace LiveView.Presenters
         public void CloseSequenceOnDisplay(string displayId)
         {
             var keysToRemove = Globals.SequenceProcesses
-                .Where(sp => sp.Value.DisplayId.ToString() == displayId)
+                .Where(sp => sp.Value.GetDisplayId() == displayId)
                 .Select(sp => sp.Key)
                 .ToList();
 
@@ -427,7 +428,7 @@ namespace LiveView.Presenters
             {
                 if (Globals.SequenceProcesses.TryRemove(key, out var sequenceProcess))
                 {
-                    Globals.Server.SendMessageToClient(sequenceProcess.Socket, NetworkCommand.Close.ToString(), true);
+                    Globals.Server.SendMessageToClient(sequenceProcess.SequenceSocket, NetworkCommand.Close.ToString(), true);
                 }
             }
         }
@@ -437,7 +438,7 @@ namespace LiveView.Presenters
         {
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
+                Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, NetworkCommand.Close.ToString(), true);
             }
 
             var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });

@@ -16,9 +16,9 @@ using Mtf.Permissions.Services;
 using Sequence.Services;
 using System;
 using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,8 +33,9 @@ namespace Sequence.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly GridSequenceManager gridSequenceManager;
         private readonly ILogger<MainForm> logger;
+        private int onExit;
 
-        public MainForm(IServiceProvider serviceProvider, long userId, long sequenceId, long displayId, bool isMdi)
+        public MainForm(IServiceProvider serviceProvider, long agentId, long userId, long sequenceId, long displayId, bool isMdi)
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 
@@ -47,11 +48,8 @@ namespace Sequence.Forms
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-#if NET6_0_OR_GREATER
-                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Environment.ProcessId}", true);
-#else
-                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{Process.GetCurrentProcess().Id}", true);
-#endif
+                    var processId = ProcessUtils.GetProcessId();
+                    client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{processId}|{agentId}", true);
                 }
                 catch (Exception ex)
                 {
@@ -169,16 +167,17 @@ namespace Sequence.Forms
 
         private async Task OnExitAsync()
         {
+            if (Interlocked.Exchange(ref onExit, 1) != 0)
+            {
+                return;
+            }
+
             gridSequenceManager.StopGridSequence();
             await gridSequenceManager.DisposeCameraWindowsAsync().ConfigureAwait(false);
 
             try
             {
-#if NET6_0_OR_GREATER
-                var processId = Environment.ProcessId;
-#else
-                var processId = Process.GetCurrentProcess().Id;
-#endif
+                var processId = ProcessUtils.GetProcessId();
                 var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
                 client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
@@ -206,7 +205,7 @@ namespace Sequence.Forms
 
         private async void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await OnExitAsync().ConfigureAwait(false);
+            Close();
         }
     }
 }

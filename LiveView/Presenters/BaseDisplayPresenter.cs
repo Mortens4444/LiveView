@@ -92,7 +92,7 @@ namespace LiveView.Presenters
             var result = new List<SequenceEnvironment>();
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                if (display.Id == sequenceProcess.Value.DisplayId.ToString()) // ToDo: Handle remote display sequences also
+                if (display.Id == sequenceProcess.Value.GetDisplayId())
                 {
                     var closeButton = new Button
                     {
@@ -100,14 +100,14 @@ namespace LiveView.Presenters
                         BackColor = SystemColors.Control,
                         Image = Properties.Resources.btn_CloseSequenceApplications_Image,
                         Margin = new Padding(4, 3, 4, 3),
-                        Name = $"btnCloseSequence{sequenceProcess.Value.SequenceId}OnDisplay{sequenceProcess.Value.DisplayId}",
+                        Name = $"btnCloseSequence{sequenceProcess.Value.SequenceId}OnDisplay{sequenceProcess.Value.GetDisplayId()}",
                         Size = new Size(21, 21),
                         TabIndex = 0,
                         UseVisualStyleBackColor = false
                     };
                     closeButton.Click += (object sender, EventArgs e) =>
                     {
-                        Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString(), true);
+                        Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, NetworkCommand.Close.ToString(), true);
                         Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
                         var button = sender as Button;
                         button.Parent.Controls.Remove(button);

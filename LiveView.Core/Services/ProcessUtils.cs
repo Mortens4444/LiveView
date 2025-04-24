@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Enums.Window;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -7,6 +8,15 @@ namespace LiveView.Core.Services
 {
     public static class ProcessUtils
     {
+        public static int GetProcessId()
+        {
+#if NET6_0_OR_GREATER
+            return Environment.ProcessId;
+#else
+            return Process.GetCurrentProcess().Id;
+#endif
+        }
+
         public static void ChangeExternalProcessesVisibility(List<Process> processes, CmdShow cmdShow)
         {
             var handles = WinAPI.FindMainWindows(processes);

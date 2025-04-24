@@ -52,7 +52,7 @@ namespace LiveView.Agent
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-                    var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
+                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
                     if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true))
                     {
                         var displayManager = new DisplayManager();
@@ -129,7 +129,7 @@ namespace LiveView.Agent
         {
             if (client != null && client.Socket != null)
             {
-                var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
+                var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
                 client.Send($"{NetworkCommand.UnregisterAgent}|{hostInfo}|{Dns.GetHostName()}", true);
                 var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();

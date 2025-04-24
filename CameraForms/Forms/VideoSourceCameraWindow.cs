@@ -75,40 +75,35 @@ namespace CameraForms.Forms
             }
         }
 
-        public VideoSourceCameraWindow(IServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, Point location, Size size)
+        public VideoSourceCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
             InitializeComponent();
 
-            rectangle = new Rectangle(location, size);
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            kBD300ASimulatorServer = new KBD300ASimulatorServer();
-
-            Initialize(userId, serverIp, videoCaptureSource, true);
-        }
-
-        public VideoSourceCameraWindow(IServiceProvider serviceProvider, long userId, string serverIp, string videoCaptureSource, long? displayId)
-        {
-            InitializeComponent();
-
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
+            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
 
-            Initialize(userId, serverIp, videoCaptureSource, true);
-
-            var displayRepository = new DisplayRepository();
-            var fullScreenDisplay = (displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose fullscreen display first.");
-            var displayManager = new DisplayManager();
-            var displays = displayManager.GetAll();
-
-            display = displays.FirstOrDefault(d => d.GetId() == fullScreenDisplay.Id);
-            if (display == null)
+            if (cameraLaunchContext.Rectangle != Rectangle.Empty)
             {
-                throw new InvalidOperationException("Choose another fullscreen display.");
+                rectangle = cameraLaunchContext.Rectangle;
             }
-            rectangle = display.Bounds;
+            else
+            {
+                var displayRepository = new DisplayRepository();
+                var fullScreenDisplay = (cameraLaunchContext.DisplayId.HasValue ? displayRepository.Select(cameraLaunchContext.DisplayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose fullscreen display first.");
+                var displayManager = new DisplayManager();
+                var displays = displayManager.GetAll();
+
+                display = displays.FirstOrDefault(d => d.GetId() == fullScreenDisplay.Id);
+                if (display == null)
+                {
+                    throw new InvalidOperationException("Choose another fullscreen display.");
+                }
+                rectangle = display.Bounds;
+            }
+
+            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
         }
 
         private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)

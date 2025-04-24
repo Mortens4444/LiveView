@@ -167,19 +167,19 @@ namespace LiveView.Presenters
             var sequenceProcesses = Process.GetProcessesByName(sequence);
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                if (LocalIpAddressChecker.IsLocal(sequenceProcess.Key))
+                if (sequenceProcess.Value.IsLocalSequence)
                 {
                     if (!sequenceProcesses.Any(sp => sp.Id == sequenceProcess.Value.ProcessId) && sequenceProcess.Value.SequenceId.HasValue)
                     {
                         Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
                         Globals.ControlCenter.RemoveSequence(sequenceProcess.Value.ProcessId);
-                        var startedSequenceProcess = Globals.ControlCenter.StartSequence(sequenceProcess.Value.SequenceId.Value, sequenceProcess.Value.DisplayId.ToString(), sequenceProcess.Value.IsMdi);
+                        var startedSequenceProcess = Globals.ControlCenter.StartSequence(sequenceProcess.Value.SequenceId.Value, sequenceProcess.Value.GetDisplayId(), sequenceProcess.Value.IsMdi);
                         Globals.ControlCenter.AddSequence(startedSequenceProcess);
                     }
                 }
                 else
                 {
-                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, $"{NetworkCommand.CheckSequenceProcess} {sequenceProcess.Value.ProcessId}", true);
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, $"{NetworkCommand.CheckSequenceProcess} {sequenceProcess.Value.ProcessId}", true);
                 }
             }
         }
@@ -396,9 +396,9 @@ namespace LiveView.Presenters
         {
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
-                if (sequenceProcess.Value.DisplayId == display.GetId())
+                if (sequenceProcess.Value.GetDisplayId() == display.Id)
                 {
-                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, message, true);
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, message, true);
                 }
             }
         }
@@ -636,7 +636,7 @@ namespace LiveView.Presenters
             {
                 try
                 {
-                    Globals.Server.SendMessageToClient(sequenceProcess.Value.Socket, NetworkCommand.Close.ToString());
+                    Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, NetworkCommand.Close.ToString());
                 }
                 catch (Exception ex)
                 {

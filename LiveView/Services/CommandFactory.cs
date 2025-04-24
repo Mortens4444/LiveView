@@ -42,7 +42,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.RegisterSequence}|"))
                 {
-                    result.Add(new RegisterSequenceCommand(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], socket));
+                    result.Add(new RegisterSequenceCommand(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], socket, dependencies));
                 }
                 else if (message.StartsWith($"{NetworkCommand. UnregisterSequence}|"))
                 {

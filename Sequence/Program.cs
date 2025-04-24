@@ -43,10 +43,11 @@ namespace Sequence
                 return;
             }
 
-            var userId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
-            var sequenceId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-            var displayId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
-            var isMdi = Convert.ToBoolean(args[3], CultureInfo.InvariantCulture);
+            var agentId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+            var userId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+            var sequenceId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
+            var displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+            var isMdi = Convert.ToBoolean(args[4], CultureInfo.InvariantCulture);
 
             _ = Sdk.sdk_dev_init(null);
 
@@ -56,11 +57,12 @@ namespace Sequence
                 var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                 ExceptionHandler.SetLogger(exceptionLogger);
 
-                using (var form = new MainForm(serviceProvider, userId, sequenceId, displayId, isMdi))
+                using (var form = new MainForm(serviceProvider, agentId, userId, sequenceId, displayId, isMdi))
                 {
                     Application.Run(form);
                 }
             }
+
             Sdk.sdk_dev_quit();
         }
     }
