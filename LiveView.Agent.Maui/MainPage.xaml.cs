@@ -5,6 +5,8 @@ using Android.OS;
 
 using Camera.MAUI;
 using Mtf.Network;
+using Mtf.Network.Services;
+using System.Net.Sockets;
 
 namespace LiveView.Agent.Maui
 {
@@ -54,7 +56,8 @@ namespace LiveView.Agent.Maui
         {
             if (!playing)
             {
-                if (await cameraView.StartCameraAsync(new Size(1280, 720)) == CameraResult.Success)
+                var result = await cameraView.StartCameraAsync(new Size(1280, 720));
+                if (result == CameraResult.Success)
                 {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
@@ -75,15 +78,20 @@ namespace LiveView.Agent.Maui
                     server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        serverLabel.Text = $"Server: {server}";
+                        serverLabel.Text = $"Server: {server} ({String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
                     });
                     var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
                     _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));
                 }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StartCameraAsync call failed: {result}", "OK");
+                }
             }
             else
             {
-                if (await cameraView.StopCameraAsync() == CameraResult.Success)
+                var result = await cameraView.StopCameraAsync();
+                if (result == CameraResult.Success)
                 {
                     cancellationTokenSource?.Cancel();
                     if (server != null)
@@ -98,6 +106,10 @@ namespace LiveView.Agent.Maui
                         playing = false;
                         serverLabel.Text = "Server: Not started";
                     });
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StopCameraAsync call failed: {result}", "OK");
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
@@ -24,7 +24,7 @@
     <!-- Versions -->
     <MajorVersion>1</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <BuildNumber>4</BuildNumber>
+    <BuildNumber>5</BuildNumber>
     <PatchNumber>0</PatchNumber>
     <FileVersion>$(MajorVersion).$(MinorVersion).$(BuildNumber).$(PatchNumber)</FileVersion>
     <AssemblyVersion>$(FileVersion)</AssemblyVersion>
@@ -39,6 +39,7 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
     <DefaultLanguage>EN-US</DefaultLanguage>
     <SkipCheckForMauiMinimumSupportedWorkloadVersion>true</SkipCheckForMauiMinimumSupportedWorkloadVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <AndroidKeyStore>True</AndroidKeyStore>
@@ -68,6 +69,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.3" />
     <PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.50" />
     <PackageReference Include="Microsoft.Maui.Core" Version="9.0.50" />
-    <PackageReference Include="Mtf.Network" />
+    <PackageReference Include="Mtf.Network" Version="1.1.0" />
   </ItemGroup>
 </Project>

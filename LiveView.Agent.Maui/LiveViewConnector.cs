@@ -1,6 +1,7 @@
 ﻿using LiveView.Agent.Maui.Enums.Network;
 using Mtf.Network;
 using Mtf.Network.EventArg;
+using Mtf.Network.Extensions;
 using System.Net;
 
 namespace LiveView.Agent.Maui
@@ -8,7 +9,7 @@ namespace LiveView.Agent.Maui
     public class LiveViewConnector
     {
         private string cameraCaptureServer;
-        private Client client;
+        private Client? client;
         private CancellationTokenSource cancellationTokenSource;
         private string cameraIdentifier;
 
@@ -29,7 +30,8 @@ namespace LiveView.Agent.Maui
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandlerAsync;
                     client.Connect();
-                    if (client.Send($"{NetworkCommand.RegisterAgent}|{client.Socket.LocalEndPoint}|{Dns.GetHostName()}", true))
+                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
+                    if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|0", true))
                     {
                         SendVideoCaptureSourcesToLiveView();
 
@@ -151,7 +153,7 @@ namespace LiveView.Agent.Maui
 
         private void SendVideoCaptureSourcesToLiveView()
         {
-            client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{cameraIdentifier}={cameraCaptureServer}", true);
+            client!.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{cameraIdentifier}={cameraCaptureServer}", true);
         }
     }
 }

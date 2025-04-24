@@ -21,7 +21,7 @@ namespace LiveView.Agent.Maui
                 await stream.CopyToAsync(memoryStream, token);
                 return memoryStream.ToArray();
             }
-            return null;
+            return Array.Empty<byte>();
         }
     }
 }
