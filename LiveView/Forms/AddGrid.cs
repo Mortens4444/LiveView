@@ -269,8 +269,7 @@ namespace LiveView.Forms
 
         private void PEditor_LocationChanged(object sender, EventArgs e)
         {
-            Invalidate(true);
-            PMiniDesign.Invalidate(true);
+            presenter.LocationChanged();
         }
 
         private void BtnClose_Click(object sender, EventArgs e)

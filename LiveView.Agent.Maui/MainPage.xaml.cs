@@ -78,7 +78,7 @@ namespace LiveView.Agent.Maui
                     server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        serverLabel.Text = $"Server: {server} ({String.Join(", ", NetUtils.GetLocalIPAddresses(AddressFamily.InterNetwork))})";
+                        serverLabel.Text = $"Server: {server}";
                     });
                     var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
                     _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));

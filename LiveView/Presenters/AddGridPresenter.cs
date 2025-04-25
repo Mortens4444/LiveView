@@ -11,6 +11,7 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
@@ -35,6 +36,14 @@ namespace LiveView.Presenters
 
         private GridType gridType = GridType.OneWay;
         private IAddGridView view;
+        private Image lastImage = null;
+        private Size displaySize;
+        private Size menuSize;
+        private Size defaultWindowSize;
+        private Size defaultMiniWindowSize;
+        private bool gridSettingsChanged = true;
+        private bool gridSelectionMatrixChanged = true;
+        private MyVideoCaptureClient videoCaptureClient;
 
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridRepository gridRepository;
@@ -43,15 +52,6 @@ namespace LiveView.Presenters
         private readonly DisplayManager displayManager;
         private readonly List<CameraDto> cameras;
         private readonly ReadOnlyCollection<Server> servers;
-
-        private Size displaySize;
-        private Size menuSize;
-        private Size defaultWindowSize;
-        private Size defaultMiniWindowSize;
-
-        private bool gridSettingsChanged = true;
-        private bool gridSelectionMatrixChanged = true;
-        private MyVideoCaptureClient videoCaptureClient;
 
         public AddGridPresenter(AddGridPresenterDependencies dependencies)
             : base(dependencies)
@@ -184,7 +184,7 @@ namespace LiveView.Presenters
         {
             try
             {
-                if (GridSelectedMatrixChanged())
+                if (gridSelectionMatrixChanged)
                 {
                     int cameraCount = 0;
                     foreach (Control control in GetControls())
@@ -202,15 +202,12 @@ namespace LiveView.Presenters
                     var selectedMatrixRegion = GetSelectedMatrixRegion();
                     DrawBorders(graphics, selectedMatrixRegion, defaultMiniWindowSize, borderColor, SmallFrame);
                     gridSelectionMatrixChanged = false;
-                    view.Invalidate(true);
                 }
-                view.Update();
             }
             catch (Exception ex)
             {
                 ShowError(ex);
             }
-            Thread.Sleep(40);
         }
 
         private MatrixRegion GetSelectedMatrixRegion()
@@ -231,7 +228,8 @@ namespace LiveView.Presenters
             var numericUpDown = CreateNumericUpDown(selectedMatrixRegion);
             controls.Add(numericUpDown);
 
-            view.Invalidate(true);
+            gridSelectionMatrixChanged = true;
+            view.RefreshUI();
         }
 
         private void GetCombinedGridCameras(long gridId)
@@ -548,7 +546,6 @@ namespace LiveView.Presenters
                 view.AxVideoPlayerWindow.Visible = false;
             }
         }
-        private Image lastImage = null;
 
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
         {
@@ -853,7 +850,7 @@ namespace LiveView.Presenters
 
         private static (int WidthAspect, int HeightAspect) GetNativeAspectRatio(Size displaySize)
         {
-            int gcd = GetGreatestCommonDivisor(displaySize.Width, displaySize.Height);
+            int gcd = IntUtils.GetGreatestCommonDivisor(displaySize.Width, displaySize.Height);
             return (displaySize.Width / gcd, displaySize.Height / gcd);
         }
 
@@ -872,26 +869,27 @@ namespace LiveView.Presenters
         public bool CanCombine()
         {
             var selectedMatrixRegion = GetSelectedMatrixRegion();
-            foreach (Control control in GetControls())
+            if (!selectedMatrixRegion.IsCombined)
             {
-                if (control.Tag is MatrixRegion matrixRegion && matrixRegion.IsInRange(selectedMatrixRegion) && matrixRegion.IsCombined)
+                return false;
+            }
+            var controls = GetControls().Where(control => control.Tag is MatrixRegion matrixRegion);
+            foreach (Control control in controls)
+            {
+                if (control.Tag is MatrixRegion matrixRegion)
                 {
-                    return false;
+                    if (matrixRegion.IsInRange(selectedMatrixRegion) && matrixRegion.IsCombined)
+                    {
+                        return false;
+                    }
+                    if (matrixRegion.IsIntersects(selectedMatrixRegion) && matrixRegion.IsCombined)
+                    {
+                        return false;
+                    }
                 }
             }
 
             return true;
-        }
-
-        private static int GetGreatestCommonDivisor(int a, int b)
-        {
-            while (b != 0)
-            {
-                int temp = b;
-                b = a % b;
-                a = temp;
-            }
-            return a;
         }
 
         private Control.ControlCollection GetControls() => view.Controls[0].Controls;
@@ -900,11 +898,6 @@ namespace LiveView.Presenters
 
         private Size GetControlSize(int columnSpan) => new Size(columnSpan * defaultWindowSize.Width - 10, 21);
 
-        private bool GridSelectedMatrixChanged()
-        {
-            return gridSelectionMatrixChanged;
-        }
-
         private static void DrawBorders(Graphics graphics, MatrixRegion matrixRegion, Size size, Color color, int width = 1)
         {
             using (var pen = new Pen(color, width))
@@ -912,6 +905,12 @@ namespace LiveView.Presenters
                 var rectangle = matrixRegion.GetDrawDimensions(size);
                 graphics.DrawRectangle(pen, rectangle);
             }
+        }
+
+        public void LocationChanged()
+        {
+            gridSelectionMatrixChanged = true;
+            view.RefreshUI();
         }
     }
 }

@@ -57,6 +57,19 @@ namespace Database.Models
                    ToColumn <= other.ToColumn;
         }
 
+        public bool IsIntersects(MatrixRegion other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            var rowsOverlap = FromRow <= other.ToRow && ToRow >= other.FromRow;
+            var columnsOverlap = FromColumn <= other.ToColumn && ToColumn >= other.FromColumn;
+
+            return rowsOverlap && columnsOverlap;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is MatrixRegion matrixRegion)

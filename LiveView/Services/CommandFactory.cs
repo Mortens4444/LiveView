@@ -15,7 +15,7 @@ namespace LiveView.Services
         {
             var result = new List<ICommand>();
             var messages = $"{Globals.Server?.Encoding.GetString(data)}";
-            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var allMessages = messages.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var message in allMessages)
             {
                 var messageParts = message.Split('|');
