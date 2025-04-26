@@ -46,7 +46,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mtf.MessageBoxes" Version="4.0.50" />
-    <PackageReference Include="Mtf.Network" Version="2.0.1" />
+    <PackageReference Include="Mtf.Network" Version="2.0.2" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.25" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.39" />
   </ItemGroup>

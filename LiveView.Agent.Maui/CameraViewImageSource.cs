@@ -13,14 +13,23 @@ namespace LiveView.Agent.Maui
 
         public async Task<byte[]> CaptureAsync(CancellationToken token)
         {
-            var photo = await cameraView.CaptureAsync();
-            if (photo != null)
+            var snapshot = cameraView.GetSnapShot(Camera.MAUI.ImageFormat.PNG);
+            return await ImageSourceToByteArrayAsync(snapshot);
+        }
+
+        private static async Task<byte[]> ImageSourceToByteArrayAsync(ImageSource imageSource, CancellationToken token = default)
+        {
+            if (imageSource is StreamImageSource streamImageSource)
             {
-                using var stream = await photo.OpenReadAsync();
-                using var memoryStream = new MemoryStream();
-                await stream.CopyToAsync(memoryStream, token);
-                return memoryStream.ToArray();
+                var stream = await streamImageSource.Stream(token);
+                if (stream != null)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await stream.CopyToAsync(memoryStream, token);
+                    return memoryStream.ToArray();
+                }
             }
+
             return Array.Empty<byte>();
         }
     }
