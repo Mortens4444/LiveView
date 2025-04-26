@@ -8,9 +8,13 @@
         <VerticalStackLayout Padding="10" Spacing="10">
 
             <Entry x:Name="serverEntry" Text="192.168.0.1:4444" Placeholder="Enter server address" />
+            <Entry Text="{Binding BufferSize, Mode=TwoWay}" Keyboard="Numeric" Completed="OnNumberCompleted" Placeholder="Buffer size" />
             <Entry x:Name="preferredIpAddressEntry" Text="192.168.0." Placeholder="Preferred IP address" />
-            <Entry x:Name="cameraNameEntry" Text="Camera" Placeholder="Camera name" />
-            <Picker Title="Select Camera" ItemsSource="{Binding AvailableCameras}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCamera, Mode=TwoWay}" />
+
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="cameraNameEntry" Text="Camera" Placeholder="Camera name" Grid.Column="0" />
+                <Picker Title="Select Camera" ItemsSource="{Binding AvailableCameras}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCamera, Mode=TwoWay}" Grid.Column="1" />
+            </Grid>
 
             <camera:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="400" />
             <Button x:Name="startStopButton" Text="Start" Clicked="StartCamera_Clicked" />

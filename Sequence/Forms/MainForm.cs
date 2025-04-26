@@ -203,7 +203,7 @@ namespace Sequence.Forms
             }
         }
 
-        private async void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }

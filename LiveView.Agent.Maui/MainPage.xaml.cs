@@ -1,9 +1,4 @@
-﻿#if ANDROID
-using Android.Content;
-using Android.OS;
-#endif
-
-using Camera.MAUI;
+﻿using Camera.MAUI;
 using Mtf.Network;
 using System.Collections.ObjectModel;
 using System.Net.Sockets;
@@ -15,6 +10,8 @@ namespace LiveView.Agent.Maui
         private bool playing;
         private CancellationTokenSource? cancellationTokenSource;
         private Server? server;
+
+        public int BufferSize { get; set; } = 409600;
 
         public ObservableCollection<CameraInfo> AvailableCameras { get; } = new();
 
@@ -36,31 +33,12 @@ namespace LiveView.Agent.Maui
             }
         }
 
-#if ANDROID
-        private static PowerManager.WakeLock? wakeLock;
-#endif
-
         public MainPage()
         {
             InitializeComponent();
             BindingContext = this;
             cameraView.Loaded += (s, e) => LoadCameras();
-
-#if ANDROID
-            var powerManager = (PowerManager)Android.App.Application.Context.GetSystemService(Context.PowerService);
-            wakeLock = powerManager.NewWakeLock(WakeLockFlags.Partial, "CameraView:WakeLock");
-            wakeLock.Acquire();
-#endif
-        }
-
-        ~MainPage()
-        {
-
-#if ANDROID
-            wakeLock?.Release();
-            wakeLock = null;
-#endif
-
+            DeviceDisplay.KeepScreenOn = true;
         }
 
         private void LoadCameras()
@@ -72,6 +50,33 @@ namespace LiveView.Agent.Maui
             }
 
             SelectedCamera = AvailableCameras.FirstOrDefault();
+        }
+
+        private void OnNumberCompleted(object sender, EventArgs e)
+        {
+            const int min = 4096;
+            const int max = Int32.MaxValue;
+
+            if (sender is Entry entry)
+            {
+                if (UInt32.TryParse(entry.Text, out var value))
+                {
+                    if (value < min)
+                    {
+                        value = min;
+                    }
+                    else if (value > max)
+                    {
+                        value = max;
+                    }
+
+                    entry.Text = value.ToString();
+                }
+                else
+                {
+                    entry.Text = min.ToString();
+                }
+            }
         }
 
         private async void StartCamera_Clicked(object sender, EventArgs e)
@@ -104,7 +109,10 @@ namespace LiveView.Agent.Maui
                         {
                             throw new InvalidOperationException("IP address cannot be retrieved.");
                         }
-                        var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraNameEntry.Text, ipAddress);
+                        var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraNameEntry.Text, ipAddress)
+                        {
+                            BufferSize = BufferSize
+                        };
                         server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
