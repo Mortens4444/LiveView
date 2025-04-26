@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mortens.LiveViewAgent" android:versionCode="5">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mortens.LiveViewAgent" android:versionCode="7">
   <application android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="LiveView Agent">
   </application>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

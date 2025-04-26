@@ -24,7 +24,7 @@
     <!-- Versions -->
     <MajorVersion>1</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <BuildNumber>5</BuildNumber>
+    <BuildNumber>7</BuildNumber>
     <PatchNumber>0</PatchNumber>
     <FileVersion>$(MajorVersion).$(MinorVersion).$(BuildNumber).$(PatchNumber)</FileVersion>
     <AssemblyVersion>$(FileVersion)</AssemblyVersion>

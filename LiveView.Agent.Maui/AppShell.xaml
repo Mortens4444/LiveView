@@ -8,7 +8,7 @@
     Title="LiveView.Agent.Maui">
 
     <ShellContent
-        Title="LiveView Server"
+        Title="LiveView MAUI Agent"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

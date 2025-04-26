@@ -5,6 +5,7 @@ using Android.OS;
 
 using Camera.MAUI;
 using Mtf.Network;
+using System.Collections.ObjectModel;
 using System.Net.Sockets;
 
 namespace LiveView.Agent.Maui
@@ -14,7 +15,26 @@ namespace LiveView.Agent.Maui
         private bool playing;
         private CancellationTokenSource? cancellationTokenSource;
         private Server? server;
-        private string cameraId = "Camera";
+
+        public ObservableCollection<CameraInfo> AvailableCameras { get; } = new();
+
+
+        private CameraInfo? selectedCamera;
+        
+        public CameraInfo? SelectedCamera
+        {
+            get => selectedCamera;
+            set
+            {
+                if (selectedCamera == value)
+                {
+                    return;
+                }
+
+                selectedCamera = value;
+                OnPropertyChanged();
+            }
+        }
 
 #if ANDROID
         private static PowerManager.WakeLock? wakeLock;
@@ -23,14 +43,14 @@ namespace LiveView.Agent.Maui
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
+            cameraView.Loaded += (s, e) => LoadCameras();
 
 #if ANDROID
             var powerManager = (PowerManager)Android.App.Application.Context.GetSystemService(Context.PowerService);
             wakeLock = powerManager.NewWakeLock(WakeLockFlags.Partial, "CameraView:WakeLock");
             wakeLock.Acquire();
 #endif
-
-            cameraView.CamerasLoaded += CameraView_CamerasLoaded;
         }
 
         ~MainPage()
@@ -43,12 +63,15 @@ namespace LiveView.Agent.Maui
 
         }
 
-        private void CameraView_CamerasLoaded(object? sender, EventArgs e)
+        private void LoadCameras()
         {
-            if (cameraView.NumCamerasDetected > 0)
+            AvailableCameras.Clear();
+            foreach (var camera in cameraView.Cameras)
             {
-                cameraView.Camera = cameraView.Cameras.First();
+                AvailableCameras.Add(camera);
             }
+
+            SelectedCamera = AvailableCameras.FirstOrDefault();
         }
 
         private async void StartCamera_Clicked(object sender, EventArgs e)
@@ -57,6 +80,7 @@ namespace LiveView.Agent.Maui
             {
                 if (!playing)
                 {
+                    cameraView.Camera = SelectedCamera;
                     var result = await cameraView.StartCameraAsync(new Size(1280, 720));
                     if (result == CameraResult.Success)
                     {
@@ -80,13 +104,13 @@ namespace LiveView.Agent.Maui
                         {
                             throw new InvalidOperationException("IP address cannot be retrieved.");
                         }
-                        var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraId, ipAddress);
+                        var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraNameEntry.Text, ipAddress);
                         server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                         MainThread.BeginInvokeOnMainThread(() =>
                         {
                             serverLabel.Text = $"Server: {server}";
                         });
-                        var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
+                        var liveViewConnector = new LiveViewConnector(cameraNameEntry.Text, server.ToString(), cancellationTokenSource);
                         _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));
                     }
                     else
