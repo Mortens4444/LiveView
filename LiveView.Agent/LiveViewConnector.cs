@@ -1,7 +1,6 @@
 ﻿using Database.Interfaces;
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
-using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
@@ -64,7 +63,8 @@ namespace LiveView.Agent
                             client.Send($"{NetworkCommand.RegisterDisplay}|{hostInfo}|{display.Serialize()}", true);
                         }
 
-                        UpdateVideoCaptureSources(hostInfo, client.ListenerPortOfClient, vncServerPort);
+                        client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
+
                         Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
                         Console.WriteLine(PressCtrlCToExit);
 
@@ -175,41 +175,6 @@ namespace LiveView.Agent
             foreach (var sequenceProcess in sequenceProcesses)
             {
                 ProcessUtils.Kill(sequenceProcess.Value);
-            }
-        }
-
-        private void UpdateVideoCaptureSources(string localEndPointInfo, int agentPort, int vncServerPort)
-        {
-            client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
-
-            List<Database.Models.VideoSource> relevantVideoSources;
-            if (cameraServers.Count > 0)
-            {
-                var videoSources = videoSourceRepository.SelectAll();
-                var agent = agentRepository.SelectWhere(new { ServerIp = localEndPointInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
-
-                relevantVideoSources = videoSources.Where(videoSource => videoSource.AgentId == agent.Id).ToList();
-                foreach (var cameraServer in cameraServers)
-                {
-                    long videoSourceId;
-                    var foundVideoSource = relevantVideoSources.FirstOrDefault(vs => vs.Name == cameraServer.Key);
-                    var videoSource = new Database.Models.VideoSource
-                    {
-                        AgentId = agent.Id,
-                        Name = cameraServer.Key,
-                        Port = cameraServer.Value.ListenerPortOfServer
-                    };
-                    if (foundVideoSource != null)
-                    {
-                        videoSource.Id = foundVideoSource.Id;
-                        videoSourceId = foundVideoSource.Id;
-                        videoSourceRepository.Update(videoSource);
-                    }
-                    else
-                    {
-                        videoSourceRepository.Insert(videoSource);
-                    }
-                }
             }
         }
     }

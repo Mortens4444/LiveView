@@ -54,7 +54,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                 {
-                    result.Add(new VideoCaptureSourcesResponseReceivedCommand(messageParts[1], socket));
+                    result.Add(new VideoCaptureSourcesResponseReceivedCommand(messageParts[1], socket, dependencies));
                 }
                 else if (message.StartsWith($"{NetworkCommand.RegisterCamera}"))
                 {
