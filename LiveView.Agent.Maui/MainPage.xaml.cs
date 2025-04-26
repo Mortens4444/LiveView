@@ -5,7 +5,6 @@ using Android.OS;
 
 using Camera.MAUI;
 using Mtf.Network;
-using Mtf.Network.Services;
 using System.Net.Sockets;
 
 namespace LiveView.Agent.Maui
@@ -15,7 +14,7 @@ namespace LiveView.Agent.Maui
         private bool playing;
         private CancellationTokenSource? cancellationTokenSource;
         private Server? server;
-        private string cameraId = "default";
+        private string cameraId = "Camera";
 
 #if ANDROID
         private static PowerManager.WakeLock? wakeLock;
@@ -54,63 +53,75 @@ namespace LiveView.Agent.Maui
 
         private async void StartCamera_Clicked(object sender, EventArgs e)
         {
-            if (!playing)
+            try
             {
-                var result = await cameraView.StartCameraAsync(new Size(1280, 720));
-                if (result == CameraResult.Success)
+                if (!playing)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
+                    var result = await cameraView.StartCameraAsync(new Size(1280, 720));
+                    if (result == CameraResult.Success)
                     {
-                        startStopButton.Text = "Stop";
-                        playing = true;
-                    });
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            startStopButton.Text = "Stop";
+                            playing = true;
+                        });
 
-                    cancellationTokenSource = new CancellationTokenSource();
+                        cancellationTokenSource = new CancellationTokenSource();
                     
-                    var connectionInfo = serverEntry.Text.Split(":", StringSplitOptions.RemoveEmptyEntries);
-                    if (connectionInfo.Length != 2)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Error", "IP address and port is needed in this format: 192.168.0.1:4444", "OK");
-                        return;
+                        var connectionInfo = serverEntry.Text.Split(":", StringSplitOptions.RemoveEmptyEntries);
+                        if (connectionInfo.Length != 2)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Error", "IP address and port is needed in this format: 192.168.0.1:4444", "OK");
+                            return;
+                        }
+
+                        var ipAddress = NetworkHelper.GetDeviceIpAddressPreferPrivate(AddressFamily.InterNetwork, preferredIpAddressEntry.Text);
+                        if (ipAddress == null)
+                        {
+                            throw new InvalidOperationException("IP address cannot be retrieved.");
+                        }
+                        var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraId, ipAddress);
+                        server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            serverLabel.Text = $"Server: {server}";
+                        });
+                        var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
+                        _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));
                     }
-                    var cameraCaptureServer = new ImageCaptureServer(new CameraViewImageSource(cameraView), cameraId);
-                    //var cameraCaptureServer = new CameraCaptureServer(cameraView, cameraId);
-                    server = cameraCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
-                    MainThread.BeginInvokeOnMainThread(() =>
+                    else
                     {
-                        serverLabel.Text = $"Server: {server}";
-                    });
-                    var liveViewConnector = new LiveViewConnector(cameraId, server.ToString(), cancellationTokenSource);
-                    _ = liveViewConnector.ConnectAsync(connectionInfo[0], Convert.ToUInt16(connectionInfo[1]));
+                        await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StartCameraAsync call failed: {result}", "OK");
+                    }
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StartCameraAsync call failed: {result}", "OK");
+                    var result = await cameraView.StopCameraAsync();
+                    if (result == CameraResult.Success)
+                    {
+                        cancellationTokenSource?.Cancel();
+                        if (server != null)
+                        {
+                            server.Dispose();
+                            server = null;
+                        }
+
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            startStopButton.Text = "Start";
+                            playing = false;
+                            serverLabel.Text = "Server: Not started";
+                        });
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StopCameraAsync call failed: {result}", "OK");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                var result = await cameraView.StopCameraAsync();
-                if (result == CameraResult.Success)
-                {
-                    cancellationTokenSource?.Cancel();
-                    if (server != null)
-                    {
-                        server.Dispose();
-                        server = null;
-                    }
-
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        startStopButton.Text = "Start";
-                        playing = false;
-                        serverLabel.Text = "Server: Not started";
-                    });
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", $"The cameraView.StopCameraAsync call failed: {result}", "OK");
-                }
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
     }
