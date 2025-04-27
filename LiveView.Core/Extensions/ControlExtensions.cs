@@ -8,7 +8,6 @@ namespace LiveView.Core.Extensions
     {
         public static void SetOsdText(this Control control, string familyName, float emSize, FontStyle fontStyle, Color foreColor, string text)
         {
-            control.Font?.Dispose();
             control.Font = new Font(familyName, emSize, fontStyle);
             control.ForeColor = foreColor;
             control.Text = text;
