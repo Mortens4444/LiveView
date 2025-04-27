@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using System;
 
 namespace CameraForms.Dto
 {
@@ -8,8 +9,18 @@ namespace CameraForms.Dto
 
         public string VideoSourceName { get; set; }
 
+        public bool IsEmpty()
+        {
+            return String.IsNullOrEmpty(ServerIp) && String.IsNullOrEmpty(VideoSourceName);
+        }
+
         public override string ToString()
         {
+            if (IsEmpty())
+            {
+                return $"CameraId: {GridCamera.CameraId}, CameraMode: {GridCamera.CameraMode}, GridCamera {GridCamera.Id}";
+            }
+
             return $"{ServerIp}:{VideoSourceName}";
         }
     }

@@ -188,7 +188,7 @@ namespace CameraForms.Forms
                         agent = agentRepository.SelectWhere(new { videoCaptureSourceCameraInfo.ServerIp }).FirstOrDefault();
                         if (agent == null)
                         {
-                            ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("Agent not found."));
+                            ErrorBox.Show(Lng.Elem("General error"), String.Concat(Lng.Elem("Agent not found."), " ", videoCaptureSourceCameraInfo));
                             break;
                         }
 
@@ -280,6 +280,11 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
+            if (videoCaptureSourceCameraInfo.IsEmpty())
+            {
+                throw new InvalidOperationException("Server and video capture source not initialized.");
+            }
+
             StartVideoCaptureImageReceiver();
         }
 

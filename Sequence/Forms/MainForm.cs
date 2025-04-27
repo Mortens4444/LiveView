@@ -26,6 +26,9 @@ namespace Sequence.Forms
 {
     internal partial class MainForm : Form
     {
+#if DEBUG
+        private static Mtf.Network.Server server;
+#endif
         private static Client client;
 
         private readonly long sequenceId;
@@ -45,6 +48,15 @@ namespace Sequence.Forms
             {
                 try
                 {
+#if DEBUG
+                    try
+                    {
+                        server = new Mtf.Network.Server(listenerPort: 4444);
+                        server.Start();
+                    }
+                    catch { }
+#endif
+
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
@@ -172,6 +184,13 @@ namespace Sequence.Forms
                 return;
             }
 
+#if DEBUG
+            if (server != null)
+            {
+                server.Stop();
+                server.Dispose();
+            }
+#endif
             gridSequenceManager.StopGridSequence();
             await gridSequenceManager.DisposeCameraWindowsAsync().ConfigureAwait(false);
 

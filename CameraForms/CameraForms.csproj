@@ -95,12 +95,15 @@
 
   <ItemGroup>
     <None Update="Resources\ffmpeg.exe">
+      <Link>ffmpeg.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ffplay.exe">
+      <Link>ffplay.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ffprobe.exe">
+      <Link>ffprobe.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
