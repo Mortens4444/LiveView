@@ -43,5 +43,9 @@ namespace LiveView.Interfaces
         OpenFileDialog OpenFileDialog { get; }
 
         SaveFileDialog SaveFileDialog { get; }
+
+        ComboBox CbVideoSources { get; }
+
+        Label LblVideoSources { get; }
     }
 }

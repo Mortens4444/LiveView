@@ -252,7 +252,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var item = CreateListViewItem(gridCamera, gridCamera.ServerIp, gridCamera.VideoSourceName);
+                        var item = CreateListViewItem(gridCamera);
                         view.LvGridCameras.Items.Add(item);
                     }
                 }
@@ -275,14 +275,14 @@ namespace LiveView.Presenters
             return item;
         }
 
-        private ListViewItem CreateListViewItem(GridCamera gridCamera, string serverIp, string videoSourceName)
+        private ListViewItem CreateListViewItem(GridCamera gridCamera)
         {
             var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
             {
                 Tag = gridCamera
             };
-            item.SubItems.Add(videoSourceName);
-            item.SubItems.Add(serverIp);
+            item.SubItems.Add(Lng.Elem("N/A"));
+            item.SubItems.Add(Lng.Elem("N/A"));
             item.SubItems.Add(Lng.Elem("N/A"));
             item.SubItems.Add(gridCamera.CameraMode.ToString());
             item.SubItems.Add(gridCamera.Frame.ToString());

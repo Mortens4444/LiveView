@@ -23,11 +23,15 @@ namespace LiveView.Presenters
         private ICameraPropertiesView view;
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
+        private readonly IAgentRepository agentRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
         private readonly ILogger<CameraProperties> logger;
 
         public CameraPropertiesPresenter(CameraPropertiesPresenterDependencies dependencies)
             : base(dependencies)
         {
+            agentRepository = dependencies.AgentRepository;
+            videoSourceRepository = dependencies.VideoSourceRepository;
             cameraRepository = dependencies.CameraRepository;
             cameraFunctionRepository = dependencies.CameraFunctionRepository;
             logger = dependencies.Logger;
@@ -47,6 +51,7 @@ namespace LiveView.Presenters
             view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
             view.Camera.FullscreenMode = (CameraMode)Enum.Parse(typeof(CameraMode), view.CbFullscreenMode.SelectedItem.ToString());
+            view.Camera.VideoSourceId = (view.CbVideoSources.SelectedItem as VideoSource)?.Id;
 
             cameraRepository.Update(view.Camera);
             logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' properties has been changed.", view.Camera.CameraName);
@@ -64,6 +69,20 @@ namespace LiveView.Presenters
             view.AddItems(view.CbCameraFunctionType, cameraFunctionTypes);
             view.CbCameraFunctionType.SelectFirst();
 
+            view.CbVideoSources.AddItems(videoSourceRepository.SelectAll());
+            view.CbVideoSources.SelectedIndexChanged += (object sender, EventArgs e) =>
+            {
+                var videoSource = view.CbVideoSources.SelectedItem as VideoSource;
+                if (videoSource != null)
+                {
+                    var agent = agentRepository.Select(videoSource.AgentId);
+                    if (agent != null)
+                    {
+                        view.TbHttpStream.Text = $"{agent.ServerIp}|{videoSource.Name}";
+                    }
+                }
+            };
+
             view.TbCameraName.Text = view.Camera.CameraName;
             view.TbCameraGuid.Text = view.Camera.Guid;
             view.TbCameraIpAddress.Text = view.Camera.IpAddress;
@@ -71,6 +90,13 @@ namespace LiveView.Presenters
             view.TbCameraPassword.Password = view.Camera.Password;
             view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
+
+            view.CbFullscreenMode.SelectedIndexChanged += (object sender, EventArgs e) =>
+            {
+                view.CbVideoSources.Visible = view.CbFullscreenMode.SelectedItem.ToString() == CameraMode.VideoSource.ToString();
+                view.LblVideoSources.Visible = view.CbVideoSources.Visible;
+            };
+
             if (Enum.TryParse(view.Camera.FullscreenMode.ToString(), out CameraMode cameraMode))
             {
                 view.CbFullscreenMode.SelectedItem = cameraMode.ToString();
@@ -78,6 +104,17 @@ namespace LiveView.Presenters
             else
             {
                 view.CbFullscreenMode.SelectedIndex = 0;
+            }
+            if (view.Camera.VideoSourceId.HasValue)
+            {
+                foreach (VideoSource item in view.CbVideoSources.Items)
+                {
+                    if (item.Id == view.Camera.VideoSourceId.Value)
+                    {
+                        view.CbVideoSources.SelectedItem = item;
+                        break;
+                    }
+                }
             }
 
             view.LvCameraFunctions.AddItems(cameraFunctionRepository.SelectWhere(new { CameraId = view.Camera.Id }),

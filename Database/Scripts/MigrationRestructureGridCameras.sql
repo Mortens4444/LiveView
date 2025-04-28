@@ -6,24 +6,6 @@ BEGIN
     END
 END;
 
-IF NOT EXISTS (
-    SELECT 1 
-    FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'GridCameras' AND COLUMN_NAME = 'ServerIp'
-)
-BEGIN
-    ALTER TABLE GridCameras ADD ServerIp NVARCHAR(20) NULL;
-END;
-
-IF NOT EXISTS (
-    SELECT 1 
-    FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'GridCameras' AND COLUMN_NAME = 'VideoSourceName'
-)
-BEGIN
-    ALTER TABLE GridCameras ADD VideoSourceName NVARCHAR(500) NULL;
-END;
-
 IF EXISTS (
     SELECT 1 
     FROM sys.foreign_keys 

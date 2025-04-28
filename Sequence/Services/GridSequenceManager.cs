@@ -401,10 +401,10 @@ namespace Sequence.Services
                 .Where(gc => gc.GridId == grid.grid.Id)
                 .Select(gridCamera =>
                 {
+                    var camera = allCameras.First(c => c.Id == gridCamera.CameraId);
                     switch (gridCamera.CameraMode)
                     {
                         case CameraMode.AxVideoPlayer:
-                            var camera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new AxVideoPictureCameraInfo
                             {
                                 GridCamera = gridCamera,
@@ -416,74 +416,67 @@ namespace Sequence.Services
                             return new VideoCaptureSourceCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                ServerIp = gridCamera.ServerIp,
-                                VideoSourceName = gridCamera.VideoSourceName
+                                //ServerIp = camera.ServerIp,
+                                //VideoSourceName = camera.VideoSourceName
                             } as CameraInfo;
 
                         case CameraMode.Vlc:
-                            var vlcCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new VlcCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                Url = vlcCamera.HttpStreamUrl
+                                Url = camera.HttpStreamUrl
                             };
 
                         case CameraMode.MortoGraphy:
-                            var mortoGraphyCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new MortoGraphyCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                Url = mortoGraphyCamera.HttpStreamUrl
+                                Url = camera.HttpStreamUrl
                             };
 
                         case CameraMode.FFMpeg:
-                            var ffMpegCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new FFMpegCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                Url = ffMpegCamera.HttpStreamUrl
+                                Url = camera.HttpStreamUrl
                             };
 
                         case CameraMode.OpenCvSharp:
-                            var openCvSharpCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new OpenCvSharpCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                Url = openCvSharpCamera.HttpStreamUrl
+                                Url = camera.HttpStreamUrl
                             };
 
                         case CameraMode.OpenCvSharp4:
-                            var openCvSharp4Camera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new OpenCvSharp4CameraInfo
                             {
                                 GridCamera = gridCamera,
-                                Url = openCvSharp4Camera.HttpStreamUrl
+                                Url = camera.HttpStreamUrl
                             };
 
                         case CameraMode.SunellLegacyCamera:
-                            var sunellLegacyCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new SunellLegacyCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                CameraIp = sunellLegacyCamera.IpAddress,
+                                CameraIp = camera.IpAddress,
                                 CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                Username = sunellLegacyCamera.Username,
-                                Password = sunellLegacyCamera.Password,
-                                CameraId = sunellLegacyCamera.CameraId ?? 1,
-                                StreamId = sunellLegacyCamera.StreamId ?? 1
+                                Username = camera.Username,
+                                Password = camera.Password,
+                                CameraId = camera.CameraId ?? 1,
+                                StreamId = camera.StreamId ?? 1
                             };
 
                         case CameraMode.SunellCamera:
-                            var sunellCamera = allCameras.First(c => c.Id == gridCamera.CameraId);
                             return new SunellCameraInfo
                             {
                                 GridCamera = gridCamera,
-                                CameraIp = sunellCamera.IpAddress,
+                                CameraIp = camera.IpAddress,
                                 CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                Username = sunellCamera.Username,
-                                Password = sunellCamera.Password,
-                                CameraId = sunellCamera.CameraId ?? 1,
-                                StreamId = sunellCamera.StreamId ?? 1
+                                Username = camera.Username,
+                                Password = camera.Password,
+                                CameraId = camera.CameraId ?? 1,
+                                StreamId = camera.StreamId ?? 1
                             };
 
                         default:

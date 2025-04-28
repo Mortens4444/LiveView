@@ -47,10 +47,6 @@ namespace Database.Models
 
         public bool ShowDateTime { get; set; } = false;
 
-        public string ServerIp { get; set; }
-
-        public string VideoSourceName { get; set; }
-
         public CameraMode CameraMode { get; set; }
 
         public MatrixRegion MatrixRegion => new MatrixRegion

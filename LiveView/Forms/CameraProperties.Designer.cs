@@ -34,6 +34,8 @@
             btnExport = new System.Windows.Forms.Button();
             tabControl = new System.Windows.Forms.TabControl();
             tpGeneral = new System.Windows.Forms.TabPage();
+            cbVideoSource = new System.Windows.Forms.ComboBox();
+            lblVideoSource = new System.Windows.Forms.Label();
             lblCameraName = new System.Windows.Forms.Label();
             btnSearch = new System.Windows.Forms.Button();
             nudPatternNumber = new System.Windows.Forms.NumericUpDown();
@@ -62,6 +64,8 @@
             chCameraFunction = new System.Windows.Forms.ColumnHeader();
             chCameraFunctionCallback = new System.Windows.Forms.ColumnHeader();
             chCameraFunctionCallbackParameters = new System.Windows.Forms.ColumnHeader();
+            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
+            tsmiDeleteCameraFunction = new System.Windows.Forms.ToolStripMenuItem();
             btnAdd = new System.Windows.Forms.Button();
             lblCameraFunctionCallbackParameters = new System.Windows.Forms.Label();
             tbCameraFunctionCallbackParameters = new System.Windows.Forms.TextBox();
@@ -71,8 +75,6 @@
             cbCameraFunctionType = new System.Windows.Forms.ComboBox();
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
-            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
-            tsmiDeleteCameraFunction = new System.Windows.Forms.ToolStripMenuItem();
             saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
             pMain.SuspendLayout();
@@ -134,6 +136,8 @@
             // 
             // tpGeneral
             // 
+            tpGeneral.Controls.Add(cbVideoSource);
+            tpGeneral.Controls.Add(lblVideoSource);
             tpGeneral.Controls.Add(lblCameraName);
             tpGeneral.Controls.Add(btnSearch);
             tpGeneral.Controls.Add(nudPatternNumber);
@@ -164,6 +168,28 @@
             tpGeneral.TabIndex = 0;
             tpGeneral.Text = "General";
             tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // cbVideoSource
+            // 
+            cbVideoSource.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbVideoSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbVideoSource.FormattingEnabled = true;
+            cbVideoSource.Location = new System.Drawing.Point(152, 277);
+            cbVideoSource.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbVideoSource.MaxLength = 50;
+            cbVideoSource.Name = "cbVideoSource";
+            cbVideoSource.Size = new System.Drawing.Size(731, 23);
+            cbVideoSource.TabIndex = 28;
+            // 
+            // lblVideoSource
+            // 
+            lblVideoSource.AutoSize = true;
+            lblVideoSource.Location = new System.Drawing.Point(7, 280);
+            lblVideoSource.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVideoSource.Name = "lblVideoSource";
+            lblVideoSource.Size = new System.Drawing.Size(75, 15);
+            lblVideoSource.TabIndex = 27;
+            lblVideoSource.Text = "Video source";
             // 
             // lblCameraName
             // 
@@ -464,6 +490,19 @@
             chCameraFunctionCallbackParameters.Text = "Camera function callback parameters";
             chCameraFunctionCallbackParameters.Width = 300;
             // 
+            // contextMenuStrip
+            // 
+            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiDeleteCameraFunction });
+            contextMenuStrip.Name = "contextMenuStrip";
+            contextMenuStrip.Size = new System.Drawing.Size(108, 26);
+            // 
+            // tsmiDeleteCameraFunction
+            // 
+            tsmiDeleteCameraFunction.Name = "tsmiDeleteCameraFunction";
+            tsmiDeleteCameraFunction.Size = new System.Drawing.Size(107, 22);
+            tsmiDeleteCameraFunction.Text = "Delete";
+            tsmiDeleteCameraFunction.Click += TsmiDeleteCameraFunction_Click;
+            // 
             // btnAdd
             // 
             btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
@@ -553,19 +592,6 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
             // 
-            // contextMenuStrip
-            // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiDeleteCameraFunction });
-            contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new System.Drawing.Size(108, 26);
-            // 
-            // tsmiDeleteCameraFunction
-            // 
-            tsmiDeleteCameraFunction.Name = "tsmiDeleteCameraFunction";
-            tsmiDeleteCameraFunction.Size = new System.Drawing.Size(107, 22);
-            tsmiDeleteCameraFunction.Text = "Delete";
-            tsmiDeleteCameraFunction.Click += TsmiDeleteCameraFunction_Click;
-            // 
             // CameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -638,5 +664,7 @@
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.ComboBox cbVideoSource;
+        private System.Windows.Forms.Label lblVideoSource;
     }
 }

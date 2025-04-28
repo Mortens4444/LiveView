@@ -43,6 +43,8 @@ namespace Database.Models
 
         public int? CameraId { get; set; }
 
+        public long? VideoSourceId { get; set; }
+
         public override string ToString()
         {
             return CameraName;

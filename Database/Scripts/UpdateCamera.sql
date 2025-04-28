@@ -11,5 +11,6 @@
     StreamId = @StreamId,
     MotionTrigger = @MotionTrigger,
     MotionTriggerMinimumLength = @MotionTriggerMinimumLength,
-    PartnerCameraId = @PartnerCameraId
+    PartnerCameraId = @PartnerCameraId,
+    VideoSourceId = @VideoSourceId
 WHERE Id = @Id;

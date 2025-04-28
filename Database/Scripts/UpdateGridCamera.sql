@@ -20,7 +20,5 @@ SET
     CsrNumberOfPhotos = @CsrNumberOfPhotos,
     CsrValue = @CsrValue,
     ShowDateTime = @ShowDateTime,
-    ServerIp = @ServerIp,
-    VideoSourceName = @VideoSourceName,
     CameraMode = @CameraMode
 WHERE Id = @Id;

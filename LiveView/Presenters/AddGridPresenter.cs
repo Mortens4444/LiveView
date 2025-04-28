@@ -698,8 +698,6 @@ namespace LiveView.Presenters
                     }
                     else if (comboBox.SelectedItem is VideoSourceDto videoSource)
                     {
-                        gridCamera.ServerIp = videoSource.Agent.ServerIp;
-                        gridCamera.VideoSourceName = videoSource.Name;
                         gridCamera.CameraId = null;
                         gridCamera.CameraMode = CameraMode.VideoSource;
                     }

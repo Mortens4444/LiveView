@@ -52,6 +52,10 @@ namespace LiveView.Forms
 
         public SaveFileDialog SaveFileDialog => saveFileDialog;
 
+        public ComboBox CbVideoSources => cbVideoSource;
+
+        public Label LblVideoSources => lblVideoSource;
+
         public CameraProperties(IServiceProvider serviceProvider, Camera camera) : base(serviceProvider, typeof(CameraPropertiesPresenter))
         {
             InitializeComponent();

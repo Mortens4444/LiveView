@@ -4,6 +4,7 @@ using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Interfaces;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -438,18 +439,21 @@ namespace LiveView.Presenters
 
         private void DataArrivedEventHandler(object sender, DataArrivedEventArgs e)
         {
+            ICommand lastCommand = null;
             try
             {
                 var commands = CommandFactory.Create(e.Data, e.Socket, mainPresenterDependencies);
                 foreach (var command in commands)
                 {
+                    lastCommand = command;
                     command.Execute();
                     Console.WriteLine($"{command.GetType().Name} executed.");
                 }
             }
             catch (Exception ex)
             {
-                DebugErrorBox.Show(ex);
+                var ioex = new InvalidOperationException($"Cannot execute command: {lastCommand?.GetType().Name ?? "N/A"}", ex);
+                DebugErrorBox.Show(ioex);
             }
         }
 

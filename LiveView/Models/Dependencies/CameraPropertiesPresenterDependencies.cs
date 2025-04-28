@@ -14,10 +14,14 @@ namespace LiveView.Models.Dependencies
             ICameraFunctionRepository cameraFunctionRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             ICameraRepository cameraRepository,
+            IAgentRepository agentRepository,
+            IVideoSourceRepository videoSourceRepository,
             ILogger<CameraProperties> logger)
             : base(generalOptionsRepository, formFactory)
         {
             PermissionManager = permissionManager;
+            AgentRepository = agentRepository;
+            VideoSourceRepository = videoSourceRepository;
             CameraRepository = cameraRepository;
             CameraFunctionRepository = cameraFunctionRepository;
             Logger = logger;
@@ -30,5 +34,9 @@ namespace LiveView.Models.Dependencies
         public ICameraFunctionRepository CameraFunctionRepository { get; private set; }
 
         public ILogger<CameraProperties> Logger { get; private set; }
+
+        public IAgentRepository AgentRepository { get; private set; }
+
+        public IVideoSourceRepository VideoSourceRepository { get; private set; }
     }
 }

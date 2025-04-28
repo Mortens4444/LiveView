@@ -302,11 +302,9 @@ namespace LiveView.Presenters
             if (control.Tag is VideoSourceDto videoSource)
             {
                 mapObject.ActionType = MapActionType.OpenVideoSource;
-                var gridCamera = gridCameras.FirstOrDefault(gc => gc.ServerIp == videoSource.Agent.ServerIp && gc.VideoSourceName == videoSource.Name); // These data should not be in GridCamera, but in a separate table VideoSources
-                if (gridCamera != null)
-                {
-                    mapObject.ActionReferencedId = gridCamera.Id; // VideoSource.Id should be saved here
-                }
+                var agent = agentRepository.SelectWhere(new { videoSource.Agent.ServerIp }).FirstOrDefault();
+                var video = videoSourceRepository.SelectWhere(new { AgentId = agent?.Id ?? 0, videoSource.Name }).FirstOrDefault();
+                mapObject.ActionReferencedId = video.Id;
             }
             else if (control.Tag is Map actualMap)
             {

@@ -11,5 +11,10 @@ namespace Database.Models
         public string Name { get; set; }
 
         public int Port { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

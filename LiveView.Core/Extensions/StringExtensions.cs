@@ -11,7 +11,7 @@ namespace LiveView.Core.Extensions
 
         public static ushort GetPortFromEndPoint(this string text)
         {
-            if (UInt16.TryParse(text.Split(':')[1], out var port))
+            if (UInt16.TryParse(text.Split(new char[] { ':', ' ' })[1], out var port))
             {
                 return port;
             }
