@@ -1,0 +1,1 @@
+﻿SELECT a.ServerIp AS ServerIp, vs.Name AS Name FROM VideoSources vs INNER JOIN Agents a ON vs.AgentId = a.Id WHERE vs.Id = @Id;

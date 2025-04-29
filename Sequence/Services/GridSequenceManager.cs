@@ -8,6 +8,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
@@ -413,75 +414,98 @@ namespace Sequence.Services
                             };
 
                         case CameraMode.VideoSource:
-                            return new VideoCaptureSourceCameraInfo
+                            if (camera.VideoSourceId.HasValue)
                             {
-                                GridCamera = gridCamera,
-                                //ServerIp = camera.ServerIp,
-                                //VideoSourceName = camera.VideoSourceName
-                            } as CameraInfo;
-
+                                var videoSourceInfo = videoSourceRepository.SelectVideoSourceInfo(camera.VideoSourceId);
+                                return new VideoCaptureSourceCameraInfo
+                                {
+                                    GridCamera = gridCamera,
+                                    ServerIp = videoSourceInfo?.Item1,
+                                    VideoSourceName = videoSourceInfo?.Item2
+                                } as CameraInfo;
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    var videoSourceInfo = camera.HttpStreamUrl?.GetVideoSourceInfo();
+                                    return new VideoCaptureSourceCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        ServerIp = videoSourceInfo?.Item1,
+                                        VideoSourceName = videoSourceInfo?.Item2
+                                    };
+                                }
+                                catch (ArgumentException)
+                                {
+                                    return new VideoCaptureSourceCameraInfo
+                                    {
+                                        GridCamera = gridCamera
+                                    };
+                                }
+                            }
                         case CameraMode.Vlc:
-                            return new VlcCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Url = camera.HttpStreamUrl
-                            };
+                                    return new VlcCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        Url = camera.HttpStreamUrl
+                                    };
 
-                        case CameraMode.MortoGraphy:
-                            return new MortoGraphyCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Url = camera.HttpStreamUrl
-                            };
+                                case CameraMode.MortoGraphy:
+                                    return new MortoGraphyCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        Url = camera.HttpStreamUrl
+                                    };
 
-                        case CameraMode.FFMpeg:
-                            return new FFMpegCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Url = camera.HttpStreamUrl
-                            };
+                                case CameraMode.FFMpeg:
+                                    return new FFMpegCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        Url = camera.HttpStreamUrl
+                                    };
 
-                        case CameraMode.OpenCvSharp:
-                            return new OpenCvSharpCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Url = camera.HttpStreamUrl
-                            };
+                                case CameraMode.OpenCvSharp:
+                                    return new OpenCvSharpCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        Url = camera.HttpStreamUrl
+                                    };
 
-                        case CameraMode.OpenCvSharp4:
-                            return new OpenCvSharp4CameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Url = camera.HttpStreamUrl
-                            };
+                                case CameraMode.OpenCvSharp4:
+                                    return new OpenCvSharp4CameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        Url = camera.HttpStreamUrl
+                                    };
 
-                        case CameraMode.SunellLegacyCamera:
-                            return new SunellLegacyCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                CameraIp = camera.IpAddress,
-                                CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                Username = camera.Username,
-                                Password = camera.Password,
-                                CameraId = camera.CameraId ?? 1,
-                                StreamId = camera.StreamId ?? 1
-                            };
+                                case CameraMode.SunellLegacyCamera:
+                                    return new SunellLegacyCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        CameraIp = camera.IpAddress,
+                                        CameraPort = SunellLegacyCameraInfo.PagoPort,
+                                        Username = camera.Username,
+                                        Password = camera.Password,
+                                        CameraId = camera.CameraId ?? 1,
+                                        StreamId = camera.StreamId ?? 1
+                                    };
 
-                        case CameraMode.SunellCamera:
-                            return new SunellCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                CameraIp = camera.IpAddress,
-                                CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                Username = camera.Username,
-                                Password = camera.Password,
-                                CameraId = camera.CameraId ?? 1,
-                                StreamId = camera.StreamId ?? 1
-                            };
+                                case CameraMode.SunellCamera:
+                                    return new SunellCameraInfo
+                                    {
+                                        GridCamera = gridCamera,
+                                        CameraIp = camera.IpAddress,
+                                        CameraPort = SunellLegacyCameraInfo.PagoPort,
+                                        Username = camera.Username,
+                                        Password = camera.Password,
+                                        CameraId = camera.CameraId ?? 1,
+                                        StreamId = camera.StreamId ?? 1
+                                    };
 
-                        default:
-                            throw new NotSupportedException($"CameraMode is not supported: {gridCamera.CameraMode}");
-                    }
+                                default:
+                                    throw new NotSupportedException($"CameraMode is not supported: {gridCamera.CameraMode}");
+                                }
                 })
                 .ToList();
         }

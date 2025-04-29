@@ -1,7 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
 using Mtf.Database;
-using System.Linq;
 
 namespace Database.Repositories
 {
@@ -9,7 +8,7 @@ namespace Database.Repositories
     {
         public Display GetFullscreenDisplay()
         {
-            return SelectAll().FirstOrDefault(d => d.Fullscreen);
+            return QuerySingleOrDefault("SelectFullscreenDisplay");
         }
     }
 }

@@ -149,15 +149,9 @@ namespace CameraForms.Forms
             if (url.IndexOf('|') > 0)
             {
                 var videoSourceNameInfo = url.Split('|');
-                var agent = agentRepository.SelectWhere(new { ServerIp = videoSourceNameInfo[0] }).FirstOrDefault();
-                if (agent != null)
-                {
-                    var videoSource = videoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoSourceNameInfo[1] }).FirstOrDefault();
-                    if (videoSource != null)
-                    {
-                        url = $"{videoSourceNameInfo[0]}:{videoSource.Port}";
-                    }
-                }
+
+                var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoSourceNameInfo[0], videoSourceNameInfo[1]);
+                url = $"{videoSourceInfo.Item1.ServerIp}:{videoSourceInfo.Item2.Port}";
             }
             mortoGraphyWindow.Start(url);
         }

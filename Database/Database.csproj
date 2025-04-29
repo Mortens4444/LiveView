@@ -32,6 +32,7 @@
     <EmbeddedResource Include="Scripts\MigrationAlterTableGridCameras.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropLogsTableColumn.sql" />
     <EmbeddedResource Include="Scripts\SelectAgent.sql" />
+    <EmbeddedResource Include="Scripts\SelectFullscreenDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
     <EmbeddedResource Include="Scripts\SelectSequenceCameraCount.sql" />
@@ -61,9 +62,12 @@
     <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
     <EmbeddedResource Include="Scripts\HasAnyRowOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectVideoSourceAndAgentInfoByName.sql" />
+    <EmbeddedResource Include="Scripts\SelectVideoSourceAndAgentInfo.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
+    <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
@@ -202,7 +206,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Database" Version="2.0.36" />
+    <PackageReference Include="Mtf.Database" Version="2.0.38" />
   </ItemGroup>
 
 </Project>

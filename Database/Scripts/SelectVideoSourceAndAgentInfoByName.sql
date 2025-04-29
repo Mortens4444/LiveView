@@ -1,0 +1,1 @@
+﻿SELECT a.Id AS AgentId, a.ServerIp AS ServerIp, a.AgentPort AS AgentPort, a.VncServerPort AS VncServerPort, vs.Id AS VideoSourceId, vs.Name AS VideoSourceName, vs.Port AS VideoSourcePort FROM VideoSources vs INNER JOIN Agents a ON vs.AgentId = a.Id WHERE a.ServerIp = @ServerIp AND vs.Name = @VideoSourceName;

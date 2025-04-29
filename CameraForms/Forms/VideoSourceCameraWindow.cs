@@ -19,6 +19,7 @@ using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -185,15 +186,15 @@ namespace CameraForms.Forms
                 {
                     try
                     {
-                        agent = agentRepository.SelectWhere(new { videoCaptureSourceCameraInfo.ServerIp }).FirstOrDefault();
+                        var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoCaptureSourceCameraInfo.ServerIp, videoCaptureSourceCameraInfo.VideoSourceName);
+                        agent = videoSourceInfo?.Item1;
                         if (agent == null)
                         {
                             ErrorBox.Show(Lng.Elem("General error"), String.Concat(Lng.Elem("Agent not found."), " ", videoCaptureSourceCameraInfo));
                             break;
                         }
 
-                        videoSource = videoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoCaptureSourceCameraInfo.VideoSourceName }).FirstOrDefault();
-                        //videoSource = videoSources.FirstOrDefault(a => NetUtils.AreTheSameIp(a.ServerIp, videoCaptureSourceCameraInfo.ServerIp) && a.VideoSourceName == videoCaptureSourceCameraInfo.VideoSourceName);
+                        videoSource = videoSourceInfo?.Item2;
                         if (videoSource == null)
                         {
                             var message = String.Format(Lng.Elem("VideoSource ({0}) is not registered."), videoCaptureSourceCameraInfo.ToString());

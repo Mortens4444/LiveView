@@ -302,9 +302,10 @@ namespace LiveView.Presenters
             if (control.Tag is VideoSourceDto videoSource)
             {
                 mapObject.ActionType = MapActionType.OpenVideoSource;
-                var agent = agentRepository.SelectWhere(new { videoSource.Agent.ServerIp }).FirstOrDefault();
-                var video = videoSourceRepository.SelectWhere(new { AgentId = agent?.Id ?? 0, videoSource.Name }).FirstOrDefault();
-                mapObject.ActionReferencedId = video.Id;
+                var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoSource.Agent.ServerIp, videoSource.Name);
+                var agent = videoSourceInfo?.Item1;
+                var video = videoSourceInfo?.Item2;
+                mapObject.ActionReferencedId = video?.Id ?? 0;
             }
             else if (control.Tag is Map actualMap)
             {

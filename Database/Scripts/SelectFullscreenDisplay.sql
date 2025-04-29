@@ -1,0 +1,1 @@
+﻿SELECT TOP 1 * FROM Displays WHERE Fullscreen = 1;
