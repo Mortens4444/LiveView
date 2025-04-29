@@ -1,5 +1,6 @@
 ﻿using Mtf.Controls.Sunell.IPR66.CustomEventArgs;
 using Mtf.Controls.Sunell.IPR66.SunellSdk;
+using Mtf.MessageBoxes;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -409,7 +410,14 @@ namespace Mtf.Controls.Sunell.IPR66
         {
             if (errorCode != 0)
             {
-                throw new AggregateException($"ErrorCode: {errorCode}, {callerFunction} in {callerFile}, line {callerLine}", new InvalidOperationException(NvdcDll.GetErrorMessage(errorCode)));
+                try
+                {
+                    throw new InvalidOperationException($"ErrorCode: {errorCode}, {callerFunction} in {callerFile}, line {callerLine}{Environment.NewLine}Message: {NvdcDll.GetErrorMessage(errorCode)}");
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
         }
     }

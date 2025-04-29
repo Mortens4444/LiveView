@@ -4,6 +4,8 @@ namespace LiveView.Core.Extensions
 {
     public static class StringExtensions
     {
+        private static readonly char[] separator = new char[] { ':', ' ' };
+
         public static string GetIpAddessFromEndPoint(this string text)
         {
             return text.Split(':')[0];
@@ -11,7 +13,7 @@ namespace LiveView.Core.Extensions
 
         public static ushort GetPortFromEndPoint(this string text)
         {
-            if (UInt16.TryParse(text.Split(new char[] { ':', ' ' })[1], out var port))
+            if (UInt16.TryParse(text.Split(separator)[1], out var port))
             {
                 return port;
             }

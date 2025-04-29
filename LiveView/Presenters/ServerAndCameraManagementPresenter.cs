@@ -1,4 +1,5 @@
-﻿using Database.Enums;
+﻿using Accord;
+using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
@@ -79,8 +80,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to modify video server.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to modify video server.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is Camera camera)
@@ -94,8 +96,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is DatabaseServer databaseServer)
@@ -109,8 +112,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 Load();
@@ -136,8 +140,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to delete video server.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to delete video server.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is Camera camera)
@@ -154,8 +159,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to delete camera.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to delete camera.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is DatabaseServer databaseServer)
@@ -172,8 +178,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to delete database server.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to delete database server.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else
@@ -245,8 +252,9 @@ namespace LiveView.Presenters
             }
             else
             {
-                logger.LogError("User '{0}' has no permission to syncronize cameras.", permissionManager.CurrentUser);
-                throw new UnauthorizedAccessException();
+                var message = String.Format("User '{0}' has no permission to syncronize cameras.", permissionManager.CurrentUser);
+                logger.LogError(message);
+                throw new UnauthorizedAccessException(message);
             }
         }
 
@@ -375,8 +383,9 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    logger.LogError("User '{0}' has no permission to view server and camera properties.", permissionManager.CurrentUser);
-                    throw new UnauthorizedAccessException();
+                    var message = String.Format("User '{0}' has no permission to view server and camera properties.", permissionManager.CurrentUser);
+                    logger.LogError(message);
+                    throw new UnauthorizedAccessException(message);
                 }
             }
             else if (view.ServersAndCameras.SelectedNode?.Tag is Camera camera)
@@ -390,8 +399,9 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    logger.LogError("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
-                    throw new UnauthorizedAccessException();
+                    var message = String.Format("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
+                    logger.LogError(message);
+                    throw new UnauthorizedAccessException(message);
                 }
             }
         }

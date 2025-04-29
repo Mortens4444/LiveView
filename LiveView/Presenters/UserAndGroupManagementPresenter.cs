@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Accord;
+using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
 using LiveView.Extensions;
@@ -64,8 +65,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to delete group.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to delete group.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is User user)
@@ -88,8 +90,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to delete user.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to delete user.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else
@@ -187,8 +190,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to modify group.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to modify group.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 else if (node.Tag is User user)
@@ -205,8 +209,9 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        logger.LogError("User '{0}' has no permission to modify user.", permissionManager.CurrentUser);
-                        throw new UnauthorizedAccessException();
+                        var message = String.Format("User '{0}' has no permission to modify user.", permissionManager.CurrentUser);
+                        logger.LogError(message);
+                        throw new UnauthorizedAccessException(message);
                     }
                 }
                 Load();

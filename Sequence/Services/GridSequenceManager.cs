@@ -480,7 +480,7 @@ namespace Sequence.Services
                             };
 
                         default:
-                            throw new NotSupportedException();
+                            throw new NotSupportedException($"CameraMode is not supported: {gridCamera.CameraMode}");
                     }
                 })
                 .ToList();

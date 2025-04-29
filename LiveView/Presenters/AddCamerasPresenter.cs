@@ -118,7 +118,7 @@ namespace LiveView.Presenters
                     return i;
                 }
             }
-            throw new InvalidOperationException();
+            throw new InvalidOperationException($"Unable to retrieve recorder index of camera: {cameraName}");
         }
     }
 }

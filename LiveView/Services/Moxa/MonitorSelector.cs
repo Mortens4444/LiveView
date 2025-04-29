@@ -27,7 +27,7 @@ namespace LiveView.Services.Moxa
                     SelectMonitors(MonitorAddress.Monitor03, MonitorAddress.Monitor06, MonitorAddress.Monitor09, MonitorAddress.Monitor12);
                     break;
                 default:
-                    throw new NotSupportedException();
+                    throw new NotSupportedException($"LiveView is not supported: {liveView}");
             }
         }
 

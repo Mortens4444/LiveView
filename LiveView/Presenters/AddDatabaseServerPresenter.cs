@@ -1,4 +1,5 @@
-﻿using Database.Interfaces;
+﻿using Accord;
+using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -45,8 +46,9 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    logger.LogError("User '{0}' has no permission to create database server.", permissionManager.CurrentUser);
-                    throw new UnauthorizedAccessException();
+                    var message = String.Format("User '{0}' has no permission to create database server.", permissionManager.CurrentUser);
+                    logger.LogError(message);
+                    throw new UnauthorizedAccessException(message);
                 }
             }
             else
@@ -59,8 +61,9 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    logger.LogError("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
-                    throw new UnauthorizedAccessException();
+                    var message = String.Format("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
+                    logger.LogError(message);
+                    throw new UnauthorizedAccessException(message);
                 }
             }
         }

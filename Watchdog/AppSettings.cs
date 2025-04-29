@@ -14,7 +14,7 @@ namespace Watchdog
         {
             if (args == null || args.Length == 0)
             {
-                throw new ArgumentException($"Missing process path. {Environment.NewLine}Usage: {AppDomain.CurrentDomain.FriendlyName} ProcessPath MinimumCpuUsage");
+                throw new ArgumentException($"Missing process path.{Environment.NewLine}Usage: {AppDomain.CurrentDomain.FriendlyName} ProcessPath [MinimumCpuUsage]");
             }
 
             var settings = new AppSettings
