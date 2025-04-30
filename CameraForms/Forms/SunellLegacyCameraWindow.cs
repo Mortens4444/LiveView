@@ -4,7 +4,6 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -26,6 +25,7 @@ namespace CameraForms.Forms
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly ICameraRepository cameraRepository;
         private readonly PermissionManager<User> permissionManager;
 
         private Rectangle rectangle;
@@ -64,6 +64,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
@@ -75,8 +76,7 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
-            var camerasRepository = new CameraRepository();
-            var camera = camerasRepository.Select(cameraId);
+            var camera = cameraRepository.Select(cameraId);
             sunellLegacyCameraInfo = new SunellLegacyCameraInfo
             {
                 CameraIp = camera.IpAddress,
@@ -163,13 +163,12 @@ namespace CameraForms.Forms
                     {
                         sunellVideoWindowLegacy1.PTZ_Stop();
                     }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
+                    //else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
+                    //{
+                    //}
+                    //else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
+                    //{
+                    //}
                     else
                     {
                         ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
@@ -230,7 +229,7 @@ namespace CameraForms.Forms
             }
             if (gridCamera?.ShowDateTime ?? false)
             {
-                sunellVideoWindowLegacy1.OverlayText += DateTime.Now.ToString();
+                sunellVideoWindowLegacy1.OverlayText += $" {DateTime.Now:yyyy.MM.dd HH:mm:ss}";
             }
 
             sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;

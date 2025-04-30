@@ -24,7 +24,7 @@ namespace LiveView.Core.Services
             try
             {
                 BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
-                return true;
+                return BaseRepository.ConnectionString != null;
             }
             catch (Exception ex)
             {

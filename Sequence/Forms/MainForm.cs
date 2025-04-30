@@ -114,9 +114,9 @@ namespace Sequence.Forms
             HandleCreated += MainForm_HandleCreated;
         }
 
-        private void MainForm_HandleCreated(object sender, EventArgs e)
+        private async void MainForm_HandleCreated(object sender, EventArgs e)
         {
-            gridSequenceManager.StartSequence(sequenceId);
+            await gridSequenceManager.StartSequenceAsync(sequenceId).ConfigureAwait(false);
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)

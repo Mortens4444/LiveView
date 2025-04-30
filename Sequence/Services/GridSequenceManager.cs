@@ -1,6 +1,4 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Forms;
-using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
@@ -8,18 +6,17 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
-using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Permissions.Services;
-using Sequence.Dto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,15 +36,11 @@ namespace Sequence.Services
         private readonly DisplayDto display;
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
-        private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-        private readonly IServerRepository serverRepository;
-        private readonly ICameraRepository cameraRepository;
-        private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly bool isMdi;
         private readonly Client client;
-        
+        private readonly CameraWindowBuilder cameraWindowBuilder;
+
         private List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int currentGridIndex;
@@ -76,21 +69,19 @@ namespace Sequence.Services
             //this.isMdi = false;
 
             this.permissionManager = permissionManager;
-            this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
-            this.cameraRepository = cameraRepository;
-            this.cameraFunctionRepository = cameraFunctionRepository;
-            this.serverRepository = serverRepository;
-            this.personalOptionsRepository = personalOptionsRepository;
             this.logger = logger;
 
-            servers = serverRepository.SelectAll();
-            allCameras = cameraRepository.SelectAll();
-            gridCameras = gridCameraRepository.SelectAll();
+            servers = serverRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(serverRepository));
+            allCameras = cameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(cameraRepository));
+            gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
             //StartSequence(sequenceId);
+
+            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
+                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository);
         }
 
-        public void StartSequence(long sequenceId)
+        public async Task StartSequenceAsync(long sequenceId)
         {
             var sequenceRepository = new SequenceRepository();
             var gridInSequeneRepository = new GridInSequenceRepository();
@@ -132,7 +123,7 @@ namespace Sequence.Services
             Dispose(false);
         }
 
-        protected virtual async void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (Interlocked.Exchange(ref disposed, 1) == 0 && disposing)
             {
@@ -179,110 +170,15 @@ namespace Sequence.Services
                 {
                     if (parentForm.InvokeRequired)
                     {
-                        parentForm.Invoke((Action)(() => ShowVideoWindow(result, camera, gridInSequence)));
+                        parentForm.Invoke((Action)(() => cameraWindowBuilder.ShowVideoWindow(client, display, parentForm, result, camera, gridInSequence, cancellationTokenSource)));
                     }
                     else
                     {
-                        ShowVideoWindow(result, camera, gridInSequence);
+                        cameraWindowBuilder.ShowVideoWindow(client, display, parentForm, result, camera, gridInSequence, cancellationTokenSource);
                     }
                 });
             }
             return result;
-        }
-
-        private void ShowVideoWindow(List<Form> result, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence)
-        {
-            try
-            {
-                Form videoForm = null;
-
-                if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera, cancellationTokenSource.Token)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VideoSourceCameraWindow(client, permissionManager, cameraFunctionRepository, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new FFMpegCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, fFMpegCameraInfo.Url, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyCameraWindow(permissionManager, agentRepository, cameraRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is VlcCameraInfo vlcCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VlcCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, vlcCameraInfo.Url, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharpCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, openCvSharpCameraInfo.Url, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new OpenCvSharp4CameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, openCvSharp4CameraInfo.Url, rectangle, camera.GridCamera)
-                    {
-                        MdiParent = parentForm
-                    };
-                }
-                else if (camera is SunellCameraInfo sunellCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellCameraWindow(permissionManager, personalOptionsRepository, sunellCameraInfo, rectangle, camera.GridCamera)
-                    {
-                        TopMost = true
-                    };
-                }
-                else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    videoForm = new SunellLegacyCameraWindow(permissionManager, personalOptionsRepository, sunellLegacyCameraInfo, rectangle, camera.GridCamera)
-                    {
-                        TopMost = true
-                    };
-                }
-
-                if (videoForm != null)
-                {
-                    videoForm.Show();
-                    result.Add(videoForm);
-                }
-            }
-            catch (Exception ex)
-            {
-#if NET6_0_OR_GREATER
-                logger.LogError(ex, "Cannot open video window.");
-#else
-                logger.LogError($"Cannot open video window: {ex}");
-#endif
-            }
         }
 
         private List<Process> ShowGridOnScreen((Grid grid, GridInSequence gridInSequence) gridInSequence)
@@ -295,42 +191,8 @@ namespace Sequence.Services
                 Task.Run(() =>
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoPictureCameraInfo.Camera.Id} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is VideoCaptureSourceCameraInfo videoCatureSourceCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {videoCatureSourceCameraInfo.ServerIp} {videoCatureSourceCameraInfo.VideoSourceName} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is FFMpegCameraInfo fFMpegCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {fFMpegCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {mortoGraphyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is VlcCameraInfo vlcCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {vlcCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is OpenCvSharpCameraInfo openCvSharpCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharpCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is OpenCvSharp4CameraInfo openCvSharp4CameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {openCvSharp4CameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is SunellCameraInfo sunellCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
-                    else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
-                    {
-                        result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {sunellLegacyCameraInfo.GridCamera.CameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                    }
+                    var cameraId = camera is VideoCaptureSourceCameraInfo videoCatureSourceCameraInfo ? $"{videoCatureSourceCameraInfo.ServerIp} {videoCatureSourceCameraInfo.VideoSourceName}" : camera.GridCamera.CameraId?.ToString(CultureInfo.InvariantCulture) ?? "0";
+                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {cameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
                 });
             }
             return result;
@@ -403,109 +265,8 @@ namespace Sequence.Services
                 .Select(gridCamera =>
                 {
                     var camera = allCameras.First(c => c.Id == gridCamera.CameraId);
-                    switch (gridCamera.CameraMode)
-                    {
-                        case CameraMode.AxVideoPlayer:
-                            return new AxVideoPictureCameraInfo
-                            {
-                                GridCamera = gridCamera,
-                                Camera = camera,
-                                Server = servers.First(s => s.Id == camera.ServerId)
-                            };
-
-                        case CameraMode.VideoSource:
-                            if (camera.VideoSourceId.HasValue)
-                            {
-                                var videoSourceInfo = videoSourceRepository.SelectVideoSourceInfo(camera.VideoSourceId);
-                                return new VideoCaptureSourceCameraInfo
-                                {
-                                    GridCamera = gridCamera,
-                                    ServerIp = videoSourceInfo?.Item1,
-                                    VideoSourceName = videoSourceInfo?.Item2
-                                } as CameraInfo;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    var videoSourceInfo = camera.HttpStreamUrl?.GetVideoSourceInfo();
-                                    return new VideoCaptureSourceCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        ServerIp = videoSourceInfo?.Item1,
-                                        VideoSourceName = videoSourceInfo?.Item2
-                                    };
-                                }
-                                catch (ArgumentException)
-                                {
-                                    return new VideoCaptureSourceCameraInfo
-                                    {
-                                        GridCamera = gridCamera
-                                    };
-                                }
-                            }
-                        case CameraMode.Vlc:
-                                    return new VlcCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        Url = camera.HttpStreamUrl
-                                    };
-
-                                case CameraMode.MortoGraphy:
-                                    return new MortoGraphyCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        Url = camera.HttpStreamUrl
-                                    };
-
-                                case CameraMode.FFMpeg:
-                                    return new FFMpegCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        Url = camera.HttpStreamUrl
-                                    };
-
-                                case CameraMode.OpenCvSharp:
-                                    return new OpenCvSharpCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        Url = camera.HttpStreamUrl
-                                    };
-
-                                case CameraMode.OpenCvSharp4:
-                                    return new OpenCvSharp4CameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        Url = camera.HttpStreamUrl
-                                    };
-
-                                case CameraMode.SunellLegacyCamera:
-                                    return new SunellLegacyCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        CameraIp = camera.IpAddress,
-                                        CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                        Username = camera.Username,
-                                        Password = camera.Password,
-                                        CameraId = camera.CameraId ?? 1,
-                                        StreamId = camera.StreamId ?? 1
-                                    };
-
-                                case CameraMode.SunellCamera:
-                                    return new SunellCameraInfo
-                                    {
-                                        GridCamera = gridCamera,
-                                        CameraIp = camera.IpAddress,
-                                        CameraPort = SunellLegacyCameraInfo.PagoPort,
-                                        Username = camera.Username,
-                                        Password = camera.Password,
-                                        CameraId = camera.CameraId ?? 1,
-                                        StreamId = camera.StreamId ?? 1
-                                    };
-
-                                default:
-                                    throw new NotSupportedException($"CameraMode is not supported: {gridCamera.CameraMode}");
-                                }
+                    var videoSourceInfo = videoSourceRepository.SelectVideoSourceInfo(camera.VideoSourceId);
+                    return CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, videoSourceInfo);
                 })
                 .ToList();
         }
