@@ -1,7 +1,6 @@
 ﻿using CameraForms.Dto;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Enums.Network;
@@ -37,6 +36,11 @@ namespace Sequence.Services
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
         private readonly IVideoSourceRepository videoSourceRepository;
+        private readonly IGeneralOptionsRepository generalOptionsRepository;
+        private readonly ISequenceRepository sequenceRepository;
+        private readonly IGridInSequenceRepository gridInSequeneRepository;
+        private readonly IGridRepository gridRepository;
+
         private readonly bool isMdi;
         private readonly Client client;
         private readonly CameraWindowBuilder cameraWindowBuilder;
@@ -52,6 +56,9 @@ namespace Sequence.Services
         public bool Invalid { get; private set; }
 
         public GridSequenceManager(PermissionManager<User> permissionManager,
+            ISequenceRepository sequenceRepository,
+            IGridInSequenceRepository gridInSequeneRepository,
+            IGridRepository gridRepository,
             IAgentRepository agentRepository,
             IVideoSourceRepository videoSourceRepository,
             IServerRepository serverRepository,
@@ -59,6 +66,7 @@ namespace Sequence.Services
             ICameraFunctionRepository cameraFunctionRepository,
             IGridCameraRepository gridCameraRepository,
             IPersonalOptionsRepository personalOptionsRepository,
+            IGeneralOptionsRepository generalOptionsRepository,
             ILogger<GridSequenceManager> logger,
             Client client, Form parentForm, DisplayDto display, bool isMdi)
         {
@@ -70,6 +78,10 @@ namespace Sequence.Services
 
             this.permissionManager = permissionManager;
             this.videoSourceRepository = videoSourceRepository;
+            this.sequenceRepository = sequenceRepository;
+            this.gridInSequeneRepository = gridInSequeneRepository;
+            this.gridRepository = gridRepository;
+            this.generalOptionsRepository = generalOptionsRepository;
             this.logger = logger;
 
             servers = serverRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(serverRepository));
@@ -78,14 +90,11 @@ namespace Sequence.Services
             //StartSequence(sequenceId);
 
             cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
-                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository);
+                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
         }
 
         public async Task StartSequenceAsync(long sequenceId)
         {
-            var sequenceRepository = new SequenceRepository();
-            var gridInSequeneRepository = new GridInSequenceRepository();
-            var gridRepository = new GridRepository();
             var sequence = sequenceRepository.Select(sequenceId);
             if (sequence == null)
             {

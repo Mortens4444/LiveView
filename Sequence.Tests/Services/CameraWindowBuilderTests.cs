@@ -28,6 +28,7 @@ namespace Sequence.Tests.Services
         private ICameraFunctionRepository cameraFunctionRepository;
         private IPersonalOptionsRepository personalOptionsRepository;
         private IVideoSourceRepository videoSourceRepository;
+        private IGeneralOptionsRepository generalOptionsRepository;
 
         [SetUp]
         public void SetUp()
@@ -42,9 +43,10 @@ namespace Sequence.Tests.Services
             cameraFunctionRepository = new CameraFunctionRepository();
             personalOptionsRepository = new PersonalOptionsRepository();
             videoSourceRepository = new VideoSourceRepository();
+            generalOptionsRepository = new GeneralOptionsRepository();
 
             builder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
-                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository);
+                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
         }
 
         [Test]
@@ -56,7 +58,7 @@ namespace Sequence.Tests.Services
                 Server = new Server(),
                 GridCamera = new GridCamera()
             };
-            RunTest(camera);
+           RunTest(camera);
         }
 
         [Test]
@@ -186,6 +188,11 @@ namespace Sequence.Tests.Services
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsInstanceOf<Form>(result[0]);
+
+            foreach (var form in result)
+            {
+                form.Close();
+            }
         }
     }
 }

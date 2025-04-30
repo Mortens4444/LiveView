@@ -21,7 +21,6 @@ namespace CameraForms.Forms
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly PermissionManager<User> permissionManager;
-        private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
 
@@ -57,24 +56,24 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
+            Initialize(cameraLaunchContext.UserId, camera, display, true);
         }
 
-        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
         {
-            var camera = cameraRepository.Select(cameraId);
             url = camera.HttpStreamUrl;
 
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
-                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.Vlc, cameraFunctionRepository);
+                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, camera.Id, this, display, CameraMode.Vlc, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();

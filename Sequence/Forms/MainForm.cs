@@ -1,7 +1,6 @@
 using CameraForms.Extensions;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -90,7 +89,7 @@ namespace Sequence.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
             //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
 
-            var displayRepository = new DisplayRepository();
+            var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display not found in repository with Id '{displayId}'.");
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();
@@ -101,6 +100,9 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
+            var sequenceRepository = serviceProvider.GetRequiredService<ISequenceRepository>();
+            var gridRepository = serviceProvider.GetRequiredService<IGridRepository>();
+            var gridInSequenceRepository = serviceProvider.GetRequiredService<IGridInSequenceRepository>();
             var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             var cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
@@ -109,8 +111,9 @@ namespace Sequence.Forms
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
             var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
+            var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, agentRepository, videoSourceRepository, serverRepository, cameraRepository, cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
+            gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, gridInSequenceRepository, gridRepository, agentRepository, videoSourceRepository, serverRepository, cameraRepository, cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, generalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }
 

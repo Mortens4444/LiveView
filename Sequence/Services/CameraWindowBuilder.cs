@@ -26,11 +26,12 @@ namespace Sequence.Services
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
+        private readonly IGeneralOptionsRepository generalOptionsRepository;
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
             IServerRepository serverRepository, ICameraRepository cameraRepository, IAgentRepository agentRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
-            IVideoSourceRepository videoSourceRepository)
+            IVideoSourceRepository videoSourceRepository, IGeneralOptionsRepository generalOptionsRepository)
         {
             this.permissionManager = permissionManager;
             this.logger = logger;
@@ -40,6 +41,7 @@ namespace Sequence.Services
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.videoSourceRepository = videoSourceRepository;
+            this.generalOptionsRepository = generalOptionsRepository;
         }
 
         public void ShowVideoWindow(Client client, DisplayDto display, Form parentForm, List<Form> result, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
@@ -51,7 +53,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera, cancellationTokenSource.Token)
+                    videoForm = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera, cancellationTokenSource.Token)
                     {
                         MdiParent = parentForm
                     };

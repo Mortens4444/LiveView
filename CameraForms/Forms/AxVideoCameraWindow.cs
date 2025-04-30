@@ -34,6 +34,7 @@ namespace CameraForms.Forms
         private readonly ICameraRepository cameraRepository;
         private readonly IServerRepository serverRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly IGeneralOptionsRepository generalOptionsRepository;
 
         private readonly Database.Models.Server server;
         private readonly Camera camera;
@@ -42,8 +43,8 @@ namespace CameraForms.Forms
         private GridCamera gridCamera;
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, IServerRepository serverRepository, ICameraRepository cameraRepository,
-            IPersonalOptionsRepository personalOptionsRepository, Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera,
-            CancellationToken cancellationToken)
+            IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
+            Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera, CancellationToken cancellationToken)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -57,6 +58,7 @@ namespace CameraForms.Forms
             this.cameraRepository = cameraRepository;
             this.serverRepository = serverRepository;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.generalOptionsRepository = generalOptionsRepository;
             
             cameraId = camera?.Id ?? 0;
             Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, false);
@@ -79,6 +81,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
+            generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
             cameraId = cameraLaunchContext.CameraId;
             Initialize(cameraLaunchContext.UserId, cameraId, true);
 
@@ -90,7 +93,6 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, long cameraId, bool fullScreen)
         {
-            var generalOptionsRepository = new GeneralOptionsRepository();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
             if (fullScreen)

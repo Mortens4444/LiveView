@@ -25,7 +25,6 @@ namespace CameraForms.Forms
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly ICameraRepository cameraRepository;
         private readonly PermissionManager<User> permissionManager;
 
         private Rectangle rectangle;
@@ -64,19 +63,20 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
+            Initialize(cameraLaunchContext.UserId, camera, display, true);
         }
 
-        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
         {
-            var camera = cameraRepository.Select(cameraId);
             sunellLegacyCameraInfo = new SunellLegacyCameraInfo
             {
                 CameraIp = camera.IpAddress,
@@ -90,7 +90,7 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
-                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+                client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();

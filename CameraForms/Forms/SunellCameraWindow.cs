@@ -4,7 +4,6 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -62,19 +61,19 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
+            Initialize(cameraLaunchContext.UserId, camera, display, true);
         }
 
-        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
         {
-            var camerasRepository = new CameraRepository();
-            var camera = camerasRepository.Select(cameraId);
             sunellCameraInfo = new SunellCameraInfo
             {
                 CameraIp = camera.IpAddress,
@@ -88,7 +87,7 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
-                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
+                client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
                 Application.ApplicationExit += (sender, e) => OnExit();
