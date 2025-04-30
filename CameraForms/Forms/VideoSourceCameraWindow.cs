@@ -18,8 +18,6 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -283,7 +281,14 @@ namespace CameraForms.Forms
         {
             if (videoCaptureSourceCameraInfo.IsEmpty())
             {
-                throw new InvalidOperationException("Server and video capture source not initialized.");
+                try
+                {
+                    throw new InvalidOperationException("Server and video capture source not initialized.");
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
 
             StartVideoCaptureImageReceiver();

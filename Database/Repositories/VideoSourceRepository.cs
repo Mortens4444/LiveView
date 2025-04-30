@@ -20,6 +20,10 @@ namespace Database.Repositories
         public Tuple<Agent, VideoSource> SelectVideoSourceAndAgentInfoByName(string serverIp, string videoSourceName)
         {
             dynamic info = QuerySingleOrDefaultWithDynamic("SelectVideoSourceAndAgentInfoByName", new { ServerIp = serverIp, VideoSourceName = videoSourceName });
+            if (info == null)
+            {
+                return new Tuple<Agent, VideoSource>(null, null);
+            }
             return new Tuple<Agent, VideoSource>(
                 new Agent
                 {

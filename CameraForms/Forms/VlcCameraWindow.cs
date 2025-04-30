@@ -9,6 +9,7 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Enums;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -113,14 +114,28 @@ namespace CameraForms.Forms
                 vlcWindow.OverlayText += DateTime.Now.ToString();
             }
 
-            vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
+            try
+            {
+                vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void OnExit()
         {
             kBD300ASimulatorServer?.Stop();
-            vlcWindow.Stop();
             fullScreenCameraMessageHandler?.Exit();
+            try
+            {
+                vlcWindow.Stop();
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void VlcCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
