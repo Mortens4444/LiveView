@@ -83,7 +83,7 @@
             Name = "VideoSourceCameraWindow";
             ShowIcon = false;
             ShowInTaskbar = false;
-            Text = "FullScreenCamera";
+            Text = "";
             TopMost = true;
             FormClosing += VideoSourceCameraWindow_FormClosing;
             Load += VideoSourceCameraWindow_Load;

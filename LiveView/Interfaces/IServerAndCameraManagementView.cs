@@ -7,6 +7,8 @@ namespace LiveView.Interfaces
     {
         TreeView ServersAndCameras { get; }
 
+        Button BtnNewCamera { get; }
+
         Button BtnModify { get; }
 
         Button BtnRemove { get; }

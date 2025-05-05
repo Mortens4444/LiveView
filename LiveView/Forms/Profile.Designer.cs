@@ -48,7 +48,6 @@
             tbFullName = new System.Windows.Forms.TextBox();
             lblFullName = new System.Windows.Forms.Label();
             pbPicture = new Mtf.Controls.MtfPictureBox();
-            lblSizeMode = new System.Windows.Forms.Label();
             btnSelectPicture = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
@@ -74,7 +73,7 @@
             tbCurrentPassword.PasswordChar = '*';
             tbCurrentPassword.ShowRealPasswordLength = false;
             tbCurrentPassword.Size = new System.Drawing.Size(176, 23);
-            tbCurrentPassword.TabIndex = 3;
+            tbCurrentPassword.TabIndex = 2;
             // 
             // lblCurrentPassword
             // 
@@ -126,7 +125,7 @@
             tbNewPassword.PasswordChar = '*';
             tbNewPassword.ShowRealPasswordLength = false;
             tbNewPassword.Size = new System.Drawing.Size(176, 23);
-            tbNewPassword.TabIndex = 5;
+            tbNewPassword.TabIndex = 3;
             // 
             // lblNewPassword
             // 
@@ -159,7 +158,7 @@
             tbLicensePlate.MaxLength = 50;
             tbLicensePlate.Name = "tbLicensePlate";
             tbLicensePlate.Size = new System.Drawing.Size(176, 23);
-            tbLicensePlate.TabIndex = 11;
+            tbLicensePlate.TabIndex = 8;
             // 
             // lblLicensePlate
             // 
@@ -221,7 +220,7 @@
             tbEmailAddress.MaxLength = 200;
             tbEmailAddress.Name = "tbEmailAddress";
             tbEmailAddress.Size = new System.Drawing.Size(176, 23);
-            tbEmailAddress.TabIndex = 5;
+            tbEmailAddress.TabIndex = 6;
             // 
             // lblEmailAddress
             // 
@@ -242,7 +241,7 @@
             tbAddress.MaxLength = 200;
             tbAddress.Name = "tbAddress";
             tbAddress.Size = new System.Drawing.Size(176, 23);
-            tbAddress.TabIndex = 3;
+            tbAddress.TabIndex = 5;
             // 
             // lblAddress
             // 
@@ -263,7 +262,7 @@
             tbFullName.MaxLength = 100;
             tbFullName.Name = "tbFullName";
             tbFullName.Size = new System.Drawing.Size(176, 23);
-            tbFullName.TabIndex = 1;
+            tbFullName.TabIndex = 4;
             // 
             // lblFullName
             // 
@@ -280,35 +279,30 @@
             // 
             pbPicture.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             pbPicture.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            pbPicture.BackgroundPaintDebounceIntervalInMs = 0;
             pbPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             pbPicture.Location = new System.Drawing.Point(7, 46);
             pbPicture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pbPicture.Name = "pbPicture";
             pbPicture.OriginalSize = new System.Drawing.Size(100, 50);
+            pbPicture.PaintDebounceIntervalInMs = 0;
             pbPicture.RepositioningAndResizingControlsOnResize = false;
+            pbPicture.ResizeDebounceIntervalInMs = 0;
+            pbPicture.ShowPaintErrors = false;
+            pbPicture.ShowResizeErrors = false;
             pbPicture.Size = new System.Drawing.Size(244, 363);
             pbPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pbPicture.TabIndex = 5;
             pbPicture.TabStop = false;
             // 
-            // lblSizeMode
-            // 
-            lblSizeMode.AutoSize = true;
-            lblSizeMode.Location = new System.Drawing.Point(7, 18);
-            lblSizeMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblSizeMode.Name = "lblSizeMode";
-            lblSizeMode.Size = new System.Drawing.Size(61, 15);
-            lblSizeMode.TabIndex = 3;
-            lblSizeMode.Text = "Size mode";
-            // 
             // btnSelectPicture
             // 
             btnSelectPicture.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnSelectPicture.Location = new System.Drawing.Point(142, 13);
+            btnSelectPicture.Location = new System.Drawing.Point(7, 15);
             btnSelectPicture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSelectPicture.Name = "btnSelectPicture";
             btnSelectPicture.Size = new System.Drawing.Size(110, 27);
-            btnSelectPicture.TabIndex = 2;
+            btnSelectPicture.TabIndex = 10;
             btnSelectPicture.Text = "Select image";
             btnSelectPicture.UseVisualStyleBackColor = true;
             btnSelectPicture.Click += BtnSelectPicture_Click;
@@ -321,7 +315,7 @@
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
-            btnClose.TabIndex = 4;
+            btnClose.TabIndex = 12;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += BtnClose_Click;
@@ -333,7 +327,7 @@
             btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(88, 27);
-            btnSave.TabIndex = 3;
+            btnSave.TabIndex = 11;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
@@ -342,7 +336,6 @@
             // 
             gbPicture.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbPicture.Controls.Add(pbPicture);
-            gbPicture.Controls.Add(lblSizeMode);
             gbPicture.Controls.Add(btnSelectPicture);
             gbPicture.Location = new System.Drawing.Point(387, 3);
             gbPicture.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -413,7 +406,6 @@
             gbCredentials.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbPicture).EndInit();
             gbPicture.ResumeLayout(false);
-            gbPicture.PerformLayout();
             gbPersonalDetails.ResumeLayout(false);
             gbPersonalDetails.PerformLayout();
             pMain.ResumeLayout(false);
@@ -442,7 +434,6 @@
         private System.Windows.Forms.TextBox tbFullName;
         private System.Windows.Forms.Label lblFullName;
         private Mtf.Controls.MtfPictureBox pbPicture;
-        private System.Windows.Forms.Label lblSizeMode;
         private System.Windows.Forms.Button btnSelectPicture;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;

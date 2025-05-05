@@ -157,6 +157,11 @@ namespace LiveView.Core.Services
                 }
             }
 
+            if ((!result.Any(display => display.Selected)) && result.Count > 0)
+            {
+                result[0].Selected = true;
+            }
+
             return result;
         }
 

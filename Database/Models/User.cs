@@ -33,29 +33,12 @@ namespace Database.Models
 
         public override string ToString()
         {
-            var result = String.Empty;
-
-            if (!String.IsNullOrWhiteSpace(Username))
+            if (String.IsNullOrWhiteSpace(Username))
             {
-                result += $"{Username}{Environment.NewLine}";
+                return $"User ID: {Id}";
             }
 
-            if (!String.IsNullOrWhiteSpace(Phone))
-            {
-                result += $"{Phone}{Environment.NewLine}";
-            }
-
-            if (!String.IsNullOrWhiteSpace(Email))
-            {
-                result += $"{Email}{Environment.NewLine}";
-            }
-
-            if (!String.IsNullOrWhiteSpace(Address))
-            {
-                result += $"{Address}{Environment.NewLine}";
-            }
-
-            return result.TrimEnd(Environment.NewLine.ToCharArray());
+            return Username;
         }
     }
 }

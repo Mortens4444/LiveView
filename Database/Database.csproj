@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows;net8.0-windows;net481;net48;net462</TargetFrameworks>
+    <TargetFrameworks>net9.0-windows;net462</TargetFrameworks>
     <WarningLevel>9999</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     <EmbeddedResource Include="Scripts\DeleteAllGroupPermissions.sql" />
     <EmbeddedResource Include="Scripts\DeleteGroupPermissions.sql" />
     <EmbeddedResource Include="Scripts\DeleteCameraFunction.sql" />
-    <EmbeddedResource Include="Scripts\DeleteWhereGridsInSequence.sql" />
+    <EmbeddedResource Include="Scripts\DeleteWhereGridInSequence.sql" />
     <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />

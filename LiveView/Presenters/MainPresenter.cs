@@ -17,6 +17,7 @@ using LiveView.Services.Serial;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.HardwareKey.Enums;
 using Mtf.Joystick;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
@@ -47,6 +48,8 @@ namespace LiveView.Presenters
     public class MainPresenter : BasePresenter
     {
         private const string UserShouldHaveAtLeastPriority = "User '{0}' should have at least '{1}' secondary logon priority.";
+        private static readonly List<NetworkCommand> PtzCommands = new List<NetworkCommand> { NetworkCommand.PanToEast, NetworkCommand.PanToEastAndTiltToNorth, NetworkCommand.PanToEastAndTiltToSouth, NetworkCommand.PanToWest, NetworkCommand.PanToWestAndTiltToNorth, NetworkCommand.PanToWestAndTiltToSouth, NetworkCommand.TiltToNorth, NetworkCommand.TiltToSouth, NetworkCommand.StopPanAndTilt, NetworkCommand.StopZoom, NetworkCommand.ZoomIn, NetworkCommand.ZoomOut, NetworkCommand.MoveToPresetZero };
+
         private SltWatchdog watchdog;
 
         public ILogger<MainForm> Logger { get; }
@@ -409,6 +412,12 @@ namespace LiveView.Presenters
 
         public static void SendMessageToFullScreenCamera(string message)
         {
+            if (Globals.HardwareKey.LiveViewEdition == LiveViewEdition.Basic &&
+                PtzCommands.Any(cmd => message.StartsWith(cmd.ToString())))
+            {
+                return;
+            }
+
             var info = GetFullScreenInfo();
             if (info.Key != null)
             {

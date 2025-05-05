@@ -23,5 +23,6 @@
 
         public const string VideoCaptureClientBufferSize = "VideoCaptureClient.BufferSize";
         public const string ImageCaptureServerBufferSize = "ImageCaptureServer.BufferSize";
+        public const string VideoSourceCameraWindowReconnectTimeout = "VideoSourceCameraWindowReconnectTimeout";
     }
 }

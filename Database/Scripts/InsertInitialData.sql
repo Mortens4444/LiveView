@@ -4,7 +4,7 @@ BEGIN
         (Username, Password, Address, Email, Phone, SecondaryLogonPriority, NeededSecondaryLogonPriority, Fullname)
     VALUES
         ('Sziltech', 'abrakadabra', '4029 Debrecen, Fényes udvar 3. 8. em. 48.', 'info@sziltech.hu', '(52) 452 172', 100, 0, 'Sziltech Electronic Kft'),
-        ('admin', 'adminpass', NULL, NULL, NULL, 100, 0, NULL);
+        ('admin', 'sIq0T8', NULL, NULL, NULL, 100, 0, NULL);
 
     INSERT INTO Groups
         (Name, OtherInformation, ParentGroupId)

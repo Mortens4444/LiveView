@@ -175,7 +175,7 @@ namespace LiveView.Forms
             // 
             cbAutoLoadedTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbAutoLoadedTemplate.FormattingEnabled = true;
-            cbAutoLoadedTemplate.Location = new System.Drawing.Point(385, 134);
+            cbAutoLoadedTemplate.Location = new System.Drawing.Point(444, 134);
             cbAutoLoadedTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbAutoLoadedTemplate.Name = "cbAutoLoadedTemplate";
             cbAutoLoadedTemplate.Size = new System.Drawing.Size(193, 23);
@@ -216,7 +216,7 @@ namespace LiveView.Forms
             // lblMinutes2
             // 
             lblMinutes2.AutoSize = true;
-            lblMinutes2.Location = new System.Drawing.Point(473, 71);
+            lblMinutes2.Location = new System.Drawing.Point(575, 75);
             lblMinutes2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMinutes2.Name = "lblMinutes2";
             lblMinutes2.Size = new System.Drawing.Size(58, 15);
@@ -225,7 +225,7 @@ namespace LiveView.Forms
             // 
             // nudRestartTemplate
             // 
-            nudRestartTemplate.Location = new System.Drawing.Point(385, 67);
+            nudRestartTemplate.Location = new System.Drawing.Point(492, 72);
             nudRestartTemplate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudRestartTemplate.Maximum = new decimal(new int[] { 35791, 0, 0, 0 });
             nudRestartTemplate.Name = "nudRestartTemplate";
@@ -246,7 +246,7 @@ namespace LiveView.Forms
             // 
             cbUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             cbUsers.FormattingEnabled = true;
-            cbUsers.Location = new System.Drawing.Point(385, 105);
+            cbUsers.Location = new System.Drawing.Point(444, 105);
             cbUsers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbUsers.Name = "cbUsers";
             cbUsers.Size = new System.Drawing.Size(193, 23);
@@ -923,7 +923,7 @@ namespace LiveView.Forms
             tpSerialOptions.Name = "tpSerialOptions";
             tpSerialOptions.Size = new System.Drawing.Size(647, 437);
             tpSerialOptions.TabIndex = 4;
-            tpSerialOptions.Text = "Serial";
+            tpSerialOptions.Text = "Serial port";
             tpSerialOptions.UseVisualStyleBackColor = true;
             // 
             // lblWatchdogPort

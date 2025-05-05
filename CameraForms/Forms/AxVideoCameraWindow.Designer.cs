@@ -74,7 +74,7 @@
             Name = "AxVideoCameraWindow";
             ShowIcon = false;
             ShowInTaskbar = false;
-            Text = "FullScreenCamera";
+            Text = "";
             TopMost = true;
             FormClosing += AxVideoCameraWindow_FormClosing;
             Load += AxVideoCameraWindow_Load;

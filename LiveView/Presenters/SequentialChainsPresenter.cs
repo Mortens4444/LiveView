@@ -5,6 +5,8 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.HardwareKey.Enums;
+using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using System.Linq;
@@ -55,7 +57,18 @@ namespace LiveView.Presenters
 
         public void SaveSequence()
         {
-            long? sequenceId = null;
+            if (Globals.HardwareKey.LiveViewEdition == LiveViewEdition.Basic && view.LvGrids.Items.Count > 1)
+            {
+                ShowError("Live View Basic Edition can only have 1 grid in a sequence.");
+                return;
+            }
+            if (Globals.HardwareKey.LiveViewEdition == LiveViewEdition.Standard && view.LvGrids.Items.Count > 10)
+            {
+                ShowError("Live View Standard Edition can only have 10 grids in a sequence.");
+                return;
+            }
+
+            long sequenceId;
             var sequence = view.GetSequence();
             if (sequence.Id == 0)
             {
@@ -64,9 +77,10 @@ namespace LiveView.Presenters
             }
             else
             {
+                sequenceId = sequence.Id;
                 sequenceRepository.Update(sequence);
                 logger.LogInfo(SequenceManagementPermissions.Update, "Sequence '{0}' has been changed.", sequence.Name);
-                gridInSequenceRepository.DeleteWhere(new { SequenceId = sequenceId });
+                gridInSequenceRepository.DeleteWhere(new { SequenceId = sequence.Id });
                 logger.LogInfo(SequenceManagementPermissions.Update, "Grids have been deleted for sequence '{0}'.", sequence.Name);
             }
 
@@ -75,7 +89,7 @@ namespace LiveView.Presenters
             {
                 if (item.Tag is GridInSequence gridInSequence)
                 {
-                    gridInSequence.SequenceId = sequenceId.Value;
+                    gridInSequence.SequenceId = sequenceId;
                     gridInSequenceRepository.Insert(gridInSequence);
                     logger.LogInfo(SequenceManagementPermissions.Update, "Grid '{0}' has been added.", gridS.First(g => g.Id == gridInSequence.GridId).Name);
                 }

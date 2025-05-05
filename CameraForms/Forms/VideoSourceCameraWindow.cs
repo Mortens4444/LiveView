@@ -17,6 +17,7 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
+using System.Configuration;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,6 +53,7 @@ namespace CameraForms.Forms
         private string cameraName;
         private GridCamera gridCamera;
         private Pen red = new Pen(new SolidBrush(Color.Red), 3);
+        private int reconnectTimeout;
 
         public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -67,6 +69,11 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
+            
+            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout], out var currentReconnectTimeout))
+            {
+                reconnectTimeout = currentReconnectTimeout;
+            }
 
             if (gridCamera?.Frame ?? false)
             {
@@ -83,6 +90,11 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
+
+            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout], out var currentReconnectTimeout))
+            {
+                reconnectTimeout = currentReconnectTimeout;
+            }
 
             Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
         }
@@ -150,6 +162,7 @@ namespace CameraForms.Forms
                 cameraName += DateTime.Now.ToString();
             }
 
+            Text = cameraName;
             mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, cameraName);
             mtfCamera.Paint += MtfCamera_Paint;
         }
@@ -225,7 +238,7 @@ namespace CameraForms.Forms
                     catch (Exception ex)
                     {
                         DebugErrorBox.Show(ex);
-                        Thread.Sleep(100);
+                        Thread.Sleep(reconnectTimeout);
                     }
                 }
 

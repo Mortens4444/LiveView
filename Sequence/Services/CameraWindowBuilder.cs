@@ -21,7 +21,6 @@ namespace Sequence.Services
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
@@ -29,7 +28,7 @@ namespace Sequence.Services
         private readonly IGeneralOptionsRepository generalOptionsRepository;
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
-            IServerRepository serverRepository, ICameraRepository cameraRepository, IAgentRepository agentRepository,
+            IServerRepository serverRepository, ICameraRepository cameraRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
             IVideoSourceRepository videoSourceRepository, IGeneralOptionsRepository generalOptionsRepository)
         {
@@ -37,7 +36,6 @@ namespace Sequence.Services
             this.logger = logger;
             this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
-            this.agentRepository = agentRepository;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.videoSourceRepository = videoSourceRepository;
@@ -77,7 +75,7 @@ namespace Sequence.Services
                 else if (camera is MortoGraphyCameraInfo mortoGraphyCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new MortoGraphyCameraWindow(permissionManager, agentRepository, cameraRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
+                    videoForm = new MortoGraphyCameraWindow(permissionManager, cameraRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, mortoGraphyCameraInfo.Url, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };

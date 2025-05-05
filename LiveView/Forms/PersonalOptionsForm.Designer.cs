@@ -99,7 +99,7 @@
             nudSmallFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudSmallFontSize.Name = "nudSmallFontSize";
             nudSmallFontSize.Size = new System.Drawing.Size(65, 23);
-            nudSmallFontSize.TabIndex = 10;
+            nudSmallFontSize.TabIndex = 5;
             nudSmallFontSize.Value = new decimal(new int[] { 15, 0, 0, 0 });
             // 
             // nudLargeFontSize
@@ -108,7 +108,7 @@
             nudLargeFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudLargeFontSize.Name = "nudLargeFontSize";
             nudLargeFontSize.Size = new System.Drawing.Size(65, 23);
-            nudLargeFontSize.TabIndex = 8;
+            nudLargeFontSize.TabIndex = 4;
             nudLargeFontSize.Value = new decimal(new int[] { 30, 0, 0, 0 });
             // 
             // btnFontType
@@ -117,7 +117,7 @@
             btnFontType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnFontType.Name = "btnFontType";
             btnFontType.Size = new System.Drawing.Size(183, 27);
-            btnFontType.TabIndex = 6;
+            btnFontType.TabIndex = 7;
             btnFontType.Text = "Font type";
             btnFontType.UseVisualStyleBackColor = true;
             btnFontType.Click += BtnFontType_Click;
@@ -176,7 +176,7 @@
             btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(88, 27);
-            btnClose.TabIndex = 3;
+            btnClose.TabIndex = 9;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += BtnClose_Click;
@@ -189,7 +189,7 @@
             btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new System.Drawing.Size(88, 27);
-            btnSave.TabIndex = 2;
+            btnSave.TabIndex = 8;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
@@ -294,7 +294,7 @@
             chkUseCustomColors.Location = new System.Drawing.Point(18, 190);
             chkUseCustomColors.Name = "chkUseCustomColors";
             chkUseCustomColors.Size = new System.Drawing.Size(123, 19);
-            chkUseCustomColors.TabIndex = 15;
+            chkUseCustomColors.TabIndex = 6;
             chkUseCustomColors.Text = "Use custom colors";
             chkUseCustomColors.UseVisualStyleBackColor = true;
             // 

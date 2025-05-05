@@ -81,7 +81,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            Text = "FullScreenCamera";
+            Text = "";
             TopMost = true;
             FormClosing += OpenCvSharp_FormClosing;
             Load += OpenCvSharp_Load;

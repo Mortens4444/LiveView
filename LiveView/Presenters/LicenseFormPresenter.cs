@@ -4,6 +4,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
+using System;
 using System.Linq;
 
 namespace LiveView.Presenters
@@ -51,11 +52,21 @@ namespace LiveView.Presenters
             dynamic hardwareKey = Globals.HardwareKey;
             view.SetLabelText(view.LblLicenseStatusResult, hardwareKey.VideoSupervisorLicenseStatus ? Lng.Elem("Licensed") : Lng.Elem("Not licensed"));
             view.SetLabelText(view.LblId, hardwareKey.SziltechId);
-            view.SetLabelText(view.LblUsersMaxPerAct, $"{hardwareKey.LiveViewUserNumber} / {users.Count}");
-            view.SetLabelText(view.LblValidatedServersMaxPerAct, $"{hardwareKey.LiveViewSziltechServerNumber} / {dedicatedServerIds.Count}");
-            view.SetLabelText(view.LblValidatedCamerasMaxPerAct, $"{hardwareKey.LiveViewSziltechCameraNumber} / {cameras.Count(camera => dedicatedServerIds.Contains(camera.ServerId) )}");
-            view.SetLabelText(view.LblNotValidatedServersMaxPerAct, $"{hardwareKey.LiveViewOtherServerNumber} / {notDedicatedServerIds.Count}");
-            view.SetLabelText(view.LblNotValidatedCamerasMaxPerAct, $"{hardwareKey.LiveViewOtherCameraNumber} / {cameras.Count(camera => notDedicatedServerIds.Contains(camera.ServerId))}");
+            view.SetLabelText(view.LblUsersMaxPerAct, $"{GetStr(hardwareKey.LiveViewUserNumber)} / {users.Count}");
+            view.SetLabelText(view.LblValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechServerNumber)} / {dedicatedServerIds.Count}");
+            view.SetLabelText(view.LblValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechCameraNumber)} / {cameras.Count(camera => dedicatedServerIds.Contains(camera.ServerId))}");
+            view.SetLabelText(view.LblNotValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherServerNumber)} / {notDedicatedServerIds.Count}");
+            view.SetLabelText(view.LblNotValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherCameraNumber)} / {cameras.Count(camera => notDedicatedServerIds.Contains(camera.ServerId))}");
+        }
+
+        private static string GetStr(ushort value)
+        {
+            if (value == UInt16.MaxValue)
+            {
+                return Lng.Elem("Unlimited");
+            }
+
+            return value.ToString();
         }
     }
 }

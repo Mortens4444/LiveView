@@ -17,9 +17,9 @@ namespace Database.Repositories
             return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
         }
 
-        public ReadOnlyCollection<Camera> SelectGroupCameras(long groupId)
+        public ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId)
         {
-            return Query("SelectGroupCameras", new { GroupId = groupId });
+            return Query("SelectGroupCameras", new { GroupId = groupId, UserEventId = userEventId });
         }
 
 

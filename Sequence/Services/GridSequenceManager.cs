@@ -59,7 +59,6 @@ namespace Sequence.Services
             ISequenceRepository sequenceRepository,
             IGridInSequenceRepository gridInSequeneRepository,
             IGridRepository gridRepository,
-            IAgentRepository agentRepository,
             IVideoSourceRepository videoSourceRepository,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
@@ -90,7 +89,7 @@ namespace Sequence.Services
             //StartSequence(sequenceId);
 
             cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
-                agentRepository, cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
+                cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
         }
 
         public async Task StartSequenceAsync(long sequenceId)
@@ -99,31 +98,30 @@ namespace Sequence.Services
             if (sequence == null)
             {
                 Invalid = true;
+                return;
+            }
+
+            var gridsInSequence = gridInSequeneRepository.SelectWhere(new { SequenceId = sequenceId });
+            var grids = gridRepository.SelectAll()
+                .SelectMany(grid => gridsInSequence
+                .Where(gridInSequence => gridInSequence.GridId == grid.Id)
+                .Select(gridInSequence => (grid, gridInSequence)))
+                .OrderBy(gridInSequence => gridInSequence.gridInSequence.Number)
+                .ToList();
+
+            if (grids.Count > 1)
+            {
+                sequenceGrids = grids;
+                Task.Run(() => InitializeGridChangerAsync());
+            }
+            else if (grids.Count == 1)
+            {
+                var gridCameras = GetCameras(grids[0]);
+                ShowGrid(grids[0], gridCameras);
             }
             else
             {
-                var gridsInSequene = gridInSequeneRepository.SelectWhere(new { SequenceId = sequenceId });
-                var grids = gridRepository.SelectAll()
-                    .SelectMany(grid => gridsInSequene
-                    .Where(gridInSequence => gridInSequence.GridId == grid.Id)
-                    .Select(gridInSequence => (grid, gridInSequence)))
-                    .OrderBy(gridInSequence => gridInSequence.gridInSequence.Number)
-                    .ToList();
-
-                if (grids.Count > 1)
-                {
-                    sequenceGrids = grids;
-                    Task.Run(() => InitializeGridChangerAsync());
-                }
-                else if (grids.Count == 1)
-                {
-                    var gridCameras = GetCameras(grids[0]);
-                    ShowGrid(grids[0], gridCameras);
-                }
-                else
-                {
-                    ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("No grids in sequence."));
-                }
+                ErrorBox.Show(Lng.Elem("General error"), Lng.Elem("No grids in sequence."));
             }
         }
 

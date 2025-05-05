@@ -12,7 +12,6 @@ using Mtf.Permissions.Services;
 using System;
 using System.Configuration;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -20,7 +19,6 @@ namespace CameraForms.Forms
 {
     public partial class MortoGraphyCameraWindow : Form
     {
-        private readonly IAgentRepository agentRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -35,7 +33,7 @@ namespace CameraForms.Forms
         private int bufferSize;
         private int onExit;
 
-        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository,
+        public MortoGraphyCameraWindow(PermissionManager<User> permissionManager,
             ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository,
             IPersonalOptionsRepository personalOptionsRepository, IVideoSourceRepository videoSourceRepository,
             string url, Rectangle rectangle, GridCamera gridCamera)
@@ -46,7 +44,6 @@ namespace CameraForms.Forms
 
             this.url = url;
             this.rectangle = rectangle;
-            this.agentRepository = agentRepository;
             this.cameraRepository = cameraRepository;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.videoSourceRepository = videoSourceRepository;
@@ -71,7 +68,6 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
 

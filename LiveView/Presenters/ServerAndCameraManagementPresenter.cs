@@ -361,15 +361,22 @@ namespace LiveView.Presenters
             var serverSelected = treeNode?.Tag is Server;
             var dbServerSelected = treeNode?.Tag is DatabaseServer;
 
+            view.BtnNewCamera.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Create) &&
+                permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update) && serverSelected;
+
             view.BtnModify.Enabled = (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected) ||
                 (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Update) && serverSelected) ||
                 (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Update) && dbServerSelected);
+            
             view.BtnRemove.Enabled = (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Delete) && cameraSelected) ||
                 (permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Delete) && serverSelected) ||
                 (permissionManager.CurrentUser.HasPermission(DatabaseServerManagementPermissions.Delete) && dbServerSelected);
+            
             view.BtnProperties.Enabled = permissionManager.CurrentUser.HasPermission(ServerManagementPermissions.Select) && serverSelected ||
                 (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected);
+            
             view.BtnMotionDetection.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected;
+            
             view.BtnSyncronize.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && serverSelected;
         }
 

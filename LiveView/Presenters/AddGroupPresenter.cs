@@ -106,7 +106,7 @@ namespace LiveView.Presenters
             AddOperationsToListView(operations, view.LvOperationsAndCameras);
         }
 
-        private void LoadAvailableCameras(long userEventId) // Use CameraPermissions and userEvnetId!
+        private void LoadAvailableCameras(long userEventId)
         {
             view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(),
                 camera => new ListViewItem(camera.CameraName, CameraIconIndex)
@@ -117,9 +117,9 @@ namespace LiveView.Presenters
                 });
         }
 
-        private void LoadCurrentCameraPermissions(long userEventId) // Use CameraPermissions and userEvnetId!
+        private void LoadCurrentCameraPermissions(long userEventId)
         {
-            var cameras = view.Group != null ? cameraRepository.SelectGroupCameras(view.Group.Id) : new ReadOnlyCollection<Camera>(Array.Empty<Camera>());
+            var cameras = view.Group != null ? cameraRepository.SelectGroupCameras(view.Group.Id, userEventId) : new ReadOnlyCollection<Camera>(Array.Empty<Camera>());
             view.LvOperationsAndCameras.AddItems(cameras,
                 camera => new ListViewItem(camera.CameraName, CameraIconIndex)
                 {

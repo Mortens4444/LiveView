@@ -16,6 +16,8 @@ namespace LiveView.Forms
 
         public TreeView ServersAndCameras => tvServersAndCameras;
 
+        public Button BtnNewCamera => btnNewCamera;
+
         public Button BtnModify => btnModify;
 
         public Button BtnRemove => btnRemove;

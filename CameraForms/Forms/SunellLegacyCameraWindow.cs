@@ -33,6 +33,7 @@ namespace CameraForms.Forms
         private Label label;
         private GridCamera gridCamera;
         private int rotateSpeed = 50;
+        private bool fullScreen;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -72,11 +73,12 @@ namespace CameraForms.Forms
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            Initialize(cameraLaunchContext.UserId, camera, display, true);
+            Initialize(cameraLaunchContext.UserId, camera, display);
         }
 
-        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
+        private void Initialize(long userId, Camera camera, DisplayDto display)
         {
+            fullScreen = true;
             sunellLegacyCameraInfo = new SunellLegacyCameraInfo
             {
                 CameraIp = camera.IpAddress,
@@ -87,15 +89,12 @@ namespace CameraForms.Forms
                 StreamId = camera.StreamId ?? 1
             };
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
-                client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+            kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+            client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
 
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
@@ -234,7 +233,10 @@ namespace CameraForms.Forms
 
             sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
             sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
-            sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+            if (fullScreen)
+            {
+                sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+            }
             SetOsd();
         }
 
@@ -246,7 +248,10 @@ namespace CameraForms.Forms
         private void OnExit()
         {
             kBD300ASimulatorServer?.Stop();
-            sunellVideoWindowLegacy1.PTZ_Close();
+            if (fullScreen)
+            {
+                sunellVideoWindowLegacy1.PTZ_Close();
+            }
             sunellVideoWindowLegacy1.Disconnect();
             client?.Send($"{NetworkCommand.UnregisterCamera}", true);
             client?.Dispose();
