@@ -11,6 +11,30 @@ namespace LiveView.Core.Services
     {
         public static Process Start(string path, string arguments = "", ILogger logger = null)
         {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = path,
+                Arguments = arguments,
+                UseShellExecute = true
+            };
+            return Start(path, processStartInfo, arguments, logger);
+        }
+
+        public static Process StartWithRedirect(string path, string arguments = "", ILogger logger = null)
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = path,
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            return Start(path, processStartInfo, arguments, logger);
+        }
+
+        private static Process Start(string path, ProcessStartInfo processStartInfo, string arguments, ILogger logger)
+        {
             try
             {
                 if (String.IsNullOrWhiteSpace(path))
@@ -26,17 +50,6 @@ namespace LiveView.Core.Services
                 {
                     throw new FileNotFoundException($"The file '{path}' does not exist.");
                 }
-
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = path,
-                    Arguments = arguments,
-                    UseShellExecute = true,
-
-                    //UseShellExecute = false,
-                    //RedirectStandardOutput = true,
-                    //RedirectStandardError = true
-                };
 
                 return Process.Start(processStartInfo);
             }

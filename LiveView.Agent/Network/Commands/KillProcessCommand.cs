@@ -22,7 +22,10 @@ namespace LiveView.Agent.Network.Commands
         public void Execute()
         {
             Console.WriteLine($"Killing process {application} ({processId}).");
-            ProcessUtils.Kill(processes[processId]);
+            if (processes.TryGetValue(processId, out var process))
+            {
+                ProcessUtils.Kill(process);
+            }
             processes.Remove(processId);
         }
     }

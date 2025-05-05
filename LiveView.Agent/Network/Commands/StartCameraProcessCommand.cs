@@ -27,6 +27,7 @@ namespace LiveView.Agent.Network.Commands
         {
             Console.WriteLine($"Starting process {Core.Constants.CameraAppExe} ({message}).");
             var cameraProcessId = StartProcess(messageParts, cameraProcesses);
+            Console.WriteLine($"Process started with PID: {cameraProcessId}.");
             client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
         }
     }
