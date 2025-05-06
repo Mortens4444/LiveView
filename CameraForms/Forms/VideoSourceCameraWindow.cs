@@ -302,7 +302,7 @@ namespace CameraForms.Forms
             {
                 try
                 {
-                    throw new InvalidOperationException("Server and video capture source not initialized.");
+                    throw new InvalidOperationException("Server and video capture source are not initialized.");
                 }
                 catch (Exception ex)
                 {

@@ -1,4 +1,6 @@
-﻿using LiveView.Core.Interfaces;
+﻿using LiveView.Core.Enums.Network;
+using LiveView.Core.Interfaces;
+using LiveView.Presenters;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -14,7 +16,13 @@ namespace LiveView.Network.Commands
 
         public void Execute()
         {
-            Globals.CameraProcessInfo.TryRemove(agentSocket, out _);
+            Globals.CameraProcessInfo.TryRemove(agentSocket, out var process);
+            var key = agentSocket.RemoteEndPoint.ToString();
+            if (Globals.CameraProcesses.ContainsKey(key))
+            {
+                MainPresenter.SentToClient(key, NetworkCommand.Kill, Core.Constants.CameraAppExe, process.ProcessId);
+                Globals.CameraProcesses.Remove(key);
+            }
         }
     }
 }
