@@ -36,10 +36,10 @@ namespace CameraForms.Forms
         private readonly int frameTimeout = 1500;
         private readonly Rectangle rectangle;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private readonly Client client;
 
         private Image lastImage;
         private Timer frameTimer;
-        private Client client;
         private MyVideoCaptureClient videoCaptureClient;
         private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
@@ -83,9 +83,16 @@ namespace CameraForms.Forms
 
         public VideoSourceCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
+            if (cameraLaunchContext == null)
+            {
+                throw new ArgumentNullException(nameof(cameraLaunchContext));
+            }
+
             InitializeComponent();
 
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
+            display = DisplayProvider.Get(cameraLaunchContext.DisplayId);
+            
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
@@ -112,7 +119,6 @@ namespace CameraForms.Forms
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
-                var displayId = display?.Id ?? String.Empty;
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();
@@ -336,11 +342,9 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            cancellationTokenSource.Cancel();
             fullScreenCameraMessageHandler?.ExitVideoSource();
             kBD300ASimulatorServer?.Stop();
             frameTimer?.Stop();
-            red.Dispose();
             videoCaptureClient?.Stop();
         }
 

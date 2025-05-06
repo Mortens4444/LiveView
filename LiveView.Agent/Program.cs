@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using LiveView.Agent.Services;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -141,6 +142,7 @@ namespace LiveView.Agent
         private static void StartVideoCaptureServers()
         {
             var json = ConfigurationManager.AppSettings["StartCameras"];
+            cancellationTokenSource?.CancelAndDispose();
             cancellationTokenSource = new CancellationTokenSource();
 #if NET462
             var videoCaptureIds = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(json);
@@ -208,6 +210,7 @@ namespace LiveView.Agent
             {
                 imageCaptureServer.Dispose();
             }
+            cancellationTokenSource?.CancelAndDispose();
             liveViewConnector.Disconnect();
             Application.Exit();
         }

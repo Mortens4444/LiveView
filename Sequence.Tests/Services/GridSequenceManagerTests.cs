@@ -280,23 +280,29 @@ namespace Sequence.Tests.Services
                         },
                     }));
 
-            manager = new GridSequenceManager(
-                new Mock<PermissionManager<User>>().Object,
-                sequenceRepositoryMock.Object,
-                gridInSequenceRepositoryMock.Object,
-                gridRepositoryMock.Object,
-                videoSourceRepositoryMock.Object,
-                serverRepositoryMock.Object,
-                cameraRepositoryMock.Object,
-                new Mock<ICameraFunctionRepository>().Object,
-                gridCameraRepositoryMock.Object,
-                new Mock<IPersonalOptionsRepository>().Object,
-                new Mock<IGeneralOptionsRepository>().Object,
-                new Mock<ILogger<GridSequenceManager>>().Object,
-                new Client("", 0),
-                new Form() { IsMdiContainer = true },
-                new DisplayDto(),
-                true);
+            using (var parentForm = new Form() { IsMdiContainer = true })
+            {
+                using (var client = new Client("", 0))
+                {
+                    manager = new GridSequenceManager(
+                    new Mock<PermissionManager<User>>().Object,
+                    sequenceRepositoryMock.Object,
+                    gridInSequenceRepositoryMock.Object,
+                    gridRepositoryMock.Object,
+                    videoSourceRepositoryMock.Object,
+                    serverRepositoryMock.Object,
+                    cameraRepositoryMock.Object,
+                    new Mock<ICameraFunctionRepository>().Object,
+                    gridCameraRepositoryMock.Object,
+                    new Mock<IPersonalOptionsRepository>().Object,
+                    new Mock<IGeneralOptionsRepository>().Object,
+                    new Mock<ILogger<GridSequenceManager>>().Object,
+                    client,
+                    parentForm,
+                    new DisplayDto(),
+                    true);
+                }
+            }
         }
 
         [TearDown]
@@ -309,7 +315,7 @@ namespace Sequence.Tests.Services
         public async Task StartSequenceAsync()
         {
             // Act
-            await manager.StartSequenceAsync(1);
+            await manager.StartSequenceAsync(1).ConfigureAwait(false);
 
             // Assert
             Assert.That(manager.Invalid, Is.False);
@@ -321,7 +327,7 @@ namespace Sequence.Tests.Services
             // Arrange
 
             // Act
-            await manager.StartSequenceAsync(2);
+            await manager.StartSequenceAsync(2).ConfigureAwait(false);
 
             // Assert
             Assert.That(manager.Invalid, Is.True);

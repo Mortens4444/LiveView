@@ -20,6 +20,7 @@ namespace LiveView.Agent.Network.Commands
             if (cancellationTokenSources.TryGetValue(videoCaptureId, out var value))
             {
                 value.Cancel();
+                value.Dispose();
                 cancellationTokenSources.Remove(videoCaptureId);
             }
         }

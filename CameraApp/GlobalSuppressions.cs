@@ -5,6 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>", Scope = "member", Target = "~M:Sequence.Forms.MainForm.#ctor(System.Int64,System.Int64,System.Int64,System.Boolean)")]
-[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<Pending>", Scope = "namespace", Target = "~N:Sequence")]
 [assembly: SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "<Pending>")]

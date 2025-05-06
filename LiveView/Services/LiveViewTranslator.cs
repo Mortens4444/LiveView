@@ -1,5 +1,4 @@
-﻿using LiveView.Forms;
-using Mtf.LanguageService;
+﻿using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 
 namespace LiveView.Services
@@ -8,6 +7,8 @@ namespace LiveView.Services
     {
         public static void Translate()
         {
+            BaseBox.Abort = Lng.Elem("Abort");
+            BaseBox.Retry = Lng.Elem("Retry");
             BaseBox.OK = Lng.Elem("OK");
             BaseBox.Cancel = Lng.Elem("Cancel");
             BaseBox.No = Lng.Elem("No");

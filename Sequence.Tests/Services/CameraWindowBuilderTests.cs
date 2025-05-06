@@ -24,7 +24,6 @@ namespace Sequence.Tests.Services
         private ILogger<GridSequenceManager> logger;
         private IServerRepository serverRepository;
         private ICameraRepository cameraRepository;
-        private IAgentRepository agentRepository;
         private ICameraFunctionRepository cameraFunctionRepository;
         private IPersonalOptionsRepository personalOptionsRepository;
         private IVideoSourceRepository videoSourceRepository;
@@ -39,7 +38,6 @@ namespace Sequence.Tests.Services
             logger = new Mock<ILogger<GridSequenceManager>>().Object;
             serverRepository = new ServerRepository();
             cameraRepository = new CameraRepository();
-            agentRepository = new AgentRepository();
             cameraFunctionRepository = new CameraFunctionRepository();
             personalOptionsRepository = new PersonalOptionsRepository();
             videoSourceRepository = new VideoSourceRepository();
@@ -163,35 +161,37 @@ namespace Sequence.Tests.Services
         private void RunTest(CameraInfo camera)
         {
             // Arrange
-            var client = new Mtf.Network.Client("127.0.0.1", 4444);
-            var displayManager = new DisplayManager();
-            var displays = displayManager.GetAll();
-            var display = displays[0];
-            var parentForm = new Form
+            using (var client = new Mtf.Network.Client("127.0.0.1", 4444))
             {
-                IsMdiContainer = true
-            };
+                var displayManager = new DisplayManager();
+                var displays = displayManager.GetAll();
+                var display = displays[0];
+                using (var parentForm = new Form { IsMdiContainer = true })
+                {
+                    var result = new List<Form>();
+                    var grid = new Grid
+                    {
+                        Columns = 4,
+                        Rows = 2,
+                    };
+                    var gridInSequence = new GridInSequence();
+                    var tuple = (grid, gridInSequence);
+                
+                    using (var tokenSource = new CancellationTokenSource())
+                    {
+                        // Act
+                        builder.ShowVideoWindow(client, display, parentForm, result, camera, tuple, tokenSource);
+                    }
 
-            var result = new List<Form>();
-            var grid = new Grid
-            {
-                Columns = 4,
-                Rows = 2,
-            };
-            var gridInSequence = new GridInSequence();
-            var tuple = (grid, gridInSequence);
-            var tokenSource = new CancellationTokenSource();
+                    // Assert
+                    Assert.That(result.Count, Is.EqualTo(1));
+                    Assert.IsInstanceOf<Form>(result[0]);
 
-            // Act
-            builder.ShowVideoWindow(client, display, parentForm, result, camera, tuple, tokenSource);
-
-            // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsInstanceOf<Form>(result[0]);
-
-            foreach (var form in result)
-            {
-                form.Close();
+                    foreach (var form in result)
+                    {
+                        form.Close();
+                    }
+                }
             }
         }
     }

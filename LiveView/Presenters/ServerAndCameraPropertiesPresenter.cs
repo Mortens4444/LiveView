@@ -1,5 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
+using LiveView.Core.Extensions;
 using LiveView.Enums;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -23,7 +24,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
-    public class ServerAndCameraPropertiesPresenter : BasePresenter
+    public class ServerAndCameraPropertiesPresenter : BasePresenter, IDisposable
     {
         private IServerAndCameraPropertiesView view;
         private readonly IServerRepository serverRepository;
@@ -169,11 +170,8 @@ namespace LiveView.Presenters
         {
             try
             {
-                if (cancellationTokenSource != null)
-                {
-                    cancellationTokenSource.Cancel();
-                    hardwareInfoRetrieverTask?.Wait();
-                }
+                cancellationTokenSource?.CancelAndDispose();
+                hardwareInfoRetrieverTask?.Wait();
 
                 cancellationTokenSource = new CancellationTokenSource();
                 hardwareInfoRetrieverTask = Task.Run(() =>
@@ -278,6 +276,11 @@ namespace LiveView.Presenters
             {
                 ShowError(ex);
             }
+        }
+
+        public void Dispose()
+        {
+            cancellationTokenSource?.Dispose();
         }
     }
 }

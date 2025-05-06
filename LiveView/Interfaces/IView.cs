@@ -40,6 +40,8 @@ namespace LiveView.Interfaces
 
         bool ShowDialog(Form form);
 
+        string ShowInput(string title, string message, string defaultAnswer = "");
+
         void ShowInfo(string title, string message);
 
         void ShowError(string title, string message);

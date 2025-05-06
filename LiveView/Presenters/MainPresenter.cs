@@ -4,6 +4,7 @@ using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Interfaces;
 using LiveView.Dto;
 using LiveView.Extensions;
@@ -54,7 +55,7 @@ namespace LiveView.Presenters
 
         public ILogger<MainForm> Logger { get; }
 
-        private readonly CancellationTokenSource cancellationTokenSource;
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
         private readonly IServiceProvider serviceProvider;
@@ -81,7 +82,6 @@ namespace LiveView.Presenters
             //selector.SelectMonitors(Enums.LiveView.LiveView1);
 
             mainPresenterDependencies = dependencies;
-            cancellationTokenSource = new CancellationTokenSource();
             Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
             rightRepository = dependencies.RightRepository;
@@ -548,7 +548,7 @@ namespace LiveView.Presenters
             if (view.ShowConfirm(Lng.Elem("Confirmation"), Lng.Elem("Are you sure you want to exit?"), Decide.No))
             {
                 Globals.ControlCenter.CloseSequenceApplications();
-                cancellationTokenSource.Cancel();
+                cancellationTokenSource?.CancelAndDispose();
                 JoystickHandler.StopJoystick();
                 StopStartedApplications();
                 var handle = view.GetHandle();
@@ -755,7 +755,7 @@ namespace LiveView.Presenters
 
         public void OpenVncClientWindow()
         {
-            var connectionInfo = InputBox.Show("VNC server", "Is the IP address and port correct for connecting to the VNC server?", "192.168.0.100:10000");
+            var connectionInfo = ShowInput("VNC server", "Enter the IP address and port to connect to the VNC server.", "192.168.0.100:10000");
             if (!String.IsNullOrWhiteSpace(connectionInfo))
             {
                 var connectionInfoData = connectionInfo.Split(':');

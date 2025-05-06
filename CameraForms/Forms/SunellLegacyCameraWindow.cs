@@ -60,6 +60,11 @@ namespace CameraForms.Forms
 
         public SunellLegacyCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
         {
+            if (cameraLaunchContext == null)
+            {
+                throw new ArgumentNullException(nameof(cameraLaunchContext));
+            }
+
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();

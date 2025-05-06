@@ -132,6 +132,7 @@ namespace LiveView.Agent.Maui
                     if (result == CameraResult.Success)
                     {
                         cancellationTokenSource?.Cancel();
+                        cancellationTokenSource?.Dispose();
                         if (server != null)
                         {
                             server.Dispose();

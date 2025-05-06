@@ -92,6 +92,11 @@ namespace LiveView.Forms
             return dialogResult == DialogResult.Yes;
         }
 
+        public string ShowInput(string title, string message, string defaultAnswer = "")
+        {
+            return InputBox.Show(title, message, defaultAnswer);
+        }
+
         public void ShowInfo(string title, string message)
         {
             InfoBox.Show(title, message);

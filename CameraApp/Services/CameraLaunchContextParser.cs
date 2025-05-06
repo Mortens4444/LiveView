@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace CameraApp.Services
 {
-    public class CameraLaunchContextParser
+    public static class CameraLaunchContextParser
     {
         public static CameraLaunchContext Parse(string[] args)
         {

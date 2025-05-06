@@ -1,11 +1,30 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LiveView.Core.Extensions
 {
     public static class ControlExtensions
     {
+        public static Task InvokeAsync(this Control control, Action action)
+        {
+            var tcs = new TaskCompletionSource<object>();
+            control.BeginInvoke(new MethodInvoker(() =>
+            {
+                try
+                {
+                    action();
+                    tcs.SetResult(null);
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+            }));
+            return tcs.Task;
+        }
+
         public static void SetOsdText(this Control control, string familyName, float emSize, FontStyle fontStyle, Color foreColor, string text)
         {
             control.Font = new Font(familyName, emSize, fontStyle);

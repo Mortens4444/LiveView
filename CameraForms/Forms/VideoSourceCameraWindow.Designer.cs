@@ -1,4 +1,7 @@
-﻿namespace CameraForms.Forms
+﻿using LiveView.Core.Extensions;
+using System.Threading;
+
+namespace CameraForms.Forms
 {
     partial class VideoSourceCameraWindow
     {
@@ -17,6 +20,9 @@
             {
                 frameTimer?.Dispose();
                 fullScreenCameraMessageHandler?.Dispose();
+                cancellationTokenSource?.CancelAndDispose();
+                fontBrush.Dispose();
+                red.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

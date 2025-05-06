@@ -25,6 +25,7 @@ namespace LiveView.Agent.Network.Commands
             if (processes.TryGetValue(processId, out var process))
             {
                 ProcessUtils.Kill(process);
+                Console.WriteLine("Process killed.");
             }
             processes.Remove(processId);
         }

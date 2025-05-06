@@ -15,6 +15,7 @@
         {
             if (disposing && (components != null))
             {
+                presenter.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

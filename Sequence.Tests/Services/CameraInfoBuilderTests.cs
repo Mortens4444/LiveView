@@ -31,7 +31,7 @@ namespace Sequence.Tests.Services
             var result = CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, null);
 
             Assert.IsInstanceOf<AxVideoPictureCameraInfo>(result);
-            Assert.AreSame(gridCamera, result.GridCamera);
+            Assert.That(result.GridCamera, Is.SameAs(gridCamera));
             //Assert.AreSame(camera, result.Camera);
         }
 
@@ -50,9 +50,9 @@ namespace Sequence.Tests.Services
 
             var info = result as VideoCaptureSourceCameraInfo;
             Assert.IsNotNull(info);
-            Assert.AreEqual("127.0.0.1", info.ServerIp);
-            Assert.AreEqual("source", info.VideoSourceName);
-            Assert.AreSame(gridCamera, info.GridCamera);
+            Assert.That(info.ServerIp, Is.EqualTo("127.0.0.1"));
+            Assert.That(info.VideoSourceName, Is.EqualTo("source"));
+            Assert.That(info.GridCamera, Is.SameAs(gridCamera));
         }
 
         [Test]

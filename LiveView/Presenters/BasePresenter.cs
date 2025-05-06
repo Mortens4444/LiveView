@@ -134,6 +134,11 @@ namespace LiveView.Presenters
             view.ShowInfo(Lng.Elem(title), Lng.Elem(message));
         }
 
+        public string ShowInput(string title, string message, string defaultAnswer = "")
+        {
+            return view.ShowInput(Lng.Elem(title), Lng.Elem(message), Lng.Elem(defaultAnswer));
+        }
+
         public void ShowError(string title, string message)
         {
             view.ShowError(Lng.Elem(title), Lng.Elem(message));

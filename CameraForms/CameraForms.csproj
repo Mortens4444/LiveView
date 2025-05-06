@@ -27,8 +27,8 @@
     <PackageReference Include="Mtf.Controls.Video.FFmpeg" Version="1.0.28" />
     <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.27" />
     <PackageReference Include="Mtf.Controls.Video.VLC" Version="1.0.26" />
-    <PackageReference Include="Mtf.Network" Version="2.0.2" />
-    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.40" />
+    <PackageReference Include="Mtf.Network" Version="2.0.3" />
+    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.41" />
   </ItemGroup>
 
   <ItemGroup>

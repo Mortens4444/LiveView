@@ -5,6 +5,7 @@ using Mtf.Network;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace LiveView.Agent.Network.Commands
 {
@@ -28,7 +29,10 @@ namespace LiveView.Agent.Network.Commands
             Console.WriteLine($"Starting process {Core.Constants.CameraAppExe} ({message}).");
             var cameraProcessId = StartProcess(messageParts, cameraProcesses);
             Console.WriteLine($"Process started with PID: {cameraProcessId}.");
-            client.Send($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
+
+            Console.WriteLine("Sending process ID...");
+            _ = client.SendAsync($"{NetworkCommand.SendCameraProcessId}|{cameraProcessId}", true);
+            Console.WriteLine("Process ID sent.");
         }
     }
 }
