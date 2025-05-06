@@ -8,7 +8,6 @@ using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -28,14 +27,13 @@ namespace CameraApp
         [STAThread]
         private static void Main(string[] args)
         {
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.AttachDebugger], out var attach) && attach)
+            if (AppConfig.GetBoolean(LiveView.Core.Constants.AttachDebugger))
             {
                 Debugger.Launch();
             }
-            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.WaitAtStartup], out var waitTime))
-            {
-                Thread.Sleep(waitTime);
-            }
+            var waitTime = AppConfig.GetInt32(LiveView.Core.Constants.WaitAtStartup);
+            Thread.Sleep(waitTime);
+
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
             ExceptionHandler.CatchUnhandledExceptions();
             Console.WriteLine($"Camera app started with args: {String.Join(" ", args)}");

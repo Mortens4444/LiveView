@@ -1,8 +1,8 @@
-﻿using Mtf.Controls.Sunell.IPR67.Enums;
+﻿using LiveView.Core.Services;
+using Mtf.Controls.Sunell.IPR67.Enums;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,10 +27,7 @@ namespace Mtf.Controls.Sunell.IPR67
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             UpdateStyles();
 
-            if (Int32.TryParse(ConfigurationManager.AppSettings["SunellCameraWindowRotate"], out var currentRotateSpeed))
-            {
-                rotateSpeed = currentRotateSpeed;
-            }
+            rotateSpeed = AppConfig.GetInt32(LiveView.Core.Constants.SunellCameraWindowRotateSpeed, 50);
 
             BackgroundImage = Properties.Resources.NoSignal;
             BackgroundImageLayout = ImageLayout.Stretch;

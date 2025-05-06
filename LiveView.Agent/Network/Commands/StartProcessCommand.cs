@@ -1,10 +1,10 @@
-﻿using LiveView.Core.Services;
+﻿using LiveView.Agent.Dto;
+using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace LiveView.Agent.Network.Commands
@@ -18,7 +18,7 @@ namespace LiveView.Agent.Network.Commands
             this.logger = logger;
         }
 
-        public int StartProcess(string[] messageParts, Dictionary<long, Process> processes)
+        public int StartProcess(string[] messageParts, Dictionary<long, ProcessInfo> processes)
         {
             if (messageParts == null || messageParts.Length == 0)
             {
@@ -26,7 +26,10 @@ namespace LiveView.Agent.Network.Commands
             }
 
             var application = messageParts[0];
-            var process = AppStarter.StartWithRedirect(application, String.Join(" ", messageParts.Skip(1)), logger);
+            var processArgs = messageParts.Skip(1);
+            var redirect = AppConfig.GetBoolean(Core.Constants.StartAppsWithRedirectedOutput);
+            var process = redirect ? AppStarter.StartWithRedirect(application, String.Join(" ", processArgs), logger) :
+                AppStarter.Start(application, String.Join(" ", processArgs), logger);
 
             if (process == null)
             {
@@ -34,26 +37,33 @@ namespace LiveView.Agent.Network.Commands
                 return -2;
             }
 
-            process.ErrorDataReceived += (sender, args) =>
+            if (redirect)
             {
-                if (!String.IsNullOrEmpty(args.Data))
+                process.ErrorDataReceived += (sender, args) =>
                 {
-                    ErrorBox.Show(Lng.Elem("General error"), args.Data);
-                }
-            };
-            process.BeginErrorReadLine();
+                    if (!String.IsNullOrEmpty(args.Data))
+                    {
+                        ErrorBox.Show(Lng.Elem("General error"), args.Data);
+                    }
+                };
+                process.BeginErrorReadLine();
 
-            process.OutputDataReceived += (sender, args) =>
+                process.OutputDataReceived += (sender, args) =>
+                {
+                    if (!String.IsNullOrEmpty(args.Data))
+                    {
+                        InfoBox.Show(Lng.Elem("Information"), args.Data);
+                    }
+                };
+                process.BeginOutputReadLine();
+            }
+
+            var display = processArgs.ElementAt(processArgs.Count() - 2);
+            Console.WriteLine($"StartProcess registering process... {String.Join(", ", processArgs)}, Display: {display}");
+            if (Int64.TryParse(display, out var displayId))
             {
-                if (!String.IsNullOrEmpty(args.Data))
-                {
-                    InfoBox.Show(Lng.Elem("Information"), args.Data);
-                }
-            };
-            process.BeginOutputReadLine();
-
-            Console.WriteLine("StartProcess registering process...");
-            processes?.Add(process.Id, process);
+                processes?.Add(process.Id, new ProcessInfo { Process = process, DisplayId = displayId });
+            }
             Console.WriteLine($"StartProcess process registered {process.Id}.");
 
             return process.Id;

@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using LiveView.Agent.Dto;
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -10,7 +11,6 @@ using Mtf.Network.Extensions;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -18,12 +18,12 @@ using System.Threading.Tasks;
 
 namespace LiveView.Agent
 {
-    public class LiveViewConnector
+    public class LiveViewConnector : IDisposable
     {
         private const string PressCtrlCToExit = "Press Ctrl+C to exit.";
         
-        private readonly Dictionary<long, Process> cameraProcesses = new Dictionary<long, Process>();
-        private readonly Dictionary<long, Process> sequenceProcesses = new Dictionary<long, Process>();
+        private readonly Dictionary<long, ProcessInfo> cameraProcesses = new Dictionary<long, ProcessInfo>();
+        private readonly Dictionary<long, ProcessInfo> sequenceProcesses = new Dictionary<long, ProcessInfo>();
         private readonly Dictionary<string, VideoCapture> videoCaptures = new Dictionary<string, VideoCapture>();
         private readonly Dictionary<string, Server> cameraServers = new Dictionary<string, Server>(); // cameraServers and videoCaptures should be in the same dictionary
         private readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
@@ -31,7 +31,7 @@ namespace LiveView.Agent
         private readonly ILogger<LiveViewConnector> logger;
         private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-        
+
         private Client client;
 
         public LiveViewConnector(ILogger<LiveViewConnector> logger, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository)
@@ -39,6 +39,7 @@ namespace LiveView.Agent
             this.logger = logger;
             this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
+            this.displayRepository = displayRepository;
         }
 
         public async Task ConnectAsync(string serverIp, ushort serverPort, ushort vncServerPort, CancellationToken cancellationToken = default)
@@ -169,13 +170,18 @@ namespace LiveView.Agent
 
             foreach (var cameraProcess in cameraProcesses)
             {
-                ProcessUtils.Kill(cameraProcess.Value);
+                ProcessUtils.Kill(cameraProcess.Value.Process);
             }
 
             foreach (var sequenceProcess in sequenceProcesses)
             {
-                ProcessUtils.Kill(sequenceProcess.Value);
+                ProcessUtils.Kill(sequenceProcess.Value.Process);
             }
+        }
+
+        public void Dispose()
+        {
+            client.Dispose();
         }
     }
 }

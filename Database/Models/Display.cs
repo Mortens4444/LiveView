@@ -39,5 +39,10 @@ namespace Database.Models
         public bool CanShowFullscreen { get; set; }
 
         public long? AgentId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{SziltechId} (Id: {Id}, AgentId: {AgentId})";
+        }
     }
 }

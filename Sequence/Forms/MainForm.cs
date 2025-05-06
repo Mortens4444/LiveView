@@ -14,7 +14,6 @@ using Mtf.Network.Extensions;
 using Mtf.Permissions.Services;
 using Sequence.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -41,9 +40,9 @@ namespace Sequence.Forms
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 
-            var serverIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
-            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
+            var serverIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+            if (serverPort != default)
             {
                 try
                 {

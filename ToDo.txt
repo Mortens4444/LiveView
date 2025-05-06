@@ -1,6 +1,6 @@
 - Start Template on agent
 
-Fix sequence close from ControlCenter
+Fix sequence close buttons from ControlCenter
 
 Vlc not reconnecting to Maginon
 Vlc image falls apart

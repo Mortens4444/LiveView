@@ -4,6 +4,7 @@
     {
         Kill,
         KillAll,
+        KillOnDisplay,
         RegisterAgent,
         UnregisterAgent,
         RegisterDisplay,

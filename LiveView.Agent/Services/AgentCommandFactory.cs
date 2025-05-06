@@ -1,4 +1,5 @@
-﻿using LiveView.Agent.Network.Commands;
+﻿using LiveView.Agent.Dto;
+using LiveView.Agent.Network.Commands;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -6,7 +7,6 @@ using Mtf.Network;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -14,7 +14,7 @@ namespace LiveView.Agent.Services
 {
     public static class AgentCommandFactory
     {
-        public static List<ICommand> Create(ILogger<LiveViewConnector> logger, Dictionary<string, Server> cameraServers, Dictionary<long, Process> cameraProcesses, Dictionary<long, Process> sequenceProcesses, Client client, byte[] data, Socket socket, Dictionary<string, VideoCapture> videoCaptures, Dictionary<string, CancellationTokenSource> cancellationTokenSources)
+        public static List<ICommand> Create(ILogger<LiveViewConnector> logger, Dictionary<string, Server> cameraServers, Dictionary<long, ProcessInfo> cameraProcesses, Dictionary<long, ProcessInfo> sequenceProcesses, Client client, byte[] data, Socket socket, Dictionary<string, VideoCapture> videoCaptures, Dictionary<string, CancellationTokenSource> cancellationTokenSources)
         {
             var result = new List<ICommand>();
             var messages = $"{client.Encoding.GetString(data)}";
@@ -30,6 +30,11 @@ namespace LiveView.Agent.Services
                 else if (message.StartsWith($"{Core.Constants.SequenceExe}|", StringComparison.InvariantCulture))
                 {
                     result.Add(new StartSequenceCommand(sequenceProcesses, message, messageParts, logger));
+                }
+                else if (message.StartsWith($"{NetworkCommand.KillOnDisplay}|", StringComparison.InvariantCulture))
+                {
+                    var dict = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
+                    result.Add(new KillOnDisplayProcessCommand(messageParts[1], messageParts[2], dict));
                 }
                 else if (message.StartsWith($"{NetworkCommand.Kill}|", StringComparison.InvariantCulture))
                 {

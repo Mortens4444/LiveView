@@ -37,7 +37,7 @@ namespace LiveView.Network.Commands
                 display.AgentHostInfo = hostInfo;
             }
 
-            display.Socket = agentSocket;
+            display.AgentSocket = agentSocket;
             DisplayManager.RemoteDisplays.Add(display);
         }
     }

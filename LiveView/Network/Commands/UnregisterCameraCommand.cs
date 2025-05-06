@@ -1,7 +1,6 @@
 ﻿using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using LiveView.Presenters;
-using SharpDX.DirectInput;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands

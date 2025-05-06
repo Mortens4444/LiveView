@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using LiveView.Core.Services;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,18 +9,10 @@ namespace CameraForms.Extensions
         public static void SetFormSizeAndPosition(this Form form, Rectangle rectangle)
         {
             form.Location = new Point(rectangle.X, rectangle.Y);
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.UseMiniSizeForFullscreenWindows], out var useMiniWindowattach) && useMiniWindowattach)
+            if (AppConfig.GetBoolean(LiveView.Core.Constants.UseMiniSizeForFullscreenWindows))
             {
-                int miniFullscreenWindowWidth;
-                if (!Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.MiniFullscreenWindowWidth], out miniFullscreenWindowWidth))
-                {
-                    miniFullscreenWindowWidth = 100;
-                }
-                int miniFullscreenWindowHeight;
-                if (!Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.MiniFullscreenWindowHeight], out miniFullscreenWindowHeight))
-                {
-                    miniFullscreenWindowHeight = 100;
-                }
+                var miniFullscreenWindowWidth = AppConfig.GetInt32(LiveView.Core.Constants.MiniFullscreenWindowWidth, 100);
+                var miniFullscreenWindowHeight = AppConfig.GetInt32(LiveView.Core.Constants.MiniFullscreenWindowHeight, 100);
                 form.Size = new Size(miniFullscreenWindowWidth, miniFullscreenWindowHeight);
             }
             else

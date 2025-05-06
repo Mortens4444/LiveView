@@ -54,7 +54,7 @@ namespace LiveView
 
             for (int i = DisplayManager.RemoteDisplays.Count - 1; i >= 0; i--)
             {
-                if (DisplayManager.RemoteDisplays[i].Socket == agentSocket) //if (DisplayManager.RemoteDisplays[i].Host == hostInfo)
+                if (DisplayManager.RemoteDisplays[i].AgentSocket == agentSocket) //if (DisplayManager.RemoteDisplays[i].Host == hostInfo)
                 {
                     DisplayManager.RemoteDisplays.RemoveAt(i);
                 }

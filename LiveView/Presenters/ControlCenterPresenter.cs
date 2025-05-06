@@ -406,6 +406,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, NetworkCommand.KillOnDisplay, Core.Constants.SequenceExe, selectedDisplay.GetId());
                     MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, selectedDisplay.AgentId, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
                 }
                 return true;

@@ -13,7 +13,6 @@ using Mtf.Network.EventArg;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -99,15 +98,11 @@ namespace LiveView.Agent
             Application.ApplicationExit += (sender, e) => OnExit();
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
 
-            var hideConsoleWindow = ConfigurationManager.AppSettings[Core.Constants.LiveViewAgentHideConsoleWindow];
-            if (Boolean.TryParse(hideConsoleWindow, out var hideWindow))
+            if (AppConfig.GetBoolean(Core.Constants.LiveViewAgentHideConsoleWindow))
             {
-                if (hideWindow)
-                {
-                    const int SW_HIDE = 0;
-                    var handle = GetConsoleWindow();
-                    ShowWindow(handle, SW_HIDE);
-                }
+                const int SW_HIDE = 0;
+                var handle = GetConsoleWindow();
+                ShowWindow(handle, SW_HIDE);
             }
 
             try
@@ -120,9 +115,9 @@ namespace LiveView.Agent
                 throw;
             }
 
-            var serverIp = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerIpAddress];
-            var listenerPort = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerListenerPort];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
+            var serverIp = AppConfig.GetString(Core.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(Core.Constants.LiveViewServerListenerPort);
+            if (serverPort != default)
             {
                 Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, vncServer.CommandServer.ListenerPortOfServer, cancellationTokenSource.Token)).Wait();
             }
@@ -141,7 +136,7 @@ namespace LiveView.Agent
 
         private static void StartVideoCaptureServers()
         {
-            var json = ConfigurationManager.AppSettings["StartCameras"];
+            var json = AppConfig.GetString(Core.Constants.StartCameras);
             cancellationTokenSource?.CancelAndDispose();
             cancellationTokenSource = new CancellationTokenSource();
 #if NET462
@@ -150,12 +145,7 @@ namespace LiveView.Agent
             var videoCaptureIds = System.Text.Json.JsonSerializer.Deserialize<List<string>>(json);
 #endif
 
-            var imageCaptureServerBufferSize = ConfigurationManager.AppSettings[Core.Constants.ImageCaptureServerBufferSize];
-            int bufferSize;
-            if (!Int32.TryParse(imageCaptureServerBufferSize, out bufferSize))
-            {
-                bufferSize = 409600;
-            }
+            var bufferSize = AppConfig.GetInt32(Core.Constants.ImageCaptureServerBufferSize, 409600);
 
             foreach (var videoCaptureId in videoCaptureIds)
             {
@@ -179,11 +169,7 @@ namespace LiveView.Agent
                         BufferSize = bufferSize
                     };
                     imageCaptureServers.Add(imageCaptureServer);
-                    var imageCaptureServerFps = ConfigurationManager.AppSettings[Core.Constants.LiveViewAgentImageCaptureServerFps];
-                    if (Byte.TryParse(imageCaptureServerFps, out var fps))
-                    {
-                        imageCaptureServer.FPS = fps;
-                    }
+                    imageCaptureServer.FPS = AppConfig.GeByte(Core.Constants.LiveViewAgentImageCaptureServerFps, 4);
 
                     var videoCaptureServer = imageCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                     //var videoCaptureServer = new VideoCaptureServer();

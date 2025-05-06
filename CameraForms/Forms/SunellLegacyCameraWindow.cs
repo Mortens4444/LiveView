@@ -15,7 +15,6 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -41,10 +40,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.SunellLegacyCameraWindowRotateSpeed], out var currentRotateSpeed))
-            {
-                rotateSpeed = currentRotateSpeed;
-            }
+            rotateSpeed = AppConfig.GetInt32(LiveView.Core.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
 
             this.sunellLegacyCameraInfo = sunellLegacyCameraInfo;
             this.rectangle = rectangle;

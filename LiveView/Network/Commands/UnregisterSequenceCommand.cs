@@ -1,4 +1,7 @@
-﻿using LiveView.Core.Interfaces;
+﻿using LiveView.Core.Enums.Network;
+using LiveView.Core.Interfaces;
+using LiveView.Presenters;
+using System;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -13,14 +16,18 @@ namespace LiveView.Network.Commands
         public UnregisterSequenceCommand(string hostInfo, string sequenceId, string processId, Socket agentSocket)
         {
             this.hostInfo = hostInfo;
-            long.TryParse(sequenceId, out this.sequenceId);
-            long.TryParse(processId, out this.processId);
+            Int64.TryParse(sequenceId, out this.sequenceId);
+            Int64.TryParse(processId, out this.processId);
             this.agentSocket = agentSocket;
         }
 
         public void Execute()
         {
-            Globals.SequenceProcesses.TryRemove(hostInfo, out _);
+            if (Globals.SequenceProcesses.ContainsKey(hostInfo))
+            {
+                MainPresenter.SentToClient(hostInfo, NetworkCommand.Kill, Core.Constants.SequenceExe, processId);
+                Globals.SequenceProcesses.TryRemove(hostInfo, out var process);
+            }
         }
     }
 }

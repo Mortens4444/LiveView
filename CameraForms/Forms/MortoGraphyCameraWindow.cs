@@ -10,7 +10,6 @@ using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -88,11 +87,7 @@ namespace CameraForms.Forms
 
         private void SetBufferSize()
         {
-            var videoCaptureClientBufferSize = ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoCaptureClientBufferSize];
-            if (!Int32.TryParse(videoCaptureClientBufferSize, out bufferSize))
-            {
-                bufferSize = 409600;
-            }
+            bufferSize = AppConfig.GetInt32(LiveView.Core.Constants.VideoCaptureClientBufferSize, 409600);
         }
 
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)

@@ -41,7 +41,7 @@ namespace LiveView.Core.Services
                     return response.IsSuccessStatusCode;
                 }
             }
-            catch (Exception _)
+            catch (Exception)
             {
                 try
                 {
@@ -82,8 +82,9 @@ namespace LiveView.Core.Services
                         return response.IsSuccessStatusCode;
                     }
                 }
-                catch (Exception __)
+                catch (Exception ex)
                 {
+                    DebugErrorBox.Show(ex);
                     return false;
                 }
             }

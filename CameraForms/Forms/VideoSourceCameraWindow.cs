@@ -17,7 +17,6 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
-using System.Configuration;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,11 +68,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
-            
-            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout], out var currentReconnectTimeout))
-            {
-                reconnectTimeout = currentReconnectTimeout;
-            }
+            reconnectTimeout = AppConfig.GetInt32(LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -97,11 +92,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
-
-            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout], out var currentReconnectTimeout))
-            {
-                reconnectTimeout = currentReconnectTimeout;
-            }
+            reconnectTimeout = AppConfig.GetInt32(LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
             Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
         }

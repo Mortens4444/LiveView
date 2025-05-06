@@ -6,6 +6,7 @@ using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Interfaces;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -33,7 +34,6 @@ using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -223,12 +223,12 @@ namespace LiveView.Presenters
 
         private void StartServer()
         {
-            var listenerPort = ConfigurationManager.AppSettings[Core.Constants.LiveViewServerListenerPort];
-            if (UInt16.TryParse(listenerPort, out var port))
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(Core.Constants.LiveViewServerListenerPort);
+            if (serverPort != default)
             {
                 try
                 {
-                    Globals.Server = new NetworkServer(listenerPort: port);
+                    Globals.Server = new NetworkServer(listenerPort: serverPort);
                     Globals.Server.DataArrived += DataArrivedEventHandler;
                     Globals.Server.Start();
                 }

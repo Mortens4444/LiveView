@@ -71,7 +71,7 @@ namespace LiveView.Core.Dto
 
         public bool CanShowFullscreen { get; set; }
 
-        public Socket Socket { get; set; }
+        public Socket AgentSocket { get; set; }
 
         public Rectangle Bounds => new Rectangle(X, Y, MaxWidth, MaxHeight);
 

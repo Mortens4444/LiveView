@@ -7,7 +7,6 @@ using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Network.Extensions;
 using System;
-using System.Configuration;
 
 namespace CameraForms.Services
 {
@@ -15,9 +14,9 @@ namespace CameraForms.Services
     {
         public static Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler, CameraMode cameraMode)
         {
-            var liveViewServerIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
-            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
+            var liveViewServerIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+            if (serverPort != default)
             {
                 try
                 {
@@ -45,9 +44,9 @@ namespace CameraForms.Services
 
         public static Client RegisterVideoSource(long userId, string serverIp, string videoCaptureSource, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler)
         {
-            var liveViewServerIp = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerIpAddress];
-            var listenerPort = ConfigurationManager.AppSettings[LiveView.Core.Constants.LiveViewServerListenerPort];
-            if (UInt16.TryParse(listenerPort, out var serverPort))
+            var liveViewServerIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+            if (serverPort != default)
             {
                 try
                 {

@@ -6,7 +6,6 @@ using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
 using Sequence.Services;
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -21,14 +20,13 @@ namespace Sequence
         [STAThread]
         static void Main(string[] args)
         {
-            if (Boolean.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.AttachDebugger], out var attach) && attach)
+            if (AppConfig.GetBoolean(LiveView.Core.Constants.AttachDebugger))
             {
                 Debugger.Launch();
             }
-            if (Int32.TryParse(ConfigurationManager.AppSettings[LiveView.Core.Constants.WaitAtStartup], out var waitTime))
-            {
-                Thread.Sleep(waitTime);
-            }
+            var waitTime = AppConfig.GetInt32(LiveView.Core.Constants.WaitAtStartup);
+            Thread.Sleep(waitTime);
+
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
             ExceptionHandler.CatchUnhandledExceptions();
 
