@@ -39,7 +39,6 @@ namespace LiveView.Agent
             this.logger = logger;
             this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
-            this.displayRepository = displayRepository;
         }
 
         public async Task ConnectAsync(string serverIp, ushort serverPort, ushort vncServerPort, CancellationToken cancellationToken = default)
