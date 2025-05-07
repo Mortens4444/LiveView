@@ -1,9 +1,11 @@
 using Database.Services;
 using LiveView.WebApi.Converters;
+using LiveView.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 ServiceProviderFactoryHelper.RegisterRepositories(builder.Services);
-builder.Services.AddScoped<SequenceConverter, SequenceConverter>();
+ConverterServiceProviderFactoryHelper.RegisterConverters(builder.Services);
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
