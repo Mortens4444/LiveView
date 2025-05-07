@@ -21,7 +21,7 @@ namespace LiveView.Forms
 
         private Timer mouseUpdateTimer;
         private IDisplayPresenter displayPresenter;
-        private static readonly Regex ButtonNameRegex = new Regex(@"btnCloseSequence(\d+)OnDisplay(\d+)", RegexOptions.Compiled);
+        private static readonly Regex ButtonNameRegex = new Regex(@"btnCloseSequence(\d+)OnDisplay(.+)", RegexOptions.Compiled);
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<DisplayDto> CachedDisplays { get; set; }
