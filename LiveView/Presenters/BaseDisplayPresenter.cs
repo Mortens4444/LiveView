@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
@@ -110,8 +111,7 @@ namespace LiveView.Presenters
                         Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, NetworkCommand.Close.ToString(), true);
                         Globals.SequenceProcesses.TryRemove(sequenceProcess.Key, out _);
                         var button = sender as Button;
-                        button.Parent.Controls.Remove(button);
-                        button.Dispose();
+                        button.SafeDispose();
                     };
                     
                     result.Add(new SequenceEnvironment

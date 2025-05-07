@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
@@ -129,7 +130,7 @@ namespace LiveView.Forms
 
             if (showSeqences)
             {
-                ShowSeqence(panel, graphics, display, adjustedBounds);
+                ShowSequence(panel, graphics, display, adjustedBounds);
             }
             ShowDisplayName(graphics, display, adjustedBounds);
         }
@@ -149,7 +150,7 @@ namespace LiveView.Forms
 
         private const int delta = 4;
 
-        private void ShowSeqence(Panel panel, Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
+        private void ShowSequence(Panel panel, Graphics graphics, DisplayDto display, Rectangle adjustedBounds)
         {
             var sequenceEnvironments = displayPresenter.GetSequenceEnvironments(display);
             foreach (var sequenceEnvironment in sequenceEnvironments)
@@ -157,20 +158,13 @@ namespace LiveView.Forms
                 var (drawingPen, sequenceBrush) = displayPresenter.GetDrawingTools(display, DisplayDrawingTools.Sequence);
                 graphics.FillRectangle(sequenceBrush, adjustedBounds);
 
-                if (!panel.Controls.ContainsKey(sequenceEnvironment.CloseButton.Name))
+                var location = new Point(adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta, adjustedBounds.Top + delta);
+                if (!panel.Controls.Contains(sequenceEnvironment.CloseButton))
                 {
-                    sequenceEnvironment.CloseButton.Location = new Point(
-                        adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta,
-                        adjustedBounds.Top + delta);
                     panel.Controls.Add(sequenceEnvironment.CloseButton);
-                    sequenceEnvironment.CloseButton.BringToFront();
                 }
-                else
-                {
-                    panel.Controls[sequenceEnvironment.CloseButton.Name].Location = new Point(
-                        adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta,
-                        adjustedBounds.Top + delta);
-                }
+                sequenceEnvironment.CloseButton.Location = location;
+                sequenceEnvironment.CloseButton.Refresh();
             }
             RemoveInvalidButtons(panel, display);
         }
@@ -188,7 +182,7 @@ namespace LiveView.Forms
                         if (!(sequenceProcessInfoList.Any(sequenceProcessInfo => sequenceProcessInfo.SequenceId == sequenceId
                             && sequenceProcessInfo.GetDisplayId() == match.Groups[2].Value)))
                         {
-                            button.Dispose();
+                            button.SafeDispose();
                         }
                     }
                 }

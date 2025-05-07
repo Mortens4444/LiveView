@@ -1,6 +1,4 @@
-﻿using LiveView.Core.Enums.Network;
-using LiveView.Core.Interfaces;
-using LiveView.Presenters;
+﻿using LiveView.Core.Interfaces;
 using System;
 using System.Net.Sockets;
 
@@ -25,8 +23,7 @@ namespace LiveView.Network.Commands
         {
             if (Globals.SequenceProcesses.ContainsKey(hostInfo))
             {
-                MainPresenter.SentToClient(hostInfo, NetworkCommand.Kill, Core.Constants.SequenceExe, processId);
-                Globals.SequenceProcesses.TryRemove(hostInfo, out var process);
+                Globals.SequenceProcesses.TryRemove(hostInfo, out var _);
             }
         }
     }

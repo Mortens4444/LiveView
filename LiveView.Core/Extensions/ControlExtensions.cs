@@ -7,6 +7,18 @@ namespace LiveView.Core.Extensions
 {
     public static class ControlExtensions
     {
+        public static void SafeDispose(this Control control)
+        {
+            if (control != null && !control.IsDisposed)
+            {
+                control.Parent?.Controls.Remove(control);
+                control.BeginInvoke((Action)(() =>
+                {
+                    control.Dispose();
+                }));
+            }
+        }
+
         public static Task InvokeAsync(this Control control, Action action)
         {
             var tcs = new TaskCompletionSource<object>();
