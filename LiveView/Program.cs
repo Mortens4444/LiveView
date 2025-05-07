@@ -23,6 +23,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Database.Services;
 
 namespace LiveView
 {

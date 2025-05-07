@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -63,11 +64,7 @@ namespace Sequence.Forms
                 }
                 catch (Exception ex)
                 {
-#if NET6_0_OR_GREATER
-                    logger.LogError(ex, "Connection failed.");
-#else
-                    logger.LogError($"Connection failed: {ex}");
-#endif
+                    logger.LogException(ex, "Connection failed.");
                     DebugErrorBox.Show(ex);
                 }
             }
@@ -156,12 +153,7 @@ namespace Sequence.Forms
             }
             catch (Exception ex)
             {
-#if NET6_0_OR_GREATER
-                logger.LogError(ex, "Client data cannot be parsed.");
-#else
-                logger.LogError($"Client data cannot be parsed: {ex}");
-#endif
-
+                logger.LogException(ex, "Client data cannot be parsed.");
                 DebugErrorBox.Show(ex);
             }
         }
@@ -203,12 +195,7 @@ namespace Sequence.Forms
             }
             catch (Exception ex)
             {
-#if NET6_0_OR_GREATER
-                logger.LogError(ex, "Cannot unregister sequence application.");
-#else
-                logger.LogError($"Cannot unregister sequence application: {ex}");
-#endif
-
+                logger.LogException(ex, "Cannot unregister sequence application.");
                 DebugErrorBox.Show(ex);
             }
         }

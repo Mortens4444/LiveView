@@ -100,7 +100,7 @@ namespace LiveView.Forms
             }
         }
 
-        private void DrawDisplay(Panel panel, Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools, bool showSeqences)
+        private void DrawDisplay(Panel panel, Graphics graphics, DisplayDto display, DisplayDrawingTools displayDrawingTools, bool showSequences)
         {
             if (!(CachedBounds?.TryGetValue(display.Id, out var bounds) ?? false))
             {
@@ -108,7 +108,7 @@ namespace LiveView.Forms
             }
 
             var (drawingPen, drawingBrush) = displayPresenter.GetDrawingTools(display, displayDrawingTools);
-            Draw(panel, graphics, display, bounds, drawingPen, drawingBrush, showSeqences);
+            Draw(panel, graphics, display, bounds, drawingPen, drawingBrush, showSequences);
         }
 
         private static Rectangle GetAdjustedBounds(Rectangle bounds)
@@ -121,14 +121,14 @@ namespace LiveView.Forms
             );
         }
 
-        private void Draw(Panel panel, Graphics graphics, DisplayDto display, Rectangle bounds, Pen drawingPen, SolidBrush drawingBrush, bool showSeqences)
+        private void Draw(Panel panel, Graphics graphics, DisplayDto display, Rectangle bounds, Pen drawingPen, SolidBrush drawingBrush, bool showSequences)
         {
             graphics.DrawRectangle(drawingPen, bounds);
             graphics.FillRegion(drawingBrush, new Region(bounds));
             var adjustedBounds = GetAdjustedBounds(bounds);
             graphics.DrawRectangle(drawingPen, adjustedBounds);
 
-            if (showSeqences)
+            if (showSequences)
             {
                 ShowSequence(panel, graphics, display, adjustedBounds);
             }

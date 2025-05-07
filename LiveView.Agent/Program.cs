@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using Database.Services;
 using LiveView.Agent.Services;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -180,11 +181,7 @@ namespace LiveView.Agent
                 }
                 catch (Exception ex)
                 {
-#if NET6_0_OR_GREATER
-                    logger.LogError(ex, $"Start video capture server {videoCaptureId} failed.");
-#else
-                    logger.LogError($"Start video capture server {videoCaptureId} failed: {ex}");
-#endif
+                    logger.LogException(ex, $"Start video capture server {videoCaptureId} failed.");
                     ErrorBox.Show(ex);
                 }
             }

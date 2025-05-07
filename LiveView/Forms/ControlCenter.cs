@@ -2,11 +2,14 @@
 using Database.Models;
 using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
 using LiveView.Interfaces;
 using LiveView.Presenters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;
@@ -26,6 +29,7 @@ namespace LiveView.Forms
         private readonly Camera camera;
         private readonly VideoSourceDto videoSource;
         private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
+        private readonly ILogger<ControlCenter> logger;
 
         private ControlCenterPresenter presenter;
 
@@ -43,6 +47,7 @@ namespace LiveView.Forms
         {
             this.camera = camera;
             this.videoSource = videoSource;
+            logger = serviceProvider.GetRequiredService<ILogger<ControlCenter>>();
 
             DisplayManager.RemoteDisplays.Changed += (object sender, ListChangedEventArgs<DisplayDto> e) =>
             {
@@ -53,6 +58,7 @@ namespace LiveView.Forms
         private ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
             InitializeComponent();
+            logger = serviceProvider.GetRequiredService<ILogger<ControlCenter>>();
 
             permissionManager.ApplyPermissionsOnControls(this);
 
@@ -343,6 +349,7 @@ namespace LiveView.Forms
             }
             catch (Exception ex)
             {
+                logger.LogException(ex);
                 DebugErrorBox.Show(ex);
             }
         }

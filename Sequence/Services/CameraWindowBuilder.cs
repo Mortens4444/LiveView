@@ -4,6 +4,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Network;
@@ -129,11 +130,7 @@ namespace Sequence.Services
             }
             catch (Exception ex)
             {
-#if NET6_0_OR_GREATER
-                logger.LogError(ex, "Cannot open video window.");
-#else
-                logger.LogError($"Cannot open video window: {ex}");
-#endif
+                logger.LogException(ex, "Cannot open video window.");
             }
         }
     }

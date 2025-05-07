@@ -1,10 +1,9 @@
 ﻿using Database.Repositories;
 using Mtf.Database;
-using Mtf.MessageBoxes;
 using System;
 using System.Configuration;
 
-namespace LiveView.Core.Services
+namespace Database.Services
 {
     public static class DatabaseInitializer
     {
@@ -29,9 +28,8 @@ namespace LiveView.Core.Services
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex);
-                ErrorBox.Show("General error", ex.Message);
+                throw;
             }
-            return false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
+using Database.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Moq;

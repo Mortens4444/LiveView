@@ -1,0 +1,6 @@
+@Sequence.WebApi_HostAddress = http://localhost:5219
+
+GET {{Sequence.WebApi_HostAddress}}/sequence/
+Accept: application/json
+
+###

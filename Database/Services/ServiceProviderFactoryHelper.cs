@@ -6,7 +6,7 @@ namespace Database.Services
 {
     public static class ServiceProviderFactoryHelper
     {
-        public static void RegisterRepositories(ServiceCollection services)
+        public static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<IAgentRepository, AgentRepository>();
             services.AddScoped<IBarcodeCharChangerRepository, BarcodeCharChangerRepository>();
