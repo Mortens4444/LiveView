@@ -6,6 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Database.Interfaces;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;

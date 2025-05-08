@@ -1,5 +1,4 @@
-﻿using Database.Enums;
-using System;
+﻿using System;
 
 namespace Database.Models
 {

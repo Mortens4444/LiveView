@@ -14,7 +14,7 @@ namespace Watchdog
             this.cpuMonitor = cpuMonitor;
         }
 
-        public async Task RunAsync()
+        public async Task RunAsync(TimeSpan checkInterval)
         {
             while (true)
             {
@@ -25,7 +25,7 @@ namespace Watchdog
                     watcher.Kill();
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(checkInterval);
             }
         }
     }

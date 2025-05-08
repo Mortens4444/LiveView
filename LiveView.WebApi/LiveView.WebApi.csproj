@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\Mtf.Web\Mtf.Web.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace Watchdog
         {
             if (args == null || args.Length == 0)
             {
-                throw new ArgumentException($"Missing process path.{Environment.NewLine}Usage: {AppDomain.CurrentDomain.FriendlyName} ProcessPath [MinimumCpuUsage]");
+                throw new ArgumentException($"Missing process path.{Environment.NewLine}Usage: {AppDomain.CurrentDomain.FriendlyName} {nameof(ProcessPath)} [{nameof(MinCpuUsage)}] [{nameof(CheckInterval)}Milliseconds)]");
             }
 
             var settings = new AppSettings
@@ -28,6 +28,18 @@ namespace Watchdog
                 if (Double.TryParse(args[1], out var cpu))
                 {
                     settings.MinCpuUsage = cpu;
+                }
+            }
+
+            if (args.Length > 2)
+            {
+                if (Double.TryParse(args[2], out var checkInterval))
+                {
+                    if (checkInterval < 0)
+                    {
+                        throw new ArgumentException($"{nameof(CheckInterval)}Milliseconds cannot be less than zero.");
+                    }
+                    settings.CheckInterval = TimeSpan.FromMilliseconds(checkInterval);
                 }
             }
 

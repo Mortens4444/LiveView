@@ -6,10 +6,10 @@ namespace Watchdog
 {
     class ProcessWatcher
     {
-        private readonly AppSettings settings;
+        private readonly string processPath;
         private Process process;
 
-        public ProcessWatcher(AppSettings settings) => this.settings = settings;
+        public ProcessWatcher(string processPath) => this.processPath = processPath;
 
         public void EnsureRunning()
         {
@@ -30,7 +30,7 @@ namespace Watchdog
 
         private Process FindProcess()
         {
-            var exeName = Path.GetFileNameWithoutExtension(settings.ProcessPath);
+            var exeName = Path.GetFileNameWithoutExtension(processPath);
             return Process.GetProcessesByName(exeName).FirstOrDefault();
         }
 
@@ -38,7 +38,7 @@ namespace Watchdog
         {
             var newProcess = new Process
             {
-                StartInfo = new ProcessStartInfo(settings.ProcessPath)
+                StartInfo = new ProcessStartInfo(processPath)
                 {
                     UseShellExecute = true
                 }

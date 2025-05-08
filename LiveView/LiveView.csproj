@@ -7188,8 +7188,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Controls" Version="1.1.0" />
-    <PackageReference Include="Mtf.Database" Version="2.0.38" />
+    <PackageReference Include="Mtf.Controls" Version="1.1.2" />
+    <PackageReference Include="Mtf.Database" Version="2.0.39" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.24" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.5" />
     <PackageReference Include="Mtf.MessageBoxes" Version="5.0.5" />

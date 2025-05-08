@@ -1,6 +1,6 @@
 ﻿using Database.Models;
 using LiveView.WebApi.Dto;
-using LiveView.WebApi.Interfaces;
+using Mtf.Web.Interfaces;
 
 namespace LiveView.WebApi.Converters
 {

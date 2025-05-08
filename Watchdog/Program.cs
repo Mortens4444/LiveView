@@ -10,11 +10,11 @@ namespace Watchdog
             {
                 var settings = AppSettings.Parse(args);
 
-                var watcher = new ProcessWatcher(settings);
+                var watcher = new ProcessWatcher(settings.ProcessPath);
                 var cpuMonitor = new CpuMonitor(settings);
                 var serviceRunner = new ServiceRunner(watcher, cpuMonitor);
 
-                serviceRunner.RunAsync().GetAwaiter().GetResult();
+                serviceRunner.RunAsync(settings.CheckInterval).GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {

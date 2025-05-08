@@ -1,4 +1,4 @@
-﻿using LiveView.WebApi.Interfaces;
+﻿using Mtf.Database.Interfaces;
 
 namespace LiveView.WebApi.Dto
 {

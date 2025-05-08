@@ -1,8 +1,9 @@
 ﻿using Database.Enums;
+using Mtf.Database.Interfaces;
 
 namespace Database.Models
 {
-    public class CameraFunction
+    public class CameraFunction : IHaveId<long>
     {
         public long Id { get; set; }
 
