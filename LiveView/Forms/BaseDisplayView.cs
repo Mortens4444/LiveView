@@ -159,7 +159,7 @@ namespace LiveView.Forms
                 graphics.FillRectangle(sequenceBrush, adjustedBounds);
 
                 var location = new Point(adjustedBounds.Right - sequenceEnvironment.CloseButton.Width - delta, adjustedBounds.Top + delta);
-                if (!panel.Controls.Contains(sequenceEnvironment.CloseButton))
+                if (!panel.Controls.ContainsKey(sequenceEnvironment.CloseButton.Name))
                 {
                     panel.Controls.Add(sequenceEnvironment.CloseButton);
                 }
