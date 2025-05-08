@@ -1,4 +1,5 @@
 ﻿using Database.Enums;
+using LiveView.WebApi.Interfaces;
 
 namespace LiveView.WebApi.Dto
 {
@@ -6,7 +7,7 @@ namespace LiveView.WebApi.Dto
     /// Data Transfer Object for the Camera entity.
     /// Used to transfer camera data between the API and clients.
     /// </summary>
-    public record CameraDto
+    public record CameraDto : IHaveIdWithSetter<long>
     {
         /// <summary>
         /// Gets or sets the unique identifier for the camera.

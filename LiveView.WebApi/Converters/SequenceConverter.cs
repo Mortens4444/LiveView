@@ -1,38 +1,50 @@
-﻿using LiveView.WebApi.Dto;
+﻿using Database.Models;
+using LiveView.WebApi.Dto;
+using LiveView.WebApi.Interfaces;
 
 namespace LiveView.WebApi.Converters
 {
-    public class SequenceConverter
+    public class SequenceConverter : IConverter<Sequence, SequenceDto>
     {
-        public SequenceDto? ToDto(Database.Models.Sequence sequence)
+        /// <summary>
+        /// Converts a Database.Models.Sequence object to a SequenceDto object.
+        /// </summary>
+        /// <param name="model">The source Sequence model.</param>
+        /// <returns>The converted SequenceDto, or null if the source is null.</returns>
+        public SequenceDto? ToDto(Sequence? model)
         {
-            if (sequence == null)
+            if (model == null)
             {
                 return null;
             }
 
             return new SequenceDto
             {
-                Active = sequence.Active,
-                Id = sequence.Id,
-                Name = sequence.Name,
-                Priority = sequence.Priority
+                Active = model.Active,
+                Id = model.Id,
+                Name = model.Name,
+                Priority = model.Priority
             };
         }
 
-        public Database.Models.Sequence? ToModel(SequenceDto sequence)
+        /// <summary>
+        /// Converts a SequenceDto object to a Database.Models.Sequence object.
+        /// </summary>
+        /// <param name="dto">The source SequenceDto.</param>
+        /// <returns>The converted Database.Models.Sequence, or null if the source DTO is null.</returns>
+        public Sequence? ToModel(SequenceDto? dto)
         {
-            if (sequence == null)
+            if (dto == null)
             {
                 return null;
             }
 
-            return new Database.Models.Sequence
+            return new Sequence
             {
-                Active = sequence.Active,
-                Id = sequence.Id,
-                Name = sequence.Name,
-                Priority = sequence.Priority
+                Active = dto.Active,
+                Id = dto.Id,
+                Name = dto.Name,
+                Priority = dto.Priority
             };
         }
     }

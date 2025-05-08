@@ -1,10 +1,12 @@
-﻿namespace LiveView.WebApi.Dto
+﻿using LiveView.WebApi.Interfaces;
+
+namespace LiveView.WebApi.Dto
 {
     /// <summary>
     /// Data Transfer Object for the Template entity.
     /// Used to transfer data between the API and clients.
     /// </summary>
-    public record TemplateDto
+    public record TemplateDto : IHaveIdWithSetter<long>
     {
         /// <summary>
         /// Gets or sets the unique identifier for the template.

@@ -1,6 +1,8 @@
-﻿namespace LiveView.WebApi.Dto
+﻿using LiveView.WebApi.Interfaces;
+
+namespace LiveView.WebApi.Dto
 {
-    public record GridDto
+    public record GridDto : IHaveIdWithSetter<long>
     {
         public long Id { get; set; }
 

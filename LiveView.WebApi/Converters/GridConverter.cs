@@ -1,45 +1,56 @@
-﻿using LiveView.WebApi.Dto;
-using Database.Models;
+﻿using Database.Models;
+using LiveView.WebApi.Dto;
+using LiveView.WebApi.Interfaces;
 
 namespace LiveView.WebApi.Converters
 {
-    public class GridConverter
+    public class GridConverter : IConverter<Grid, GridDto>
     {
-        public GridDto? ToDto(Grid grid)
+        /// <summary>
+        /// Converts a Database.Models.Grid object to a GridDto object.
+        /// </summary>
+        /// <param name="model">The source Grid model.</param>
+        /// <returns>The converted GridDto, or null if the source is null.</returns>
+        public GridDto? ToDto(Grid? model)
         {
-            if (grid == null)
+            if (model == null)
             {
                 return null;
             }
 
             return new GridDto
             {
-                Id = grid.Id,
-                Rows = grid.Rows,
-                Columns = grid.Columns,
-                PixelsFromRight = grid.PixelsFromRight,
-                PixelsFromBottom = grid.PixelsFromBottom,
-                Name = grid.Name,
-                Priority = grid.Priority
+                Id = model.Id,
+                Rows = model.Rows,
+                Columns = model.Columns,
+                PixelsFromRight = model.PixelsFromRight,
+                PixelsFromBottom = model.PixelsFromBottom,
+                Name = model.Name,
+                Priority = model.Priority
             };
         }
 
-        public Grid? ToModel(GridDto grid)
+        /// <summary>
+        /// Converts a GridDto object to a Database.Models.Grid object.
+        /// </summary>
+        /// <param name="dto">The source GridDto.</param>
+        /// <returns>The converted Database.Models.Grid, or null if the source DTO is null.</returns>
+        public Grid? ToModel(GridDto? dto)
         {
-            if (grid == null)
+            if (dto == null)
             {
                 return null;
             }
 
             return new Grid
             {
-                Id = grid.Id,
-                Rows = grid.Rows,
-                Columns = grid.Columns,
-                PixelsFromRight = grid.PixelsFromRight,
-                PixelsFromBottom = grid.PixelsFromBottom,
-                Name = grid.Name,
-                Priority = grid.Priority
+                Id = dto.Id,
+                Rows = dto.Rows,
+                Columns = dto.Columns,
+                PixelsFromRight = dto.PixelsFromRight,
+                PixelsFromBottom = dto.PixelsFromBottom,
+                Name = dto.Name,
+                Priority = dto.Priority
             };
         }
     }
