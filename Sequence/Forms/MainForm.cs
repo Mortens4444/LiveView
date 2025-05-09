@@ -96,6 +96,11 @@ namespace Sequence.Forms
                 throw new InvalidOperationException($"Display not found with Id '{displayId}'.");
             }
 
+            if (!display.CanShowSequence)
+            {
+                throw new InvalidOperationException(String.Format("This display ('{0}') is forbidden to show sequence windows.", displayId));
+            }
+
             var sequenceRepository = serviceProvider.GetRequiredService<ISequenceRepository>();
             var gridRepository = serviceProvider.GetRequiredService<IGridRepository>();
             var gridInSequenceRepository = serviceProvider.GetRequiredService<IGridInSequenceRepository>();

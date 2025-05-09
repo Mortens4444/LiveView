@@ -1,5 +1,5 @@
-- Start Template on agent
-- Display selection not works when agent has open sequence
+- Open more fullscreen windows
+- Templates should open fullscreen windows
 - Opening full screen closes sequence applications
 
 Vlc not reconnecting to Maginon

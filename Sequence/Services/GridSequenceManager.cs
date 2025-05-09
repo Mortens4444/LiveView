@@ -177,11 +177,11 @@ namespace Sequence.Services
                 {
                     if (parentForm.InvokeRequired)
                     {
-                        parentForm.Invoke((Action)(() => cameraWindowBuilder.ShowVideoWindow(client, display, parentForm, result, camera, gridInSequence, cancellationTokenSource)));
+                        parentForm.Invoke((Action)(() => cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource)));
                     }
                     else
                     {
-                        cameraWindowBuilder.ShowVideoWindow(client, display, parentForm, result, camera, gridInSequence, cancellationTokenSource);
+                        cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource);
                     }
                 });
             }

@@ -34,7 +34,12 @@ namespace CameraForms.Dto
                 return null;
             }
 
-            return DisplayProvider.Get(DisplayId);
+            var result = DisplayProvider.Get(DisplayId);
+            if (!result.CanShowFullscreen)
+            {
+                throw new InvalidOperationException(String.Format("This display ('{0}') is forbidden to show full screen camera windows.", result.Id));
+            }
+            return result;
         }
     }
 }

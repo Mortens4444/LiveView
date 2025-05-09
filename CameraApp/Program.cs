@@ -42,10 +42,10 @@ namespace CameraApp
             try
             {
                 //#if NETFRAMEWORK
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
                 //#else
-                //            ApplicationConfiguration.Initialize();
+                //  ApplicationConfiguration.Initialize();
                 //#endif
 
                 if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
@@ -53,30 +53,25 @@ namespace CameraApp
                     return;
                 }
 
-                //InfoBox.Show("Camera app started", $"{String.Join(" ", args)}");
-
                 var serviceProvider = ServiceProviderFactory.Create();
-                //using (var serviceProvider = ServiceProviderFactory.Create())
+                logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+                ExceptionHandler.SetLogger(logger);
+
+                var context = CameraLaunchContextParser.Parse(args);
+                if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
                 {
-                    logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
-                    ExceptionHandler.SetLogger(logger);
+                    _ = Sdk.sdk_dev_init(null);
+                }
 
-                    var context = CameraLaunchContextParser.Parse(args);
-                    if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
-                    {
-                        _ = Sdk.sdk_dev_init(null);
-                    }
+                var factory = new CameraWindowFactory();
+                using (var form = factory.Create(context, serviceProvider))
+                {
+                    Application.Run(form);
+                }
 
-                    var factory = new CameraWindowFactory();
-                    using (var form = factory.Create(context, serviceProvider))
-                    {
-                        Application.Run(form);
-                    }
-
-                    if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
-                    {
-                        Sdk.sdk_dev_quit();
-                    }
+                if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
+                {
+                    Sdk.sdk_dev_quit();
                 }
             }
             catch (Exception ex)

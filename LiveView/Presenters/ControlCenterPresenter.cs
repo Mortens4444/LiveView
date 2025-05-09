@@ -56,11 +56,11 @@ namespace LiveView.Presenters
             gridInSequenceRepository = dependencies.GridInSequenceRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             templateRepository = dependencies.TemplateRepository;
-            templateStarter = new TemplateStarter(dependencies.TemplateProcessRepository);
             sequenceRepository = dependencies.SequenceRepository;
             cameraRepository = dependencies.CameraRepository;
             permissionManager = dependencies.PermissionManager;
             logger = dependencies.Logger;
+            templateStarter = new TemplateStarter(dependencies.AgentRepository, dependencies.TemplateProcessRepository, logger);
         }
 
         public new void SetView(IView view)
@@ -437,7 +437,7 @@ namespace LiveView.Presenters
 
         public void StartTemplate(Template template)
         {
-            templateStarter.StartTemplate(template, logger);
+            templateStarter.StartTemplate(template);
         }
 
         public void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)

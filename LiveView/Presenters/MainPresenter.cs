@@ -98,7 +98,7 @@ namespace LiveView.Presenters
             operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
             uptime = new Uptime();
-            templateStarter = new TemplateStarter(dependencies.TemplateProcessRepository);
+            templateStarter = new TemplateStarter(dependencies.AgentRepository, dependencies.TemplateProcessRepository, Logger);
 
             Task.Run(() =>
             {
@@ -269,7 +269,7 @@ namespace LiveView.Presenters
             var autoLoadTemplate = templates.FirstOrDefault(template => template.TemplateName == templateToLoad);
             if (autoLoadTemplate != null)
             {
-                templateStarter.StartTemplate(autoLoadTemplate, Logger);
+                templateStarter.StartTemplate(autoLoadTemplate);
             }
         }
 

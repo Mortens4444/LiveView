@@ -1,4 +1,4 @@
 ﻿INSERT INTO TemplateProcesses
-	(TemplateId, ProcessName, ProcessParameters)
+	(AgentId, TemplateId, ProcessName, ProcessParameters)
 VALUES
-	(@TemplateId, @ProcessName, @ProcessParameters);
+	(@AgentId, @TemplateId, @ProcessName, @ProcessParameters);

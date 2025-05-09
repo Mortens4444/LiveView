@@ -25,7 +25,7 @@
     <EmbeddedResource Include="Scripts\InsertCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
     <EmbeddedResource Include="Scripts\InsertUserEvent.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableDisplay.sql" />
+    <EmbeddedResource Include="Scripts\MigrationAlterTableTemplateProcesses.sql" />
     <EmbeddedResource Include="Scripts\MigrationAlterTableCameras.sql" />
     <EmbeddedResource Include="Scripts\MigrationUpdateCamerasHttpStreamUrlLength.sql" />
     <EmbeddedResource Include="Scripts\MigrationUpdateGridCameras.sql" />

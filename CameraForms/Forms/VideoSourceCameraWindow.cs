@@ -35,7 +35,6 @@ namespace CameraForms.Forms
         private readonly int frameTimeout = 1500;
         private readonly Rectangle rectangle;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        private readonly Client client;
 
         private Image lastImage;
         private Timer frameTimer;
@@ -54,13 +53,12 @@ namespace CameraForms.Forms
         private Pen red = new Pen(new SolidBrush(Color.Red), 3);
         private int reconnectTimeout;
 
-        public VideoSourceCameraWindow(Client client, PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public VideoSourceCameraWindow(PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            this.client = client;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;

@@ -18,12 +18,14 @@ namespace LiveView.Models.Dependencies
             ITemplateProcessRepository templateProcessRepository,
             ISequenceRepository sequenceRepository,
             ICameraRepository cameraRepository,
+            IAgentRepository agentRepository,
             PermissionManager<Database.Models.User> permissionManager,
             DisplayManager displayManager,
             FormFactory formFactory,
             ILogger<ControlCenter> logger)
             : base(generalOptionsRepository, formFactory)
         {
+            AgentRepository = agentRepository;
             PermissionManager = permissionManager;
             GridRepository = gridRepository;
             GridCameraRepository = gridCameraRepository;
@@ -58,5 +60,7 @@ namespace LiveView.Models.Dependencies
         public ISequenceRepository SequenceRepository { get; private set; }
 
         public ILogger<ControlCenter> Logger { get; private set; }
+
+        public IAgentRepository AgentRepository { get; private set; }
     }
 }

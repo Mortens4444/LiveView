@@ -67,9 +67,9 @@ namespace LiveView.Core.Dto
 
         public bool Fullscreen { get; set; }
 
-        public bool CanShowSequence { get; set; }
+        public bool CanShowSequence { get; set; } = true;
 
-        public bool CanShowFullscreen { get; set; }
+        public bool CanShowFullscreen { get; set; } = true;
 
         public Socket AgentSocket { get; set; }
 

@@ -9,13 +9,15 @@ namespace Database.Models
 
         public long TemplateId { get; set; }
 
+        public long? AgentId { get; set; }
+
         public string ProcessName { get; set; }
 
         public string ProcessParameters { get; set; }
 
         public override string ToString()
         {
-            return String.Concat(ProcessName, ProcessParameters);
+            return String.Concat(ProcessName, " ", ProcessParameters);
         }
     }
 }

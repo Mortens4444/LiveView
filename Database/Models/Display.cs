@@ -33,10 +33,10 @@ namespace Database.Models
         public bool AttachedToDesktop { get; set; }
 
         public bool Fullscreen { get; set; }
-        
-        public bool CanShowSequence { get; set; }
 
-        public bool CanShowFullscreen { get; set; }
+        public bool CanShowSequence { get; set; } = true;
+
+        public bool CanShowFullscreen { get; set; } = true;
 
         public long? AgentId { get; set; }
 

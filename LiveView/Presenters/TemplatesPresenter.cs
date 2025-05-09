@@ -59,36 +59,44 @@ namespace LiveView.Presenters
             {
                 TemplateName = view.TbTemplateName.Text
             });
-            var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
-            SaveProcesses(templateId, Process.GetProcessesByName(sequence));
-            var cameraApp = Path.GetFileNameWithoutExtension(Core.Constants.CameraAppExe);
-            SaveProcesses(templateId, Process.GetProcessesByName(cameraApp));
+            //SaveCameraProcesses(templateId);
+            SaveSequenceProcesses(templateId);
             logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' has been saved.", view.TbTemplateName.Text);
             Load();
         }
 
-        private void SaveProcesses(long templateId, Process[] processes)
+        /*private void SaveCameraProcesses(long templateId)
         {
-            foreach (var process in processes)
+            foreach (var cameraProcess in Globals.CameraProcesses)
             {
-                using (var searcher = new ManagementObjectSearcher($"SELECT CommandLine FROM Win32_Process WHERE ProcessId = {process.Id}"))
+                templateProcessRepository.Insert(new TemplateProcess
                 {
-                    foreach (var obj in searcher.Get())
-                    {
-                        var commandLine = obj["CommandLine"]?.ToString() ?? String.Empty;
-                        var processNameWithExtension = $"{process.ProcessName}.exe";
-                        var parameters = commandLine.Replace($"\"{process.MainModule.FileName}\"", String.Empty).Trim();
-
-                        templateProcessRepository.Insert(new TemplateProcess
-                        {
-                            TemplateId = templateId,
-                            ProcessName = processNameWithExtension,
-                            ProcessParameters = parameters
-                        });
-                        logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' has been created.", view.TbTemplateName.Text);
-                    }
-                }
+                    AgentId = sequenceProcessInfo.Agent?.Id,
+                    TemplateId = templateId,
+                    ProcessName = Core.Constants.CameraAppExe,
+                    ProcessParameters = String.Concat(sequenceProcessInfo.Agent?.Id, ' ', sequenceProcessInfo.UserId, ' ', sequenceProcessInfo.SequenceId, ' ', sequenceProcessInfo.DisplayId, ' ', sequenceProcessInfo.IsMdi)
+                });
             }
+
+            logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' camera process(es) has been saved.", view.TbTemplateName.Text);
+        }*/
+
+        private void SaveSequenceProcesses(long templateId)
+        {
+            foreach (var sequenceProcess in Globals.SequenceProcesses)
+            {
+                var sequenceProcessInfo = sequenceProcess.Value;
+
+                templateProcessRepository.Insert(new TemplateProcess
+                {
+                    AgentId = sequenceProcessInfo.Agent?.Id,
+                    TemplateId = templateId,
+                    ProcessName = Core.Constants.SequenceExe,
+                    ProcessParameters = String.Concat(sequenceProcessInfo.Agent?.Id ?? 0, ' ', sequenceProcessInfo.UserId, ' ', sequenceProcessInfo.SequenceId, ' ', sequenceProcessInfo.DisplayId, ' ', sequenceProcessInfo.IsMdi)
+                });
+            }
+
+            logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' sequence process(es) has been saved.", view.TbTemplateName.Text);
         }
 
         public override void Load()

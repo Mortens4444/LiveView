@@ -42,6 +42,14 @@ namespace Sequence
                 return;
             }
 
+            var serviceProvider = ServiceProviderFactory.Create();
+            var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
+            ExceptionHandler.SetLogger(exceptionLogger);
+
+            if (args.Length != 5)
+            {
+                throw new ArgumentException($"{Application.ProductName} should be started like this: {Application.ProductName} <agentId> <userId> <sequenceId> <displayId> <isMdi>{Environment.NewLine}Provided arguments were: {String.Join(", ", args)}");
+            }
             var agentId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
             var userId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
             var sequenceId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
@@ -49,19 +57,10 @@ namespace Sequence
             var isMdi = Convert.ToBoolean(args[4], CultureInfo.InvariantCulture);
 
             _ = Sdk.sdk_dev_init(null);
-
-            var serviceProvider = ServiceProviderFactory.Create();
-            //using (var serviceProvider = ServiceProviderFactory.Create())
+            using (var form = new MainForm(serviceProvider, agentId, userId, sequenceId, displayId, isMdi))
             {
-                var exceptionLogger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
-                ExceptionHandler.SetLogger(exceptionLogger);
-
-                using (var form = new MainForm(serviceProvider, agentId, userId, sequenceId, displayId, isMdi))
-                {
-                    Application.Run(form);
-                }
+                Application.Run(form);
             }
-
             Sdk.sdk_dev_quit();
         }
     }

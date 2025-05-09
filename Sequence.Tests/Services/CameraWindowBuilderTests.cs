@@ -181,7 +181,7 @@ namespace Sequence.Tests.Services
                     using (var tokenSource = new CancellationTokenSource())
                     {
                         // Act
-                        builder.ShowVideoWindow(client, display, parentForm, result, camera, tuple, tokenSource);
+                        builder.ShowVideoWindow(display, parentForm, result, camera, tuple, tokenSource);
                     }
 
                     // Assert

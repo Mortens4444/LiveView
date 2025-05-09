@@ -43,7 +43,7 @@ namespace Sequence.Services
             this.generalOptionsRepository = generalOptionsRepository;
         }
 
-        public void ShowVideoWindow(Client client, DisplayDto display, Form parentForm, List<Form> result, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
+        public void ShowVideoWindow(DisplayDto display, Form parentForm, List<Form> result, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Sequence.Services
                 else if (camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    videoForm = new VideoSourceCameraWindow(client, permissionManager, cameraFunctionRepository, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
+                    videoForm = new VideoSourceCameraWindow(permissionManager, cameraFunctionRepository, personalOptionsRepository, videoCaptureSourceCameraInfo, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
