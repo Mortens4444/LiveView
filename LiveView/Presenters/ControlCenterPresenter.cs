@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using LiveView.Agent.Network.Commands;
 using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
@@ -11,6 +10,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
+using LiveView.Services.Template;
 using Microsoft.Extensions.Logging;
 using Mtf.Joystick;
 using Mtf.LanguageService;
@@ -40,12 +40,13 @@ namespace LiveView.Presenters
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly IGridInSequenceRepository gridInSequenceRepository;
         private readonly ITemplateRepository templateRepository;
-        private readonly ITemplateProcessRepository templateProcessRepository;
+        private readonly TemplateStarter templateStarter;
         private readonly ISequenceRepository sequenceRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
-        private readonly List<Process> sequenceProcesses;
+
+        public static readonly List<Process> SequenceProcesses = new List<Process>();
         public static Process CameraProcess { get; set; }
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies dependencies)
@@ -55,12 +56,11 @@ namespace LiveView.Presenters
             gridInSequenceRepository = dependencies.GridInSequenceRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             templateRepository = dependencies.TemplateRepository;
-            templateProcessRepository = dependencies.TemplateProcessRepository;
+            templateStarter = new TemplateStarter(dependencies.TemplateProcessRepository);
             sequenceRepository = dependencies.SequenceRepository;
             cameraRepository = dependencies.CameraRepository;
             permissionManager = dependencies.PermissionManager;
             logger = dependencies.Logger;
-            sequenceProcesses = new List<Process>();
         }
 
         public new void SetView(IView view)
@@ -102,8 +102,8 @@ namespace LiveView.Presenters
 
         public void CloseSequenceApplications()
         {
-            ProcessUtils.Kill(sequenceProcesses);
-            sequenceProcesses.Clear();
+            ProcessUtils.Kill(SequenceProcesses);
+            SequenceProcesses.Clear();
             foreach (var agent in Globals.Agents)
             {
                 MainPresenter.SentToClient(agent.Key, NetworkCommand.KillAll, Core.Constants.SequenceExe);
@@ -112,12 +112,12 @@ namespace LiveView.Presenters
 
         public void AddSequence(Process sequenceProcess)
         {
-            sequenceProcesses.Add(sequenceProcess);
+            SequenceProcesses.Add(sequenceProcess);
         }
 
         public int RemoveSequence(int sequenceId)
         {
-            return sequenceProcesses.RemoveAll(sp => sp.Id == sequenceId);
+            return SequenceProcesses.RemoveAll(sp => sp.Id == sequenceId);
         }
 
         public void MoveToEast()
@@ -402,7 +402,7 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (selectedDisplay.AgentId == null)
                 {
-                    sequenceProcesses.Add(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
+                    SequenceProcesses.Add(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
                 }
                 else
                 {
@@ -437,23 +437,7 @@ namespace LiveView.Presenters
 
         public void StartTemplate(Template template)
         {
-            foreach (var sequenceProcess in Globals.SequenceProcesses)
-            {
-                Globals.Server.SendMessageToClient(sequenceProcess.Value.SequenceSocket, NetworkCommand.Close.ToString(), true);
-            }
-
-            var processes = templateProcessRepository.SelectWhere(new { TemplateId = template.Id });
-            foreach (var process in processes)
-            {
-                if (process.ProcessName == Core.Constants.CameraAppExe)
-                {
-                    CameraProcess = AppStarter.Start(process.ProcessName, process.ProcessParameters, logger);
-                }
-                else
-                {
-                    sequenceProcesses.Add(AppStarter.Start(process.ProcessName, process.ProcessParameters, logger));
-                }
-            }
+            templateStarter.StartTemplate(template, logger);
         }
 
         public void ShowSequenceProcessData(SequenceProcessInfo sequenceProcess)

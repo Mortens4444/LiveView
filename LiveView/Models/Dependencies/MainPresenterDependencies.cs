@@ -26,6 +26,7 @@ namespace LiveView.Models.Dependencies
             IOperationRepository operationRepository,
             IUserEventRepository userEventRepository,
             IVideoSourceRepository videoSourceRepository,
+            ITemplateProcessRepository templateProcessRepository,
             ILogger<MainForm> logger)
             : base(generalOptionsRepository, formfactory)
         {
@@ -43,6 +44,7 @@ namespace LiveView.Models.Dependencies
             OperationRepository = operationRepository;
             UserEventRepository = userEventRepository;
             VideoSourceRepository = videoSourceRepository;
+            TemplateProcessRepository = templateProcessRepository;
             Logger = logger;
         }
         
@@ -75,5 +77,7 @@ namespace LiveView.Models.Dependencies
         public ICameraRepository CameraRepository { get; private set; }
 
         public IUserEventRepository UserEventRepository { get; private set; }
+
+        public ITemplateProcessRepository TemplateProcessRepository { get; private set; }
     }
 }

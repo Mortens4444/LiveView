@@ -16,6 +16,7 @@ using LiveView.Services;
 using LiveView.Services.Moxa;
 using LiveView.Services.Network;
 using LiveView.Services.Serial;
+using LiveView.Services.Template;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -71,6 +72,7 @@ namespace LiveView.Presenters
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly MainPresenterDependencies mainPresenterDependencies;
         private readonly MonitorSelector selector = new MonitorSelector(new TtlOutput());
+        private readonly TemplateStarter templateStarter;
 
         private IMainView view;
         private MapLoader mapLoader;
@@ -96,6 +98,7 @@ namespace LiveView.Presenters
             operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
             uptime = new Uptime();
+            templateStarter = new TemplateStarter(dependencies.TemplateProcessRepository);
 
             Task.Run(() =>
             {
@@ -266,16 +269,7 @@ namespace LiveView.Presenters
             var autoLoadTemplate = templates.FirstOrDefault(template => template.TemplateName == templateToLoad);
             if (autoLoadTemplate != null)
             {
-                if (Globals.ControlCenter == null)
-                {
-                    Globals.ControlCenter = ShowForm<ControlCenter>();
-                    Globals.ControlCenter.StartTemplate(autoLoadTemplate);
-                    Globals.ControlCenter.Close();
-                }
-                else
-                {
-                    Globals.ControlCenter.StartTemplate(autoLoadTemplate);
-                }
+                templateStarter.StartTemplate(autoLoadTemplate, Logger);
             }
         }
 

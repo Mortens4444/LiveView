@@ -28,7 +28,6 @@ namespace LiveView.Forms
     {
         private readonly Camera camera;
         private readonly VideoSourceDto videoSource;
-        private readonly ManualResetEvent initializationCompleted = new ManualResetEvent(false);
         private readonly ILogger<ControlCenter> logger;
 
         private ControlCenterPresenter presenter;
@@ -146,7 +145,6 @@ namespace LiveView.Forms
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
             presenter = Presenter as ControlCenterPresenter;
-            initializationCompleted.Set();
             presenter.Load();
             presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
             presenter.StartCameraApp(videoSource);
@@ -418,11 +416,7 @@ namespace LiveView.Forms
 
         public void StartTemplate(Template template)
         {
-            Task.Run(() =>
-            {
-                initializationCompleted.WaitOne();
-                presenter.StartTemplate(template);
-            });
+            presenter.StartTemplate(template);
         }
 
         public void ShowGridInfo(long gridId, string secondsLeft)
