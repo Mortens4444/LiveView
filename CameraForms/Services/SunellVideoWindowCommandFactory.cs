@@ -1,17 +1,16 @@
 ﻿using CameraForms.Network.Commands;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
-using Mtf.Controls.x86;
-using Mtf.Network;
+using Mtf.Controls.Sunell.IPR67;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
-    public static class CameraFormsCommandFactory
+    public static class SunellVideoWindowCommandFactory
     {
-        public static List<ICommand> Create(Form form, AxVideoPlayerWindow axVideoPlayerWindow, string messages, short cameraMoveValue)
+        public static List<ICommand> Create(Form form, SunellVideoWindow sunellVideoWindow, string messages)
         {
             var result = new List<ICommand>();
             var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -26,61 +25,62 @@ namespace CameraForms.Services
                 }
                 else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToEastCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToEastCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowTiltToNorthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToEastAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToEastAndTiltToNorthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToWestAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToWestAndTiltToNorthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerMoveToPresetZeroCommand(axVideoPlayerWindow));
+                    result.Add(new SunellVideoWindowMoveToPresetZeroCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowTiltToSouthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToEastAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToEastAndTiltToSouthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToWestAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToWestAndTiltToSouthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerPanToWestCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowPanToWestCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerStopPanAndTiltCommand(axVideoPlayerWindow));
+                    result.Add(new SunellVideoWindowStopPanAndTiltCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerStopZoomCommand(axVideoPlayerWindow));
+                    result.Add(new SunellVideoWindowStopZoomCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerZoomInCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowZoomInCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
                 {
-                    result.Add(new AxVideoPlayerZoomOutCommand(axVideoPlayerWindow, cameraMoveValue));
+                    result.Add(new SunellVideoWindowZoomOutCommand(sunellVideoWindow));
                 }
                 else
                 {
                     result.Add(new ShowErrorCommand(message));
                 }
             }
+
             return result;
         }
     }

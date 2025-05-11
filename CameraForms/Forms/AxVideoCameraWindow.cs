@@ -118,7 +118,7 @@ namespace CameraForms.Forms
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = CameraFormsCommandFactory.Create(this, axVideoPlayerWindow, messages, cameraMoveValue);
+                var commands = AxVideoPlayerWindowCommandFactory.Create(this, axVideoPlayerWindow, messages, cameraMoveValue);
                 foreach (var command in commands)
                 {
                     command.Execute();

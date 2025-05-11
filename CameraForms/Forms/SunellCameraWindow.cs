@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Sunell.IPR67;
 using Mtf.Controls.Sunell.IPR67.Enums;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
+using Mtf.Controls.x86;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -104,82 +105,18 @@ namespace CameraForms.Forms
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var messages = $"{client.Encoding.GetString(e.Data)}";
+                var commands = SunellVideoWindowCommandFactory.Create(this, sunellVideoWindow1, messages);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Up);
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Rigth);
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Down);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Left);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzRotate(PtzRotateOperation.Stop);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.Stop);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.In);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindow1.PtzZoom(PtzZoomOperation.Out);
-                    }
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
+                    command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
                 }
             }
             catch (Exception ex)
             {
+                var message = $"Message parse or execution failed in agent: {ex}.";
+                Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
         }
