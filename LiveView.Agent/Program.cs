@@ -140,12 +140,8 @@ namespace LiveView.Agent
             var json = AppConfig.GetString(Core.Constants.StartCameras);
             cancellationTokenSource?.CancelAndDispose();
             cancellationTokenSource = new CancellationTokenSource();
-#if NET462
-            var videoCaptureIds = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(json);
-#else
-            var videoCaptureIds = System.Text.Json.JsonSerializer.Deserialize<List<string>>(json);
-#endif
 
+            var videoCaptureIds = Json.Deserialize<List<string>>(json);
             var bufferSize = AppConfig.GetInt32(Core.Constants.ImageCaptureServerBufferSize, 409600);
 
             foreach (var videoCaptureId in videoCaptureIds)

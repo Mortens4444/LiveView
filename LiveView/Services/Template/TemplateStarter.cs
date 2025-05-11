@@ -3,9 +3,8 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
-using Mtf.Permissions.Services;
-using System.Globalization;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace LiveView.Services.Template

@@ -73,7 +73,8 @@ namespace LiveView
                 "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
                 "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation", "MigrationDropLogsTableColumn",
                 "MigrationAlterTableGridCameras", "MigrationUpdateGridCameras", "MigrationUpdateCamerasHttpStreamUrlLength", "MigrationAlterTableDisplays",
-                "MigrationAlterTableCameras", "MigrationAlterTableTemplateProcesses" };
+                "MigrationAlterTableCameras", "MigrationAlterTableTemplateProcesses", "MigrationAlterTableCamerasAddPermissionCameraColumn",
+                "MigrationAlterTableCamerasFillPermissionCameraColumn" };
 
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();

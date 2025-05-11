@@ -2,6 +2,7 @@ using CameraApp.Services;
 using CameraForms.Enums;
 using Database.Enums;
 using Database.Services;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -76,11 +77,7 @@ namespace CameraApp
             }
             catch (Exception ex)
             {
-#if NET462
-                logger?.LogError($"CameraApp start error: {ex}");
-#else
-                logger?.LogError(ex, "CameraApp start error.");
-#endif
+                logger.LogException(ex, "CameraApp start error.");
                 ErrorBox.Show(ex);
             }
         }

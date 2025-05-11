@@ -117,79 +117,18 @@ namespace CameraForms.Forms
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var messages = $"{client.Encoding.GetString(e.Data)}";
+                var commands = CameraFormsCommandFactory.Create(this, axVideoPlayerWindow, messages, cameraMoveValue);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(0, cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove((short)-cameraMoveValue, 0);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove((short)-cameraMoveValue, cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove((short)-cameraMoveValue, (short)-cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraGoToPreset(0);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(cameraMoveValue, 0);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(cameraMoveValue, cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(cameraMoveValue, (short)-cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(0, (short)-cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraMove(0, 0);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraZoom(0);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraZoom(cameraMoveValue);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-                        axVideoPlayerWindow.AxVideoPlayer.CameraZoom((short)-cameraMoveValue);
-                    }
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
+                    command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
                 }
             }
             catch (Exception ex)
             {
+                var message = $"Message parse or execution failed in agent: {ex}.";
+                Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
         }

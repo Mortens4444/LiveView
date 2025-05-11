@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Core.Services;
 using System;
 using System.Drawing;
 using System.Net.Sockets;
@@ -119,6 +120,11 @@ namespace LiveView.Core.Dto
                 AdapterName = AdapterName,
                 SziltechId = SziltechId
             };
+        }
+
+        public static DisplayDto GetFromJsonText(string displayJson)
+        {
+            return Json.Deserialize<DisplayDto>(displayJson);
         }
     }
 }

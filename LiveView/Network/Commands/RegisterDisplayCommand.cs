@@ -25,11 +25,7 @@ namespace LiveView.Network.Commands
 
         public void Execute()
         {
-#if NET462
-            var display = Newtonsoft.Json.JsonConvert.DeserializeObject<DisplayDto>(displayJson);
-#else
-            var display = System.Text.Json.JsonSerializer.Deserialize<DisplayDto>(displayJson);
-#endif
+            var display = DisplayDto.GetFromJsonText(displayJson);
             var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = hostInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
             if (agent != null)
             {

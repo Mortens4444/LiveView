@@ -2,6 +2,7 @@
 using LiveView.Agent.Dto;
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.MessageBoxes;
@@ -104,11 +105,7 @@ namespace LiveView.Agent
             {
                 var message = $"Message parse or execution failed in agent: {ex}.";
                 Console.Error.WriteLine(message);
-#if NET462
-                logger?.LogError(message);
-#else
-                logger?.LogError(ex, message);
-#endif
+                logger?.LogException(ex, message);
             }
         }
 

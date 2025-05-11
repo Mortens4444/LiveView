@@ -7175,7 +7175,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System.Configuration" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
