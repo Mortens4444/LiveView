@@ -26,7 +26,7 @@ namespace LiveView.Network.Commands
         public void Execute()
         {
             var display = DisplayDto.GetFromJsonText(displayJson);
-            var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = hostInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
+            var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = hostInfo.GetIpAddressFromEndPoint() }).FirstOrDefault();
             if (agent != null)
             {
                 display.AgentId = agent.Id;

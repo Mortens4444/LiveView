@@ -38,7 +38,7 @@ namespace LiveView.Network.Commands
             if (videoCaptureSources.Count > 0)
             {
                 var videoSources = mainPresenterDependencies.VideoSourceRepository.SelectAll();
-                var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = localEndPointInfo.GetIpAddessFromEndPoint() }).FirstOrDefault();
+                var agent = mainPresenterDependencies.AgentRepository.SelectWhere(new { ServerIp = localEndPointInfo.GetIpAddressFromEndPoint() }).FirstOrDefault();
                 var relevantVideoSources = videoSources.Where(videoSource => videoSource.AgentId == agent.Id).ToList();
 
                 foreach (var videoCaptureSource in videoCaptureSources)

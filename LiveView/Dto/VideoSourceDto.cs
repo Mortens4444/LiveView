@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveView.Core.Extensions;
+using System;
 using System.Net.Sockets;
 
 namespace LiveView.Dto
@@ -19,11 +20,11 @@ namespace LiveView.Dto
             set
             {
                 endPoint = value;
-                var connectionData = value.Split(new char[] { ':', ' ' });
+                var connectionData = value.GetIpAddressAndPortFromEndPoint();
                 Agent = new Database.Models.Agent
                 {
-                    ServerIp = connectionData[0],
-                    AgentPort = Convert.ToUInt16(connectionData[1])
+                    ServerIp = connectionData.Item1,
+                    AgentPort = connectionData.Item2
                 };
             }
         }

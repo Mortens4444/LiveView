@@ -1,4 +1,5 @@
 ﻿using AxVIDEOCONTROL4Lib;
+using LiveView.Core.Extensions;
 using LiveView.Services;
 using Mtf.MessageBoxes;
 using System;
@@ -17,24 +18,10 @@ namespace LiveView.Extensions
                 {
                     Task.Run(() =>
                     {
-                        if (control.InvokeRequired)
-                        {
-                            control.Invoke((Action)(() => control.Disconnect()));
-                        }
-                        else
-                        {
-                            control.Disconnect();
-                        }
+                        control.InvokeIfRequired(() => control.Disconnect());
                     }).ContinueWith((t) =>
                     {
-                        if (control.InvokeRequired)
-                        {
-                            control.Invoke((Action)(() => control.Dispose()));
-                        }
-                        else
-                        {
-                            control.Dispose();
-                        }
+                        control.InvokeIfRequired(() => control.Dispose());
                     });
                 }
                 catch (Exception ex)
@@ -52,7 +39,13 @@ namespace LiveView.Extensions
             {
                 try
                 {
-                    Task.Run(() => control.Disconnect()).ContinueWith((t) => control.Dispose());
+                    Task.Run(() =>
+                    {
+                        control.InvokeIfRequired(() => control.Disconnect());
+                    }).ContinueWith((t) =>
+                    {
+                        control.InvokeIfRequired(() => control.Dispose());
+                    });
                 }
                 catch (Exception ex)
                 {

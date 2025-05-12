@@ -116,10 +116,10 @@ namespace CameraForms.Forms
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
             {
-                Invoke((Action)(() =>
+                this.InvokeIfRequired(() =>
                 {
                     mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                }));
+                });
                 frameTimer.Stop();
             };
 
@@ -235,23 +235,23 @@ namespace CameraForms.Forms
                     }
                 }
 
-                Invoke((Action)(() =>
+                this.InvokeIfRequired(() =>
                 {
                     frameTimer = new Timer(frameTimeout);
                     frameTimer.Elapsed += (s, e) =>
                     {
-                        Invoke((Action)(() =>
+                        this.InvokeIfRequired(() =>
                         {
                             mtfCamera.SetImage(Properties.Resources.nosignal, false);
 
                             //client?.Send($"{NetworkCommand.AgentDisconnected}|{videoCaptureSourceCameraInfo.ServerIp}|{videoCaptureSourceCameraInfo.VideoSourceName}", true);
                             Thread.Sleep(200);
                             ReconnectVideoCapture();
-                        }));
+                        });
                         frameTimer.Stop();
                     };
                     frameTimer.AutoReset = false;
-                }));
+                });
             });
         }
 

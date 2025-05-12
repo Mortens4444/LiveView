@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Core.Services;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
@@ -21,7 +22,7 @@ namespace LiveView.Extensions
         {
             logger.Log(LogLevel.Information, new LogEntry
             {
-                Date = DateTime.UtcNow,
+                Date = DateUtils.GetLogDateTime(),
                 OperationId = UniqueIdGenerator.Get(operation),
                 OtherInformation = String.Format(message, args)
             });
@@ -31,7 +32,7 @@ namespace LiveView.Extensions
         {
             logger.Log(LogLevel.Warning, new LogEntry
             {
-                Date = DateTime.UtcNow,
+                Date = DateUtils.GetLogDateTime(),
                 OperationId = UniqueIdGenerator.Get(operation),
                 OtherInformation = String.Format(message, args)
             });
@@ -41,7 +42,7 @@ namespace LiveView.Extensions
         {
             logger.Log(LogLevel.Error, new LogEntry
             {
-                Date = DateTime.UtcNow,
+                Date = DateUtils.GetLogDateTime(),
                 OtherInformation = String.Format(message, args)
             });
         }
@@ -50,7 +51,7 @@ namespace LiveView.Extensions
         {
             logger.Log(LogLevel.Error, new LogEntry
             {
-                Date = DateTime.UtcNow,
+                Date = DateUtils.GetLogDateTime(),
                 OtherInformation = exception.GetDetails()
             }, exception);
         }

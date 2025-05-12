@@ -190,17 +190,17 @@ namespace LiveView.Presenters
                         { "Log Event", "SELECT * FROM Win32_NTLogEvent" }
                     };
 
-                    view.LvHardwareInformation.Invoke((Action)(() =>
+                    view.LvHardwareInformation.InvokeIfRequired(() =>
                     {
                         view.LvHardwareInformation.Groups.Clear();
                         view.LvHardwareInformation.Items.Clear();
-                    }));
+                    });
                     foreach (var query in queries)
                     {
                         var group = new ListViewGroup(query.Key, HorizontalAlignment.Left);
                         try
                         {
-                            view.LvHardwareInformation.Invoke((Action)(() => view.LvHardwareInformation.Groups.Add(group)));
+                            view.LvHardwareInformation.InvokeIfRequired(() => view.LvHardwareInformation.Groups.Add(group));
                             var wmiReaderResult = Wmi.GetObjects(query.Value, "CIMv2", view.Server.IpAddress, ImpersonationLevel.Impersonate, AuthenticationLevel.Default, true, view.TbWindowsUsername.Text, null, view.TbWindowsPassword.Text);
                             view.PbWindowsConnectionStatus.Image = view.ImageList.Images[0];
 
@@ -218,10 +218,10 @@ namespace LiveView.Presenters
                                         String.Join(", ", array.Cast<object>()) :
                                         value?.ToString() ?? "N/A");
 
-                                    view.LvHardwareInformation.Invoke((Action)(() =>
+                                    view.LvHardwareInformation.InvokeIfRequired(() =>
                                     {
                                         view.LvHardwareInformation.Items.Add(listViewItem);
-                                    }));
+                                    });
                                 }
                             }
                         }
@@ -240,10 +240,10 @@ namespace LiveView.Presenters
                                     Group = group,
                                     SubItems = { ex.Message }
                                 };
-                                view.LvHardwareInformation.Invoke((Action)(() =>
+                                view.LvHardwareInformation.InvokeIfRequired(() =>
                                 {
                                     view.LvHardwareInformation.Items.Add(errorItem);
-                                }));
+                                });
                             }
                             catch (InvalidOperationException) { }
                         }

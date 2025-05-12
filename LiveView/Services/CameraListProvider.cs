@@ -22,7 +22,7 @@ namespace LiveView.Services
                 return;
             }
 
-            listView.Invoke((Action)(() =>
+            listView.InvokeIfRequired(() =>
             {
                 listView.AddItems(cameras, camera => new ListViewItem(camera.CameraName, cameraIconIndex) { Tag = camera });
                 AddVideoSources(listView);
@@ -37,12 +37,12 @@ namespace LiveView.Services
                         AddSources(listView);
                     }
                 };
-            }));
+            });
         }
 
         private static void AddSources(ListView listView)
         {
-            listView.Invoke((Action)(() =>
+            listView.InvokeIfRequired(() =>
             {
                 for (int i = listView.Items.Count - 1; i >= 0; i--)
                 {
@@ -52,7 +52,7 @@ namespace LiveView.Services
                     }
                 }
                 AddVideoSources(listView);
-            }));
+            });
         }
 
         private static void AddVideoSources(ListView listView)
@@ -67,7 +67,7 @@ namespace LiveView.Services
         {
             foreach (var camera in videoCaptureSource.Value)
             {
-                var ipAddress = videoCaptureSource.Key.RemoteEndPoint.ToString().GetIpAddessFromEndPoint();
+                var ipAddress = videoCaptureSource.Key.RemoteEndPoint.ToString().GetIpAddressFromEndPoint();
                 var videoSource = new VideoSourceDto
                 {
                     Socket = videoCaptureSource.Key,
@@ -127,7 +127,7 @@ namespace LiveView.Services
                         Tag = videoSource
                     };
 
-                    var serverIp = videoCaptureSource.Key.LocalEndPoint.GetEndPointInfo().GetIpAddessFromEndPoint();
+                    var serverIp = videoCaptureSource.Key.LocalEndPoint.GetEndPointInfo().GetIpAddressFromEndPoint();
                     childItem.Click += leafItemClickHandler;
                     parentItem.Text = serverIp;
                     parentItem.DropDownItems.Add(childItem);

@@ -27,7 +27,7 @@ namespace LiveView.Network.Commands
         public void Execute()
         {
             Globals.Agents.Add(hostInfo, agentSocket);
-            var serverIp = hostInfo.GetIpAddessFromEndPoint();
+            var serverIp = hostInfo.GetIpAddressFromEndPoint();
             var agent = dependencies.AgentRepository.SelectWhere(new { ServerIp = serverIp }).FirstOrDefault();
             var newAgent = new Database.Models.Agent
             {

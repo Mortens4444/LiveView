@@ -2,6 +2,7 @@
 
 using Database.Enums;
 using Database.Interfaces;
+using LiveView.Core.Extensions;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -72,7 +73,7 @@ namespace LiveView.Forms
 
         public void InvokeAction(Action action)
         {
-            Invoke(action);
+            this.InvokeIfRequired(action);
         }
 
         public void Show(Form form)

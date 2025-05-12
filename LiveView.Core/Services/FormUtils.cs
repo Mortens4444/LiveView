@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveView.Core.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -18,13 +19,22 @@ namespace LiveView.Core.Services
         {
             foreach (var form in forms)
             {
-                Task.Run(() =>
+                mdiParent.InvokeAsync((Action)(() =>
                 {
-                    mdiParent.Invoke((Action)(() =>
-                    {
-                        ShowWindow(form.Handle, SW_SHOW);
-                    }));
-                });
+                    ShowWindow(form.Handle, SW_SHOW);
+                }));
+                //mdiParent.InvokeIfRequired(() =>
+                //{
+                //    ShowWindow(form.Handle, SW_SHOW);
+                //});
+
+                //Task.Run(() =>
+                //{
+                //    mdiParent.Invoke((Action)(() =>
+                //    {
+                //        ShowWindow(form.Handle, SW_SHOW);
+                //    }));
+                //});
             }
         }
 
@@ -32,10 +42,20 @@ namespace LiveView.Core.Services
         {
             foreach (var form in forms)
             {
-                mdiParent.Invoke((Action)(() =>
+                mdiParent.InvokeAsync((Action)(() =>
                 {
                     ShowWindow(form.Handle, SW_HIDE);
                 }));
+
+                //mdiParent.InvokeIfRequired(() =>
+                //{
+                //    ShowWindow(form.Handle, SW_HIDE);
+                //});
+
+                //mdiParent.Invoke((Action)(() =>
+                //{
+                //    ShowWindow(form.Handle, SW_HIDE);
+                //}));
             }
         }
 
@@ -45,14 +65,32 @@ namespace LiveView.Core.Services
             {
                 try
                 {
-                    mdiParent.Invoke((Action)(() =>
+                    mdiParent.InvokeAsync(() =>
                     {
                         if (!form.IsDisposed)
                         {
                             form.Close();
                             form.Dispose();
                         }
-                    }));
+                    });
+
+                    //mdiParent.InvokeIfRequired(() =>
+                    //{
+                    //    if (!form.IsDisposed)
+                    //    {
+                    //        form.Close();
+                    //        form.Dispose();
+                    //    }
+                    //});
+
+                    //mdiParent.Invoke((Action)(() =>
+                    //{
+                    //    if (!form.IsDisposed)
+                    //    {
+                    //        form.Close();
+                    //        form.Dispose();
+                    //    }
+                    //}));
                 }
                 catch (InvalidOperationException)
                 {

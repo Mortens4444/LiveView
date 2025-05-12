@@ -6,13 +6,27 @@ namespace LiveView.Core.Extensions
     {
         private static readonly char[] separator = new char[] { ':', ' ' };
 
-        public static string GetIpAddessFromEndPoint(this string text)
+        public static string GetIpAddressFromEndPoint(this string text)
         {
             if (String.IsNullOrWhiteSpace(text))
             {
                 return String.Empty;
             }
             return text.Split(':')[0];
+        }
+
+        public static Tuple<string, ushort> GetIpAddressAndPortFromEndPoint(this string text)
+        {
+            if (String.IsNullOrWhiteSpace(text))
+            {
+                return new Tuple<string, ushort>(String.Empty, 0);
+            }
+            var parts = text.Split(separator);
+            if (UInt16.TryParse(parts[1], out var port))
+            {
+                return new Tuple<string, ushort>(parts[0], port);
+            }
+            throw new ArgumentException($"Port value cannot be parsed from value: {text}.");
         }
 
         public static ushort GetPortFromEndPoint(this string text)

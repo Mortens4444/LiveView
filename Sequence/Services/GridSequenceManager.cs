@@ -5,6 +5,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
@@ -175,14 +176,7 @@ namespace Sequence.Services
             {
                 Task.Run(() =>
                 {
-                    if (parentForm.InvokeRequired)
-                    {
-                        parentForm.Invoke((Action)(() => cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource)));
-                    }
-                    else
-                    {
-                        cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource);
-                    }
+                    parentForm.InvokeIfRequired(() => cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource));
                 });
             }
             return result;

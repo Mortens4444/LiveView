@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mtf.MessageBoxes;
+using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -7,6 +9,53 @@ namespace LiveView.Core.Extensions
 {
     public static class ControlExtensions
     {
+        public static void InvokeIfRequired(this Control control, Action action)
+        {
+            if (control == null || control.IsDisposed || !control.IsHandleCreated)
+            {
+                return;
+            }
+
+            try
+            {
+                if (control.InvokeRequired)
+                {
+                    control.BeginInvoke((MethodInvoker)(() =>
+                    {
+                        if (!control.IsDisposed)
+                        {
+                            try
+                            {
+                                action();
+                            }
+                            catch (Exception ex)
+                            {
+                                // log or otherwise handle
+                                Debug.WriteLine($"UI action exception: {ex}");
+                            }
+                        }
+                    }));
+                }
+                else
+                {
+                    action();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
+
+            //if (control.InvokeRequired)
+            //{
+            //    control.Invoke(action);
+            //}
+            //else
+            //{
+            //    action();
+            //}
+        }
+
         public static void SafeDispose(this Control control)
         {
             if (control != null && !control.IsDisposed)
@@ -46,17 +95,10 @@ namespace LiveView.Core.Extensions
 
         public static void SetImage(this Control control, Image image, bool useClone)
         {
-            if (control.InvokeRequired)
-            {
-                control.Invoke((Action)(() =>
-                {
-                    InternalSetImage(control, image, useClone);
-                }));
-            }
-            else
+            control.InvokeIfRequired(() =>
             {
                 InternalSetImage(control, image, useClone);
-            }
+            });
         }
 
         private static void InternalSetImage(Control control, Image image, bool useClone)

@@ -172,7 +172,7 @@ namespace CameraForms.Forms
 
         public void SetOsd()
         {
-            Invoke((Action)(() =>
+            this.InvokeIfRequired(() =>
             {
                 label = new Label
                 {
@@ -187,7 +187,7 @@ namespace CameraForms.Forms
                 Controls.Add(label);
                 label.BringToFront();
                 Invalidate();
-            }));
+            });
         }
 
         private int Connect()

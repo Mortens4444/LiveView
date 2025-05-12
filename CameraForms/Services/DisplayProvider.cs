@@ -14,7 +14,7 @@ namespace CameraForms.Services
             var fullScreenDisplay = displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay();
             if (fullScreenDisplay == null)
             {
-                throw new InvalidOperationException("Choose fullscreen display first.");
+                throw new InvalidOperationException("Choose a fullscreen display first.");
             }
             var displayManager = new DisplayManager();
             var displays = displayManager.GetAll();

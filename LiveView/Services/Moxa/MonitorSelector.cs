@@ -13,17 +13,17 @@ namespace LiveView.Services.Moxa
             ttl = ttlOutput;
         }
 
-        public void SelectMonitors(Enums.LiveView liveView)
+        public void SelectMonitors(LiveViewMachine liveView)
         {
             switch (liveView)
             {
-                case Enums.LiveView.LiveView1:
+                case LiveViewMachine.LiveViewMachine1:
                     SelectMonitors(MonitorAddress.Monitor01, MonitorAddress.Monitor04, MonitorAddress.Monitor07, MonitorAddress.Monitor10);
                     break;
-                case Enums.LiveView.LiveView2:
+                case LiveViewMachine.LiveViewMachine2:
                     SelectMonitors(MonitorAddress.Monitor02, MonitorAddress.Monitor05, MonitorAddress.Monitor08, MonitorAddress.Monitor11);
                     break;
-                case Enums.LiveView.LiveView3:
+                case LiveViewMachine.LiveViewMachine3:
                     SelectMonitors(MonitorAddress.Monitor03, MonitorAddress.Monitor06, MonitorAddress.Monitor09, MonitorAddress.Monitor12);
                     break;
                 default:

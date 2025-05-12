@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 namespace LiveView.Extensions
 {
-
     public static class ControlCollectionExtensions
     {
         public static bool Any(this Control.ControlCollection controls, Func<Control, bool> predicate)

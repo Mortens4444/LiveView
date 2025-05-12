@@ -1,6 +1,8 @@
-﻿using Database.Models;
+﻿using Database.Interfaces;
+using Database.Models;
 using System;
 using System.Drawing;
+using System.Linq;
 
 namespace LiveView.Dto
 {
@@ -44,7 +46,7 @@ namespace LiveView.Dto
 
         public Image MapImage { get; set; }
 
-        public static MapDto FromModel(Map map)
+        public static MapDto FromModel(Map map, IMapObjectRepository mapObjectRepository)
         {
             return new MapDto
             {
@@ -53,9 +55,8 @@ namespace LiveView.Dto
                 Comment = map.Comment,
                 OriginalWidth = map.OriginalWidth,
                 OriginalHeight = map.OriginalHeight,
-                MapImage = Services.ImageConverter.ByteArrayToImage(map.MapImage)
-                // ToDo
-                //MapObjects = ???
+                MapImage = Services.ImageConverter.ByteArrayToImage(map.MapImage),
+                MapObjects = mapObjectRepository?.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray()
             };
         }
 

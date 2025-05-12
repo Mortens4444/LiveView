@@ -14,5 +14,10 @@ namespace LiveView.Core.Services
         {
             return $"{Environment.NewLine}{DateTime.UtcNow.ToFriendlyString()}";
         }
+
+        public static DateTime GetLogDateTime()
+        {
+            return DateTime.UtcNow;
+        }
     }
 }

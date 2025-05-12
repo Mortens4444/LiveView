@@ -33,7 +33,7 @@ namespace LiveView.Core.Services.Logging
 
             if (state is LogEntry logEntry)
             {
-                logEntry.Date = DateTime.UtcNow;
+                logEntry.Date = DateUtils.GetLogDateTime();
                 logEntry.UserId = currentUserId;
                 logRepository.Insert(logEntry);
             }
@@ -41,7 +41,7 @@ namespace LiveView.Core.Services.Logging
             {
                 var newEntry = new LogEntry
                 {
-                    Date = DateTime.UtcNow,
+                    Date = DateUtils.GetLogDateTime(),
                     UserId = currentUserId,
                     OtherInformation = exception?.GetDetails()
                 };

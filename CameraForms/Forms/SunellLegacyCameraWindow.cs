@@ -120,7 +120,7 @@ namespace CameraForms.Forms
 
         public void SetOsd()
         {
-            Invoke((Action)(() =>
+            this.InvokeIfRequired(() =>
             {
                 label = new Label
                 {
@@ -135,7 +135,7 @@ namespace CameraForms.Forms
                 Controls.Add(label);
                 label.BringToFront();
                 Invalidate();
-            }));
+            });
         }
 
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
@@ -188,7 +188,7 @@ namespace CameraForms.Forms
 
         private void SunellVideoWindowLegacy1_VideoSignalChanged(object sender, VideoSignalChangedEventArgs e)
         {
-            Invoke((Action)(() => sunellVideoWindowLegacy1.Visible = e.HasSignal));
+            this.InvokeIfRequired(() => sunellVideoWindowLegacy1.Visible = e.HasSignal);
         }
 
         private void OnExit()

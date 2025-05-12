@@ -5,7 +5,6 @@ using LiveView.Core.Services;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
-using Mtf.Network.Extensions;
 using System;
 
 namespace CameraForms.Services
@@ -20,13 +19,9 @@ namespace CameraForms.Services
             {
                 try
                 {
-                    var client = new Client(liveViewServerIp, serverPort);
-                    client.DataArrived += dataArrivedEventHandler;
-                    client.Connect();
-                    var displayId = display?.Id ?? String.Empty;
-                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
-                    var processId = ProcessUtils.GetProcessId();
-                    client.Send($"{NetworkCommand.RegisterCamera}|{hostInfo}|{userId}|{cameraId}|{displayId}|{processId}|{(int)cameraMode}", true);
+                    var client = ConnectWithClient(liveViewServerIp, serverPort, dataArrivedEventHandler);
+                    var processDisplayInfo = new ProcessDisplayInfo(display, client);
+                    client.Send($"{NetworkCommand.RegisterCamera}|{processDisplayInfo.HostInfo}|{userId}|{cameraId}|{processDisplayInfo.DisplayId}|{processDisplayInfo.ProcessId}|{(int)cameraMode}", true);
                     return client;
                 }
                 catch (Exception ex)
@@ -50,13 +45,9 @@ namespace CameraForms.Services
             {
                 try
                 {
-                    var client = new Client(liveViewServerIp, serverPort);
-                    client.DataArrived += dataArrivedEventHandler;
-                    client.Connect();
-                    var displayId = display?.Id ?? String.Empty;
-                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
-                    var processId = ProcessUtils.GetProcessId();
-                    client.Send($"{NetworkCommand.RegisterVideoSource}|{hostInfo}|{userId}|{serverIp}|{videoCaptureSource}|{displayId}|{processId}|{(int)CameraMode.VideoSource}", true);
+                    var client = ConnectWithClient(liveViewServerIp, serverPort, dataArrivedEventHandler);
+                    var processDisplayInfo = new ProcessDisplayInfo(display, client);
+                    client.Send($"{NetworkCommand.RegisterVideoSource}|{processDisplayInfo.HostInfo}|{userId}|{serverIp}|{videoCaptureSource}|{processDisplayInfo.DisplayId}|{processDisplayInfo.ProcessId}|{(int)CameraMode.VideoSource}", true);
                     return client;
                 }
                 catch (Exception ex)
@@ -70,6 +61,14 @@ namespace CameraForms.Services
             }
 
             return null;
+        }
+
+        private static Client ConnectWithClient(string liveViewServerIp, ushort serverPort, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler)
+        {
+            var client = new Client(liveViewServerIp, serverPort);
+            client.DataArrived += dataArrivedEventHandler;
+            client.Connect();
+            return client;
         }
     }
 }

@@ -574,8 +574,7 @@ namespace LiveView.Presenters
             var maps = mapRepository.SelectAll();
             if (maps.Count > 0)
             {
-                var map = MapDto.FromModel(maps.First());
-                map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
+                var map = MapDto.FromModel(maps.First(), mapObjectRepository);
                 if (mapLoader == null)
                 {
                     mapLoader = ActivatorUtilities.CreateInstance<MapLoader>(serviceProvider, view.PbMap, view.TtHint);

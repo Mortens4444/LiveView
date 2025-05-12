@@ -166,8 +166,7 @@ namespace LiveView.Services
                     OnVideoSourceObjectClicked(new VideoSourceObjectClickedEventArgs(videoSource));
                     break;
                 case MapActionType.OpenMap:
-                    var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId));
-                    map.MapObjects = mapObjectRepository.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray();
+                    var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId), mapObjectRepository);
                     LoadMap(map);
                     break;
             }
