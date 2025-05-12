@@ -31,7 +31,7 @@ namespace CameraForms.Forms
         private Client client;
         private Label label;
         private GridCamera gridCamera;
-        private int rotateSpeed = 50;
+        private short rotateSpeed = 50;
         private bool fullScreen;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle, GridCamera gridCamera)
@@ -40,7 +40,7 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            rotateSpeed = AppConfig.GetInt32(LiveView.Core.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
+            rotateSpeed = AppConfig.GetInt16(LiveView.Core.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
 
             this.sunellLegacyCameraInfo = sunellLegacyCameraInfo;
             this.rectangle = rectangle;
@@ -102,81 +102,18 @@ namespace CameraForms.Forms
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var messages = $"{client.Encoding.GetString(e.Data)}";
+                var commands = SunellLegacyVideoWindowCommandFactory.Create(this, sunellVideoWindowLegacy1, messages, rotateSpeed);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateRight(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateUp(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateRight(rotateSpeed);
-                        sunellVideoWindowLegacy1.PTZ_RotateUp(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateLeft(rotateSpeed);
-                        sunellVideoWindowLegacy1.PTZ_RotateUp(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateDown(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateRight(rotateSpeed);
-                        sunellVideoWindowLegacy1.PTZ_RotateDown(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateLeft(rotateSpeed);
-                        sunellVideoWindowLegacy1.PTZ_RotateDown(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_RotateLeft(rotateSpeed);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_Stop();
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-                        sunellVideoWindowLegacy1.PTZ_Stop();
-                    }
-                    //else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    //{
-                    //}
-                    //else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    //{
-                    //}
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
+                    command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
                 }
             }
             catch (Exception ex)
             {
+                var message = $"Message parse or execution failed in agent: {ex}.";
+                Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
         }
