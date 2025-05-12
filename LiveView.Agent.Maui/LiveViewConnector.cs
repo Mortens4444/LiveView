@@ -1,4 +1,5 @@
 ﻿using LiveView.Agent.Maui.Enums.Network;
+using LiveView.Agent.Maui.Services;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Network.Extensions;
@@ -60,98 +61,24 @@ namespace LiveView.Agent.Maui
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var message in allMessages)
+                var messages = $"{client.Encoding.GetString(e.Data)}";
+                var commands = MauiAgentCommandFactory.Create(this, cancellationTokenSource, messages);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-
-                    if (message.StartsWith("CameraApp.exe|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Start CameraApp.exe", "OK");
-                    }
-                    else if (message.StartsWith("Sequence.exe|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Start Sequence.Exe", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.Kill}|", StringComparison.InvariantCulture))
-                    {
-                        Environment.Exit(0);
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Kill all", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesRequest}|", StringComparison.InvariantCulture))
-                    {
-                        SendVideoCaptureSourcesToLiveView();
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopVideoCapture}|", StringComparison.InvariantCulture))
-                    {
-                        cancellationTokenSource.Cancel();
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEast}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to east", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.TiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Tilt to north", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to east and tilt to south", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToNorth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to west and tilt to north", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.MoveToPresetZero}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Move to preset zero", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.TiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Tilt to south", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to east and tilt to south", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToSouth}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to west and tilt to south", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.PanToWest}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Pan to west", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopPanAndTilt}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Stop pan and tilt", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.StopZoom}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Stop zoom", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.ZoomIn}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Zoom in", "OK");
-                    }
-                    else if (message.StartsWith($"{NetworkCommand.ZoomOut}|", StringComparison.InvariantCulture))
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Information", "Zoom out", "OK");
-                    }
+                    command.ExecuteAsync();
+                    Console.WriteLine($"{command.GetType().Name} executed in MAUI agent.");
                 }
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Message parse or execution failed: {ex}");
+                //logger.LogException(ex, "Client data cannot be parsed by MAUI agent.");
+                var message = $"Message parse or execution failed in MAUI agent: {ex}.";
+                Console.Error.WriteLine(message);
+                //DebugErrorBox.Show(ex);
             }
         }
 
-        private void SendVideoCaptureSourcesToLiveView()
+        public void SendVideoCaptureSourcesToLiveView()
         {
             client!.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{cameraIdentifier}={cameraCaptureServer}", true);
         }
