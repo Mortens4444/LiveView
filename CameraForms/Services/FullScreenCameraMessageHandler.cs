@@ -1,18 +1,17 @@
-﻿using Mtf.MessageBoxes;
-using Mtf.Network.EventArg;
-using Mtf.Network;
-using System;
-using System.Windows.Forms;
-using LiveView.Core.Services;
-using LiveView.Core.Enums.Network;
-using Database.Models;
-using Database.Enums;
-using LiveView.Core.Dto;
+﻿using Database.Enums;
 using Database.Interfaces;
-using System.Linq;
-using System.Collections.ObjectModel;
+using Database.Models;
+using LiveView.Core.Dto;
+using LiveView.Core.Enums.Network;
+using Mtf.MessageBoxes;
+using Mtf.Network;
+using Mtf.Network.EventArg;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
@@ -22,18 +21,29 @@ namespace CameraForms.Services
         private readonly Form form;
         private volatile int disposed;
 
-        private readonly CameraFunction ptzStop;
-        private readonly CameraFunction ptzUp;
-        private readonly CameraFunction ptzDown;
-        private readonly CameraFunction ptzLeft;
-        private readonly CameraFunction ptzRight;
-        private readonly CameraFunction ptzUpLeft;
-        private readonly CameraFunction ptzUpRight;
-        private readonly CameraFunction ptzDownLeft;
-        private readonly CameraFunction ptzDownRight;
-        private readonly CameraFunction ptzMoveToPresetZero;
-        private readonly CameraFunction ptzZoomIn;
-        private readonly CameraFunction ptzZoomOut;
+        public CameraFunction PtzStop { get; }
+
+        public CameraFunction PtzUp { get; }
+
+        public CameraFunction PtzDown { get; }
+
+        public CameraFunction PtzLeft { get; }
+
+        public CameraFunction PtzRight { get; }
+
+        public CameraFunction PtzUpLeft { get; }
+
+        public CameraFunction PtzUpRight { get; }
+
+        public CameraFunction PtzDownLeft { get; }
+
+        public CameraFunction PtzDownRight { get; }
+
+        public CameraFunction PtzMoveToPresetZero { get; }
+
+        public CameraFunction PtzZoomIn { get; }
+
+        public CameraFunction PtzZoomOut { get; }
 
         public FullScreenCameraMessageHandler(long userId, long cameraId, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository)
         {
@@ -41,18 +51,18 @@ namespace CameraForms.Services
             client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, cameraMode);
 
             var cameraFunctions = (cameraFunctionRepository?.SelectWhere(new { CameraId = cameraId }) ?? new ReadOnlyCollection<CameraFunction>(new List<CameraFunction>())).ToList();
-            ptzStop = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Stop);
-            ptzUp = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up);
-            ptzDown = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down);
-            ptzLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Left);
-            ptzRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Right);
-            ptzUpLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up_And_Left);
-            ptzUpRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up_And_Right);
-            ptzDownLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down_And_Left);
-            ptzDownRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down_And_Right);
-            ptzMoveToPresetZero = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Load_Preset_0);
-            ptzZoomIn = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_In);
-            ptzZoomOut = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_Out);
+            PtzStop = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Stop);
+            PtzUp = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up);
+            PtzDown = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down);
+            PtzLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Left);
+            PtzRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Right);
+            PtzUpLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up_And_Left);
+            PtzUpRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Up_And_Right);
+            PtzDownLeft = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down_And_Left);
+            PtzDownRight = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Down_And_Right);
+            PtzMoveToPresetZero = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Load_Preset_0);
+            PtzZoomIn = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_In);
+            PtzZoomOut = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_Out);
         }
 
         public FullScreenCameraMessageHandler(long userId, string serverIp, string videoCaptureSource, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository)
@@ -100,78 +110,17 @@ namespace CameraForms.Services
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var commands = FullScreenCameraCommandFactory.Create(this, form, messages);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        form.Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        form.Close();
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzRight?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzUp?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzUpRight?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzUpLeft?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzMoveToPresetZero?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzDown?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzDownRight?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzDownLeft?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzLeft?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzStop?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzStop?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzZoomIn?.FunctionCallback);
-                    }
-                    else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                    {
-                        UriCaller.CallUrl(ptzZoomOut?.FunctionCallback);
-                    }
-                    else
-                    {
-                        ErrorBox.Show("General error", $"Unexpected message arrived: {message}");
-                    }
+                    command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
                 }
             }
             catch (Exception ex)
             {
+                var message = $"Message parse or execution failed in agent: {ex}.";
+                Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
         }
