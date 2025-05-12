@@ -34,12 +34,37 @@ namespace LiveView.Agent
         private readonly IVideoSourceRepository videoSourceRepository;
 
         private Client client;
+        private bool disposed;
 
         public LiveViewConnector(ILogger<LiveViewConnector> logger, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository)
         {
             this.logger = logger;
             this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
+        }
+
+        ~LiveViewConnector()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    client?.Dispose();
+                }
+
+                disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public async Task ConnectAsync(string serverIp, ushort serverPort, ushort vncServerPort, CancellationToken cancellationToken = default)
@@ -173,11 +198,6 @@ namespace LiveView.Agent
             {
                 ProcessUtils.Kill(sequenceProcess.Value.Process);
             }
-        }
-
-        public void Dispose()
-        {
-            client.Dispose();
         }
     }
 }
