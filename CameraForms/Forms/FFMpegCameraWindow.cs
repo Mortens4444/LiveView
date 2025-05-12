@@ -1,13 +1,15 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.x86;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -101,31 +103,16 @@ namespace CameraForms.Forms
             //var cameraName = personalOptionsRepository.GetCameraName(userId, url);
             //fFmpegWindow.SetOsdText(fontName, largeFontSize, FontStyle.Bold, fontColor, cameraName);
 
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            fFmpegWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            fFmpegWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-
             var text = personalOptionsRepository.GetCameraName(userId, url);
-            if (gridCamera?.Frame ?? false)
+            OsdSetter.SetInfo(this, fFmpegWindow, gridCamera, personalOptionsRepository, text, userId);
+            try
             {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = text;
+                fFmpegWindow.Start(url);
             }
-            else
+            catch (Exception ex)
             {
-                if (gridCamera?.Osd ?? false)
-                {
-                    fFmpegWindow.OverlayText = text;
-                }
+                DebugErrorBox.Show(ex);
             }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                fFmpegWindow.OverlayText += DateTime.Now.ToString();
-            }
-
-            fFmpegWindow.Start(url);
         }
 
         private void OnExit()

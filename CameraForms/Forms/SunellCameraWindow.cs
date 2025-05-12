@@ -1,18 +1,17 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Sunell.IPR67;
-using Mtf.Controls.Sunell.IPR67.Enums;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.OpenCvSharp;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -136,6 +135,7 @@ namespace CameraForms.Forms
             sunellVideoWindow1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
 
             var text = personalOptionsRepository.GetCameraName(userId, sunellCameraInfo.CameraIp);
+            //OsdSetter.SetInfo(this, sunellVideoWindow1, gridCamera, text);
             if (gridCamera?.Frame ?? false)
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -150,17 +150,24 @@ namespace CameraForms.Forms
             }
             if (gridCamera?.ShowDateTime ?? false)
             {
-                sunellVideoWindow1.OverlayText += DateTime.Now.ToString();
+                sunellVideoWindow1.OverlayText += DateUtils.GetNowFriendlyString();
             }
 
-            var streamId = Connect();
-            if (streamId == SunellVideoWindow.NoStream)
+            try
             {
-                cts?.Cancel();
-                cts = new CancellationTokenSource();
-                _ = TryReconnectAsync(cts.Token);
+                var streamId = Connect();
+                if (streamId == SunellVideoWindow.NoStream)
+                {
+                    cts?.Cancel();
+                    cts = new CancellationTokenSource();
+                    _ = TryReconnectAsync(cts.Token);
+                }
+                SetOsd();
             }
-            SetOsd();
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         public void SetOsd()

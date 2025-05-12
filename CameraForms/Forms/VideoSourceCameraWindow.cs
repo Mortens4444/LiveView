@@ -1,5 +1,4 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -13,7 +12,6 @@ using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
-using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
@@ -154,7 +152,7 @@ namespace CameraForms.Forms
             }
             if (gridCamera?.ShowDateTime ?? false)
             {
-                cameraName += DateTime.Now.ToString();
+                cameraName += DateUtils.GetNowFriendlyString();
             }
 
             Text = cameraName;

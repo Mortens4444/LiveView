@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.MessageBoxes" Version="5.0.5" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.0" />
     <PackageReference Include="Mtf.Network" Version="2.0.3" />
     <PackageReference Include="Mtf.Permissions" Version="3.0.25" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

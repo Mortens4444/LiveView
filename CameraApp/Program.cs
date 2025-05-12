@@ -42,12 +42,12 @@ namespace CameraApp
 
             try
             {
-                //#if NETFRAMEWORK
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                //#else
-                //  ApplicationConfiguration.Initialize();
-                //#endif
+#if NETFRAMEWORK
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+#else
+                ApplicationConfiguration.Initialize();
+#endif
 
                 if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
                 {

@@ -1,11 +1,11 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
@@ -107,7 +107,7 @@ namespace CameraForms.Forms
                 foreach (var command in commands)
                 {
                     command.Execute();
-                    Console.WriteLine($"{command.GetType().Name} executed in Sunell Legacy camera window.");
+                    Console.WriteLine($"{command.GetType().Name} executed in Sunell legacy camera window.");
                 }
             }
             catch (Exception ex)
@@ -152,6 +152,7 @@ namespace CameraForms.Forms
             sunellVideoWindowLegacy1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
             sunellVideoWindowLegacy1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
             var text = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
+            //OsdSetter.SetInfo(this, sunellVideoWindowLegacy1, gridCamera, text);
             if (gridCamera?.Frame ?? false)
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -166,16 +167,23 @@ namespace CameraForms.Forms
             }
             if (gridCamera?.ShowDateTime ?? false)
             {
-                sunellVideoWindowLegacy1.OverlayText += $" {DateTime.Now:yyyy.MM.dd HH:mm:ss}";
+                sunellVideoWindowLegacy1.OverlayText += DateUtils.GetNowFriendlyString();
             }
 
-            sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
-            sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
-            if (fullScreen)
+            try
             {
-                sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+                sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
+                sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+                if (fullScreen)
+                {
+                    sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+                }
+                SetOsd();
             }
-            SetOsd();
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void SunellVideoWindowLegacy1_VideoSignalChanged(object sender, VideoSignalChangedEventArgs e)

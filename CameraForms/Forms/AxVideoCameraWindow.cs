@@ -1,11 +1,11 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
@@ -155,31 +155,16 @@ namespace CameraForms.Forms
                 DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
             }
 
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            axVideoPlayerWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            axVideoPlayerWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-
             var text = personalOptionsRepository.GetCameraName(userId, server, camera);
-            if (gridCamera?.Frame ?? false)
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
+            try
             {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = text;
+                axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
             }
-            else
+            catch (Exception ex)
             {
-                if (gridCamera?.Osd ?? false)
-                {
-                    axVideoPlayerWindow.OverlayText = text;
-                }
+                DebugErrorBox.Show(ex);
             }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                axVideoPlayerWindow.OverlayText += DateTime.Now.ToString();
-            }
-
-            axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
         }
 
         //private void Start(int waitTimeInMs = 500)

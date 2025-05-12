@@ -39,15 +39,12 @@ namespace LiveView
         {
             ExceptionHandler.CatchUnhandledExceptions();
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-
-            //#if NETFRAMEWORK
+#if NETFRAMEWORK
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //#else
-            //ApplicationConfiguration.Initialize();
-            //#endif
+#else
+            ApplicationConfiguration.Initialize();
+#endif
 
             if (!DatabaseInitializer.Initialize("MasterConnectionString"))
             {

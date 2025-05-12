@@ -1,13 +1,14 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -115,32 +116,9 @@ namespace CameraForms.Forms
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
             var userId = permissionManager.CurrentUser.Tag.Id;
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            var fontName = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
-            var fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-
-            var cameraName = personalOptionsRepository.GetCameraName(userId, url);
-            mortoGraphyWindow.OverlayFont = new Font(fontName, largeFontSize, FontStyle.Bold);
-            mortoGraphyWindow.OverlayBrush = new SolidBrush(fontColor);
             mortoGraphyWindow.BufferSize = bufferSize;
-            if (gridCamera?.Frame ?? false)
-            {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = cameraName;
-            }
-            else
-            {
-                if (gridCamera?.Osd ?? false)
-                {
-                    mortoGraphyWindow.OverlayText = cameraName;
-                }
-            }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                mortoGraphyWindow.OverlayText += DateTime.Now.ToString();
-            }
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            OsdSetter.SetInfo(this, mortoGraphyWindow, gridCamera, personalOptionsRepository, text, userId);
 
             if (url.IndexOf('|') > 0)
             {
@@ -149,7 +127,14 @@ namespace CameraForms.Forms
                 var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoSourceNameInfo[0], videoSourceNameInfo[1]);
                 url = $"{videoSourceInfo.Item1.ServerIp}:{videoSourceInfo.Item2.Port}";
             }
-            mortoGraphyWindow.Start(url);
+            try
+            {
+                mortoGraphyWindow.Start(url);
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+            }
         }
 
         private void OnExit()

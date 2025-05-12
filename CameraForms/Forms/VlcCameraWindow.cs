@@ -1,10 +1,10 @@
 ﻿using CameraForms.Dto;
-using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
@@ -94,29 +94,8 @@ namespace CameraForms.Forms
         private void VlcCameraWindow_Shown(object sender, EventArgs e)
         {
             var userId = permissionManager.CurrentUser.Tag.Id;
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            vlcWindow.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            vlcWindow.OverlayBrush = new SolidBrush(Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb())));
-            //var shadowColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-
             var text = personalOptionsRepository.GetCameraName(userId, url);
-            if (gridCamera?.Frame ?? false)
-            {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = text;
-            }
-            else
-            {
-                if (gridCamera?.Osd ?? false)
-                {
-                    vlcWindow.OverlayText = text;
-                }
-            }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                vlcWindow.OverlayText += DateTime.Now.ToString();
-            }
+            OsdSetter.SetInfo(this, vlcWindow, gridCamera, personalOptionsRepository, text, userId);
 
             try
             {
