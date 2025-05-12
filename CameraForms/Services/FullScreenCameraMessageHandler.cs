@@ -114,12 +114,12 @@ namespace CameraForms.Services
                 foreach (var command in commands)
                 {
                     command.Execute();
-                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
+                    Console.WriteLine($"{command.GetType().Name} executed in full screen camera.");
                 }
             }
             catch (Exception ex)
             {
-                var message = $"Message parse or execution failed in agent: {ex}.";
+                var message = $"Message parse or execution failed in full screen camera: {ex}.";
                 Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }

@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
+using System;
 using System.Windows.Forms;
 
 namespace CameraForms.Network.Commands
@@ -14,7 +15,14 @@ namespace CameraForms.Network.Commands
 
         public void Execute()
         {
-            form.Close();
+            if (form.InvokeRequired)
+            {
+                form.Invoke((Action)(() => form.Close()));
+            }
+            else
+            {
+                form.Close();
+            }
         }
     }
 }

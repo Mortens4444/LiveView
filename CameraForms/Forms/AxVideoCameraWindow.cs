@@ -122,12 +122,12 @@ namespace CameraForms.Forms
                 foreach (var command in commands)
                 {
                     command.Execute();
-                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
+                    Console.WriteLine($"{command.GetType().Name} executed in video picture.");
                 }
             }
             catch (Exception ex)
             {
-                var message = $"Message parse or execution failed in agent: {ex}.";
+                var message = $"Message parse or execution failed in video picture: {ex}.";
                 Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }

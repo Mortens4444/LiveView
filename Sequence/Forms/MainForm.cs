@@ -126,39 +126,19 @@ namespace Sequence.Forms
         {
             try
             {
-                var messages = $"{client?.Encoding.GetString(e.Data)}";
-                var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var message in allMessages)
+                var messages = $"{client.Encoding.GetString(e.Data)}";
+                var commands = SequenceCommandFactory.Create(this, gridSequenceManager, messages);
+                foreach (var command in commands)
                 {
-                    var messageParts = message.Split('|');
-                    if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Invoke((Action)(() => Close()));
-                    }
-                    else if (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                    {
-                        Invoke((Action)(() => Close()));
-                    }
-                    else if (message.StartsWith(NetworkCommand.PlayOrPauseSequence.ToString(), StringComparison.InvariantCulture))
-                    {
-                        gridSequenceManager.ChangeIsPausedState();
-                    }
-                    else if (message.StartsWith(NetworkCommand.RearrangeGrids.ToString(), StringComparison.InvariantCulture))
-                    {
-                    }
-                    else if (message.StartsWith(NetworkCommand.ShowNextGrid.ToString(), StringComparison.InvariantCulture))
-                    {
-                        gridSequenceManager.ShowNextGrid();
-                    }
-                    else if (message.StartsWith(NetworkCommand.ShowPreviousGrid.ToString(), StringComparison.InvariantCulture))
-                    {
-                        gridSequenceManager.ShowPreviousGrid();
-                    }
+                    command.Execute();
+                    Console.WriteLine($"{command.GetType().Name} executed in sequence window.");
                 }
             }
             catch (Exception ex)
             {
-                logger.LogException(ex, "Client data cannot be parsed.");
+                logger.LogException(ex, "Client data cannot be parsed by sequence window.");
+                var message = $"Message parse or execution failed in sequence window: {ex}.";
+                Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
         }

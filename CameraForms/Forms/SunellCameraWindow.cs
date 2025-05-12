@@ -110,12 +110,12 @@ namespace CameraForms.Forms
                 foreach (var command in commands)
                 {
                     command.Execute();
-                    Console.WriteLine($"{command.GetType().Name} executed in agent.");
+                    Console.WriteLine($"{command.GetType().Name} executed in Sunell video window.");
                 }
             }
             catch (Exception ex)
             {
-                var message = $"Message parse or execution failed in agent: {ex}.";
+                var message = $"Message parse or execution failed in Sunell video window: {ex}.";
                 Console.Error.WriteLine(message);
                 DebugErrorBox.Show(ex);
             }
