@@ -4,13 +4,13 @@ using Microsoft.Extensions.Logging;
 
 namespace LiveView.Models.Dependencies
 {
-    public class SyncronViewPresenterDependencies : BasePresenterDependencies
+    public class SynchronViewPresenterDependencies : BasePresenterDependencies
     {
-        public SyncronViewPresenterDependencies(
+        public SynchronViewPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             ICameraRepository cameraRepository,
             IServerRepository serverRepository,
-            ILogger<SyncronView> logger)
+            ILogger<SynchronView> logger)
             : base(generalOptionsRepository)
         {
             CameraRepository = cameraRepository;
@@ -22,6 +22,6 @@ namespace LiveView.Models.Dependencies
         
         public IServerRepository ServerRepository { get; private set; }
 
-        public ILogger<SyncronView> Logger { get; private set; }
+        public ILogger<SynchronView> Logger { get; private set; }
     }
 }

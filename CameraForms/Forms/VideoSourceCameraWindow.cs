@@ -201,7 +201,7 @@ namespace CameraForms.Forms
                         videoSource = videoSourceInfo?.Item2;
                         if (videoSource == null)
                         {
-                            var message = String.Format(Lng.Elem("VideoSource ({0}) is not registered."), videoCaptureSourceCameraInfo.ToString());
+                            var message = Lng.FormattedElem("VideoSource ({0}) is not registered.", args: videoCaptureSourceCameraInfo);
                             ErrorBox.Show(Lng.Elem("General error"), message);
                             break;
                         }

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class SyncronView : BaseView, ISyncronViewView
+    public partial class SynchronView : BaseView, ISynchronViewView
     {
-        private SyncronViewPresenter presenter;
+        private SynchronViewPresenter presenter;
 
         public AxVideoPicture AxVideoPicture1 => axVideoPlayerWindow1.AxVideoPicture;
 
@@ -35,7 +35,7 @@ namespace LiveView.Forms
 
         public ToolStripMenuItem TsmiChangeCameraTo => tsmiChangeCameraTo;
 
-        public SyncronView(IServiceProvider serviceProvider) : base(serviceProvider, typeof(SyncronViewPresenter))
+        public SynchronView(IServiceProvider serviceProvider) : base(serviceProvider, typeof(SynchronViewPresenter))
         {
             InitializeComponent();
 
@@ -87,9 +87,9 @@ namespace LiveView.Forms
             presenter.SetSpeed();
         }
 
-        private void SyncronView_Shown(object sender, EventArgs e)
+        private void SynchronView_Shown(object sender, EventArgs e)
         {
-            presenter = Presenter as SyncronViewPresenter;
+            presenter = Presenter as SynchronViewPresenter;
             presenter.Load();
         }
 

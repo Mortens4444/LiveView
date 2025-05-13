@@ -64,7 +64,7 @@ namespace LiveView.Services
             services.AddTransient<SequentialChainsPresenterDependencies>();
             services.AddTransient<ServerAndCameraManagementPresenterDependencies>();
             services.AddTransient<ServerAndCameraPropertiesPresenterDependencies>();
-            services.AddTransient<SyncronViewPresenterDependencies>();
+            services.AddTransient<SynchronViewPresenterDependencies>();
             services.AddTransient<TemplatesPresenterDependencies>();
             services.AddTransient<UserAndGroupManagementPresenterDependencies>();
         }
@@ -104,7 +104,7 @@ namespace LiveView.Services
             services.AddTransient<SequentialChainsPresenter>();
             services.AddTransient<ServerAndCameraManagementPresenter>();
             services.AddTransient<ServerAndCameraPropertiesPresenter>();
-            services.AddTransient<SyncronViewPresenter>();
+            services.AddTransient<SynchronViewPresenter>();
             services.AddTransient<TemplatesPresenter>();
             services.AddTransient<UserAndGroupManagementPresenter>();
         }
@@ -142,7 +142,7 @@ namespace LiveView.Services
             services.AddTransient<SequentialChains>();
             services.AddTransient<ServerAndCameraManagement>();
             services.AddTransient<ServerAndCameraProperties>();
-            services.AddTransient<SyncronView>();
+            services.AddTransient<SynchronView>();
             services.AddTransient<GeneralOptionsForm>();
             services.AddTransient<Templates>();
             services.AddTransient<UserAndGroupManagement>();

@@ -30,32 +30,32 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerAndCameraManagement));
-            var treeNode1 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
-            var treeNode2 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
-            var treeNode3 = new System.Windows.Forms.TreeNode("Agents", 8, 8);
+            var treeNode4 = new System.Windows.Forms.TreeNode("Servers", 0, 0);
+            var treeNode5 = new System.Windows.Forms.TreeNode("DB servers", 7, 7);
+            var treeNode6 = new System.Windows.Forms.TreeNode("Agents", 8, 8);
             ttHint = new System.Windows.Forms.ToolTip(components);
             ilImages = new System.Windows.Forms.ImageList(components);
             btnMotionDetection = new System.Windows.Forms.Button();
             btnNewDbServer = new System.Windows.Forms.Button();
             lblHorizontalLine = new System.Windows.Forms.Label();
             rbCameraName = new System.Windows.Forms.RadioButton();
-            lblSyncronizeBy = new System.Windows.Forms.Label();
+            lblSynchronizeBy = new System.Windows.Forms.Label();
             rbRecorderIndex = new System.Windows.Forms.RadioButton();
             btnClose = new System.Windows.Forms.Button();
             btnProperties = new System.Windows.Forms.Button();
             rbGuid = new System.Windows.Forms.RadioButton();
-            btnSyncronize = new System.Windows.Forms.Button();
+            btnSynchronize = new System.Windows.Forms.Button();
             tvServersAndCameras = new Mtf.Controls.MtfTreeView();
             btnNewVideoServer = new System.Windows.Forms.Button();
             btnModify = new System.Windows.Forms.Button();
             btnRemove = new System.Windows.Forms.Button();
             btnNewCamera = new System.Windows.Forms.Button();
             gbRegisteredServersAndCameras = new System.Windows.Forms.GroupBox();
-            pMain = new System.Windows.Forms.Panel();
             axVideoServer = new AxVIDEOCONTROL4Lib.AxVideoServer();
+            pMain = new System.Windows.Forms.Panel();
             gbRegisteredServersAndCameras.SuspendLayout();
-            pMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)axVideoServer).BeginInit();
+            pMain.SuspendLayout();
             SuspendLayout();
             // 
             // ilImages
@@ -120,16 +120,16 @@
             rbCameraName.Text = "Camera name";
             rbCameraName.UseVisualStyleBackColor = true;
             // 
-            // lblSyncronizeBy
+            // lblSynchronizeBy
             // 
-            lblSyncronizeBy.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            lblSyncronizeBy.AutoSize = true;
-            lblSyncronizeBy.Location = new System.Drawing.Point(495, 328);
-            lblSyncronizeBy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblSyncronizeBy.Name = "lblSyncronizeBy";
-            lblSyncronizeBy.Size = new System.Drawing.Size(80, 15);
-            lblSyncronizeBy.TabIndex = 7;
-            lblSyncronizeBy.Text = "Syncronize by";
+            lblSynchronizeBy.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblSynchronizeBy.AutoSize = true;
+            lblSynchronizeBy.Location = new System.Drawing.Point(495, 328);
+            lblSynchronizeBy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSynchronizeBy.Name = "lblSynchronizeBy";
+            lblSynchronizeBy.Size = new System.Drawing.Size(87, 15);
+            lblSynchronizeBy.TabIndex = 7;
+            lblSynchronizeBy.Text = "Synchronize by";
             // 
             // rbRecorderIndex
             // 
@@ -182,17 +182,17 @@
             rbGuid.Text = "GUID";
             rbGuid.UseVisualStyleBackColor = true;
             // 
-            // btnSyncronize
+            // btnSynchronize
             // 
-            btnSyncronize.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnSyncronize.Location = new System.Drawing.Point(500, 444);
-            btnSyncronize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnSyncronize.Name = "btnSyncronize";
-            btnSyncronize.Size = new System.Drawing.Size(160, 27);
-            btnSyncronize.TabIndex = 0;
-            btnSyncronize.Text = "Syncronize";
-            btnSyncronize.UseVisualStyleBackColor = true;
-            btnSyncronize.Click += BtnSyncronize_Click;
+            btnSynchronize.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSynchronize.Location = new System.Drawing.Point(500, 444);
+            btnSynchronize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSynchronize.Name = "btnSynchronize";
+            btnSynchronize.Size = new System.Drawing.Size(160, 27);
+            btnSynchronize.TabIndex = 0;
+            btnSynchronize.Text = "Synchronize";
+            btnSynchronize.UseVisualStyleBackColor = true;
+            btnSynchronize.Click += BtnSynchronize_Click;
             // 
             // tvServersAndCameras
             // 
@@ -208,19 +208,19 @@
             tvServersAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tvServersAndCameras.MultiSelect = false;
             tvServersAndCameras.Name = "tvServersAndCameras";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "Servers";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "Servers";
-            treeNode2.ImageIndex = 7;
-            treeNode2.Name = "DBServers";
-            treeNode2.SelectedImageIndex = 7;
-            treeNode2.Text = "DB servers";
-            treeNode3.ImageIndex = 8;
-            treeNode3.Name = "Agents";
-            treeNode3.SelectedImageIndex = 8;
-            treeNode3.Text = "Agents";
-            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode1, treeNode2, treeNode3 });
+            treeNode4.ImageIndex = 0;
+            treeNode4.Name = "Servers";
+            treeNode4.SelectedImageIndex = 0;
+            treeNode4.Text = "Servers";
+            treeNode5.ImageIndex = 7;
+            treeNode5.Name = "DBServers";
+            treeNode5.SelectedImageIndex = 7;
+            treeNode5.Text = "DB servers";
+            treeNode6.ImageIndex = 8;
+            treeNode6.Name = "Agents";
+            treeNode6.SelectedImageIndex = 8;
+            treeNode6.Text = "Agents";
+            tvServersAndCameras.Nodes.AddRange(new System.Windows.Forms.TreeNode[] { treeNode4, treeNode5, treeNode6 });
             tvServersAndCameras.SelectedImageIndex = 0;
             tvServersAndCameras.ShowNodeToolTips = true;
             tvServersAndCameras.ShowPlusMinusOnRootNodes = true;
@@ -291,11 +291,11 @@
             gbRegisteredServersAndCameras.Controls.Add(btnNewDbServer);
             gbRegisteredServersAndCameras.Controls.Add(lblHorizontalLine);
             gbRegisteredServersAndCameras.Controls.Add(rbCameraName);
-            gbRegisteredServersAndCameras.Controls.Add(lblSyncronizeBy);
+            gbRegisteredServersAndCameras.Controls.Add(lblSynchronizeBy);
             gbRegisteredServersAndCameras.Controls.Add(rbRecorderIndex);
             gbRegisteredServersAndCameras.Controls.Add(btnProperties);
             gbRegisteredServersAndCameras.Controls.Add(rbGuid);
-            gbRegisteredServersAndCameras.Controls.Add(btnSyncronize);
+            gbRegisteredServersAndCameras.Controls.Add(btnSynchronize);
             gbRegisteredServersAndCameras.Controls.Add(tvServersAndCameras);
             gbRegisteredServersAndCameras.Controls.Add(btnNewVideoServer);
             gbRegisteredServersAndCameras.Controls.Add(btnModify);
@@ -310,6 +310,16 @@
             gbRegisteredServersAndCameras.TabStop = false;
             gbRegisteredServersAndCameras.Text = "Registered servers and cameras";
             // 
+            // axVideoServer
+            // 
+            axVideoServer.Enabled = true;
+            axVideoServer.Location = new System.Drawing.Point(495, 253);
+            axVideoServer.Name = "axVideoServer";
+            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
+            axVideoServer.Size = new System.Drawing.Size(100, 50);
+            axVideoServer.TabIndex = 26;
+            axVideoServer.Visible = false;
+            // 
             // pMain
             // 
             pMain.Controls.Add(btnClose);
@@ -320,16 +330,6 @@
             pMain.Name = "pMain";
             pMain.Size = new System.Drawing.Size(681, 515);
             pMain.TabIndex = 2;
-            // 
-            // axVideoServer
-            // 
-            axVideoServer.Enabled = true;
-            axVideoServer.Location = new System.Drawing.Point(495, 253);
-            axVideoServer.Name = "axVideoServer";
-            axVideoServer.OcxState = (System.Windows.Forms.AxHost.State)resources.GetObject("axVideoServer.OcxState");
-            axVideoServer.Size = new System.Drawing.Size(100, 50);
-            axVideoServer.TabIndex = 26;
-            axVideoServer.Visible = false;
             // 
             // ServerAndCameraManagement
             // 
@@ -346,8 +346,8 @@
             Shown += ServerAndCameraManagement_Shown;
             gbRegisteredServersAndCameras.ResumeLayout(false);
             gbRegisteredServersAndCameras.PerformLayout();
-            pMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)axVideoServer).EndInit();
+            pMain.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -359,12 +359,12 @@
         private System.Windows.Forms.Button btnNewDbServer;
         private System.Windows.Forms.Label lblHorizontalLine;
         private System.Windows.Forms.RadioButton rbCameraName;
-        private System.Windows.Forms.Label lblSyncronizeBy;
+        private System.Windows.Forms.Label lblSynchronizeBy;
         private System.Windows.Forms.RadioButton rbRecorderIndex;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnProperties;
         private System.Windows.Forms.RadioButton rbGuid;
-        private System.Windows.Forms.Button btnSyncronize;
+        private System.Windows.Forms.Button btnSynchronize;
         private Mtf.Controls.MtfTreeView tvServersAndCameras;
         private System.Windows.Forms.Button btnNewVideoServer;
         private System.Windows.Forms.Button btnModify;

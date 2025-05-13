@@ -1,6 +1,6 @@
 ﻿namespace Database.Enums
 {
-    public enum SyncronizationMode
+    public enum SynchronizationMode
     {
         Guid,
         RecorderIndex,

@@ -193,10 +193,10 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.Pause | CameraManagementPermissions.Play | CameraManagementPermissions.Next | CameraManagementPermissions.Previous | CameraManagementPermissions.GoTo)]
-        private void TsmiSyncronView_Click(object sender, EventArgs e)
+        private void TsmiSynchronView_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<SyncronView>();
+            presenter.ShowForm<SynchronView>();
         }
 
         [RequirePermission(IODeviceManagementPermissions.Select | IODeviceManagementPermissions.Update)]

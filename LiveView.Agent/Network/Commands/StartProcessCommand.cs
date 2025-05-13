@@ -33,7 +33,7 @@ namespace LiveView.Agent.Network.Commands
 
             if (process == null)
             {
-                ErrorBox.Show(Lng.Elem("General error"), String.Format(Lng.Elem("Unable to start process: {0}."), application));
+                ErrorBox.Show(Lng.Elem("General error"), Lng.FormattedElem("Unable to start process: {0}.", args: application));
                 return -2;
             }
 

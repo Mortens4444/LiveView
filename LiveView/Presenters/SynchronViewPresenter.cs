@@ -14,15 +14,15 @@ using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
-    public class SyncronViewPresenter : BasePresenter
+    public class SynchronViewPresenter : BasePresenter
     {
-        private ISyncronViewView view;
+        private ISynchronViewView view;
         private readonly IServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly ILogger<SyncronView> logger;
+        private readonly ILogger<SynchronView> logger;
         private readonly ReadOnlyCollection<Server> servers;
 
-        public SyncronViewPresenter(SyncronViewPresenterDependencies dependencies)
+        public SynchronViewPresenter(SynchronViewPresenterDependencies dependencies)
             : base(dependencies)
         {
             serverRepository = dependencies.ServerRepository;
@@ -34,7 +34,7 @@ namespace LiveView.Presenters
         public new void SetView(IView view)
         {
             base.SetView(view);
-            this.view = view as ISyncronViewView;
+            this.view = view as ISynchronViewView;
         }
 
         public void Goto()

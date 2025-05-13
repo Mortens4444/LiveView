@@ -11,7 +11,6 @@ namespace LiveView.Services
             return Get(String.Concat(@enum.GetType().Name, @enum));
         }
 
-
         public static long Get(string input)
         {
             var hashBytes = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(input));

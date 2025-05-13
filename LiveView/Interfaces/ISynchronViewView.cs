@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
-    public interface ISyncronViewView : IView
+    public interface ISynchronViewView : IView
     {
         AxVideoPicture AxVideoPicture1 { get; }
 

@@ -486,7 +486,7 @@ namespace LiveView.Presenters
 
                 if (secondaryLogonForm.SecondaryUser.SecondaryLogonPriority < user.NeededSecondaryLogonPriority)
                 {
-                    var message = String.Format(UserShouldHaveAtLeastPriority, secondaryLogonForm.SecondaryUser, user.NeededSecondaryLogonPriority);
+                    var message = Lng.FormattedElem(UserShouldHaveAtLeastPriority, args: new object[] { secondaryLogonForm.SecondaryUser, user.NeededSecondaryLogonPriority });
                     ShowError(message);
                     return null;
                 }
@@ -660,6 +660,10 @@ namespace LiveView.Presenters
             {
                 var clientSocket = Globals.Agents[clientAddress];
                 Globals.Server.SendMessageToClient(clientSocket, String.Join("|", parameters.SelectMany(p => p is IEnumerable<string> enumerable ? enumerable : new[] { p?.ToString() ?? String.Empty })), true);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                ErrorBox.Show(Lng.Elem("General error"), Lng.FormattedElem("Agent '{0}' cannot be found.", args: clientAddress));
             }
             catch (Exception ex)
             {

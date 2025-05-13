@@ -6,6 +6,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
@@ -46,7 +47,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    var message = String.Format("User '{0}' has no permission to create database server.", permissionManager.CurrentUser);
+                    var message = Lng.FormattedElem("User '{0}' has no permission to create database server.", args: permissionManager.CurrentUser);
                     logger.LogError(message);
                     throw new UnauthorizedAccessException(message);
                 }
@@ -61,7 +62,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    var message = String.Format("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
+                    var message = Lng.FormattedElem("User '{0}' has no permission to modify database server.", args: permissionManager.CurrentUser);
                     logger.LogError(message);
                     throw new UnauthorizedAccessException(message);
                 }

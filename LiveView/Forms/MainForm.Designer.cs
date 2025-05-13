@@ -71,7 +71,7 @@ namespace LiveView.Forms
             tsmiMapCreator = new ToolStripMenuItem();
             tsmiMotionPopup = new ToolStripMenuItem();
             tsmiIOPortsSettings = new ToolStripMenuItem();
-            tsmiSyncronView = new ToolStripMenuItem();
+            tsmiSynchronView = new ToolStripMenuItem();
             tsmiBarCodeReadings = new ToolStripMenuItem();
             tsmiPositioningMousePointer = new ToolStripMenuItem();
             tsmiLogViewer = new ToolStripMenuItem();
@@ -79,6 +79,7 @@ namespace LiveView.Forms
             tsmiHelp = new ToolStripMenuItem();
             tsmiTools = new ToolStripMenuItem();
             tsmiKBD300ASimulator = new ToolStripMenuItem();
+            tsmiVncClient = new ToolStripMenuItem();
             lblUsername = new Label();
             gbUserEvents = new GroupBox();
             lvUserEvents = new Mtf.Controls.MtfListView();
@@ -113,7 +114,6 @@ namespace LiveView.Forms
             msMenu = new MenuStrip();
             bwCreateStatisticsMessage = new System.ComponentModel.BackgroundWorker();
             timer = new Timer(components);
-            tsmiVncClient = new ToolStripMenuItem();
             ssStatusStrip.SuspendLayout();
             gbUserEvents.SuspendLayout();
             pLeft.SuspendLayout();
@@ -445,14 +445,14 @@ namespace LiveView.Forms
             tsmiIOPortsSettings.Text = "I/O ports' settings";
             tsmiIOPortsSettings.Click += TsmiIOPortsSettings_Click;
             // 
-            // tsmiSyncronView
+            // tsmiSynchronView
             // 
-            tsmiSyncronView.Enabled = false;
-            tsmiSyncronView.Image = Properties.Resources.syncron_view;
-            tsmiSyncronView.Name = "tsmiSyncronView";
-            tsmiSyncronView.Size = new System.Drawing.Size(215, 22);
-            tsmiSyncronView.Text = "Syncron view";
-            tsmiSyncronView.Click += TsmiSyncronView_Click;
+            tsmiSynchronView.Enabled = false;
+            tsmiSynchronView.Image = Properties.Resources.syncron_view;
+            tsmiSynchronView.Name = "tsmiSynchronView";
+            tsmiSynchronView.Size = new System.Drawing.Size(215, 22);
+            tsmiSynchronView.Text = "Synchron view";
+            tsmiSynchronView.Click += TsmiSynchronView_Click;
             // 
             // tsmiBarCodeReadings
             // 
@@ -500,7 +500,7 @@ namespace LiveView.Forms
             // 
             // tsmiTools
             // 
-            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSyncronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator, tsmiVncClient });
+            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSynchronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator, tsmiVncClient });
             tsmiTools.Image = (System.Drawing.Image)resources.GetObject("tsmiTools.Image");
             tsmiTools.Name = "tsmiTools";
             tsmiTools.Size = new System.Drawing.Size(63, 20);
@@ -514,6 +514,14 @@ namespace LiveView.Forms
             tsmiKBD300ASimulator.Size = new System.Drawing.Size(215, 22);
             tsmiKBD300ASimulator.Text = "KBD300A Simulator";
             tsmiKBD300ASimulator.Click += TsmiKBD300ASimulator_Click;
+            // 
+            // tsmiVncClient
+            // 
+            tsmiVncClient.Image = Properties.Resources.server_link;
+            tsmiVncClient.Name = "tsmiVncClient";
+            tsmiVncClient.Size = new System.Drawing.Size(215, 22);
+            tsmiVncClient.Text = "VNC client";
+            tsmiVncClient.Click += TsmiVncClient_Click;
             // 
             // lblUsername
             // 
@@ -887,14 +895,6 @@ namespace LiveView.Forms
             timer.Interval = 500;
             timer.Tick += Timer_Tick;
             // 
-            // tsmiVncClient
-            // 
-            tsmiVncClient.Image = Properties.Resources.server_link;
-            tsmiVncClient.Name = "tsmiVncClient";
-            tsmiVncClient.Size = new System.Drawing.Size(215, 22);
-            tsmiVncClient.Text = "VNC client";
-            tsmiVncClient.Click += TsmiVncClient_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -963,7 +963,7 @@ namespace LiveView.Forms
         private System.Windows.Forms.ToolStripMenuItem tsmiMapCreator;
         private System.Windows.Forms.ToolStripMenuItem tsmiMotionPopup;
         private System.Windows.Forms.ToolStripMenuItem tsmiIOPortsSettings;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSyncronView;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSynchronView;
         private System.Windows.Forms.ToolStripMenuItem tsmiBarCodeReadings;
         private System.Windows.Forms.ToolStripMenuItem tsmiPositioningMousePointer;
         private System.Windows.Forms.ToolStripMenuItem tsmiLogViewer;

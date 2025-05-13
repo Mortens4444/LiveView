@@ -1,5 +1,4 @@
-﻿using Accord;
-using Database.Enums;
+﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Extensions;
@@ -8,6 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
@@ -80,7 +80,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to modify video server.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to modify video server.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -96,7 +96,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to modify camera.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -112,7 +112,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to modify database server.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to modify database server.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -140,7 +140,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to delete video server.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to delete video server.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -159,7 +159,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to delete camera.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to delete camera.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -178,7 +178,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to delete database server.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to delete database server.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -191,11 +191,11 @@ namespace LiveView.Presenters
             }
         }
 
-        public async Task SyncronizeAsync()
+        public async Task SynchronizeAsync()
         {
             if (permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update))
             {
-                var syncMode = view.GetSyncronizationMode();
+                var syncMode = view.GetSynchronizationMode();
 
                 if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
                 {
@@ -208,38 +208,38 @@ namespace LiveView.Presenters
                         {
                             switch (syncMode)
                             {
-                                case SyncronizationMode.Guid:
+                                case SynchronizationMode.Guid:
                                     var actualCamera = camerasInDatabase.FirstOrDefault(cameraInDatabase => cameraInDatabase.Guid == camera.Guid);
                                     if (actualCamera != null)
                                     {
                                         actualCamera.CameraName = camera.Name;
                                         actualCamera.RecorderIndex = camera.Index;
                                         cameraRepository.Update(actualCamera);
-                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by GUID.", actualCamera);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' synchronized by GUID.", actualCamera);
                                     }
                                     break;
-                                case SyncronizationMode.RecorderIndex:
+                                case SynchronizationMode.RecorderIndex:
                                     var actualCamera2 = camerasInDatabase.FirstOrDefault(cameraInDatabase => cameraInDatabase.RecorderIndex == camera.Index);
                                     if (actualCamera2 != null)
                                     {
                                         actualCamera2.CameraName = camera.Name;
                                         actualCamera2.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera2);
-                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by recorder index.", actualCamera2);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' synchronized by recorder index.", actualCamera2);
                                     }
                                     break;
-                                case SyncronizationMode.CameraName:
+                                case SynchronizationMode.CameraName:
                                     var actualCamera3 = camerasInDatabase.FirstOrDefault(cameraInDatabase => cameraInDatabase.CameraName == camera.Name);
                                     if (actualCamera3 != null)
                                     {
                                         actualCamera3.RecorderIndex = camera.Index;
                                         actualCamera3.Guid = camera.Guid;
                                         cameraRepository.Update(actualCamera3);
-                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' syncronized by camera name.", actualCamera3);
+                                        logger.LogInfo(CameraManagementPermissions.Update, "Camera '{0}' synchronized by camera name.", actualCamera3);
                                     }
                                     break;
                                 default:
-                                    throw new NotSupportedException($"SyncronizationMode '{syncMode}' is not supported yet.");
+                                    throw new NotSupportedException($"SynchronizationMode '{syncMode}' is not supported yet.");
                             }
                         }
                     }
@@ -252,7 +252,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                var message = String.Format("User '{0}' has no permission to syncronize cameras.", permissionManager.CurrentUser);
+                var message = Lng.FormattedElem("User '{0}' has no permission to synchronize cameras.", args: permissionManager.CurrentUser);
                 logger.LogError(message);
                 throw new UnauthorizedAccessException(message);
             }
@@ -377,7 +377,7 @@ namespace LiveView.Presenters
             
             view.BtnMotionDetection.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && cameraSelected;
             
-            view.BtnSyncronize.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && serverSelected;
+            view.BtnSynchronize.Enabled = permissionManager.CurrentUser.HasPermission(CameraManagementPermissions.Update) && serverSelected;
         }
 
         public void ShowServerAndCameraProperties()
@@ -390,7 +390,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    var message = String.Format("User '{0}' has no permission to view server and camera properties.", permissionManager.CurrentUser);
+                    var message = Lng.FormattedElem("User '{0}' has no permission to view server and camera properties.", args: permissionManager.CurrentUser);
                     logger.LogError(message);
                     throw new UnauthorizedAccessException(message);
                 }
@@ -406,7 +406,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    var message = String.Format("User '{0}' has no permission to modify camera.", permissionManager.CurrentUser);
+                    var message = Lng.FormattedElem("User '{0}' has no permission to modify camera.", args: permissionManager.CurrentUser);
                     logger.LogError(message);
                     throw new UnauthorizedAccessException(message);
                 }

@@ -2,6 +2,7 @@
 using CameraForms.Services;
 using Database.Enums;
 using LiveView.Core.Dto;
+using Mtf.LanguageService;
 using System;
 using System.Drawing;
 
@@ -37,7 +38,7 @@ namespace CameraForms.Dto
             var result = DisplayProvider.Get(DisplayId);
             if (!result.CanShowFullscreen)
             {
-                throw new InvalidOperationException(String.Format("This display ('{0}') is forbidden to show full screen camera windows.", result.Id));
+                throw new InvalidOperationException(Lng.FormattedElem("This display '{0}' is forbidden to show full screen camera windows.", args: result.Id));
             }
             return result;
         }

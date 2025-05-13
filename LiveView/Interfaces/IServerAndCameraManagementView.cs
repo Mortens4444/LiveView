@@ -17,8 +17,8 @@ namespace LiveView.Interfaces
 
         Button BtnMotionDetection { get; }
 
-        Button BtnSyncronize { get; }
+        Button BtnSynchronize { get; }
 
-        SyncronizationMode GetSyncronizationMode();
+        SynchronizationMode GetSynchronizationMode();
     }
 }

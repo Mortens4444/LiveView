@@ -26,7 +26,7 @@ namespace LiveView.Forms
 
         public Button BtnMotionDetection => btnMotionDetection;
 
-        public Button BtnSyncronize => btnSyncronize;
+        public Button BtnSynchronize => btnSynchronize;
 
         public AxVideoServer AxVideoServer => axVideoServer;
 
@@ -83,10 +83,10 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(CameraManagementPermissions.Update)]
-        private async void BtnSyncronize_Click(object sender, EventArgs e)
+        private async void BtnSynchronize_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            await presenter.SyncronizeAsync();
+            await presenter.SynchronizeAsync();
         }
 
         private void TvServersAndCameras_AfterSelect(object sender, TreeViewEventArgs e)
@@ -94,24 +94,24 @@ namespace LiveView.Forms
             presenter?.ChangeButtonStates(e.Node);
         }
 
-        public SyncronizationMode GetSyncronizationMode()
+        public SynchronizationMode GetSynchronizationMode()
         {
             if (rbGuid.Checked)
             {
-                return SyncronizationMode.Guid;
+                return SynchronizationMode.Guid;
             }
 
             if (rbRecorderIndex.Checked)
             {
-                return SyncronizationMode.RecorderIndex;
+                return SynchronizationMode.RecorderIndex;
             }
 
             if (rbCameraName.Checked)
             {
-                return SyncronizationMode.CameraName;
+                return SynchronizationMode.CameraName;
             }
 
-            throw new NotSupportedException("SyncronizationMode is not supported yet.");
+            throw new NotSupportedException("SynchronizationMode is not supported yet.");
         }
 
         [RequireAnyPermission(CameraManagementPermissions.Update)]

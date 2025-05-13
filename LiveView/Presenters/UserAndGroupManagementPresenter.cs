@@ -7,6 +7,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
@@ -65,7 +66,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to delete group.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to delete group.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -90,7 +91,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to delete user.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to delete user.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -190,7 +191,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to modify group.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to modify group.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }
@@ -209,7 +210,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        var message = String.Format("User '{0}' has no permission to modify user.", permissionManager.CurrentUser);
+                        var message = Lng.FormattedElem("User '{0}' has no permission to modify user.", args: permissionManager.CurrentUser);
                         logger.LogError(message);
                         throw new UnauthorizedAccessException(message);
                     }

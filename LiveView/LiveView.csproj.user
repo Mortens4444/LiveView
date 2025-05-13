@@ -103,7 +103,7 @@
     <Compile Update="Forms\ServerAndCameraProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\SyncronView.cs">
+    <Compile Update="Forms\SynchronView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\GeneralOptionsForm.cs">

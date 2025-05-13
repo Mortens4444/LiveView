@@ -97,7 +97,7 @@ namespace Sequence.Forms
 
             if (!display.CanShowSequence)
             {
-                throw new InvalidOperationException(String.Format("This display ('{0}') is forbidden to show sequence windows.", displayId));
+                throw new InvalidOperationException(Lng.FormattedElem("This display '{0}' is forbidden to show sequence windows.", args: displayId));
             }
 
             var sequenceRepository = serviceProvider.GetRequiredService<ISequenceRepository>();
