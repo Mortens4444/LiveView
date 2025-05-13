@@ -30,7 +30,7 @@ namespace LiveView.Services.VideoServer
                 case HardwareError: return "Hardware error";
                 case WrongCredentials: return "Wrong username or password";
                 case NetworkError: return "Network (RPC) error";
-                case ConnectionFailed: return "Remote Video Server appplication is not responding";
+                case ConnectionFailed: return "Remote Video Server application is not responding";
                 case PermissionError: return "Security permission error / Invalid version";
                 case TimeoutErrorCode: return "Connection timed out";
                 case NoVideoServerCredentialsFound: return "No video server credentials found";

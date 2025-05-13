@@ -18,7 +18,6 @@ namespace LiveView.Presenters
         private IAddVideoServerView view;
         private readonly IServerRepository serverRepository;
         private readonly ILogger<AddVideoServer> logger;
-        private readonly SziltechDeviceChecker sziltechDeviceChecker = new SziltechDeviceChecker();
 
         public AddVideoServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IServerRepository serverRepository, ILogger<AddVideoServer> logger)
             : base(generalOptionsRepository)
@@ -64,7 +63,7 @@ namespace LiveView.Presenters
 
         public void Validate()
         {
-            var iszSziltechDeice = sziltechDeviceChecker.IsSziltechDevice(view.TbSziltechSerialNumber.Text, out var deviceInfo);
+            var iszSziltechDeice = SziltechDeviceChecker.IsSziltechDevice(view.TbSziltechSerialNumber.Text, out var deviceInfo);
             if (iszSziltechDeice)
             {
                 view.TbModel.Text = Lng.Elem(deviceInfo.Model);

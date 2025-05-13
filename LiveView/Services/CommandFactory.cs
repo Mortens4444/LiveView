@@ -11,11 +11,13 @@ namespace LiveView.Services
 {
     public static class CommandFactory
     {
+        private static readonly char[] lineSeparators = new[] { '\r', '\n' };
+
         public static List<ICommand> Create(byte[] data, Socket socket, MainPresenterDependencies dependencies)
         {
             var result = new List<ICommand>();
             var messages = $"{Globals.Server?.Encoding.GetString(data)}";
-            var allMessages = messages.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var allMessages = messages.Split(lineSeparators, StringSplitOptions.RemoveEmptyEntries);
             foreach (var message in allMessages)
             {
                 var messageParts = message.Split('|');

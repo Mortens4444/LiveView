@@ -36,7 +36,7 @@ namespace Sequence.Services
                             GridCamera = gridCamera,
                             ServerIp = videoSourceInfo?.Item1,
                             VideoSourceName = videoSourceInfo?.Item2
-                        } as CameraInfo;
+                        };
                     }
                     else
                     {

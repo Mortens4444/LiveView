@@ -15,7 +15,7 @@ namespace LiveView.Services
             devices = GetDevices();
         }
 
-        public bool IsSziltechDevice(string dongleSerial, out SziltechDeviceInfo sziltechDeviceInfo)
+        public static bool IsSziltechDevice(string dongleSerial, out SziltechDeviceInfo sziltechDeviceInfo)
         {
             sziltechDeviceInfo = devices.FirstOrDefault(device => String.Equals(device.DongleSerial, dongleSerial, StringComparison.OrdinalIgnoreCase));
             return sziltechDeviceInfo != null;

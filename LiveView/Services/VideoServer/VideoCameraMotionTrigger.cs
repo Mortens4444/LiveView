@@ -47,7 +47,7 @@ namespace LiveView.Services.VideoServer
 
             motionPopup.AxVideoMotion.Connect(camera.IpAddress, camera.Guid, camera.ServerUsername, camera.ServerPassword);
 
-            var completedTask = await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs));
+            var completedTask = await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs, cancellationToken));
             if (completedTask != connectTcs.Task)
             {
                 return false;

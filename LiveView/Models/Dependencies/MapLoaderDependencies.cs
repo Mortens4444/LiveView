@@ -7,14 +7,12 @@ namespace LiveView.Models.Dependencies
         public MapLoaderDependencies(
             IMapRepository mapRepository,
             ICameraRepository cameraRepository,
-            IGridCameraRepository gridCameraRepository,
             IVideoSourceRepository videoSourceRepository,
             IAgentRepository agentRepository,
             IMapObjectRepository mapObjectRepository)
         {
             AgentRepository = agentRepository;
             CameraRepository = cameraRepository;
-            GridCameraRepository = gridCameraRepository;
             MapRepository = mapRepository;
             MapObjectRepository = mapObjectRepository;
             VideoSourceRepository = videoSourceRepository;
@@ -25,8 +23,6 @@ namespace LiveView.Models.Dependencies
         public IMapRepository MapRepository { get; private set; }
 
         public ICameraRepository CameraRepository { get; private set; }
-
-        public IGridCameraRepository GridCameraRepository { get; private set; }
 
         public IMapObjectRepository MapObjectRepository { get; private set; }
         

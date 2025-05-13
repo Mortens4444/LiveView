@@ -52,7 +52,10 @@ namespace Sequence.Forms
                         server = new Mtf.Network.Server(listenerPort: 4444);
                         server.Start();
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        DebugErrorBox.Show(ex);
+                    }
 #endif
 
                     client = new Client(serverIp, serverPort);

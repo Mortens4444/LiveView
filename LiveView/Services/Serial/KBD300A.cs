@@ -6,7 +6,7 @@ namespace LiveView.Services.Serial
 {
     public class KBD300A
     {
-        private PelcoKbd300A pelcoKbd300A;
+        private readonly PelcoKbd300A pelcoKbd300A;
 
         public KBD300A(string comPort)
         {

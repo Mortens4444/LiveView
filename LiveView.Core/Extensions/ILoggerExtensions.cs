@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using System;
 
 namespace LiveView.Core.Extensions
@@ -10,7 +11,7 @@ namespace LiveView.Core.Extensions
 #if NET6_0_OR_GREATER
             logger.LogError(exception, message);
 #else
-            logger.LogError($"{message} Exception details: {exception}");
+            logger.LogError($"{message} {Lng.Elem("Exception details:")} {exception}");
 #endif
         }
     }

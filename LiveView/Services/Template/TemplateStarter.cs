@@ -57,8 +57,8 @@ namespace LiveView.Services.Template
                         var agent = agentRepository.Select(agentId);
                         if (agent != null)
                         {
-                            MainPresenter.SentToClient($"{agent}", NetworkCommand.KillOnDisplay, Core.Constants.SequenceExe, displayId);
-                            MainPresenter.SentToClient($"{agent}", Core.Constants.SequenceExe, agentId, userId, sequenceId, displayId, isMdi);
+                            MainPresenter.SentToClient(agent.ToString(), NetworkCommand.KillOnDisplay, Core.Constants.SequenceExe, displayId);
+                            MainPresenter.SentToClient(agent.ToString(), Core.Constants.SequenceExe, agentId, userId, sequenceId, displayId, isMdi);
                         }
                     }
                 }

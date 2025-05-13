@@ -7,14 +7,13 @@ using Mtf.Network;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using System.Threading;
 
 namespace LiveView.Agent.Services
 {
     public static class AgentCommandFactory
     {
-        public static List<ICommand> Create(ILogger<LiveViewConnector> logger, Dictionary<string, Server> cameraServers, Dictionary<long, ProcessInfo> cameraProcesses, Dictionary<long, ProcessInfo> sequenceProcesses, Client client, byte[] data, Socket socket, Dictionary<string, VideoCapture> videoCaptures, Dictionary<string, CancellationTokenSource> cancellationTokenSources)
+        public static List<ICommand> Create(ILogger<LiveViewConnector> logger, Dictionary<string, Server> cameraServers, Dictionary<long, ProcessInfo> cameraProcesses, Dictionary<long, ProcessInfo> sequenceProcesses, Client client, byte[] data, Dictionary<string, VideoCapture> videoCaptures, Dictionary<string, CancellationTokenSource> cancellationTokenSources)
         {
             var result = new List<ICommand>();
             var messages = $"{client.Encoding.GetString(data)}";

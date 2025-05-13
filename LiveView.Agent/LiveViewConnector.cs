@@ -119,7 +119,7 @@ namespace LiveView.Agent
         {
             try
             {
-                var commands = AgentCommandFactory.Create(logger, cameraServers, cameraProcesses, sequenceProcesses, client, e.Data, e.Socket, videoCaptures, cancellationTokenSources);
+                var commands = AgentCommandFactory.Create(logger, cameraServers, cameraProcesses, sequenceProcesses, client, e.Data, videoCaptures, cancellationTokenSources);
                 foreach (var command in commands)
                 {
                     command.Execute();

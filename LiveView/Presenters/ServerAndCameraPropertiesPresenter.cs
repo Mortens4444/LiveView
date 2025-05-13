@@ -53,8 +53,7 @@ namespace LiveView.Presenters
             view.TbWindowsUsername.Text = view.Server.WinUser;
             view.TbWindowsPassword.Text = view.Server.WinPass;
 
-            var sziltechDeviceChecker = new SziltechDeviceChecker();
-            var iszSziltechDeice = sziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
+            var iszSziltechDeice = SziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
             if (iszSziltechDeice)
             {
                 view.TbManufacturer.Text = "Sziltech Electronic Kft.";

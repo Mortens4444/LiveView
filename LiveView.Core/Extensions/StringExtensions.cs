@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mtf.LanguageService;
+using System;
 
 namespace LiveView.Core.Extensions
 {
@@ -26,7 +27,7 @@ namespace LiveView.Core.Extensions
             {
                 return new Tuple<string, ushort>(parts[0], port);
             }
-            throw new ArgumentException($"Port value cannot be parsed from value: {text}.");
+            throw new ArgumentException(Lng.FormattedElem("Port value cannot be parsed from value: {0}.", args: text));
         }
 
         public static ushort GetPortFromEndPoint(this string text)
@@ -39,7 +40,7 @@ namespace LiveView.Core.Extensions
             {
                 return port;
             }
-            throw new ArgumentException($"Port value cannot be parsed from value: {text}.");
+            throw new ArgumentException(Lng.FormattedElem("Port value cannot be parsed from value: {0}.", args: text));
         }
 
         public static Tuple<string, string> GetVideoSourceInfo(this string text)
@@ -53,7 +54,7 @@ namespace LiveView.Core.Extensions
             {
                 return new Tuple<string, string>(info[0], info[1]);
             }
-            throw new ArgumentException($"Video source info cannot be parsed from value: {text}.");
+            throw new ArgumentException(Lng.FormattedElem("Video source info cannot be parsed from value: {0}.", args: text));
         }
     }
 }

@@ -25,7 +25,6 @@ namespace LiveView.Services
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly IGridCameraRepository gridCameraRepository;
         private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
 
@@ -37,7 +36,6 @@ namespace LiveView.Services
             mapRepository = mapLoaderDependencies.MapRepository;
             mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
-            gridCameraRepository = mapLoaderDependencies.GridCameraRepository;
             videoSourceRepository = mapLoaderDependencies.VideoSourceRepository;
         }
 

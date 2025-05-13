@@ -4,4 +4,6 @@
 // a specific target and scoped to a namespace, type, member, etc.
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0051:Use primary constructor", Justification = "Not supported in .NET Framework 4.8.1")]
+[assembly: SuppressMessage("Style", "IDE0051:Use primary constructor", Justification = "Not supported in .NET Framework 4.6.2")]
+[assembly: SuppressMessage("Style", "IDE0066:Convert switch statement to expression", Justification = "Not supported in .NET Framework 4.6.2")]
+[assembly: SuppressMessage("Style", "IDE0057:Use range operator", Justification = "Not supported in .NET Framework 4.6.2")]
