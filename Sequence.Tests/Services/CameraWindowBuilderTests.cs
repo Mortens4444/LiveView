@@ -162,6 +162,7 @@ namespace Sequence.Tests.Services
         private void RunTest(CameraInfo camera)
         {
             // Arrange
+            const int cameraCount = 16;
             using (var client = new Mtf.Network.Client("127.0.0.1", 4444))
             {
                 var displayManager = new DisplayManager();
@@ -181,11 +182,14 @@ namespace Sequence.Tests.Services
                     using (var tokenSource = new CancellationTokenSource())
                     {
                         // Act
-                        builder.ShowVideoWindow(display, parentForm, result, camera, tuple, tokenSource);
+                        for (int i = 0; i < cameraCount; i++)
+                        {
+                            builder.ShowVideoWindow(display, parentForm, result, camera, tuple, tokenSource);
+                        }
                     }
 
                     // Assert
-                    Assert.That(result.Count, Is.EqualTo(1));
+                    Assert.That(result.Count, Is.EqualTo(cameraCount));
                     Assert.IsInstanceOf<Form>(result[0]);
 
                     foreach (var form in result)

@@ -1,6 +1,5 @@
 ﻿using Mtf.MessageBoxes;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,21 +19,7 @@ namespace LiveView.Core.Extensions
             {
                 if (control.InvokeRequired)
                 {
-                    control.BeginInvoke((MethodInvoker)(() =>
-                    {
-                        if (!control.IsDisposed)
-                        {
-                            try
-                            {
-                                action();
-                            }
-                            catch (Exception ex)
-                            {
-                                // log or otherwise handle
-                                Debug.WriteLine($"UI action exception: {ex}");
-                            }
-                        }
-                    }));
+                    control.InvokeAsync(action);
                 }
                 else
                 {
@@ -45,15 +30,6 @@ namespace LiveView.Core.Extensions
             {
                 DebugErrorBox.Show(ex);
             }
-
-            //if (control.InvokeRequired)
-            //{
-            //    control.Invoke(action);
-            //}
-            //else
-            //{
-            //    action();
-            //}
         }
 
         public static void SafeDispose(this Control control)
@@ -71,12 +47,25 @@ namespace LiveView.Core.Extensions
         public static Task InvokeAsync(this Control control, Action action)
         {
             var tcs = new TaskCompletionSource<object>();
+            if (control.IsDisposed)
+            {
+                tcs.SetCanceled();
+                return tcs.Task;
+            }
+
             control.BeginInvoke(new MethodInvoker(() =>
             {
                 try
                 {
-                    action();
-                    tcs.SetResult(null);
+                    if (!control.IsDisposed)
+                    {
+                        action();
+                        tcs.SetResult(null);
+                    }
+                    else
+                    {
+                        tcs.SetCanceled();
+                    }
                 }
                 catch (Exception ex)
                 {

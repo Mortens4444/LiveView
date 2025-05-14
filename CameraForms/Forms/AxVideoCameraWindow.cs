@@ -159,7 +159,8 @@ namespace CameraForms.Forms
             OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
             try
             {
-                axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
+                //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
+                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
             }
             catch (Exception ex)
             {

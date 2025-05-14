@@ -24,9 +24,9 @@
     <PackageReference Include="LibVLCSharp.WinForms" Version="3.9.3" />
     <PackageReference Include="Mtf.Controls" Version="1.1.11" />
     <PackageReference Include="Mtf.Controls.Video" Version="1.0.70" />
-    <PackageReference Include="Mtf.Controls.Video.ActiveX" Version="1.0.4" />
+    <PackageReference Include="Mtf.Controls.Video.ActiveX" Version="1.0.6" />
     <PackageReference Include="Mtf.Controls.Video.FFmpeg" Version="1.0.30" />
-    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.29" />
+    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.30" />
     <PackageReference Include="Mtf.Controls.Video.VLC" Version="1.0.28" />
     <PackageReference Include="Mtf.Network" Version="2.0.3" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.44" />
