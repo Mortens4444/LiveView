@@ -2,7 +2,7 @@
 using Database.Models;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;

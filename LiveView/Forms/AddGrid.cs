@@ -1,7 +1,7 @@
 ﻿using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Attributes;

@@ -31,11 +31,11 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MotionPopup));
             pMain = new System.Windows.Forms.Panel();
             pRight = new System.Windows.Forms.Panel();
-            axVideoPlayerWindow2 = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow2 = new Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow();
             splitter = new System.Windows.Forms.Splitter();
             pLeft = new System.Windows.Forms.Panel();
             axVideoMotion = new AxVIDEOCONTROL4Lib.AxVideoMotion();
-            axVideoPlayerWindow = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow = new Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow();
             pMain.SuspendLayout();
             pRight.SuspendLayout();
             pLeft.SuspendLayout();
@@ -137,8 +137,8 @@
         private System.Windows.Forms.Panel pRight;
         private System.Windows.Forms.Splitter splitter;
         private System.Windows.Forms.Panel pLeft;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow2;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow2;
         private AxVIDEOCONTROL4Lib.AxVideoMotion axVideoMotion;
     }
 }

@@ -30,7 +30,7 @@
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGrid));
             pMain = new System.Windows.Forms.Panel();
-            axVideoPlayerWindow = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow = new Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow();
             ssStatusStrip = new System.Windows.Forms.StatusStrip();
             tsbPrevious = new System.Windows.Forms.ToolStripButton();
             tsbPlayOrPause = new System.Windows.Forms.ToolStripButton();
@@ -1087,7 +1087,7 @@
         private System.Windows.Forms.Label lblGridName;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClose;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow;
         private Mtf.Controls.MtfPictureBox mtfCamera;
     }
 }

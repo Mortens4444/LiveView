@@ -6,7 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

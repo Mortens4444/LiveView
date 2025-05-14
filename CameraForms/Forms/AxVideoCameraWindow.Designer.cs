@@ -31,7 +31,7 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AxVideoCameraWindow));
-            axVideoPlayerWindow = new Mtf.Controls.x86.AxVideoPlayerWindow();
+            axVideoPlayerWindow = new Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow();
             cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
             closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             cmsMenu.SuspendLayout();
@@ -86,7 +86,7 @@
 
         #endregion
 
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow;
         private System.Windows.Forms.ContextMenuStrip cmsMenu;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }

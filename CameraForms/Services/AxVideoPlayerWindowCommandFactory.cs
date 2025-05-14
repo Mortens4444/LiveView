@@ -1,7 +1,7 @@
 ﻿using CameraForms.Network.Commands;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

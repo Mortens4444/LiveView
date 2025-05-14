@@ -8,7 +8,6 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.x86;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;

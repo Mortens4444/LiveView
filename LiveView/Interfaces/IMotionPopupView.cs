@@ -1,6 +1,6 @@
 ﻿using AxVIDEOCONTROL4Lib;
 using Database.Models;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 using System.Windows.Forms;
 
 namespace LiveView.Interfaces

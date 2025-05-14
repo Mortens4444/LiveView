@@ -82,7 +82,9 @@ namespace LiveView.Presenters
                     view.LvCameraList.Items.Add(item);
                 }
                 view.TbReturnCode.BackColor = Color.YellowGreen;
-                view.TbRecorderStatus.Text = connectionResult[RecorderStatusInfo.ReturnCode].ToString();
+                var recorderReturnCode = (int)connectionResult[RecorderStatusInfo.ReturnCode];
+                var recorderStatusMessage =  Lng.Elem(VideoServerErrorHandler.GetMessage(recorderReturnCode));
+                view.TbRecorderStatus.Text = $"{recorderReturnCode}: {recorderStatusMessage}";
                 view.TbRecorderStatus.BackColor = view.TbRecorderStatus.Text == "0" ? Color.YellowGreen : Color.IndianRed;
                 view.TbCpuUsage.Text = $"{connectionResult[RecorderStatusInfo.CPU_Usage]}%";
 

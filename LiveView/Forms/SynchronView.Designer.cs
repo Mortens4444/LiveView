@@ -360,9 +360,9 @@
 
         #endregion
 
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow2;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow1;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow4;
-        private Mtf.Controls.x86.AxVideoPlayerWindow axVideoPlayerWindow3;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow1;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow2;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow3;
+        private Mtf.Controls.Video.ActiveX.AxVideoPlayerWindow axVideoPlayerWindow4;
     }
 }

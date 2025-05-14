@@ -1,5 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
-using Mtf.Controls.x86;
+using Mtf.Controls.Video.ActiveX;
 
 namespace CameraForms.Network.Commands
 {
