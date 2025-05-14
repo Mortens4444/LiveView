@@ -84,6 +84,10 @@ namespace Mtf.Controls.Sunell.IPR66
         [Description("Location of the text to be displayed on the control.")]
         public Point OverlayLocation { get; set; } = new Point(10, 10);
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool IsConnected => nvdHandle != IntPtr.Zero;
+
         public void Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int cameraId = 1, bool autoConnect = true, int ipProtocolVersion = 1, int transferProtocol = 2)
         {
             var deviceInfo = new ST_DeviceInfo
@@ -126,7 +130,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void Disconnect()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 _ = NvdcDll.Remote_LivePlayer2_Close(nvdHandle);
                 _ = NvdcDll.Remote_Nvd_UnInit(nvdHandle);
@@ -140,7 +144,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         private bool SetVideoWindow()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetVideoWindow(nvdHandle, Handle, 0, 0, Width, Height);
                 CheckForError(returnCode);
@@ -152,7 +156,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetUseTimeStamp(bool useTimeStamp)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetUseTimeStamp(nvdHandle, useTimeStamp);
                 CheckForError(returnCode);
@@ -161,7 +165,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetStretchMode(bool stretch)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetStretchMode(nvdHandle, stretch);
                 CheckForError(returnCode);
@@ -170,7 +174,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetAutoConnectFlag(bool autoConnect)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetAutoConnectFlag(nvdHandle, autoConnect);
                 CheckForError(returnCode);
@@ -179,7 +183,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetContrast(int percent)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentContrast(nvdHandle, percent);
                 CheckForError(returnCode);
@@ -188,7 +192,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetDefaultStreamId(int streamId)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetDefaultStreamId(nvdHandle, streamId);
                 CheckForError(returnCode);
@@ -197,7 +201,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetBrightness(int percent)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentBrightness(nvdHandle, percent);
                 CheckForError(returnCode);
@@ -206,7 +210,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetHue(int percent)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentHue(nvdHandle, percent);
                 CheckForError(returnCode);
@@ -215,7 +219,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void SetSaturation(int percent)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetCurrentSaturation(nvdHandle, percent);
                 CheckForError(returnCode);
@@ -224,7 +228,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PlaySound()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_PlaySound(nvdHandle);
                 CheckForError(returnCode);
@@ -233,7 +237,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void Pause()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_Pause(nvdHandle);
                 CheckForError(returnCode);
@@ -242,7 +246,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void CreateSnapShot(string filePath)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SnapShot(nvdHandle, filePath);
                 CheckForError(returnCode);
@@ -251,7 +255,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void StartRecording(string filePath)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_LivePlayer2_SetRecorderFile(nvdHandle, filePath);
                 CheckForError(returnCode);
@@ -263,7 +267,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void StopRecording()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 int recorderStatus = 0;
                 var returnCode = NvdcDll.Remote_LivePlayer2_GetRecorderStatus(nvdHandle, ref recorderStatus);
@@ -281,7 +285,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_Open(int cameraId)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_Open(nvdHandle, cameraId);
                 CheckForError(returnCode);
@@ -290,7 +294,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_Close()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_Close(nvdHandle);
                 CheckForError(returnCode);
@@ -299,7 +303,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_Stop()
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_Stop(nvdHandle);
                 CheckForError(returnCode);
@@ -308,7 +312,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_RotateUp(int speed)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_RotateUp(nvdHandle, speed);
                 CheckForError(returnCode);
@@ -317,7 +321,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_RotateDown(int speed)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_RotateDown(nvdHandle, speed);
                 CheckForError(returnCode);
@@ -326,7 +330,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_RotateRight(int speed)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_RotateRight(nvdHandle, speed);
                 CheckForError(returnCode);
@@ -335,7 +339,7 @@ namespace Mtf.Controls.Sunell.IPR66
 
         public void PTZ_RotateLeft(int speed)
         {
-            if (nvdHandle != IntPtr.Zero)
+            if (IsConnected)
             {
                 var returnCode = NvdcDll.Remote_PTZEx_RotateLeft(nvdHandle, speed);
                 CheckForError(returnCode);

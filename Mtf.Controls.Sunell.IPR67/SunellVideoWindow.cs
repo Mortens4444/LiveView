@@ -73,7 +73,7 @@ namespace Mtf.Controls.Sunell.IPR67
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool IsConnected { get; set; }
+        public bool IsConnected { get; private set; }
 
         public int Connect(string cameraIp = "192.168.0.120", ushort cameraPort = 30001, string username = "admin", string password = "admin", int streamId = 1, int channel = 1, StreamType streamType = StreamType.HighDensity, bool hardwareAcceleration = true)
         {
@@ -121,8 +121,17 @@ namespace Mtf.Controls.Sunell.IPR67
         
         public void Disconnect()
         {
-            var returnCode = Sdk.sdk_md_live_stop(sdkHandler, streamId);
-            IsConnected = false;
+            try
+            {
+                if (IsConnected)
+                {
+                    _ = Sdk.sdk_md_live_stop(sdkHandler, streamId);
+                }
+            }
+            finally
+            {
+                IsConnected = false;
+            }
         }
     }
 }
