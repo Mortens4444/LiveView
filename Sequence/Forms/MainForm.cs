@@ -85,7 +85,7 @@ namespace Sequence.Forms
             this.sequenceId = sequenceId;
 
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, userId);
-            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser?.HasPermission(WindowManagementPermissions.Close);
 
             var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display not found in repository with Id '{displayId}'.");

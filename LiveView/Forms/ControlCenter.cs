@@ -89,8 +89,8 @@ namespace LiveView.Forms
             btnMoveCameraSouthEast.Enabled = panTilt;
             btnMoveCameraToPresetZero.Enabled = panTilt;
 
-            btnCloseSequenceApplications.Enabled = permissionManager.CurrentUser?.HasPermission(SequenceManagementPermissions.Close) ?? false;
-            btnCloseFullScreenCamera.Enabled = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.CloseFullScreen) ?? false;
+            btnCloseSequenceApplications.Enabled = permissionManager.HasPermission(SequenceManagementPermissions.Close);
+            btnCloseFullScreenCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.CloseFullScreen);
 
             var pan = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.Pan) ?? false;
             if (!pan)

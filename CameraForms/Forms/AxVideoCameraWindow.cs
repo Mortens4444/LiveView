@@ -110,7 +110,7 @@ namespace CameraForms.Forms
             }
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
-            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(WindowManagementPermissions.Close);
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)

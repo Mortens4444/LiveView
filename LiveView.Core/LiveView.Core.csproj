@@ -21,7 +21,7 @@
   <ItemGroup>
     <PackageReference Include="Mtf.MessageBoxes" Version="6.0.2" />
     <PackageReference Include="Mtf.Network" Version="2.0.3" />
-    <PackageReference Include="Mtf.Permissions" Version="3.0.25" />
+    <PackageReference Include="Mtf.Permissions" Version="3.0.26" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.44" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

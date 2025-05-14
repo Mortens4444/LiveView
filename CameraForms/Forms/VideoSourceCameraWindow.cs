@@ -126,7 +126,7 @@ namespace CameraForms.Forms
             frameTimer.AutoReset = false;
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
-            //closeToolStripMenuItem.Enabled = permissionManager.CurrentUser.HasPermission(WindowManagementPermissions.Close);
+            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(WindowManagementPermissions.Close);
         }
 
         private void SetOsdParameters(long userId, string serverIp, string videoCaptureSource)
