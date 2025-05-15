@@ -1,5 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
-using System;
+using LiveView.Core.Services;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -11,7 +11,7 @@ namespace LiveView.Network.Commands
 
         public SendCameraProcessIdCommand(string cameraProcessId, Socket agentSocket)
         {
-            Int32.TryParse(cameraProcessId, out this.cameraProcessId);
+            this.cameraProcessId = Parser.ToInt32(cameraProcessId);
             this.agentSocket = agentSocket;
         }
 

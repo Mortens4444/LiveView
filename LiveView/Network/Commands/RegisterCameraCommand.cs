@@ -1,7 +1,7 @@
 ﻿using Database.Enums;
 using LiveView.Core.Interfaces;
+using LiveView.Core.Services;
 using LiveView.Dto;
-using System;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -20,17 +20,11 @@ namespace LiveView.Network.Commands
         {
             this.hostInfo = hostInfo;
             this.agentSocket = agentSocket;
-            Int64.TryParse(userId, out this.userId);
-            Int64.TryParse(cameraId, out this.cameraId);
-
-
-            this.displayId = !String.IsNullOrEmpty(displayId) ? (long?)Convert.ToInt64(displayId) : null;
-
-            Int32.TryParse(processId, out this.processId);
-            if (Int32.TryParse(cameraMode, out var cameraModeNumber))
-            {
-                this.cameraMode = (CameraMode)cameraModeNumber;
-            }
+            this.userId = Parser.ToInt32(userId);
+            this.cameraId = Parser.ToInt32(cameraId); 
+            this.displayId = Parser.ToInt64(displayId);
+            this.processId = Parser.ToInt32(processId);
+            this.cameraMode = Parser.ToCameraMode(cameraMode);
         }
 
         public void Execute()

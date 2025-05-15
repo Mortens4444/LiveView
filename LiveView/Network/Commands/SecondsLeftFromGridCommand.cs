@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
+using LiveView.Core.Services;
 
 namespace LiveView.Network.Commands
 {
@@ -9,7 +10,7 @@ namespace LiveView.Network.Commands
 
         public SecondsLeftFromGridCommand(string gridId, string secondsLeftToShow)
         {
-            long.TryParse(gridId, out this.gridId);
+            this.gridId = Parser.ToInt64(gridId);
             this.secondsLeftToShow = secondsLeftToShow;
         }
 

@@ -15,7 +15,7 @@ namespace LiveView.Core.Dto
 
         public int GetId()
         {
-            return Convert.ToInt32(DeviceName.Replace("\\\\.\\DISPLAY", String.Empty));
+            return Parser.ToInt32(DeviceName.Replace("\\\\.\\DISPLAY", String.Empty));
         }
 
         public string Host { get; set; }

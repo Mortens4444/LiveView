@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -155,7 +156,7 @@ namespace LiveView.Presenters
             {
                 var templateGridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
                 var cameraCountInGrid = templateGridCameras.Count;
-                var numberOfGridsInSequence = Convert.ToInt32(view.CbX.Text);
+                var numberOfGridsInSequence = Parser.ToInt32(view.CbX.Text);
 
                 var gridCameras = new List<object>();
                 var grids = new List<Grid>();

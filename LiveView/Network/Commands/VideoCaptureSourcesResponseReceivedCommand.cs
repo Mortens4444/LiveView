@@ -2,7 +2,6 @@
 using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
 using Mtf.Network.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -49,7 +48,7 @@ namespace LiveView.Network.Commands
                     {
                         AgentId = agent.Id,
                         Name = videoCaptureSource.Key,
-                        Port = Convert.ToInt32(videoCaptureSource.Value.GetPortFromEndPoint())
+                        Port = videoCaptureSource.Value.GetPortFromEndPoint()
                     };
                     if (foundVideoSource != null)
                     {

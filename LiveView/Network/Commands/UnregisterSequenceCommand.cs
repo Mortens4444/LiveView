@@ -1,5 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
-using System;
+using LiveView.Core.Services;
 using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
@@ -14,8 +14,8 @@ namespace LiveView.Network.Commands
         public UnregisterSequenceCommand(string hostInfo, string sequenceId, string processId, Socket agentSocket)
         {
             this.hostInfo = hostInfo;
-            Int64.TryParse(sequenceId, out this.sequenceId);
-            Int64.TryParse(processId, out this.processId);
+            this.sequenceId = Parser.ToInt32(sequenceId);
+            this.processId = Parser.ToInt32(processId);
             this.agentSocket = agentSocket;
         }
 

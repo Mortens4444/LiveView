@@ -1,4 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
+using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Models.Dependencies;
 using System.Net.Sockets;
@@ -21,15 +22,16 @@ namespace LiveView.Network.Commands
             this.hostInfo = hostInfo;
             this.sequenceSocket = sequenceSocket;
 
-            if (long.TryParse(agentId, out var myAgentId) && myAgentId != 0)
+            var myAgentId = Parser.ToInt64(agentId);
+            if (myAgentId != 0)
             {
                 agent = dependencies.AgentRepository.Select(myAgentId);
             }
-            long.TryParse(userId, out this.userId);
-            long.TryParse(sequenceId, out this.sequenceId);
-            long.TryParse(displayId, out this.displayId);
+            this.userId = Parser.ToInt64(userId);
+            this.sequenceId = Parser.ToInt64(sequenceId);
+            this.displayId = Parser.ToInt64(displayId);
             bool.TryParse(isMdi, out this.isMdi);
-            int.TryParse(processId, out this.processId);
+            this.processId = Parser.ToInt32(processId);
         }
 
         public void Execute()
