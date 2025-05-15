@@ -6,6 +6,7 @@ using Sequence.Dto;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Sequence.Services
 {
@@ -117,6 +118,66 @@ namespace Sequence.Services
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
                     };
+
+                case CameraMode.Chromium:
+                    return new ChromiumCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+#if NETFRAMEWORK
+
+                case CameraMode.AccordJpeg:
+                    return new AccordJpegCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+                case CameraMode.AccordMjpeg:
+                    return new AccordMjpegCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+                case CameraMode.AccordScreenCapture:
+                    return new AccordScreenCaptureCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        RecordingArea = Screen.PrimaryScreen.Bounds
+                    };
+
+                case CameraMode.AForgeJpeg:
+                    return new AForgeJpegCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+                case CameraMode.AForgeMjpeg:
+                    return new AForgeMjpegCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+                case CameraMode.AForgeScreenCapture:
+                    return new AForgeScreenCaptureCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        RecordingArea = Screen.PrimaryScreen.Bounds
+                    };
+
+                case CameraMode.AForgeVideoSource:
+                    return new AForgeVideoSourceCameraInfo
+                    {
+                        GridCamera = gridCamera,
+                        Url = camera.HttpStreamUrl
+                    };
+
+#endif
 
                 default:
                     throw new NotSupportedException($"CameraMode is not supported: {gridCamera.CameraMode}");

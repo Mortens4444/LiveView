@@ -274,14 +274,14 @@ namespace LiveView.Presenters
             }
         }
 
-        public bool StartCameraApp(Camera camera, CameraMode cameraMode)
+        public bool StartCameraApp(Camera camera)
         {
             if (camera == null)
             {
                 return false;
             }
 
-            if (cameraMode == CameraMode.VideoSource)
+            if (camera.FullscreenMode == CameraMode.VideoSource)
             {
                 var videoCaptureSourceParts = camera.HttpStreamUrl.Split('|');
                 if (videoCaptureSourceParts.Length != 2)
@@ -313,7 +313,7 @@ namespace LiveView.Presenters
             {
                 permissionManager.CurrentUser.Tag.Id.ToString(),
                 camera.Id.ToString(),
-                ((int)cameraMode).ToString()
+                ((int)camera.FullscreenMode).ToString()
             };
 
             return StartCameraAppInternal(parameters);

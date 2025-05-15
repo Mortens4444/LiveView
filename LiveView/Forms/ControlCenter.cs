@@ -146,7 +146,7 @@ namespace LiveView.Forms
         {
             presenter = Presenter as ControlCenterPresenter;
             presenter.Load();
-            presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
+            presenter.StartCameraApp(camera);
             presenter.StartCameraApp(videoSource);
         }
 
@@ -368,7 +368,7 @@ namespace LiveView.Forms
         {
             if (e.IsSelected && e.Item.Tag is Camera camera)
             {
-                if (presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer))
+                if (presenter.StartCameraApp(camera))
                 {
                     Thread.Sleep(1000);
                     e.Item.Selected = false;
@@ -386,7 +386,7 @@ namespace LiveView.Forms
 
         public void StartCamera(Camera camera)
         {
-            presenter.StartCameraApp(camera, camera?.FullscreenMode ?? CameraMode.AxVideoPlayer);
+            presenter.StartCameraApp(camera);
         }
 
         public void StartVideoSource(VideoSourceDto videoSource)

@@ -13,24 +13,24 @@ namespace CameraApp.Services
         {
             var cameraLaunchContext = new CameraLaunchContext();
 
-            var agentId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
+            var agentId = ArgToInt64(args[0]);
             cameraLaunchContext.AgentId = agentId == 0 ? (long?)null : agentId;
-            cameraLaunchContext.UserId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
+            cameraLaunchContext.UserId = ArgToInt64(args[1]);
 
             switch (args.Length)
             {
                 case 4:
                     cameraLaunchContext.StartType = StartType.StartCamera;
-                    cameraLaunchContext.CameraId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
-                    cameraLaunchContext.CameraMode = (CameraMode)Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.CameraId = ArgToInt64(args[2]);
+                    cameraLaunchContext.CameraMode = ArgToCameraMode(args[3]);
                     break;
                 case 5:
-                    cameraLaunchContext.CameraMode = (CameraMode)Convert.ToInt32(args[4], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.CameraMode = ArgToCameraMode(args[4]);
                     if (Int64.TryParse(args[2], out var cameraId))
                     {
                         cameraLaunchContext.StartType = StartType.StartCameraOnDisplay;
                         cameraLaunchContext.CameraId = cameraId;
-                        cameraLaunchContext.DisplayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+                        cameraLaunchContext.DisplayId = ArgToInt64(args[3]);
                     }
                     else
                     {
@@ -43,20 +43,20 @@ namespace CameraApp.Services
                     cameraLaunchContext.StartType = StartType.StartVideoSourceOnDisplay;
                     cameraLaunchContext.ServerIp = args[2];
                     cameraLaunchContext.VideoCaptureSource = args[3];
-                    cameraLaunchContext.DisplayId = Convert.ToInt64(args[4], CultureInfo.InvariantCulture);
-                    cameraLaunchContext.CameraMode = (CameraMode)Convert.ToInt32(args[5], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.DisplayId = ArgToInt64(args[4]);
+                    cameraLaunchContext.CameraMode = ArgToCameraMode(args[5]);
                     break;
                 case 8:
                     cameraLaunchContext.StartType = StartType.StartCameraInRectangle;
-                    cameraLaunchContext.CameraId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.CameraId = ArgToInt64(args[2]);
                     cameraLaunchContext.Rectangle = new Rectangle
                     {
-                        X = Convert.ToInt32(args[3], CultureInfo.InvariantCulture),
-                        Y = Convert.ToInt32(args[4], CultureInfo.InvariantCulture),
-                        Width = Convert.ToInt32(args[5], CultureInfo.InvariantCulture),
-                        Height = Convert.ToInt32(args[6], CultureInfo.InvariantCulture)
+                        X = ArgToInt32(args[3]),
+                        Y = ArgToInt32(args[4]),
+                        Width = ArgToInt32(args[5]),
+                        Height = ArgToInt32(args[6])
                     };
-                    cameraLaunchContext.CameraMode = (CameraMode)Convert.ToInt32(args[7], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.CameraMode = ArgToCameraMode(args[7]);
                     break;
                 case 9:
                     cameraLaunchContext.StartType = StartType.StartVideoSourceInRectangle;
@@ -65,12 +65,12 @@ namespace CameraApp.Services
 
                     cameraLaunchContext.Rectangle = new Rectangle
                     {
-                        X = Convert.ToInt32(args[4], CultureInfo.InvariantCulture),
-                        Y = Convert.ToInt32(args[5], CultureInfo.InvariantCulture),
-                        Width = Convert.ToInt32(args[6], CultureInfo.InvariantCulture),
-                        Height = Convert.ToInt32(args[7], CultureInfo.InvariantCulture)
+                        X = ArgToInt32(args[4]),
+                        Y = ArgToInt32(args[5]),
+                        Width = ArgToInt32(args[6]),
+                        Height = ArgToInt32(args[7])
                     };
-                    cameraLaunchContext.CameraMode = (CameraMode)Convert.ToInt32(args[8], CultureInfo.InvariantCulture);
+                    cameraLaunchContext.CameraMode = ArgToCameraMode(args[8]);
 
                     break;
                 default:
@@ -78,6 +78,21 @@ namespace CameraApp.Services
             }
 
             return cameraLaunchContext;
+        }
+
+        private static CameraMode ArgToCameraMode(string arg)
+        {
+            return (CameraMode)Convert.ToInt32(arg, CultureInfo.InvariantCulture);
+        }
+
+        private static int ArgToInt32(string arg)
+        {
+            return Convert.ToInt32(arg, CultureInfo.InvariantCulture);
+        }
+
+        private static long ArgToInt64(string arg)
+        {
+            return Convert.ToInt64(arg, CultureInfo.InvariantCulture);
         }
     }
 }

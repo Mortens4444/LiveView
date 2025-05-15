@@ -1,3 +1,5 @@
+- add new camera should set the correct permissioncameranumber also
+- what happens, when the app started without user and startup template selected
 - Open more fullscreen windows
 - Templates should open fullscreen windows
 - Opening full screen closes sequence applications
@@ -7,7 +9,7 @@ Vlc image falls apart
 
 OpenCvSharp has no image
 OpenCvSharp4 has no image
-FFMPEGhas has no image
+FFMPEG has no image
 
 Add no permission to view this camera functionality
 

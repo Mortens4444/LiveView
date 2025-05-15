@@ -695,6 +695,7 @@ namespace LiveView.Presenters
                     if (comboBox.SelectedItem is CameraDto cameraDto)
                     {
                         gridCamera.CameraId = cameraDto.Id;
+                        //gridCamera.CameraMode = cameraDto.FullscreenMode;
                     }
                     else if (comboBox.SelectedItem is VideoSourceDto videoSource)
                     {
