@@ -19,6 +19,8 @@ namespace LiveView.Dto
 
         public string Password { get; set; }
 
+        public string ServerDisplayName { get; set; }
+
         public string ServerUsername { get; set; }
 
         public string ServerPassword { get; set; }
@@ -50,6 +52,7 @@ namespace LiveView.Dto
                 IpAddress = camera.IpAddress,
                 Username = camera.Username,
                 Password = camera.Password,
+                ServerDisplayName = camera.ServerDisplayName,
                 ServerUsername = camera.ServerUsername,
                 ServerPassword = camera.ServerPassword,
                 Actual = camera.Actual,

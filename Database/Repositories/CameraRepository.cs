@@ -22,10 +22,9 @@ namespace Database.Repositories
             return Query("SelectGroupCameras", new { GroupId = groupId, UserEventId = userEventId });
         }
 
-
-        public ReadOnlyCollection<Camera> SelectMotionTriggreredCameras()
+        public ReadOnlyCollection<Camera> SelectMotionTriggeredCameras()
         {
-            return Query("SelectMotionTriggreredCameras");
+            return Query("SelectMotionTriggeredCameras");
         }
     }
 }

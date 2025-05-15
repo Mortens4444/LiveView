@@ -339,7 +339,7 @@ namespace LiveView.Presenters
 
         private void StartMotionTriggeredCameras()
         {
-            var cameras = cameraRepository.SelectMotionTriggreredCameras();
+            var cameras = cameraRepository.SelectMotionTriggeredCameras();
             var motionCameras = cameras.Where(c => c.MotionTrigger != null);
             var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
             foreach (var motionCamera in motionCameras)

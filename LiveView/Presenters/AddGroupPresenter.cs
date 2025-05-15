@@ -98,7 +98,7 @@ namespace LiveView.Presenters
         private void LoadAvailableOperations(long userEventId)
         {
             var operations = view.ParentGroup != null && view.ParentGroup.ParentGroupId != null ? operationRepository.SelectGroupOperations(view.ParentGroup.Id, userEventId) : operationRepository.SelectAll();
-            AddOperationsToListView(operations, view.LvAvaialableOperationsAndCameras);
+            AddOperationsToListView(operations, view.LvAvailableOperationsAndCameras);
         }
 
         private void LoadCurrentOperationPermissions(long userEventId)
@@ -109,12 +109,12 @@ namespace LiveView.Presenters
 
         private void LoadAvailableCameras(long userEventId)
         {
-            view.LvAvaialableOperationsAndCameras.AddItems(cameraRepository.SelectAll(),
-                camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+            view.LvAvailableOperationsAndCameras.AddItems(cameraRepository.SelectAll(),
+                camera => new ListViewItem($"{camera.ServerDisplayName} - {camera.CameraName}", CameraIconIndex)
                 {
                     Tag = camera,
                     ToolTipText = camera.Guid,
-                    Group = view.LvAvaialableOperationsAndCameras.Groups[Cameras]
+                    Group = view.LvAvailableOperationsAndCameras.Groups[Cameras]
                 });
         }
 
@@ -122,7 +122,7 @@ namespace LiveView.Presenters
         {
             var cameras = view.Group != null ? cameraRepository.SelectGroupCameras(view.Group.Id, userEventId) : new ReadOnlyCollection<Camera>(Array.Empty<Camera>());
             view.LvOperationsAndCameras.AddItems(cameras,
-                camera => new ListViewItem(camera.CameraName, CameraIconIndex)
+                camera => new ListViewItem($"{camera.ServerDisplayName} - {camera.CameraName}", CameraIconIndex)
                 {
                     Tag = camera,
                     ToolTipText = camera.Guid,
@@ -159,12 +159,12 @@ namespace LiveView.Presenters
 
         public void AddAllOperationsAndCameras()
         {
-            AddAllItemsFromListViewToAnother(view.LvAvaialableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
+            AddAllItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
         }
 
         public void AddSelectedOperationsAndCameras()
         {
-            AddSelectedItemsFromListViewToAnother(view.LvAvaialableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
+            AddSelectedItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
         }
 
         public void CreateEvent()
@@ -299,7 +299,7 @@ namespace LiveView.Presenters
 
         public void SelectAllCameras()
         {
-            view.LvAvaialableOperationsAndCameras.Groups[Cameras].SelectAll();
+            view.LvAvailableOperationsAndCameras.Groups[Cameras].SelectAll();
         }
 
         public void SelectAllOperations()
@@ -307,7 +307,7 @@ namespace LiveView.Presenters
             var enums = PermissionEnumProviders.Get();
             foreach (var enumType in enums)
             {
-                view.LvAvaialableOperationsAndCameras.Groups[enumType.Name].SelectAll();
+                view.LvAvailableOperationsAndCameras.Groups[enumType.Name].SelectAll();
             }
         }
     }

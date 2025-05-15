@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            var listViewGroup5 = new System.Windows.Forms.ListViewGroup("Operations", System.Windows.Forms.HorizontalAlignment.Left);
+            var listViewGroup6 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGroup));
             var listViewGroup1 = new System.Windows.Forms.ListViewGroup("Operations", System.Windows.Forms.HorizontalAlignment.Left);
             var listViewGroup2 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGroup));
-            var listViewGroup3 = new System.Windows.Forms.ListViewGroup("Operations", System.Windows.Forms.HorizontalAlignment.Left);
-            var listViewGroup4 = new System.Windows.Forms.ListViewGroup("Cameras", System.Windows.Forms.HorizontalAlignment.Left);
             pMain = new System.Windows.Forms.Panel();
             gbPermissions = new System.Windows.Forms.GroupBox();
             pBottom = new System.Windows.Forms.Panel();
@@ -42,7 +42,7 @@
             chExecuteableOperationsAndVisibleCameras = new System.Windows.Forms.ColumnHeader();
             ilImages = new System.Windows.Forms.ImageList(components);
             pLeft = new System.Windows.Forms.Panel();
-            lvAvaialableOperationsAndCameras = new Mtf.Controls.MtfListView();
+            lvAvailableOperationsAndCameras = new Mtf.Controls.MtfListView();
             chSelectableOperationsAndCameras = new System.Windows.Forms.ColumnHeader();
             pCenter = new System.Windows.Forms.Panel();
             btnSelectAllOperation = new System.Windows.Forms.Button();
@@ -144,11 +144,11 @@
             lvOperationsAndCameras.EnsureLastItemIsVisible = false;
             lvOperationsAndCameras.FirstItemIsGray = false;
             lvOperationsAndCameras.FullRowSelect = true;
-            listViewGroup1.Header = "Operations";
-            listViewGroup1.Name = "Operations2";
-            listViewGroup2.Header = "Cameras";
-            listViewGroup2.Name = "Cameras2";
-            lvOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2 });
+            listViewGroup5.Header = "Operations";
+            listViewGroup5.Name = "Operations2";
+            listViewGroup6.Header = "Cameras";
+            listViewGroup6.Name = "Cameras2";
+            lvOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup5, listViewGroup6 });
             lvOperationsAndCameras.Location = new System.Drawing.Point(0, 0);
             lvOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvOperationsAndCameras.Name = "lvOperationsAndCameras";
@@ -178,44 +178,44 @@
             // 
             // pLeft
             // 
-            pLeft.Controls.Add(lvAvaialableOperationsAndCameras);
+            pLeft.Controls.Add(lvAvailableOperationsAndCameras);
             pLeft.Dock = System.Windows.Forms.DockStyle.Left;
             pLeft.Location = new System.Drawing.Point(0, 0);
             pLeft.Name = "pLeft";
             pLeft.Size = new System.Drawing.Size(285, 208);
             pLeft.TabIndex = 11;
             // 
-            // lvAvaialableOperationsAndCameras
+            // lvAvailableOperationsAndCameras
             // 
-            lvAvaialableOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvAvaialableOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvAvaialableOperationsAndCameras.AlternatingColorsAreInUse = true;
-            lvAvaialableOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvAvaialableOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvAvaialableOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chSelectableOperationsAndCameras });
-            lvAvaialableOperationsAndCameras.CompactView = false;
-            lvAvaialableOperationsAndCameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            lvAvaialableOperationsAndCameras.EnsureLastItemIsVisible = false;
-            lvAvaialableOperationsAndCameras.FirstItemIsGray = false;
-            lvAvaialableOperationsAndCameras.FullRowSelect = true;
-            listViewGroup3.Header = "Operations";
-            listViewGroup3.Name = "Operations";
-            listViewGroup4.Header = "Cameras";
-            listViewGroup4.Name = "Cameras";
-            lvAvaialableOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup3, listViewGroup4 });
-            lvAvaialableOperationsAndCameras.Location = new System.Drawing.Point(0, 0);
-            lvAvaialableOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvAvaialableOperationsAndCameras.Name = "lvAvaialableOperationsAndCameras";
-            lvAvaialableOperationsAndCameras.OwnerDraw = true;
-            lvAvaialableOperationsAndCameras.ReadonlyCheckboxes = false;
-            lvAvaialableOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvAvaialableOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvAvaialableOperationsAndCameras.Size = new System.Drawing.Size(285, 208);
-            lvAvaialableOperationsAndCameras.SmallImageList = ilImages;
-            lvAvaialableOperationsAndCameras.TabIndex = 1;
-            lvAvaialableOperationsAndCameras.Tag = "307; 120";
-            lvAvaialableOperationsAndCameras.UseCompatibleStateImageBehavior = false;
-            lvAvaialableOperationsAndCameras.View = System.Windows.Forms.View.Details;
+            lvAvailableOperationsAndCameras.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvAvailableOperationsAndCameras.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvAvailableOperationsAndCameras.AlternatingColorsAreInUse = true;
+            lvAvailableOperationsAndCameras.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvAvailableOperationsAndCameras.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvAvailableOperationsAndCameras.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chSelectableOperationsAndCameras });
+            lvAvailableOperationsAndCameras.CompactView = false;
+            lvAvailableOperationsAndCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvAvailableOperationsAndCameras.EnsureLastItemIsVisible = false;
+            lvAvailableOperationsAndCameras.FirstItemIsGray = false;
+            lvAvailableOperationsAndCameras.FullRowSelect = true;
+            listViewGroup1.Header = "Operations";
+            listViewGroup1.Name = "Operations";
+            listViewGroup2.Header = "Cameras";
+            listViewGroup2.Name = "Cameras";
+            lvAvailableOperationsAndCameras.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2 });
+            lvAvailableOperationsAndCameras.Location = new System.Drawing.Point(0, 0);
+            lvAvailableOperationsAndCameras.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvAvailableOperationsAndCameras.Name = "lvAvailableOperationsAndCameras";
+            lvAvailableOperationsAndCameras.OwnerDraw = true;
+            lvAvailableOperationsAndCameras.ReadonlyCheckboxes = false;
+            lvAvailableOperationsAndCameras.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvAvailableOperationsAndCameras.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvAvailableOperationsAndCameras.Size = new System.Drawing.Size(285, 208);
+            lvAvailableOperationsAndCameras.SmallImageList = ilImages;
+            lvAvailableOperationsAndCameras.TabIndex = 1;
+            lvAvailableOperationsAndCameras.Tag = "307; 120";
+            lvAvailableOperationsAndCameras.UseCompatibleStateImageBehavior = false;
+            lvAvailableOperationsAndCameras.View = System.Windows.Forms.View.Details;
             // 
             // chSelectableOperationsAndCameras
             // 
@@ -535,7 +535,7 @@
         private System.Windows.Forms.Button btnModifyEvent;
         private System.Windows.Forms.Button btnSelectAllOperation;
         private System.Windows.Forms.Button btnCreateEvent;
-        private Mtf.Controls.MtfListView lvAvaialableOperationsAndCameras;
+        private Mtf.Controls.MtfListView lvAvailableOperationsAndCameras;
         private System.Windows.Forms.ColumnHeader chSelectableOperationsAndCameras;
         private System.Windows.Forms.ImageList ilImages;
         private System.Windows.Forms.TextBox tbUserEventNote;

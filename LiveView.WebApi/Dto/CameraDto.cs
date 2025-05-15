@@ -23,17 +23,17 @@ namespace LiveView.WebApi.Dto
         /// <summary>
         /// Gets or sets the globally unique identifier (GUID) for the camera.
         /// </summary>
-        public Guid Guid { get; set; } // Changed from string to Guid type
+        public Guid Guid { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the camera.
         /// </summary>
-        public string? CameraName { get; set; } // Made nullable based on common DTO practices
+        public string? CameraName { get; set; }
 
         /// <summary>
         /// Gets or sets the IP address of the camera.
         /// </summary>
-        public string? IpAddress { get; set; } // Made nullable
+        public string? IpAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the fullscreen mode setting for the camera.
@@ -49,27 +49,32 @@ namespace LiveView.WebApi.Dto
         /// <summary>
         /// Gets or sets the username for accessing the camera stream.
         /// </summary>
-        public string? Username { get; set; } // Made nullable
+        public string? Username { get; set; }
 
         /// <summary>
         /// Gets or sets the password for accessing the camera stream.
         /// </summary>
-        public string? Password { get; set; } // Made nullable
+        public string? Password { get; set; }
 
         /// <summary>
         /// Gets or sets the username for accessing the server hosting the camera.
         /// </summary>
-        public string? ServerUsername { get; set; } // Made nullable
+        public string? ServerUsername { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name for accessing the server hosting the camera.
+        /// </summary>
+        public string? ServerDisplayName { get; set; }
 
         /// <summary>
         /// Gets or sets the password for accessing the server hosting the camera.
         /// </summary>
-        public string? ServerPassword { get; set; } // Made nullable
+        public string? ServerPassword { get; set; }
 
         /// <summary>
         /// Gets or sets the HTTP stream URL for the camera.
         /// </summary>
-        public string? HttpStreamUrl { get; set; } // Made nullable
+        public string? HttpStreamUrl { get; set; }
 
         /// <summary>
         /// Gets or sets a boolean indicating if the camera is currently active or actual.

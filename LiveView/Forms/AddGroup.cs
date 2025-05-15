@@ -1,5 +1,4 @@
-﻿using Database.Interfaces;
-using Database.Models;
+﻿using Database.Models;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -22,7 +21,7 @@ namespace LiveView.Forms
 
         public ComboBox CbEvents => cbEvents;
 
-        public ListView LvAvaialableOperationsAndCameras => lvAvaialableOperationsAndCameras;
+        public ListView LvAvailableOperationsAndCameras => lvAvailableOperationsAndCameras;
 
         public ListView LvOperationsAndCameras => lvOperationsAndCameras;
 

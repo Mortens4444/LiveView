@@ -12,6 +12,6 @@ namespace Database.Interfaces
 
         ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId);
 
-        ReadOnlyCollection<Camera> SelectMotionTriggreredCameras();
+        ReadOnlyCollection<Camera> SelectMotionTriggeredCameras();
     }
 }

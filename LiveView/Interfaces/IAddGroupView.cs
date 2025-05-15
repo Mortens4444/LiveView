@@ -13,7 +13,7 @@ namespace LiveView.Interfaces
 
         ComboBox CbEvents { get; }
 
-        ListView LvAvaialableOperationsAndCameras { get; }
+        ListView LvAvailableOperationsAndCameras { get; }
 
         ListView LvOperationsAndCameras { get; }
 

@@ -1,1 +1,5 @@
-﻿SELECT c.* FROM Cameras c JOIN CameraPermissions cp ON c.Id = cp.CameraId WHERE cp.GroupId = @GroupId AND cp.UserEvent = @UserEventId;
+﻿SELECT c.*, s.DisplayedName AS ServerDisplayName
+FROM Cameras AS c
+JOIN CameraPermissions AS cp ON c.Id = cp.CameraId
+LEFT JOIN Servers AS s ON c.ServerId = s.Id
+WHERE cp.GroupId = @GroupId AND cp.UserEvent = @UserEventId;
