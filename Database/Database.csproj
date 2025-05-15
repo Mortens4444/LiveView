@@ -70,6 +70,7 @@
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereCameraRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />

@@ -14,6 +14,7 @@ namespace LiveView.Models.Dependencies
             FormFactory formfactory,
             IRightRepository rightRepository,
             ICameraRepository cameraRepository,
+            ICameraRightRepository cameraRightRepository,
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
@@ -31,6 +32,7 @@ namespace LiveView.Models.Dependencies
             : base(generalOptionsRepository, formfactory)
         {
             CameraRepository = cameraRepository;
+            CameraRightRepository = cameraRightRepository;
             RightRepository = rightRepository;
             ServiceProvider = serviceProvider;
             UserRepository = userRepository;
@@ -79,5 +81,7 @@ namespace LiveView.Models.Dependencies
         public IUserEventRepository UserEventRepository { get; private set; }
 
         public ITemplateProcessRepository TemplateProcessRepository { get; private set; }
+
+        public ICameraRightRepository CameraRightRepository { get; private set; }
     }
 }

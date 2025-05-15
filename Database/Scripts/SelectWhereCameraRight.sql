@@ -1,0 +1,1 @@
+﻿SELECT * FROM CameraPermissions WHERE GroupId = @GroupId AND UserEvent = @UserEventId;

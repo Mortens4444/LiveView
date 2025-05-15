@@ -1,4 +1,5 @@
-﻿using Database.Enums;
+﻿using Azure;
+using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
@@ -59,6 +60,7 @@ namespace LiveView.Presenters
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
+        private readonly ICameraRightRepository cameraRightRepository;
         private readonly IServiceProvider serviceProvider;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
@@ -86,6 +88,7 @@ namespace LiveView.Presenters
             mainPresenterDependencies = dependencies;
             Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
+            cameraRightRepository = dependencies.CameraRightRepository;
             rightRepository = dependencies.RightRepository;
             serviceProvider = dependencies.ServiceProvider;
             mapRepository = dependencies.MapRepository;
@@ -506,14 +509,42 @@ namespace LiveView.Presenters
             }
         }
 
+        private static string GetCameraGroupPermissionName(long permissionCameraValue)
+        {
+            var start = permissionCameraValue / Constants.CameraGroupPermissionRangeSize * Constants.CameraGroupPermissionRangeSize + 1;
+            var end = start + Constants.CameraGroupPermissionRangeSize - 1;
+            return String.Format("CameraGroupPermissions_{0:D3}_{1:D3}", start, end);
+        }
+
         private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
         {
             var group = new Mtf.Permissions.Models.Group();
             var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId, UserEventId = Globals.UserEvent?.Id ?? 1 });
+            var groupCameraPermissions = cameraRightRepository.SelectWhere(new { GroupId = groupId, UserEventId = Globals.UserEvent?.Id ?? 1 });
             var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
+            var cameraPermissionIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
             var operations = operationRepository.SelectWhere(new { Ids = operationIds });
+            var cameras = cameraRepository.SelectAll().Where(c => cameraPermissionIds.Contains(c.Id));
             var permissionType = typeof(CameraManagementPermissions);
             var assembly = permissionType.Assembly;
+
+            foreach (var camera in cameras)
+            {
+                var cameraGroupEnumType = assembly.GetType($"{permissionType.Namespace}.{GetCameraGroupPermissionName(camera.PermissionCamera)}");
+                var cameraPermissionName = String.Format("Camera_{0:D3}", camera.PermissionCamera + 1);
+                if (cameraGroupEnumType != null)
+                {
+                    var cameraPermissionValue = Enum.Parse(cameraGroupEnumType, cameraPermissionName);
+                    if (cameraPermissionValue != null)
+                    {
+                        group.Permissions.Add(new Mtf.Permissions.Models.Permission
+                        {
+                            PermissionGroup = cameraGroupEnumType,
+                            PermissionValue = Convert.ToInt64(cameraPermissionValue)
+                        });
+                    }
+                }
+            }
 
             foreach (var operation in operations)
             {
