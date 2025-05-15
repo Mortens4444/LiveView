@@ -125,7 +125,7 @@ namespace LiveView.Forms
         private void BtnExportHardwareInfo_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ExportHadwareInfo();
+            presenter.ExportHardwareInfo();
         }
 
         [RequirePermission(NetworkManagementPermissions.WakeOnLAN)]

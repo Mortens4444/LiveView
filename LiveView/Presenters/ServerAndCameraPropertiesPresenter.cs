@@ -77,7 +77,12 @@ namespace LiveView.Presenters
                     var item = new ListViewItem(camera.Name);
                     foreach (CameraStatusInfo status in Enum.GetValues(typeof(CameraStatusInfo)))
                     {
-                        item.SubItems.Add(camera[status]?.ToString() ?? string.Empty);
+                        var cameraRpcCode = (int)camera[CameraStatusInfo.RPC_ReturnCode];
+                        var value = cameraRpcCode == VideoServerErrorHandler.Success || status == CameraStatusInfo.RPC_ReturnCode ?
+                            camera[status]?.ToString() ?? String.Empty :
+                            Lng.Elem("N/A");
+
+                        item.SubItems.Add(value);
                     }
                     view.LvCameraList.Items.Add(item);
                 }
@@ -86,22 +91,43 @@ namespace LiveView.Presenters
                 var recorderStatusMessage =  Lng.Elem(VideoServerErrorHandler.GetMessage(recorderReturnCode));
                 view.TbRecorderStatus.Text = $"{recorderReturnCode}: {recorderStatusMessage}";
                 view.TbRecorderStatus.BackColor = view.TbRecorderStatus.Text == "0" ? Color.YellowGreen : Color.IndianRed;
-                view.TbCpuUsage.Text = $"{connectionResult[RecorderStatusInfo.CPU_Usage]}%";
 
-                view.TbDongleSerial.Text = $"{connectionResult[RecorderStatusInfo.DongleSerial]}";
-                view.TbDongleSubtype.Text = $"{connectionResult[RecorderStatusInfo.DongleSubtype]}";
+                if (recorderReturnCode == VideoServerErrorHandler.Success)
+                {
+                    view.TbCpuUsage.Text = $"{connectionResult[RecorderStatusInfo.CPU_Usage]}%";
 
-                view.TbVideoRecorderProtocolVersion.Text = $"{connectionResult[RecorderStatusInfo.ProtocolVersion]}";
-                view.TbRecorderVersion.Text = $"{connectionResult[RecorderStatusInfo.RecorderVersion]}";
-                view.TbRemoteVideoServerVersion.Text = $"{connectionResult[RecorderStatusInfo.ServerVersion]}";
+                    view.TbDongleSerial.Text = $"{connectionResult[RecorderStatusInfo.DongleSerial]}";
+                    view.TbDongleSubtype.Text = $"{connectionResult[RecorderStatusInfo.DongleSubtype]}";
 
-                view.TbLicensedCameraNumber.Text = $"{connectionResult[RecorderStatusInfo.NumberOfLocalCameras]}";
+                    view.TbVideoRecorderProtocolVersion.Text = $"{connectionResult[RecorderStatusInfo.ProtocolVersion]}";
+                    view.TbRecorderVersion.Text = $"{connectionResult[RecorderStatusInfo.RecorderVersion]}";
+                    view.TbRemoteVideoServerVersion.Text = $"{connectionResult[RecorderStatusInfo.ServerVersion]}";
+
+                    view.TbLicensedCameraNumber.Text = $"{connectionResult[RecorderStatusInfo.NumberOfLocalCameras]}";
+                    view.TbRecordingInterval.Text = $"{connectionResult[RecorderStatusInfo.OnTimeInSeconds]}";
+                    view.TbVideoServerTime.Text = $"{DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(connectionResult[RecorderStatusInfo.ServerLocalTime_UnixTime])).DateTime}";
+                    view.TbLiveViewDisplay.Text = $"{connectionResult[RecorderStatusInfo.FullScreenMode]}";
+                    view.TbRecording.Text = Lng.Elem(Convert.ToBoolean(connectionResult[RecorderStatusInfo.On_Off]).ToString());
+                }
+                else
+                {
+                    view.TbCpuUsage.Text = Lng.Elem("N/A");
+
+                    view.TbDongleSerial.Text = Lng.Elem("N/A");
+                    view.TbDongleSubtype.Text = Lng.Elem("N/A");
+
+                    view.TbVideoRecorderProtocolVersion.Text = Lng.Elem("N/A");
+                    view.TbRecorderVersion.Text = Lng.Elem("N/A");
+                    view.TbRemoteVideoServerVersion.Text = Lng.Elem("N/A");
+
+                    view.TbLicensedCameraNumber.Text = Lng.Elem("N/A");
+                    view.TbRecordingInterval.Text = Lng.Elem("N/A");
+                    view.TbVideoServerTime.Text = Lng.Elem("N/A");
+                    view.TbLiveViewDisplay.Text = Lng.Elem("N/A");
+                    view.TbRecording.Text = Lng.Elem("N/A");
+                }
+
                 view.TbRecordedLocalCameraNumber.Text = $"{connectionResult.Cameras.Count}";
-
-                view.TbRecordingInterval.Text = $"{connectionResult[RecorderStatusInfo.OnTimeInSeconds]}";
-                view.TbVideoServerTime.Text = $"{DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(connectionResult[RecorderStatusInfo.ServerLocalTime_UnixTime])).DateTime}";
-                view.TbLiveViewDisplay.Text = $"{connectionResult[RecorderStatusInfo.FullScreenMode]}";
-                view.TbRecording.Text = Lng.Elem(Convert.ToBoolean(connectionResult[RecorderStatusInfo.On_Off]).ToString());
             }
             else
             {
@@ -158,7 +184,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void ExportHadwareInfo()
+        public void ExportHardwareInfo()
         {
             view.SaveFileDialog.FileName = $"{view.Server} {Lng.Elem("Hardware information")}.csv";
             if (view.SaveFileDialog.ShowDialog() == DialogResult.OK)
@@ -188,7 +214,7 @@ namespace LiveView.Presenters
                         { "Operating System", "SELECT * FROM Win32_OperatingSystem" },
                         { "Computer System", "SELECT * FROM Win32_ComputerSystem" },
                         { "Physical Memory", "SELECT * FROM Win32_PhysicalMemory" },
-                        { "Log Event", "SELECT * FROM Win32_NTLogEvent" }
+                        //{ "Log Event", "SELECT * FROM Win32_NTLogEvent" } // Throws OutOfMemoryException
                     };
 
                     view.LvHardwareInformation.InvokeIfRequired(() =>
