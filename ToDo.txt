@@ -1,4 +1,3 @@
-- add new camera should set the correct permissioncameranumber also
 - what happens, when the app started without user and startup template selected
 - Open more fullscreen windows
 - Templates should open fullscreen windows

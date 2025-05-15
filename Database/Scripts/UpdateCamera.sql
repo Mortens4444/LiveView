@@ -12,5 +12,6 @@
     MotionTrigger = @MotionTrigger,
     MotionTriggerMinimumLength = @MotionTriggerMinimumLength,
     PartnerCameraId = @PartnerCameraId,
-    VideoSourceId = @VideoSourceId
+    VideoSourceId = @VideoSourceId,
+    PermissionCamera = @PermissionCamera
 WHERE Id = @Id;
