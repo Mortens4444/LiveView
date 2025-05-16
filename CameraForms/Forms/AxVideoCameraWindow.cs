@@ -38,12 +38,11 @@ namespace CameraForms.Forms
         private readonly Database.Models.Server server;
         private readonly Camera camera;
         private readonly Rectangle rectangle;
-        private CancellationToken cancellationToken;
         private GridCamera gridCamera;
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, IServerRepository serverRepository, ICameraRepository cameraRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
-            Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera, CancellationToken cancellationToken)
+            Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -52,7 +51,6 @@ namespace CameraForms.Forms
             this.rectangle = rectangle;
             this.server = server;
             this.camera = camera;
-            this.cancellationToken = cancellationToken;
             this.permissionManager = permissionManager;
             this.cameraRepository = cameraRepository;
             this.serverRepository = serverRepository;
@@ -89,6 +87,7 @@ namespace CameraForms.Forms
             cameraId = cameraLaunchContext.CameraId;
             Initialize(cameraLaunchContext.UserId, cameraId, true);
 
+            camera = cameraRepository.Select(cameraId);
             display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
@@ -140,23 +139,23 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
-            var camera = cameraRepository.Select(cameraId);
             if (camera == null)
             {
                 DebugErrorBox.Show("Camera is null", $"Cannot find camera with Id: {cameraId}");
             }
-
-            var server = serverRepository.Select(camera.ServerId);
             if (permissionManager.CurrentUser == null)
             {
                 DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
                 return;
             }
 
+            var userId = permissionManager.CurrentUser.Tag.Id;
+
             //axVideoPlayerWindow.AxVideoPicture.Visible = false;
             //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
             //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
-            var userId = permissionManager.CurrentUser.Tag.Id;
+
+            var server = serverRepository.Select(camera.ServerId);
             if (server == null)
             {
                 DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
@@ -173,6 +172,7 @@ namespace CameraForms.Forms
                 }
                 else
                 {
+                    axVideoPlayerWindow.OverlayText = $"No permission: {camera}";
                     DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 }
             }

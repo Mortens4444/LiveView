@@ -29,6 +29,7 @@ namespace CameraForms.Forms
         private Rectangle rectangle;
         private string url;
         private GridCamera gridCamera;
+        private Camera camera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
         private int bufferSize;
         private int onExit;
@@ -50,6 +51,7 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -94,7 +96,7 @@ namespace CameraForms.Forms
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
             SetBufferSize();
-            var camera = cameraRepository.Select(cameraId);
+            camera = cameraRepository.Select(cameraId);
             url = camera?.HttpStreamUrl;
 
             if (fullScreen)
@@ -115,6 +117,13 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
+            var cameraText = camera?.ToString() ?? url;
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(cameraText, "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             mortoGraphyWindow.BufferSize = bufferSize;
             var text = personalOptionsRepository.GetCameraName(userId, url);
@@ -129,7 +138,15 @@ namespace CameraForms.Forms
             }
             try
             {
-                mortoGraphyWindow.Start(url);
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                {
+                    mortoGraphyWindow.Start(url);
+                }
+                else
+                {
+                    mortoGraphyWindow.OverlayText = $"No permission: {url}";
+                    DebugErrorBox.Show(url, "No permission to view this camera.");
+                }
             }
             catch (Exception ex)
             {

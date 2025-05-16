@@ -39,6 +39,7 @@
             // 
             // axVideoPlayerWindow
             // 
+            axVideoPlayerWindow.BackgroundImage = Properties.Resources.nosignal;
             axVideoPlayerWindow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             axVideoPlayerWindow.ContextMenuStrip = cmsMenu;
             axVideoPlayerWindow.Dock = System.Windows.Forms.DockStyle.Fill;

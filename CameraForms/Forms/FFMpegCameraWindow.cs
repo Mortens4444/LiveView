@@ -27,9 +27,10 @@ namespace CameraForms.Forms
         private string url;
         private Rectangle rectangle;
         private GridCamera gridCamera;
+        private Camera camera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public FFMpegCameraWindow(PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public FFMpegCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -41,6 +42,7 @@ namespace CameraForms.Forms
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -71,7 +73,7 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
-            var camera = cameraRepository.Select(cameraId);
+            camera = cameraRepository.Select(cameraId);
             url = camera.HttpStreamUrl;
 
             if (fullScreen)
@@ -92,6 +94,13 @@ namespace CameraForms.Forms
 
         private void FFMpegCameraWindow_Shown(object sender, EventArgs e)
         {
+            var cameraText = camera?.ToString() ?? url;
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(cameraText, "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             //var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             ////var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -106,7 +115,15 @@ namespace CameraForms.Forms
             OsdSetter.SetInfo(this, fFmpegWindow, gridCamera, personalOptionsRepository, text, userId);
             try
             {
-                fFmpegWindow.Start(url);
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                {
+                    fFmpegWindow.Start(url);
+                }
+                else
+                {
+                    fFmpegWindow.OverlayText = $"No permission: {cameraText}";
+                    DebugErrorBox.Show(cameraText, "No permission to view this camera.");
+                }
             }
             catch (Exception ex)
             {

@@ -3,7 +3,6 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -29,6 +28,10 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
+        private readonly IAgentRepository agentRepository;
+        private readonly IVideoSourceRepository videoSourceRepository;
+
+
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly int frameTimeout = 1500;
         private readonly Rectangle rectangle;
@@ -47,11 +50,12 @@ namespace CameraForms.Forms
         private SolidBrush fontBrush;
         private Point location = new Point(10, 10);
         private string cameraName;
+        private Camera camera;
         private GridCamera gridCamera;
         private Pen red = new Pen(new SolidBrush(Color.Red), 3);
         private int reconnectTimeout;
 
-        public VideoSourceCameraWindow(PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public VideoSourceCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -59,11 +63,15 @@ namespace CameraForms.Forms
 
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.agentRepository = agentRepository;
+            this.videoSourceRepository = videoSourceRepository;
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
+
             reconnectTimeout = AppConfig.GetInt32(LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
             if (gridCamera?.Frame ?? false)
@@ -85,6 +93,8 @@ namespace CameraForms.Forms
             display = DisplayProvider.Get(cameraLaunchContext.DisplayId);
             
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
@@ -179,8 +189,13 @@ namespace CameraForms.Forms
 
         private void StartVideoCaptureImageReceiver()
         {
-            var agentRepository = new AgentRepository();
-            var videoSourceRepository = new VideoSourceRepository();
+            if (camera != null && !permissionManager.HasCameraPermission(camera.PermissionCamera))
+            {
+                mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, $"No permission: {camera}");
+                DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
+                return;
+            }
 
             Task.Run(() =>
             {
@@ -285,6 +300,12 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
         {
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(camera?.ToString() ?? videoCaptureSourceCameraInfo.ToString(), "No user is logged in.");
+                return;
+            }
+
             if (videoCaptureSourceCameraInfo.IsEmpty())
             {
                 try

@@ -6,6 +6,7 @@ using Database.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using NUnit.Framework;
 using Sequence.Dto;
@@ -24,6 +25,7 @@ namespace Sequence.Tests.Services
         private CameraWindowBuilder builder;
         private PermissionManager<User> permissionManager;
         private ILogger<GridSequenceManager> logger;
+        private IAgentRepository agentRepository;
         private IServerRepository serverRepository;
         private ICameraRepository cameraRepository;
         private ICameraFunctionRepository cameraFunctionRepository;
@@ -46,9 +48,25 @@ namespace Sequence.Tests.Services
                 Tag = new User
                 {
                     Id = 2
+                },
+                Groups = new System.Collections.Generic.List<Mtf.Permissions.Models.Group>
+                {
+                    new Mtf.Permissions.Models.Group
+                    {
+                        Id = 2,
+                        Permissions = new System.Collections.Generic.List<Mtf.Permissions.Models.Permission>
+                        {
+                            new Mtf.Permissions.Models.Permission
+                            {
+                                PermissionGroup = typeof(CameraGroupPermissions_001_060),
+                                PermissionValue = (long)CameraGroupPermissions_001_060.Camera_001
+                            }
+                        }
+                    }
                 }
             });
             logger = new Mock<ILogger<GridSequenceManager>>().Object;
+            agentRepository = new AgentRepository();
             serverRepository = new ServerRepository();
             cameraRepository = new CameraRepository();
             cameraFunctionRepository = new CameraFunctionRepository();
@@ -56,7 +74,7 @@ namespace Sequence.Tests.Services
             videoSourceRepository = new VideoSourceRepository();
             generalOptionsRepository = new GeneralOptionsRepository();
 
-            builder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
+            builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, serverRepository, cameraRepository,
                 cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
         }
 
@@ -67,7 +85,8 @@ namespace Sequence.Tests.Services
             {
                 Camera = new Camera
                 {
-                    Id = CameraId
+                    Id = CameraId,
+                    ServerId = ServerId
                 },
                 Server = new Server
                 {
@@ -94,8 +113,8 @@ namespace Sequence.Tests.Services
         {
             var camera = new VideoCaptureSourceCameraInfo
             {
-                ServerIp = "",
-                VideoSourceName = "",
+                ServerIp = "192.168.0.58",
+                VideoSourceName = "0",
                 GridCamera = GetGridCamera()
             };
             RunTest(camera);
@@ -181,6 +200,7 @@ namespace Sequence.Tests.Services
         {
             return new GridCamera
             {
+                CameraId = CameraId,
                 Id = GridCameraId
             };
         }

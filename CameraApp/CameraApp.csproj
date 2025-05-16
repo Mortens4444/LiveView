@@ -27,7 +27,7 @@
     <PackageReference Include="Mtf.Database" Version="2.0.39" />
     <PackageReference Include="Mtf.MessageBoxes" Version="6.0.2" />
     <PackageReference Include="Mtf.Network" Version="2.0.3" />
-    <PackageReference Include="Mtf.Permissions" Version="4.0.1" />
+    <PackageReference Include="Mtf.Permissions" Version="4.0.2" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.44" />
   </ItemGroup>
 

@@ -26,5 +26,15 @@ namespace Database.Repositories
         {
             return Query("SelectMotionTriggeredCameras");
         }
+
+        public Camera Select(GridCamera gridCamera)
+        {
+            if (gridCamera == null)
+            {
+                return null;
+            }
+
+            return gridCamera.CameraId.HasValue ? Select(gridCamera.CameraId.Value) : null;
+        }
     }
 }

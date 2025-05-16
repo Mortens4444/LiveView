@@ -18,9 +18,11 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static OpenCvSharp.XImgProc.CvXImgProc;
 
 namespace CameraForms.Forms
 {
@@ -36,8 +38,9 @@ namespace CameraForms.Forms
         private CancellationTokenSource cts;
         private Label label;
         private GridCamera gridCamera;
+        private Camera camera;
 
-        public SunellCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public SunellCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -48,6 +51,7 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -67,7 +71,7 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
@@ -127,6 +131,12 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -192,7 +202,16 @@ namespace CameraForms.Forms
 
         private int Connect()
         {
-            return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.D1, true);
+            if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+            {
+                return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.D1, true);
+            }
+            else
+            {
+                sunellVideoWindow1.OverlayText = $"No permission: {camera}";
+                DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
+                return SunellVideoWindow.NoPermission;
+            }
         }
 
         private async Task TryReconnectAsync(CancellationToken cancellationToken)

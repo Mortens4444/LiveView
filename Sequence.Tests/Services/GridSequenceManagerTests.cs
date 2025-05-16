@@ -21,6 +21,7 @@ namespace Sequence.Tests.Services
     {
         private Mock<ISequenceRepository> sequenceRepositoryMock;
         private Mock<IGridInSequenceRepository> gridInSequenceRepositoryMock;
+        private Mock<IAgentRepository> agentRepositoryMock;
         private Mock<IGridRepository> gridRepositoryMock;
         private Mock<IServerRepository> serverRepositoryMock;
         private Mock<ICameraRepository> cameraRepositoryMock;
@@ -34,6 +35,7 @@ namespace Sequence.Tests.Services
         {
             sequenceRepositoryMock = new Mock<ISequenceRepository>();
             gridInSequenceRepositoryMock = new Mock<IGridInSequenceRepository>();
+            agentRepositoryMock = new Mock<IAgentRepository>();
             gridRepositoryMock = new Mock<IGridRepository>();
             serverRepositoryMock = new Mock<IServerRepository>();
             cameraRepositoryMock = new Mock<ICameraRepository>();
@@ -290,6 +292,7 @@ namespace Sequence.Tests.Services
                     sequenceRepositoryMock.Object,
                     gridInSequenceRepositoryMock.Object,
                     gridRepositoryMock.Object,
+                    agentRepositoryMock.Object,
                     videoSourceRepositoryMock.Object,
                     serverRepositoryMock.Object,
                     cameraRepositoryMock.Object,

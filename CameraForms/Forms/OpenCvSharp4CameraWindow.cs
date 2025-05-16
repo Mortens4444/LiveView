@@ -28,9 +28,10 @@ namespace CameraForms.Forms
         private string url;
         private Rectangle rectangle;
         private GridCamera gridCamera;
+        private Camera camera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -39,9 +40,11 @@ namespace CameraForms.Forms
             this.url = url;
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
+            this.cameraRepository = cameraRepository;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -72,7 +75,7 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
         {
-            var camera = cameraRepository.Select(cameraId);
+            camera = cameraRepository.Select(cameraId);
             url = camera.HttpStreamUrl;
 
             if (fullScreen)
@@ -93,12 +96,27 @@ namespace CameraForms.Forms
 
         private void OpenCvSharp4_Shown(object sender, EventArgs e)
         {
+            var cameraText = camera?.ToString() ?? url;
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(cameraText, "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             var text = personalOptionsRepository.GetCameraName(userId, url);
             OsdSetter.SetInfo(this, openCvSharp4VideoWindow, gridCamera, personalOptionsRepository, text, userId);
             try
             {
-                openCvSharp4VideoWindow.Start(url);
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                {
+                    openCvSharp4VideoWindow.Start(url);
+                }
+                else
+                {
+                    openCvSharp4VideoWindow.OverlayText = $"No permission: {cameraText}";
+                    DebugErrorBox.Show(url, "No permission to view this camera.");
+                }
             }
             catch (Exception ex)
             {

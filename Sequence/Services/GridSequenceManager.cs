@@ -36,6 +36,7 @@ namespace Sequence.Services
         private readonly DisplayDto display;
         private readonly ILogger<GridSequenceManager> logger;
         private readonly PermissionManager<User> permissionManager;
+        private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGeneralOptionsRepository generalOptionsRepository;
         private readonly ISequenceRepository sequenceRepository;
@@ -60,6 +61,7 @@ namespace Sequence.Services
             ISequenceRepository sequenceRepository,
             IGridInSequenceRepository gridInSequeneRepository,
             IGridRepository gridRepository,
+            IAgentRepository agentRepository,
             IVideoSourceRepository videoSourceRepository,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
@@ -77,6 +79,7 @@ namespace Sequence.Services
             //this.isMdi = false;
 
             this.permissionManager = permissionManager;
+            this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.sequenceRepository = sequenceRepository;
             this.gridInSequeneRepository = gridInSequeneRepository;
@@ -89,7 +92,7 @@ namespace Sequence.Services
             gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
             //StartSequence(sequenceId);
 
-            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, serverRepository, cameraRepository,
+            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, serverRepository, cameraRepository,
                 cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
         }
 

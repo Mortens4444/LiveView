@@ -19,7 +19,7 @@ namespace CameraForms.Services
                 var messageParts = message.Split('|');
 
                 if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture) ||
-                    (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture)))
+                    message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new CloseCommand(form));
                 }

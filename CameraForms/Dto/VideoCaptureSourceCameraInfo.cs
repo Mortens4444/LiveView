@@ -18,6 +18,11 @@ namespace CameraForms.Dto
         {
             if (IsEmpty())
             {
+                if (GridCamera == null)
+                {
+                    return "VideoCaptureSourceCameraInfo not initialized";
+                }
+
                 return $"CameraId: {GridCamera.CameraId}, CameraMode: {GridCamera.CameraMode}, GridCamera {GridCamera.Id}";
             }
 

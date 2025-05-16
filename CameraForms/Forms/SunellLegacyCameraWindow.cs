@@ -16,6 +16,7 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -25,6 +26,7 @@ namespace CameraForms.Forms
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly PermissionManager<User> permissionManager;
+        private readonly Camera camera;
 
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
@@ -34,7 +36,7 @@ namespace CameraForms.Forms
         private short rotateSpeed = 50;
         private bool fullScreen;
 
-        public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, SunellLegacyCameraInfo sunellLegacyCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -47,6 +49,7 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -66,7 +69,7 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
 
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
@@ -145,6 +148,12 @@ namespace CameraForms.Forms
 
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
             //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
@@ -172,13 +181,21 @@ namespace CameraForms.Forms
 
             try
             {
-                sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
-                sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
-                if (fullScreen)
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
                 {
-                    sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+                    sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
+                    sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+                    if (fullScreen)
+                    {
+                        sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+                    }
+                    SetOsd();
                 }
-                SetOsd();
+                else
+                {
+                    sunellVideoWindowLegacy1.OverlayText = $"No permission: {camera}";
+                    DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
+                }
             }
             catch (Exception ex)
             {

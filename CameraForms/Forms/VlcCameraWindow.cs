@@ -23,13 +23,14 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
+        private readonly Camera camera;
 
         private string url;
         private Rectangle rectangle;
         private GridCamera gridCamera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public VlcCameraWindow(PermissionManager<User> permissionManager, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public VlcCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -41,6 +42,7 @@ namespace CameraForms.Forms
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+            camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -62,7 +64,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            var camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
@@ -93,13 +95,28 @@ namespace CameraForms.Forms
 
         private void VlcCameraWindow_Shown(object sender, EventArgs e)
         {
+            var cameraText = camera?.ToString() ?? url;
+            if (permissionManager.CurrentUser == null)
+            {
+                DebugErrorBox.Show(cameraText, "No user is logged in.");
+                return;
+            }
+
             var userId = permissionManager.CurrentUser.Tag.Id;
             var text = personalOptionsRepository.GetCameraName(userId, url);
             OsdSetter.SetInfo(this, vlcWindow, gridCamera, personalOptionsRepository, text, userId);
 
             try
             {
-                vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                {
+                    vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
+                }
+                else
+                {
+                    vlcWindow.OverlayText = $"No permission: {camera}";
+                    DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
+                }
             }
             catch (Exception ex)
             {

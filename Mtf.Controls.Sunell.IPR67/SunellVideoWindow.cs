@@ -21,6 +21,7 @@ namespace Mtf.Controls.Sunell.IPR67
         private int rotateSpeed = 50;
 
         public const int NoStream = -1;
+        public const int NoPermission = -2;
 
         public SunellVideoWindow()
         {
