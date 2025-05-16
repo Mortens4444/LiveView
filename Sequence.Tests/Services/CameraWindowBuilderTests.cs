@@ -10,8 +10,9 @@ using Mtf.Permissions.Services;
 using NUnit.Framework;
 using Sequence.Dto;
 using Sequence.Services;
-using System.Collections.Generic;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sequence.Tests.Services
@@ -29,6 +30,10 @@ namespace Sequence.Tests.Services
         private IPersonalOptionsRepository personalOptionsRepository;
         private IVideoSourceRepository videoSourceRepository;
         private IGeneralOptionsRepository generalOptionsRepository;
+        
+        private const int CameraId = 10; // // This must be an existing Camera in the database.
+        private const int ServerId = 3; // // This must be an existing Server in the database.
+        private const int GridCameraId = 100; // This must be an existing GridCamera in the database.
 
         [SetUp]
         public void SetUp()
@@ -36,6 +41,13 @@ namespace Sequence.Tests.Services
             DatabaseInitializer.Initialize("LiveViewConnectionString");
 
             permissionManager = new PermissionManager<User>();
+            permissionManager.Login(new Mtf.Permissions.Models.User<User>
+            {
+                Tag = new User
+                {
+                    Id = 2
+                }
+            });
             logger = new Mock<ILogger<GridSequenceManager>>().Object;
             serverRepository = new ServerRepository();
             cameraRepository = new CameraRepository();
@@ -53,9 +65,15 @@ namespace Sequence.Tests.Services
         {
             var camera = new AxVideoPictureCameraInfo
             {
-                Camera = new Camera(),
-                Server = new Server(),
-                GridCamera = new GridCamera()
+                Camera = new Camera
+                {
+                    Id = CameraId
+                },
+                Server = new Server
+                {
+                    Id = ServerId
+                },
+                GridCamera = GetGridCamera()
             };
            RunTest(camera);
         }
@@ -66,7 +84,7 @@ namespace Sequence.Tests.Services
             var camera = new FFMpegCameraInfo
             {
                 Url = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -78,7 +96,7 @@ namespace Sequence.Tests.Services
             {
                 ServerIp = "",
                 VideoSourceName = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -89,7 +107,7 @@ namespace Sequence.Tests.Services
             var camera = new MortoGraphyCameraInfo
             {
                 Url = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -100,7 +118,7 @@ namespace Sequence.Tests.Services
             var camera = new VlcCameraInfo
             {
                 Url = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -111,7 +129,7 @@ namespace Sequence.Tests.Services
             var camera = new OpenCvSharpCameraInfo
             {
                 Url = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -122,7 +140,7 @@ namespace Sequence.Tests.Services
             var camera = new OpenCvSharp4CameraInfo
             {
                 Url = "",
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -138,7 +156,7 @@ namespace Sequence.Tests.Services
                 Password = "p",
                 Username = "u",
                 StreamId = 4,
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
@@ -154,48 +172,79 @@ namespace Sequence.Tests.Services
                 Password = "p",
                 Username = "u",
                 StreamId = 4,
-                GridCamera = new GridCamera()
+                GridCamera = GetGridCamera()
             };
             RunTest(camera);
         }
 
+        private GridCamera GetGridCamera()
+        {
+            return new GridCamera
+            {
+                Id = GridCameraId
+            };
+        }
+
         private void RunTest(CameraInfo camera)
         {
-            // Arrange
             const int cameraCount = 16;
+
             using (var client = new Mtf.Network.Client("127.0.0.1", 4444))
             {
                 var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();
                 var display = displays[0];
+
                 using (var parentForm = new Form { IsMdiContainer = true })
                 {
-                    var result = new List<Form>();
-                    var grid = new Grid
+                    var numberOfCameras = 0;
+                    var shownCount = 0;
+                    var doneEvent = new ManualResetEventSlim(false);
+
+                    parentForm.Load += (s, e) =>
                     {
-                        Columns = 4,
-                        Rows = 2,
-                    };
-                    var gridInSequence = new GridInSequence();
-                    var tuple = (grid, gridInSequence);
-                
-                    using (var tokenSource = new CancellationTokenSource())
-                    {
-                        // Act
+                        var grid = new Grid { Columns = 4, Rows = 2 };
+                        var gridInSequence = new GridInSequence();
+                        var tuple = (grid, gridInSequence);
+                        var tokenSource = new CancellationTokenSource();
+
                         for (int i = 0; i < cameraCount; i++)
                         {
-                            builder.ShowVideoWindow(display, parentForm, result, camera, tuple, tokenSource);
+                            var form = builder.ShowVideoWindow(display, parentForm, camera, tuple, tokenSource);
+                            form.Shown += (_, __) =>
+                            {
+                                Interlocked.Increment(ref numberOfCameras);
+                                Interlocked.Increment(ref shownCount);
+                                form.Close();
+                                if (shownCount == cameraCount)
+                                {
+                                    doneEvent.Set();
+                                }
+                            };
                         }
-                    }
+                    };
 
-                    // Assert
-                    Assert.That(result.Count, Is.EqualTo(cameraCount));
-                    Assert.IsInstanceOf<Form>(result[0]);
-
-                    foreach (var form in result)
+                    parentForm.Shown += (s, e) =>
                     {
-                        form.Close();
+                        Task.Run(() =>
+                        {
+                            if (!doneEvent.Wait(TimeSpan.FromSeconds(10)))
+                            {
+                                throw new TimeoutException("Test failed with a timeout.");
+                            }
+
+                            parentForm.Invoke(new Action(() => parentForm.Close()));
+                        });
+                    };
+
+                    parentForm.Show();
+
+                    while (parentForm.Visible)
+                    {
+                        Application.DoEvents();
                     }
+
+                    Assert.That(numberOfCameras, Is.EqualTo(cameraCount));
                 }
             }
         }

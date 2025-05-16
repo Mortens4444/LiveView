@@ -16,6 +16,7 @@ using System.Windows.Forms;
 namespace Sequence.Tests.Services
 {
     [TestFixture]
+    [Apartment(System.Threading.ApartmentState.STA)]
     public class GridSequenceManagerTests
     {
         private Mock<ISequenceRepository> sequenceRepositoryMock;

@@ -140,6 +140,11 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
+            if (permissionManager.CurrentUser == null)
+            {
+                return;
+            }
+
             //axVideoPlayerWindow.AxVideoPicture.Visible = false;
             //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
             //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
@@ -159,8 +164,11 @@ namespace CameraForms.Forms
             OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
             try
             {
-                //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
+                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                {
+                    //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
+                    axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
+                }
             }
             catch (Exception ex)
             {

@@ -1,5 +1,4 @@
-﻿using Azure;
-using Database.Enums;
+﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
@@ -509,13 +508,6 @@ namespace LiveView.Presenters
             }
         }
 
-        private static string GetCameraGroupPermissionName(long permissionCameraValue)
-        {
-            var start = permissionCameraValue / Constants.CameraGroupPermissionRangeSize * Constants.CameraGroupPermissionRangeSize + 1;
-            var end = start + Constants.CameraGroupPermissionRangeSize - 1;
-            return String.Format("CameraGroupPermissions_{0:D3}_{1:D3}", start, end);
-        }
-
         private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
         {
             var group = new Mtf.Permissions.Models.Group();
@@ -530,19 +522,16 @@ namespace LiveView.Presenters
 
             foreach (var camera in cameras)
             {
-                var cameraGroupEnumType = assembly.GetType($"{permissionType.Namespace}.{GetCameraGroupPermissionName(camera.PermissionCamera)}");
-                var cameraPermissionName = String.Format("Camera_{0:D3}", camera.PermissionCamera + 1);
-                if (cameraGroupEnumType != null)
+                var cameraGroupEnumType = assembly.GetType($"{permissionType.Namespace}.{PermissionManager.GetCameraGroupPermissionName(camera.PermissionCamera)}");
+                var cameraPermissionName = $"Camera_{camera.PermissionCamera + 1:D3}";
+                var cameraPermissionValue = PermissionManager.GetCameraPermissionValue(camera.PermissionCamera);
+                if ((cameraGroupEnumType != null) && (cameraPermissionValue != null))
                 {
-                    var cameraPermissionValue = Enum.Parse(cameraGroupEnumType, cameraPermissionName);
-                    if (cameraPermissionValue != null)
+                    group.Permissions.Add(new Mtf.Permissions.Models.Permission
                     {
-                        group.Permissions.Add(new Mtf.Permissions.Models.Permission
-                        {
-                            PermissionGroup = cameraGroupEnumType,
-                            PermissionValue = Convert.ToInt64(cameraPermissionValue)
-                        });
-                    }
+                        PermissionGroup = cameraGroupEnumType,
+                        PermissionValue = Convert.ToInt64(cameraPermissionValue)
+                    });
                 }
             }
 
@@ -717,7 +706,7 @@ namespace LiveView.Presenters
                         Tag = user
                     };
                     SetGroups(permissionUser);
-                    permissionManager.SetUser(view.GetSelf(), permissionUser);
+                    permissionManager.LoginWithForm(permissionUser, view.GetSelf());
                     LoadLanguage(permissionUser.Tag.Id);
                     ChangeControlsOnLogin(user.Username);
                 }
@@ -749,7 +738,7 @@ namespace LiveView.Presenters
 
         public void Logout()
         {
-            permissionManager.Logout(view.GetSelf());
+            permissionManager.LogoutWithForm(view.GetSelf());
             ChangeControlsOnLogout();
         }
 
@@ -758,7 +747,7 @@ namespace LiveView.Presenters
             var user = PrimaryLogon();
             if (user != null)
             {
-                permissionManager.SetUser(view.GetSelf(), user);
+                permissionManager.LoginWithForm(user, view.GetSelf());
                 LoadLanguage(user.Tag.Id);
             }
         }

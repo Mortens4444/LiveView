@@ -176,7 +176,7 @@ namespace Sequence.Services
             {
                 Task.Run(() =>
                 {
-                    parentForm.InvokeIfRequired(() => cameraWindowBuilder.ShowVideoWindow(display, parentForm, result, camera, gridInSequence, cancellationTokenSource));
+                    parentForm.InvokeIfRequired(() => result.Add(cameraWindowBuilder.ShowVideoWindow(display, parentForm, camera, gridInSequence, cancellationTokenSource)));
                 });
             }
             return result;

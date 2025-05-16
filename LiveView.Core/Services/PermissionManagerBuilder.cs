@@ -19,7 +19,7 @@ namespace LiveView.Core.Services
                 Username = user.Username,
                 Tag = user
             };
-            permissionManager.SetUser(form, permissionUser);
+            permissionManager.LoginWithForm(permissionUser, form);
             return permissionManager;
         }
     }
