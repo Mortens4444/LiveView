@@ -25,7 +25,7 @@ namespace LiveView.Network.Commands
             this.videoCaptureSource = videoCaptureSource;
 
             this.userId = Parser.ToInt64(userId);
-            this.displayId = Parser.ToInt64(displayId);
+            this.displayId = Parser.ToNullableInt64(displayId);
             this.processId = Parser.ToInt32(processId);
             this.cameraMode = Parser.ToCameraMode(cameraMode);
         }

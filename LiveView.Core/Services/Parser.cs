@@ -38,5 +38,10 @@ namespace LiveView.Core.Services
             }
             throw new ArgumentException($"Unable to parse Int64 value from: {value}");
         }
+
+        public static long? ToNullableInt64(string value)
+        {
+            return !String.IsNullOrEmpty(value) ? (long?)ToInt64(value) : null;
+        }
     }
 }

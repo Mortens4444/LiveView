@@ -140,8 +140,16 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
+            var camera = cameraRepository.Select(cameraId);
+            if (camera == null)
+            {
+                DebugErrorBox.Show("Camera is null", $"Cannot find camera with Id: {cameraId}");
+            }
+
+            var server = serverRepository.Select(camera.ServerId);
             if (permissionManager.CurrentUser == null)
             {
+                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
                 return;
             }
 
@@ -149,12 +157,6 @@ namespace CameraForms.Forms
             //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
             //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
             var userId = permissionManager.CurrentUser.Tag.Id;
-            var camera = cameraRepository.Select(cameraId);
-            if (camera == null)
-            {
-                DebugErrorBox.Show("Camera is null", $"Cannot find camera with Id: {cameraId}");
-            }
-            var server = serverRepository.Select(camera.ServerId);
             if (server == null)
             {
                 DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
@@ -168,6 +170,10 @@ namespace CameraForms.Forms
                 {
                     //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
                     axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
+                }
+                else
+                {
+                    DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 }
             }
             catch (Exception ex)

@@ -22,7 +22,7 @@ namespace LiveView.Network.Commands
             this.agentSocket = agentSocket;
             this.userId = Parser.ToInt32(userId);
             this.cameraId = Parser.ToInt32(cameraId); 
-            this.displayId = Parser.ToInt64(displayId);
+            this.displayId = Parser.ToNullableInt64(displayId);
             this.processId = Parser.ToInt32(processId);
             this.cameraMode = Parser.ToCameraMode(cameraMode);
         }

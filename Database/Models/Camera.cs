@@ -52,7 +52,7 @@ namespace Database.Models
 
         public override string ToString()
         {
-            return CameraName;
+            return $"{ServerDisplayName} - {CameraName}";
         }
     }
 }
