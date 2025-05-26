@@ -1,6 +1,5 @@
 ﻿using Database.Enums;
-using Database.Interfaces;
-using Mtf.Database.Interfaces;
+using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {

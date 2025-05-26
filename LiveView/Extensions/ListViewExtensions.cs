@@ -1,5 +1,4 @@
-﻿using Database.Interfaces;
-using Mtf.Database.Interfaces;
+﻿using Mtf.Extensions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

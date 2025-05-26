@@ -1,5 +1,5 @@
 ﻿using Database.Enums;
-using Mtf.Database.Interfaces;
+using Mtf.Extensions.Interfaces;
 
 namespace LiveView.WebApi.Dto
 {

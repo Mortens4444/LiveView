@@ -6,11 +6,12 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Extensions;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
-using Mtf.Network.Extensions;
+using Mtf.Network.Services;
 using Mtf.Permissions.Services;
 using Sequence.Services;
 using System;
@@ -61,7 +62,7 @@ namespace Sequence.Forms
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-                    var processId = ProcessUtils.GetProcessId();
+                    var processId = LiveView.Core.Services.ProcessUtils.GetProcessId();
                     client.Send($"{NetworkCommand.RegisterSequence}|{client.Socket.LocalEndPoint}|{userId}|{sequenceId}|{displayId}|{isMdi}|{processId}|{agentId}", true);
                 }
                 catch (Exception ex)
@@ -177,8 +178,8 @@ namespace Sequence.Forms
 
             try
             {
-                var processId = ProcessUtils.GetProcessId();
-                var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo();
+                var processId = LiveView.Core.Services.ProcessUtils.GetProcessId();
+                var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                 client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)

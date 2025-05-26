@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="hu-hu" lang="hu-hu">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="rights" content="Sziltech Electronic Kft."/>
+  <meta name="description" content="A Sziltech Electronic Kft. az IPVS27 digitális videókép- és hangtároló szerverek hazai gyártója."/>
+  <meta name="keywords" content="Sziltech Electronic Kft., IPVS27, IPVS37, digitális, videó, hangtároló, szerverek, videorendszerek"/>
+
+  <title>Sziltech Electronic Kft. - Kezdőoldal</title>
+
+  <link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon"/>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link href="index.php?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0"/>
+  <link href="index.php?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0"/>
+  <link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon"/>
+  <link rel="stylesheet" href="css/general.css" type="text/css"/>
+  <link rel="stylesheet" href="css/system.css" type="text/css"/>
+  <link rel="stylesheet" href="css/template.css" type="text/css"/>
+  <link rel="stylesheet" href="css/slideshow.css" type="text/css" media="all"/>
+  <link rel="stylesheet" href="css/bgblack.css" type="text/css"/>
+
+  <script type="text/javascript" src="js/bundle-playback5c82.js?v=zc7xth84" charset="utf-8"></script>
+  <script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+  <script type="text/javascript" src="js/ruffle/ruffle.js"></script>
+  <script type="text/javascript" src="js/jquery-max.js"></script>
+  <script type="text/javascript" src="js/jquery-cookie.js"></script>
+  <script type="text/javascript" src="js/auroramenu.modified.js"></script>
+
+  <script type="text/javascript">
+	window.addEvent('load', function() {
+				new JCaption('img.caption');
+			});
+  </script>
+
+  <script type="text/javascript">
+
+	$(document).ready(function() {		
+		//Execute the slideShow
+		slideShow();
+	});
+
+	function slideShow() {
+		$('#gallery a').css({opacity: 0.0});
+		$('#gallery a:first').css({opacity: 1.0});
+		$('#gallery .caption').css({opacity: 0.7});
+		$('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
+		$('#gallery .content').html($('#gallery a:first').find('img').attr('rel')).animate({opacity: 0.7}, 400);
+		setInterval('gallery()', 6000);
+	}
+
+	function gallery() {
+		var current = ($('#gallery a.show')?  $('#gallery a.show') : $('#gallery a:first'));
+		var next = ((current.next().length) ? ((current.next().hasClass('caption'))? $('#gallery a:first') :current.next()) : $('#gallery a:first'));	
+		var caption = next.find('img').attr('rel');	
+
+		next.css({opacity: 0.0}).addClass('show').animate({opacity: 1.0}, 1000);
+		current.animate({opacity: 0.0}, 1000).removeClass('show');
+		
+		$('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
+		$('#gallery .caption').animate({opacity: 0.7},100 ).animate({height: '100px'},500 );
+		$('#gallery .content').html(caption);
+	}
+
+  </script>
+
+</head>
+
+<body style="font-size: 12px;">
+
+<div id="general">
+
+    <!-- HEADER -->
+    <div id="header">
+        <div id="headertop">
+            <div id="headertopleft">
+                <div id="submenu">
+                    <div id="home"><a href="" title="Kezdőoldal"></a></div>
+                    <div id="contact"><a href="mailto:info@sziltech.hu" title="Mail"></a></div>
+                    <div id="user_nev"></div>
+                </div>
+
+                <div id="companyname">
+                    <a href="">
+                        <img src="images/companyname.png" alt="Sziltech Electronic Kft." />
+                    </a>
+                </div>
+
+                <div id="mainmenu">
+                    <ul class="menu">
+                        <li class="item-101 current active" style="color:black;"><a href="" style="color:black;">Kezdőoldal</a></li>
+                        <li class="item-102"><a href="bemutatkozas.html" style="color:black;">Bemutatkozás</a></li>
+                        <li class="item-103"><a href="termekek.html" style="color:black;">Termékek</a></li>
+                        <li class="item-122"><a href="hirek.html" style="color:black;">Hírek</a></li>
+                        <li class="item-124"><a href="partner-program.html" style="color:black;">Partner Program</a></li>
+                        <li class="item-123"><a href="szakszerviz.html" style="color:black;">Szakszerviz</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="headertopright">
+                <ul class="menu">
+                    <li class="item-104"><a href="bejelentkezes.html" style="color:black;">Bejelentkezés</a></li>
+                    <li class="item-105"><a href="regisztracio.html" style="color:black;">Regisztráció</a></li>
+                    <li class="item-106"><a href="letoltesek.html" style="color:black;">Letöltések</a></li>
+                    <li class="item-107"><a href="elerhetoseg.html" style="color:black;">Elérhetőség</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="headerbottom">
+            <div id="headerbottomleft" style="height:425px;">
+                <div id="slideshow">
+                    <div id="fading">
+                        <div id="gallery">
+                            <a href="https://www.youtube.com/watch?v=3AL9cvzMNQs" class="show">
+                                <img src="images/slide1.jpg" alt="Kamera" width="325" height="400" title="" alt="" rel="" />
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=3AL9cvzMNQs">
+                                <img src="images/slide2.jpg" alt="Szerver" width="325" height="400" title="" alt="" rel="" />
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=3AL9cvzMNQs">
+                                <img src="images/slide3.jpg" alt="Szoba" width="325" height="400" title="" alt="" rel="<" />
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=3AL9cvzMNQs">
+                                <img src="images/slide4.jpg" alt="Justica" width="325" height="400" title="" alt="" rel="<" />
+                            </a>
+                            <div class="caption"><div class="content"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="headerbottomright" style="width: 665px;">
+                <div id="headerbottom_top" style="width: 295px;">
+                    <div class="custom">
+                        <p align="right">Hibrid moduláris videokép-rögzítők</p>
+                        <p align="center">Monitorfal-vezérlő virtuális mátrixok</p>
+                        <p align="left">Archívumkezelő munkaállomások</p>
+                        <p align="center">Rendszer-diagnosztikai szerverek</p>
+                        <p align="right">Alkalmazásspecifikus kiegészítők</p>
+                    </div>
+                </div>
+
+                <div id="header_colright">
+                    <img src="images/world.jpg" alt="" />
+                </div>
+
+                <div id="headerbottom_bottom" style="width: 570px;">
+                    <div class="custom">
+                        <p style="color:black; margin-top: 120px;">
+A Sziltech Electronic Kft. termékeivel elsősorban azokat a felhasználási területeket célozza meg, ahol nehéz kompromisszumot kötni a magas elvárások, a folyamatos kockázat és a technológia nyújtotta lehetőségek között. Cégünk a videotechnikai készülékfejlesztést és gyártást a stabil, nagy teljesítményű és nagy kapacitású informatikai eszközök irányából közelíti meg, a felhasználói csoportok egyedi igényeinek megfelelő hardver és szoftverelemek alkalmazásával. A kiváló minőség érdekében „speciális ipari számítógépek tervezése és gyártása” tevékenységi körre ISO 9001-es minőségbiztosítási rendszert üzemeltetünk.
+
+Kiemelt szempont a hosszú távú üzembiztonság, a folyamatos rendelkezésre állás, a modularitás és a hosszú életciklusból adódó későbbi igényeknek megfelelő bővíthetőség, átépíthetőség.
+
+A kiemelkedő rendelkezésre állás köszönhető a termékeink redundáns felépítésének, a felhasznált ipari alapanyagoknak, a kellő mértékben túlméretezett összetevőknek és az ISO-9001 minőségbiztosítási rendszerbe foglalt tesztelési eljárásainknak.
+
+A 12 éve a biztonságtechnikai és minőségbiztosítási ipar szolgálatába állított IPVS27 és a továbbfejlesztett IPVS37 digitális videotechnikai termékcsaládok széles választékának köszönhetően egyszerűen alakíthatók ki centralizált, decentralizált vagy vegyes felépítésű, nagy felbontású – megapixel IP, költséghatékony – hibrid, vagy analóg videó rendszerek.
+                        </p>
+                    </div>
+
+                    <div class="custom">
+                        <p style="text-align: right;">
+                            <img alt="ISO 9001:2009" id="isologo" src="images/iso-logo.png" style="width: 124px; height: 126px; float: right;" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content">
+        <div id="colmain" style="width:970px">
+            <div id="system-message-container"></div>
+            <div class="blog-featured"></div>
+        </div>
+    </div>
+
+	<!-- FOOTER -->
+	<div id="footer">
+		<div id="footerbg">
+			<div id="footercontent">
+				<div id="footerleft">
+					<div id="footertrademark">
+						<div id="trade" style="color:black;">Copyright &copy; 2014 Sziltech Electronic Kft.</div>
+					</div>
+				</div>
+
+				<div id="footerright">
+					<div id="getintouch"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+</html>

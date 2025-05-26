@@ -2,8 +2,9 @@
 using LiveView.Agent.Maui.Services;
 using Mtf.Network;
 using Mtf.Network.EventArg;
-using Mtf.Network.Extensions;
+using Mtf.Extensions;
 using System.Net;
+using Mtf.Network.Services;
 
 namespace LiveView.Agent.Maui
 {
@@ -31,7 +32,7 @@ namespace LiveView.Agent.Maui
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandlerAsync;
                     client.Connect();
-                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
+                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                     if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|0", true))
                     {
                         SendVideoCaptureSourcesToLiveView();

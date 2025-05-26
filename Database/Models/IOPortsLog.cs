@@ -1,4 +1,4 @@
-﻿using Mtf.Database.Interfaces;
+﻿using Mtf.Extensions.Interfaces;
 using System;
 
 namespace Database.Models

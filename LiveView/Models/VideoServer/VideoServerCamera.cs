@@ -1,5 +1,5 @@
-﻿using Database.Interfaces;
-using LiveView.Enums;
+﻿using LiveView.Enums;
+using Mtf.Extensions.Interfaces;
 using System;
 
 namespace LiveView.Models.VideoServer

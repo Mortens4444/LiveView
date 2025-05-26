@@ -3,7 +3,8 @@ using LiveView.Core.CustomEventArgs;
 using LiveView.Core.Extensions;
 using LiveView.Dto;
 using LiveView.Extensions;
-using Mtf.Network.Extensions;
+using Mtf.Extensions;
+using Mtf.Network.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -127,7 +128,7 @@ namespace LiveView.Services
                         Tag = videoSource
                     };
 
-                    var serverIp = videoCaptureSource.Key.LocalEndPoint.GetEndPointInfo().GetIpAddressFromEndPoint();
+                    var serverIp = videoCaptureSource.Key.LocalEndPoint.GetEndPointInfo(NetUtils.GetLocalIPAddresses).GetIpAddressFromEndPoint();
                     childItem.Click += leafItemClickHandler;
                     parentItem.Text = serverIp;
                     parentItem.DropDownItems.Add(childItem);

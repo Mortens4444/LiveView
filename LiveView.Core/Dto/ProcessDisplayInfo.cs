@@ -1,6 +1,7 @@
 ﻿using LiveView.Core.Services;
+using Mtf.Extensions;
 using Mtf.Network;
-using Mtf.Network.Extensions;
+using Mtf.Network.Services;
 using System;
 
 namespace LiveView.Core.Dto
@@ -15,8 +16,8 @@ namespace LiveView.Core.Dto
 
         public ProcessDisplayInfo(DisplayDto display, Client client)
         {
-            HostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
-            ProcessId = ProcessUtils.GetProcessId();
+            HostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
+            ProcessId = Services.ProcessUtils.GetProcessId();
             DisplayId = display?.Id ?? String.Empty;
         }
     }

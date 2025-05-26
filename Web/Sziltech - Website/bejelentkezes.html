@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezés – Sziltech</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        input { display: block; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>Bejelentkezés</h1>
+    <form action="/login" method="post">
+        <label>Email:
+            <input type="email" name="email" required>
+        </label>
+        <label>Jelszó:
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit">Belépés</button>
+    </form>
+</body>
+</html>

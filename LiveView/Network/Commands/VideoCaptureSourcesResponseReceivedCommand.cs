@@ -1,7 +1,8 @@
 ﻿using LiveView.Core.Extensions;
 using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
-using Mtf.Network.Extensions;
+using Mtf.Extensions;
+using Mtf.Network.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -28,7 +29,7 @@ namespace LiveView.Network.Commands
                         .ToDictionary(vcs => vcs[0], vcs => vcs[1]);
             Globals.VideoCaptureSources.Add(agentSocket, videoCaptureSources);
 
-            var localEndPointInfo = agentSocket.RemoteEndPoint?.GetEndPointInfo();
+            var localEndPointInfo = agentSocket.RemoteEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
             UpdateVideoCaptureSources(videoCaptureSources, localEndPointInfo);
         }
 

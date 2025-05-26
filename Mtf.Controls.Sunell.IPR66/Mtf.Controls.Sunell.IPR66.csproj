@@ -23,16 +23,9 @@
     <EmbeddedResource Include="Resources\VideoSource.png" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
-  </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.8" />
   </ItemGroup>
 
   <ItemGroup>

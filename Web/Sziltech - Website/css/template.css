@@ -1,0 +1,1799 @@
+* {padding:0; margin:0; border: 0px;}
+
+html 
+{
+	height: 100%;
+}
+
+body
+{
+	background-color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	color:  #272727;
+	text-align: left;
+	vertical-align: top;
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+
+table
+{
+	width: 100%;
+}
+
+
+#termekek_tablazat table, #termekek_tablazat th, tr, td
+{
+	width: 100%;
+	border: 1px solid; 
+	border-color: #D4D4D4;
+	border-collapse: collapse;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#termekek_tablazat p
+{
+	padding: 0px 10px 10px 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: normal;	
+	text-align: justify;
+	vertical-align: top;
+	text-indent:20px;
+}
+
+#termekek_tablazat div
+{
+
+}
+
+#tabla_kep 
+{
+   vertical-align:middle;
+}
+
+#tabla_kep_szoveg
+{
+	padding: 0px 0px 10px 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;	
+	text-align: left;
+	color: #0080FF;
+	font-weight:bold;
+}
+
+#tabla_kep_kep
+{
+	height: 130px;
+	line-height: 30px;
+}
+
+.reftabla 
+{
+	padding: 1px 10px 0px 20px;
+	border: 0px;
+	vertical-align: top;
+}
+
+.reftablafej
+{
+	padding: 0px 0px 0px 5px;
+	border: 0px;
+}
+
+img
+{
+    border: 0;
+    vertical-align: top;     
+}
+
+p
+{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+p img
+{
+	margin: 0px 15px 15px 0px;
+	padding: 0px 0px 0px 0px;		
+}
+
+a.nincsvonal 
+{ 
+	border-style: none;
+}
+
+a
+{
+	text-decoration: none;
+	color:  #272727;
+	border-bottom: 1px;
+	border-style: dotted;
+	outline-style: none;	
+}
+
+a:hover
+{
+	color: #6699FF;
+	border: none;
+	outline-style: none;
+}
+
+ul
+{
+	list-style: none
+}
+
+li
+{
+	list-style: none;
+}
+
+form
+{
+	padding: 5px 0px 0px 0px;
+}
+
+fieldset 
+{
+	margin: 5px 0px 5px 0px;
+	padding: 2px 0px 2px 0px;
+}
+
+input,
+select
+{
+	width: 215px;
+	margin: 0px 0px 0px 0px;
+	padding: 1px 3px 2px 3px;
+	font-size: 11px;
+	color: #272727;
+	border: 1px;
+	border-color: #DDDDDD;
+	border-style: solid;
+	vertical-align: bottom;
+	background-color: transparent;
+}
+
+input
+{
+	height: 15px;	
+}
+
+option
+{
+	line-height: 30px;
+	padding: 1px 1px 2px 3px;
+	margin: 0px 0px 2px 0px;	
+}
+
+textarea
+{
+	width: 450px;
+	margin: 2px 2px 10px 0px;
+	padding: 2px 2px 2px 2px;
+	font-size: 12px;
+	border: 1px;
+	border-color: #DDDDDD;
+	border-style: solid;
+	color: #272727;
+	font-family: Arial, Helvetica, sans-serif;
+	vertical-align: bottom;	
+}
+
+caption
+{
+}
+
+label
+{
+	float: left;
+	line-height: 18px;
+	padding: 2px 5px 0px 0px;
+    font-weight: normal;
+}
+
+
+/**************************************************************************************/
+/*   Header
+/**************************************************************************************/
+/**************************************************************************************/
+
+#headerhed
+{
+	background-image: url(../../../../../../20150208112747im_/http_/www.sziltech.hu/templates/as002027/images/header_bg_hed.png);
+	background-position: top left;
+    width: 1000px;
+    height: 15px;	
+}
+
+#header
+{
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-image: url(../../../../../../20150208092524im_/http_/www.sziltech.hu/templates/as002027/images/shadow.html);		
+}
+
+#header #headertop
+{
+    width: 1000px;
+    height: 173px;
+}
+
+#header #headertopleft
+{
+	float: left;	
+    width: 670px;
+    height: 50px;
+}
+
+#header #headertopleft #companyname
+{
+	float: left;
+	width: 670px;
+	height: 80px;	/*120*/
+	margin: 0px 0px 0px 0px;
+	text-align: left;
+
+}
+
+#header #headertopleft #companyname a
+{
+	border: none;
+	outline-style: none;
+}
+
+#header #headertopleft .companyname
+{
+	padding: 20px 25px 0px 0px;
+    font-size: 36px;
+    font-weight: normal;
+	border: none;
+	color: #F6F6F6;	
+}
+
+#header #headertopleft .slogan
+{
+    color: #F6F6F6;
+	border: none;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+#header #headertopright
+{
+	float: right;	
+    width: 230px;
+    height: 103px; /*160 - ez volt az;)*/
+	margin: 0px 0px 0px 0px;
+	padding: 70px 50px 0px 50px;	
+	background-image: url(../../../../../../20150208100827im_/http_/www.sziltech.hu/templates/as002027/images/headerrighttop_bg.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	text-align: left;	
+}
+
+#header #headertopright .menu
+{
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: bold;	
+}
+
+#header #headertopright .menu li
+{
+    padding: 0px 0px 5px 0px;
+	list-style: inside;
+	list-style-image: url(../../../../../../20150208111507im_/http_/www.sziltech.hu/templates/as002027/images/mark_orange.png);
+}
+
+#header #headertopright a,
+#header #headertopright li a
+{
+	height: 20px;
+    padding: 0px 0px 0px 0px;	
+	text-decoration: none;
+	border: none;
+	color: #272727;
+	outline-style: none;
+}
+
+#header #headertopright a:hover,
+#header #headertopright li a:hover
+{
+	color: #F09100;
+}
+
+#header #headerbottom 
+{
+    width: 1000px;
+    min-height: 100%;
+}
+
+#header #headerbottom #headerbottomleft
+{
+	float: left;	
+	margin: 50px 0px 0px 0px;
+	text-align: left;
+}
+
+#header #headerbottom #headerbottomright
+{
+	width: 330px;
+	float: right;	
+    min-height: 100%;
+	text-align: justify;
+}
+
+#header #headerbottom #headerbottom_top
+{
+	min-height: 100%;
+	float: left;
+	margin: 50px 0px 0px 0px;
+	padding: 0px 0px 0px 30px;
+}
+
+#header #headerbottom #headerbottom_bottom
+{
+    min-height: 100%;
+	margin: 21px 0px 0px 30px;
+	padding: 20px 20px 20px 20px;	
+	color: #F6F6F6;	
+	background-repeat: repeat;	
+}
+
+#header #headerbottom #header_colright
+{
+	width: 230px;
+	height: 140px;
+	float: right;
+	padding: 50px 50px 0px 50px;	
+	background-image: url(../../../../../../20150208091924im_/http_/www.sziltech.hu/templates/as002027/images/headerrightbtm_bg.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	text-align: justify;
+}
+
+#header #headerbottom #header_colrightempty
+{
+	width: 230px;
+	height: 60px;
+	float: right;
+	padding: 0px 50px 0px 50px;	
+	background-image: url(../../../../../../20150208100333im_/http_/www.sziltech.hu/templates/as002027/images/headerrightbred_bg.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	text-align: center;
+}
+
+#header input
+{
+}
+
+#headercontent
+{
+}
+
+
+#header h1,
+#header h2,
+#header h3
+{
+	height: 28px;
+	font-size: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+/**************************************************************************************/
+/*   Header Navigation
+/**************************************************************************************/
+
+#header #mainmenu
+{
+	float: left;
+	width: 690px;
+	height: 38px;
+	margin: 2px 0px 0px 0px;
+	text-align: left;
+	position: relative;	
+	z-index: 20;	
+}
+
+#header #mainmenu ul.menu
+{
+	float: left;	
+	display: block;
+	margin: 0 auto !important;
+	padding: 0px;
+	text-align: center;
+	list-style-type: none;
+	background: none !important;
+}
+
+#header #mainmenu ul.menu li 
+{  
+	float: left;
+	position: relative; 
+	list-style: none; 
+	padding: 0px; 
+	margin-right: 6px;
+	background: none; 
+}
+
+#header #mainmenu ul.menu  li a 
+{
+	width: 108px; 
+	height: 27px; 
+	margin: 0px 0px 0px 0px;	
+	padding: 5px 0px 0px 0px;
+	display: block; 
+	font-weight: normal;
+	font-size: 13px;
+	color: #F6F6F6;	
+	text-decoration: none;  
+	background-image: url(../../../../../../20150208090226im_/http_/www.sziltech.hu/templates/as002027/images/btnof_mainmenu.png);	
+	background-position: top;
+	background-repeat: no-repeat;
+	border: none;
+	border-style: none;
+	outline-style: none;
+	text-transform: none;
+	position: relative; 
+	z-index: 30
+}
+
+#header #mainmenu ul.menu li.current a,
+#header #mainmenu ul.menu li.active a,
+#header #mainmenu ul.menu li a:hover
+{
+	width: 108px;	
+	font-weight: normal;
+	font-size: 13px;
+	color: #F6F6F6;
+	background-image: url(../../../../../../20150208100847im_/http_/www.sziltech.hu/templates/as002027/images/btnon_mainmenu.png);
+	background-position: left top;
+	background-repeat: no-repeat;
+	border: none;
+	text-transform: none;
+	text-align: center;
+}
+
+#header #mainmenu ul.menu ul 
+{
+	display: none; 
+	margin: 0px 0px 0px 0px !important;
+	padding: 0px 0px 0px 0px !important; 
+	top: 35px; 
+	position: absolute !important;
+	z-index: 40 !important; 
+}
+
+#header #mainmenu ul.menu > ul > li  
+{
+	float: none !important; 
+	position: relative !important; 	
+	z-index: 50 !important;
+}
+
+#header #mainmenu ul.menu ul li,
+#header #mainmenu ul.menu .actives ul li  
+{
+	height: 20px;
+	float: none !important;
+	position: relative !important; 	
+	margin: 2px 0px 0px 0px !important;	
+	padding: 9px 0px 7px 0px !important; 
+	z-index: 30;	
+	display: block; 
+	text-align: center;		
+	background-position: left top;
+	background-repeat: repeat;
+}
+
+#header #mainmenu ul.menu ul li a 
+{
+	text-decoration: none;
+}
+
+#header #mainmenu ul.menu ul li.current a,
+#header #mainmenu ul.menu ul li.active a,
+#header #mainmenu ul.menu ul li a
+{
+	margin: 0px 0px 0px 0px !important;	
+	padding: 0px 0px 0px 0px !important;
+	background-image: none !important;;
+}
+
+#header #mainmenu ul.menu ul li.current a:hover,
+#header #mainmenu ul.menu ul li.active a:hover,
+#header #mainmenu ul.menu ul li.actives a:hover,
+#header #mainmenu ul.menu ul li a:hover
+{
+	color: #000000;
+}
+
+#header #mainmenu ul.menu ul ul 
+{
+	width: 160px;  
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 6px !important;
+	display: none; 
+	top: -2px; 
+	left: 100%; 
+	position: absolute; 
+	background-position: left top;
+	background-repeat: repeat;	
+	z-index:20; 
+}
+
+#header #mainmenu ul.menu ul ul li
+{ 	
+	margin: 0px 0px 0px 0px !important;	
+	padding: 5px 0px 10px 0px !important;	
+	text-align: center;		
+	display: block; 
+	position: relative; 
+	z-index: 30; 
+}
+
+#header #mainmenu ul.menu ul ul li a
+{
+	text-decoration: none;
+}
+
+#header #submenu
+{
+	width: 670px;
+	height: 32px;
+	float: left;
+	margin: 18px 0px 0px 0px;
+	padding: 10px 0px 0px 10px;
+}
+
+#header #submenu #home a
+{
+	float: left;
+	width: 29px;
+	height: 19px;
+	background: url('../../../../../../20150208113432im_/http_/www.sziltech.hu/templates/as002027/images/btnof_home.png');
+	background-repeat: no-repeat;
+	border: none;
+}
+
+#header #submenu #home a:hover
+{
+	float: left;	
+	width: 29px;
+	height: 19px;
+	background: url('../../../../../../20150208103544im_/http_/www.sziltech.hu/templates/as002027/images/btnon_home.png');
+	border-style: none;	
+	background-repeat: no-repeat;		
+}
+
+#header #submenu #contact a
+{
+	float: left;
+	width: 29px;
+	height: 19px;
+	margin: 0px 1px 0px 1px;
+	background: url('../../../../../../20150208091311im_/http_/www.sziltech.hu/templates/as002027/images/btnof_contact.png');
+	background-repeat: no-repeat;
+	border: none;					
+}
+
+#header #submenu #contact a:hover
+{
+	float: left;
+	width: 29px;
+	height: 19px;
+	margin: 0px 1px 0px 1px;
+	background: url('../../../../../../20150208110046im_/http_/www.sziltech.hu/templates/as002027/images/btnon_contact.png');	
+	background-repeat: no-repeat;	
+	border-style: none;		
+}
+
+#header #submenu #sitemap a
+{
+	float: left;
+	width: 29px;
+	height: 19px;
+	background: url('../../../../../../20150208091918im_/http_/www.sziltech.hu/templates/as002027/images/btnof_map.png');			
+	background-repeat: no-repeat;
+	border: none;		
+}
+
+#header #submenu #sitemap a:hover
+{
+	float: left;
+	width: 29px;
+	height: 19px;
+	background: url('../../../../../../20150208111156im_/http_/www.sziltech.hu/templates/as002027/images/btnon_map.png');	
+	background-repeat: no-repeat;	
+	border-style: none;		
+}
+
+#header #submenu #user_nev
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: normal;
+	color:  #FFFFFF;
+	text-align: right;
+}
+
+/**************************************************************************************/
+/*   Content
+/**************************************************************************************/
+/**************************************************************************************/
+
+#content
+{
+	clear: both;
+	width: 975px;
+	margin: 0px 25px 0px 0px;
+	text-align: left;
+}
+
+/**************************************************************************************/
+/*   Column Left
+/**************************************************************************************/
+
+/**************************************************************************************/
+/*   Column Main 
+/**************************************************************************************/
+#colmain
+{
+	float: left;
+	padding: 20px 0px 20px 0px;
+	margin: 0px 0px 5px 0px;
+	text-align: justify;
+}
+
+#colmain h1, 
+#colmain h2, 
+#colmain h3,
+#colmain .customfull h1,
+#colmain .customfull h2,
+#colmain .customfull h3,
+#colmain h1 a,
+#colmain h2 a,
+#colmain h3 a
+{
+	clear: both;
+	width: inherit !important;
+	font-size: 15px;	
+	font-weight: bold;
+	margin: 0px 0px 0px 0px;
+	padding: 15px 0px 0px 0px;
+	text-transform: uppercase;
+	border: none;
+}
+
+#colmain h4,
+#colmain h5,
+#colmain h4 a,
+#colmain h5 a
+{
+	clear: both;
+	margin: 15px 0px 10px 0px;
+	padding: 0px 0px 5px 0px;
+	color: #6699FF;
+	font-size: 15px;	
+	font-weight: normal;
+}
+
+#colmain p
+{
+	font-weight: normal;
+	text-align: justify;
+	margin: 20px 0px 0px 0px;
+}
+
+#colmain ul
+{
+	float: left;
+	width: 100%;
+	text-align: left;
+	margin: 10px 10px 10px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+#colmain li 
+{
+	padding: 3px;
+	list-style: inside;
+	list-style-image: url(../../../../../../20150208103617im_/http_/www.sziltech.hu/templates/as002027/images/mark_blue.png);
+}
+
+#colmain li a
+{
+	color: #272727;
+	border-bottom: 1px;
+	border-style: dotted;	
+}
+
+#colmain li a:hover
+{
+	color: #6699FF;
+	border: none;	
+}
+
+#colmain input,
+#colmain select
+{
+	width: 215px;
+	margin: 0px 0px 0px 0px;
+	padding: 1px 3px 2px 3px;
+	font-size: 12px;
+	color: #272727;
+	border: 1px;
+	border-color: #DDDDDD;
+	border-style: solid;
+	vertical-align: bottom;
+	background-image: url(../../../../../../20150208091921im_/http_/www.sziltech.hu/templates/as002027/images/input_bg.png);
+	background-repeat: repeat-x;
+}
+
+#colmain textarea
+{
+	background-image: url(../../../../../../20150208091921im_/http_/www.sziltech.hu/templates/as002027/images/input_bg.png);
+	background-repeat: repeat-x;
+}
+
+#colmain select
+{
+	width: 223px;
+}
+
+#colmain input[type="checkbox"],
+#colmain input[type="radio"]
+{
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 3px;
+	margin-right: 5px;
+	border: none;
+	background-color: #FFFFFF;
+}
+
+#colmain label
+{
+	float: left;
+	width: 200px;
+}
+
+#colmain #article img
+{
+	margin: 0px 10px 10px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+#colmain .custombox
+{
+	clear: both;
+	width: inherit;
+	height: 100%;
+}
+
+#colmain .custombox_bg
+{
+	background-color: #F6F6F6;
+}
+
+#colmain .custombox h1, 
+#colmain .custombox h2, 
+#colmain .custombox h3
+{
+	height: 24px;
+    text-align: left;
+	margin: 0px 0px 1px 0px;
+	padding: 7px 0px 0px 20px;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-position: left top;
+	background-repeat: repeat-x;
+	background-color: #FFFFFF;
+	color: #F6F6F6;		
+}
+
+#colmain .custombox_flat h1, 
+#colmain .custombox_flat h2, 
+#colmain .custombox_flat h3
+{
+    text-align: left;
+	margin: 0px 0px 1px 0px;
+	padding: 15px 0px 0px 20px;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#colmain .custombox p,
+#colmain .custombox_flat p
+{
+	margin: 0px;
+	padding: 20px;	
+}
+
+#colmain .custombox .readmore
+{
+	margin: 0px 20px 10px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+#colmain .custombox button, 
+#colmain .custombox .button
+{
+	margin: 10px 0px 5px 0px;
+	padding: 5px 0px 0px 0px;
+
+}
+
+#colmain .customfull
+{
+	clear: both;
+	width: 100%;
+	min-height: 0px;
+	margin: 0px;
+	padding: 0px;	
+	background: none;
+	background-image: none;
+}
+
+#colmain .custombox p img,
+#colmain .custombox_flat p img,
+#colmain .customfull p img
+{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+#colmain button, 
+#colmain .button
+{
+	clear: both;
+	margin: 25px 0px 20px 0px;
+	padding: 0px 0px 1px 0px;
+    width: 200px;
+    height: 25px;
+    font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+	background-repeat: no-repeat;
+	border: none;
+	color: #F6F6F6;
+}
+
+#colmain .button a
+{
+	position: absolute;
+	padding: 0px 0px 0px 0px;
+}
+
+#colmain button:hover, 
+#colmain .button:hover
+{
+	cursor: pointer;
+	background-image: url(../../../../../../20150208093403im_/http_/www.sziltech.hu/templates/as002027/images/btnon_colmain.png);
+	background-repeat: no-repeat;
+	border: none;
+	color: #272727;	
+}
+
+#colmain #adsense
+{
+	clear: both;
+	float: left;
+	margin: 0px 0px 0px 0px;
+}
+
+/**************************************************************************************/
+/*   Column Right 
+/**************************************************************************************/
+
+#colright
+{
+	float: right;
+	width: 275px;
+	padding: 0px 0px 15px 40px;
+	margin: 20px 0px 20px 0px;
+	text-align: left;
+}
+
+#colright h1, 
+#colright h2, 
+#colright h3
+{
+	height: 24px;
+    text-align: left;
+	margin: 0px 0px 1px 0px;
+	padding: 7px 0px 0px 20px;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-position: left top;
+	background-repeat: repeat-x;
+	background-color: #FFFFFF;
+	color: #F6F6F6;		
+}
+
+#colright h4,
+#colright .bannerheader
+{
+	height: 25px;
+	margin: 10px 0px 10px 0px;
+	font-weight: bold;
+	font-size: 13px;
+	vertical-align: top;
+}
+
+#colright p 
+{
+	margin: 0px 0px 0px 0px;
+	font-weight: normal;
+	text-align: justify;
+}
+
+
+#colright ul 
+{
+    margin: 10px 10px 10px 10px;
+}
+
+#colright li  
+{
+    padding: 3px;
+	list-style: inside;
+	list-style-image: url(../../../../../../20150208103617im_/http_/www.sziltech.hu/templates/as002027/images/mark_blue.png);
+}
+
+#colright a,
+#colright li a
+{
+	text-decoration: none;
+    font-weight: normal;
+	border: none;
+	color: #272727;
+}
+
+#colright a:hover
+{
+	color: #F09100;
+	border: none;
+    cursor: pointer;
+}
+
+#colright form
+{
+	padding: 0px 0px 0px 0px;
+}
+
+#colright input
+{
+	width: 225px;
+	margin: 0px 0px 0px 0px;
+}
+	
+#colright input[type="checkbox"],
+#colright input[type="radio"]
+{
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin: 2px 0px 0px 5px;	
+	border: none;
+}
+
+#colright button, 
+#colright .button
+{
+	clear: both;
+	float: right;
+    width: 100px;
+    height: 25px;
+	margin: 10px 0px 0px 20px;
+	color: #F6F6F6;
+	background-repeat: no-repeat;
+	border: none;
+	font-weight: bold;
+	outline-style: none;
+}
+
+#colright button:hover, 
+#colright .button:hover
+{
+	cursor: pointer;
+	background-image: url(../../../../../../20150208091819im_/http_/www.sziltech.hu/templates/as002027/images/btnon_right.png);
+	background-repeat: no-repeat;
+	border: none;
+	color: #272727;
+	border: none;
+}
+
+#colright .colrightcustom
+{
+}
+
+/**************************************************************************************/
+/**************************************************************************************/
+/*   Footer
+/**************************************************************************************/
+/**************************************************************************************/
+
+#footer
+{
+	width: 100%;
+	margin-top: 20px;
+	color: #F6F6F6;	
+}
+
+#footer #footerbg
+{
+	width: 1000px;
+	background-image: url(../../../../../../20150208105303im_/http_/www.sziltech.hu/templates/as002027/images/bottom_bg.png);	
+	background-position: top;	
+	background-repeat: repeat-x;
+}
+
+#footer #footercontent
+{
+	width: 1000px;
+	min-height: 30px;
+	margin: 0px auto 0px auto;
+	padding: 0px 0px 20px 0px;
+}
+
+#footer h1, 
+#footer h2, 
+#footer h3
+{
+	width: 100%;
+	height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 5px 0px;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+#footer p
+{
+	color: #F6F6F6;	
+}
+
+#footer a
+{
+	text-decoration: none;
+    font-weight: normal;
+	color: #F6F6F6;	
+	border: none;
+}
+
+#footer a:hover
+{
+	color: #999999;
+	border: none;
+	cursor: pointer;
+}
+
+#footer ul 
+{
+	list-style: none;
+	text-align: left;
+}
+
+#footer li
+{
+	padding: 3px 20px 3px 0px;
+	list-style: inside;
+	list-style-image: url(../../../../../../20150208092558im_/http_/www.sziltech.hu/templates/as002027/images/mark_grey.png);		
+}
+
+#footer #footerleft
+{
+	float: left;	
+    width: 670px;
+}
+
+#footer #social
+{
+	float: right;
+	margin: 18px 0px 0px 0px;	
+}
+
+#footer #social p img
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#footer #footermenu
+{
+	width: 100%;
+	margin: 30px 0px 0px 0px;
+	text-align: left;
+	text-transform: uppercase;	
+}
+
+#footer #footerright
+{
+	float: right;	
+    width: 230px;
+    height: 60px;
+	margin: -25px 0px 0px 0px;
+	padding: 3px 50px 0px 50px;	
+	background-image: url(../../../../../../20150208101727im_/http_/www.sziltech.hu/templates/as002027/images/footerright_bg.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	text-align: left;
+}
+
+#footer #search
+{
+    margin: 30px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+	text-align: left;
+	overflow: hidden;
+}
+
+#footer #search input
+{
+	background-image: url(../../../../../../20150208105221im_/http_/www.sziltech.hu/templates/as002027/images/search.png);
+	background-position: left;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	border-color: #F6F6F6;
+	color: #F6F6F6;
+}
+
+#footer #footertrademark
+{
+	clear: both;
+	padding: 15px 0px 0px 10px;
+	text-align: left;
+	font-weight: normal;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+#footer #footertrademark #trade
+{
+	margin: 0px 0px 0px 0px;
+	letter-spacing: 1px;
+}
+
+/**************************************************************************************/
+/**************************************************************************************/
+/*   General IDs and Classes
+/**************************************************************************************/
+/**************************************************************************************/
+
+#general
+{
+	width: 1000px;
+	text-align: center;
+	margin: 0px auto 0px auto;
+}
+
+.alignleft
+{
+	text-align: left;
+}
+
+.alignright
+{
+	text-align: right;
+}
+
+.center
+{
+    padding: 10px;
+    text-align: center;    
+}
+
+.left
+{
+	float: left;
+}
+
+.right
+{
+	float: right;
+}
+
+.clear
+{
+	clear: both;
+}
+
+.separator
+{
+	width: 1px;
+	height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_5
+{
+	clear: both;
+	width: 5px;
+	height: 5px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_7
+{
+	clear: both;	
+	width: 7px;
+	height: 7px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_10
+{
+	clear: both;	
+	width: 10px;
+	height: 10px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_15
+{
+	clear: both;	
+	width: 15px;
+	height: 15px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_20
+{
+	clear: both;	
+	width: 20px;
+	height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_20_left
+{
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_30
+{
+	clear: both;	
+	width: 30px;
+	height: 30px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_30_left
+{
+	float: left;	
+	width: 30px;
+	height: 30px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_50
+{
+	clear: both;	
+	width: 50px;
+	height: 50px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;	
+}
+
+.separator_ver
+{
+	margin: 0px 15px 0px 15px;
+	width: 2px;
+	background-image: url(../../../../../../20150208101717im_/http_/www.sziltech.hu/templates/as002027/images/sep_ver.png);
+	background-repeat: repeat-y;
+	background-position: bottom;
+}
+
+.separator_hor
+{
+	padding: 25px 0px 25px 0px;
+	height: 2px;
+	background-image: url(../../../../../../20150208112500im_/http_/www.sziltech.hu/templates/as002027/images/sep_hor.png);
+	background-repeat: repeat-x;
+	background-position: center;
+}
+
+.separatordotted_hor
+{
+	clear: both;	
+	margin: 20px 0px 20px 0px;
+	height: 1px;
+	background-image: url(../../../../../../20150208112500im_/http_/www.sziltech.hu/templates/as002027/images/sep_hor.png);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+
+.separatordotted_ver
+{
+	margin: 0px 0px 0px 0px;
+	width: 1px;
+	background-image: url(../../../../../../20150208101717im_/http_/www.sziltech.hu/templates/as002027/images/sep_ver.png);
+	background-repeat: repeat-y;
+	background-position: bottom;
+}
+
+.button, 
+button
+{
+	outline-style: none;
+}
+
+.button:hover, 
+button:hover
+{
+    cursor: pointer;
+}
+
+.label
+{
+    font-weight: bold;
+}
+
+.asterisk
+{
+	float: left;
+	width: 10px;
+	padding: 0px 0px 0px 3px;
+	color: #F09100;
+}
+
+ul.auroramenu li{
+	/*position:relative;*/
+}
+
+.aurorahide{
+	position:absolute;
+	right:7px;
+	top:6px;
+	display:none;
+	width:10px;
+	height:10px;
+	background-image:url('../../../../../../20150208111313im_/http_/www.sziltech.hu/templates/as002027/images/aurora_minus_icon.gif');
+	background-repeat:no-repeat;
+	background-position:right top;
+	margin:  0px 0px 0px -20px;
+}
+
+.aurorashow{
+	position:absolute;
+	right:7px;
+	top:6px;
+	display:none;
+	width:10px;
+	height:10px;
+	background-image:url('../../../../../../20150208104955im_/http_/www.sziltech.hu/templates/as002027/images/aurora_plus_icon.gif');
+	background-repeat:no-repeat;
+	background-position:right top;
+	margin:  0px 0px 0px -20px;	
+}
+
+#menu1
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width: 150px;
+}
+ 
+#menu1 li
+{
+	margin:  0px 0px 0px 10px;	/*bal menü beljebb*/
+    padding: -10px 0px 5px 0px;
+	list-style: inside;
+	list-style-image: url(../../../../../../20150208111507im_/http_/www.sziltech.hu/templates/as002027/images/mark_orange.png);
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: bold;		
+}
+ 
+#menu1 li a
+{
+	height: 20px;
+    padding: 0px 0px 0px 0px;	
+	text-decoration: none;
+	border: none;
+	color: #272727;
+	outline-style: none;
+}
+ 
+#menu1 li a:hover
+{
+	color: #F09100;
+}
+ 
+#menu1 ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+ 
+#menu1 ul li
+{
+	border: none;
+	border: none !important;
+	background-color: #F9F9F9;
+}
+
+#menu1 ul li a
+{
+	border: none;
+}
+ 
+#menu1 ul li a:hover
+{
+	padding-left: 5px;
+}
+
+div.se_wrapper {
+	margin:  -70px 0px 0px 0px;	
+}
+
+div.se_wrapper2 {
+	/*margin:  -70px 0px 0px 0px;*/	
+}
+
+div.se_left_column {
+	width: 240px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	list-style: inside;	
+	list-style-image: url(../../../../../../20150208111507im_/http_/www.sziltech.hu/templates/as002027/images/mark_orange.png);	
+}
+
+div.se_content {
+	margin:  0px 0px 0px 50px;
+	width:675px;
+	float: left;
+	text-align: right;
+}
+
+div.se_left_column2 {
+	width: 470px;
+	float: left;
+	/*text-align: center;
+	vertical-align: middle;*/
+	/*list-style: inside;	
+	list-style-image: url(/web/20150120201321im_/http://www.sziltech.hu/templates/as002027/images/mark_orange.png);*/
+	/*border-bottom: 1px dotted black;*/
+}
+
+div.se_left_column2 form#member-registration fieldset dd
+{ 
+	float: none; 
+	padding: 5px 0;
+	height: 18px;	
+}
+
+div.se_left_column2 form#member-registration fieldset dd input
+{
+	width: 200px;
+}
+
+div.se_left_column2 form#member-registration fieldset dt
+{
+	padding: 5px 5px 5px 0; 
+	width: 200px;
+	height: 18px;
+}
+
+div.se_left_column2 legend
+{
+	font-weight: bold;
+	padding: 0px 5px 0px 5px;
+	background-color: #FFF;
+}
+
+div.se_content2 {
+	/*margin:  0px 0px 0px 50px;*/
+	width:445px;
+	float: left;
+	/*text-align: center;*/
+	height: 300px;
+	margin-top:		20px;
+	/*margin-bottom:	0px;
+	margin-right:	0px;
+	margin-left:	0px;*/
+	margin-left:	30px;
+	/*border-bottom: 1px dotted black;*/
+}
+
+hr {
+	clear: both;
+	display: block;
+	visibility: hidden;
+} 
+
+div.hr {
+   height: 1px;
+   padding: 1em;
+   border-bottom: 1px dotted black;
+   margin: 1em;
+}
+
+.termek_reszletes_tabla3
+{
+	border: 1px solid; 
+	border-color: #D4D4D4;
+	border-collapse: inherit;
+}
+
+.termek_reszletes_leiras
+{
+	border: 1px solid; 
+	border-color: #D4D4D4;
+	border-collapse: collapse;
+}
+
+.termek_reszletes_menu a 
+{
+	font-family:"Times New Roman", Times, serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	
+	width: 106px; 
+	height: 28px; 
+	margin: 20px 0px 0px 0px;	
+	padding: 10px 0px 0px 0px;
+	display: block; 
+	/*font-weight: normal;*/
+	font-size: 12px;
+	color: #F6F6F6;	
+	text-decoration: none;  
+	background-image: url(../../../../../../20150208111224im_/http_/www.sziltech.hu/templates/as002027/images/termgomboff.png);	
+	background-position: bottom left;
+	background-repeat: no-repeat;
+	border: none;
+	border-style: none;
+	outline-style: none;
+	text-transform: none;
+	position: relative; 
+	line-height: 3em;	
+}
+
+.termek_reszletes_menu  a:hover
+{
+	width: 106px;	
+	font-weight: normal;
+	font-size: 12px;
+	color: #F6F6F6;
+	background-image: url(../../../../../../20150208104528im_/http_/www.sziltech.hu/templates/as002027/images/termgombon.png);
+	background-position: bottom left;
+	background-repeat: no-repeat;
+	border: none;
+	text-transform: none;
+	text-align: center;
+}
+
+.termek_reszletes_menu_off  
+{
+	font-family:"Times New Roman", Times, serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	
+	vertical-align: bottom;
+	padding: 0px 0px 4px 0px;	
+	font-weight: normal;
+	font-size: 12px;
+	color: #F6F6F6;
+	background-image: url(../../../../../../20150208104528im_/http_/www.sziltech.hu/templates/as002027/images/termgombon.png);
+	background-position: bottom left;
+	background-repeat: no-repeat;
+	border: none;
+	text-transform: none;
+	text-align: center;	
+}
+
+.minoseg th
+{
+	border: 1px solid; 
+	border-color: #D4D4D4;
+	border-collapse: collapse;
+}
+
+.minoseg td
+{
+	border: none;
+}
+
+.minoseg  ul, li
+{
+	list-style-type: none;
+}
+
+.minoseg_cl ul, li
+{
+	list-style-type: none;
+}
+
+.justita
+{
+	margin: 0px 0px 0px 50px;
+}
+
+.letolszov td
+{
+	padding: 2px 0px 2px 20px;		
+}
+
+body{
+	font-family:arial
+}
+
+.clear {
+	clear:both
+}
+
+
+#gallery {
+	position:relative;
+	height:400px
+}
+	#gallery a {
+		float:left;
+		position:absolute;
+		text-decoration:none;
+		border-style: none;
+	}
+	
+	#gallery a:hover {
+		text-decoration:none;
+	}
+	
+	#gallery a img {
+		border:none;
+	}
+	
+	#gallery a.show {
+		z-index:325;
+		text-decoration:none;		
+	}
+	
+	#gallery a:hover.show {
+		text-decoration:none;
+	}
+	
+
+	/*#gallery .caption {
+		z-index:600; 
+		background-color:#000; 
+		color:#ffffff; 
+		height:100px; 
+		width:100%; 
+		position:absolute;
+		bottom:0;
+	}
+
+	#gallery .caption .content {
+		margin:5px
+	}
+	
+	#gallery .caption .content h3 {
+		margin:0;
+		padding:0;
+		color:#1DCCEF;
+	}
+	*/
+	
+#tablazat {
+	width: 970px;
+}
+
+#balbox {
+    width: 670px;
+    float: left;
+	overflow: hidden;	
+}
+
+#jobbox {
+    width: 270px;
+	float: left;
+    background: #77b3d5;
+	/*margin-right: 20px;*/
+	margin-left: 30px;	
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;	
+}
+
+#balbox  .szoveg {
+	text-align: justify;
+	/*margin-top: 100px;
+	margin-bottom:100px;
+	margin-right: 10px;
+	margin-left: 20px;*/
+	padding-top: 100px;
+	padding-bottom:100px;
+	padding-right: 10px;
+	padding-left: 20px;	
+}
+
+#kep-sziltech { 
+	/*text-align: justify;*/
+    /*width: 700px;
+    float: left;
+	overflow: hidden;	
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: -20px;
+	margin-left: -20px;*/
+}
+
+#jobbox  .szoveg {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-right: 15px;
+	margin-left: 15px;
+	color: #ffffff;
+}
+
+#balbox_szoveg {
+    width: 310px;
+	height: 70px;
+    float: left;
+	color: #5f7fa7;
+	font-weight: bolder;
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	font-style: italic;
+	margin-left: 20px;	
+}
+
+#balbox_kep {
+    width: 330px;
+    height: 70px;
+	float: left;	
+}
+/*
+     FILE ARCHIVED ON 20:13:21 Jan 20, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:56:47 May 21, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.531
+  exclusion.robots: 0.019
+  exclusion.robots.policy: 0.009
+  esindex: 0.011
+  cdx.remote: 63.659
+  LoadShardBlock: 228.912 (3)
+  PetaboxLoader3.datanode: 78.978 (4)
+  PetaboxLoader3.resolve: 198.1 (2)
+  load_resource: 170.628
+*/

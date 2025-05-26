@@ -1,0 +1,86 @@
+/*******************************************************************************************/
+/*
+/*		ASDE Commercial License
+/*
+/*		Designed by 'AS Designing'
+/*		Web: http://www.asdesigning.com
+/*		Email: info@asdesigning.com
+/*
+/**************************************************************************************/
+
+#slideshow
+{
+	float:left;
+	width: 335px;
+	height: 405px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	position: relative;
+	overflow: hidden;
+}
+
+#fading 
+{
+	width: 335px;
+	height: 405px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	position: relative;
+	overflow: hidden;
+	background: transparent;
+}
+
+#fading img 
+{
+}
+
+#fading li
+{
+	list-style: none;
+}
+
+ul.pagination 
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+ul.pagination li 
+{
+	width: 0px;
+	height: 0px;
+}
+
+ul.pagination li a 
+{
+}
+
+ul.pagination li.current a, 
+ul.pagination li a:hover 
+{
+}
+
+ul.pagination li img 
+{
+}
+/*
+     FILE ARCHIVED ON 22:42:07 Jan 20, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:56:48 May 21, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.44
+  exclusion.robots: 0.015
+  exclusion.robots.policy: 0.007
+  esindex: 0.009
+  cdx.remote: 19.84
+  LoadShardBlock: 66.156 (3)
+  PetaboxLoader3.datanode: 106.82 (4)
+  load_resource: 174.3
+  PetaboxLoader3.resolve: 117.764
+*/

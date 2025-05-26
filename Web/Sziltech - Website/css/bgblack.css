@@ -1,0 +1,99 @@
+/*******************************************************************************************/
+/*		ASDE Commercial License
+/*		Designed by 'AS Designing'
+/*		Web: http://www.asdesigning.com
+/*		Email: info@asdesigning.com
+/*
+/**************************************************************************************/
+
+body
+{
+	/*background-image: url(/web/20150120201621im_/http://www.sziltech.hu/templates/as002027/images/bg1_top.png);*/
+}
+
+#header
+{
+	background-image: url(../../../../../../20150208085632im_/http_/www.sziltech.hu/templates/as002027/images/bg1_header.png);
+}
+
+#header #headerbottom #headerbottom_bottom
+{	
+	background-image: url(../../../../../../20150208090801im_/http_/www.sziltech.hu/templates/as002027/images/bg1.png);	
+}
+
+#header #mainmenu ul.menu ul 
+{
+	background-image: url(../../../../../../20150208112914im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnof_ddmainmenu.png);
+}
+
+#header #mainmenu ul.menu ul li,
+#header #mainmenu ul.menu .actives ul li  
+{
+	background-image: url(../../../../../../20150208102553im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnon_ddmainmenu.png) !important; 
+}
+
+#header #mainmenu ul.menu ul ul 
+{
+	background-image: url(../../../../../../20150208112914im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnof_ddmainmenu.png);
+}
+
+#colmain .custombox h1, 
+#colmain .custombox h2, 
+#colmain .custombox h3
+{
+	background-image: url(../../../../../../20150208091627im_/http_/www.sziltech.hu/templates/as002027/images/bg1_h.png);	
+}
+
+#colmain .readmore a
+{
+	background-image: url(../../../../../../20150208085425im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnof_colmain.png);
+}
+
+#colmain button, 
+#colmain .button
+{
+	background-image: url(../../../../../../20150208085425im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnof_colmain.png);
+}
+
+#colright h1, 
+#colright h2, 
+#colright h3
+{
+	background-image: url(../../../../../../20150208091627im_/http_/www.sziltech.hu/templates/as002027/images/bg1_h.png);	
+}
+
+#colright button, 
+#colright .button
+{
+	background-image: url(../../../../../../20150208113230im_/http_/www.sziltech.hu/templates/as002027/images/bg1_btnof_right.png);
+}
+
+#footer
+{	
+	/*background-image: url(/web/20150120201621im_/http://www.sziltech.hu/templates/as002027/images/bg1.png);*/
+}
+
+#footer #footerbg
+{
+	/*background-image: url(/web/20150120201621im_/http://www.sziltech.hu/templates/as002027/images/bg1_bottom.png);*/
+}
+/*
+     FILE ARCHIVED ON 20:16:21 Jan 20, 2015 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:56:55 May 21, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.47
+  exclusion.robots: 0.017
+  exclusion.robots.policy: 0.007
+  esindex: 0.01
+  cdx.remote: 69.212
+  LoadShardBlock: 142.324 (3)
+  PetaboxLoader3.datanode: 170.317 (4)
+  load_resource: 674.852
+  PetaboxLoader3.resolve: 431.08
+*/

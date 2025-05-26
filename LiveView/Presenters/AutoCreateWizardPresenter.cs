@@ -8,7 +8,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.Database.Interfaces;
+using Mtf.Extensions.Interfaces;
 using Mtf.Permissions.Enums;
 using System;
 using System.Collections.Generic;

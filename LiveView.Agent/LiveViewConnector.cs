@@ -5,10 +5,11 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
+using Mtf.Extensions;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
-using Mtf.Network.Extensions;
+using Mtf.Network.Services;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -77,7 +78,7 @@ namespace LiveView.Agent
                     client = new Client(serverIp, serverPort);
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
-                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
+                    var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                     if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true))
                     {
                         var displayManager = new DisplayManager();
@@ -151,7 +152,7 @@ namespace LiveView.Agent
         {
             if (client != null && client.Socket != null)
             {
-                var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo();
+                var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                 client.Send($"{NetworkCommand.UnregisterAgent}|{hostInfo}|{Dns.GetHostName()}", true);
                 var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();
@@ -191,12 +192,12 @@ namespace LiveView.Agent
 
             foreach (var cameraProcess in cameraProcesses)
             {
-                ProcessUtils.Kill(cameraProcess.Value.Process);
+                Core.Services.ProcessUtils.Kill(cameraProcess.Value.Process);
             }
 
             foreach (var sequenceProcess in sequenceProcesses)
             {
-                ProcessUtils.Kill(sequenceProcess.Value.Process);
+                Core.Services.ProcessUtils.Kill(sequenceProcess.Value.Process);
             }
         }
     }
