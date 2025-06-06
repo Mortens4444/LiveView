@@ -9,19 +9,19 @@ namespace Database.Services
     {
         public static bool Initialize(string connectionStringName)
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if (config.ConnectionStrings.SectionInformation.IsProtected)
-            {
-                config.ConnectionStrings.SectionInformation.UnprotectSection();
-                //config.Save();
-                ConfigurationManager.RefreshSection("connectionStrings");
-            }
-
-            BaseRepository.CommandTimeout = 240;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-            BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
             try
             {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                if (config.ConnectionStrings.SectionInformation.IsProtected)
+                {
+                    config.ConnectionStrings.SectionInformation.UnprotectSection();
+                    //config.Save();
+                    ConfigurationManager.RefreshSection("connectionStrings");
+                }
+
+                BaseRepository.CommandTimeout = 240;
+                BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+                BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
                 BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
                 return BaseRepository.ConnectionString != null;
             }

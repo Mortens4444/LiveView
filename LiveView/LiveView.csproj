@@ -7188,17 +7188,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mtf.Controls" Version="1.1.47" />
-    <PackageReference Include="Mtf.Database" Version="2.0.60" />
-    <PackageReference Include="Mtf.Extensions" Version="1.0.14" />
-    <PackageReference Include="Mtf.HardwareKey" Version="1.0.35" />
-    <PackageReference Include="Mtf.Joystick" Version="2.0.12" />
-    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.8" />
-    <PackageReference Include="Mtf.Network" Version="2.0.10" />
-    <PackageReference Include="Mtf.Permissions" Version="4.0.9" />
-    <PackageReference Include="Mtf.Serial" Version="1.0.20" />
-    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.84" />
-    <PackageReference Include="Mtf.Wmi" Version="1.0.21" />
+    <PackageReference Include="Mtf.Controls" Version="1.1.50" />
+    <PackageReference Include="Mtf.Database" Version="2.0.62" />
+    <PackageReference Include="Mtf.Extensions" Version="1.0.16" />
+    <PackageReference Include="Mtf.HardwareKey" Version="1.0.37" />
+    <PackageReference Include="Mtf.Joystick" Version="2.0.13" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.9" />
+    <PackageReference Include="Mtf.Network" Version="2.0.11" />
+    <PackageReference Include="Mtf.Permissions" Version="4.0.10" />
+    <PackageReference Include="Mtf.Serial" Version="1.0.21" />
+    <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.0.96" />
+    <PackageReference Include="Mtf.Wmi" Version="1.0.23" />
   </ItemGroup>
 
   <ItemGroup>

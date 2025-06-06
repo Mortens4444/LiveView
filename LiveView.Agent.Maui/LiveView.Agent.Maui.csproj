@@ -69,7 +69,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
     <PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.70" />
     <PackageReference Include="Microsoft.Maui.Core" Version="9.0.70" />
-    <PackageReference Include="Mtf.Extensions" Version="1.0.14" />
-    <PackageReference Include="Mtf.Network" Version="2.0.10" />
+    <PackageReference Include="Mtf.Extensions" Version="1.0.16" />
+    <PackageReference Include="Mtf.Network" Version="2.0.11" />
   </ItemGroup>
 </Project>

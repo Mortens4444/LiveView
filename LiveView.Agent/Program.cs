@@ -63,6 +63,7 @@ namespace LiveView.Agent
 
             try
             {
+                Console.WriteLine("Starting VNC server...");
                 vncServer = new VncServer(new ScreenInfoProvider());
                 vncServer.ErrorOccurred += VncServer_ErrorOccurred;
                 vncServer.Start();
@@ -70,6 +71,7 @@ namespace LiveView.Agent
             }
             catch (Exception ex)
             {
+                Console.Error.WriteLine(ex);
                 ErrorBox.Show(ex);
             }
 
@@ -137,6 +139,7 @@ namespace LiveView.Agent
 
         private static void StartVideoCaptureServers()
         {
+            Console.WriteLine("Starting video capture servers...");
             var json = AppConfig.GetString(Core.Constants.StartCameras);
             cancellationTokenSource?.CancelAndDispose();
             cancellationTokenSource = new CancellationTokenSource();
@@ -148,6 +151,7 @@ namespace LiveView.Agent
             {
                 try
                 {
+                    Console.WriteLine($"Starting video capture server ({videoCaptureId})");
                     var videoCapture = Int32.TryParse(videoCaptureId, out var videoCaptureIndex) ?
                         new VideoCapture(videoCaptureIndex) : new VideoCapture(videoCaptureId);
 

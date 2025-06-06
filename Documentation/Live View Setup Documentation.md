@@ -6,7 +6,7 @@
      or  
      `LiveView\LiveView\bin\Release\net462`
 
-2. In the `LiveView\Database` folder, you’ll find the `EncryptedConnectionStringInConfigFile.ps1` (or possibly `.bat`) script, which creates an **encrypted connection string**.  
+2. In the `LiveView\Database` folder, you’ll find the `EncryptedConnectionStringInConfigFile.bat` script, which creates an **encrypted connection string**.  
    You need to insert this string into all `*.config` files — all config files can contain the same connection string.
 
 3. In the `<appSettings>` section of your config, you can define a `StartCameras` key.  

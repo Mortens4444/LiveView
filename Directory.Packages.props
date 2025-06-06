@@ -6,26 +6,26 @@
   -->
 
   <ItemGroup>
-    <PackageVersion Include="Mtf.Controls" Version="1.1.20" />
-    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.77" />
-    <PackageVersion Include="Mtf.Controls.Video.ActiveX" Version="1.0.35" />
-    <PackageVersion Include="Mtf.Controls.Video.Chromium" Version="1.0.6" />
-    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.34" />
-    <PackageVersion Include="Mtf.Controls.Video.Legacy" Version="1.0.6" />
-    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.39" />
-    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.34" />
-    <PackageVersion Include="Mtf.Database" Version="2.0.59" />
-    <PackageVersion Include="Mtf.Extensions" Version="1.0.11" />
-    <PackageVersion Include="Mtf.HardwareKey" Version="1.0.34" />
-    <PackageVersion Include="Mtf.Joystick" Version="2.0.11" />
-    <PackageVersion Include="Mtf.MessageBoxes" Version="6.0.6" />
-    <PackageVersion Include="Mtf.Network" Version="2.0.9" />
+    <PackageVersion Include="Mtf.Controls" Version="1.1.50" />
+    <PackageVersion Include="Mtf.Controls.Video" Version="1.0.82" />
+    <PackageVersion Include="Mtf.Controls.Video.ActiveX" Version="1.0.40" />
+    <PackageVersion Include="Mtf.Controls.Video.Chromium" Version="1.0.13" />
+    <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.39" />
+    <PackageVersion Include="Mtf.Controls.Video.Legacy" Version="1.0.12" />
+    <PackageVersion Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.44" />
+    <PackageVersion Include="Mtf.Controls.Video.VLC" Version="1.0.39" />
+    <PackageVersion Include="Mtf.Database" Version="2.0.62" />
+    <PackageVersion Include="Mtf.Extensions" Version="1.0.16" />
+    <PackageVersion Include="Mtf.HardwareKey" Version="1.0.37" />
+    <PackageVersion Include="Mtf.Joystick" Version="2.0.13" />
+    <PackageVersion Include="Mtf.MessageBoxes" Version="6.0.9" />
+    <PackageVersion Include="Mtf.Network" Version="2.0.11" />
     <PackageVersion Include="Mtf.Network.Interfaces" Version="1.0.8" />
-    <PackageVersion Include="Mtf.Permissions" Version="4.0.8" />
-    <PackageVersion Include="Mtf.Serial" Version="1.0.19" />
+    <PackageVersion Include="Mtf.Permissions" Version="4.0.10" />
+    <PackageVersion Include="Mtf.Serial" Version="1.0.21" />
     <PackageVersion Include="Mtf.Windows.Forms.Extensions" Version="1.0.11" />
-    <PackageVersion Include="Mtf.Windows.Forms.LanguageService" Version="3.0.64" />
-    <PackageVersion Include="Mtf.Wmi" Version="1.0.20" />
+    <PackageVersion Include="Mtf.Windows.Forms.LanguageService" Version="3.0.96" />
+    <PackageVersion Include="Mtf.Wmi" Version="1.0.23" />
 
   </ItemGroup>
 </Project>
