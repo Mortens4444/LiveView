@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -8,8 +9,6 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.Video;
-using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -96,31 +95,18 @@ namespace CameraForms.Forms
 
         private void OpenCvSharp4_Shown(object sender, EventArgs e)
         {
-            var cameraText = camera?.ToString() ?? url;
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(cameraText, "No user is logged in.");
                 return;
             }
 
             var userId = permissionManager.CurrentUser.Tag.Id;
             var text = personalOptionsRepository.GetCameraName(userId, url);
             OsdSetter.SetInfo(this, openCvSharp4VideoWindow, gridCamera, personalOptionsRepository, text, userId);
-            try
+
+            if (permissionManager.HasCameraPermission(camera, openCvSharp4VideoWindow))
             {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
-                {
-                    openCvSharp4VideoWindow.Start(url);
-                }
-                else
-                {
-                    openCvSharp4VideoWindow.OverlayText = $"No permission: {cameraText}";
-                    DebugErrorBox.Show(url, "No permission to view this camera.");
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                openCvSharp4VideoWindow.Start(url);
             }
         }
 

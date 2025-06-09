@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -9,6 +10,7 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Enums;
+using Mtf.Controls.Video.FFmpeg;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
@@ -95,10 +97,8 @@ namespace CameraForms.Forms
 
         private void VlcCameraWindow_Shown(object sender, EventArgs e)
         {
-            var cameraText = camera?.ToString() ?? url;
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(cameraText, "No user is logged in.");
                 return;
             }
 
@@ -106,21 +106,9 @@ namespace CameraForms.Forms
             var text = personalOptionsRepository.GetCameraName(userId, url);
             OsdSetter.SetInfo(this, vlcWindow, gridCamera, personalOptionsRepository, text, userId);
 
-            try
+            if (permissionManager.HasCameraPermission(camera, vlcWindow))
             {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
-                {
-                    vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
-                }
-                else
-                {
-                    vlcWindow.OverlayText = $"No permission: {camera}";
-                    DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
             }
         }
 

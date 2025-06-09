@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageVersion Include="Mtf.Controls" Version="1.1.50" />
     <PackageVersion Include="Mtf.Controls.Video" Version="1.0.82" />
-    <PackageVersion Include="Mtf.Controls.Video.ActiveX" Version="1.0.40" />
+    <PackageVersion Include="Mtf.Controls.Video.ActiveX" Version="1.0.41" />
     <PackageVersion Include="Mtf.Controls.Video.Chromium" Version="1.0.13" />
     <PackageVersion Include="Mtf.Controls.Video.FFmpeg" Version="1.0.39" />
     <PackageVersion Include="Mtf.Controls.Video.Legacy" Version="1.0.12" />

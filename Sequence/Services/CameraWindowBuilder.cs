@@ -52,7 +52,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    result = new AxVideoCameraWindow(permissionManager, serverRepository, cameraRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
+                    result = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };

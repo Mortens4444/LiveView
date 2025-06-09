@@ -1,4 +1,5 @@
-- Grid creation not creating sequence
+- logger is null when started net462 release and start a full screen camera
+- No permission in grid for 118-IP
 
 - what happens, when the app started without user and startup template selected
 - Open more fullscreen windows

@@ -15,6 +15,8 @@ namespace LiveView.Models.Dependencies
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
             IGridCameraRepository gridCameraRepository,
+            ISequenceRepository sequenceRepository,
+            IGridInSequenceRepository gridInSequenceRepository,
             ILogger<AddGrid> logger)
             : base(generalOptionsRepository)
         {
@@ -24,6 +26,8 @@ namespace LiveView.Models.Dependencies
             ServerRepository = serverRepository;
             CameraRepository = cameraRepository;
             GridCameraRepository = gridCameraRepository;
+            SequenceRepository = sequenceRepository;
+            GridInSequenceRepository = gridInSequenceRepository;
             Logger = logger;
         }
 
@@ -38,7 +42,11 @@ namespace LiveView.Models.Dependencies
         public ICameraRepository CameraRepository { get; private set; }
 
         public IGridCameraRepository GridCameraRepository { get; private set; }
-        
+
+        public ISequenceRepository SequenceRepository { get; private set; }
+
+        public IGridInSequenceRepository GridInSequenceRepository { get; private set; }
+
         public ILogger<AddGrid> Logger { get; private set; }
     }
 }

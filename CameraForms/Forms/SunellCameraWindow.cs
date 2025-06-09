@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -11,18 +12,15 @@ using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Sunell.IPR67;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.Controls.Video.OpenCvSharp;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static OpenCvSharp.XImgProc.CvXImgProc;
 
 namespace CameraForms.Forms
 {
@@ -131,9 +129,8 @@ namespace CameraForms.Forms
 
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
                 return;
             }
 

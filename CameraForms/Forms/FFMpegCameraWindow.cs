@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -8,7 +9,6 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -94,10 +94,8 @@ namespace CameraForms.Forms
 
         private void FFMpegCameraWindow_Shown(object sender, EventArgs e)
         {
-            var cameraText = camera?.ToString() ?? url;
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(cameraText, "No user is logged in.");
                 return;
             }
 
@@ -113,21 +111,10 @@ namespace CameraForms.Forms
 
             var text = personalOptionsRepository.GetCameraName(userId, url);
             OsdSetter.SetInfo(this, fFmpegWindow, gridCamera, personalOptionsRepository, text, userId);
-            try
+
+            if (permissionManager.HasCameraPermission(camera, fFmpegWindow))
             {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
-                {
-                    fFmpegWindow.Start(url);
-                }
-                else
-                {
-                    fFmpegWindow.OverlayText = $"No permission: {cameraText}";
-                    DebugErrorBox.Show(cameraText, "No permission to view this camera.");
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                fFmpegWindow.Start(url);
             }
         }
 

@@ -37,7 +37,7 @@ namespace LiveView.Presenters
             {
                 var hash = Hasher.GetFileSha256Hash(LanguageFilePath);
                 generalOptionsRepository.Set(Setting.LanguageFileHash, hash);
-                logger.LogInfo(LanguageManagementPermissions.Update, "Language file modification has accepted.");
+                logger.LogInfo(LanguageManagementPermissions.Update, "Language file modification has been accepted.");
             }
             CloseForm();
         }

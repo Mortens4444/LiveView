@@ -48,6 +48,8 @@ namespace LiveView.Presenters
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
+        private readonly ISequenceRepository sequenceRepository;
+        private readonly IGridInSequenceRepository gridInSequenceRepository;
         private readonly ILogger<AddGrid> logger;
         private readonly DisplayManager displayManager;
         private readonly List<CameraDto> cameras;
@@ -60,6 +62,8 @@ namespace LiveView.Presenters
             displayManager = dependencies.DisplayManager;
             gridRepository = dependencies.GridRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
+            sequenceRepository = dependencies.SequenceRepository;
+            gridInSequenceRepository = dependencies.GridInSequenceRepository;
             logger = dependencies.Logger;
             servers = dependencies.ServerRepository.SelectAll();
             cameras = dependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
@@ -704,6 +708,22 @@ namespace LiveView.Presenters
                     }
                     gridCameraRepository.Insert(gridCamera);
                 }
+            }
+
+            if (view.ChkCreateSequence.Checked)
+            {
+                var sequenceId = sequenceRepository.InsertAndReturnId<long>(new Database.Models.Sequence
+                {
+                    Name = view.TbGridName.Text,
+                    Active = true
+                });
+                gridInSequenceRepository.Insert(new GridInSequence
+                {
+                    GridId = gridId,
+                    SequenceId = sequenceId,
+                    Number = 1,
+                    TimeToShow = 10
+                });
             }
 
             logger.LogInfo(GridManagementPermissions.Create, "Grid '{0}' has been saved.", view.TbGridName.Text);

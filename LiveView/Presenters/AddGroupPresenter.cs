@@ -20,6 +20,7 @@ namespace LiveView.Presenters
     public class AddGroupPresenter : BasePresenter
     {
         private const string Cameras = "Cameras";
+        private const string Cameras2 = "Cameras2";
         private const int CameraIconIndex = 1;
         private const int OperationIconIndex = 0;
 
@@ -126,7 +127,7 @@ namespace LiveView.Presenters
                 {
                     Tag = camera,
                     ToolTipText = camera.Guid,
-                    Group = view.LvOperationsAndCameras.Groups[Cameras]
+                    Group = view.LvOperationsAndCameras.Groups[Cameras2]
                 });
         }
 

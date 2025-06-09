@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -16,7 +17,6 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -148,9 +148,8 @@ namespace CameraForms.Forms
 
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
                 return;
             }
 

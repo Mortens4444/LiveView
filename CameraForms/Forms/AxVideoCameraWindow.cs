@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -16,7 +17,6 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -27,20 +27,15 @@ namespace CameraForms.Forms
         private short cameraMoveValue;
 
         private readonly DisplayDto display;
-        private readonly long cameraId;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
-        private readonly ICameraRepository cameraRepository;
-        private readonly IServerRepository serverRepository;
-        private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IGeneralOptionsRepository generalOptionsRepository;
 
         private readonly Database.Models.Server server;
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private GridCamera gridCamera;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager, IServerRepository serverRepository, ICameraRepository cameraRepository,
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
             Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -52,13 +47,14 @@ namespace CameraForms.Forms
             this.server = server;
             this.camera = camera;
             this.permissionManager = permissionManager;
-            this.cameraRepository = cameraRepository;
-            this.serverRepository = serverRepository;
-            this.personalOptionsRepository = personalOptionsRepository;
-            this.generalOptionsRepository = generalOptionsRepository;
-            
-            cameraId = camera?.Id ?? 0;
-            Initialize(permissionManager?.CurrentUser?.Tag.Id ?? 0, cameraId, false);
+
+            var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
+            var text = personalOptionsRepository.GetCameraName(userId, server, camera);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
+
+            cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+
+            Initialize(userId, camera.Id, false);
             this.gridCamera = gridCamera;
 
             if (gridCamera?.Frame ?? false)
@@ -73,6 +69,14 @@ namespace CameraForms.Forms
             {
                 throw new ArgumentNullException(nameof(cameraLaunchContext));
             }
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
+            server = serverRepository.Select(camera.ServerId);
+            if (server == null)
+            {
+                DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
+            }
 
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -80,14 +84,14 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
-            generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
-            cameraId = cameraLaunchContext.CameraId;
-            Initialize(cameraLaunchContext.UserId, cameraId, true);
+            var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            var text = personalOptionsRepository.GetCameraName(cameraLaunchContext.UserId, server, camera);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, cameraLaunchContext.UserId);
 
-            camera = cameraRepository.Select(cameraId);
+            var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
+            cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+
+            Initialize(cameraLaunchContext.UserId, camera.Id, true);
             display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
@@ -96,8 +100,6 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, long cameraId, bool fullScreen)
         {
-            cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
-
             if (fullScreen)
             {
                 kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
@@ -139,46 +141,11 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
-            if (camera == null)
+            if (permissionManager.HasCameraAndUser(camera)
+                && permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
             {
-                DebugErrorBox.Show("Camera is null", $"Cannot find camera with Id: {cameraId}");
-            }
-            if (permissionManager.CurrentUser == null)
-            {
-                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
-                return;
-            }
-
-            var userId = permissionManager.CurrentUser.Tag.Id;
-
-            //axVideoPlayerWindow.AxVideoPicture.Visible = false;
-            //axVideoPlayerWindow.AxVideoPlayer.ConnectFailed += AxVideoPlayer_ConnectionFailed;
-            //axVideoPlayerWindow.AxVideoPlayer.Disconnected += AxVideoPlayer_Disconnected;
-
-            var server = serverRepository.Select(camera.ServerId);
-            if (server == null)
-            {
-                DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
-            }
-
-            var text = personalOptionsRepository.GetCameraName(userId, server, camera);
-            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
-            try
-            {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
-                {
-                    //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-                    axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
-                }
-                else
-                {
-                    axVideoPlayerWindow.OverlayText = $"No permission: {camera}";
-                    DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
+                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
             }
         }
 
@@ -191,18 +158,6 @@ namespace CameraForms.Forms
         //    axVideoPlayerWindow.AxVideoPlayer.WaitForConnect(waitTimeInMs);
         //    axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
         //    //axVideoPlayerWindow.AxVideoPicture.Connect(server.IpAddress, camera.Guid, server.Username, server.Password);
-        //}
-
-        //private void AxVideoPlayer_Disconnected(object sender, EventArgs e)
-        //{
-        //    axVideoPlayerWindow.AxVideoPlayer.Stop();
-        //    //Start();
-        //}
-
-        //private void AxVideoPlayer_ConnectionFailed(object sender, AxVIDEOCONTROL4Lib._DVideoPictureEvents_onConnectFailedEvent e)
-        //{
-        //    axVideoPlayerWindow.AxVideoPlayer.Stop();
-        //    //Start();
         //}
 
         private void AxVideoCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

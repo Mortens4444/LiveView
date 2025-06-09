@@ -36,6 +36,8 @@ namespace LiveView.Interfaces
 
         CheckBox ChkConnectToCamera { get; }
 
+        CheckBox ChkCreateSequence { get; }
+
         bool IsVideoConnected { get; }
 
         AxVideoPlayerWindow AxVideoPlayerWindow { get; }

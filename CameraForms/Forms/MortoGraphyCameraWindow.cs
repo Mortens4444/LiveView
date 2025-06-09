@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -8,7 +9,6 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -117,10 +117,8 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
-            var cameraText = camera?.ToString() ?? url;
-            if (permissionManager.CurrentUser == null)
+            if (!permissionManager.HasCameraAndUser(camera))
             {
-                DebugErrorBox.Show(cameraText, "No user is logged in.");
                 return;
             }
 
@@ -136,21 +134,9 @@ namespace CameraForms.Forms
                 var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoSourceNameInfo[0], videoSourceNameInfo[1]);
                 url = $"{videoSourceInfo.Item1.ServerIp}:{videoSourceInfo.Item2.Port}";
             }
-            try
+            if (permissionManager.HasCameraPermission(camera, mortoGraphyWindow))
             {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
-                {
-                    mortoGraphyWindow.Start(url);
-                }
-                else
-                {
-                    mortoGraphyWindow.OverlayText = $"No permission: {url}";
-                    DebugErrorBox.Show(url, "No permission to view this camera.");
-                }
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                mortoGraphyWindow.Start(url);
             }
         }
 

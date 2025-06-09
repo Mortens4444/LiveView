@@ -43,6 +43,8 @@ namespace LiveView.Forms
 
         public Panel PMiniDesign => pMiniDesign;
 
+        public CheckBox ChkCreateSequence => chkCreateSequence;
+
         public CheckBox ChkConnectToCamera => chkConnectToCamera;
 
         public bool IsVideoConnected => axVideoPlayerWindow.AxVideoPicture.IsConnected();
