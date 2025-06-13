@@ -200,6 +200,7 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.5" />
     <PackageReference Include="Mtf.Extensions" Version="1.0.16" />
     <PackageReference Include="Mtf.Database" Version="2.0.62" />

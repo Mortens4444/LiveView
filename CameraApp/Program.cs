@@ -77,7 +77,7 @@ namespace CameraApp
             }
             catch (Exception ex)
             {
-                logger.LogException(ex, "CameraApp start error.");
+                logger?.LogException(ex, "CameraApp start error.");
                 ErrorBox.Show(ex);
             }
         }
