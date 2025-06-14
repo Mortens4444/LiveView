@@ -1,4 +1,5 @@
 ﻿using Database.Services;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Logging;
 using LiveView.Forms;
@@ -58,6 +59,7 @@ namespace LiveView.Services
             services.AddTransient<MapCreatorPresenterDependencies>();
             services.AddTransient<MotionPopupPresenterDependencies>();
             services.AddTransient<MapLoaderDependencies>();
+            services.AddTransient<PermissionSetterDependencies>();
             services.AddTransient<PersonalOptionsPresenterDependencies>();
             services.AddTransient<ProfilePresenterDependencies>();
             services.AddTransient<SearchCameraUrlDependencies>();

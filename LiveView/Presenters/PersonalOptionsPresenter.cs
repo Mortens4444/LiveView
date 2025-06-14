@@ -24,11 +24,13 @@ namespace LiveView.Presenters
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ILogger<PersonalOptionsForm> logger;
         private readonly PermissionManager<Database.Models.User> permissionManager;
+        private readonly long userId;
 
         public PersonalOptionsPresenter(PersonalOptionsPresenterDependencies dependencies)
             : base(dependencies)
         {
             permissionManager = dependencies.PermissionManager;
+            userId = permissionManager.CurrentUser.Tag.Id;
             personalOptionsRepository = dependencies.PersonalOptionsRepository;
             logger = dependencies.Logger;
         }
@@ -41,16 +43,16 @@ namespace LiveView.Presenters
 
         public void SaveSettings()
         {
-            personalOptionsRepository.Set(Setting.Language, permissionManager.CurrentUser.Tag.Id, view.CbLanguages.SelectedIndex);
-            personalOptionsRepository.Set(Setting.UseCustomControlColors, permissionManager.CurrentUser.Tag.Id, view.ChkUseCustomColors.Checked);
-            personalOptionsRepository.Set(Setting.VideoServerIdentifierDisplayName, permissionManager.CurrentUser.Tag.Id, view.RbDisplayedName.Checked);
-            personalOptionsRepository.Set(Setting.VideoServerIdentifierIpAddress, permissionManager.CurrentUser.Tag.Id, view.RbIpAddress.Checked);
-            personalOptionsRepository.Set(Setting.VideoServerIdentifierNone, permissionManager.CurrentUser.Tag.Id, view.RbNone.Checked);
-            personalOptionsRepository.Set(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, view.LblTest.Font.FontFamily.Name);
-            personalOptionsRepository.Set(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, (int)view.NudLargeFontSize.Value);
-            personalOptionsRepository.Set(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, (int)view.NudSmallFontSize.Value);
-            personalOptionsRepository.Set(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, view.PbFontColor.BackColor.ToArgb());
-            personalOptionsRepository.Set(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, view.PbFontShadowColor.BackColor.ToArgb());
+            personalOptionsRepository.Set(Setting.Language, userId, view.CbLanguages.SelectedIndex);
+            personalOptionsRepository.Set(Setting.UseCustomControlColors, userId, view.ChkUseCustomColors.Checked);
+            personalOptionsRepository.Set(Setting.VideoServerIdentifierDisplayName, userId, view.RbDisplayedName.Checked);
+            personalOptionsRepository.Set(Setting.VideoServerIdentifierIpAddress, userId, view.RbIpAddress.Checked);
+            personalOptionsRepository.Set(Setting.VideoServerIdentifierNone, userId, view.RbNone.Checked);
+            personalOptionsRepository.Set(Setting.CameraFont, userId, view.LblTest.Font.FontFamily.Name);
+            personalOptionsRepository.Set(Setting.CameraLargeFontSize, userId, (int)view.NudLargeFontSize.Value);
+            personalOptionsRepository.Set(Setting.CameraSmallFontSize, userId, (int)view.NudSmallFontSize.Value);
+            personalOptionsRepository.Set(Setting.CameraFontColor, userId, view.PbFontColor.BackColor.ToArgb());
+            personalOptionsRepository.Set(Setting.CameraFontShadowColor, userId, view.PbFontShadowColor.BackColor.ToArgb());
 
             logger.LogInfo(SettingsManagementPermissions.UpdatePersonal, "Personal settings has been changed.");
         }
@@ -67,20 +69,20 @@ namespace LiveView.Presenters
 #endif
 
             view.AddItems(view.CbLanguages, languages);
-            int selectedLanguage = personalOptionsRepository.Get(Setting.Language, permissionManager.CurrentUser.Tag.Id, Constants.HungarianLanguageIndex);
+            int selectedLanguage = personalOptionsRepository.Get(Setting.Language, userId, Constants.HungarianLanguageIndex);
             view.SelectByIndex(view.CbLanguages, selectedLanguage);
             
-            view.ChkUseCustomColors.Checked = personalOptionsRepository.Get(Setting.UseCustomControlColors, permissionManager.CurrentUser.Tag.Id, false);
+            view.ChkUseCustomColors.Checked = personalOptionsRepository.Get(Setting.UseCustomControlColors, userId, false);
 
-            view.RbDisplayedName.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierDisplayName, permissionManager.CurrentUser.Tag.Id, true);
-            view.RbIpAddress.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierIpAddress, permissionManager.CurrentUser.Tag.Id, false);
-            view.RbNone.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierNone, permissionManager.CurrentUser.Tag.Id, false);
+            view.RbDisplayedName.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierDisplayName, userId, true);
+            view.RbIpAddress.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierIpAddress, userId, false);
+            view.RbNone.Checked = personalOptionsRepository.Get(Setting.VideoServerIdentifierNone, userId, false);
 
-            view.LblTest.Font = new Font(personalOptionsRepository.Get(Setting.CameraFont, permissionManager.CurrentUser.Tag.Id, "Arial"), view.LblTest.Font.SizeInPoints);
-            view.NudLargeFontSize.Value = personalOptionsRepository.Get(Setting.CameraLargeFontSize, permissionManager.CurrentUser.Tag.Id, 30);
-            view.NudSmallFontSize.Value = personalOptionsRepository.Get(Setting.CameraSmallFontSize, permissionManager.CurrentUser.Tag.Id, 15);
-            view.PbFontColor.BackColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, permissionManager.CurrentUser.Tag.Id, Color.White.ToArgb()));
-            view.PbFontShadowColor.BackColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, permissionManager.CurrentUser.Tag.Id, Color.Black.ToArgb()));
+            view.LblTest.Font = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), view.LblTest.Font.SizeInPoints);
+            view.NudLargeFontSize.Value = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
+            view.NudSmallFontSize.Value = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
+            view.PbFontColor.BackColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
+            view.PbFontShadowColor.BackColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
         }
 
         public void ChangeLanguage()
