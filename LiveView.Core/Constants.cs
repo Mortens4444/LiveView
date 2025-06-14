@@ -8,6 +8,7 @@
 
         // Configuration values
 
+        public const string TopMost = "TopMost";
         public const string StartCameras = "StartCameras";
         public const string LiveViewServerIpAddress = "LiveView.Server.IpAddress";
         public const string LiveViewServerListenerPort = "LiveView.Server.ListenerPort";

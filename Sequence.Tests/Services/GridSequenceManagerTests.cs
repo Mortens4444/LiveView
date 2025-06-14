@@ -27,6 +27,10 @@ namespace Sequence.Tests.Services
         private Mock<ICameraRepository> cameraRepositoryMock;
         private Mock<IGridCameraRepository> gridCameraRepositoryMock;
         private Mock<IVideoSourceRepository> videoSourceRepositoryMock;
+        private Mock<ICameraRightRepository> cameraRightRepositoryMock;
+        private Mock<IRightRepository> rightRepositoryMock;
+        private Mock<IOperationRepository> operationRepositoryMock;
+        private Mock<IUsersInGroupsRepository> usersInGroupsRepositoryMock;
 
         private GridSequenceManager manager;
 
@@ -39,6 +43,11 @@ namespace Sequence.Tests.Services
             gridRepositoryMock = new Mock<IGridRepository>();
             serverRepositoryMock = new Mock<IServerRepository>();
             cameraRepositoryMock = new Mock<ICameraRepository>();
+            cameraRightRepositoryMock = new Mock<ICameraRightRepository>();
+            rightRepositoryMock = new Mock<IRightRepository>();
+            operationRepositoryMock = new Mock<IOperationRepository>();
+            usersInGroupsRepositoryMock = new Mock<IUsersInGroupsRepository>();
+
             gridCameraRepositoryMock = new Mock<IGridCameraRepository>();
             videoSourceRepositoryMock = new Mock<IVideoSourceRepository>();
 
@@ -296,6 +305,10 @@ namespace Sequence.Tests.Services
                     videoSourceRepositoryMock.Object,
                     serverRepositoryMock.Object,
                     cameraRepositoryMock.Object,
+                    cameraRightRepositoryMock.Object,
+                    rightRepositoryMock.Object,
+                    operationRepositoryMock.Object,
+                    usersInGroupsRepositoryMock.Object,
                     new Mock<ICameraFunctionRepository>().Object,
                     gridCameraRepositoryMock.Object,
                     new Mock<IPersonalOptionsRepository>().Object,

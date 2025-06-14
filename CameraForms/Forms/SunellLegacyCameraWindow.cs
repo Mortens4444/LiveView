@@ -82,6 +82,19 @@ namespace CameraForms.Forms
 
         private void Initialize(long userId, Camera camera, DisplayDto display)
         {
+            if (camera.IpAddress == null)
+            {
+                throw new MissingFieldException(nameof(Camera), nameof(camera.IpAddress));
+            }
+            if (camera.Username == null)
+            {
+                throw new MissingFieldException(nameof(Camera), nameof(camera.Username));
+            }
+            if (camera.Password == null)
+            {
+                throw new MissingFieldException(nameof(Camera), nameof(camera.Password));
+            }
+
             fullScreen = true;
             sunellLegacyCameraInfo = new SunellLegacyCameraInfo
             {
@@ -148,6 +161,7 @@ namespace CameraForms.Forms
 
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
+            Activate();
             if (!permissionManager.HasCameraAndUser(camera))
             {
                 return;

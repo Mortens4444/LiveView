@@ -59,12 +59,16 @@ namespace Sequence.Services
 
         public GridSequenceManager(PermissionManager<User> permissionManager,
             ISequenceRepository sequenceRepository,
-            IGridInSequenceRepository gridInSequeneRepository,
+            IGridInSequenceRepository gridInSequenceRepository,
             IGridRepository gridRepository,
             IAgentRepository agentRepository,
             IVideoSourceRepository videoSourceRepository,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
+            ICameraRightRepository cameraRightRepository,
+            IRightRepository rightRepository,
+            IOperationRepository operationRepository,
+            IUsersInGroupsRepository usersInGroupsRepository,
             ICameraFunctionRepository cameraFunctionRepository,
             IGridCameraRepository gridCameraRepository,
             IPersonalOptionsRepository personalOptionsRepository,
@@ -82,7 +86,7 @@ namespace Sequence.Services
             this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.sequenceRepository = sequenceRepository;
-            this.gridInSequeneRepository = gridInSequeneRepository;
+            this.gridInSequeneRepository = gridInSequenceRepository;
             this.gridRepository = gridRepository;
             this.generalOptionsRepository = generalOptionsRepository;
             this.logger = logger;
@@ -92,8 +96,9 @@ namespace Sequence.Services
             gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
             //StartSequence(sequenceId);
 
-            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, serverRepository, cameraRepository,
-                cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
+            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraRightRepository,
+                rightRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
+                usersInGroupsRepository, videoSourceRepository, generalOptionsRepository);
         }
 
         public async Task StartSequenceAsync(long sequenceId)

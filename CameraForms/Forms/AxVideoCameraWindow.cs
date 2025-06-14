@@ -4,6 +4,7 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
@@ -35,7 +36,9 @@ namespace CameraForms.Forms
         private readonly Rectangle rectangle;
         private GridCamera gridCamera;
 
-        public AxVideoCameraWindow(PermissionManager<User> permissionManager,
+        public AxVideoCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
+            ICameraRightRepository cameraRightRepository, IRightRepository rightRepository,
+            IOperationRepository operationRepository, IUsersInGroupsRepository usersInGroupsRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
             Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -47,6 +50,10 @@ namespace CameraForms.Forms
             this.server = server;
             this.camera = camera;
             this.permissionManager = permissionManager;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraRightRepository, rightRepository, operationRepository, usersInGroupsRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
             var text = personalOptionsRepository.GetCameraName(userId, server, camera);
@@ -84,6 +91,14 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraRightRepository>(),
+                serviceProvider.GetRequiredService<IRightRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IUsersInGroupsRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var text = personalOptionsRepository.GetCameraName(cameraLaunchContext.UserId, server, camera);
             OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, cameraLaunchContext.UserId);

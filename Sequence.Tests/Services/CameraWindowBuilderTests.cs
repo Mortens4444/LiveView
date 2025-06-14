@@ -74,8 +74,9 @@ namespace Sequence.Tests.Services
             videoSourceRepository = new VideoSourceRepository();
             generalOptionsRepository = new GeneralOptionsRepository();
 
-            builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, serverRepository, cameraRepository,
-                cameraFunctionRepository, personalOptionsRepository, videoSourceRepository, generalOptionsRepository);
+            builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository,
+                new CameraRightRepository(), new RightRepository(), new OperationRepository(), cameraFunctionRepository,
+                personalOptionsRepository, new UsersInGroupsRepository(), videoSourceRepository, generalOptionsRepository);
         }
 
         [Test]

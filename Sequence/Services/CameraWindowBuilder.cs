@@ -22,25 +22,33 @@ namespace Sequence.Services
         private readonly IAgentRepository agentRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-        private readonly IServerRepository serverRepository;
+        private readonly ICameraRightRepository cameraRightRepository;
+        private readonly IRightRepository rightRepository;
         private readonly ICameraRepository cameraRepository;
+        private readonly IUsersInGroupsRepository usersInGroupsRepository;
+        private readonly IOperationRepository operationRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IGeneralOptionsRepository generalOptionsRepository;
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
-            IAgentRepository agentRepository, IServerRepository serverRepository, ICameraRepository cameraRepository,
+            IAgentRepository agentRepository, ICameraRepository cameraRepository,
+            ICameraRightRepository cameraRightRepository, IRightRepository rightRepository, IOperationRepository operationRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
-            IVideoSourceRepository videoSourceRepository, IGeneralOptionsRepository generalOptionsRepository)
+            IUsersInGroupsRepository usersInGroupsRepository, IVideoSourceRepository videoSourceRepository,
+            IGeneralOptionsRepository generalOptionsRepository)
         {
             this.permissionManager = permissionManager;
             this.logger = logger;
             this.agentRepository = agentRepository;
-            this.serverRepository = serverRepository;
             this.cameraRepository = cameraRepository;
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.generalOptionsRepository = generalOptionsRepository;
+            this.cameraRightRepository = cameraRightRepository;
+            this.rightRepository = rightRepository;
+            this.operationRepository = operationRepository;
+            this.usersInGroupsRepository = usersInGroupsRepository;
         }
 
         public Form ShowVideoWindow(DisplayDto display, Form parentForm, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
@@ -52,7 +60,8 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    result = new AxVideoCameraWindow(permissionManager, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
+                    result = new AxVideoCameraWindow(permissionManager, cameraRepository, cameraRightRepository, rightRepository, operationRepository,
+                        usersInGroupsRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };
@@ -110,7 +119,7 @@ namespace Sequence.Services
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
                     result = new SunellCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, sunellCameraInfo, rectangle, camera.GridCamera)
                     {
-                        TopMost = true
+                        TopMost = AppConfig.GetBoolean(LiveView.Core.Constants.TopMost)
                     };
                 }
                 else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
@@ -118,7 +127,7 @@ namespace Sequence.Services
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
                     result = new SunellLegacyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, sunellLegacyCameraInfo, rectangle, camera.GridCamera)
                     {
-                        TopMost = true
+                        TopMost = AppConfig.GetBoolean(LiveView.Core.Constants.TopMost)
                     };
                 }
 
