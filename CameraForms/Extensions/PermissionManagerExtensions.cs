@@ -52,7 +52,7 @@ namespace CameraForms.Extensions
                 }
                 else
                 {
-                    videoWindow.OverlayText = $"No permission: {camera}";
+                    videoWindow.OverlayText = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                     DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                     return false;
                 }

@@ -10,6 +10,7 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.Interfaces;
 using Mtf.Controls.Sunell.IPR67;
 using Mtf.Controls.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
@@ -205,7 +206,7 @@ namespace CameraForms.Forms
             }
             else
             {
-                sunellVideoWindow1.OverlayText = $"No permission: {camera}";
+                sunellVideoWindow1.OverlayText = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return SunellVideoWindow.NoPermission;
             }

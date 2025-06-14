@@ -12,19 +12,15 @@ namespace LiveView.Models.Dependencies
         public MainPresenterDependencies(
             PermissionManager<Database.Models.User> permissionManager,
             FormFactory formfactory,
-            IRightRepository rightRepository,
             ICameraRepository cameraRepository,
-            ICameraRightRepository cameraRightRepository,
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
             IMapObjectRepository mapObjectRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IUserRepository userRepository,
             ITemplateRepository templateRepository,
-            IUsersInGroupsRepository userGroupRepository,
             IPersonalOptionsRepository personalOptionsRepository,
             IAgentRepository agentRepository,
-            IOperationRepository operationRepository,
             IUserEventRepository userEventRepository,
             IVideoSourceRepository videoSourceRepository,
             ITemplateProcessRepository templateProcessRepository,
@@ -32,18 +28,14 @@ namespace LiveView.Models.Dependencies
             : base(generalOptionsRepository, formfactory)
         {
             CameraRepository = cameraRepository;
-            CameraRightRepository = cameraRightRepository;
-            RightRepository = rightRepository;
             ServiceProvider = serviceProvider;
             UserRepository = userRepository;
-            UserGroupRepository = userGroupRepository;
             PersonalOptionsRepository = personalOptionsRepository;
             PermissionManager = permissionManager;
             MapRepository = mapRepository;
             MapObjectRepository = mapObjectRepository;
             AgentRepository = agentRepository;
             TemplateRepository = templateRepository;
-            OperationRepository = operationRepository;
             UserEventRepository = userEventRepository;
             VideoSourceRepository = videoSourceRepository;
             TemplateProcessRepository = templateProcessRepository;
@@ -54,8 +46,6 @@ namespace LiveView.Models.Dependencies
 
         public IAgentRepository AgentRepository { get; private set; }
 
-        public IRightRepository RightRepository { get; private set; }
-
         public IServiceProvider ServiceProvider { get; private set; }
 
         public IUserRepository UserRepository { get; private set; }
@@ -63,8 +53,6 @@ namespace LiveView.Models.Dependencies
         public IPersonalOptionsRepository PersonalOptionsRepository { get; private set; }
 
         public ILogger<MainForm> Logger { get; private set; }
-        
-        public IUsersInGroupsRepository UserGroupRepository { get; private set; }
 
         public PermissionManager<Database.Models.User> PermissionManager { get; private set; }
 
@@ -74,14 +62,10 @@ namespace LiveView.Models.Dependencies
 
         public ITemplateRepository TemplateRepository { get; private set; }
 
-        public IOperationRepository OperationRepository { get; private set; }
-
         public ICameraRepository CameraRepository { get; private set; }
 
         public IUserEventRepository UserEventRepository { get; private set; }
 
         public ITemplateProcessRepository TemplateProcessRepository { get; private set; }
-
-        public ICameraRightRepository CameraRightRepository { get; private set; }
     }
 }

@@ -192,7 +192,7 @@ namespace CameraForms.Forms
                 }
                 else
                 {
-                    sunellVideoWindowLegacy1.OverlayText = $"No permission: {camera}";
+                    sunellVideoWindowLegacy1.OverlayText = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                     DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 }
             }

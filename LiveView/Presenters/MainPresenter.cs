@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
@@ -59,45 +60,38 @@ namespace LiveView.Presenters
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly Uptime uptime;
         private readonly ICameraRepository cameraRepository;
-        private readonly ICameraRightRepository cameraRightRepository;
         private readonly IServiceProvider serviceProvider;
         private readonly IMapRepository mapRepository;
         private readonly IMapObjectRepository mapObjectRepository;
-        private readonly IRightRepository rightRepository;
         private readonly IUserRepository userRepository;
         private readonly IUserEventRepository userEventRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IOperationRepository operationRepository;
         private readonly PermissionManager<User> permissionManager;
-        private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly MainPresenterDependencies mainPresenterDependencies;
         private readonly MonitorSelector selector = new MonitorSelector(new TtlOutput());
         private readonly TemplateStarter templateStarter;
+        private readonly PermissionSetter permissionSetter;
 
         private IMainView view;
         private MapLoader mapLoader;
         private KBD300A kBD300A;
 
-        public MainPresenter(MainPresenterDependencies dependencies)
+        public MainPresenter(MainPresenterDependencies dependencies, PermissionSetterDependencies permissionSetterDependencies)
             : base(dependencies)
         {
             //selector.SelectMonitors(Enums.LiveView.LiveView1);
-
+            permissionSetter = new PermissionSetter(permissionSetterDependencies);
             mainPresenterDependencies = dependencies;
             Logger = dependencies.Logger;
             cameraRepository = dependencies.CameraRepository;
-            cameraRightRepository = dependencies.CameraRightRepository;
-            rightRepository = dependencies.RightRepository;
             serviceProvider = dependencies.ServiceProvider;
             mapRepository = dependencies.MapRepository;
             mapObjectRepository = dependencies.MapObjectRepository;
             userRepository = dependencies.UserRepository;
             templateRepository = dependencies.TemplateRepository;
-            userGroupRepository = dependencies.UserGroupRepository;
             personalOptionsRepository = dependencies.PersonalOptionsRepository;
             permissionManager = dependencies.PermissionManager;
-            operationRepository = dependencies.OperationRepository;
             userEventRepository = dependencies.UserEventRepository;
             uptime = new Uptime();
             templateStarter = new TemplateStarter(dependencies.AgentRepository, dependencies.TemplateProcessRepository, Logger);
@@ -476,7 +470,7 @@ namespace LiveView.Presenters
                 Username = user.Username,
                 Tag = user
             };
-            SetGroups(result);
+            permissionSetter.SetGroups(result);
 
             if (user.NeededSecondaryLogonPriority > 0)
             {
@@ -496,60 +490,6 @@ namespace LiveView.Presenters
 
             ChangeControlsOnLogin(user.Username);
             return result;
-        }
-
-        private void SetGroups(Mtf.Permissions.Models.User<User> result)
-        {
-            result.Groups = new List<Mtf.Permissions.Models.Group>();
-            var groupIds = userGroupRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
-            foreach (var groupId in groupIds)
-            {
-                SetUserGroup(result, groupId);
-            }
-        }
-
-        private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
-        {
-            var group = new Mtf.Permissions.Models.Group();
-            var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId, UserEventId = Globals.UserEvent?.Id ?? 1 });
-            var groupCameraPermissions = cameraRightRepository.SelectWhere(new { GroupId = groupId, UserEventId = Globals.UserEvent?.Id ?? 1 });
-            var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
-            var cameraPermissionIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
-            var operations = operationRepository.SelectWhere(new { Ids = operationIds });
-            var cameras = cameraRepository.SelectAll().Where(c => cameraPermissionIds.Contains(c.Id));
-            var permissionType = typeof(CameraManagementPermissions);
-            var assembly = permissionType.Assembly;
-
-            foreach (var camera in cameras)
-            {
-                var cameraGroupEnumType = assembly.GetType($"{permissionType.Namespace}.{PermissionManager.GetCameraGroupPermissionName(camera.PermissionCamera)}");
-                var cameraPermissionName = $"Camera_{camera.PermissionCamera + 1:D3}";
-                var cameraPermissionValue = PermissionManager.GetCameraPermissionValue(camera.PermissionCamera);
-                if ((cameraGroupEnumType != null) && (cameraPermissionValue != null))
-                {
-                    group.Permissions.Add(new Mtf.Permissions.Models.Permission
-                    {
-                        PermissionGroup = cameraGroupEnumType,
-                        PermissionValue = Convert.ToInt64(cameraPermissionValue)
-                    });
-                }
-            }
-
-            foreach (var operation in operations)
-            {
-                var enumType = assembly.GetType($"{permissionType.Namespace}.{operation.PermissionGroup}");
-                if (enumType != null && Enum.IsDefined(enumType, operation.PermissionValue))
-                {
-                    var enumValue = Enum.Parse(enumType, operation.PermissionValue);
-
-                    group.Permissions.Add(new Mtf.Permissions.Models.Permission
-                    {
-                        PermissionGroup = enumType,
-                        PermissionValue = Convert.ToInt64(enumValue)
-                    });
-                }
-            }
-            user.Groups.Add(group);
         }
 
         public static void MoveMouseToHome()
@@ -705,7 +645,7 @@ namespace LiveView.Presenters
                         Username = user.Username,
                         Tag = user
                     };
-                    SetGroups(permissionUser);
+                    permissionSetter.SetGroups(permissionUser);
                     permissionManager.LoginWithForm(permissionUser, view.GetSelf());
                     LoadLanguage(permissionUser.Tag.Id);
                     ChangeControlsOnLogin(user.Username);
@@ -756,8 +696,8 @@ namespace LiveView.Presenters
         {
             var user = permissionManager.CurrentUser;
             Logger.LogInfo(EventManagementPermissions.Update, "User event changed to '{0}'.", userEvent);
-            Globals.UserEvent = userEvent;
-            SetGroups(user);
+            PermissionSetter.ActualUserEvent = userEvent;
+            permissionSetter.SetGroups(user);
             permissionManager.ApplyPermissionsOnControls(view.GetSelf());
         }
 

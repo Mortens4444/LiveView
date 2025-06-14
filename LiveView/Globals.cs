@@ -40,9 +40,7 @@ namespace LiveView
         public static ControlCenter ControlCenter { get; set; }
 
         public static DisplayDto FullScreenDisplay { get; set; }
-
-        public static UserEvent UserEvent { get; set; }
-        
+       
         public static NetworkServer Server { get; set; }
 
         public static void RemoveAgent(string hostInfo)

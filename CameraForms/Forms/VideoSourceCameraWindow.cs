@@ -192,7 +192,8 @@ namespace CameraForms.Forms
             if (camera != null && !permissionManager.HasCameraPermission(camera.PermissionCamera))
             {
                 mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, $"No permission: {camera}");
+                var message = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, message);
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return;
             }
