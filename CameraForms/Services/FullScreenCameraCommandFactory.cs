@@ -3,20 +3,25 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
     public static class FullScreenCameraCommandFactory
     {
-        public static List<ICommand> Create(FullScreenCameraMessageHandler fullScreenCameraMessageHandler, Form form, string messages)
+        public static ReadOnlyCollection<ICommand> Create(FullScreenCameraMessageHandler fullScreenCameraMessageHandler, Form form, string messages)
         {
             var result = new List<ICommand>();
+            if (String.IsNullOrEmpty(messages))
+            {
+                return new ReadOnlyCollection<ICommand>(result);
+            }
+
             var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var message in allMessages)
             {
-                var messageParts = message.Split('|');
-
+                //var messageParts = message.Split('|');
                 if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture) ||
                     (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture)))
                 {
@@ -80,7 +85,7 @@ namespace CameraForms.Services
                 }
             }
 
-            return result;
+            return new ReadOnlyCollection<ICommand>(result);
         }
     }
 }

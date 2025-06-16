@@ -102,7 +102,8 @@ namespace CameraForms.Forms
 
             var userId = permissionManager.CurrentUser.Tag.Id;
             var text = personalOptionsRepository.GetCameraName(userId, url);
-            OsdSetter.SetInfo(this, openCvSharp4VideoWindow, gridCamera, personalOptionsRepository, text, userId);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, openCvSharp4VideoWindow, gridCamera, osdSettings, text, userId);
 
             if (permissionManager.HasCameraPermission(camera, openCvSharp4VideoWindow))
             {

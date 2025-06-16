@@ -57,7 +57,8 @@ namespace CameraForms.Forms
 
             var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
             var text = personalOptionsRepository.GetCameraName(userId, server, camera);
-            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, userId);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text, userId);
 
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
@@ -101,7 +102,8 @@ namespace CameraForms.Forms
 
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var text = personalOptionsRepository.GetCameraName(cameraLaunchContext.UserId, server, camera);
-            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, personalOptionsRepository, text, cameraLaunchContext.UserId);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(cameraLaunchContext.UserId);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text, cameraLaunchContext.UserId);
 
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);

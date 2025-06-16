@@ -4,20 +4,25 @@ using LiveView.Core.Interfaces;
 using Mtf.Controls.Sunell.IPR66;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
     public static class SunellLegacyVideoWindowCommandFactory
     {
-        public static List<ICommand> Create(Form form, SunellVideoWindowLegacy sunellVideoWindow, string messages, short cameraMoveValue)
+        public static ReadOnlyCollection<ICommand> Create(Form form, SunellVideoWindowLegacy sunellVideoWindow, string messages, short cameraMoveValue)
         {
             var result = new List<ICommand>();
+            if (String.IsNullOrEmpty(messages))
+            {
+                return new ReadOnlyCollection<ICommand>(result);
+            }
+
             var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var message in allMessages)
             {
-                var messageParts = message.Split('|');
-
+                //var messageParts = message.Split('|');
                 if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture) ||
                     (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture)))
                 {
@@ -81,7 +86,7 @@ namespace CameraForms.Services
                 }
             }
 
-            return result;
+            return new ReadOnlyCollection<ICommand>(result);
         }
     }
 }

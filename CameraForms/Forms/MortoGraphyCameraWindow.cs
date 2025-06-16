@@ -125,7 +125,8 @@ namespace CameraForms.Forms
             var userId = permissionManager.CurrentUser.Tag.Id;
             mortoGraphyWindow.BufferSize = bufferSize;
             var text = personalOptionsRepository.GetCameraName(userId, url);
-            OsdSetter.SetInfo(this, mortoGraphyWindow, gridCamera, personalOptionsRepository, text, userId);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, mortoGraphyWindow, gridCamera, osdSettings, text, userId);
 
             if (url.IndexOf('|') > 0)
             {

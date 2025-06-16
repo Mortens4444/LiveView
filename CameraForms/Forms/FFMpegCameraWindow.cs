@@ -110,7 +110,8 @@ namespace CameraForms.Forms
             //fFmpegWindow.SetOsdText(fontName, largeFontSize, FontStyle.Bold, fontColor, cameraName);
 
             var text = personalOptionsRepository.GetCameraName(userId, url);
-            OsdSetter.SetInfo(this, fFmpegWindow, gridCamera, personalOptionsRepository, text, userId);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, fFmpegWindow, gridCamera, osdSettings, text, userId);
 
             if (permissionManager.HasCameraPermission(camera, fFmpegWindow))
             {
