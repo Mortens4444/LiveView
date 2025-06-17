@@ -108,7 +108,7 @@ namespace LiveView
             var displayManager = new DisplayManager();
             var currentDisplays = displayManager.GetAll();
 
-            //DeleteDiplaysFromRepository(displayRepository, displays, currentDisplays);
+            //DeleteDisplaysFromRepository(displayRepository, displays, currentDisplays);
             InsertOrUpdateDisplay(displayRepository, displays, currentDisplays);
         }
 
@@ -143,7 +143,7 @@ namespace LiveView
             }
         }
 
-        private static void DeleteDiplaysFromRepository(IDisplayRepository displayRepository, ReadOnlyCollection<Display> displays, List<DisplayDto> currentDisplays)
+        private static void DeleteDisplaysFromRepository(IDisplayRepository displayRepository, ReadOnlyCollection<Display> displays, List<DisplayDto> currentDisplays)
         {
             foreach (var display in displays)
             {

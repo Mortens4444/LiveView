@@ -19,7 +19,6 @@ namespace LiveView.Services.Network
         private const int ErrorInvalidUserBuffer = 1784;
         private const int ErrorNotFound = 1168;
 
-
         [DllImport("iphlpapi.dll", ExactSpelling = true)]
         private static extern int SendARP(uint DestIP, uint SrcIP, byte[] pMacAddr, ref int PhyAddrLen);
 

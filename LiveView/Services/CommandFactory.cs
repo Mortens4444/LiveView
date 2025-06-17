@@ -52,7 +52,7 @@ namespace LiveView.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.AgentDisconnected}|"))
                 {
-                    result.Add(new AgentDisconnectedCommand(messageParts[1], messageParts[2], socket, dependencies));
+                    result.Add(new AgentDisconnectedCommand(messageParts[1], messageParts[2], dependencies));
                 }
                 else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesResponse}|"))
                 {

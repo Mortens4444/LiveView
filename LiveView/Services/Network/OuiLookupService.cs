@@ -1,5 +1,4 @@
 ﻿using LiveView.Models.Network;
-using Mtf.Database.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,5 +49,4 @@ namespace LiveView.Services.Network
             return new Regex("[^0-9a-zA-Z]");
         }
     }
-
 }

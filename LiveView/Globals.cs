@@ -1,5 +1,4 @@
-﻿using Database.Models;
-using LiveView.Core;
+﻿using LiveView.Core;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Dto;

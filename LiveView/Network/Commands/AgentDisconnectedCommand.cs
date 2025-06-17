@@ -1,7 +1,6 @@
 ﻿using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
 using System.Linq;
-using System.Net.Sockets;
 
 namespace LiveView.Network.Commands
 {
@@ -11,7 +10,7 @@ namespace LiveView.Network.Commands
         private readonly string videoSourceName;
         private readonly MainPresenterDependencies mainPresenterDependencies;
 
-        public AgentDisconnectedCommand(string serverIp, string videoSourceName, Socket agentSocket, MainPresenterDependencies mainPresenterDependencies)
+        public AgentDisconnectedCommand(string serverIp, string videoSourceName, MainPresenterDependencies mainPresenterDependencies)
         {
             this.serverIp = serverIp;
             this.videoSourceName = videoSourceName;

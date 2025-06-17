@@ -1,5 +1,4 @@
-﻿using Database.Interfaces;
-using LiveView.Agent.Dto;
+﻿using LiveView.Agent.Dto;
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
@@ -31,17 +30,13 @@ namespace LiveView.Agent
         private readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
 
         private readonly ILogger<LiveViewConnector> logger;
-        private readonly IAgentRepository agentRepository;
-        private readonly IVideoSourceRepository videoSourceRepository;
 
         private Client client;
         private bool disposed;
 
-        public LiveViewConnector(ILogger<LiveViewConnector> logger, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository)
+        public LiveViewConnector(ILogger<LiveViewConnector> logger)
         {
             this.logger = logger;
-            this.agentRepository = agentRepository;
-            this.videoSourceRepository = videoSourceRepository;
         }
 
         ~LiveViewConnector()
