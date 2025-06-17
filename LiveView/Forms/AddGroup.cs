@@ -6,6 +6,7 @@ using Mtf.Extensions.Interfaces;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.ComponentModel;
 using System.Drawing;

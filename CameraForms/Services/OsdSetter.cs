@@ -21,15 +21,15 @@ namespace CameraForms.Services
                 throw new ArgumentNullException(nameof(videoWindow));
             }
 
+            if (gridCamera == null)
+            {
+                return;
+            }
+
             if (osdSettings != null)
             {
                 videoWindow.OverlayFont = osdSettings.OverlayFont;
                 videoWindow.OverlayBrush = osdSettings.FontBrush;
-            }
-
-            if (gridCamera == null)
-            {
-                return;
             }
 
             if (gridCamera.Frame)

@@ -11,64 +11,46 @@ namespace CameraForms.Services
 {
     public static class CameraRegister
     {
-        public static Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler, CameraMode cameraMode)
+        public static Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> handler, CameraMode mode)
         {
-            var liveViewServerIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
-            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
-            if (serverPort != default)
-            {
-                try
-                {
-                    var client = ConnectWithClient(liveViewServerIp, serverPort, dataArrivedEventHandler);
-                    var processDisplayInfo = new ProcessDisplayInfo(display, client);
-                    client.Send($"{NetworkCommand.RegisterCamera}|{processDisplayInfo.HostInfo}|{userId}|{cameraId}|{processDisplayInfo.DisplayId}|{processDisplayInfo.ProcessId}|{(int)cameraMode}", true);
-                    return client;
-                }
-                catch (Exception ex)
-                {
-                    DebugErrorBox.Show(ex);
-                }
-            }
-            else
-            {
-                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
-            }
-
-            return null;
+            var message = $"{NetworkCommand.RegisterCamera}|{{0}}|{userId}|{cameraId}|{{1}}|{{2}}|{(int)mode}";
+            return Register(display, handler, message);
         }
 
-        public static Client RegisterVideoSource(long userId, string serverIp, string videoCaptureSource, DisplayDto display, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler)
+        public static Client RegisterVideoSource(long userId, string serverIp, string source, DisplayDto display, EventHandler<DataArrivedEventArgs> handler)
         {
-            var liveViewServerIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
-            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
-            if (serverPort != default)
-            {
-                try
-                {
-                    var client = ConnectWithClient(liveViewServerIp, serverPort, dataArrivedEventHandler);
-                    var processDisplayInfo = new ProcessDisplayInfo(display, client);
-                    client.Send($"{NetworkCommand.RegisterVideoSource}|{processDisplayInfo.HostInfo}|{userId}|{serverIp}|{videoCaptureSource}|{processDisplayInfo.DisplayId}|{processDisplayInfo.ProcessId}|{(int)CameraMode.VideoSource}", true);
-                    return client;
-                }
-                catch (Exception ex)
-                {
-                    DebugErrorBox.Show(ex);
-                }
-            }
-            else
-            {
-                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
-            }
-
-            return null;
+            var message = $"{NetworkCommand.RegisterVideoSource}|{{0}}|{userId}|{serverIp}|{source}|{{1}}|{{2}}|{(int)CameraMode.VideoSource}";
+            return Register(display, handler, message);
         }
 
-        private static Client ConnectWithClient(string liveViewServerIp, ushort serverPort, EventHandler<DataArrivedEventArgs> dataArrivedEventHandler)
+        private static Client Register(DisplayDto display, EventHandler<DataArrivedEventArgs> handler, string messageTemplate)
         {
-            var client = new Client(liveViewServerIp, serverPort);
-            client.DataArrived += dataArrivedEventHandler;
-            client.Connect();
-            return client;
+            var ip = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
+            var port = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+
+            if (port == default)
+            {
+                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
+                return null;
+            }
+
+            try
+            {
+                var client = new Client(ip, port);
+                client.DataArrived += handler;
+                client.Connect();
+
+                var info = new ProcessDisplayInfo(display, client);
+                var message = String.Format(messageTemplate, info.HostInfo, info.DisplayId, info.ProcessId);
+                client.Send(message, true);
+
+                return client;
+            }
+            catch (Exception ex)
+            {
+                DebugErrorBox.Show(ex);
+                return null;
+            }
         }
     }
 }

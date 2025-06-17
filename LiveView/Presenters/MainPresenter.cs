@@ -34,6 +34,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Serial.Enums;
 using Mtf.Serial.SerialDevices;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

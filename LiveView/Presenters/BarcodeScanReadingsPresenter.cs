@@ -4,6 +4,7 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Windows.Forms.Extensions;
 using System.Windows.Forms;
 
 namespace LiveView.Presenters

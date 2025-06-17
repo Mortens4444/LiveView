@@ -6,6 +6,7 @@ using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Windows.Forms;
 

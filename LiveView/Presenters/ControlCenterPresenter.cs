@@ -17,6 +17,7 @@ using Mtf.Joystick;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

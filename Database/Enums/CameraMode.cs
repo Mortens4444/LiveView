@@ -1,4 +1,4 @@
-﻿using Database.Attributes;
+﻿using Mtf.Extensions.Attributes;
 
 namespace Database.Enums
 {

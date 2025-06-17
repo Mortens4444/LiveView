@@ -6,8 +6,10 @@ using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
+using Mtf.Extensions;
 using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,7 +59,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var fullscreenModes = Database.Extensions.EnumExtensions.GetEnabledValues<CameraMode>()
+            var fullscreenModes = EnumExtensions.GetEnabledValues<CameraMode>()
                 .Select(mode => Lng.Elem(mode.GetDescription()));
             view.AddItems(view.CbFullscreenMode, fullscreenModes);
             
@@ -70,8 +72,7 @@ namespace LiveView.Presenters
             view.CbVideoSources.AddItems(videoSourceRepository.SelectAll());
             view.CbVideoSources.SelectedIndexChanged += (object sender, EventArgs e) =>
             {
-                var videoSource = view.CbVideoSources.SelectedItem as VideoSource;
-                if (videoSource != null)
+                if (view.CbVideoSources.SelectedItem is VideoSource videoSource)
                 {
                     var agent = agentRepository.Select(videoSource.AgentId);
                     if (agent != null)
@@ -146,11 +147,7 @@ namespace LiveView.Presenters
             {
                 var propertyName = $"Param{i + 1}";
                 var property = cameraFunction.GetType().GetProperty(propertyName);
-
-                if (property != null)
-                {
-                    property.SetValue(cameraFunction, parameters[i]);
-                }
+                property?.SetValue(cameraFunction, parameters[i]);
             }
             cameraFunctionRepository.Insert(cameraFunction);
             var listViewItem = new ListViewItem(cameraFunction.FunctionId.GetDescription())
@@ -158,7 +155,7 @@ namespace LiveView.Presenters
                 Tag = cameraFunction
             };
             listViewItem.SubItems.Add(cameraFunction.FunctionCallback);
-            listViewItem.SubItems.Add(GetCameraFunctionParametersString(cameraFunction));
+            listViewItem.SubItems.Add(CameraPropertiesPresenter.GetCameraFunctionParametersString(cameraFunction));
             view.LvCameraFunctions.Items.Add(listViewItem);
         }
 
@@ -171,7 +168,7 @@ namespace LiveView.Presenters
             view.RemoveSelectedItems(view.LvCameraFunctions);
         }
 
-        public string GetCameraFunctionParametersString(CameraFunction cameraFunction)
+        public static string GetCameraFunctionParametersString(CameraFunction cameraFunction)
         {
             var parameters = new List<string>();
 
@@ -183,14 +180,7 @@ namespace LiveView.Presenters
                 if (property != null)
                 {
                     var value = property.GetValue(cameraFunction);
-                    if (value != null)
-                    {
-                        parameters.Add(value.ToString());
-                    }
-                    else
-                    {
-                        parameters.Add(String.Empty);
-                    }
+                    parameters.Add(value?.ToString() ?? String.Empty);
                 }
             }
 
