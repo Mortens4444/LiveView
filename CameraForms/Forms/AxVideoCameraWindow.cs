@@ -153,7 +153,7 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)

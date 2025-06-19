@@ -42,7 +42,7 @@ namespace LiveView.Agent.Maui
                             while (!cancellationTokenSource.IsCancellationRequested)
                             {
                                 await Task.Delay(1000);
-                                if (!client.Send($"{NetworkCommand.Ping}|{client.Socket.LocalEndPoint}", true))
+                                if (!client.Send($"{NetworkCommand.Ping}|{client.Socket?.LocalEndPoint}", true))
                                 {
                                     break;
                                 }

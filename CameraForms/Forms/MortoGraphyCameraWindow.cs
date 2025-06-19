@@ -112,7 +112,7 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)

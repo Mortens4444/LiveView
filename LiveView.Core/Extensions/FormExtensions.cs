@@ -7,7 +7,7 @@ namespace LiveView.Core.Extensions
 {
     public static class FormExtensions
     {
-        public static void SetFormSizeAndPosition(this Form form, Rectangle rectangle)
+        public static void SetFormRegion(this Form form, Rectangle rectangle)
         {
             if (form == null)
             {

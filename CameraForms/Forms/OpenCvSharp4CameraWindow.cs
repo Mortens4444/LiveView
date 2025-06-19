@@ -90,7 +90,7 @@ namespace CameraForms.Forms
 
         private void OpenCvSharp4_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void OpenCvSharp4_Shown(object sender, EventArgs e)

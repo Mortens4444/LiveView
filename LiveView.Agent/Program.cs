@@ -18,7 +18,7 @@ namespace LiveView.Agent
 {
     class Program
     {
-        private static bool databaseInitialized;
+        private static readonly bool databaseInitialized;
 
         private static ILogger<ExceptionHandler> logger;
 

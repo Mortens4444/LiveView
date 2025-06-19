@@ -2,8 +2,6 @@
 
 using Database.Enums;
 using Database.Interfaces;
-using LiveView.Core.Extensions;
-using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using LiveView.Services.Coloring;

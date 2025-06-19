@@ -10,7 +10,6 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Enums;
-using Mtf.Controls.Video.FFmpeg;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
@@ -92,7 +91,7 @@ namespace CameraForms.Forms
 
         private void VlcCameraWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void VlcCameraWindow_Shown(object sender, EventArgs e)

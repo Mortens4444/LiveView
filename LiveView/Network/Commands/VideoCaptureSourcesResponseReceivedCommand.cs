@@ -1,5 +1,4 @@
-﻿using LiveView.Core.Extensions;
-using LiveView.Core.Interfaces;
+﻿using LiveView.Core.Interfaces;
 using LiveView.Models.Dependencies;
 using Mtf.Extensions;
 using Mtf.Network.Services;

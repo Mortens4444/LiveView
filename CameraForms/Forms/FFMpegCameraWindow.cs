@@ -89,7 +89,7 @@ namespace CameraForms.Forms
 
         private void FFMpegCameraWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void FFMpegCameraWindow_Shown(object sender, EventArgs e)

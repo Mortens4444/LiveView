@@ -13,6 +13,7 @@ using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -296,7 +297,7 @@ namespace CameraForms.Forms
 
         private void VideoSourceCameraWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)

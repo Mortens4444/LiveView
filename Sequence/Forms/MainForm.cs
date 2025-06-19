@@ -156,7 +156,7 @@ namespace Sequence.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             Location = new Point(display.X, display.Y);
-            this.SetFormSizeAndPosition(display.Bounds);
+            this.SetFormRegion(display.Bounds);
 
             if (gridSequenceManager.Invalid)
             {

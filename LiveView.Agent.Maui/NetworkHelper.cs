@@ -6,7 +6,7 @@ namespace LiveView.Agent.Maui
 {
     public static class NetworkHelper
     {
-        public static IPAddress? GetDeviceIpAddressPreferPrivate(AddressFamily addressFamily = AddressFamily.InterNetwork, string preferedIpAddress = "192.168.")
+        public static IPAddress? GetDeviceIpAddressPreferPrivate(AddressFamily addressFamily = AddressFamily.InterNetwork, string preferredIpAddressPrefix = "192.168.")
         {
             IPAddress? fallbackIp = null;
 
@@ -28,15 +28,12 @@ namespace LiveView.Agent.Maui
                                 {
                                     var ipString = ipInfo.Address.ToString();
 
-                                    if (ipString.StartsWith(preferedIpAddress))
+                                    if (ipString.StartsWith(preferredIpAddressPrefix))
                                     {
                                         return ipInfo.Address;
                                     }
 
-                                    if (fallbackIp == null)
-                                    {
-                                        fallbackIp = ipInfo.Address;
-                                    }
+                                    fallbackIp ??= ipInfo.Address;
                                 }
                             }
                         }

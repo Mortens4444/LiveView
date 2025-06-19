@@ -3,6 +3,7 @@ using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Video.OpenCvSharp;
+using Mtf.Extensions;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using OpenCvSharp;

@@ -15,6 +15,7 @@ using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
+using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -156,7 +157,7 @@ namespace CameraForms.Forms
 
         private void SunellLegacyCameraWindow_Load(object sender, EventArgs e)
         {
-            this.SetFormSizeAndPosition(rectangle);
+            this.SetFormRegion(rectangle);
         }
 
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
