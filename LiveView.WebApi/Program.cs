@@ -21,10 +21,24 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-app.MapGet("/", context =>
+app.MapGet("/", async context =>
 {
-    context.Response.Redirect("/openapi/v1.json");
-    return Task.CompletedTask;
+    context.Response.ContentType = "text/html; charset=utf-8";
+
+    var assembly = typeof(Program).Assembly;
+    var resourceName = "LiveView.WebApi.Pages.Index.html";
+
+    using var stream = assembly.GetManifestResourceStream(resourceName);
+    if (stream == null)
+    {
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsync("Index.html not found in embedded resources.");
+        return;
+    }
+
+    using var reader = new StreamReader(stream);
+    var html = await reader.ReadToEndAsync();
+    await context.Response.WriteAsync(html);
 });
 
 if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
