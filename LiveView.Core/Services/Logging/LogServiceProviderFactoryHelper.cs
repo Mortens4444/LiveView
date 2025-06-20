@@ -1,9 +1,7 @@
 ﻿using Database.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using Mtf.Permissions.Services;
-using System.Reflection;
 
 namespace LiveView.Core.Services.Logging
 {

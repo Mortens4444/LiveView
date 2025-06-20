@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Web.Services;
 using LiveView.WebApi.Dto;
 using Mtf.Web.Interfaces;
 
@@ -22,30 +23,10 @@ namespace LiveView.WebApi.Converters
                 return null;
             }
 
-            return new CameraDto
-            {
-                Id = model.Id,
-                PartnerCameraId = model.PartnerCameraId,
-                Guid = Guid.Parse(model.Guid),
-                CameraName = model.CameraName,
-                IpAddress = model.IpAddress,
-                FullscreenMode = model.FullscreenMode,
-                StreamId = model.StreamId,
-                Username = model.Username,
-                Password = model.Password,
-                ServerDisplayName = model.ServerDisplayName,
-                ServerUsername = model.ServerUsername,
-                ServerPassword = model.ServerPassword,
-                HttpStreamUrl = model.HttpStreamUrl,
-                Actual = model.Actual,
-                ServerId = model.ServerId,
-                MotionTrigger = model.MotionTrigger,
-                MotionTriggerMinimumLength = model.MotionTriggerMinimumLength,
-                Priority = model.Priority,
-                RecorderIndex = model.RecorderIndex,
-                CameraId = model.CameraId,
-                VideoSourceId = model.VideoSourceId
-            };
+            var dto = new CameraDto();
+            PropertyCopier.CopyMatchingProperties(model, dto);
+            dto.Guid = Guid.Parse(model.Guid);
+            return dto;
         }
 
         /// <summary>
@@ -60,30 +41,10 @@ namespace LiveView.WebApi.Converters
                 return null;
             }
 
-            return new Camera
-            {
-                Id = dto.Id,
-                PartnerCameraId = dto.PartnerCameraId,
-                Guid = dto.Guid.ToString(),
-                CameraName = dto.CameraName,
-                IpAddress = dto.IpAddress,
-                FullscreenMode = dto.FullscreenMode,
-                StreamId = dto.StreamId,
-                ServerDisplayName = dto.ServerDisplayName,
-                Username = dto.Username,
-                Password = dto.Password,
-                ServerUsername = dto.ServerUsername,
-                ServerPassword = dto.ServerPassword,
-                HttpStreamUrl = dto.HttpStreamUrl,
-                Actual = dto.Actual,
-                ServerId = dto.ServerId,
-                MotionTrigger = dto.MotionTrigger,
-                MotionTriggerMinimumLength = dto.MotionTriggerMinimumLength,
-                Priority = dto.Priority,
-                RecorderIndex = dto.RecorderIndex,
-                CameraId = dto.CameraId,
-                VideoSourceId = dto.VideoSourceId
-            };
+            var model = new Camera();
+            PropertyCopier.CopyMatchingProperties(dto, model);
+            model.Guid = dto.Guid.ToString();
+            return model;
         }
     }
 }

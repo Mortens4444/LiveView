@@ -6,7 +6,7 @@ using Mtf.Web.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mtf.Web.Controllers
+namespace Mtf.Web.WebAPI
 {
     [ApiController]
     [Route("api/[controller]")]

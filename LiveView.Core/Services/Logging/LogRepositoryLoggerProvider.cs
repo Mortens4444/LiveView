@@ -2,6 +2,7 @@
 using Database.Models;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
+using System;
 
 namespace LiveView.Core.Services.Logging
 {
@@ -9,6 +10,7 @@ namespace LiveView.Core.Services.Logging
     {
         private readonly PermissionManager<User> permissionManager;
         private readonly ILogRepository logRepository;
+        private bool disposed;
 
         public LogRepositoryLoggerProvider(PermissionManager<User> permissionManager, ILogRepository logRepository)
         {
@@ -16,8 +18,19 @@ namespace LiveView.Core.Services.Logging
             this.logRepository = logRepository;
         }
 
-        public ILogger CreateLogger(string categoryName) => new LogRepositoryLogger(permissionManager, logRepository, categoryName);
+        public ILogger CreateLogger(string categoryName)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LogRepositoryLoggerProvider));
+            }
 
-        public void Dispose() { }
+            return new LogRepositoryLogger(permissionManager, logRepository, categoryName);
+        }
+
+        public void Dispose()
+        {
+            disposed = true;
+        }
     }
 }

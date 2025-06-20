@@ -1,5 +1,4 @@
 using Database.Services;
-using LiveView.WebApi.Converters;
 using LiveView.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);

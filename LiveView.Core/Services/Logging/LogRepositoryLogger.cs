@@ -31,22 +31,15 @@ namespace LiveView.Core.Services.Logging
                 return;
             }
 
-            if (state is LogEntry logEntry)
+            var logEntry = state as LogEntry ?? new LogEntry();
+            logEntry.Date = DateUtils.GetLogDateTime();
+            logEntry.UserId = currentUserId;
+            if (String.IsNullOrEmpty(logEntry.OtherInformation))
             {
-                logEntry.Date = DateUtils.GetLogDateTime();
-                logEntry.UserId = currentUserId;
-                logRepository.Insert(logEntry);
+                logEntry.OtherInformation = String.Empty;
             }
-            else
-            {
-                var newEntry = new LogEntry
-                {
-                    Date = DateUtils.GetLogDateTime(),
-                    UserId = currentUserId,
-                    OtherInformation = exception?.GetDetails()
-                };
-                logRepository.Insert(newEntry);
-            }
+            logEntry.OtherInformation += exception?.GetDetails();
+            logRepository.Insert(logEntry);
         }
     }
 }
