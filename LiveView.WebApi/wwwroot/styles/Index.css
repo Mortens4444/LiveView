@@ -1,0 +1,31 @@
+﻿body {
+    background-color: black;
+    color: darkgray;
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+ul {
+    color: white;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    color: white;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #00ccff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #66e0ff;
+}
+
+a:visited {
+    color: #9999ff;
+}

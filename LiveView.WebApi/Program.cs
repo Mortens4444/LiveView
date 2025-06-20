@@ -8,6 +8,8 @@ ConverterServiceProviderFactoryHelper.RegisterConverters(builder.Services);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -17,28 +19,21 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/openapi/v1.json", "LiveView.WebApi v1");
+    options.RoutePrefix = "api-docs";
+});
 app.MapControllers();
 
-app.MapGet("/", async context =>
+app.MapGet("/", context =>
 {
-    context.Response.ContentType = "text/html; charset=utf-8";
-
-    var assembly = typeof(Program).Assembly;
-    var resourceName = "LiveView.WebApi.Pages.Index.html";
-
-    using var stream = assembly.GetManifestResourceStream(resourceName);
-    if (stream == null)
-    {
-        context.Response.StatusCode = 500;
-        await context.Response.WriteAsync("Index.html not found in embedded resources.");
-        return;
-    }
-
-    using var reader = new StreamReader(stream);
-    var html = await reader.ReadToEndAsync();
-    await context.Response.WriteAsync(html);
+    context.Response.Redirect("/Index.html");
+    return Task.CompletedTask;
 });
 
 if (!DatabaseInitializer.Initialize("LiveViewConnectionString"))
