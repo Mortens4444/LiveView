@@ -94,7 +94,6 @@ namespace Sequence.Services
             servers = serverRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(serverRepository));
             allCameras = cameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(cameraRepository));
             gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
-            //StartSequence(sequenceId);
 
             cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraRightRepository,
                 rightRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
@@ -121,7 +120,7 @@ namespace Sequence.Services
             if (grids.Count > 1)
             {
                 sequenceGrids = grids;
-                Task.Run(() => InitializeGridChangerAsync());
+                await Task.Run(() => ShowGridsAsync()).ConfigureAwait(true);
             }
             else if (grids.Count == 1)
             {
@@ -152,11 +151,6 @@ namespace Sequence.Services
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        private async Task InitializeGridChangerAsync()
-        {
-            await ShowGridsAsync().ConfigureAwait(false);
         }
 
         private void HideCameraWindows(long gridId)
@@ -222,8 +216,8 @@ namespace Sequence.Services
             while ((elapsedMilliseconds < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
             {
                 var secondsLeft = Math.Max(0, (millisecondsDelay - elapsedMilliseconds) / 1000);
-                var secondsLeftStr = IsPaused ? "Paused" : secondsLeft.ToString();
-                client?.Send($"{NetworkCommand.SecondsLeftFromGrid}|{gridInfo.grid.Id}|{secondsLeftStr}", true);
+                var secondsLeftStr = IsPaused ? "Paused" : secondsLeft.ToString(CultureInfo.InvariantCulture);
+                await (client?.SendAsync($"{NetworkCommand.SecondsLeftFromGrid}|{gridInfo.grid.Id}|{secondsLeftStr}", true)).ConfigureAwait(false);
                 if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     break;

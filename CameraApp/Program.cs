@@ -6,7 +6,7 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mtf.Controls.Sunell.IPR67.SunellSdk;
+using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;

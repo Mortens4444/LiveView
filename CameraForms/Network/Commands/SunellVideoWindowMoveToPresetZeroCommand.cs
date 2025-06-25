@@ -1,5 +1,5 @@
 ﻿using LiveView.Core.Interfaces;
-using Mtf.Controls.Sunell.IPR67;
+using Mtf.Controls.Video.Sunell.IPR67;
 
 namespace CameraForms.Network.Commands
 {

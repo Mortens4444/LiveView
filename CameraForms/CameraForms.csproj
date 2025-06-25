@@ -29,6 +29,8 @@
     <PackageReference Include="Mtf.Controls.Video.ActiveX" Version="1.0.41" />
     <PackageReference Include="Mtf.Controls.Video.FFmpeg" Version="1.0.40" />
     <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.45" />
+    <PackageReference Include="Mtf.Controls.Video.Sunell.IPR66" Version="1.0.42" />
+    <PackageReference Include="Mtf.Controls.Video.Sunell.IPR67" Version="1.0.41" />
     <PackageReference Include="Mtf.Controls.Video.VLC" Version="1.0.40" />
     <PackageReference Include="Mtf.Network" Version="2.0.12" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.1.17" />
@@ -38,8 +40,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
     <ProjectReference Include="..\LiveView.Core\LiveView.Core.csproj" />
-    <ProjectReference Include="..\Mtf.Controls.Sunell.IPR66\Mtf.Controls.Sunell.IPR66.csproj" />
-    <ProjectReference Include="..\Mtf.Controls.Sunell.IPR67\Mtf.Controls.Sunell.IPR67.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace CameraForms.Forms
+﻿using LiveView.Core.Services;
+
+namespace CameraForms.Forms
 {
     partial class SunellCameraWindow
     {
@@ -32,7 +34,7 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(SunellCameraWindow));
-            sunellVideoWindow1 = new Mtf.Controls.Sunell.IPR67.SunellVideoWindow();
+            sunellVideoWindow1 = new Mtf.Controls.Video.Sunell.IPR67.SunellVideoWindow(AppConfig.GetInt32(LiveView.Core.Constants.SunellCameraWindowRotateSpeed, 50));
             cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
             closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)sunellVideoWindow1).BeginInit();
@@ -90,7 +92,7 @@
 
         #endregion
 
-        private Mtf.Controls.Sunell.IPR67.SunellVideoWindow sunellVideoWindow1;
+        private Mtf.Controls.Video.Sunell.IPR67.SunellVideoWindow sunellVideoWindow1;
         private System.Windows.Forms.ContextMenuStrip cmsMenu;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }

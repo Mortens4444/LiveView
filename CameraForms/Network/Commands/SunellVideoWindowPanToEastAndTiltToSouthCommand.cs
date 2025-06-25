@@ -1,6 +1,6 @@
 ﻿using LiveView.Core.Interfaces;
-using Mtf.Controls.Sunell.IPR67;
-using Mtf.Controls.Sunell.IPR67.Enums;
+using Mtf.Controls.Video.Sunell.IPR67;
+using Mtf.Controls.Video.Sunell.IPR67.Enums;
 
 namespace CameraForms.Network.Commands
 {
@@ -17,7 +17,7 @@ namespace CameraForms.Network.Commands
 
         public void Execute()
         {
-            sunellVideoWindow.PtzRotate(PtzRotateOperation.Rigth);
+            sunellVideoWindow.PtzRotate(PtzRotateOperation.Right);
             sunellVideoWindow.PtzRotate(PtzRotateOperation.Down);
         }
     }

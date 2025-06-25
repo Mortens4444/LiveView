@@ -1,4 +1,4 @@
-﻿using Mtf.Controls.Sunell.IPR66;
+﻿using Mtf.Controls.Video.Sunell.IPR66;
 
 namespace CameraForms.Forms
 {
@@ -93,7 +93,7 @@ namespace CameraForms.Forms
 
         #endregion
 
-        private Mtf.Controls.Sunell.IPR66.SunellVideoWindowLegacy sunellVideoWindowLegacy1;
+        private Mtf.Controls.Video.Sunell.IPR66.SunellVideoWindowLegacy sunellVideoWindowLegacy1;
         private System.Windows.Forms.ContextMenuStrip cmsMenu;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }

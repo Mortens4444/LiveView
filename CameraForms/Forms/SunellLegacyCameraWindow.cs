@@ -10,7 +10,7 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.Sunell.IPR66.CustomEventArgs;
+using Mtf.Controls.Video.Sunell.IPR66.CustomEventArgs;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;

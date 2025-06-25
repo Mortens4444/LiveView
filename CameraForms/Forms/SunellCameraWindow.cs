@@ -10,10 +10,8 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.Controls.Interfaces;
-using Mtf.Controls.Sunell.IPR67;
-using Mtf.Controls.Sunell.IPR67.SunellSdk;
-using Mtf.Extensions.Services;
+using Mtf.Controls.Video.Sunell.IPR67;
+using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -21,11 +19,9 @@ using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Drawing;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CameraForms.Forms
 {

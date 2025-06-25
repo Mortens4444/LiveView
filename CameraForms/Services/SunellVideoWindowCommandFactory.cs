@@ -1,7 +1,7 @@
 ﻿using CameraForms.Network.Commands;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
-using Mtf.Controls.Sunell.IPR67;
+using Mtf.Controls.Video.Sunell.IPR67;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
