@@ -25,4 +25,9 @@
     <ProjectReference Include="..\Database\Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\pages\" />
+    <Folder Include="wwwroot\scripts\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Mtf.Extensions.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
@@ -27,5 +28,16 @@ namespace LiveView.WebApi.Dto
         public bool StartInMotionPopup { get; set; }
 
         public override string ToString() => Hostname ?? String.Empty;
+
+        [JsonPropertyName("html")]
+        public string Html => ToHtml();
+
+        public string ToHtml()
+        {
+            return $"<strong>{Hostname ?? "N/A"}</strong><br>" +
+                $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
+                $"<small>Username: {Username}</small><br>" +
+                $"<small>Password: {Password}</small>";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Mtf.Extensions.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
@@ -25,6 +26,15 @@ namespace LiveView.WebApi.Dto
         public override string ToString()
         {
             return TemplateName ?? String.Empty;
+        }
+
+        [JsonPropertyName("html")]
+        public string Html => ToHtml();
+
+        public string ToHtml()
+        {
+            return $"<strong>{TemplateName ?? "N/A"}</strong><br>" +
+                $"<small>Id: {Id}</small>";
         }
     }
 }

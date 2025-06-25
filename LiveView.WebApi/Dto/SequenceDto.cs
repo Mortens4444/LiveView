@@ -1,4 +1,5 @@
 ﻿using Mtf.Extensions.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
@@ -15,6 +16,17 @@ namespace LiveView.WebApi.Dto
         public override string ToString()
         {
             return Name ?? String.Empty;
+        }
+
+        [JsonPropertyName("html")]
+        public string Html => ToHtml();
+
+        public string ToHtml()
+        {
+            return $"<strong>{Name}</strong><br>" +
+                $"<small>Id: {Id}</small><br>" +
+                $"<small>Active: {Active}</small><br>" +
+                $"<small>Priority: {Priority}</small>";
         }
     }
 }
