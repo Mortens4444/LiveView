@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing Template entities via REST API endpoints.
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Template data.
-    /// Sets the base route for this controller (e.g., /api/Templates)
+    /// Sets the base route for this controller (e.g., /api/templates)
     /// </summary>
     public class TemplatesController : ApiControllerBaseWithLongModelId<TemplateDto, Template, ITemplateRepository, IConverter<Template, TemplateDto>>
     {

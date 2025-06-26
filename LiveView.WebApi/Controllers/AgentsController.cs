@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing Agent entities via REST API endpoints.
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Camera data.
-    /// Sets the base route for this controller (e.g., /api/cameras)
+    /// Sets the base route for this controller (e.g., /api/agents)
     /// </summary>
     public class AgentsController : ApiControllerBaseWithLongModelId<AgentDto, Agent, IAgentRepository, IConverter<Agent, AgentDto>>
     {

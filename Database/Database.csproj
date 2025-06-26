@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\SelectAllBarcodeScanOptions.sql" />
     <None Remove="Scripts\SelectAllCamera.sql" />
     <None Remove="Scripts\SelectAllServer.sql" />
     <None Remove="Scripts\SelectCamera.sql" />
@@ -22,6 +23,7 @@
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
     <EmbeddedResource Include="Scripts\InsertUserEvent.sql" />
@@ -34,6 +36,8 @@
     <EmbeddedResource Include="Scripts\MigrationAlterTableGridCameras.sql" />
     <EmbeddedResource Include="Scripts\MigrationDropLogsTableColumn.sql" />
     <EmbeddedResource Include="Scripts\SelectAgent.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllBarcodeCharChanger.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllBarcodeScanOptions.sql" />
     <EmbeddedResource Include="Scripts\SelectFullscreenDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
@@ -68,6 +72,7 @@
     <EmbeddedResource Include="Scripts\SelectVideoSourceAndAgentInfo.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllCameraRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraRight.sql" />
@@ -203,7 +208,7 @@
     <PackageReference Include="System.Memory" Version="4.6.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.5" />
     <PackageReference Include="Mtf.Extensions" Version="1.0.17" />
-    <PackageReference Include="Mtf.Database" Version="2.0.63" />
+    <PackageReference Include="Mtf.Database" Version="2.0.64" />
   </ItemGroup>
 
 </Project>

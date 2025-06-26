@@ -46,7 +46,7 @@ namespace LiveView.Presenters
             {
                 DeviceId = port.DeviceId,
                 PortNum = port.PortNum,
-                ZeroSignaled = view.ChkZeroSignalled.Checked,
+                ZeroSignalled = view.ChkZeroSignalled.Checked,
                 EventId = @event.Id
             });
             logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device '{0}' rule has been created.", port.Name);

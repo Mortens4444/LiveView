@@ -14,6 +14,6 @@ namespace Database.Models
 
         public int PortNum { get; set; }
 
-        public bool ZeroSignaled { get; set; }
+        public bool ZeroSignalled { get; set; }
     }
 }

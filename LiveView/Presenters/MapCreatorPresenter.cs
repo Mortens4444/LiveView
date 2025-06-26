@@ -9,6 +9,7 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls;
+using Mtf.Database.Interfaces;
 using Mtf.Extensions;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
@@ -265,7 +266,7 @@ namespace LiveView.Presenters
                 else
                 {
                     var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
-                    objectInMapRepository.Insert(new ObjectInMap
+                    ((IRepository<ObjectInMap>)objectInMapRepository).Insert(new ObjectInMap
                     {
                         MapId = (int)mapId,
                         MapObjectId = mapObjectId

@@ -30,6 +30,7 @@ namespace Database.Services
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IMapObjectRepository, MapObjectRepository>();
             services.AddScoped<IMapRepository, MapRepository>();
+            services.AddScoped<IMigrationRepository, MigrationRepository>();
             services.AddScoped<IObjectInMapRepository, ObjectInMapRepository>();
             services.AddScoped<IOperationRepository, OperationRepository>();
             services.AddScoped<IPersonalOptionsRepository, PersonalOptionsRepository>();
