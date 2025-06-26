@@ -1,7 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LiveView.WebApi.Converters;
 using LiveView.WebApi.Dto;
+using Mtf.Web.Interfaces;
 using Mtf.Web.WebAPI;
 
 namespace LiveView.WebApi.Controllers
@@ -11,12 +11,12 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Camera data.
     /// Sets the base route for this controller (e.g., /api/cameras)
     /// </summary>
-    public class AgentsController : ApiControllerBaseWithLongModelId<AgentDto, Agent, IAgentRepository, AgentConverter>
+    public class AgentsController : ApiControllerBaseWithLongModelId<AgentDto, Agent, IAgentRepository, IConverter<Agent, AgentDto>>
     {
         public AgentsController(
             ILogger<AgentsController> logger,
             IAgentRepository repository,
-            AgentConverter converter)
+            IConverter<Agent, AgentDto> converter)
             : base(logger, repository, converter)
         { }
     }

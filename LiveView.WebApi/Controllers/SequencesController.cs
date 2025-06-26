@@ -1,7 +1,7 @@
 using Database.Interfaces;
 using Database.Models;
-using LiveView.WebApi.Converters;
 using LiveView.WebApi.Dto;
+using Mtf.Web.Interfaces;
 using Mtf.Web.WebAPI;
 
 namespace LiveView.WebApi.Controllers
@@ -11,12 +11,12 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Sequence data.
     /// Sets the base route for this controller (e.g., /api/sequences)
     /// </summary>
-    public class SequencesController : ApiControllerBaseWithLongModelId<SequenceDto, Sequence, ISequenceRepository, SequenceConverter>
+    public class SequencesController : ApiControllerBaseWithLongModelId<SequenceDto, Sequence, ISequenceRepository, IConverter<Sequence, SequenceDto>>
     {
         public SequencesController(
             ILogger<SequencesController> logger,
             ISequenceRepository repository,
-            SequenceConverter converter)
+            IConverter<Sequence, SequenceDto> converter)
             : base(logger, repository, converter)
         { }
     }

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using LiveView.Web.Services;
+using Mtf.Web.Interfaces;
+using System.Reflection;
 
 namespace LiveView.WebApi.Services
 {
@@ -16,6 +18,8 @@ namespace LiveView.WebApi.Services
             {
                 services.AddScoped(converterType);
             }
+
+            services.AddScoped(typeof(IConverter<,>), typeof(BaseConverter<,>));
         }
     }
 }

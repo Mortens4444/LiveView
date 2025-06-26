@@ -1,7 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LiveView.WebApi.Converters;
 using LiveView.WebApi.Dto;
+using Mtf.Web.Interfaces;
 using Mtf.Web.WebAPI;
 
 namespace LiveView.WebApi.Controllers
@@ -11,12 +11,12 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Template data.
     /// Sets the base route for this controller (e.g., /api/Templates)
     /// </summary>
-    public class TemplatesController : ApiControllerBaseWithLongModelId<TemplateDto, Template, ITemplateRepository, TemplateConverter>
+    public class TemplatesController : ApiControllerBaseWithLongModelId<TemplateDto, Template, ITemplateRepository, IConverter<Template, TemplateDto>>
     {
         public TemplatesController(
             ILogger<TemplatesController> logger,
             ITemplateRepository repository,
-            TemplateConverter converter)
+            IConverter<Template, TemplateDto> converter)
             : base(logger, repository, converter)
         { }
     }

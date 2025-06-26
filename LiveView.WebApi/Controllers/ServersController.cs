@@ -1,7 +1,7 @@
-﻿using Database.Models;
-using Database.Interfaces;
-using LiveView.WebApi.Converters;
+﻿using Database.Interfaces;
+using Database.Models;
 using LiveView.WebApi.Dto;
+using Mtf.Web.Interfaces;
 using Mtf.Web.WebAPI;
 
 namespace LiveView.WebApi.Controllers
@@ -11,12 +11,12 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Server data.
     /// Sets the base route for this controller (e.g., /api/servers)
     /// </summary>
-    public class ServersController : ApiControllerBaseWithLongModelId<ServerDto, Server, IServerRepository, ServerConverter>
+    public class ServersController : ApiControllerBaseWithLongModelId<ServerDto, Server, IServerRepository, IConverter<Server, ServerDto>>
     {
         public ServersController(
             ILogger<ServersController> logger,
             IServerRepository repository,
-            ServerConverter converter)
+            IConverter<Server, ServerDto> converter)
             : base(logger, repository, converter)
         { }
     }
