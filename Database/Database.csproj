@@ -38,6 +38,8 @@
     <EmbeddedResource Include="Scripts\SelectAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeCharChanger.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeScanOptions.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllIOPortsRule.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllIOPortsLog.sql" />
     <EmbeddedResource Include="Scripts\SelectFullscreenDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
@@ -73,9 +75,12 @@
     <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\SelectAllCameraRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllObjectInMap.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllTemplateProcess.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
