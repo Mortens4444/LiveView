@@ -31,7 +31,19 @@ namespace LiveView.Core.Services.Logging
                 return;
             }
 
-            var logEntry = state as LogEntry ?? new LogEntry();
+            LogEntry logEntry;
+            if (state is LogEntry stateLogEntry)
+            {
+                logEntry = stateLogEntry;
+            }
+            else
+            {
+                logEntry = new LogEntry
+                {
+                    OtherInformation = state.ToString()
+                };
+            }
+
             logEntry.Date = DateUtils.GetLogDateTime();
             logEntry.UserId = currentUserId;
             if (String.IsNullOrEmpty(logEntry.OtherInformation))

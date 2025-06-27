@@ -25,6 +25,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Database.Services;
 using Mtf.Extensions;
+using System.Globalization;
 
 namespace LiveView
 {
@@ -39,6 +40,8 @@ namespace LiveView
         static void Main()
         {
             ExceptionHandler.CatchUnhandledExceptions();
+            //CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("hu-HU");
+            //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
 
 #if NETFRAMEWORK
             Application.EnableVisualStyles();

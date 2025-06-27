@@ -10,8 +10,6 @@ OpenCvSharp has no image
 OpenCvSharp4 has no image
 FFMPEG has no image
 
-Add no permission to view this camera functionality
-
 Show agent displays also on ControlCenter.
 Display identify (remote and local, if same do not draw it again, else draw it, in a fix order)
 If a machine dies, try to start the backup machine

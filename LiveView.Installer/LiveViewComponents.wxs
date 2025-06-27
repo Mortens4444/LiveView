@@ -2,16 +2,14 @@
   <Fragment>
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER_NET9" Name="LiveView_NET9" />
-      <Directory Id="INSTALLFOLDER_NET8" Name="LiveView_NET8" />
-      <Directory Id="INSTALLFOLDER_NET481" Name="LiveView_NET481" />
+      <Directory Id="INSTALLFOLDER_NET462" Name="LiveView_NET462" />
     </StandardDirectory>
   </Fragment>
 
   <Fragment>
     <ComponentGroup Id="LiveViewComponents">
       <ComponentGroupRef Id="Net9Components"/>
-      <ComponentGroupRef Id="Net8Components"/>
-      <ComponentGroupRef Id="Net481Components"/>
+      <ComponentGroupRef Id="Net462Components"/>
     </ComponentGroup>
   </Fragment>
 </Wix>
