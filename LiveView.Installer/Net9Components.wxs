@@ -1,7 +1,991 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Fragment>
-    <ComponentGroup Id="Net9Components">
-    </ComponentGroup>
-  </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER_NET9">
+            <Directory Id="dir8Xh24cJNLte2pWfY_maZDJVBodw" Name="net9.0-windows">
+                <Component Id="cmpRf6kHO9wKSU5Q1yfjogJdSmTv9A" Guid="{89588BD5-E07B-4FCE-998B-7D5BDBF9E126}">
+                    <File Id="filVheS8dB1OaGiKm0TbE4fylfbVPo" KeyPath="yes" Source="$(var.Net9Source)\atl80.dll" />
+                </Component>
+                <Component Id="cmpDZKzsNIQsAHD364Ce.fLyiZJ8S4" Guid="{982C9EED-FAF3-4039-B4CD-061C476756FD}">
+                    <File Id="filrTp4VibaM4Ufa_2z.IksCJkLk2c" KeyPath="yes" Source="$(var.Net9Source)\AxInterop.VIDEOCONTROL4Lib.dll" />
+                </Component>
+                <Component Id="cmp45E7g2jDTqfBxIU7vY_B8ih_KlQ" Guid="{8EB8A1A4-C69A-445E-AB9F-E7652804DD66}">
+                    <File Id="filMQUYOhay7HjV2lZPUi1i2YR3o4Q" KeyPath="yes" Source="$(var.Net9Source)\Azure.Core.dll" />
+                </Component>
+                <Component Id="cmpClSSjWMjYqZrpPZvRg9QNsv9ig0" Guid="{20CD604D-A11E-4FA4-B327-4453F6CBFF8D}">
+                    <File Id="filf0KBSH6_oaGsb.mZKUh1Pg9kQrY" KeyPath="yes" Source="$(var.Net9Source)\Azure.Identity.dll" />
+                </Component>
+                <Component Id="cmpqp4w0LKsFCfd1ihmfY7h_FBR.ss" Guid="{700501DE-FEA0-4575-93F3-B96EF78DA34B}">
+                    <File Id="filqU.lsJ6q6hzB0kSECpAdlwx5kDI" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.deps.json" />
+                </Component>
+                <Component Id="cmpU201o8u.VvZ8bRCJaf8QpaKe9lw" Guid="{4553F490-412A-4EAB-A3F5-A08F1DC52468}">
+                    <File Id="filTurap1n0J58tcCiIAOZUo56RoVI" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.dll" />
+                </Component>
+                <Component Id="cmpMLjjEF_rP6KjnZt5tcgl4rX76No" Guid="{BC50CA22-95E3-4B7D-9344-C2C66EF112F6}">
+                    <File Id="filMRrp68xdsaafQ1N.N6l64jiR_gM" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.dll.config" />
+                </Component>
+                <Component Id="cmpKl9Fv5pjyZKPWPJJKDWYMR6EASA" Guid="{94C54B47-055E-4544-AE51-AACA2379F2E5}">
+                    <File Id="filLqFG0FV00Dg7y1U7QkwxsAOdZOs" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.exe" />
+                </Component>
+                <Component Id="cmpGkLGzu3i7ABZVkrO37F6LRq..wA" Guid="{9F8C70EB-AD55-413F-B22F-ACEAADF90C7D}">
+                    <File Id="filXP.xkvl.ZOEy7vdJJFNa2pQzumw" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.pdb" />
+                </Component>
+                <Component Id="cmpMA2HU0h5liuYV1wnfAqzklC45xU" Guid="{78736F22-F1B7-41BA-9D31-987C341B584F}">
+                    <File Id="filsapnEOIExZwqWtNmksOp4al9vag" KeyPath="yes" Source="$(var.Net9Source)\CameraApp.runtimeconfig.json" />
+                </Component>
+                <Component Id="cmpBO0OUNq.sjnCC9K4jURAiTmUdMQ" Guid="{944CE25D-313D-4BA2-A25A-9D3B45EFB04E}">
+                    <File Id="fil_k7V0l_Somg9deYQXTNCMT7VR_Q" KeyPath="yes" Source="$(var.Net9Source)\CameraForms.dll" />
+                </Component>
+                <Component Id="cmpPXVbMcaA5hM.gZEciCM.3Icq80I" Guid="{110597D3-7123-412D-BBC8-0E1BAB40B878}">
+                    <File Id="filqgXC__SCjWu.PenvC13FMfr85fE" KeyPath="yes" Source="$(var.Net9Source)\CameraForms.pdb" />
+                </Component>
+                <Component Id="cmpLLp7pz_aMyEN7hJTBc_RxeYpbkM" Guid="{8C38C3CA-C357-4A3D-B11D-DD30ED363D44}">
+                    <File Id="filNPjDtZ7TBCKudRAJCDLh0SSFAXQ" KeyPath="yes" Source="$(var.Net9Source)\Dapper.dll" />
+                </Component>
+                <Component Id="cmpuz.Ysd2CXS36SDh7NDqgIo7C2BU" Guid="{6338C621-7484-4FEF-84B6-13B6941A5F9C}">
+                    <File Id="filHAf4PfL2p4Du13tVTj7DlepuYB4" KeyPath="yes" Source="$(var.Net9Source)\Database.dll" />
+                </Component>
+                <Component Id="cmpmKBCmX5t89u7tGyQwLOtNT4ubhA" Guid="{B7C38E47-5641-41E6-AC9E-2857EBD52FA9}">
+                    <File Id="filD.JaLQiMX9KKKHBDAkYUuhcB7xk" KeyPath="yes" Source="$(var.Net9Source)\Database.pdb" />
+                </Component>
+                <Component Id="cmp1DtS7cxuoiM8.1TC4.UwndAnkAs" Guid="{80784B3A-E2FB-466A-A1EB-5069B02F122E}">
+                    <File Id="fil3Ayf4jFL.JBdH2s9B2qRzVdDW4s" KeyPath="yes" Source="$(var.Net9Source)\ffmpeg.exe" />
+                </Component>
+                <Component Id="cmpXQMCbcb7L7mviRPJ4fZJLB.FdEM" Guid="{EE331593-9CB2-4B83-A216-7C5126B55A79}">
+                    <File Id="filiOEMhAwz7lzVKqoQ9IzStQZ30DU" KeyPath="yes" Source="$(var.Net9Source)\ffplay.exe" />
+                </Component>
+                <Component Id="cmphy9TxRQNBJRcCGPFCZiRCihggRo" Guid="{52E4B0BC-6B2A-45FD-8B62-F2FCE84A20F0}">
+                    <File Id="filWx_kgqvdiPxCCyoA6cpk197YtxQ" KeyPath="yes" Source="$(var.Net9Source)\ffprobe.exe" />
+                </Component>
+                <Component Id="cmpumw3oI175BvwLEtYEnnsoUjlxs0" Guid="{AB68ABCC-F24E-46E7-B257-27D9C06083CF}">
+                    <File Id="fileMQk2gHd7u65rU34YBQzKTs7J8k" KeyPath="yes" Source="$(var.Net9Source)\Interop.VIDEOCONTROL4Lib.dll" />
+                </Component>
+                <Component Id="cmpTTs.rdQalwVQ8zWpG8u6_NeyhRs" Guid="{CC0E514E-8EA3-42FF-9A06-B868816AE644}">
+                    <File Id="filjtKasOJ9nRPzHGFZ1a.z8AoSZFY" KeyPath="yes" Source="$(var.Net9Source)\Languages.ods" />
+                </Component>
+                <Component Id="cmpHmdmtx2_3h6sZVCKDKOJEDTLngs" Guid="{8CC8896F-31C9-459F-8449-5DABB7CE0D08}">
+                    <File Id="filOmSmQMmcvtyzvxrO_XfJ_JRduXM" KeyPath="yes" Source="$(var.Net9Source)\LibVLCSharp.dll" />
+                </Component>
+                <Component Id="cmpjAaKL0o0VdcYDky9NoZUgeJohRc" Guid="{54694402-335B-4EFF-970F-10C6F2DA5333}">
+                    <File Id="filFutukZkDJhl1Kp9ooeUtADSBwSM" KeyPath="yes" Source="$(var.Net9Source)\LibVLCSharp.WinForms.dll" />
+                </Component>
+                <Component Id="cmpPAt9ejEPUtqIu00QM98H3U6SsR8" Guid="{805A3DDF-2D89-4CA7-9DE6-29DADE6DB384}">
+                    <File Id="filA8hkCh6ku6JKaVvOotWzH0hDGY8" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.deps.json" />
+                </Component>
+                <Component Id="cmpWpdglN3p7yyJwV6Tc_V3BcIcxJU" Guid="{6138EA7F-74DF-4C23-B4CA-7B0EB86418B0}">
+                    <File Id="filiT3fznOurtRANnmsTHEP5WfGE0Q" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.dll" />
+                </Component>
+                <Component Id="cmpCq0pWU6gXLiWz6q9hSPkd3t1xVw" Guid="{913217B1-A436-40A1-8147-7EF29CD9B10C}">
+                    <File Id="filtYZHpgiXTiI7m7vudCPLPCNdMd4" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.dll.config" />
+                </Component>
+                <Component Id="cmpkqMQ3mxn8NexFEMGNgJZwBQ68.U" Guid="{1BCA16B1-8B8E-4C2B-89FD-4B8B39CD9696}">
+                    <File Id="filmSA5tZ.b5lnafXSSItp6yot8ZEE" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.exe" />
+                </Component>
+                <Component Id="cmpWCcScdrdDZE0kMKP3URh3H4cIlA" Guid="{978D84EE-C39C-49AA-A606-3C1F3E1C18D8}">
+                    <File Id="filGFgJP2HNN1CT8AXR_7IjN7EvnMc" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.pdb" />
+                </Component>
+                <Component Id="cmpn5lCTo96upzgRGWT_18jyaFVwvQ" Guid="{141D823A-7C39-4395-AC31-4F54B2F4BF1F}">
+                    <File Id="fily2iWA2VizWZC2YrL1xS32Sm0FGM" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Agent.runtimeconfig.json" />
+                </Component>
+                <Component Id="cmpmzLvlxgl6uFVQJN01C7cHE5kfC4" Guid="{E79CB975-2C02-48CE-80FB-7950B59C0086}">
+                    <File Id="filrvS56ilTLdHPDcgnbzU0mxEy80w" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Core.dll" />
+                </Component>
+                <Component Id="cmpAktjPATuTWbiXao5yvN8eXkk0PY" Guid="{99378671-F334-4530-83D0-E6FF5C28A512}">
+                    <File Id="filMdAyqePij.fpMD9T7g8F7PK39nA" KeyPath="yes" Source="$(var.Net9Source)\LiveView.Core.pdb" />
+                </Component>
+                <Component Id="cmpUPqup_EwIn1miIWOiUsy9YYvsXY" Guid="{677E6DAE-26FC-4F9D-BC17-C5929AA6C3AC}">
+                    <File Id="filWr04j3uUly.a6TEJbFmmMIOwv50" KeyPath="yes" Source="$(var.Net9Source)\LiveView.deps.json" />
+                </Component>
+                <Component Id="cmpLTzUIIH6hJDFUpEz0eGh5rROEsc" Guid="{059C7279-1FF8-4FD9-B55D-B353A6E3B4A6}">
+                    <File Id="filiXmPJsLlr7ykWrYMhYXTT_GvJ9o" KeyPath="yes" Source="$(var.Net9Source)\LiveView.dll" />
+                </Component>
+                <Component Id="cmpL4T8eJHi6Ri6XQrxmTd_9qdyuHU" Guid="{52A98219-965D-4FF4-A886-8F06AC334D6A}">
+                    <File Id="fil.9DhbT3aENiyOOiw3jYtsTLx4Dw" KeyPath="yes" Source="$(var.Net9Source)\LiveView.dll.config" />
+                </Component>
+                <Component Id="cmpZvAeUXsMVnnrAfVnE55OnH3UTdY" Guid="{C792B7E3-E68F-4ED5-A9D6-6A9CFC430E72}">
+                    <File Id="filtRpmdc0qzkklQ7AQCXGR6zpmrm8" KeyPath="yes" Source="$(var.Net9Source)\LiveView.exe" />
+                </Component>
+                <Component Id="cmp76EfUPaPRKe.skP6UF11So4AIWg" Guid="{8444BB7A-0B32-4F90-B6D6-6ADCBDC72FC8}">
+                    <File Id="filyVJQLQ0zG1z0Ps45Kqx5LAVZAE8" KeyPath="yes" Source="$(var.Net9Source)\LiveView.pdb" />
+                </Component>
+                <Component Id="cmpHyx4FkyTWvkiyBf5qqT_axFudbM" Guid="{46AA7780-1FF7-41A0-A92A-CE2E7A3289A1}">
+                    <File Id="filZNkkWRgLL4jVg0.YSPevCOUDKls" KeyPath="yes" Source="$(var.Net9Source)\LiveView.runtimeconfig.json" />
+                </Component>
+                <Component Id="cmpWrimnk5LT8Tb8GSNU857xgvSd5M" Guid="{93B6C4B3-A2BA-49EC-A689-66FC493BBF50}">
+                    <File Id="fil_iu3Y8PJ.E6eog0zinViseGKzKw" KeyPath="yes" Source="$(var.Net9Source)\mfc80.dll" />
+                </Component>
+                <Component Id="cmpYYiwl3JHqOomtewwRye9nD4qzdw" Guid="{0FED1E60-F6E6-440C-A20C-452B0F9A6858}">
+                    <File Id="fillB80ag4fKB_Dgby9TkJ.JJqqHVU" KeyPath="yes" Source="$(var.Net9Source)\mfc80u.dll" />
+                </Component>
+                <Component Id="cmpBP9rjEG.UnORXafA7psy.ozrhek" Guid="{AE9DA3A9-A05D-46DB-B4C2-2AF0427C87DB}">
+                    <File Id="filfOqH9SeyoRB5sCKF2SmIrNxORu8" KeyPath="yes" Source="$(var.Net9Source)\mfcm80u.dll" />
+                </Component>
+                <Component Id="cmp32F5jaVuYUl0kl8zIkzNEaE09Jw" Guid="{32B5592D-660F-4679-AAFD-61089701816E}">
+                    <File Id="filAgSp.XEMk0fqFxldSgZ58UzO4LA" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Bcl.AsyncInterfaces.dll" />
+                </Component>
+                <Component Id="cmpszOtTgw3LriZMP5dfA6.mTvmO.c" Guid="{9170B326-669F-4E16-84B8-CD5FA77B8D5F}">
+                    <File Id="fil7FtqaU2wlloloG_Fgkvr3EhuDWs" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Bcl.Cryptography.dll" />
+                </Component>
+                <Component Id="cmpMX42q_xmRGkxn2cNggkYfxd0j3g" Guid="{DAC21F6D-FE31-49A3-B3C2-F8F92B5DF36A}">
+                    <File Id="fil1wCyWfSTTVmFKqg2_GHFhrI8Pyc" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.dll" />
+                </Component>
+                <Component Id="cmpMz5JcwOBfeKq9DEBcahtydF0rUI" Guid="{589075C2-1C1C-4994-95E9-8B4CD47FF204}">
+                    <File Id="filr5BIRF1AWEMy5TyHWWDGwSu9gvU" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.arm64.dll" />
+                </Component>
+                <Component Id="cmpIBPPppJt_A3pEAYYSixylg_B9n4" Guid="{A87404A8-CC9F-41E6-9F3B-5DD2FD2CE852}">
+                    <File Id="filGQa4kf4WTb3SPMW1ycaZKM1uJeA" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.arm64.pdb" />
+                </Component>
+                <Component Id="cmpiZzyggttQ5liCYtXPX.ZVEV.Fk4" Guid="{58761916-7F43-4ACA-874C-51F3E57829D9}">
+                    <File Id="filA4Yd96hXlZGfIcctnN6QXGo8Pp4" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.x64.dll" />
+                </Component>
+                <Component Id="cmp5p2vfM.s4hs0Ht6VKS4eGUgwVMo" Guid="{8D2DC6CD-0FEF-4410-B567-A9070C330296}">
+                    <File Id="fil0NekJZ5bflnSStFeP4XRTQ8jsx8" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.x64.pdb" />
+                </Component>
+                <Component Id="cmpttzt3SO_sjf7KnSEm8W94jM9.rs" Guid="{11E93C1C-EA87-4B61-8BEB-EF9E31DD1DB8}">
+                    <File Id="filoydCndrERbojtcjroyGAmzm93uk" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.x86.dll" />
+                </Component>
+                <Component Id="cmpJjD0HuuEsKsJPr7g6_6u0KveIM8" Guid="{46572259-2C76-4890-86A5-B21819A5BF9A}">
+                    <File Id="fil1ozPibxrXGRZ04I_ck.PAXepFQE" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.SqlClient.SNI.x86.pdb" />
+                </Component>
+                <Component Id="cmpDIvGLbSPH3j7lL0ItOQRjARKW5o" Guid="{77AF73B6-F53A-403C-8394-3BC7D09D285C}">
+                    <File Id="filBgMyPC9pUhVhhFAq3qLTqJA2T3E" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Data.Sqlite.dll" />
+                </Component>
+                <Component Id="cmpLD_J5xq4dwY1WyEcfUyTVJTysWE" Guid="{772AD338-8F4C-4246-B18B-0F88C0B0965D}">
+                    <File Id="filZd_ES7wXcvrPo_n_iBu_JU3lb4g" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Caching.Abstractions.dll" />
+                </Component>
+                <Component Id="cmpNID9tkh7_K4oOWmkjRaFIi_2bXw" Guid="{326A694B-A6F5-4AF7-ABC1-287C3DCC4F05}">
+                    <File Id="filMDjdNjy4yTexi2DlSG3bo0mslk8" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Caching.Memory.dll" />
+                </Component>
+                <Component Id="cmpJIAk1EFi_pejUDjmAK9NULaWTaw" Guid="{8F42FA30-BA58-4F47-A1A6-26627C957433}">
+                    <File Id="filwnxiC_Ifm8EKC8l37bcFRNmbHTw" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Configuration.Abstractions.dll" />
+                </Component>
+                <Component Id="cmpzPfzfi2PmUqYKIm9GzugYe8wKps" Guid="{B829B711-95CF-4597-BE33-C8338968D44F}">
+                    <File Id="filfBWNvxLLAkyjhCAmjvFY5JvIMOc" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Configuration.Binder.dll" />
+                </Component>
+                <Component Id="cmpkuRcEsoSomK.4zv247q0lAZeYzo" Guid="{AA26FC74-BFB5-44E9-B6DA-DD067DD78DF3}">
+                    <File Id="filiwEv.7QjM3D4m1p8x6oHBtSTUS4" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Configuration.dll" />
+                </Component>
+                <Component Id="cmp7.yb8UgqO6fEdoHCbaU8ud1Nho0" Guid="{4E56B54A-65A4-414D-97F6-9901FA008A3E}">
+                    <File Id="filwBBHPrMMhNBVUpe5ayUfgJ8piEA" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                </Component>
+                <Component Id="cmp8_tpodNd1ZKEF5HKD.FRI7Iw67s" Guid="{60C3B425-6769-47FC-81DA-563AC4BF3547}">
+                    <File Id="filIsAjH3SGxxdTFfCOTUKWNvuAhMo" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.DependencyInjection.dll" />
+                </Component>
+                <Component Id="cmpTHkOdPtyQ7vMGbyiFjP4IAP_aJM" Guid="{3DCC0A21-45F2-44D1-B63B-C41D9DE00F38}">
+                    <File Id="fillboHiFrpWZLzZrft5M6tUWAn028" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Logging.Abstractions.dll" />
+                </Component>
+                <Component Id="cmpXuL2Fi3S5pFh.xry5I7jxdzOmrg" Guid="{4B3FDDAD-1E2B-437A-A0AA-551F2D710FB9}">
+                    <File Id="filPvAp64rYWFBzWfugm7RArtN8fGg" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Logging.Configuration.dll" />
+                </Component>
+                <Component Id="cmphPFysbJ2Q6oSIczjENA1ZV8QIMs" Guid="{7922BAF9-D884-475A-A7FE-B0703C9C3A09}">
+                    <File Id="filEKABhcr4VXPHuvWzipJk5..GYCs" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Logging.Console.dll" />
+                </Component>
+                <Component Id="cmp4x75zE.2LAb02gG8o5s7TOlczyY" Guid="{89F92635-9B6C-4A93-AAB8-DFFDBEC38CCB}">
+                    <File Id="fillcV3ASmGoP4zYo6orjhlcOE1lto" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Logging.dll" />
+                </Component>
+                <Component Id="cmpZ.2eZeZvXFKl9NJEXjbj552RFCc" Guid="{A03175D3-F142-4EBB-9F76-6C7138306FB7}">
+                    <File Id="filIv0HfGrDpztr7tlaCgH_J0_EsCE" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+                </Component>
+                <Component Id="cmp1zyCfn8ZYodm_GhoM3R2yaRPhv4" Guid="{87DAD050-A3BB-4D38-95B9-53E1636DF50B}">
+                    <File Id="filitoqS5bStHCvmYQKid11rtjBJ04" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Options.dll" />
+                </Component>
+                <Component Id="cmpz9LDzAI8GwHaQXL0gihEOtnqSyY" Guid="{7E9CA072-4202-442B-BF87-0232A09E9751}">
+                    <File Id="filGW0UsnHSElfOuqWhGX455wU3vTE" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Extensions.Primitives.dll" />
+                </Component>
+                <Component Id="cmp2wWNhiVItYaKdd9vJZ1n2IxT24A" Guid="{FB4F6787-8182-4E9D-BAE7-D12C8BF41A98}">
+                    <File Id="fileYWjNWeCIGWT.lOVny6Fpwcg3Q8" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Identity.Client.dll" />
+                </Component>
+                <Component Id="cmpRYH_6u9weoIF2fo_SJbakOyZ5vA" Guid="{E9B13346-B0E8-4AA6-9255-FA59C9D94570}">
+                    <File Id="filAxmC5MQn_.JjoQJG0Yme6hL9JCo" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Identity.Client.Extensions.Msal.dll" />
+                </Component>
+                <Component Id="cmp1JrYhQOlTCd7HEgnIQJxB0g5mS4" Guid="{CC767B06-EA4A-4140-9952-B8EEBF7F7DC9}">
+                    <File Id="filLBtmoU4hZiHM.gRW1fH1FaFueU4" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.Abstractions.dll" />
+                </Component>
+                <Component Id="cmpBF.u_HC0i6AwH1C0iXQsqxmmAdk" Guid="{E6248166-6466-450A-80A2-99714FD7E2E8}">
+                    <File Id="filfpFanRtJhjlqUs1ydRXhWSsE3C8" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.JsonWebTokens.dll" />
+                </Component>
+                <Component Id="cmpMRrIFeSvdEdO9H_cuCgtLbIE_C4" Guid="{29775AD0-2073-4E80-A9CF-DA93173D93A0}">
+                    <File Id="filjuMSuPW2o9mwqEyDvbwcTgXP5Jk" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.Logging.dll" />
+                </Component>
+                <Component Id="cmpvN4IS8sHKzdDYB8kDGwePcL43p0" Guid="{C01E1982-2E51-4BBB-8278-961401CCDE83}">
+                    <File Id="filf.Iu3sBugNXbA01BwqSY.3H9b78" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.Protocols.dll" />
+                </Component>
+                <Component Id="cmp_.6Y.HpjqdM6Wz7lAy4zn50KUKs" Guid="{A2001851-FD55-4FEC-A647-BA1C3A333D86}">
+                    <File Id="filGgWW4CDpSEXPt7UFW1ta1hbU3gc" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+                </Component>
+                <Component Id="cmpJoantqwYnYOSE_BsjaR3tBN_8I8" Guid="{2692451B-E7D4-41E4-9721-8EADA5354572}">
+                    <File Id="filHYVCbg1LBuFYdCxIjP_4actSZJ8" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.IdentityModel.Tokens.dll" />
+                </Component>
+                <Component Id="cmp0y3EC4x0gbIP7ap7Fc7_3v6gWVk" Guid="{7B112DE2-D87D-4C51-B4B9-717566DEA80D}">
+                    <File Id="filc5iE23kF73A4RS3NMOnU_Y3mKf0" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.SqlServer.Server.dll" />
+                </Component>
+                <Component Id="cmpb4uLSGmR4DT7Fw_aojvvYS6TBrc" Guid="{34B33856-C8C5-4088-82C6-842882BE2653}">
+                    <File Id="filGkEVvMcdLOVTWcz_082T1pXZU2w" KeyPath="yes" Source="$(var.Net9Source)\Microsoft.Win32.SystemEvents.dll" />
+                </Component>
+                <Component Id="cmpDGXHRnnR8AbqyLw93cCk.5wTKMw" Guid="{9494A323-E9C3-4030-AFA0-BF4312099E53}">
+                    <File Id="filedilddRE4oCZohTLdg9qvUr1V64" KeyPath="yes" Source="$(var.Net9Source)\msvcm80.dll" />
+                </Component>
+                <Component Id="cmp1Pe0K4OpytCU7OKMyjTFtOBveHM" Guid="{73810F35-6369-4919-B06C-0F2D85DA6F66}">
+                    <File Id="fil6wyGlFZ4dn6Tm_aU_b.OcA8pRJM" KeyPath="yes" Source="$(var.Net9Source)\msvcp80.dll" />
+                </Component>
+                <Component Id="cmpnyxCo1yhA1rsg5y98FuViXdkyHI" Guid="{FB68770D-B83A-4E6F-953E-0B2F9EE100B1}">
+                    <File Id="fil6m0L8kPlfNZWHnNy4MEF1kJNRuo" KeyPath="yes" Source="$(var.Net9Source)\msvcr80.dll" />
+                </Component>
+                <Component Id="cmplkVJq_8tPvYoX.LKj._ECh2oBa8" Guid="{F06D3EAF-D603-4467-8A2A-37B13EFB21BC}">
+                    <File Id="filtI.vxgCIRZ5E5Zj3kFroEeR3blg" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.dll" />
+                </Component>
+                <Component Id="cmpIrhbgBeT40HoeW8NudZQa7A1hYI" Guid="{6BC74AC5-6C95-4045-9227-5CD6CC23BBAC}">
+                    <File Id="fil7y8j1mAUMgShyxhug3dXHlyQ3t0" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Interfaces.dll" />
+                </Component>
+                <Component Id="cmpqYHocg10yuha.NdQfvQbXzeXZuM" Guid="{67BDE0EA-D20F-46E6-8E4C-D75AD1256B14}">
+                    <File Id="filTl3t0_CttWPJzlzI0IUotZyM.FM" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.ActiveX.dll" />
+                </Component>
+                <Component Id="cmpzwl7.QbSyMiwKZQ6gOAyASDilFM" Guid="{799C8E63-6735-43C9-B133-224AC84E55A0}">
+                    <File Id="fil302CyWETzOZsPpJk1fY8vfvgJu8" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.dll" />
+                </Component>
+                <Component Id="cmp6xkoy0J6qvmujcyCIpg3nATrSnM" Guid="{C3C0B60C-6C8C-49EB-BC6D-A989E4690E2D}">
+                    <File Id="fillVxDni6.x7wlI_fNqE4PCVvd15o" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.FFmpeg.dll" />
+                </Component>
+                <Component Id="cmp486F67gccdxi3k6q_tPm4K8swd0" Guid="{AC779203-CA9F-449D-AC42-57E0036F0255}">
+                    <File Id="filZ7Pmli6GEKxD_Yj8Dxx3fn10J0Y" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.OpenCvSharp.dll" />
+                </Component>
+                <Component Id="cmp4qPOgJ2aB_O0IKLMXpOnb0Q_BwY" Guid="{A4368519-C84B-445C-82B3-9718D4116CBE}">
+                    <File Id="filly8T9gdpuGzX8PAWeKkAjchxuRs" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.Sunell.IPR66.dll" />
+                </Component>
+                <Component Id="cmpfNpEbzVILLw.08WaFuSAYw6fjcI" Guid="{4D01A743-72F2-4819-8B2B-F35066DAEB51}">
+                    <File Id="filwYH28a8DfKUTr9oDyTwY6w_VLQg" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.Sunell.IPR67.dll" />
+                </Component>
+                <Component Id="cmpY_2aZOqBvH98iXK1sWbgqsyL8Vw" Guid="{4B044333-76EF-4DC7-B77E-F870A5EF149D}">
+                    <File Id="filI.F2cBIyeanrKEiOoI3Q.ii0ldI" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Controls.Video.VLC.dll" />
+                </Component>
+                <Component Id="cmpVkFHQGsxM9q7KMtrsXcKbax_wfk" Guid="{6642A3A2-451A-45EA-854C-65B6648626D3}">
+                    <File Id="fil7m1IQNCL2Wd6OYuuy1iQ9rnP47I" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Database.dll" />
+                </Component>
+                <Component Id="cmppTP2.A1H_cDlGFrPFb7_PDCmzWs" Guid="{4CC5FA7B-D0F2-4954-AD1A-47FA34A81AD0}">
+                    <File Id="filtz3vZi7unXvzZFFMAm3Ivw5QaKE" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Extensions.dll" />
+                </Component>
+                <Component Id="cmpoBU2PmuQIBhY3.SoUcqs5_dgv10" Guid="{90515F8C-85C7-4F7C-B796-4D3506959587}">
+                    <File Id="fil8bxoNyVV_gcgZLvctZmlvcLTskM" KeyPath="yes" Source="$(var.Net9Source)\Mtf.HardwareKey.dll" />
+                </Component>
+                <Component Id="cmpMLHwbQTh_0IMA.indZ3mEDRSKHs" Guid="{A4669D8C-7CF0-4C43-BC84-07A2F2CD5EB9}">
+                    <File Id="filtbKwVcopG0a3pii4bFsdm04l2Yc" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Joystick.dll" />
+                </Component>
+                <Component Id="cmp75wdcAcg36cOPS7zpTNm210MolE" Guid="{4C25D514-B802-4646-B60B-136A2333F1F0}">
+                    <File Id="filSyR_w7vOCZ76B4sJD1NSJcw4eZk" KeyPath="yes" Source="$(var.Net9Source)\Mtf.LanguageService.dll" />
+                </Component>
+                <Component Id="cmpWRr923PympiLcQuV1XFgmVXpmcE" Guid="{6C4D52A5-7174-496F-8FB5-CC7C6A5E3ABD}">
+                    <File Id="filoVcRyWiS_wcgPov6wjOWlcRPReE" KeyPath="yes" Source="$(var.Net9Source)\Mtf.LanguageService.Windows.Forms.dll" />
+                </Component>
+                <Component Id="cmpG1BJMPO.dUnaXkEvayL6Er952t4" Guid="{45018ECB-07D7-483D-A187-FDD2ADA7639A}">
+                    <File Id="fil7UWaolAc4cNWIAidQvG3sT1Pc6I" KeyPath="yes" Source="$(var.Net9Source)\Mtf.MessageBoxes.dll" />
+                </Component>
+                <Component Id="cmpQkT3Gt13NUHzRWiOMCepw3L7xe4" Guid="{3D13DB2B-7ABE-4A06-B545-F61A500C7B22}">
+                    <File Id="fil2_QGwzhMR9upWR2aPI8B_7NNpck" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Network.dll" />
+                </Component>
+                <Component Id="cmpHDSYdcZ3CfXFVx8OyvtgM6icFCw" Guid="{41B9AD58-1079-4DB7-BC92-72C1937D600C}">
+                    <File Id="filSerM652QkxrKwJeXyCJU.rsjf4k" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Network.Interfaces.dll" />
+                </Component>
+                <Component Id="cmpnQnVTj2jtHyGpr5jq3JzpkaXw04" Guid="{49B76D81-24C7-46FD-98A4-7FD03544B724}">
+                    <File Id="film78VVpPaksQ2V_iDE8IOXYc3x3w" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Permissions.dll" />
+                </Component>
+                <Component Id="cmplLmu_gNpYFvhVkPPyBAGz5_6zWo" Guid="{8688D1B2-1BF2-47F5-A62C-7AAD358AA3F0}">
+                    <File Id="fil2sYi9aHAhVK8noLV6nS6tK5IC9Q" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Serial.dll" />
+                </Component>
+                <Component Id="cmpUgECPBusJLu9yqHyP2..gtX9mYA" Guid="{C64497D8-63AF-429C-BE85-73E7B6BB9516}">
+                    <File Id="filgKSBrFhNxqYbce9AHCDcVPbbGGg" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Windows.Forms.Extensions.dll" />
+                </Component>
+                <Component Id="cmpRN9a0zq_YHgeSewBMPG_ggHA5cU" Guid="{D86F8198-5DD6-4DE2-B838-C9B195B5F9E5}">
+                    <File Id="filMDbUe12LFYKcKGLVLjZKR93E5ss" KeyPath="yes" Source="$(var.Net9Source)\Mtf.Wmi.dll" />
+                </Component>
+                <Component Id="cmpDEzZkMrNE2_Jh0f9QQwe2hOF__g" Guid="{D6E1AD87-5EDD-4D3C-A6F8-228418C7C88E}">
+                    <File Id="filYLwoEoTpA82zsvdBjuscOOejRB8" KeyPath="yes" Source="$(var.Net9Source)\Newtonsoft.Json.dll" />
+                </Component>
+                <Component Id="cmp3Kv.LrUEtEpZfBFhw5KkOKbuM9U" Guid="{6C817C4E-6277-45EE-8A41-C9ED2C8E45A1}">
+                    <File Id="filUGmEFymekhn_AF1FkTndjI0k.F8" KeyPath="yes" Source="$(var.Net9Source)\NvdaiDll.dll" />
+                </Component>
+                <Component Id="cmpKGhu8zvfDDz67ChXNurzTz6UvkI" Guid="{DDD70951-CBB7-45EC-A45F-65FC07806D2E}">
+                    <File Id="filUyYrSk4q9oY7obH_J.bLTl_I3Ss" KeyPath="yes" Source="$(var.Net9Source)\NvdaiDll_D.dll" />
+                </Component>
+                <Component Id="cmprT1IX8aHxBuOSMLjFmfvx5WmPLc" Guid="{45634423-701B-4817-A1CC-FF0DC51D9628}">
+                    <File Id="filw2nQFhsj9ePSCp7oZiJkjzn8QPQ" KeyPath="yes" Source="$(var.Net9Source)\NvdalDll.dll" />
+                </Component>
+                <Component Id="cmpl85d4auS_6nSECen3ze8NjZq8tQ" Guid="{1FE883D8-C823-4691-B535-A849916503B3}">
+                    <File Id="filhaVNlN1b8_p6.ss0Z6CycGhoJLs" KeyPath="yes" Source="$(var.Net9Source)\NvdalDll_D.dll" />
+                </Component>
+                <Component Id="cmpCAvJ3CmGD5bwiVs3PoP7hbT1lgE" Guid="{E08FEB09-4FDC-492E-ABF8-0D35D6C693DD}">
+                    <File Id="filgme7ugH3WbVfGt0f94e_mqLCKjk" KeyPath="yes" Source="$(var.Net9Source)\NvdcDll.dll" />
+                </Component>
+                <Component Id="cmpmhFDJasGUbYKZWKveyFmB2pcf4E" Guid="{E582C457-594C-47C1-89FB-73F3A126764D}">
+                    <File Id="filSTMqNZ8dxBynY6ip.6IbrSbAyv4" KeyPath="yes" Source="$(var.Net9Source)\Nvdcdll_D.dll" />
+                </Component>
+                <Component Id="cmpNKbyFuVNtAuyGyXVlU8eGnsNEbQ" Guid="{C8006F97-CF19-4564-BEA2-AC54EEA13B60}">
+                    <File Id="filDrY1EH6n7.KRyU5lnMwYyaEK4Is" KeyPath="yes" Source="$(var.Net9Source)\NvdcNetSDK.dll" />
+                </Component>
+                <Component Id="cmp_2msq2ynJ06_ouAWVzY7aaybUrk" Guid="{A25D361C-BA54-4AAD-BDD4-C922EF5B68EF}">
+                    <File Id="fili6LMel_.tIT7Zu_zWUwQmV111gk" KeyPath="yes" Source="$(var.Net9Source)\NvdcPlayerDll.dll" />
+                </Component>
+                <Component Id="cmpG2uNrgfGWuj.2tpCtALauU3EYkM" Guid="{32DE1263-A408-4163-8F22-4BB33DE5E363}">
+                    <File Id="filv_O9DxUVwkwZhvUEFx_0hk5duWI" KeyPath="yes" Source="$(var.Net9Source)\NvdcPlayerDll_D.dll" />
+                </Component>
+                <Component Id="cmpmVD7oJifq_D8.UT6k19yTwm3vcQ" Guid="{B973F040-F6ED-459D-A283-B268186798CE}">
+                    <File Id="filfoEkWESHFeWXwORAUzKM8_JuC6Q" KeyPath="yes" Source="$(var.Net9Source)\OpenCvSharp.dll" />
+                </Component>
+                <Component Id="cmp9wvfBJMc_UrGZ4bMckTax.U27nA" Guid="{F9E581F1-28E6-4928-A5D2-DFC3ED8506D7}">
+                    <File Id="filsNbfbvkeZBeDDiPAH6DLAFpIXHw" KeyPath="yes" Source="$(var.Net9Source)\OpenCvSharp.Extensions.dll" />
+                </Component>
+                <Component Id="cmprRFHUYDSQ2QFchY7I4fbFL6iwe4" Guid="{97259B18-38A3-4342-9720-E88F403F105F}">
+                    <File Id="filFpI2SZRhp9xdPKkGFur0G9QIhs4" KeyPath="yes" Source="$(var.Net9Source)\sdk.dll" />
+                </Component>
+                <Component Id="cmpv8WvPsuf_u_mf1Y8wIHX1h3cQrc" Guid="{2939D999-4D10-47F3-B319-FDD846160848}">
+                    <File Id="filIZraxG9bwdyrlPCdio.tk.1D9b4" KeyPath="yes" Source="$(var.Net9Source)\Sdk_C_Sharp_Lib.dll" />
+                </Component>
+                <Component Id="cmpBM8P0cOwx9tcOPS2Qkt1P1ckFlA" Guid="{19CA57DF-9AAE-43B7-A97B-45C15A58370F}">
+                    <File Id="fil4QMsKFZJddXDzk3DSvzjtHIJjNQ" KeyPath="yes" Source="$(var.Net9Source)\SensorUI.dll" />
+                </Component>
+                <Component Id="cmp3mmdagkrcaReZsliPsRKcmGcP8I" Guid="{DF5196A1-2E8A-4132-AEB8-F2759A61ED75}">
+                    <File Id="filCJAl2QbSEG.rO1gAvMLF5tDfSlk" KeyPath="yes" Source="$(var.Net9Source)\SensorUI_D.dll" />
+                </Component>
+                <Component Id="cmpCJLnvY4omooOIQNBdFpX5uPV5oQ" Guid="{9AAF916C-8F5E-4714-BABE-B2D1C43EEC27}">
+                    <File Id="filc3VIW6FQC.DEHJ48jWVFe3UMuAA" KeyPath="yes" Source="$(var.Net9Source)\Sequence.deps.json" />
+                </Component>
+                <Component Id="cmpS_WEsxOAucnufZeoaCVHC4RCMAE" Guid="{A0899242-38ED-4D9C-9684-7FF6E24A6380}">
+                    <File Id="filBuKB1atDbMK8SFQm8Re9u0vHoXM" KeyPath="yes" Source="$(var.Net9Source)\Sequence.dll" />
+                </Component>
+                <Component Id="cmplFMcyIb66y3zJIv7IU1JPo8KlCI" Guid="{A1EC5536-0297-4BD3-A9EB-B7ABFE1251B5}">
+                    <File Id="filweYVxqQvgA_8tiWQ.EetrPRJIVo" KeyPath="yes" Source="$(var.Net9Source)\Sequence.dll.config" />
+                </Component>
+                <Component Id="cmpZRmZT.6o_jfMpiC3m0mq2XqdU1o" Guid="{5BF24BA6-F136-4B3D-B22C-DAB503B79FB9}">
+                    <File Id="filu0qYVlMuuLsZGE3DBxmai8amAVo" KeyPath="yes" Source="$(var.Net9Source)\Sequence.exe" />
+                </Component>
+                <Component Id="cmp2w9ji4AbCAQkJTCh9RRgT_uDyxQ" Guid="{6B8DE651-651D-4C49-98F4-9B54E36FB84C}">
+                    <File Id="filaU3Dbf5dmZYHwJbQr57YlWJn3Hk" KeyPath="yes" Source="$(var.Net9Source)\Sequence.pdb" />
+                </Component>
+                <Component Id="cmpFTyqxRQfXwxXUDTIc8i0NoB1gzM" Guid="{4B4BB357-DE3A-44EA-9452-BBBC2680696E}">
+                    <File Id="fil3WOiwBSEqsAxDGsmL1hXWa1xOX0" KeyPath="yes" Source="$(var.Net9Source)\Sequence.runtimeconfig.json" />
+                </Component>
+                <Component Id="cmpjOv.Sll4SEq9ZDlo91eU1HBn6Ys" Guid="{4E12D5F8-A36D-4D34-B5ED-D45D43094F42}">
+                    <File Id="filWq_jJNjFNTxJYbVvDnT_ko0LjHs" KeyPath="yes" Source="$(var.Net9Source)\SharpDX.DirectInput.dll" />
+                </Component>
+                <Component Id="cmpLvVfn_Qld84Ct8M5_P4cmCnGaNQ" Guid="{13020F31-A1F4-4EB2-858A-2087DD63DFB9}">
+                    <File Id="filaMekbAPIQ7JVeBQD_N3Bbrq5vU8" KeyPath="yes" Source="$(var.Net9Source)\SharpDX.dll" />
+                </Component>
+                <Component Id="cmpr96HmAoL8qIe1McbbxjiCuF_m2I" Guid="{39F00BC7-FDFA-4D1F-B150-81272A4DCAE8}">
+                    <File Id="fili9yUlze2yLAayoe.5WdkNg02qYg" KeyPath="yes" Source="$(var.Net9Source)\SQLitePCLRaw.batteries_v2.dll" />
+                </Component>
+                <Component Id="cmp8M3kZl4cTGqTO9s6VDrzzSTp1qU" Guid="{38891426-9FCA-4369-8C0E-3EECC1B2D4D5}">
+                    <File Id="filpDnBUWUHE_G6m_YVQzotEQr5kuY" KeyPath="yes" Source="$(var.Net9Source)\SQLitePCLRaw.core.dll" />
+                </Component>
+                <Component Id="cmpChVcuTE2L63deGL4C4vg2.3OaE0" Guid="{916E67D2-3CA6-4A73-A8D6-EBD86417300B}">
+                    <File Id="fil9Ie0Jn9Sl6FBS.BcwQADI_puobI" KeyPath="yes" Source="$(var.Net9Source)\SQLitePCLRaw.provider.e_sqlite3.dll" />
+                </Component>
+                <Component Id="cmpra0LJojbiHAwxxIgMLpuBSO0WOo" Guid="{21E30310-5347-491A-A5C6-9E5B80617B4F}">
+                    <File Id="filM89OoxvFJX8XqeEFc6QEZt37hsU" KeyPath="yes" Source="$(var.Net9Source)\sx32w.dll" />
+                </Component>
+                <Component Id="cmpCf1rz3D6Wi_Tq0CD9zYRqsIKv7g" Guid="{8975FEE6-11CB-4AA4-BE9E-233F53D2B5ED}">
+                    <File Id="filYH8rTEkZEza220Iv9EgxhvvIUtM" KeyPath="yes" Source="$(var.Net9Source)\System.ClientModel.dll" />
+                </Component>
+                <Component Id="cmpl308oR8Ix9KNoxmb4N1XYi0l.ZE" Guid="{12937ABD-F4D5-43F0-9FFE-90BFE514382C}">
+                    <File Id="fildbfEd9UANiWUnZCZr1lhpBZCRW0" KeyPath="yes" Source="$(var.Net9Source)\System.CodeDom.dll" />
+                </Component>
+                <Component Id="cmpcB6pEeIo.gimodnnVriPG6kE2ww" Guid="{7DCF27C5-0E5D-45E6-829B-839119B95E2B}">
+                    <File Id="fil8_SfxjEJ04gXPcNc3r0BHqiLwuQ" KeyPath="yes" Source="$(var.Net9Source)\System.Configuration.ConfigurationManager.dll" />
+                </Component>
+                <Component Id="cmp776kQIpx7vj5l34MNOBul6Vzj94" Guid="{C5D6E15A-6076-4290-A585-0006986BAEDC}">
+                    <File Id="filtUKwZYvv3vyPrm8.5Yj4CpnbaUM" KeyPath="yes" Source="$(var.Net9Source)\System.Diagnostics.EventLog.dll" />
+                </Component>
+                <Component Id="cmp5kaUudDJubftPPAU8ujc3y5JBZE" Guid="{02E119D8-D5CD-4CFE-B576-6DAD9CB4AD7F}">
+                    <File Id="filT93.1guwwuGs.90IX9oXDrQEyp0" KeyPath="yes" Source="$(var.Net9Source)\System.Drawing.Common.dll" />
+                </Component>
+                <Component Id="cmpigAyIZnrjczqp_wWRAqrYoCDTm0" Guid="{03B0CA0A-9791-4A7E-9638-9B65DA59C001}">
+                    <File Id="filsXbhh4gUdc.7tlep2cSFY1K_8C0" KeyPath="yes" Source="$(var.Net9Source)\System.Formats.Nrbf.dll" />
+                </Component>
+                <Component Id="cmp_cQyyV0sOPCA0fkfFVTGrwAKKsY" Guid="{8F1A77C6-0090-41E4-9BE5-0DCC9C93DBBA}">
+                    <File Id="filNF4g4vE90zNEdOS5p.mBTqfO7zg" KeyPath="yes" Source="$(var.Net9Source)\System.IdentityModel.Tokens.Jwt.dll" />
+                </Component>
+                <Component Id="cmpT4gY_36sZj6m6Ennu_heabzMamA" Guid="{91FAEFA8-C0D8-4F87-872C-E0C670273F71}">
+                    <File Id="filZJJtU.fhtP022TdpbMkRvPZmie0" KeyPath="yes" Source="$(var.Net9Source)\System.IO.Ports.dll" />
+                </Component>
+                <Component Id="cmpYnWXEQkIcFs10OOvCI.bnKoZxbs" Guid="{804CB269-9968-4D9D-B9B4-2508C9F9DA37}">
+                    <File Id="filERQEcBppga627ZSJeINZci6BsNw" KeyPath="yes" Source="$(var.Net9Source)\System.Management.dll" />
+                </Component>
+                <Component Id="cmp5ER7KYmEMHfBlYfdNi7mxiJAXIs" Guid="{D1A6A3D7-0703-4F85-96CD-1EDE0FAE1877}">
+                    <File Id="fil9pujzE4APYeeLPtUKEBuKqc6LCg" KeyPath="yes" Source="$(var.Net9Source)\System.Memory.Data.dll" />
+                </Component>
+                <Component Id="cmpgqWcwOrLIwwh2Yfp8CxUCBrOF5o" Guid="{63F4E776-8860-4388-A8EB-FC24A8C3E112}">
+                    <File Id="filXVv8dyS01ObOhr1OIeDOaAM1_KM" KeyPath="yes" Source="$(var.Net9Source)\System.Private.Windows.Core.dll" />
+                </Component>
+                <Component Id="cmpZBjLMNx0oyL5hvVjphZig4.X.2M" Guid="{F4B370E8-CB4D-4C60-BCF2-CDC6C8FB4E0B}">
+                    <File Id="filxT7bzbeL7lkrn1znShFmQDw0EAc" KeyPath="yes" Source="$(var.Net9Source)\System.Resources.Extensions.dll" />
+                </Component>
+                <Component Id="cmpAacz68fxAWVKRVdChtvvCwbEVeM" Guid="{4A91BD4C-F69F-4D18-A324-398642D657B5}">
+                    <File Id="fils8Zh3AXlHLXt3LwU68CjBkbL.38" KeyPath="yes" Source="$(var.Net9Source)\System.Security.Cryptography.Pkcs.dll" />
+                </Component>
+                <Component Id="cmpvt4VzqkVmknV16FVDDbg4O5aUe0" Guid="{83C0F7F0-3CD1-4DA1-9A6F-89C22CB31F1B}">
+                    <File Id="filGVOF_jMrha7gPOznuJ9s33xqfPM" KeyPath="yes" Source="$(var.Net9Source)\System.Security.Cryptography.ProtectedData.dll" />
+                </Component>
+                <Component Id="cmpCUnRNezvodNoACz8r_W2L1VjL8A" Guid="{4BEA5D6E-9892-4656-8347-76D02B41CEAF}">
+                    <File Id="filxy3V.LRDV5DRPDhVjuCYCw8GrzI" KeyPath="yes" Source="$(var.Net9Source)\UpgradeClient.dll" />
+                </Component>
+                <Component Id="cmpEEC.4kge2PX5F_j0hs0rfvxP3N4" Guid="{A8BF9201-3686-4DDE-808C-1EFA2360532D}">
+                    <File Id="filoLobFjfdUYzy3hC3FLfVgIIN0.o" KeyPath="yes" Source="$(var.Net9Source)\vcomp.dll" />
+                </Component>
+                <Directory Id="dirnjCUmFlkS5L0hcZdBiH0UYZysNM" Name="cs">
+                    <Component Id="cmpV58Nbx.q9ql8SV8yQxlfF7oCQsY" Guid="{B1093CDE-5CB7-4829-837E-CD2D114D4C89}">
+                        <File Id="filHLgy5l8CHXUgmPNzpVVWGbaYMhA" KeyPath="yes" Source="$(var.Net9Source)\cs\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirBju7CrbrPC_kRULl7ribmN7CxdA" Name="de">
+                    <Component Id="cmpQab7wh.TflTCx4Xs31uYskzYSOg" Guid="{45F58012-9FD4-441E-A8C0-C06C11D2C31E}">
+                        <File Id="fils.haEaoio67IxVOHGtMJb3vbCgk" KeyPath="yes" Source="$(var.Net9Source)\de\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir5VhgbAvvPlKPn5XI2Jclm32NnMc" Name="es">
+                    <Component Id="cmpkhtcGwFpz5JBTAC7KPD0d2gWt0k" Guid="{5DA09793-3A76-47C6-818C-5F6DA36041D0}">
+                        <File Id="fil6tHqi3zv4UR39dX88TrLzhrLnR0" KeyPath="yes" Source="$(var.Net9Source)\es\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir6dsyKrdfjw2_h4Jzn1QAY8ABMnk" Name="fr">
+                    <Component Id="cmpAGF6sNfEc9WhmeuXjCOa.nzPTJo" Guid="{50BB7728-EA21-4532-B112-2C13ACD5DE27}">
+                        <File Id="filWwqMECnuaIZXsY9FVj3L__eL4XA" KeyPath="yes" Source="$(var.Net9Source)\fr\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir8dewQljJ.4EVL8VugcrrqrvC0.M" Name="it">
+                    <Component Id="cmpG9QtpLcV8qDz0VfUFIm9lxc8lnc" Guid="{5EB935EE-DE9C-4935-9341-6524F1E03ABC}">
+                        <File Id="fil3Zy5ZvQEgZRz_293csBw6TwV.2A" KeyPath="yes" Source="$(var.Net9Source)\it\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="diraZrGxzFgIOutND8vdRSk.6Xe764" Name="ja">
+                    <Component Id="cmp_.DMArOnEZ65Lcfcg2ago4h8bKo" Guid="{E94D0D9E-AA7A-4847-8A31-E4D024BEF74E}">
+                        <File Id="filHzzwzNofqO6q4oU3Dwcjy91BFzI" KeyPath="yes" Source="$(var.Net9Source)\ja\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirqxbejhdcxVgkrx26cuWXP9sNE24" Name="ko">
+                    <Component Id="cmp_Pkpi.M8.kB5tKadudezBuLRy1E" Guid="{95C3844C-60BE-42C6-9B50-548EA686B4B7}">
+                        <File Id="fil0e0HarfLQfBxwkOW7QMNS38DcpQ" KeyPath="yes" Source="$(var.Net9Source)\ko\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirUzHoOnYCC1B7bNEndjNAj9gt6gE" Name="pl">
+                    <Component Id="cmpcDOeh4Pmy7ri4ay08sXsqzX4yEA" Guid="{76B025BB-91A6-4E9D-A00F-593718407D6C}">
+                        <File Id="filaCvibllFsbhH6csxMyQzsD3qhho" KeyPath="yes" Source="$(var.Net9Source)\pl\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="direcgTVmJSDG4HJOADNJTSZrTcKz4" Name="pt-BR">
+                    <Component Id="cmpn0q6JFvgOdxRUrmiVDDau.kBBg0" Guid="{2B725456-8215-4CD2-B299-176A73D1FBE6}">
+                        <File Id="fil0cfzUVy66ZcmExLUL7EqMIKHChc" KeyPath="yes" Source="$(var.Net9Source)\pt-BR\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir2Pg8Rmjo1RIdKue7JwSfe4z_M5w" Name="ru">
+                    <Component Id="cmpVtR1Yn.lCi5Vnha38adbyIhz1c8" Guid="{345B91CF-917E-4918-BEA0-4E23871BEE58}">
+                        <File Id="filR1WhWjuuqESc6d2G8epeD_iWiDQ" KeyPath="yes" Source="$(var.Net9Source)\ru\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirJziHVWmJemBBACm1tCm4XNikJ3E" Name="runtimes">
+                    <Directory Id="dir2kMyiQZ4EpYI82fW7ZQ_WTZRc40" Name="android-arm">
+                        <Directory Id="dirzAsymAvh21DvAzAQzNmC6tcxm80" Name="native">
+                            <Component Id="cmpVxlr_01g2l3ZcJljLmw_zfUWbo4" Guid="{D2C45198-CACF-41DE-BC37-C4868D7C8402}">
+                                <File Id="filAkwlgH2TFb91ibty3DlBiLPdhCI" KeyPath="yes" Source="$(var.Net9Source)\runtimes\android-arm\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirEDFONLCRuA6UEyaVtwiXpUq4jb8" Name="android-arm64">
+                        <Directory Id="dir1XxAEbt_up7P7KH.5KSeCI0apdQ" Name="native">
+                            <Component Id="cmpJQ.pLObnJHy_1r6gYZ8uHIfJiXw" Guid="{2749C828-9B46-46F5-9499-7EB1DB7F1831}">
+                                <File Id="filaB_h_SjFKPrHzSepSO05Rh9RiTk" KeyPath="yes" Source="$(var.Net9Source)\runtimes\android-arm64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirSW2csI.h0ci_kL3N6fDO568.Vxk" Name="android-x64">
+                        <Directory Id="dirNgOlaiRhowznDbFmDSu2paSYUQ8" Name="native">
+                            <Component Id="cmpeMQBdraTUX2lfOGlgirPXs3qCV8" Guid="{862A1FBB-8A15-4144-97B9-DF5FC38F5E98}">
+                                <File Id="filGFa.FNLRK0GGAvvXdwTEPvDdDtY" KeyPath="yes" Source="$(var.Net9Source)\runtimes\android-x64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirykEM0DSSPF3mlO9p.ioBYlwNPXg" Name="android-x86">
+                        <Directory Id="direMQ76rCVCxBeB1EBMqxrZM72eGc" Name="native">
+                            <Component Id="cmpoyWLVaPaEKHv1u4X4nx.ysJI_Xg" Guid="{548C99A3-AAF6-4E23-9F11-37A7575C35EC}">
+                                <File Id="filfXTELqmCbqM1ikx6J3achZIamPs" KeyPath="yes" Source="$(var.Net9Source)\runtimes\android-x86\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirWpcOkXlFXOq61U4ieRIDrreC.lU" Name="browser-wasm">
+                        <Directory Id="dirdwZ60frlE6q6T3Y9nJrcVJ6Hj4Q" Name="nativeassets">
+                            <Directory Id="dir9YCqLzdHoTIfCuhDNL9FwZHuiO0" Name="net9.0">
+                                <Component Id="cmpf0t1jg7pz_0avfBUKo2TZzA32Vk" Guid="{E47339BF-BDEB-4CF6-B2DA-892D8AF85236}">
+                                    <File Id="filaDSCFG9280C1PR9NJl85tyZLqS4" KeyPath="yes" Source="$(var.Net9Source)\runtimes\browser-wasm\nativeassets\net9.0\e_sqlite3.a" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirsoDqtSgCBz301jcbE2pOQEiRNuI" Name="linux-arm">
+                        <Directory Id="dira7eKiNumaY2ZGJEtEtbsmG.z9xk" Name="native">
+                            <Component Id="cmpWThfSq4qe2ZSjo5qFMBDgdjAiV0" Guid="{00A4AD58-2ED8-4953-98FD-7549E0F1789A}">
+                                <File Id="film0eoxH6BFxflpvpehIwoPioH_i8" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-arm\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpFI04Pn9Z0tBklPQKQVz8mODvBBk" Guid="{C3D8EC7E-A391-46E1-9925-1C99C3570F37}">
+                                <File Id="filqlN0d0sSv3yxF0_gqcMtwhggwOo" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirq5M0aYoXskIt_sf4PuFpfPgLdko" Name="linux-arm64">
+                        <Directory Id="dirx2O8i3SR1cnAuJpE.QuYnUmF8MM" Name="native">
+                            <Component Id="cmpMNxiIDpCo9P2.TqSvoLPoOpj_yI" Guid="{E4E5B2B8-4D1C-4280-ADA8-DE55C1C31AAF}">
+                                <File Id="filF_ZuCuJapc5ErEzRlB9HNwguFOc" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-arm64\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpcLl.M74gJwC6sNqO9BC2zY0guyA" Guid="{F51389B9-2778-42B6-B8EA-9E0E93E1F269}">
+                                <File Id="filo6b5pWEhef8QRAErd_LzKJhMdjs" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirg6w3A76h6_IUFTf2zxvbMqq6z2M" Name="linux-armel">
+                        <Directory Id="dirxCEQ4Fg7gjWJJ5bp81pj.xR_5v8" Name="native">
+                            <Component Id="cmpdzB9eGrzbCgQ7tMBw68YFCcpWe8" Guid="{CBE90FE3-47E5-4DBC-B2C7-B933F6519C8E}">
+                                <File Id="fil3Pl3r9PVi.ZJ6NqVlqbzmCtP5VM" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-armel\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirH9QiSSK0q.W.3gdqLm8kGGSMYBE" Name="linux-bionic-arm64">
+                        <Directory Id="dirrZbCexMuci6jP9a1mWHFPVcCyd8" Name="native">
+                            <Component Id="cmp5yF2e_DL1vKQDcxYcFukpj3NMuE" Guid="{EF33BE9C-AD6D-4BB0-A478-1A5C7B041150}">
+                                <File Id="fil93uY.s_Id.slq1b0tsTh518lqP8" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-bionic-arm64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirZpFtSZdsns.gBujC8zP8I00txGg" Name="linux-bionic-x64">
+                        <Directory Id="dirhYCbp3Sju.HvDnnXr3G.LlIa1_o" Name="native">
+                            <Component Id="cmpPmm96HPpL7TNySyHl2WaRKMMwmw" Guid="{2EC99E32-A7C6-4749-902C-F04B08110205}">
+                                <File Id="filNHPJhRyJqtd3NI4zn0br0XhfM1o" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-bionic-x64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirA0GBM228Gt1FHeR_cutbmI8nrbM" Name="linux-mips64">
+                        <Directory Id="diriupEIt3s7c9x.CrNmAkxFHgeGBM" Name="native">
+                            <Component Id="cmpfhq8AxtBwzDSgZ3CuImBDnWPwMg" Guid="{2CAB868B-7966-4315-9C7D-D9E6095FFB37}">
+                                <File Id="filbfWrhRh5NLOEppmhEOd806EfN4A" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-mips64\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirhakmks2ASwiubViqf0wExecZCrg" Name="linux-musl-arm">
+                        <Directory Id="dir6FODuxPT7wCj2eu9HoTxleXQRKo" Name="native">
+                            <Component Id="cmpS_gwh6VqP9mDnqQiou98rASV.9I" Guid="{0BABFBDF-903E-4AAB-B58E-A022957FD5EB}">
+                                <File Id="filIpa6SDoxmR4gS2eKZ9PSKCdnLPE" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-arm\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpSemQXxng.e80EpyzpmncsG5Z_zM" Guid="{A417041F-AEED-47E6-A991-61B9A64578D1}">
+                                <File Id="fil7ZAZyzP74D0iC0XdTM.JWddLUO8" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-arm\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirynxp.8LBm_TFYW97xzaG9pycBq0" Name="linux-musl-arm64">
+                        <Directory Id="dirl805NWgdQZNE.T7Vrfn7i4Cp9.I" Name="native">
+                            <Component Id="cmpxcHrGjQLmurn8SAlD3eyYa6VWLo" Guid="{14A2E8CF-5C9A-4583-85FD-A012B5B3FB1D}">
+                                <File Id="fil0vOM.ymXc6sc9mszWKC0pcxOp7U" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-arm64\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpQaLC4NRl1iEXuJNr_BxVxahv2o8" Guid="{00D5D7BA-216D-4556-9396-84E39B40AB5B}">
+                                <File Id="filCdsMD7izwX7JwGQKGRYAlhE9zbo" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-arm64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirgaoTp2GCTdVqAaesub8g4lsPzto" Name="linux-musl-s390x">
+                        <Directory Id="dirwWoGZvaNcfxYdMcNy0eOz08PCC0" Name="native">
+                            <Component Id="cmpHQa21gILlDMLKbvi3bMWBJecrMw" Guid="{D607BF12-2F90-4970-B3D9-E29436BECAC0}">
+                                <File Id="filkl6rqQmw6RQiurskMnxEO4xjfiI" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-s390x\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirR6IS2DIcZCIulIbiff55KhgvqiQ" Name="linux-musl-x64">
+                        <Directory Id="dirbqmGy8fzQFoBaUpqzDnod589VGc" Name="native">
+                            <Component Id="cmpsFW7Uv1MEnCSHUnXOP08nx8GgGE" Guid="{742B9F9D-5A5C-4F19-AE75-0755A7FFE37B}">
+                                <File Id="fil8tKpazuVirrZd9OzRdjrgJHBNUQ" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-x64\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpoYMwy3Saq4Qb_QwswcwErNxZRw4" Guid="{01237F15-5E37-496D-83B0-175ED111282D}">
+                                <File Id="filBJep7DajrUu4Mh0pfxTSEoD0ExE" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-musl-x64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirJ9jzkOPcIo.K23b.1kOuRYIjGFk" Name="linux-ppc64le">
+                        <Directory Id="direA7H1xtHwzGlinlYH1TnBSnvIKE" Name="native">
+                            <Component Id="cmpAbRKvcNZjbYv3vhd7GpHHoU4RtY" Guid="{E0A1B5AE-8C34-4109-BD1C-386F3AF49554}">
+                                <File Id="fil.qciYvEaPRbdawf8vCh6HiEwrbk" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-ppc64le\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirmRNC6BxF7UDt7xZBlxvjjPKSxHs" Name="linux-s390x">
+                        <Directory Id="dir8.BkRwR26VnxCG66o2.hgdU2UCQ" Name="native">
+                            <Component Id="cmpL8BrHPnKKVcp0L0ElwWGlHJhW_k" Guid="{943567BC-A3BF-4872-8F48-BA5AF573007D}">
+                                <File Id="filUQVjKiQpVQyhQMSyy.FdzTbrNP0" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-s390x\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirBXVVhTZ3FmwGQedHXz_OgOmpzVw" Name="linux-x64">
+                        <Directory Id="dirn6aowP_sqPWqnHCbe6ub6FUTXbU" Name="native">
+                            <Component Id="cmpi774qSyREuH3OroV9qE_RVoaaIw" Guid="{62AB376B-5D78-4051-B450-D0DB36AA6ED2}">
+                                <File Id="filjmdKFHanhxmqYH2928m8yZ3wuiQ" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-x64\native\libe_sqlite3.so" />
+                            </Component>
+                            <Component Id="cmpE_sObK1JDh8k9oaEtEjl.4Ofgyc" Guid="{21BED162-D43F-44D3-B660-044DADB53ECA}">
+                                <File Id="filq5b3je71kE8h82tG70eQi_Czis4" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirL.ho9OQ6cZkOeRyEO3bVxAw2vtE" Name="linux-x86">
+                        <Directory Id="dirZZtrfb_YLMVDWYLko7jmgpZ07Qo" Name="native">
+                            <Component Id="cmp8pCeUVimGmMu70kSG9R__Sjw3bc" Guid="{6A9FF1C0-50EC-47BC-AFA0-5FCEA5569420}">
+                                <File Id="filfPb4kglYcIoxGAoRva_5AE6s7QQ" KeyPath="yes" Source="$(var.Net9Source)\runtimes\linux-x86\native\libe_sqlite3.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirpDqtavxc4iqDyrja3Cg8Mx8RSxw" Name="maccatalyst-arm64">
+                        <Directory Id="dirVRzflwHIK298UnZN9eN5XqtCG5o" Name="native">
+                            <Component Id="cmpuM3LBVMCELxabcq.HlZ08XP2deM" Guid="{373316FD-C562-4BFC-83C3-6B71D21505C6}">
+                                <File Id="filOMjh0DHqsNseMmg3XyjLJmX2LBo" KeyPath="yes" Source="$(var.Net9Source)\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib" />
+                            </Component>
+                            <Component Id="cmpxWiR_MXhgggvInllg3_iOTCmsNk" Guid="{6B83BC57-BE38-46CF-AD30-FAE24462E2FA}">
+                                <File Id="fil75mvmMj.BWkQkhE8jbTGbR0MSmU" KeyPath="yes" Source="$(var.Net9Source)\runtimes\maccatalyst-arm64\native\libSystem.IO.Ports.Native.dylib" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirDJ1E5Ep82KQuxuJfmxsBqP7lr9g" Name="maccatalyst-x64">
+                        <Directory Id="dir8UE1BO2MhMyMhu9ohlug_R.zcuc" Name="native">
+                            <Component Id="cmpf_72Fqz4rUL2R22qJVXPPF7gDMY" Guid="{D4175853-B2F0-4EAE-994F-7BFCF678BC87}">
+                                <File Id="filkszwnacA6mXsCb5tOzacIc3gIU4" KeyPath="yes" Source="$(var.Net9Source)\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib" />
+                            </Component>
+                            <Component Id="cmpZpNGaSBxMJsnjHP34nVuE_9phXQ" Guid="{357F4CE4-C0EC-4DDD-863A-DAA9688AA800}">
+                                <File Id="filYhGAiCj7W3m5Xmme1sj5M14Hess" KeyPath="yes" Source="$(var.Net9Source)\runtimes\maccatalyst-x64\native\libSystem.IO.Ports.Native.dylib" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirAnaekXuBxwWLZ0_uiUpOSiNCX9k" Name="osx-arm64">
+                        <Directory Id="direI2c6YU0be1SnHyOYBqPB4htnI0" Name="native">
+                            <Component Id="cmpJbnBt1gKHIwKx235z5Poced9FRA" Guid="{78E6AF3D-AFAE-419B-AFBF-EC60BD2C7719}">
+                                <File Id="fil2WvtVr_Xem8EKTdIYVcRKWrHXGU" KeyPath="yes" Source="$(var.Net9Source)\runtimes\osx-arm64\native\libe_sqlite3.dylib" />
+                            </Component>
+                            <Component Id="cmp5PrkaweayO.XwMpNELv2nFG7dUc" Guid="{3CC78FD5-DD21-4B86-B034-2E9F0E9D5BA8}">
+                                <File Id="filQtaq3l6YLEmUFjNQIpRRXCqL9oM" KeyPath="yes" Source="$(var.Net9Source)\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dire8_ksAHb9Ose1zNlY1yTAqSZVkg" Name="osx-x64">
+                        <Directory Id="dirltm3NAzYBOgIZymQxu9Vf5tbbn8" Name="native">
+                            <Component Id="cmpoUE3K_B0iYldJrn4Bxui6J7V8pY" Guid="{BE16E44D-E083-4C37-AC66-2BB59E8AB3F4}">
+                                <File Id="filz36mul2rQEZD9T1CDSv2NlXdZ7s" KeyPath="yes" Source="$(var.Net9Source)\runtimes\osx-x64\native\libe_sqlite3.dylib" />
+                            </Component>
+                            <Component Id="cmpPyfp9NzZl45i3d4ykqmIJgnz_6M" Guid="{6F77C971-AFEF-459C-8F97-D392BF54AD11}">
+                                <File Id="filu9.0ij.BvsPxEj_VMwdYlzb5ZXs" KeyPath="yes" Source="$(var.Net9Source)\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirlcJY6AnkxxaUJE9To0kCdqpFsq8" Name="unix">
+                        <Directory Id="dir5q.17A0dZzgPMIvkZUx1JZUCk68" Name="lib">
+                            <Directory Id="dir1Xh3nFUKvLTDB9T5tMCZFbos1VA" Name="net9.0">
+                                <Component Id="cmpIHJAMqN9dDBf4tQprN18hjP_PKA" Guid="{A7A03530-C130-47D4-8A90-6BF0E19BCFDD}">
+                                    <File Id="filz8wwCHWRqUnlE.lDWOdwor_ycLQ" KeyPath="yes" Source="$(var.Net9Source)\runtimes\unix\lib\net9.0\Microsoft.Data.SqlClient.dll" />
+                                </Component>
+                                <Component Id="cmpGHGneMarqYd_dCJ2E8SWPYw14So" Guid="{5A863AFF-5DF6-4D64-94FE-393BF9CFEBD6}">
+                                    <File Id="filYVToXkSq0tdaWThJJ7X.nhvvPgE" KeyPath="yes" Source="$(var.Net9Source)\runtimes\unix\lib\net9.0\System.IO.Ports.dll" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirvt5kvw7Ts7f77Y1ahpsDu.zyrRs" Name="win">
+                        <Directory Id="dirEJ7GsNJz1Bdp80_CBbHjV6grXQQ" Name="lib">
+                            <Directory Id="dirZT_ob7v5hhp3j396fMfCK6EsqvY" Name="net9.0">
+                                <Component Id="cmpU6IO.P61L18L8A6.d351s1VDyzI" Guid="{EF77C503-2C53-4ADB-A53D-D78C44674422}">
+                                    <File Id="filGRjrukK3K7e5o_u5SMlPiSOAy0o" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\Microsoft.Data.SqlClient.dll" />
+                                </Component>
+                                <Component Id="cmpzhuL.ram66q_ufC3jVA2mXWwGy0" Guid="{DD803BD5-E545-4E41-BDD1-D56DD1BDC0F3}">
+                                    <File Id="filZtTS95nmvxKVKRFGd3ndOJAvYVo" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll" />
+                                </Component>
+                                <Component Id="cmppw7onNrr2Ugp8t_HmOUN65qSZgw" Guid="{2C617E65-F77F-411D-BB97-C2F693FB895B}">
+                                    <File Id="filwFIUDM.8GrD17iNOar498GavhMc" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.dll" />
+                                </Component>
+                                <Component Id="cmpT5n5qiF5Q4av0dxnkING5cUdCwc" Guid="{976B3D26-2036-4D2E-8115-1DE65272BF43}">
+                                    <File Id="filqYaKT5xbsvLuuhz4DzuJxSPaAi8" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\System.IO.Ports.dll" />
+                                </Component>
+                                <Component Id="cmpJkMJSw9XQXWN_CACvJB3l4UyBTw" Guid="{367F4917-7828-4C90-9325-CEF0A43769D2}">
+                                    <File Id="filsMkdPMASexTU5loKROGahnjHEto" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\System.Management.dll" />
+                                </Component>
+                                <Component Id="cmpAI6ir0FfKnK63pPwWa_hqzgFM_E" Guid="{BC1B2288-1409-4050-86B0-DF902C003FD9}">
+                                    <File Id="filLnjWNHP4.jyYtv8nFecageUSJJU" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win\lib\net9.0\System.Security.Cryptography.Pkcs.dll" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirj50193yTr4wbA0y53T6UcgATTwo" Name="win-arm">
+                        <Directory Id="dirflAzArUSKnDOYETf7jIinoP0Q34" Name="native">
+                            <Component Id="cmpmXBeIdRXaVgEFFt0mj.mtM5UJeU" Guid="{487C51C6-BDE6-4D31-9890-72F975571474}">
+                                <File Id="filFXV7XDZS7V0I0lGcUGYYOpaFrDY" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-arm\native\e_sqlite3.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirPteV3yKhJT5qcfRSZNTXjmb_5Qk" Name="win-arm64">
+                        <Directory Id="dir.Ee2yurZGb7c7b2r2aaXwOKR.BU" Name="native">
+                            <Component Id="cmpYzdUnU.1IaAZxNY77NYKTtJDLSc" Guid="{2496064F-FF00-421B-BE5E-35DAA215E2DD}">
+                                <File Id="filB71lPiOiJ_QwGi2M3pWFtqqqXBA" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-arm64\native\e_sqlite3.dll" />
+                            </Component>
+                            <Component Id="cmp8QKr0ggLR5yThu5YeBa3GIXJ85c" Guid="{87160F7F-F6FF-425F-974F-9D10ECB3F171}">
+                                <File Id="fil9ym0tY7qLT2t0NB9FHlsEieejZw" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirPc8h.IylN0DLt70PRcBtCW8artM" Name="win-x64">
+                        <Directory Id="dirtxNlf6ZAe8dLl0Vq27O88kZXAng" Name="native">
+                            <Component Id="cmp6tm4Ob8ihfnFdgsg.FoLagYXE0E" Guid="{B53CE3C3-6111-4988-8062-0E81042D5FB9}">
+                                <File Id="filXJe5gBtCAYb01CEuUbFZpIexUTE" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x64\native\e_sqlite3.dll" />
+                            </Component>
+                            <Component Id="cmp.RVGHsAi6e53uIBjzW0wLJfWFaA" Guid="{5EF683B3-412B-4029-AA09-62E403C0D724}">
+                                <File Id="fil2xijeRSB_vQHONatg6cPVTTkuno" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+                            </Component>
+                            <Component Id="cmp8FngOIyFx.2nFAWkyNQl1ugMESw" Guid="{096E1E95-8477-426A-ABF4-945A689D4EFA}">
+                                <File Id="fil1xEbTtJCfYvEtgQW9ydBr_Wzhmo" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x64\native\OpenCvSharpExtern.dll" />
+                            </Component>
+                            <Component Id="cmpDYGzk8co3lAoYnKEPUjnq8uCyIk" Guid="{C364D2B3-B07E-49A3-AFC3-37F64FC8C881}">
+                                <File Id="filNSPNYCclZE8cM18NVSr1X9is7kc" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x64\native\opencv_videoio_ffmpeg4100_64.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirmx4llEe20Zzg9Q3iLQRpK4n6ygs" Name="win-x86">
+                        <Directory Id="diru35koZHyGc9xfJQ4E8JHoCb5bus" Name="native">
+                            <Component Id="cmpGcQcgKtJUZcv9QiNH1lz2o9bZyo" Guid="{5D470CCB-330D-4076-8D97-4AE8E6C70761}">
+                                <File Id="filAwRDoBohU8invXhTT0HIE_99OYU" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x86\native\e_sqlite3.dll" />
+                            </Component>
+                            <Component Id="cmpW5HBRFQ3y6GgmxR16YMbrZFIVEs" Guid="{F0B0A691-2865-4D77-9DF3-CADC9BDCC87A}">
+                                <File Id="filsuq.5KedisUDpykT90LPZzxcE8k" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll" />
+                            </Component>
+                            <Component Id="cmp2IOxTLTK9YaI8oyKEr54Wsb0m6g" Guid="{E566C931-F147-4E90-918B-5F5877BB500B}">
+                                <File Id="fileTjzH_zkxFV8l1KsaoJFtW8jPu4" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x86\native\OpenCvSharpExtern.dll" />
+                            </Component>
+                            <Component Id="cmpf8krihXw0_pKpA6eJuBO94Jknbc" Guid="{B4AD7B76-AD55-4296-BAAC-6465B7BEF138}">
+                                <File Id="filgEBTU8Ud4y6u93b5Xg5P3NX8vSs" KeyPath="yes" Source="$(var.Net9Source)\runtimes\win-x86\native\opencv_videoio_ffmpeg4100.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirruAkU3Anqe2m2R63CEUKUlKFx9U" Name="tr">
+                    <Component Id="cmpQCEjU1GsykhLx9UoLSPtHEbb0Iw" Guid="{BFBDEDC7-43CE-4584-AD49-A2D3FCC6DA6D}">
+                        <File Id="filpN.m0QVfgCtKT1dh.dJCJn.KYP4" KeyPath="yes" Source="$(var.Net9Source)\tr\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirB2ChCab.pB37yapCp0ou2r37F6E" Name="zh-Hans">
+                    <Component Id="cmpHNeBr.2nmEV8Owy4wx5iUzN6qNc" Guid="{B21C4156-BEDE-4960-85EA-DE9419EB0E22}">
+                        <File Id="filx1wmQliUUfpY3v64EYKrd.DNBuc" KeyPath="yes" Source="$(var.Net9Source)\zh-Hans\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirjWpg800a0m6NXeg5Sa7EnSQ0lV0" Name="zh-Hant">
+                    <Component Id="cmp_DQUaUSGl7xCwj8z8GqCYOj2OW0" Guid="{9270649F-8E28-4826-9261-8F4F322EE97F}">
+                        <File Id="filxarSCTCLTH6HvOsHZuBIKck_Pko" KeyPath="yes" Source="$(var.Net9Source)\zh-Hant\Microsoft.Data.SqlClient.resources.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="Net9Components">
+            <ComponentRef Id="cmpRf6kHO9wKSU5Q1yfjogJdSmTv9A" />
+            <ComponentRef Id="cmpDZKzsNIQsAHD364Ce.fLyiZJ8S4" />
+            <ComponentRef Id="cmp45E7g2jDTqfBxIU7vY_B8ih_KlQ" />
+            <ComponentRef Id="cmpClSSjWMjYqZrpPZvRg9QNsv9ig0" />
+            <ComponentRef Id="cmpqp4w0LKsFCfd1ihmfY7h_FBR.ss" />
+            <ComponentRef Id="cmpU201o8u.VvZ8bRCJaf8QpaKe9lw" />
+            <ComponentRef Id="cmpMLjjEF_rP6KjnZt5tcgl4rX76No" />
+            <ComponentRef Id="cmpKl9Fv5pjyZKPWPJJKDWYMR6EASA" />
+            <ComponentRef Id="cmpGkLGzu3i7ABZVkrO37F6LRq..wA" />
+            <ComponentRef Id="cmpMA2HU0h5liuYV1wnfAqzklC45xU" />
+            <ComponentRef Id="cmpBO0OUNq.sjnCC9K4jURAiTmUdMQ" />
+            <ComponentRef Id="cmpPXVbMcaA5hM.gZEciCM.3Icq80I" />
+            <ComponentRef Id="cmpLLp7pz_aMyEN7hJTBc_RxeYpbkM" />
+            <ComponentRef Id="cmpuz.Ysd2CXS36SDh7NDqgIo7C2BU" />
+            <ComponentRef Id="cmpmKBCmX5t89u7tGyQwLOtNT4ubhA" />
+            <ComponentRef Id="cmp1DtS7cxuoiM8.1TC4.UwndAnkAs" />
+            <ComponentRef Id="cmpXQMCbcb7L7mviRPJ4fZJLB.FdEM" />
+            <ComponentRef Id="cmphy9TxRQNBJRcCGPFCZiRCihggRo" />
+            <ComponentRef Id="cmpumw3oI175BvwLEtYEnnsoUjlxs0" />
+            <ComponentRef Id="cmpTTs.rdQalwVQ8zWpG8u6_NeyhRs" />
+            <ComponentRef Id="cmpHmdmtx2_3h6sZVCKDKOJEDTLngs" />
+            <ComponentRef Id="cmpjAaKL0o0VdcYDky9NoZUgeJohRc" />
+            <ComponentRef Id="cmpPAt9ejEPUtqIu00QM98H3U6SsR8" />
+            <ComponentRef Id="cmpWpdglN3p7yyJwV6Tc_V3BcIcxJU" />
+            <ComponentRef Id="cmpCq0pWU6gXLiWz6q9hSPkd3t1xVw" />
+            <ComponentRef Id="cmpkqMQ3mxn8NexFEMGNgJZwBQ68.U" />
+            <ComponentRef Id="cmpWCcScdrdDZE0kMKP3URh3H4cIlA" />
+            <ComponentRef Id="cmpn5lCTo96upzgRGWT_18jyaFVwvQ" />
+            <ComponentRef Id="cmpmzLvlxgl6uFVQJN01C7cHE5kfC4" />
+            <ComponentRef Id="cmpAktjPATuTWbiXao5yvN8eXkk0PY" />
+            <ComponentRef Id="cmpUPqup_EwIn1miIWOiUsy9YYvsXY" />
+            <ComponentRef Id="cmpLTzUIIH6hJDFUpEz0eGh5rROEsc" />
+            <ComponentRef Id="cmpL4T8eJHi6Ri6XQrxmTd_9qdyuHU" />
+            <ComponentRef Id="cmpZvAeUXsMVnnrAfVnE55OnH3UTdY" />
+            <ComponentRef Id="cmp76EfUPaPRKe.skP6UF11So4AIWg" />
+            <ComponentRef Id="cmpHyx4FkyTWvkiyBf5qqT_axFudbM" />
+            <ComponentRef Id="cmpWrimnk5LT8Tb8GSNU857xgvSd5M" />
+            <ComponentRef Id="cmpYYiwl3JHqOomtewwRye9nD4qzdw" />
+            <ComponentRef Id="cmpBP9rjEG.UnORXafA7psy.ozrhek" />
+            <ComponentRef Id="cmp32F5jaVuYUl0kl8zIkzNEaE09Jw" />
+            <ComponentRef Id="cmpszOtTgw3LriZMP5dfA6.mTvmO.c" />
+            <ComponentRef Id="cmpMX42q_xmRGkxn2cNggkYfxd0j3g" />
+            <ComponentRef Id="cmpMz5JcwOBfeKq9DEBcahtydF0rUI" />
+            <ComponentRef Id="cmpIBPPppJt_A3pEAYYSixylg_B9n4" />
+            <ComponentRef Id="cmpiZzyggttQ5liCYtXPX.ZVEV.Fk4" />
+            <ComponentRef Id="cmp5p2vfM.s4hs0Ht6VKS4eGUgwVMo" />
+            <ComponentRef Id="cmpttzt3SO_sjf7KnSEm8W94jM9.rs" />
+            <ComponentRef Id="cmpJjD0HuuEsKsJPr7g6_6u0KveIM8" />
+            <ComponentRef Id="cmpDIvGLbSPH3j7lL0ItOQRjARKW5o" />
+            <ComponentRef Id="cmpLD_J5xq4dwY1WyEcfUyTVJTysWE" />
+            <ComponentRef Id="cmpNID9tkh7_K4oOWmkjRaFIi_2bXw" />
+            <ComponentRef Id="cmpJIAk1EFi_pejUDjmAK9NULaWTaw" />
+            <ComponentRef Id="cmpzPfzfi2PmUqYKIm9GzugYe8wKps" />
+            <ComponentRef Id="cmpkuRcEsoSomK.4zv247q0lAZeYzo" />
+            <ComponentRef Id="cmp7.yb8UgqO6fEdoHCbaU8ud1Nho0" />
+            <ComponentRef Id="cmp8_tpodNd1ZKEF5HKD.FRI7Iw67s" />
+            <ComponentRef Id="cmpTHkOdPtyQ7vMGbyiFjP4IAP_aJM" />
+            <ComponentRef Id="cmpXuL2Fi3S5pFh.xry5I7jxdzOmrg" />
+            <ComponentRef Id="cmphPFysbJ2Q6oSIczjENA1ZV8QIMs" />
+            <ComponentRef Id="cmp4x75zE.2LAb02gG8o5s7TOlczyY" />
+            <ComponentRef Id="cmpZ.2eZeZvXFKl9NJEXjbj552RFCc" />
+            <ComponentRef Id="cmp1zyCfn8ZYodm_GhoM3R2yaRPhv4" />
+            <ComponentRef Id="cmpz9LDzAI8GwHaQXL0gihEOtnqSyY" />
+            <ComponentRef Id="cmp2wWNhiVItYaKdd9vJZ1n2IxT24A" />
+            <ComponentRef Id="cmpRYH_6u9weoIF2fo_SJbakOyZ5vA" />
+            <ComponentRef Id="cmp1JrYhQOlTCd7HEgnIQJxB0g5mS4" />
+            <ComponentRef Id="cmpBF.u_HC0i6AwH1C0iXQsqxmmAdk" />
+            <ComponentRef Id="cmpMRrIFeSvdEdO9H_cuCgtLbIE_C4" />
+            <ComponentRef Id="cmpvN4IS8sHKzdDYB8kDGwePcL43p0" />
+            <ComponentRef Id="cmp_.6Y.HpjqdM6Wz7lAy4zn50KUKs" />
+            <ComponentRef Id="cmpJoantqwYnYOSE_BsjaR3tBN_8I8" />
+            <ComponentRef Id="cmp0y3EC4x0gbIP7ap7Fc7_3v6gWVk" />
+            <ComponentRef Id="cmpb4uLSGmR4DT7Fw_aojvvYS6TBrc" />
+            <ComponentRef Id="cmpDGXHRnnR8AbqyLw93cCk.5wTKMw" />
+            <ComponentRef Id="cmp1Pe0K4OpytCU7OKMyjTFtOBveHM" />
+            <ComponentRef Id="cmpnyxCo1yhA1rsg5y98FuViXdkyHI" />
+            <ComponentRef Id="cmplkVJq_8tPvYoX.LKj._ECh2oBa8" />
+            <ComponentRef Id="cmpIrhbgBeT40HoeW8NudZQa7A1hYI" />
+            <ComponentRef Id="cmpqYHocg10yuha.NdQfvQbXzeXZuM" />
+            <ComponentRef Id="cmpzwl7.QbSyMiwKZQ6gOAyASDilFM" />
+            <ComponentRef Id="cmp6xkoy0J6qvmujcyCIpg3nATrSnM" />
+            <ComponentRef Id="cmp486F67gccdxi3k6q_tPm4K8swd0" />
+            <ComponentRef Id="cmp4qPOgJ2aB_O0IKLMXpOnb0Q_BwY" />
+            <ComponentRef Id="cmpfNpEbzVILLw.08WaFuSAYw6fjcI" />
+            <ComponentRef Id="cmpY_2aZOqBvH98iXK1sWbgqsyL8Vw" />
+            <ComponentRef Id="cmpVkFHQGsxM9q7KMtrsXcKbax_wfk" />
+            <ComponentRef Id="cmppTP2.A1H_cDlGFrPFb7_PDCmzWs" />
+            <ComponentRef Id="cmpoBU2PmuQIBhY3.SoUcqs5_dgv10" />
+            <ComponentRef Id="cmpMLHwbQTh_0IMA.indZ3mEDRSKHs" />
+            <ComponentRef Id="cmp75wdcAcg36cOPS7zpTNm210MolE" />
+            <ComponentRef Id="cmpWRr923PympiLcQuV1XFgmVXpmcE" />
+            <ComponentRef Id="cmpG1BJMPO.dUnaXkEvayL6Er952t4" />
+            <ComponentRef Id="cmpQkT3Gt13NUHzRWiOMCepw3L7xe4" />
+            <ComponentRef Id="cmpHDSYdcZ3CfXFVx8OyvtgM6icFCw" />
+            <ComponentRef Id="cmpnQnVTj2jtHyGpr5jq3JzpkaXw04" />
+            <ComponentRef Id="cmplLmu_gNpYFvhVkPPyBAGz5_6zWo" />
+            <ComponentRef Id="cmpUgECPBusJLu9yqHyP2..gtX9mYA" />
+            <ComponentRef Id="cmpRN9a0zq_YHgeSewBMPG_ggHA5cU" />
+            <ComponentRef Id="cmpDEzZkMrNE2_Jh0f9QQwe2hOF__g" />
+            <ComponentRef Id="cmp3Kv.LrUEtEpZfBFhw5KkOKbuM9U" />
+            <ComponentRef Id="cmpKGhu8zvfDDz67ChXNurzTz6UvkI" />
+            <ComponentRef Id="cmprT1IX8aHxBuOSMLjFmfvx5WmPLc" />
+            <ComponentRef Id="cmpl85d4auS_6nSECen3ze8NjZq8tQ" />
+            <ComponentRef Id="cmpCAvJ3CmGD5bwiVs3PoP7hbT1lgE" />
+            <ComponentRef Id="cmpmhFDJasGUbYKZWKveyFmB2pcf4E" />
+            <ComponentRef Id="cmpNKbyFuVNtAuyGyXVlU8eGnsNEbQ" />
+            <ComponentRef Id="cmp_2msq2ynJ06_ouAWVzY7aaybUrk" />
+            <ComponentRef Id="cmpG2uNrgfGWuj.2tpCtALauU3EYkM" />
+            <ComponentRef Id="cmpmVD7oJifq_D8.UT6k19yTwm3vcQ" />
+            <ComponentRef Id="cmp9wvfBJMc_UrGZ4bMckTax.U27nA" />
+            <ComponentRef Id="cmprRFHUYDSQ2QFchY7I4fbFL6iwe4" />
+            <ComponentRef Id="cmpv8WvPsuf_u_mf1Y8wIHX1h3cQrc" />
+            <ComponentRef Id="cmpBM8P0cOwx9tcOPS2Qkt1P1ckFlA" />
+            <ComponentRef Id="cmp3mmdagkrcaReZsliPsRKcmGcP8I" />
+            <ComponentRef Id="cmpCJLnvY4omooOIQNBdFpX5uPV5oQ" />
+            <ComponentRef Id="cmpS_WEsxOAucnufZeoaCVHC4RCMAE" />
+            <ComponentRef Id="cmplFMcyIb66y3zJIv7IU1JPo8KlCI" />
+            <ComponentRef Id="cmpZRmZT.6o_jfMpiC3m0mq2XqdU1o" />
+            <ComponentRef Id="cmp2w9ji4AbCAQkJTCh9RRgT_uDyxQ" />
+            <ComponentRef Id="cmpFTyqxRQfXwxXUDTIc8i0NoB1gzM" />
+            <ComponentRef Id="cmpjOv.Sll4SEq9ZDlo91eU1HBn6Ys" />
+            <ComponentRef Id="cmpLvVfn_Qld84Ct8M5_P4cmCnGaNQ" />
+            <ComponentRef Id="cmpr96HmAoL8qIe1McbbxjiCuF_m2I" />
+            <ComponentRef Id="cmp8M3kZl4cTGqTO9s6VDrzzSTp1qU" />
+            <ComponentRef Id="cmpChVcuTE2L63deGL4C4vg2.3OaE0" />
+            <ComponentRef Id="cmpra0LJojbiHAwxxIgMLpuBSO0WOo" />
+            <ComponentRef Id="cmpCf1rz3D6Wi_Tq0CD9zYRqsIKv7g" />
+            <ComponentRef Id="cmpl308oR8Ix9KNoxmb4N1XYi0l.ZE" />
+            <ComponentRef Id="cmpcB6pEeIo.gimodnnVriPG6kE2ww" />
+            <ComponentRef Id="cmp776kQIpx7vj5l34MNOBul6Vzj94" />
+            <ComponentRef Id="cmp5kaUudDJubftPPAU8ujc3y5JBZE" />
+            <ComponentRef Id="cmpigAyIZnrjczqp_wWRAqrYoCDTm0" />
+            <ComponentRef Id="cmp_cQyyV0sOPCA0fkfFVTGrwAKKsY" />
+            <ComponentRef Id="cmpT4gY_36sZj6m6Ennu_heabzMamA" />
+            <ComponentRef Id="cmpYnWXEQkIcFs10OOvCI.bnKoZxbs" />
+            <ComponentRef Id="cmp5ER7KYmEMHfBlYfdNi7mxiJAXIs" />
+            <ComponentRef Id="cmpgqWcwOrLIwwh2Yfp8CxUCBrOF5o" />
+            <ComponentRef Id="cmpZBjLMNx0oyL5hvVjphZig4.X.2M" />
+            <ComponentRef Id="cmpAacz68fxAWVKRVdChtvvCwbEVeM" />
+            <ComponentRef Id="cmpvt4VzqkVmknV16FVDDbg4O5aUe0" />
+            <ComponentRef Id="cmpCUnRNezvodNoACz8r_W2L1VjL8A" />
+            <ComponentRef Id="cmpEEC.4kge2PX5F_j0hs0rfvxP3N4" />
+            <ComponentRef Id="cmpV58Nbx.q9ql8SV8yQxlfF7oCQsY" />
+            <ComponentRef Id="cmpQab7wh.TflTCx4Xs31uYskzYSOg" />
+            <ComponentRef Id="cmpkhtcGwFpz5JBTAC7KPD0d2gWt0k" />
+            <ComponentRef Id="cmpAGF6sNfEc9WhmeuXjCOa.nzPTJo" />
+            <ComponentRef Id="cmpG9QtpLcV8qDz0VfUFIm9lxc8lnc" />
+            <ComponentRef Id="cmp_.DMArOnEZ65Lcfcg2ago4h8bKo" />
+            <ComponentRef Id="cmp_Pkpi.M8.kB5tKadudezBuLRy1E" />
+            <ComponentRef Id="cmpcDOeh4Pmy7ri4ay08sXsqzX4yEA" />
+            <ComponentRef Id="cmpn0q6JFvgOdxRUrmiVDDau.kBBg0" />
+            <ComponentRef Id="cmpVtR1Yn.lCi5Vnha38adbyIhz1c8" />
+            <ComponentRef Id="cmpVxlr_01g2l3ZcJljLmw_zfUWbo4" />
+            <ComponentRef Id="cmpJQ.pLObnJHy_1r6gYZ8uHIfJiXw" />
+            <ComponentRef Id="cmpeMQBdraTUX2lfOGlgirPXs3qCV8" />
+            <ComponentRef Id="cmpoyWLVaPaEKHv1u4X4nx.ysJI_Xg" />
+            <ComponentRef Id="cmpf0t1jg7pz_0avfBUKo2TZzA32Vk" />
+            <ComponentRef Id="cmpWThfSq4qe2ZSjo5qFMBDgdjAiV0" />
+            <ComponentRef Id="cmpFI04Pn9Z0tBklPQKQVz8mODvBBk" />
+            <ComponentRef Id="cmpMNxiIDpCo9P2.TqSvoLPoOpj_yI" />
+            <ComponentRef Id="cmpcLl.M74gJwC6sNqO9BC2zY0guyA" />
+            <ComponentRef Id="cmpdzB9eGrzbCgQ7tMBw68YFCcpWe8" />
+            <ComponentRef Id="cmp5yF2e_DL1vKQDcxYcFukpj3NMuE" />
+            <ComponentRef Id="cmpPmm96HPpL7TNySyHl2WaRKMMwmw" />
+            <ComponentRef Id="cmpfhq8AxtBwzDSgZ3CuImBDnWPwMg" />
+            <ComponentRef Id="cmpS_gwh6VqP9mDnqQiou98rASV.9I" />
+            <ComponentRef Id="cmpSemQXxng.e80EpyzpmncsG5Z_zM" />
+            <ComponentRef Id="cmpxcHrGjQLmurn8SAlD3eyYa6VWLo" />
+            <ComponentRef Id="cmpQaLC4NRl1iEXuJNr_BxVxahv2o8" />
+            <ComponentRef Id="cmpHQa21gILlDMLKbvi3bMWBJecrMw" />
+            <ComponentRef Id="cmpsFW7Uv1MEnCSHUnXOP08nx8GgGE" />
+            <ComponentRef Id="cmpoYMwy3Saq4Qb_QwswcwErNxZRw4" />
+            <ComponentRef Id="cmpAbRKvcNZjbYv3vhd7GpHHoU4RtY" />
+            <ComponentRef Id="cmpL8BrHPnKKVcp0L0ElwWGlHJhW_k" />
+            <ComponentRef Id="cmpi774qSyREuH3OroV9qE_RVoaaIw" />
+            <ComponentRef Id="cmpE_sObK1JDh8k9oaEtEjl.4Ofgyc" />
+            <ComponentRef Id="cmp8pCeUVimGmMu70kSG9R__Sjw3bc" />
+            <ComponentRef Id="cmpuM3LBVMCELxabcq.HlZ08XP2deM" />
+            <ComponentRef Id="cmpxWiR_MXhgggvInllg3_iOTCmsNk" />
+            <ComponentRef Id="cmpf_72Fqz4rUL2R22qJVXPPF7gDMY" />
+            <ComponentRef Id="cmpZpNGaSBxMJsnjHP34nVuE_9phXQ" />
+            <ComponentRef Id="cmpJbnBt1gKHIwKx235z5Poced9FRA" />
+            <ComponentRef Id="cmp5PrkaweayO.XwMpNELv2nFG7dUc" />
+            <ComponentRef Id="cmpoUE3K_B0iYldJrn4Bxui6J7V8pY" />
+            <ComponentRef Id="cmpPyfp9NzZl45i3d4ykqmIJgnz_6M" />
+            <ComponentRef Id="cmpIHJAMqN9dDBf4tQprN18hjP_PKA" />
+            <ComponentRef Id="cmpGHGneMarqYd_dCJ2E8SWPYw14So" />
+            <ComponentRef Id="cmpU6IO.P61L18L8A6.d351s1VDyzI" />
+            <ComponentRef Id="cmpzhuL.ram66q_ufC3jVA2mXWwGy0" />
+            <ComponentRef Id="cmppw7onNrr2Ugp8t_HmOUN65qSZgw" />
+            <ComponentRef Id="cmpT5n5qiF5Q4av0dxnkING5cUdCwc" />
+            <ComponentRef Id="cmpJkMJSw9XQXWN_CACvJB3l4UyBTw" />
+            <ComponentRef Id="cmpAI6ir0FfKnK63pPwWa_hqzgFM_E" />
+            <ComponentRef Id="cmpmXBeIdRXaVgEFFt0mj.mtM5UJeU" />
+            <ComponentRef Id="cmpYzdUnU.1IaAZxNY77NYKTtJDLSc" />
+            <ComponentRef Id="cmp8QKr0ggLR5yThu5YeBa3GIXJ85c" />
+            <ComponentRef Id="cmp6tm4Ob8ihfnFdgsg.FoLagYXE0E" />
+            <ComponentRef Id="cmp.RVGHsAi6e53uIBjzW0wLJfWFaA" />
+            <ComponentRef Id="cmp8FngOIyFx.2nFAWkyNQl1ugMESw" />
+            <ComponentRef Id="cmpDYGzk8co3lAoYnKEPUjnq8uCyIk" />
+            <ComponentRef Id="cmpGcQcgKtJUZcv9QiNH1lz2o9bZyo" />
+            <ComponentRef Id="cmpW5HBRFQ3y6GgmxR16YMbrZFIVEs" />
+            <ComponentRef Id="cmp2IOxTLTK9YaI8oyKEr54Wsb0m6g" />
+            <ComponentRef Id="cmpf8krihXw0_pKpA6eJuBO94Jknbc" />
+            <ComponentRef Id="cmpQCEjU1GsykhLx9UoLSPtHEbb0Iw" />
+            <ComponentRef Id="cmpHNeBr.2nmEV8Owy4wx5iUzN6qNc" />
+            <ComponentRef Id="cmp_DQUaUSGl7xCwj8z8GqCYOj2OW0" />
+        </ComponentGroup>
+    </Fragment>
 </Wix>

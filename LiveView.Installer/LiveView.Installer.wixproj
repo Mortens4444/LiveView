@@ -2,24 +2,11 @@
   <PropertyGroup>
     <SuppressAllWarnings>false</SuppressAllWarnings>
     <Pedantic>true</Pedantic>
+    <DefineConstants>Net9Source=$(SolutionDir)LiveView\bin\Release\net9.0-windows;Net462Source=$(SolutionDir)LiveView\bin\Release\net462</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiveView\LiveView.csproj">
       <TargetFrameworks>net9.0-windows,net462</TargetFrameworks>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <WixSource Include="Net9Components.wxs" />
-    <WixSource Include="Net462Components.wxs" />
-  </ItemGroup>
-  <Target Name="GenerateNet9Components">
-    <HeatDirectory Directory="..\LiveView\bin\Release\net9.0-windows" DirectoryRefId="INSTALLFOLDER_NET9" ComponentGroupName="Net9Components" OutputFile="Net9Components.wxs" AutogenerateGuids="true" SuppressFragments="true" SuppressRegistry="true" ToolPath="$(WixToolPath)" />
-  </Target>
-  <Target Name="GenerateNet462Components">
-    <HeatDirectory Directory="..\LiveView\bin\Release\net462" DirectoryRefId="INSTALLFOLDER_NET462" ComponentGroupName="Net462Components" OutputFile="Net462Components.wxs" AutogenerateGuids="true" SuppressFragments="true" SuppressRegistry="true" ToolPath="$(WixToolPath)" />
-  </Target>
-  <Target Name="BeforeBuild">
-    <CallTarget Targets="GenerateNet9Components" />
-    <CallTarget Targets="GenerateNet462Components" />
-  </Target>
 </Project>
