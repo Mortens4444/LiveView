@@ -3,8 +3,8 @@
     <OutputType>Bundle</OutputType>
     <TargetName>LiveViewSetup</TargetName>
     <DefineConstants>
-      Company=Sziltech;
-      ProgramVersion=2.0.0.0
+      Company=$(Company);
+      ProgramVersion=$(ProgramVersion);
     </DefineConstants>
   </PropertyGroup>
   <ItemGroup>

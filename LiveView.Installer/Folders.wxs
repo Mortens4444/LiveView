@@ -1,16 +1,3 @@
-<!--<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-  <Fragment>
-    <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFiles64Folder">
-        <Directory Id="INSTALLFOLDER_ROOT" Name="$(var.Company)">
-          <Directory Id="INSTALLFOLDER" Name="LiveView" />
-        </Directory>
-      </Directory>
-      <Directory Id="DesktopFolder" />
-    </Directory>
-  </Fragment>
-</Wix>-->
-
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
     <DirectoryRef Id="ProgramFiles64Folder">

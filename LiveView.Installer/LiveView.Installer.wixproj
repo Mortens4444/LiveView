@@ -7,9 +7,10 @@
     <SuppressAllWarnings>false</SuppressAllWarnings>
     <Pedantic>true</Pedantic>
     <DefineConstants>
+      Company=$(Company);
+      ShortVersion=$(ShortVersion);
+      ProgramVersion=$(ProgramVersion);
       LvFilesSource=$(SolutionDir)LiveView\bin\Release\net462;
-      Company=Sziltech;
-      ProgramVersion=2.0.0.0
     </DefineConstants>
   </PropertyGroup>
   <ItemGroup>

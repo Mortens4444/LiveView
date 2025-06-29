@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <Company>Sziltech</Company>
+    <ShortVersion>2.0</ShortVersion>
+    <ProgramVersion>2.0.0.0</ProgramVersion>
+  </PropertyGroup>
+</Project>
