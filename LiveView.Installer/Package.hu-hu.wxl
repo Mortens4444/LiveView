@@ -1,5 +1,0 @@
-﻿<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="hu-HU">
-
-  <String Id="DowngradeError" Value="A [ProductName] egy újabb verziója már telepítve van." />
-
-</WixLocalization>

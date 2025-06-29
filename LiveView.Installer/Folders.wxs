@@ -1,7 +1,24 @@
+<!--<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER_ROOT" Name="$(var.Company)">
+          <Directory Id="INSTALLFOLDER" Name="LiveView" />
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+  </Fragment>
+</Wix>-->
+
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
-    <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer) !(bind.Property.ProductName)" />
-    </StandardDirectory>
+    <DirectoryRef Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER_ROOT" Name="$(var.Company)">
+        <Directory Id="INSTALLFOLDER" Name="LiveView" />
+      </Directory>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder" />
   </Fragment>
 </Wix>

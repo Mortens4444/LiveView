@@ -1,0 +1,16 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Bundle Id="$(var.Company).LiveView.Installer" Name="LiveView" Manufacturer="$(var.Company)" Version="$(var.ProgramVersion)">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication LicenseUrl="https://www.sziltech.hu/license.html" Theme="hyperlinkLicense" />
+    </BootstrapperApplication>
+
+    <Chain>
+      <MsiPackage Id="LiveViewInstaller"
+                  DisplayName="LiveView"
+                  SourceFile="..\LiveView.Installer\bin\x64\Release\LiveView.Installer.msi"
+                  Compressed="yes"
+                  Vital="yes" />
+    </Chain>
+
+  </Bundle>
+</Wix>

@@ -1,0 +1,28 @@
+﻿<Project Sdk="WixToolset.Sdk/6.0.1">
+  <PropertyGroup>
+    <OutputType>Bundle</OutputType>
+    <TargetName>LiveViewSetup</TargetName>
+    <DefineConstants>
+      Company=Sziltech;
+      ProgramVersion=2.0.0.0
+    </DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.BootstrapperApplications.wixext" Version="6.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab1.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab2.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab3.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab4.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab5.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab6.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab7.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\cab8.cab" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\LiveView.Installer.msi" />
+    <Content Include="..\LiveView.Installer\bin\x64\Release\LiveView.Installer.wixpdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiveView.Installer\LiveView.Installer.wixproj" />
+  </ItemGroup>
+</Project>

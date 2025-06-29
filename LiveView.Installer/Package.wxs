@@ -1,18 +1,14 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package Name="LiveView.Installer"
-           Manufacturer="Mortens"
-           Version="1.0.0.0"
+           Manufacturer="$(var.Company)"
+           Version="$(var.ProgramVersion)"
+           Compressed="yes"
+           InstallerVersion="500"
            UpgradeCode="7e4a39ac-f309-4478-bfe6-e82a9856ab94">
-    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
-    <Feature Id="LiveView_NET462" Title="LiveView .NET 4.6.2" Level="0">
-      <Level Condition="WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED" Value="1" />
-      <ComponentGroupRef Id="Net462Components"/>
-    </Feature>
-
-    <Feature Id="LiveView_NET9" Title="LiveView .NET 9.0" Level="0">
-      <Level Condition="NOT WIX_IS_NETFRAMEWORK_462_OR_LATER_INSTALLED" Value="1" />
-      <ComponentGroupRef Id="Net9Components"/>
+    <Feature Id="LiveViewMainFeature" Title="LiveView .NET 4.6.2">
+      <ComponentGroupRef Id="LiveViewComponents"/>
     </Feature>
 
   </Package>

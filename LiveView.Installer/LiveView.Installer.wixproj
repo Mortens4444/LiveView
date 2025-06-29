@@ -1,8 +1,16 @@
 ﻿<Project Sdk="WixToolset.Sdk/5.0.2">
   <PropertyGroup>
+    <PackageCompression>Embed</PackageCompression>
+    <TargetFramework>net462</TargetFramework>
+    <DisableEmbeddedUI>true</DisableEmbeddedUI>
+    <SuppressWixUIValidation>true</SuppressWixUIValidation>
     <SuppressAllWarnings>false</SuppressAllWarnings>
     <Pedantic>true</Pedantic>
-    <DefineConstants>Net9Source=$(SolutionDir)LiveView\bin\Release\net9.0-windows;Net462Source=$(SolutionDir)LiveView\bin\Release\net462</DefineConstants>
+    <DefineConstants>
+      LvFilesSource=$(SolutionDir)LiveView\bin\Release\net462;
+      Company=Sziltech;
+      ProgramVersion=2.0.0.0
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiveView\LiveView.csproj">
