@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record IOPortsLogDto : IHaveIdWithSetter<long>
+    public record IOPortsLogDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
         public DateTime Date { get; set; }
 

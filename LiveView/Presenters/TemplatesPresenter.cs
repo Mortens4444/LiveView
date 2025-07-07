@@ -56,7 +56,7 @@ namespace LiveView.Presenters
 
         public void Save()
         {
-            var templateId = templateRepository.InsertAndReturnId<long>(new Template
+            var templateId = templateRepository.InsertAndReturnId<int>(new Template
             {
                 TemplateName = view.TbTemplateName.Text
             });
@@ -82,7 +82,7 @@ namespace LiveView.Presenters
             logger.LogInfo(TemplateManagementPermissions.Update, $"Template '{0}' camera process(es) has been saved.", view.TbTemplateName.Text);
         }*/
 
-        private void SaveSequenceProcesses(long templateId)
+        private void SaveSequenceProcesses(int templateId)
         {
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {

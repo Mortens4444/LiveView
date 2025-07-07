@@ -15,6 +15,7 @@ namespace LiveView.Forms
         public LanguageFileChangedForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LanguageFileChangedPresenter))
         {
             InitializeComponent();
+            canBeClosedAlways = true;
 
             permissionManager.ApplyPermissionsOnControls(this);
 

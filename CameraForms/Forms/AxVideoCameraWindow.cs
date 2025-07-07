@@ -37,7 +37,7 @@ namespace CameraForms.Forms
         private GridCamera gridCamera;
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
-            ICameraRightRepository cameraRightRepository, IRightRepository rightRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
             IOperationRepository operationRepository, IUsersInGroupsRepository usersInGroupsRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
             Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
@@ -52,7 +52,7 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
 
             var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                cameraRightRepository, rightRepository, operationRepository, usersInGroupsRepository));
+                cameraPermissionRepository, permissionRepository, operationRepository, usersInGroupsRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
@@ -94,8 +94,8 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
             var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraRightRepository>(),
-                serviceProvider.GetRequiredService<IRightRepository>(),
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
                 serviceProvider.GetRequiredService<IUsersInGroupsRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);

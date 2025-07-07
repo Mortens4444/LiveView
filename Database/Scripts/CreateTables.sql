@@ -1,236 +1,237 @@
 ﻿IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Servers]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Servers (
-        ID BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        displayed_name NVARCHAR(100) NOT NULL,
-        dongle_sn NVARCHAR(20) NULL,
-        sziltech_sn NVARCHAR(20) NULL,
-        iporhost NVARCHAR(100) NOT NULL,
-        mac_address NVARCHAR(20) NULL,
-        start_in_motion_popup BIT NOT NULL DEFAULT 1,
-        username NVARCHAR(100) NOT NULL,
-        password NVARCHAR(100) NOT NULL,
-        win_user NVARCHAR(100) NULL,
-        win_pass NVARCHAR(100) NULL,
-        checksum NVARCHAR(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        DisplayedName NVARCHAR(100) NOT NULL,
+        DongleSn NVARCHAR(20) NULL,
+        SziltechSn NVARCHAR(20) NULL,
+        IpOrHost NVARCHAR(100) NOT NULL,
+        MacAddress NVARCHAR(20) NULL,
+        StartInMotionPopup BIT NOT NULL DEFAULT 1,
+        Username NVARCHAR(MAX) NOT NULL,
+        Password NVARCHAR(MAX) NOT NULL,
+        WinUser NVARCHAR(100) NULL,
+        WinPass NVARCHAR(100) NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Agents]') AND type = N'U')
+BEGIN
+    CREATE TABLE Agents (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ServerIp NVARCHAR(200),
+        AgentPort INT NOT NULL,
+        VncServerPort INT NOT NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoSources]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE VideoSources (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        AgentId INT,
+        Name NVARCHAR(500),
+        Port INT NOT NULL,
+        FOREIGN KEY (AgentId) REFERENCES Agents(Id)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Cameras]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Cameras (
-        ID BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        serverid BIGINT NOT NULL,
-        partner_camera_id BIGINT NULL,
-        stream_id INT NULL,
-        recorder_index BIGINT NOT NULL,
-        cameraname NVARCHAR(100) NOT NULL,
-        fullscreen_mode INT NOT NULL DEFAULT 0,
-        guid NVARCHAR(50) NOT NULL,
-        http_stream_url NVARCHAR(200) NULL,
-        ip_address NVARCHAR(200) NULL,
-        motion_trigger BIGINT NULL,
-        motion_trigger_minimum_length BIGINT NULL,
-        priority INT NULL,
-        username NVARCHAR(200) NULL,
-        password NVARCHAR(200) NULL,
-        checksum NVARCHAR(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ServerId INT NOT NULL,
+        PartnerCameraId INT NULL,
+        StreamId INT NULL,
+        RecorderIndex BIGINT NOT NULL,
+        CameraName NVARCHAR(100) NOT NULL,
+        FullscreenMode INT NOT NULL DEFAULT 0,
+        Guid NVARCHAR(50) NOT NULL,
+        HttpStreamUrl NVARCHAR(500) NULL,
+        IpAddress NVARCHAR(200) NULL,
+        MotionTrigger BIGINT NULL,
+        MotionTriggerMinimumLength BIGINT NULL,
+        Priority INT NULL,
+        Username NVARCHAR(200) NULL,
+        Password NVARCHAR(200) NULL,
+        VideoSourceId INT NULL,
+        PermissionCamera INT NOT NULL DEFAULT 0,
+        FOREIGN KEY (ServerId) REFERENCES Servers(Id) ON DELETE CASCADE,
+        FOREIGN KEY (VideoSourceId) REFERENCES VideoSources(Id) ON DELETE SET NULL,
+        FOREIGN KEY (PartnerCameraId) REFERENCES Cameras(Id) ON DELETE NO ACTION
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Grids]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Grids (
-        ID BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        rows INT NOT NULL,
-        columns INT NOT NULL,
-        name NVARCHAR(500) NOT NULL,
-        pixelsfrombottom INT NOT NULL,
-        pixelsfromright INT NOT NULL,
-        priority INT NULL,
-        checksum NVARCHAR(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Rows INT NOT NULL,
+        Columns INT NOT NULL,
+        Name NVARCHAR(500) NOT NULL,
+        PixelsFromBottom INT NOT NULL,
+        PixelsFromRight INT NOT NULL,
+        Priority INT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sequences]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Sequences (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        active bit NOT NULL,
-        name nvarchar(50) NOT NULL,
-        priority int NULL,
-        checksum nvarchar(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Active BIT NOT NULL,
+        Name NVARCHAR(500) NOT NULL,
+        Priority INT NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GridsInSequences]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SequenceGrids]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE GridsInSequences (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        gridid bigint NOT NULL,
-        sequenceid bigint NOT NULL,
-        number int NOT NULL,
-        timetoshow int NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE SequenceGrids (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        GridId INT NOT NULL,
+        SequenceId INT NOT NULL,
+        Number INT NOT NULL,
+        TimeToShow INT NOT NULL,
+        FOREIGN KEY (GridId) REFERENCES Grids(Id) ON DELETE CASCADE,
+        FOREIGN KEY (SequenceId) REFERENCES Sequences(Id) ON DELETE CASCADE
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects 
-               WHERE object_id = OBJECT_ID(N'[dbo].[Grid_cameralist]') AND type = N'U')
-    AND NOT EXISTS (SELECT * FROM sys.objects 
-                   WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FlaggedLicensePlates]') AND type = N'U')
 BEGIN
-    CREATE TABLE Grid_cameralist (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        camera_id bigint NOT NULL,
-        grid_id bigint NOT NULL,
-        init_row int NOT NULL,
-        init_col int NOT NULL,
-        end_row int NULL,
-        end_col int NULL,
-        [left] int NULL,
-        [top] int NULL,
-        width int NULL,
-        height int NULL,
-        csr_save_images bit NOT NULL,
-        csr_number_of_photos int NOT NULL,
-        csr_value int NOT NULL,
-        frame bit NOT NULL,
-        osd bit NOT NULL,
-        show_date_time bit NOT NULL DEFAULT 0,
-        ptz bit NOT NULL,
-        motion_save_images bit NOT NULL,
-        motion_number_of_photos int NOT NULL,
-        motion_value int NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE FlaggedLicensePlates (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        LicensePlate NVARCHAR(50) NOT NULL,
+        DateReported DATETIME NULL,
+        Description NVARCHAR(MAX) NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Monitors]') AND type in (N'U'))
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GridCameras]') AND type = N'U')
 BEGIN
-    CREATE TABLE Monitors (
-        ID bigint NOT NULL PRIMARY KEY,
-        device_id bigint NOT NULL,
-        x int NOT NULL,
-        y int NOT NULL,
-        width int NOT NULL,
-        height int NOT NULL,
-        maxwidth int NOT NULL,
-        maxheight int NOT NULL,
-        little_x int NULL,
-        little_y int NULL,
-        little_width int NULL,
-        little_height int NULL,
-        adapter_name nvarchar(256) NULL,
-        device_name nvarchar(256) NULL,
-        monitor_name nvarchar(256) NULL,
-        sziltech_id nvarchar(30) NOT NULL,
-        attachedtodesktop bit NULL,
-        can_show_fullscreen bit NULL,
-        can_show_sequence bit NULL,
-        isprimary bit NULL,
-        mainform bit NULL,
-        removable bit NULL,
-        fullscreen bit NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE GridCameras (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraId INT NULL,
+        GridId INT NOT NULL,
+        InitRow INT NOT NULL,
+        InitCol INT NOT NULL,
+        EndRow INT NULL,
+        EndCol INT NULL,
+        [Left] INT NULL,
+        [Top] INT NULL,
+        Width INT NULL,
+        Height INT NULL,
+        CsrSaveImages BIT NOT NULL,
+        CsrNumberOfPhotos INT NOT NULL,
+        CsrValue INT NOT NULL,
+        Frame BIT NOT NULL,
+        Osd BIT NOT NULL,
+        ShowDateTime BIT NOT NULL DEFAULT 0,
+        Ptz BIT NOT NULL,
+        MotionSaveImages BIT NOT NULL,
+        MotionNumberOfPhotos INT NOT NULL,
+        MotionValue INT NOT NULL,
+        CameraMode INT NOT NULL DEFAULT 0,
+        FOREIGN KEY (GridId) REFERENCES Grids(Id) ON DELETE CASCADE,
+        FOREIGN KEY (CameraId) REFERENCES Cameras(Id) ON DELETE SET NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Displays]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE Displays (
+        Id INT NOT NULL PRIMARY KEY,
+        X INT NOT NULL,
+        Y INT NOT NULL,
+        Width INT NOT NULL,
+        Height INT NOT NULL,
+        MaxWidth INT NOT NULL,
+        MaxHeight INT NOT NULL,
+        AdapterName NVARCHAR(256) NULL,
+        DeviceName NVARCHAR(256) NULL,
+        MonitorName NVARCHAR(256) NULL,
+        SziltechId NVARCHAR(30) NOT NULL,
+        AttachedToDesktop BIT NULL,
+        CanShowFullscreen BIT NULL,
+        CanShowSequence BIT NULL,
+        IsPrimary BIT NULL,
+        Removable BIT NULL,
+        Fullscreen BIT NULL
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE Users (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Address NVARCHAR(200) NULL,
+        Barcode NVARCHAR(50) NULL,
+        LicensePlate NVARCHAR(50) NULL,
+        Email NVARCHAR(200) NULL,
+        Fullname NVARCHAR(100) NULL,
+        Image VARBINARY(MAX) NULL,
+        NeededSecondaryLogonPriority INT NOT NULL,
+        OtherInformation NVARCHAR(MAX) NULL,
+        SecondaryLogonPriority INT NOT NULL,
+        Phone NVARCHAR(50) NULL,
+        Username NVARCHAR(MAX) NOT NULL,
+        Password NVARCHAR(MAX) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Options]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Options (
-        name NVARCHAR(50) NOT NULL,
-        user_id BIGINT NOT NULL,
-        type_id TINYINT NOT NULL,
-        value NVARCHAR(256),
-        PRIMARY KEY (name, user_id)
-    );
-END;
-
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE Users (
-        ID BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        address NVARCHAR(200) NULL,
-        barcode NVARCHAR(50) NULL,
-        carsign NVARCHAR(50) NULL,
-        email NVARCHAR(200) NULL,
-        fullname NVARCHAR(100) NULL,
-        picture IMAGE NULL,
-        needed_secondary_logon_priority INT NOT NULL,
-        other_information NVARCHAR(MAX) NULL,
-        secondary_logon_priority INT NOT NULL,
-        telephone NVARCHAR(50) NULL,
-        username NVARCHAR(100) NOT NULL,
-        password NVARCHAR(200) NOT NULL,
-        checksum NVARCHAR(200) NULL
+        Name NVARCHAR(50) NOT NULL,
+        UserId INT NOT NULL,
+        TypeId TINYINT NOT NULL,
+        Value NVARCHAR(256) NULL,
+        PRIMARY KEY (Name, UserId),
+        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Groups]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Groups (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        parent_group_id bigint NOT NULL,
-        name nvarchar(100) NOT NULL,
-        other_information nvarchar(MAX) NULL,
-        checksum nvarchar(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ParentGroupId INT NULL,
+        Name NVARCHAR(100) NOT NULL,
+        OtherInformation NVARCHAR(MAX) NULL,
+        FOREIGN KEY (ParentGroupId) REFERENCES Groups(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Permissions]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserEvents]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE Rights (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        operation_id bigint NOT NULL,
-        group_id bigint NOT NULL,
-        user_event bigint NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE UserEvents (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Name NVARCHAR(100) NOT NULL,
+        Note NVARCHAR(MAX) NULL,
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Operations]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Operations (
-        ID bigint NOT NULL PRIMARY KEY,
-        language_element_id bigint NOT NULL,
-        note nvarchar(100) NULL,
-        checksum nvarchar(200) NULL
+        Id INT NOT NULL PRIMARY KEY,
+        PermissionGroup NVARCHAR(255) NOT NULL,
+        PermissionValue NVARCHAR(255) NOT NULL,
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Events]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Permissions]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE Events (
-        ID bigint NOT NULL PRIMARY KEY,
-        language_element_id bigint NOT NULL,
-        note nvarchar(100) NULL,
-        checksum nvarchar(200) NULL
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Languages]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE Languages (
-        ID bigint NOT NULL PRIMARY KEY,
-        flag image NULL,
-        [name] nvarchar(100) NULL,
-        checksum nvarchar(200) NULL
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LanguageElements]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE LanguageElements (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        user_id bigint NULL,
-        language_id bigint NOT NULL,
-        element_id bigint NOT NULL,
-        date datetime NOT NULL,
-        note nvarchar(MAX) NULL,
-        value nvarchar(MAX) NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE Permissions (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        OperationId INT NOT NULL,
+        GroupId INT NOT NULL,
+        UserEventId INT NOT NULL,
+        FOREIGN KEY (OperationId) REFERENCES Operations(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (UserEventId) REFERENCES UserEvents(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (GroupId) REFERENCES Groups(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
@@ -246,9 +247,9 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MapObjects]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ActionObjects]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE MapObjects (
+    CREATE TABLE ActionObjects (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         ActionReferencedId INT NOT NULL,
         ActionType INT NOT NULL,
@@ -261,296 +262,239 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ObjectsInMaps]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MapActionObjects]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE ObjectsInMaps (
+    CREATE TABLE MapActionObjects (
         MapId INT NOT NULL,
-        MapObjectId INT NOT NULL,
-        PRIMARY KEY (MapId, MapObjectId)
+        ActionObjectId INT NOT NULL,
+        PRIMARY KEY (MapId, ActionObjectId),
+        FOREIGN KEY (MapId) REFERENCES Maps(Id) ON DELETE CASCADE,
+        FOREIGN KEY (ActionObjectId) REFERENCES ActionObjects(Id) ON DELETE CASCADE
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Logs]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Logs (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        event_id bigint NULL,
-        operation_id bigint NULL,
-        user_id bigint NOT NULL,
-        language_element_id bigint NULL,
-        date datetime NOT NULL,
-        other_information nvarchar(MAX) NULL,
-        checksum nvarchar(200) NULL
+        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        EventId INT NULL,
+        OperationId INT NULL,
+        UserId INT NOT NULL,
+        Date DATETIME NOT NULL,
+        OtherInformation NVARCHAR(MAX) NULL,
+        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        FOREIGN KEY (EventId) REFERENCES UserEvents(Id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        FOREIGN KEY (OperationId) REFERENCES Operations(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UsersInGroups]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GroupMembers]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE UsersInGroups (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        group_id bigint NOT NULL,
-        user_id bigint NOT NULL,
-        checksum nvarchar(200) NULL
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserEvents]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE UserEvents (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        name nvarchar(100) NOT NULL,
-        note nvarchar(MAX) NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE GroupMembers (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        GroupId INT NOT NULL,
+        UserId INT NOT NULL,
+        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (GroupId) REFERENCES Groups(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraPermissions]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE RightsOnCameras (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        camera_id bigint NOT NULL,
-        group_id bigint NOT NULL,
-        user_event bigint NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE CameraPermissions (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraId INT NOT NULL,
+        GroupId INT NOT NULL,
+        UserEventId INT NOT NULL,
+        FOREIGN KEY (CameraId) REFERENCES Cameras(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (GroupId) REFERENCES Groups(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (UserEventId) REFERENCES UserEvents(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pictures]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SavedImages]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE Pictures (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        camera_id bigint NOT NULL,
-        event_date datetime NOT NULL,
-        img image NOT NULL,
-        store_date datetime NOT NULL
+    CREATE TABLE SavedImages (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraId INT NOT NULL,
+        EventDate DATETIME NOT NULL,
+        Image VARBINARY(MAX) NOT NULL,
+        StoreDate DATETIME NOT NULL,
+        FOREIGN KEY (CameraId) REFERENCES Cameras(Id)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Templates]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Templates (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        template_name nvarchar(50) NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        TemplateName NVARCHAR(50) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TemplateProcesses]') AND type in (N'U'))
 BEGIN
     CREATE TABLE TemplateProcesses (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        TemplateId BIGINT NOT NULL,
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        TemplateId INT NOT NULL,
+        AgentId INT NULL,
         ProcessName NVARCHAR(50) NOT NULL,
         ProcessParameters NVARCHAR(250) NOT NULL,
-        FOREIGN KEY (TemplateId) REFERENCES Templates(Id)
+        FOREIGN KEY (TemplateId) REFERENCES Templates(Id),
+		FOREIGN KEY (AgentId) REFERENCES Agents(Id) ON DELETE SET NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Databases]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Databases (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        name nvarchar(100) NOT NULL,
-        filename nvarchar(250) NOT NULL,
-        path nvarchar(250) NOT NULL,
-        isexists bit NOT NULL,
-        isactive bit NOT NULL,
-        isarchived bit NOT NULL,
-        fromdate datetime NULL,
-        todate datetime NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Name NVARCHAR(100) NOT NULL,
+        FileName NVARCHAR(250) NOT NULL,
+        Path NVARCHAR(250) NOT NULL,
+        IsExists BIT NOT NULL,
+        IsActive BIT NOT NULL,
+        IsArchived BIT NOT NULL,
+        FromDate DATETIME NULL,
+        ToDate DATETIME NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReadingGroups]') AND type in (N'U'))
 BEGIN
     CREATE TABLE ReadingGroups (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        description nvarchar(MAX) NOT NULL,
-        name nvarchar(50) NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Description NVARCHAR(MAX) NOT NULL,
+        Name NVARCHAR(50) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Rules]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Rules (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        name nvarchar(50) NOT NULL,
-        rulestr nvarchar(50) NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Name NVARCHAR(50) NOT NULL,
+        RuleStr NVARCHAR(50) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RgCfRule]') AND type in (N'U'))
 BEGIN
     CREATE TABLE RgCfRule (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        RG_ID bigint NOT NULL,
-        R_ID bigint NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ReadingGroupId INT NOT NULL,
+        RuleId INT NOT NULL,
+        FOREIGN KEY (RuleId) REFERENCES Rules(Id),
+        FOREIGN KEY (ReadingGroupId) REFERENCES ReadingGroups(Id)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSReadings]') AND type in (N'U'))
 BEGIN
     CREATE TABLE BSReadings (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        date datetime NOT NULL,
-        value nvarchar(50) NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Date DATETIME NOT NULL,
+        Value NVARCHAR(50) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSOptions]') AND type in (N'U'))
 BEGIN
     CREATE TABLE BSOptions (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        custom_in int NOT NULL,
-        custom_out int NOT NULL,
-        lcid_in int NOT NULL,
-        lcid_out int NOT NULL,
-        max_delay int NOT NULL,
-        selected_com_port int NOT NULL,
-        serial_scanner bit NOT NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CustomIn INT NOT NULL,
+        CustomOut INT NOT NULL,
+        LcidIn INT NOT NULL,
+        LcidOut INT NOT NULL,
+        MaxDelay INT NOT NULL,
+        SelectedComPort INT NOT NULL,
+        SerialScanner BIT NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSCharChanger]') AND type in (N'U'))
 BEGIN
     CREATE TABLE BSCharChanger (
-        ID bigint NOT NULL PRIMARY KEY,
-        chars nvarchar(255) NOT NULL
+        Id INT NOT NULL PRIMARY KEY,
+        Chars NVARCHAR(255) NOT NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects 
-               WHERE object_id = OBJECT_ID(N'[dbo].[Pass_readings]') AND type = N'U')
-    AND NOT EXISTS (SELECT * FROM sys.objects 
-                   WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReadLicensePlates]') AND type = N'U')
 BEGIN
-    CREATE TABLE Pass_readings (
-        ID bigint NOT NULL PRIMARY KEY,
-        acknowledge bit NOT NULL,
-        date1 datetime NOT NULL,
-        date2 datetime NOT NULL,
-        date3 datetime NOT NULL,
-        date4 datetime NOT NULL,
-        sender nvarchar(255) NOT NULL,
-        senders_listener_port int NOT NULL,
-        value nvarchar(255) NOT NULL
+    CREATE TABLE ReadLicensePlates (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ReadDate DATETIME NOT NULL,
+        LicensePlate NVARCHAR(50) NOT NULL,
+        CameraId INT NOT NULL,
+		FOREIGN KEY (CameraId) REFERENCES Cameras(Id)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DBServers]') AND type in (N'U'))
 BEGIN
     CREATE TABLE DBServers (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        iporhost nvarchar(100) NOT NULL,
-        db_name nvarchar(100) NOT NULL,
-        db_port int NOT NULL,
-        displayed_name nvarchar(100) NOT NULL,
-        mac_address nvarchar(20) NULL,
-        username nvarchar(100) NOT NULL,
-        password nvarchar(100) NOT NULL,
-        checksum nvarchar(200) NULL
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ServerStates]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE ServerStates (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        server_id bigint NOT NULL,
-        last_state bigint NOT NULL,
-        checksum nvarchar(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        IporHost NVARCHAR(100) NOT NULL,
+        DbName NVARCHAR(100) NOT NULL,
+        DbPort INT NOT NULL,
+        DisplayedName NVARCHAR(100) NOT NULL,
+        MacAddress NVARCHAR(20) NULL,
+        Username NVARCHAR(100) NOT NULL,
+        Password NVARCHAR(100) NOT NULL
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPorts]') AND type in (N'U'))
 BEGIN
     CREATE TABLE IOPorts (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        device_id int NOT NULL,
-        direction int NOT NULL,
-        friendly_name nvarchar(255) NOT NULL,
-        min_trigger_time int NOT NULL,
-        max_count int NOT NULL,
-        name nvarchar(255) NOT NULL,
-        port_num int NOT NULL,
-        state int NOT NULL,
-        checksum nvarchar(200) NULL
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        DeviceId INT NOT NULL,
+        Direction INT NOT NULL,
+        FriendlyName NVARCHAR(255) NOT NULL,
+        MinTriggerTime INT NOT NULL,
+        MaxCount INT NOT NULL,
+        Name NVARCHAR(255) NOT NULL,
+        PortNum INT NOT NULL,
+        State INT NOT NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects 
-               WHERE object_id = OBJECT_ID(N'[dbo].[IOPorts_Logs]') AND type = N'U')
-    AND NOT EXISTS (SELECT * FROM sys.objects 
-                   WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPortsLogs]') AND type = N'U')
 BEGIN
-    CREATE TABLE IOPorts_Logs (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        user_id bigint NOT NULL,
-        device_id int NOT NULL,
-        date datetime NOT NULL,
-        note nvarchar(MAX) NULL,
-        port_num int NOT NULL,
-        state int NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE IOPortsLogs (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        UserId INT NOT NULL,
+        DeviceId INT NOT NULL,
+        Date DATETIME NOT NULL,
+        Note NVARCHAR(MAX) NULL,
+        PortNum INT NOT NULL,
+        State INT NOT NULL,
+        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects 
-               WHERE object_id = OBJECT_ID(N'[dbo].[IOPorts_Rules]') AND type = N'U')
-    AND NOT EXISTS (SELECT * FROM sys.objects 
-                   WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPortsRules]') AND type = N'U')
 BEGIN
-    CREATE TABLE IOPorts_Rules (
-        ID bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        operation_id bigint NULL,
-        event_id bigint NULL,
-        device_id int NOT NULL,
-        port_num int NOT NULL,
-        zero_signaled bit NOT NULL,
-        checksum nvarchar(200) NULL
+    CREATE TABLE IOPortsRules (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        OperationId INT NULL,
+        UserEventId INT NULL,
+        DeviceId INT NOT NULL,
+        PortNum INT NOT NULL,
+        ZeroSignaled BIT NOT NULL,
+        FOREIGN KEY (OperationId) REFERENCES Operations(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+        FOREIGN KEY (UserEventId) REFERENCES UserEvents(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WantedLicensePlates]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Credentials]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE WantedLicensePlates (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        DateReported datetime NULL,
-        Description nvarchar(MAX) NULL,
-        LicensePlate nvarchar(20) NOT NULL
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ServerCredentials]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE ServerCredentials (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerId BIGINT,
+    CREATE TABLE Credentials (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        UserId INT,
         CredentialType INT,
-        Username NVARCHAR(200),
-        EncryptedPassword NVARCHAR(MAX),
-        FOREIGN KEY (ServerId) REFERENCES Servers(Id)
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DBServerCredentials]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE DBServerCredentials (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerId BIGINT,
-        CredentialType INT,
-        Username NVARCHAR(200),
-        EncryptedPassword NVARCHAR(MAX),
-        FOREIGN KEY (ServerId) REFERENCES DBServers(Id)
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[UserCredentials]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE UserCredentials (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        UserId BIGINT,
-        CredentialType INT,
-        Username NVARCHAR(200),
+        Username NVARCHAR(MAX),
         EncryptedPassword NVARCHAR(MAX),
         FOREIGN KEY (UserId) REFERENCES Users(Id)
     );
@@ -559,79 +503,29 @@ END;
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Migrations]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Migrations (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         Name NVARCHAR(200)
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Agents]') AND type = N'U')
-BEGIN
-    CREATE TABLE [dbo].Agents (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerIp NVARCHAR(200),
-        AgentPort INT NOT NULL,
-        VncServerPort INT NOT NULL,
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoSources]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE VideoSources (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        AgentId BIGINT,
-        Name NVARCHAR(500),
-        Port INT NOT NULL,
-        FOREIGN KEY (AgentId) REFERENCES Agents(Id)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraFunctions]') AND type in (N'U'))
 BEGIN
     CREATE TABLE CameraFunctions (
-        Id BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        CameraId BIGINT,
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraId INT,
         FunctionId INT,
         FunctionCallback NVARCHAR(MAX),
-        Param1 NVARCHAR(100),
-        Param2 NVARCHAR(100),
-        Param3 NVARCHAR(100),
-        Param4 NVARCHAR(100),
-        Param5 NVARCHAR(100),
-        Param6 NVARCHAR(100),
-        Param7 NVARCHAR(100),
-        Param8 NVARCHAR(100),
-        Param9 NVARCHAR(100),
-        Param10 NVARCHAR(100),
-        Param11 NVARCHAR(100),
-        Param12 NVARCHAR(100),
-        Param13 NVARCHAR(100),
-        Param14 NVARCHAR(100),
-        Param15 NVARCHAR(100),
-        Param16 NVARCHAR(100),
-        Param17 NVARCHAR(100),
-        Param18 NVARCHAR(100),
-        Param19 NVARCHAR(100),
-        Param20 NVARCHAR(100),
-        Param21 NVARCHAR(100),
-        Param22 NVARCHAR(100),
-        Param23 NVARCHAR(100),
-        Param24 NVARCHAR(100),
-        Param25 NVARCHAR(100),
-        Param26 NVARCHAR(100),
-        Param27 NVARCHAR(100),
-        Param28 NVARCHAR(100),
-        Param29 NVARCHAR(100),
-        Param30 NVARCHAR(100),
-        Param31 NVARCHAR(100),
-        Param32 NVARCHAR(100),
-        Param33 NVARCHAR(100),
-        Param34 NVARCHAR(100),
-        Param35 NVARCHAR(100),
-        Param36 NVARCHAR(100),
-        Param37 NVARCHAR(100),
-        Param38 NVARCHAR(100),
-        Param39 NVARCHAR(100),
-        Param40 NVARCHAR(100),
         FOREIGN KEY (CameraId) REFERENCES Cameras(Id)
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CameraFunctionParams]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE CameraFunctionParams (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CameraFunctionId INT NOT NULL,
+        ParamIndex INT NOT NULL,
+        ParamValue NVARCHAR(100) NULL,
+        FOREIGN KEY (CameraFunctionId) REFERENCES CameraFunctions(Id) ON DELETE CASCADE
     );
 END;

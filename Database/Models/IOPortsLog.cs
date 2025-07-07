@@ -3,13 +3,13 @@ using System;
 
 namespace Database.Models
 {
-    public class IOPortsLog : IHaveId<long>
+    public class IOPortsLog : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
         public DateTime Date { get; set; }
 

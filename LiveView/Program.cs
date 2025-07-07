@@ -3,7 +3,6 @@ using Database.Models;
 using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
-using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Services;
 #if NET462
@@ -25,7 +24,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Database.Services;
 using Mtf.Extensions;
-using System.Globalization;
 
 namespace LiveView
 {
@@ -58,6 +56,21 @@ namespace LiveView
             try
             {
                 BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
+                BaseRepository.ExecuteWithoutTransaction("CreateUser");
+                BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+                BaseRepository.Execute("CreateTables");
+                var migrationsToExecute = new string[] { "InsertInitialData" };
+
+                var migrationRepository = new MigrationRepository();
+                var migrations = migrationRepository.SelectAll();
+                foreach (var migrationToExecute in migrationsToExecute)
+                {
+                    if (!migrations.Any(migration => migration.Name == migrationToExecute))
+                    {
+                        BaseRepository.Execute(migrationToExecute);
+                        migrationRepository.Insert(new Migration { Name = migrationToExecute });
+                    }
+                }
             }
             catch (SqlException ex) when (ex.Number == 26)
             {
@@ -66,27 +79,6 @@ namespace LiveView
                 Application.Restart();
             }
             
-            BaseRepository.ExecuteWithoutTransaction("CreateUser");
-
-            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
-            BaseRepository.Execute("CreateTables");
-            var migrationsToExecute = new string[] { "MigrationAddConstraints", "MigrationRenameTables", "MigrationRenameColumns",
-                "MigrationDropChecksums", "InsertInitialData", "MigrationData", "MigrationDropDisplaysTableColumns", "MigrationRestructureGridCameras",
-                "MigrationExtendGridName", "MigrationExtendSequenceName", "MigrationAlterTableOperation", "MigrationDropLogsTableColumn",
-                "MigrationAlterTableGridCameras", "MigrationUpdateGridCameras", "MigrationUpdateCamerasHttpStreamUrlLength", "MigrationAlterTableDisplays",
-                "MigrationAlterTableCameras", "MigrationAlterTableTemplateProcesses", "MigrationAlterTableCamerasAddPermissionCameraColumn",
-                "MigrationAlterTableCamerasFillPermissionCameraColumn" };
-
-            var migrationRepository = new MigrationRepository();
-            var migrations = migrationRepository.SelectAll();
-            foreach (var migrationToExecute in migrationsToExecute)
-            {
-                if (!migrations.Any(migration => migration.Name == migrationToExecute))
-                {
-                    BaseRepository.Execute(migrationToExecute);
-                    migrationRepository.Insert(new Migration { Name = migrationToExecute });
-                }
-            }
             LiveViewTranslator.Translate();
 
             var serviceProvider = ServiceProviderFactory.Create();

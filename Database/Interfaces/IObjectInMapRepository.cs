@@ -1,9 +1,0 @@
-﻿using Database.Models;
-using Mtf.Database.Interfaces;
-
-namespace Database.Interfaces
-{
-    public interface IObjectInMapRepository : IRepository<ObjectInMap>, IRepositoryWithCompositeKey<ObjectInMap, ObjectInMap>
-    {
-    }
-}

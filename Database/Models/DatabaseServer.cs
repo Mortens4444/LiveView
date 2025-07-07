@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class DatabaseServer : IHaveId<long>
+    public class DatabaseServer : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string IpOrHost { get; set; }
 

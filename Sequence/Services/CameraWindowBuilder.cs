@@ -22,8 +22,8 @@ namespace Sequence.Services
         private readonly IAgentRepository agentRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-        private readonly ICameraRightRepository cameraRightRepository;
-        private readonly IRightRepository rightRepository;
+        private readonly ICameraPermissionRepository cameraRightRepository;
+        private readonly IPermissionRepository rightRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IUsersInGroupsRepository usersInGroupsRepository;
         private readonly IOperationRepository operationRepository;
@@ -32,7 +32,7 @@ namespace Sequence.Services
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
             IAgentRepository agentRepository, ICameraRepository cameraRepository,
-            ICameraRightRepository cameraRightRepository, IRightRepository rightRepository, IOperationRepository operationRepository,
+            ICameraPermissionRepository cameraRightRepository, IPermissionRepository rightRepository, IOperationRepository operationRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
             IUsersInGroupsRepository usersInGroupsRepository, IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository)
@@ -51,7 +51,7 @@ namespace Sequence.Services
             this.usersInGroupsRepository = usersInGroupsRepository;
         }
 
-        public Form ShowVideoWindow(DisplayDto display, Form parentForm, CameraInfo camera, (Grid grid, GridInSequence gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
+        public Form ShowVideoWindow(DisplayDto display, Form parentForm, CameraInfo camera, (Grid grid, SequenceGrid gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
         {
             Form result = null;
             

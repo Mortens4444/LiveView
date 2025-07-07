@@ -3,13 +3,13 @@ using System;
 
 namespace Database.Models
 {
-    public class TemplateProcess : IHaveId<long>
+    public class TemplateProcess : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long TemplateId { get; set; }
+        public int TemplateId { get; set; }
 
-        public long? AgentId { get; set; }
+        public int? AgentId { get; set; }
 
         public string ProcessName { get; set; }
 

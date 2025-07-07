@@ -6,23 +6,23 @@ namespace LiveView.Core.Dependencies
     {
         public PermissionSetterDependencies(
             ICameraRepository cameraRepository,
-            ICameraRightRepository cameraRightRepository,
-            IRightRepository rightRepository,
+            ICameraPermissionRepository cameraRightRepository,
+            IPermissionRepository rightRepository,
             IOperationRepository operationRepository,
             IUsersInGroupsRepository userGroupRepository)
         {
             CameraRepository = cameraRepository;
-            CameraRightRepository = cameraRightRepository;
-            RightRepository = rightRepository;
+            CameraPermissionRepository = cameraRightRepository;
+            PermissionRepository = rightRepository;
             OperationRepository = operationRepository;
             UserGroupRepository = userGroupRepository;
         }
 
         public ICameraRepository CameraRepository { get; private set; }
 
-        public ICameraRightRepository CameraRightRepository { get; private set; }
+        public ICameraPermissionRepository CameraPermissionRepository { get; private set; }
         
-        public IRightRepository RightRepository { get; private set; }
+        public IPermissionRepository PermissionRepository { get; private set; }
 
         public IOperationRepository OperationRepository { get; private set; }
 

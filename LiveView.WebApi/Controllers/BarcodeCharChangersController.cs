@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing BarcodeCharChanger entities via REST API endpoints.
     /// </summary>
-    public class BarcodeCharChangersController : ApiControllerBaseWithLongModelId<BarcodeCharChangerDto, BarcodeCharChanger, IBarcodeCharChangerRepository, IConverter<BarcodeCharChanger, BarcodeCharChangerDto>>
+    public class BarcodeCharChangersController : ApiControllerBaseWithIntModelId<BarcodeCharChangerDto, BarcodeCharChanger, IBarcodeCharChangerRepository, IConverter<BarcodeCharChanger, BarcodeCharChangerDto>>
     {
         public BarcodeCharChangersController(
             ILogger<BarcodeCharChangersController> logger,

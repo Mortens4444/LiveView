@@ -9,14 +9,14 @@ namespace LiveView.Models.Dependencies
         public SequentialChainsPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             IGridRepository gridRepository,
-            IGridInSequenceRepository gridInSequenceRepository,
+            ISequenceGridsRepository sequenceGridsRepository,
             ISequenceRepository sequenceRepository,
             ILogger<SequentialChains> logger)
             : base(generalOptionsRepository)
         {
             GridRepository = gridRepository;
             SequenceRepository = sequenceRepository;
-            GridInSequenceRepository = gridInSequenceRepository;
+            SequenceGridsRepository = sequenceGridsRepository;
             Logger = logger;
         }
 
@@ -24,7 +24,7 @@ namespace LiveView.Models.Dependencies
 
         public ISequenceRepository SequenceRepository { get; private set; }
 
-        public IGridInSequenceRepository GridInSequenceRepository { get; private set; }
+        public ISequenceGridsRepository SequenceGridsRepository { get; private set; }
 
         public ILogger<SequentialChains> Logger { get; private set; }
     }

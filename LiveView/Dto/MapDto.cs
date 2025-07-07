@@ -46,7 +46,7 @@ namespace LiveView.Dto
 
         public Image MapImage { get; set; }
 
-        public static MapDto FromModel(Map map, IMapObjectRepository mapObjectRepository)
+        public static MapDto FromModel(Map map, IActionObjectRepository actionObjectRepository)
         {
             return new MapDto
             {
@@ -56,7 +56,7 @@ namespace LiveView.Dto
                 OriginalWidth = map.OriginalWidth,
                 OriginalHeight = map.OriginalHeight,
                 MapImage = Services.ImageConverter.ByteArrayToImage(map.MapImage),
-                MapObjects = mapObjectRepository?.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray()
+                MapObjects = actionObjectRepository?.SelectWhere(new { map.Id }).Select(MapObjectDto.FromModel).ToArray()
             };
         }
 

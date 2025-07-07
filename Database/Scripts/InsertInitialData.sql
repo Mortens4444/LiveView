@@ -3,7 +3,7 @@ BEGIN
     INSERT INTO Users
         (Username, Password, Address, Email, Phone, SecondaryLogonPriority, NeededSecondaryLogonPriority, Fullname)
     VALUES
-        ('Sziltech', 'abrakadabra', '4029 Debrecen, Fényes udvar 3. 8. em. 48.', 'info@sziltech.hu', '(52) 452 172', 100, 0, 'Sziltech Electronic Kft'),
+        ('Sziltech', 'abrakadabra', '4029 Debrecen, Fényes udvar 3. 8. em. 48.', 'info@sziltech.hu', '+36 52 452 172', 100, 0, 'Sziltech Electronic Kft'),
         ('admin', 'sIq0T8', NULL, NULL, NULL, 100, 0, NULL);
 
     INSERT INTO Groups
@@ -12,7 +12,7 @@ BEGIN
         ('BUILTIN_DEV_GRP', 'Beépített csoport a Sziltech Electronic Kft. munkatársai számára', NULL),
         ('BUILTIN_ADMIN_GRP', 'Beépített csoport a rendszer adminisztrátorainak', 1);
 
-    INSERT INTO UsersInGroups
+    INSERT INTO GroupMembers
         (UserId, GroupId)
     VALUES 
         (1, 1),

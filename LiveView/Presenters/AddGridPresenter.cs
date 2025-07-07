@@ -51,7 +51,7 @@ namespace LiveView.Presenters
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly ISequenceRepository sequenceRepository;
-        private readonly IGridInSequenceRepository gridInSequenceRepository;
+        private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly ILogger<AddGrid> logger;
         private readonly DisplayManager displayManager;
         private readonly List<CameraDto> cameras;
@@ -65,7 +65,7 @@ namespace LiveView.Presenters
             gridRepository = dependencies.GridRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             sequenceRepository = dependencies.SequenceRepository;
-            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            sequenceGridsRepository = dependencies.SequenceGridsRepository;
             logger = dependencies.Logger;
             servers = dependencies.ServerRepository.SelectAll();
             cameras = dependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
@@ -676,7 +676,7 @@ namespace LiveView.Presenters
 
         public void SaveGrid()
         {
-            var gridId = gridRepository.InsertAndReturnId<long>(new Grid
+            var gridId = gridRepository.InsertAndReturnId<int>(new Grid
             {
                 Name = view.TbGridName.Text,
                 PixelsFromBottom = (int)view.NudPixelsFromBottom.Value,
@@ -714,12 +714,12 @@ namespace LiveView.Presenters
 
             if (view.ChkCreateSequence.Checked)
             {
-                var sequenceId = sequenceRepository.InsertAndReturnId<long>(new Database.Models.Sequence
+                var sequenceId = sequenceRepository.InsertAndReturnId<int>(new Database.Models.Sequence
                 {
                     Name = view.TbGridName.Text,
                     Active = true
                 });
-                gridInSequenceRepository.Insert(new GridInSequence
+                sequenceGridsRepository.Insert(new SequenceGrid
                 {
                     GridId = gridId,
                     SequenceId = sequenceId,

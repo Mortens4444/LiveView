@@ -3,11 +3,13 @@ using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
-    public class Camera : IHaveGuid, IHaveId<long>
+    public class Camera : IHaveGuid, IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long? PartnerCameraId { get; set; }
+        public int? PartnerCameraId { get; set; }
+
+        public int ServerId { get; set; }
 
         public string Guid { get; set; }
 
@@ -32,8 +34,6 @@ namespace Database.Models
         public string HttpStreamUrl { get; set; }
 
         public bool Actual { get; set; }
-
-        public long ServerId { get; set; }
 
         public long? MotionTrigger { get; set; }
 

@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record BarcodeScanOptionsDto : IHaveIdWithSetter<long>
+    public record BarcodeScanOptionsDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int CustomIn { get; set; }
 

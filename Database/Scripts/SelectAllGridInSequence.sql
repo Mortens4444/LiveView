@@ -1,1 +1,1 @@
-﻿SELECT * FROM GridsInSequences;
+﻿SELECT * FROM SequenceGrids;

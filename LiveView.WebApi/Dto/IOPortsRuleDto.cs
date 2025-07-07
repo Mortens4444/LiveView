@@ -3,15 +3,15 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record IOPortsRuleDto : IHaveIdWithSetter<long>
+    public record IOPortsRuleDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 
-        public long OperationId { get; set; }
+        public int OperationId { get; set; }
 
-        public long EventId { get; set; }
+        public int UserEventId { get; set; }
 
         public int PortNum { get; set; }
 
@@ -25,7 +25,7 @@ namespace LiveView.WebApi.Dto
             return $"<strong>{Id}</strong><br>" +
                 $"<small>DeviceId: {DeviceId}</small><br>" +
                 $"<small>OperationId: {OperationId}</small><br>" +
-                $"<small>EventId: {EventId}</small><br>" +
+                $"<small>UserEventId: {UserEventId}</small><br>" +
                 $"<small>ZeroSignalled: {ZeroSignalled}</small><br>" +
                 $"<small>PortNum: {PortNum}</small>";
         }

@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class UserEvent : IHaveId<long>
+    public class UserEvent : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Note { get; set; }
 

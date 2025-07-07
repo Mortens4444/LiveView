@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing TemplateProcess entities via REST API endpoints.
     /// </summary>
-    public class TemplateProcessesController : ApiControllerBaseWithLongModelId<TemplateProcessDto, TemplateProcess, ITemplateProcessRepository, IConverter<TemplateProcess, TemplateProcessDto>>
+    public class TemplateProcessesController : ApiControllerBaseWithIntModelId<TemplateProcessDto, TemplateProcess, ITemplateProcessRepository, IConverter<TemplateProcess, TemplateProcessDto>>
     {
         public TemplateProcessesController(
             ILogger<TemplateProcessesController> logger,

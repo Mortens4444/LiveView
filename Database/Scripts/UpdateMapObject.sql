@@ -1,4 +1,4 @@
-﻿UPDATE MapObjects
+﻿UPDATE ActionObjects
 SET 
     ActionType = @ActionType,
     ActionReferencedId = @ActionReferencedId,

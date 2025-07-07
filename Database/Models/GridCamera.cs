@@ -3,13 +3,13 @@ using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
-    public class GridCamera : IHaveId<long>
+    public class GridCamera : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long GridId { get; set; }
+        public int GridId { get; set; }
 
-        public long? CameraId { get; set; }
+        public int? CameraId { get; set; }
 
         public int InitRow { get; set; }
 

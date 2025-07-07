@@ -2,11 +2,11 @@
 
 namespace Database.Models
 {
-    public class VideoSource : IHaveId<long>
+    public class VideoSource : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long AgentId { get; set; }
+        public int AgentId { get; set; }
 
         public string Name { get; set; }
 

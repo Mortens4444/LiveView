@@ -20,15 +20,15 @@ namespace Sequence.Tests.Services
     public class GridSequenceManagerTests
     {
         private Mock<ISequenceRepository> sequenceRepositoryMock;
-        private Mock<IGridInSequenceRepository> gridInSequenceRepositoryMock;
+        private Mock<ISequenceGridsRepository> sequenceGridsRepositoryMock;
         private Mock<IAgentRepository> agentRepositoryMock;
         private Mock<IGridRepository> gridRepositoryMock;
         private Mock<IServerRepository> serverRepositoryMock;
         private Mock<ICameraRepository> cameraRepositoryMock;
         private Mock<IGridCameraRepository> gridCameraRepositoryMock;
         private Mock<IVideoSourceRepository> videoSourceRepositoryMock;
-        private Mock<ICameraRightRepository> cameraRightRepositoryMock;
-        private Mock<IRightRepository> rightRepositoryMock;
+        private Mock<ICameraPermissionRepository> cameraPermissionRepositoryMock;
+        private Mock<IPermissionRepository> permissionRepositoryMock;
         private Mock<IOperationRepository> operationRepositoryMock;
         private Mock<IUsersInGroupsRepository> usersInGroupsRepositoryMock;
 
@@ -38,13 +38,13 @@ namespace Sequence.Tests.Services
         public void Setup()
         {
             sequenceRepositoryMock = new Mock<ISequenceRepository>();
-            gridInSequenceRepositoryMock = new Mock<IGridInSequenceRepository>();
+            sequenceGridsRepositoryMock = new Mock<ISequenceGridsRepository>();
             agentRepositoryMock = new Mock<IAgentRepository>();
             gridRepositoryMock = new Mock<IGridRepository>();
             serverRepositoryMock = new Mock<IServerRepository>();
             cameraRepositoryMock = new Mock<ICameraRepository>();
-            cameraRightRepositoryMock = new Mock<ICameraRightRepository>();
-            rightRepositoryMock = new Mock<IRightRepository>();
+            cameraPermissionRepositoryMock = new Mock<ICameraPermissionRepository>();
+            permissionRepositoryMock = new Mock<IPermissionRepository>();
             operationRepositoryMock = new Mock<IOperationRepository>();
             usersInGroupsRepositoryMock = new Mock<IUsersInGroupsRepository>();
 
@@ -58,11 +58,11 @@ namespace Sequence.Tests.Services
                     Name = "Sequence"
                 });
 
-            gridInSequenceRepositoryMock.Setup(r => r.SelectWhere(It.IsAny<object>()))
-                .Returns(new ReadOnlyCollection<GridInSequence>(
-                    new List<GridInSequence>
+            sequenceGridsRepositoryMock.Setup(r => r.SelectWhere(It.IsAny<object>()))
+                .Returns(new ReadOnlyCollection<SequenceGrid>(
+                    new List<SequenceGrid>
                     {
-                        new GridInSequence
+                        new SequenceGrid
                         {
                             Id = 1,
                             SequenceId = 1,
@@ -299,14 +299,14 @@ namespace Sequence.Tests.Services
                     manager = new GridSequenceManager(
                     new Mock<PermissionManager<User>>().Object,
                     sequenceRepositoryMock.Object,
-                    gridInSequenceRepositoryMock.Object,
+                    sequenceGridsRepositoryMock.Object,
                     gridRepositoryMock.Object,
                     agentRepositoryMock.Object,
                     videoSourceRepositoryMock.Object,
                     serverRepositoryMock.Object,
                     cameraRepositoryMock.Object,
-                    cameraRightRepositoryMock.Object,
-                    rightRepositoryMock.Object,
+                    cameraPermissionRepositoryMock.Object,
+                    permissionRepositoryMock.Object,
                     operationRepositoryMock.Object,
                     usersInGroupsRepositoryMock.Object,
                     new Mock<ICameraFunctionRepository>().Object,

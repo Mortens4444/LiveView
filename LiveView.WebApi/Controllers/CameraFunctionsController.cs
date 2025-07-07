@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing CameraFunction entities via REST API endpoints.
     /// </summary>
-    public class CameraFunctionsController : ApiControllerBaseWithLongModelId<CameraFunctionDto, CameraFunction, ICameraFunctionRepository, IConverter<CameraFunction, CameraFunctionDto>>
+    public class CameraFunctionsController : ApiControllerBaseWithIntModelId<CameraFunctionDto, CameraFunction, ICameraFunctionRepository, IConverter<CameraFunction, CameraFunctionDto>>
     {
         public CameraFunctionsController(
             ILogger<CameraFunctionsController> logger,

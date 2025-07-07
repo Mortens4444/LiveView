@@ -27,14 +27,6 @@
     <EmbeddedResource Include="Scripts\InsertCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
     <EmbeddedResource Include="Scripts\InsertUserEvent.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableCamerasFillPermissionCameraColumn.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableCamerasAddPermissionCameraColumn.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableTemplateProcesses.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableCameras.sql" />
-    <EmbeddedResource Include="Scripts\MigrationUpdateCamerasHttpStreamUrlLength.sql" />
-    <EmbeddedResource Include="Scripts\MigrationUpdateGridCameras.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableGridCameras.sql" />
-    <EmbeddedResource Include="Scripts\MigrationDropLogsTableColumn.sql" />
     <EmbeddedResource Include="Scripts\SelectAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeCharChanger.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeScanOptions.sql" />
@@ -45,13 +37,9 @@
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
     <EmbeddedResource Include="Scripts\SelectSequenceCameraCount.sql" />
     <EmbeddedResource Include="Scripts\InsertAgent.sql" />
-    <EmbeddedResource Include="Scripts\InsertCameraRight.sql" />
-    <EmbeddedResource Include="Scripts\InsertRight.sql" />
+    <EmbeddedResource Include="Scripts\InsertCameraPermission.sql" />
+    <EmbeddedResource Include="Scripts\InsertPermission.sql" />
     <EmbeddedResource Include="Scripts\InsertOperation.sql" />
-    <EmbeddedResource Include="Scripts\MigrationExtendSequenceName.sql" />
-    <EmbeddedResource Include="Scripts\MigrationExtendGridName.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAlterTableOperation.sql" />
-    <EmbeddedResource Include="Scripts\MigrationRestructureGridCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectAllAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeScanReading.sql" />
     <EmbeddedResource Include="Scripts\SelectMotionTriggeredCameras.sql" />
@@ -61,7 +49,6 @@
     <EmbeddedResource Include="Scripts\InsertPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\InsertTemplateProcess.sql" />
     <EmbeddedResource Include="Scripts\InsertUserGroup.sql" />
-    <EmbeddedResource Include="Scripts\MigrationNullableMapImage.sql" />
     <EmbeddedResource Include="Scripts\SelectAllOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectAllPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\SelectSequence.sql" />
@@ -74,15 +61,15 @@
     <EmbeddedResource Include="Scripts\SelectVideoSourceAndAgentInfo.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllCameraRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllCameraPermission.sql" />
     <EmbeddedResource Include="Scripts\SelectAllObjectInMap.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
-    <EmbeddedResource Include="Scripts\SelectWhereCameraRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereCameraPermission.sql" />
     <EmbeddedResource Include="Scripts\SelectAllTemplateProcess.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllPermission.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
-    <EmbeddedResource Include="Scripts\SelectWhereRight.sql" />
+    <EmbeddedResource Include="Scripts\SelectWherePermission.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
     <EmbeddedResource Include="Scripts\UpdateVideoSource.sql" />
@@ -90,18 +77,12 @@
     <EmbeddedResource Include="Scripts\UpdateCamera.sql" />
     <EmbeddedResource Include="Scripts\UpdateUser.sql" />
     <EmbeddedResource Include="Scripts\UpdateDisplay.sql" />
-    <EmbeddedResource Include="Scripts\MigrationDropDisplaysTableColumns.sql" />
     <EmbeddedResource Include="Scripts\DeleteDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectGrid.sql" />
     <EmbeddedResource Include="Scripts\UpdateGrid.sql" />
     <EmbeddedResource Include="Scripts\InsertInitialData.sql" />
     <EmbeddedResource Include="Scripts\InsertMigration.sql" />
-    <EmbeddedResource Include="Scripts\MigrationData.sql" />
-    <EmbeddedResource Include="Scripts\MigrationDropChecksums.sql" />
-    <EmbeddedResource Include="Scripts\MigrationRenameTables.sql" />
-    <EmbeddedResource Include="Scripts\MigrationRenameColumns.sql" />
-    <EmbeddedResource Include="Scripts\MigrationAddConstraints.sql" />
   </ItemGroup>
 
   <ItemGroup>

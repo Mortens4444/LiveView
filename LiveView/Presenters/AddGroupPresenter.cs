@@ -31,8 +31,8 @@ namespace LiveView.Presenters
         private readonly IUserEventRepository userEventRepository;
         private readonly IOperationRepository operationRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly IRightRepository rightRepository;
-        private readonly ICameraRightRepository cameraRightRepository;
+        private readonly IPermissionRepository permissionRepository;
+        private readonly ICameraPermissionRepository cameraPermissionRepository;
         private readonly ILogger<AddGroup> logger;
 
         public AddGroupPresenter(AddGroupPresenterDependencies dependencies)
@@ -42,8 +42,8 @@ namespace LiveView.Presenters
             userEventRepository = dependencies.UserEventRepository;
             operationRepository = dependencies.OperationRepository;
             cameraRepository = dependencies.CameraRepository;
-            rightRepository = dependencies.RightRepository;
-            cameraRightRepository = dependencies.CameraRightRepository;
+            permissionRepository = dependencies.PermissionRepository;
+            cameraPermissionRepository = dependencies.CameraPermissionRepository;
             logger = dependencies.Logger;
         }
 
@@ -73,7 +73,7 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    var id = groupRepository.InsertAndReturnId<long>(group);
+                    var id = groupRepository.InsertAndReturnId<int>(group);
                     group.Id = id;
                     view.Group = group;
                 }
@@ -162,12 +162,12 @@ namespace LiveView.Presenters
 
         public void AddAllOperationsAndCameras()
         {
-            AddAllItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
+            AddAllItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<int>)item.Tag));
         }
 
         public void AddSelectedOperationsAndCameras()
         {
-            AddSelectedItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<long>)item.Tag));
+            AddSelectedItemsFromListViewToAnother(view.LvAvailableOperationsAndCameras, view.LvOperationsAndCameras, (item) => view.OperationsAndCamerasHasElementWithId((IHaveId<int>)item.Tag));
         }
 
         public void CreateEvent()
@@ -280,20 +280,20 @@ namespace LiveView.Presenters
             {
                 if (item.Tag is Operation operation)
                 {
-                    rightRepository.Insert(new Right
+                    permissionRepository.Insert(new Permission
                     {
                         GroupId = existingGroup.Id,
                         OperationId = operation.Id,
-                        UserEvent = existingUserEvent.Id
+                        UserEventId = existingUserEvent.Id
                     });
                 }
                 else if (item.Tag is Camera camera)
                 {
-                    cameraRightRepository.Insert(new CameraRight
+                    cameraPermissionRepository.Insert(new CameraPermission
                     {
                         GroupId = existingGroup.Id,
                         CameraId = camera.Id,
-                        UserEvent = existingUserEvent.Id
+                        UserEventId = existingUserEvent.Id
                     });
                 }
             }

@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record MapDto : IHaveIdWithSetter<long>
+    public record MapDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

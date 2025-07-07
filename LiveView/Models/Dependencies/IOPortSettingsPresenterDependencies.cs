@@ -8,14 +8,14 @@ namespace LiveView.Models.Dependencies
     {
         public IOPortSettingsPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
-            IEventRepository eventRepository,
+            IUserEventRepository userEventRepository,
             IIOPortRepository ioPortRepository,
             IIOPortsRuleRepository iOPortsRuleRepository,
             IIOPortsLogRepository iOPortsLogRepository,
             ILogger<IOPortSettings> logger)
             : base(generalOptionsRepository)
         {
-            EventRepository = eventRepository;
+            UserEventRepository = userEventRepository;
             IOPortRepository = ioPortRepository;
             IOPortsRuleRepository = iOPortsRuleRepository;
             IOPortsLogRepository = iOPortsLogRepository;
@@ -30,6 +30,6 @@ namespace LiveView.Models.Dependencies
 
         public ILogger<IOPortSettings> Logger { get; private set; }
 
-        public IEventRepository EventRepository { get; private set; }
+        public IUserEventRepository UserEventRepository { get; private set; }
     }
 }

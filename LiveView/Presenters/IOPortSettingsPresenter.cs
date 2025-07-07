@@ -16,7 +16,7 @@ namespace LiveView.Presenters
     public class IOPortSettingsPresenter : BasePresenter
     {
         private IIOPortSettingsView view;
-        private readonly IEventRepository eventRepository;
+        private readonly IUserEventRepository userEventRepository;
         private readonly IIOPortRepository ioPortRepository;
         private readonly IIOPortsLogRepository ioPortsLogRepository;
         private readonly IIOPortsRuleRepository ioPortsRuleRepository;
@@ -25,7 +25,7 @@ namespace LiveView.Presenters
         public IOPortSettingsPresenter(IOPortSettingsPresenterDependencies dependencies)
             : base(dependencies)
         {
-            eventRepository = dependencies.EventRepository;
+            userEventRepository = dependencies.UserEventRepository;
             ioPortRepository = dependencies.IOPortRepository;
             ioPortsLogRepository = dependencies.IOPortsLogRepository;
             ioPortsRuleRepository = dependencies.IOPortsRuleRepository;
@@ -40,21 +40,21 @@ namespace LiveView.Presenters
 
         public void AddRule()
         {
-            var @event = view.CbOperationOrEvent.SelectedItem as Event;
+            var userEvent = view.CbOperationOrEvent.SelectedItem as UserEvent;
             var port = view.CbIODevice.SelectedItem as IOPort;
             ioPortsRuleRepository.Insert(new IOPortsRule
             {
                 DeviceId = port.DeviceId,
                 PortNum = port.PortNum,
                 ZeroSignalled = view.ChkZeroSignalled.Checked,
-                EventId = @event.Id
+                UserEventId = userEvent.Id
             });
             logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device '{0}' rule has been created.", port.Name);
         }
 
         public override void Load()
         {
-            var events = eventRepository.SelectAll();
+            var events = userEventRepository.SelectAll();
             view.AddItems(view.CbOperationOrEvent, events);
 
             var ioPorts = ioPortRepository.SelectAll();

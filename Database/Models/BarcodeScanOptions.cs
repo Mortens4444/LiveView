@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class BarcodeScanOptions : IHaveId<long>
+    public class BarcodeScanOptions : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int CustomIn { get; set; }
 

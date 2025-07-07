@@ -19,7 +19,7 @@ namespace Database.Services
                     ConfigurationManager.RefreshSection("connectionStrings");
                 }
 
-                BaseRepository.CommandTimeout = 240;
+                BaseRepository.CommandTimeout = 360;
                 BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
                 BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
                 BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;

@@ -8,18 +8,18 @@ namespace LiveView.WebApi.Dto
     /// Data Transfer Object for the Camera entity.
     /// Used to transfer camera data between the API and clients.
     /// </summary>
-    public record CameraDto : IHaveIdWithSetter<long>
+    public record CameraDto : IHaveIdWithSetter<int>
     {
         /// <summary>
         /// Gets or sets the unique identifier for the camera.
         /// Corresponds to the database Id.
         /// </summary>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the optional foreign key reference to a partner camera's Id.
         /// </summary>
-        public long? PartnerCameraId { get; set; }
+        public int? PartnerCameraId { get; set; }
 
         /// <summary>
         /// Gets or sets the globally unique identifier (GUID) for the camera.
@@ -86,7 +86,7 @@ namespace LiveView.WebApi.Dto
         /// Gets or sets the foreign key reference to the Server entity's Id.
         /// Indicates which server hosts this camera.
         /// </summary>
-        public long ServerId { get; set; }
+        public int ServerId { get; set; }
 
         /// <summary>
         /// Gets or sets the optional identifier for motion triggering.

@@ -7,13 +7,13 @@ namespace LiveView.WebApi.Dto
     /// Data Transfer Object for the Agent entity.
     /// Used to transfer camera data between the API and clients.
     /// </summary>
-    public record AgentDto : IHaveIdWithSetter<long>
+    public record AgentDto : IHaveIdWithSetter<int>
     {
         /// <summary>
         /// Gets or sets the unique identifier for the camera.
         /// Corresponds to the database Id.
         /// </summary>
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string ServerIp { get; set; } = String.Empty;
 

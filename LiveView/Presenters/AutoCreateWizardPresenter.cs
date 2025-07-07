@@ -28,7 +28,7 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly ISequenceRepository sequenceRepository;
         private readonly IGridRepository gridRepository;
-        private readonly IGridInSequenceRepository gridInSequenceRepository;
+        private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly ILogger<AutoCreateWizard> logger;
 
@@ -37,7 +37,7 @@ namespace LiveView.Presenters
         {
             sequenceRepository = dependencies.SequenceRepository;
             gridRepository = dependencies.GridRepository;
-            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            sequenceGridsRepository = dependencies.SequenceGridsRepository;
             cameraRepository = dependencies.CameraRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             logger = dependencies.Logger;
@@ -55,7 +55,7 @@ namespace LiveView.Presenters
             var items = view.GetItems(view.LeftSide);
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].Tag is IHaveId<long> idOwner)
+                if (items[i].Tag is IHaveId<int> idOwner)
                 {
                     if (!view.HasItemWithId(view.RightSide, idOwner.Id))
                     {
@@ -91,7 +91,7 @@ namespace LiveView.Presenters
             var items = view.GetSelectedItems(view.LeftSide);
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].Tag is IHaveId<long> idOwner)
+                if (items[i].Tag is IHaveId<int> idOwner)
                 {
                     if (!view.HasItemWithId(view.RightSide, idOwner.Id))
                     {
@@ -160,7 +160,7 @@ namespace LiveView.Presenters
 
                 var gridCameras = new List<object>();
                 var grids = new List<Grid>();
-                var gridIds = new List<long>();
+                var gridIds = new List<int>();
 
                 foreach (ListViewItem item in view.RightSide.Items)
                 {
@@ -181,7 +181,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private void CreateSequence(int gridCount, int numberOfGridsInSequence, List<Grid> grids, List<long> gridIds)
+        private void CreateSequence(int gridCount, int numberOfGridsInSequence, List<Grid> grids, List<int> gridIds)
         {
             if (view.ChkCreateSequences.Checked && (gridCount % numberOfGridsInSequence == 0))
             {
@@ -191,12 +191,12 @@ namespace LiveView.Presenters
                     Name = $"{view.TbSequenceNamePrefix.Text}{sequenceName}{view.TbSequenceNamePostfix.Text}",
                     Active = true
                 };
-                var sequenceId = sequenceRepository.InsertAndReturnId<long>(actualSequence);
+                var sequenceId = sequenceRepository.InsertAndReturnId<int>(actualSequence);
 
                 int number = 1;
                 foreach (var gridId in gridIds)
                 {
-                    gridInSequenceRepository.Insert(new GridInSequence
+                    sequenceGridsRepository.Insert(new SequenceGrid
                     {
                         SequenceId = sequenceId,
                         GridId = gridId,
@@ -210,7 +210,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private int CreateGrids(int cameraCount, int gridCount, Grid grid, ReadOnlyCollection<GridCamera> templateGridCameras, int cameraCountInGrid, List<object> gridCameras, List<Grid> grids, List<long> gridIds)
+        private int CreateGrids(int cameraCount, int gridCount, Grid grid, ReadOnlyCollection<GridCamera> templateGridCameras, int cameraCountInGrid, List<object> gridCameras, List<Grid> grids, List<int> gridIds)
         {
             if (cameraCount % cameraCountInGrid == 0)
             {
@@ -224,7 +224,7 @@ namespace LiveView.Presenters
                     PixelsFromRight = grid.PixelsFromRight,
                     Priority = grid.Priority
                 };
-                actualGrid.Id = gridRepository.InsertAndReturnId<long>(actualGrid);
+                actualGrid.Id = gridRepository.InsertAndReturnId<int>(actualGrid);
                 gridIds.Add(actualGrid.Id);
                 grids.Add(actualGrid);
                 logger.LogInfo(GridManagementPermissions.Create, GridHasBeenCreated, actualGrid.Name);
@@ -237,7 +237,7 @@ namespace LiveView.Presenters
                     gridCameraRepository.Insert(new GridCamera
                     {
                         GridId = actualGrid.Id,
-                        CameraId = gridCamera is Camera camera1 ? (long?)camera1.Id : null,
+                        CameraId = gridCamera is Camera camera1 ? (int?)camera1.Id : null,
                         InitRow = templateCamera.InitRow,
                         InitCol = templateCamera.InitCol,
                         EndRow = templateCamera.EndRow,

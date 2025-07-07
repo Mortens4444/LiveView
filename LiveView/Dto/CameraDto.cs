@@ -29,9 +29,9 @@ namespace LiveView.Dto
 
         public ServerDto Server { get; set; }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long ServerId { get; set; }
+        public int ServerId { get; set; }
 
         public int RecorderIndex { get; set; }
 

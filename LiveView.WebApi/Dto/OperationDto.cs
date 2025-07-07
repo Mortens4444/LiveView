@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record OperationDto : IHaveIdWithSetter<long>
+    public record OperationDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string PermissionGroup { get; set; }
 

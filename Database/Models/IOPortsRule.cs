@@ -2,15 +2,15 @@
 
 namespace Database.Models
 {
-    public class IOPortsRule : IHaveId<long>
+    public class IOPortsRule : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 
-        public long OperationId { get; set; }
+        public int OperationId { get; set; }
 
-        public long EventId { get; set; }
+        public int UserEventId { get; set; }
 
         public int PortNum { get; set; }
 

@@ -1,4 +1,2 @@
-﻿INSERT INTO ObjectsInMaps
-	(MapObjectId, MapId)
-VALUES
-	(@MapObjectId, @MapId);
+﻿INSERT INTO MapActionObjects (ActionObjectId, MapId)
+VALUES (@ActionObjectId, @MapId);

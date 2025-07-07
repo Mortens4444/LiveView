@@ -56,6 +56,7 @@ namespace LiveView.Forms
         private ControlCenter(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ControlCenterPresenter))
         {
             InitializeComponent();
+            canBeClosedAlways = true;
             logger = serviceProvider.GetRequiredService<ILogger<ControlCenter>>();
 
             permissionManager.ApplyPermissionsOnControls(this);

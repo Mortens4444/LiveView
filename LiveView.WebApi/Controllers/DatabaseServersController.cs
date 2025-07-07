@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing DatabaseServer entities via REST API endpoints.
     /// </summary>
-    public class DatabaseServersController : ApiControllerBaseWithLongModelId<DatabaseServerDto, DatabaseServer, IDatabaseServerRepository, IConverter<DatabaseServer, DatabaseServerDto>>
+    public class DatabaseServersController : ApiControllerBaseWithIntModelId<DatabaseServerDto, DatabaseServer, IDatabaseServerRepository, IConverter<DatabaseServer, DatabaseServerDto>>
     {
         public DatabaseServersController(
             ILogger<DatabaseServersController> logger,

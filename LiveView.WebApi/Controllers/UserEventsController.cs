@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing UserEvent entities via REST API endpoints.
     /// </summary>
-    public class UserEventsController : ApiControllerBaseWithLongModelId<UserEventDto, UserEvent, IUserEventRepository, IConverter<UserEvent, UserEventDto>>
+    public class UserEventsController : ApiControllerBaseWithIntModelId<UserEventDto, UserEvent, IUserEventRepository, IConverter<UserEvent, UserEventDto>>
     {
         public UserEventsController(
             ILogger<UserEventsController> logger,

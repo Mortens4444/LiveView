@@ -15,7 +15,7 @@ namespace LiveView.Models.Dependencies
             ICameraRepository cameraRepository,
             IServiceProvider serviceProvider,
             IMapRepository mapRepository,
-            IMapObjectRepository mapObjectRepository,
+            IActionObjectRepository actionObjectRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IUserRepository userRepository,
             ITemplateRepository templateRepository,
@@ -33,7 +33,7 @@ namespace LiveView.Models.Dependencies
             PersonalOptionsRepository = personalOptionsRepository;
             PermissionManager = permissionManager;
             MapRepository = mapRepository;
-            MapObjectRepository = mapObjectRepository;
+            ActionObjectRepository = actionObjectRepository;
             AgentRepository = agentRepository;
             TemplateRepository = templateRepository;
             UserEventRepository = userEventRepository;
@@ -58,7 +58,7 @@ namespace LiveView.Models.Dependencies
 
         public IMapRepository MapRepository { get; private set; }
 
-        public IMapObjectRepository MapObjectRepository { get; private set; }
+        public IActionObjectRepository ActionObjectRepository { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
 

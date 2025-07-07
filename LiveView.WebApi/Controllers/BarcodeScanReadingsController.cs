@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing BarcodeScanReading entities via REST API endpoints.
     /// </summary>
-    public class BarcodeScanReadingsController : ApiControllerBaseWithLongModelId<BarcodeScanReadingDto, BarcodeScanReading, IBarcodeScanReadingRepository, IConverter<BarcodeScanReading, BarcodeScanReadingDto>>
+    public class BarcodeScanReadingsController : ApiControllerBaseWithIntModelId<BarcodeScanReadingDto, BarcodeScanReading, IBarcodeScanReadingRepository, IConverter<BarcodeScanReading, BarcodeScanReadingDto>>
     {
         public BarcodeScanReadingsController(
             ILogger<BarcodeScanReadingsController> logger,

@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing GridCamera entities via REST API endpoints.
     /// </summary>
-    public class GridCamerasController : ApiControllerBaseWithLongModelId<GridCameraDto, GridCamera, IGridCameraRepository, IConverter<GridCamera, GridCameraDto>>
+    public class GridCamerasController : ApiControllerBaseWithIntModelId<GridCameraDto, GridCamera, IGridCameraRepository, IConverter<GridCamera, GridCameraDto>>
     {
         public GridCamerasController(
             ILogger<GridCamerasController> logger,

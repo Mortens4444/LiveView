@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record GridDto : IHaveIdWithSetter<long>
+    public record GridDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int Rows { get; set; }
 

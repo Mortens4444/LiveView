@@ -75,7 +75,7 @@ namespace Sequence.Tests.Services
             generalOptionsRepository = new GeneralOptionsRepository();
 
             builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository,
-                new CameraRightRepository(), new RightRepository(), new OperationRepository(), cameraFunctionRepository,
+                new CameraPermissionRepository(), new PermissionRepository(), new OperationRepository(), cameraFunctionRepository,
                 personalOptionsRepository, new UsersInGroupsRepository(), videoSourceRepository, generalOptionsRepository);
         }
 
@@ -225,7 +225,7 @@ namespace Sequence.Tests.Services
                     parentForm.Load += (s, e) =>
                     {
                         var grid = new Grid { Columns = 4, Rows = 2 };
-                        var gridInSequence = new GridInSequence();
+                        var gridInSequence = new SequenceGrid();
                         var tuple = (grid, gridInSequence);
                         var tokenSource = new CancellationTokenSource();
 

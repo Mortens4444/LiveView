@@ -3,11 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record VideoSourceDto : IHaveIdWithSetter<long>
+    public record VideoSourceDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long AgentId { get; set; }
+        public int AgentId { get; set; }
 
         public string Name { get; set; }
 

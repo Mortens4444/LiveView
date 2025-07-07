@@ -4,7 +4,7 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class MapObjectRepository : BaseRepository<MapObject>, IMapObjectRepository
+    public sealed class ActionObjectRepository : BaseRepository<ActionObject>, IActionObjectRepository
     {
         public string SelectCameraName(int cameraId)
         {

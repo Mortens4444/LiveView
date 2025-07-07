@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record DatabaseServerDto : IHaveIdWithSetter<long>
+    public record DatabaseServerDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string IpOrHost { get; set; }
 

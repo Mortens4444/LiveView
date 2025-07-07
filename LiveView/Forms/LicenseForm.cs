@@ -13,6 +13,7 @@ namespace LiveView.Forms
         public LicenseForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LicenseFormPresenter))
         {
             InitializeComponent();
+            canBeClosedAlways = true;
 
             Translator.Translate(this);
         }

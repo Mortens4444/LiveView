@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing VideoSource entities via REST API endpoints.
     /// </summary>
-    public class VideoSourcesController : ApiControllerBaseWithLongModelId<VideoSourceDto, VideoSource, IVideoSourceRepository, IConverter<VideoSource, VideoSourceDto>>
+    public class VideoSourcesController : ApiControllerBaseWithIntModelId<VideoSourceDto, VideoSource, IVideoSourceRepository, IConverter<VideoSource, VideoSourceDto>>
     {
         public VideoSourcesController(
             ILogger<VideoSourcesController> logger,

@@ -1,4 +1,4 @@
-﻿UPDATE GridsInSequences
+﻿UPDATE SequenceGrids
 SET 
     SequenceId = @SequenceId,
     GridId = @GridId,

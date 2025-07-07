@@ -16,16 +16,16 @@ namespace LiveView.Core.Services
         public static long? ActualUserEventId => ActualUserEvent?.Id ?? 1;
 
         private readonly ICameraRepository cameraRepository;
-        private readonly ICameraRightRepository cameraRightRepository;
-        private readonly IRightRepository rightRepository;
+        private readonly ICameraPermissionRepository cameraPermissionRepository;
+        private readonly IPermissionRepository permissionRepository;
         private readonly IUsersInGroupsRepository userGroupRepository;
         private readonly IOperationRepository operationRepository;
 
         public PermissionSetter(PermissionSetterDependencies permissionSetterDependencies)
         {
             cameraRepository = permissionSetterDependencies.CameraRepository;
-            cameraRightRepository = permissionSetterDependencies.CameraRightRepository;
-            rightRepository = permissionSetterDependencies.RightRepository;
+            cameraPermissionRepository = permissionSetterDependencies.CameraPermissionRepository;
+            permissionRepository = permissionSetterDependencies.PermissionRepository;
             userGroupRepository = permissionSetterDependencies.UserGroupRepository;
             operationRepository = permissionSetterDependencies.OperationRepository;
         }
@@ -43,8 +43,8 @@ namespace LiveView.Core.Services
         private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
         {
             var group = new Mtf.Permissions.Models.Group();
-            var groupPermissions = rightRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
-            var groupCameraPermissions = cameraRightRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
+            var groupPermissions = permissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
+            var groupCameraPermissions = cameraPermissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
             var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
             var cameraPermissionIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
             var operations = operationRepository.SelectWhere(new { Ids = operationIds });

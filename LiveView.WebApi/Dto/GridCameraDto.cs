@@ -4,13 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record GridCameraDto : IHaveIdWithSetter<long>
+    public record GridCameraDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long GridId { get; set; }
+        public int GridId { get; set; }
 
-        public long? CameraId { get; set; }
+        public int? CameraId { get; set; }
 
         public int InitRow { get; set; }
 

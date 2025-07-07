@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing IOPortsRule entities via REST API endpoints.
     /// </summary>
-    public class IOPortsRulesController : ApiControllerBaseWithLongModelId<IOPortsRuleDto, IOPortsRule, IIOPortsRuleRepository, IConverter<IOPortsRule, IOPortsRuleDto>>
+    public class IOPortsRulesController : ApiControllerBaseWithIntModelId<IOPortsRuleDto, IOPortsRule, IIOPortsRuleRepository, IConverter<IOPortsRule, IOPortsRuleDto>>
     {
         public IOPortsRulesController(
             ILogger<IOPortsRulesController> logger,

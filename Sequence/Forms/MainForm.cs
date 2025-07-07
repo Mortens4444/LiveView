@@ -106,12 +106,12 @@ namespace Sequence.Forms
 
             var sequenceRepository = serviceProvider.GetRequiredService<ISequenceRepository>();
             var gridRepository = serviceProvider.GetRequiredService<IGridRepository>();
-            var gridInSequenceRepository = serviceProvider.GetRequiredService<IGridInSequenceRepository>();
+            var sequenceGridsRepository = serviceProvider.GetRequiredService<ISequenceGridsRepository>();
             var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
             var agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            var cameraRightRepository = serviceProvider.GetRequiredService<ICameraRightRepository>();
-            var rightRepository = serviceProvider.GetRequiredService<IRightRepository>();
+            var cameraRightRepository = serviceProvider.GetRequiredService<ICameraPermissionRepository>();
+            var rightRepository = serviceProvider.GetRequiredService<IPermissionRepository>();
             var operationRepository = serviceProvider.GetRequiredService<IOperationRepository>();
             var usersInGroupsRepository = serviceProvider.GetRequiredService<IUsersInGroupsRepository>();
             var cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
@@ -121,7 +121,7 @@ namespace Sequence.Forms
             var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
 
-            gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, gridInSequenceRepository, gridRepository, agentRepository,
+            gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, sequenceGridsRepository, gridRepository, agentRepository,
                 videoSourceRepository, serverRepository, cameraRepository, cameraRightRepository, rightRepository, operationRepository, usersInGroupsRepository,
                 cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, generalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;

@@ -10,11 +10,11 @@ namespace Database.Models
 
         public DateTime Date { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
-        public long? OperationId { get; set; }
+        public int? OperationId { get; set; }
 
-        public long? EventId { get; set; }
+        public int? EventId { get; set; }
 
         public string OtherInformation { get; set; }
 

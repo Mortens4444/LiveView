@@ -161,7 +161,7 @@ namespace LiveView.Forms
             }
         }
 
-        public bool OperationsAndCamerasHasElementWithId(IHaveId<long> item)
+        public bool OperationsAndCamerasHasElementWithId(IHaveId<int> item)
         {
             if (item is Operation operation)
             {

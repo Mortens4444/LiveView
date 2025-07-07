@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Grid : IHaveId<long>
+    public class Grid : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int Rows { get; set; }
 

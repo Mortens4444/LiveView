@@ -22,6 +22,6 @@ namespace LiveView.Interfaces
 
         UserEvent GetUserEvent();
 
-        bool OperationsAndCamerasHasElementWithId(IHaveId<long> item);
+        bool OperationsAndCamerasHasElementWithId(IHaveId<int> item);
     }
 }

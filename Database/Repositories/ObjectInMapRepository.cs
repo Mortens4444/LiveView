@@ -7,19 +7,19 @@ using System.Collections.Generic;
 
 namespace Database.Repositories
 {
-    public sealed class ObjectInMapRepository : BaseRepository<ObjectInMap>, IObjectInMapRepository
+    public sealed class MapActionObjectRepository : BaseRepository<MapActionObject>, IMapActionObjectRepository
     {
-        public void DeleteByKey(ObjectInMap key)
+        public void DeleteByKey(MapActionObject key)
         {
             throw new NotImplementedException();
         }
 
-        public ObjectInMap SelectByKey(ObjectInMap key)
+        public MapActionObject SelectByKey(MapActionObject key)
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<ObjectInMap> IRepositoryWithCompositeKey<ObjectInMap, ObjectInMap>.SelectAll()
+        IEnumerable<MapActionObject> IRepositoryWithCompositeKey<MapActionObject, MapActionObject>.SelectAll()
         {
             return SelectAll();
         }

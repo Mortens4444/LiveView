@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record IOPortDto : IHaveIdWithSetter<long>
+    public record IOPortDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 

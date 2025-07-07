@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Agent : IHaveId<long>
+    public class Agent : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string ServerIp { get; set; }
 

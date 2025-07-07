@@ -40,14 +40,14 @@ namespace Sequence.Services
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGeneralOptionsRepository generalOptionsRepository;
         private readonly ISequenceRepository sequenceRepository;
-        private readonly IGridInSequenceRepository gridInSequeneRepository;
+        private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly IGridRepository gridRepository;
 
         private readonly bool isMdi;
         private readonly Client client;
         private readonly CameraWindowBuilder cameraWindowBuilder;
 
-        private List<(Grid grid, GridInSequence gridInSequence)> sequenceGrids;
+        private List<(Grid grid, SequenceGrid gridInSequence)> sequenceGrids;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int currentGridIndex;
         private int disposed;
@@ -59,14 +59,14 @@ namespace Sequence.Services
 
         public GridSequenceManager(PermissionManager<User> permissionManager,
             ISequenceRepository sequenceRepository,
-            IGridInSequenceRepository gridInSequenceRepository,
+            ISequenceGridsRepository sequenceGridsRepository,
             IGridRepository gridRepository,
             IAgentRepository agentRepository,
             IVideoSourceRepository videoSourceRepository,
             IServerRepository serverRepository,
             ICameraRepository cameraRepository,
-            ICameraRightRepository cameraRightRepository,
-            IRightRepository rightRepository,
+            ICameraPermissionRepository cameraRightRepository,
+            IPermissionRepository rightRepository,
             IOperationRepository operationRepository,
             IUsersInGroupsRepository usersInGroupsRepository,
             ICameraFunctionRepository cameraFunctionRepository,
@@ -86,7 +86,7 @@ namespace Sequence.Services
             this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.sequenceRepository = sequenceRepository;
-            this.gridInSequeneRepository = gridInSequenceRepository;
+            this.sequenceGridsRepository = sequenceGridsRepository;
             this.gridRepository = gridRepository;
             this.generalOptionsRepository = generalOptionsRepository;
             this.logger = logger;
@@ -109,7 +109,7 @@ namespace Sequence.Services
                 return;
             }
 
-            var gridsInSequence = gridInSequeneRepository.SelectWhere(new { SequenceId = sequenceId });
+            var gridsInSequence = sequenceGridsRepository.SelectWhere(new { SequenceId = sequenceId });
             var grids = gridRepository.SelectAll()
                 .SelectMany(grid => gridsInSequence
                 .Where(gridInSequence => gridInSequence.GridId == grid.Id)
@@ -171,7 +171,7 @@ namespace Sequence.Services
             }
         }
 
-        private List<Form> ShowGridInWindow((Grid grid, GridInSequence gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
+        private List<Form> ShowGridInWindow((Grid grid, SequenceGrid gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
         {
             var result = new List<Form>();
             foreach (var camera in gridCameras)
@@ -184,7 +184,7 @@ namespace Sequence.Services
             return result;
         }
 
-        private List<Process> ShowGridOnScreen((Grid grid, GridInSequence gridInSequence) gridInSequence)
+        private List<Process> ShowGridOnScreen((Grid grid, SequenceGrid gridInSequence) gridInSequence)
         {
             var result = new List<Process>();
             var cameras = GetCameras(gridInSequence);
@@ -201,7 +201,7 @@ namespace Sequence.Services
             return result;
         }
 
-        private async Task WaitWithCancellationAsync((Grid grid, GridInSequence gridInSequence) gridInfo, int checkInterval = 100)
+        private async Task WaitWithCancellationAsync((Grid grid, SequenceGrid gridInSequence) gridInfo, int checkInterval = 100)
         {
 
 #if NET6_0_OR_GREATER
@@ -231,7 +231,7 @@ namespace Sequence.Services
             }
         }
 
-        private void ShowGrid((Grid grid, GridInSequence gridInSequence) grid, List<CameraInfo> gridCameras)
+        private void ShowGrid((Grid grid, SequenceGrid gridInSequence) grid, List<CameraInfo> gridCameras)
         {
             if (cancellationTokenSource.Token.IsCancellationRequested)
             {
@@ -261,7 +261,7 @@ namespace Sequence.Services
             }
         }
 
-        private List<CameraInfo> GetCameras((Grid grid, GridInSequence gridInSequence) grid)
+        private List<CameraInfo> GetCameras((Grid grid, SequenceGrid gridInSequence) grid)
         {
             return gridCameras
                 .Where(gc => gc.GridId == grid.grid.Id)

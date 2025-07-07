@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing IOPort entities via REST API endpoints.
     /// </summary>
-    public class IOPortsController : ApiControllerBaseWithLongModelId<IOPortDto, IOPort, IIOPortRepository, IConverter<IOPort, IOPortDto>>
+    public class IOPortsController : ApiControllerBaseWithIntModelId<IOPortDto, IOPort, IIOPortRepository, IConverter<IOPort, IOPortDto>>
     {
         public IOPortsController(
             ILogger<IOPortsController> logger,

@@ -3,9 +3,9 @@ using System;
 
 namespace Database.Models
 {
-    public class BarcodeScanReading : IHaveId<long>
+    public class BarcodeScanReading : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         
         public DateTime Date { get; set; }
 

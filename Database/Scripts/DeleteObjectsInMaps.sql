@@ -1,1 +1,1 @@
-﻿DELETE FROM ObjectsInMaps WHERE MapObjectId = @Id;
+﻿DELETE FROM MapActionObjects WHERE ActionObjectId = @Id;

@@ -5,7 +5,7 @@ BEGIN
     ON PRIMARY
     (
         NAME = LiveView_Data,
-        FILENAME = 'C:\Databases\LiveView2.mdf',
+        FILENAME = 'C:\Databases\LiveView3.mdf',
         SIZE = 10GB,
         MAXSIZE = 10GB,
         FILEGROWTH = 10%
@@ -13,7 +13,7 @@ BEGIN
     LOG ON
     (
         NAME = LiveView_Log,
-        FILENAME = 'C:\Databases\LiveView2.ldf',
+        FILENAME = 'C:\Databases\LiveView3.ldf',
         SIZE = 500MB,
         MAXSIZE = 500MB,
         FILEGROWTH = 1MB

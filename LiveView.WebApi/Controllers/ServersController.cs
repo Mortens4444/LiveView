@@ -11,7 +11,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Server data.
     /// Sets the base route for this controller (e.g., /api/servers)
     /// </summary>
-    public class ServersController : ApiControllerBaseWithLongModelId<ServerDto, Server, IServerRepository, IConverter<Server, ServerDto>>
+    public class ServersController : ApiControllerBaseWithIntModelId<ServerDto, Server, IServerRepository, IConverter<Server, ServerDto>>
     {
         public ServersController(
             ILogger<ServersController> logger,

@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record TemplateProcessDto : IHaveIdWithSetter<long>
+    public record TemplateProcessDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long TemplateId { get; set; }
+        public int TemplateId { get; set; }
 
-        public long? AgentId { get; set; }
+        public int? AgentId { get; set; }
 
         public string ProcessName { get; set; }
 

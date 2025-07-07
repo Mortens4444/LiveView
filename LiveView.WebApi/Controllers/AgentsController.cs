@@ -11,7 +11,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Camera data.
     /// Sets the base route for this controller (e.g., /api/agents)
     /// </summary>
-    public class AgentsController : ApiControllerBaseWithLongModelId<AgentDto, Agent, IAgentRepository, IConverter<Agent, AgentDto>>
+    public class AgentsController : ApiControllerBaseWithIntModelId<AgentDto, Agent, IAgentRepository, IConverter<Agent, AgentDto>>
     {
         public AgentsController(
             ILogger<AgentsController> logger,

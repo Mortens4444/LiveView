@@ -3,15 +3,15 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record GroupDto : IHaveIdWithSetter<long>
+    public record GroupDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string OtherInformation { get; set; }
 
-        public long? ParentGroupId { get; set; }
+        public int? ParentGroupId { get; set; }
 
         public override string ToString()
         {

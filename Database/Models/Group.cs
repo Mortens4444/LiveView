@@ -2,15 +2,15 @@
 
 namespace Database.Models
 {
-    public class Group : IHaveId<long>
+    public class Group : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string OtherInformation { get; set; }
 
-        public long? ParentGroupId { get; set; }
+        public int? ParentGroupId { get; set; }
 
         public override string ToString()
         {

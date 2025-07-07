@@ -23,7 +23,7 @@ namespace LiveView.Services
         public event VideoSourceObjectClickedEventHandler VideoSourceObjectClicked;
 
         private readonly IMapRepository mapRepository;
-        private readonly IMapObjectRepository mapObjectRepository;
+        private readonly IActionObjectRepository actionObjectRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
@@ -34,7 +34,7 @@ namespace LiveView.Services
             this.toolTip = toolTip;
             agentRepository = mapLoaderDependencies.AgentRepository;
             mapRepository = mapLoaderDependencies.MapRepository;
-            mapObjectRepository = mapLoaderDependencies.MapObjectRepository;
+            actionObjectRepository = mapLoaderDependencies.ActionObjectRepository;
             cameraRepository = mapLoaderDependencies.CameraRepository;
             videoSourceRepository = mapLoaderDependencies.VideoSourceRepository;
         }
@@ -164,7 +164,7 @@ namespace LiveView.Services
                     OnVideoSourceObjectClicked(new VideoSourceObjectClickedEventArgs(videoSource));
                     break;
                 case MapActionType.OpenMap:
-                    var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId), mapObjectRepository);
+                    var map = MapDto.FromModel(mapRepository.Select(mapObject.ActionReferencedId), actionObjectRepository);
                     LoadMap(map);
                     break;
             }

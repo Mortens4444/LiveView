@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record UserGroupDto : IHaveIdWithSetter<long>
+    public record UserGroupDto : IHaveIdWithSetter<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
-        public long GroupId { get; set; }
+        public int GroupId { get; set; }
 
         [JsonPropertyName("html")]
         public string Html => ToHtml();

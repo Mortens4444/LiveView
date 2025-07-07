@@ -63,7 +63,7 @@ namespace LiveView.Presenters
         private readonly ICameraRepository cameraRepository;
         private readonly IServiceProvider serviceProvider;
         private readonly IMapRepository mapRepository;
-        private readonly IMapObjectRepository mapObjectRepository;
+        private readonly IActionObjectRepository actionObjectRepository;
         private readonly IUserRepository userRepository;
         private readonly IUserEventRepository userEventRepository;
         private readonly ITemplateRepository templateRepository;
@@ -88,7 +88,7 @@ namespace LiveView.Presenters
             cameraRepository = dependencies.CameraRepository;
             serviceProvider = dependencies.ServiceProvider;
             mapRepository = dependencies.MapRepository;
-            mapObjectRepository = dependencies.MapObjectRepository;
+            actionObjectRepository = dependencies.ActionObjectRepository;
             userRepository = dependencies.UserRepository;
             templateRepository = dependencies.TemplateRepository;
             personalOptionsRepository = dependencies.PersonalOptionsRepository;
@@ -535,7 +535,7 @@ namespace LiveView.Presenters
             var maps = mapRepository.SelectAll();
             if (maps.Count > 0)
             {
-                var map = MapDto.FromModel(maps.First(), mapObjectRepository);
+                var map = MapDto.FromModel(maps.First(), actionObjectRepository);
                 if (mapLoader == null)
                 {
                     mapLoader = ActivatorUtilities.CreateInstance<MapLoader>(serviceProvider, view.PbMap, view.TtHint);

@@ -2,12 +2,12 @@
 
 namespace Database.Models
 {
-    public class UserGroup : IHaveId<long>
+    public class UserGroup : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
 
-        public long GroupId { get; set; }
+        public int GroupId { get; set; }
     }
 }

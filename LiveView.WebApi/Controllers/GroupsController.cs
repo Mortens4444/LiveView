@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing Group entities via REST API endpoints.
     /// </summary>
-    public class GroupsController : ApiControllerBaseWithLongModelId<GroupDto, Group, IGroupRepository, IConverter<Group, GroupDto>>
+    public class GroupsController : ApiControllerBaseWithIntModelId<GroupDto, Group, IGroupRepository, IConverter<Group, GroupDto>>
     {
         public GroupsController(
             ILogger<GroupsController> logger,

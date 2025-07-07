@@ -2,4 +2,4 @@
 FROM Cameras AS c
 JOIN CameraPermissions AS cp ON c.Id = cp.CameraId
 LEFT JOIN Servers AS s ON c.ServerId = s.Id
-WHERE cp.GroupId = @GroupId AND cp.UserEvent = @UserEventId;
+WHERE cp.GroupId = @GroupId AND cp.UserEventId = @UserEventId;

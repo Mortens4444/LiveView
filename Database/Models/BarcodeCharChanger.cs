@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class BarcodeCharChanger : IHaveId<long>
+    public class BarcodeCharChanger : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Chars { get; set; }
     }

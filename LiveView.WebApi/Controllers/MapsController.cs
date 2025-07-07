@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing Map entities via REST API endpoints.
     /// </summary>
-    public class MapsController : ApiControllerBaseWithLongModelId<MapDto, Map, IMapRepository, IConverter<Map, MapDto>>
+    public class MapsController : ApiControllerBaseWithIntModelId<MapDto, Map, IMapRepository, IConverter<Map, MapDto>>
     {
         public MapsController(
             ILogger<MapsController> logger,

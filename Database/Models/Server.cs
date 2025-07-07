@@ -3,9 +3,9 @@ using System;
 
 namespace Database.Models
 {
-    public class Server : IHaveId<long>, IEquatable<Server>
+    public class Server : IHaveId<int>, IEquatable<Server>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string IpAddress { get; set; }
 
@@ -39,7 +39,7 @@ namespace Database.Models
 
         public bool Equals(Server other)
         {
-            return other == null ? false : Id == other.Id;
+            return other != null && Id == other.Id;
         }
         public override string ToString()
         {

@@ -29,6 +29,7 @@ namespace LiveView.Forms
 
         protected readonly IServiceProvider serviceProvider;
         protected PermissionManager<Database.Models.User> permissionManager;
+        protected bool canBeClosedAlways;
 
         protected BasePresenter Presenter { get; private set; }
         private readonly Type presenterType;
@@ -251,7 +252,7 @@ namespace LiveView.Forms
 
                 if (m.Msg == WM_CLOSE)
                 {
-                    if (!(permissionManager.CurrentUser?.HasPermission(WindowManagementPermissions.Close) ?? false))
+                    if (!((permissionManager.CurrentUser?.HasPermission(WindowManagementPermissions.Close) ?? false) || canBeClosedAlways))
                     {
                         return;
                     }

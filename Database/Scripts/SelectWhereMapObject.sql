@@ -1,1 +1,1 @@
-﻿SELECT * FROM MapObjects WHERE Id IN (SELECT MapObjectId FROM ObjectsInMaps WHERE MapId = @Id)
+﻿SELECT * FROM ActionObjects WHERE Id IN (SELECT ActionObjectId FROM MapActionObjects WHERE MapId = @Id)

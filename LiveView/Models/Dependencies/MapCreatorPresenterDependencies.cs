@@ -15,8 +15,8 @@ namespace LiveView.Models.Dependencies
             IGridCameraRepository gridCameraRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IMapRepository mapRepository,
-            IMapObjectRepository mapObjectRepository,
-            IObjectInMapRepository objectInMapRepositoryRepository,
+            IActionObjectRepository actionObjectRepository,
+            IMapActionObjectRepository mapActionObjectRepository,
             ILogger<MapCreator> logger)
             : base(generalOptionsRepository)
         {
@@ -25,8 +25,8 @@ namespace LiveView.Models.Dependencies
             GridCameraRepository = gridCameraRepository;
             ServerRepository = serverRepository;
             MapRepository = mapRepository;
-            MapObjectRepository = mapObjectRepository;
-            ObjectInMapRepository = objectInMapRepositoryRepository;
+            ActionObjectRepository = actionObjectRepository;
+            MapActionObjectRepository = mapActionObjectRepository;
             VideoSourceRepository = videoSourceRepository;
             Logger = logger;
         }
@@ -43,9 +43,9 @@ namespace LiveView.Models.Dependencies
 
         public IMapRepository MapRepository { get; private set; }
 
-        public IMapObjectRepository MapObjectRepository { get; private set; }
+        public IActionObjectRepository ActionObjectRepository { get; private set; }
 
-        public IObjectInMapRepository ObjectInMapRepository { get; private set; }
+        public IMapActionObjectRepository MapActionObjectRepository { get; private set; }
 
         public IVideoSourceRepository VideoSourceRepository { get; private set; }
 

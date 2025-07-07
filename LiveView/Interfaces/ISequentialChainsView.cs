@@ -13,7 +13,7 @@ namespace LiveView.Interfaces
 
         TextBox TbSequenceName { get; }
 
-        GridInSequence GetGridInSequence();
+        SequenceGrid GetGridInSequence();
 
         Database.Models.Sequence GetSequence();
     }

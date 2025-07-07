@@ -11,7 +11,7 @@ namespace LiveView.Models.Dependencies
         public ControlCenterPresenterDependencies(
             IGridRepository gridRepository,
             IGridCameraRepository gridCameraRepository,
-            IGridInSequenceRepository gridInSequenceRepository,
+            ISequenceGridsRepository sequenceGridsRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IDisplayRepository displayRepository,
             ITemplateRepository templateRepository,
@@ -29,7 +29,7 @@ namespace LiveView.Models.Dependencies
             PermissionManager = permissionManager;
             GridRepository = gridRepository;
             GridCameraRepository = gridCameraRepository;
-            GridInSequenceRepository = gridInSequenceRepository;
+            SequenceGridsRepository = sequenceGridsRepository;
             TemplateRepository = templateRepository;
             TemplateProcessRepository = templateProcessRepository;
             CameraRepository = cameraRepository;
@@ -45,7 +45,7 @@ namespace LiveView.Models.Dependencies
 
         public IGridCameraRepository GridCameraRepository { get; private set; }
 
-        public IGridInSequenceRepository GridInSequenceRepository { get; private set; }
+        public ISequenceGridsRepository SequenceGridsRepository { get; private set; }
 
         public ITemplateRepository TemplateRepository { get; private set; }
 

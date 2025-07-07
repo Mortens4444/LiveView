@@ -14,6 +14,7 @@ namespace LiveView.Forms
         public About(IServiceProvider serviceProvider) : base(serviceProvider, typeof(BasePresenter))
         {
             InitializeComponent();
+            canBeClosedAlways = true;
 
             lblProductName.Text = Application.ProductName;
             lblVersion.Text = Application.ProductVersion.Substring(0, Application.ProductVersion.IndexOf('+'));

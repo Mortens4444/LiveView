@@ -2,7 +2,7 @@
     SET NeededSecondaryLogonPriority = 100 
 WHERE Id IN (
     SELECT UserId 
-    FROM UsersInGroups 
+    FROM GroupMembers 
     WHERE GroupId = @Id 
        OR GroupId IN (SELECT Id FROM Groups WHERE ParentGroupId = @Id)
 );

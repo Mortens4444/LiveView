@@ -11,7 +11,7 @@ namespace LiveView.Core.Services.Logging
     {
         private readonly ILogRepository logRepository;
         private readonly string categoryName;
-        private readonly long currentUserId;
+        private readonly int currentUserId;
 
         public LogRepositoryLogger(PermissionManager<User> permissionManager, ILogRepository logRepository, string categoryName)
         {

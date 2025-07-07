@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Template : IHaveId<long>
+    public class Template : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string TemplateName { get; set; }
 

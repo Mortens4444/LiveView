@@ -33,8 +33,8 @@ namespace LiveView.Presenters
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly IMapRepository mapRepository;
-        private readonly IMapObjectRepository mapObjectRepository;
-        private readonly IObjectInMapRepository objectInMapRepository;
+        private readonly IActionObjectRepository actionObjectRepository;
+        private readonly IMapActionObjectRepository mapActionObjectRepository;
         private readonly ILogger<MapCreator> logger;
         private readonly ReadOnlyCollection<GridCamera> gridCameras;
         private static Mtf.Controls.Models.LocationAndSize imageLocationAndSize;
@@ -49,8 +49,8 @@ namespace LiveView.Presenters
             cameraRepository = dependencies.CameraRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             mapRepository = dependencies.MapRepository;
-            mapObjectRepository = dependencies.MapObjectRepository;
-            objectInMapRepository = dependencies.ObjectInMapRepository;
+            actionObjectRepository = dependencies.ActionObjectRepository;
+            mapActionObjectRepository = dependencies.MapActionObjectRepository;
             videoSourceRepository = dependencies.VideoSourceRepository;
             logger = dependencies.Logger;
 
@@ -146,17 +146,17 @@ namespace LiveView.Presenters
         {
             if (view.CbMap.SelectedItem is Map map)
             {
-                var mapObjects = mapObjectRepository.SelectWhere(new { map.Id });
+                var mapObjects = actionObjectRepository.SelectWhere(new { map.Id });
                 Load(map, mapObjects);
             }
         }
 
-        private void Load(Map map, ReadOnlyCollection<MapObject> mapObjects)
+        private void Load(Map map, ReadOnlyCollection<ActionObject> mapObjects)
         {
             view.PCanvas.Controls.Clear();
             view.PCanvas.BackgroundImage = Services.ImageConverter.ByteArrayToImage(map.MapImage);
 
-            foreach (MapObject mapObject in mapObjects)
+            foreach (ActionObject mapObject in mapObjects)
             {
                 var panel = new MovableSizablePanel
                 {
@@ -261,21 +261,21 @@ namespace LiveView.Presenters
                 if (Int32.TryParse(control.Name, out var id))
                 {
                     mapObject.Id = id;
-                    mapObjectRepository.Update(mapObject);
+                    actionObjectRepository.Update(mapObject);
                 }
                 else
                 {
-                    var mapObjectId = mapObjectRepository.InsertAndReturnId<int>(mapObject);
-                    ((IRepository<ObjectInMap>)objectInMapRepository).Insert(new ObjectInMap
+                    var mapObjectId = actionObjectRepository.InsertAndReturnId<int>(mapObject);
+                    ((IRepository<MapActionObject>)mapActionObjectRepository).Insert(new MapActionObject
                     {
                         MapId = (int)mapId,
-                        MapObjectId = mapObjectId
+                        ActionObjectId = mapObjectId
                     });
                 }
             }
         }
 
-        private MapObject GetMapObject(Control control)
+        private ActionObject GetMapObject(Control control)
         {
             byte[] mapObjectImage;
             try
@@ -286,7 +286,7 @@ namespace LiveView.Presenters
             {
                 mapObjectImage = null;
             }
-            var mapObject = new MapObject
+            var mapObject = new ActionObject
             {
                 Comment = control.Text,
                 X = control.Location.X - imageLocationAndSize.Left,
@@ -385,10 +385,10 @@ namespace LiveView.Presenters
 
                 if (sourceControl is MovableSizablePanel movableSizablePanel)
                 {
-                    if (movableSizablePanel.Tag is MapObject mapObject)
+                    if (movableSizablePanel.Tag is ActionObject mapObject)
                     {
-                        objectInMapRepository.DeleteWhere(new { mapObject.Id });
-                        mapObjectRepository.Delete(mapObject.Id);
+                        mapActionObjectRepository.DeleteWhere(new { mapObject.Id });
+                        actionObjectRepository.Delete(mapObject.Id);
                     }
                     movableSizablePanel.Parent.Controls.Remove(movableSizablePanel);
                 }

@@ -79,9 +79,9 @@ namespace LiveView.Forms
             presenter.Load();
         }
 
-        public GridInSequence GetGridInSequence()
+        public SequenceGrid GetGridInSequence()
         {
-            var result = new GridInSequence
+            var result = new SequenceGrid
             {
                 TimeToShow = (int)nudSecondsToShow.Value,
                 GridId = ((Grid)CbGrids.SelectedItem).Id,

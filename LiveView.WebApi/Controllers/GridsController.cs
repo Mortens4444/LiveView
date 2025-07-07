@@ -11,7 +11,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Grid data.
     /// Sets the base route for this controller (e.g., /api/grids)
     /// </summary>
-    public class GridsController : ApiControllerBaseWithLongModelId<GridDto, Grid, IGridRepository, IConverter<Grid, GridDto>>
+    public class GridsController : ApiControllerBaseWithIntModelId<GridDto, Grid, IGridRepository, IConverter<Grid, GridDto>>
     {
         public GridsController(
             ILogger<GridsController> logger,

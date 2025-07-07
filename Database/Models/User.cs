@@ -3,9 +3,9 @@ using System;
 
 namespace Database.Models
 {
-    public class User : IHaveId<long>
+    public class User : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Username { get; set; }
 
@@ -35,7 +35,7 @@ namespace Database.Models
         {
             if (String.IsNullOrWhiteSpace(Username))
             {
-                return $"User ID: {Id}";
+                return $"User Id: {Id}";
             }
 
             return Username;

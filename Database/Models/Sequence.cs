@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Sequence : IHaveId<long>
+    public class Sequence : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

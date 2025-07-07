@@ -9,7 +9,7 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing User entities via REST API endpoints.
     /// </summary>
-    public class UsersController : ApiControllerBaseWithLongModelId<UserDto, User, IUserRepository, IConverter<User, UserDto>>
+    public class UsersController : ApiControllerBaseWithIntModelId<UserDto, User, IUserRepository, IConverter<User, UserDto>>
     {
         public UsersController(
             ILogger<UsersController> logger,

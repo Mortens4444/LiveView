@@ -11,7 +11,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Sequence data.
     /// Sets the base route for this controller (e.g., /api/sequences)
     /// </summary>
-    public class SequencesController : ApiControllerBaseWithLongModelId<SequenceDto, Sequence, ISequenceRepository, IConverter<Sequence, SequenceDto>>
+    public class SequencesController : ApiControllerBaseWithIntModelId<SequenceDto, Sequence, ISequenceRepository, IConverter<Sequence, SequenceDto>>
     {
         public SequencesController(
             ILogger<SequencesController> logger,

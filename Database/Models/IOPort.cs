@@ -3,9 +3,9 @@ using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
-    public class IOPort : IHaveId<long>
+    public class IOPort : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 

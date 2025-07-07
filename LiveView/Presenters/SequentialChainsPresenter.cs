@@ -19,7 +19,7 @@ namespace LiveView.Presenters
         private ISequentialChainsView view;
         private readonly IGridRepository gridRepository;
         private readonly ISequenceRepository sequenceRepository;
-        private readonly IGridInSequenceRepository gridInSequenceRepository;
+        private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly ILogger<SequentialChains> logger;
 
         public SequentialChainsPresenter(SequentialChainsPresenterDependencies dependencies)
@@ -27,7 +27,7 @@ namespace LiveView.Presenters
         {
             gridRepository = dependencies.GridRepository;
             sequenceRepository = dependencies.SequenceRepository;
-            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            sequenceGridsRepository = dependencies.SequenceGridsRepository;
             logger = dependencies.Logger;
         }
 
@@ -43,7 +43,7 @@ namespace LiveView.Presenters
             AddGridToListView(gridInSequence);
         }
 
-        private void AddGridToListView(GridInSequence gridInSequence)
+        private void AddGridToListView(SequenceGrid gridInSequence)
         {
             var item = new ListViewItem(gridInSequence.Number.ToString())
             {
@@ -68,11 +68,11 @@ namespace LiveView.Presenters
                 return;
             }
 
-            long sequenceId;
+            int sequenceId;
             var sequence = view.GetSequence();
             if (sequence.Id == 0)
             {
-                sequenceId = sequenceRepository.InsertAndReturnId<long>(sequence);
+                sequenceId = sequenceRepository.InsertAndReturnId<int>(sequence);
                 logger.LogInfo(SequenceManagementPermissions.Create, "Sequence '{0}' has been created.", sequence.Name);
             }
             else
@@ -80,17 +80,17 @@ namespace LiveView.Presenters
                 sequenceId = sequence.Id;
                 sequenceRepository.Update(sequence);
                 logger.LogInfo(SequenceManagementPermissions.Update, "Sequence '{0}' has been changed.", sequence.Name);
-                gridInSequenceRepository.DeleteWhere(new { SequenceId = sequence.Id });
+                sequenceGridsRepository.DeleteWhere(new { SequenceId = sequence.Id });
                 logger.LogInfo(SequenceManagementPermissions.Update, "Grids have been deleted for sequence '{0}'.", sequence.Name);
             }
 
             var gridS = gridRepository.SelectAll();
             foreach (ListViewItem item in view.LvGrids.Items)
             {
-                if (item.Tag is GridInSequence gridInSequence)
+                if (item.Tag is SequenceGrid gridInSequence)
                 {
                     gridInSequence.SequenceId = sequenceId;
-                    gridInSequenceRepository.Insert(gridInSequence);
+                    sequenceGridsRepository.Insert(gridInSequence);
                     logger.LogInfo(SequenceManagementPermissions.Update, "Grid '{0}' has been added.", gridS.First(g => g.Id == gridInSequence.GridId).Name);
                 }
             }
@@ -143,7 +143,7 @@ namespace LiveView.Presenters
             if (view.CbSequences.SelectedItem is Database.Models.Sequence sequence)
             {
                 view.TbSequenceName.Text = sequence.Name;
-                var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+                var gridsInSequence = sequenceGridsRepository.SelectWhere(new { SequenceId = sequence.Id });
                 view.LvGrids.Items.Clear();
                 foreach (var gridInSequence in gridsInSequence)
                 {

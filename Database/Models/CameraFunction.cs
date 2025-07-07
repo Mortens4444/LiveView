@@ -3,11 +3,11 @@ using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
-    public class CameraFunction : IHaveId<long>
+    public class CameraFunction : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        public long CameraId { get; set; }
+        public int CameraId { get; set; }
 
         public CameraFunctionType FunctionId { get; set; }
 

@@ -1,4 +1,3 @@
-﻿SELECT COUNT(gc.GridId)
-FROM GridCameras gc
-INNER JOIN GridsInSequences gs ON gc.GridId = gs.GridId
-WHERE gs.SequenceId = @SequenceId;
+﻿SELECT COUNT(gc.GridId) FROM GridCameras gc
+INNER JOIN SequenceGrids sg ON gc.GridId = sg.GridId
+WHERE sg.SequenceId = @SequenceId;

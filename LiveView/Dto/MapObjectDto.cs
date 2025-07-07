@@ -37,7 +37,7 @@ namespace LiveView.Dto
 
         public Image Image { get; set; }
 
-        public static MapObjectDto FromModel(MapObject mapObject)
+        public static MapObjectDto FromModel(ActionObject mapObject)
         {
             return new MapObjectDto
             {

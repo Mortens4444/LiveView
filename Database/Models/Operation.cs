@@ -2,9 +2,9 @@
 
 namespace Database.Models
 {
-    public class Operation : IHaveId<long>
+    public class Operation : IHaveId<int>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string PermissionGroup { get; set; }
 

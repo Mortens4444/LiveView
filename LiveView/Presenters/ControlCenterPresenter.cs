@@ -39,7 +39,7 @@ namespace LiveView.Presenters
 
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
-        private readonly IGridInSequenceRepository gridInSequenceRepository;
+        private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly ITemplateRepository templateRepository;
         private readonly TemplateStarter templateStarter;
         private readonly ISequenceRepository sequenceRepository;
@@ -54,7 +54,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             gridRepository = dependencies.GridRepository;
-            gridInSequenceRepository = dependencies.GridInSequenceRepository;
+            sequenceGridsRepository = dependencies.SequenceGridsRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             templateRepository = dependencies.TemplateRepository;
             sequenceRepository = dependencies.SequenceRepository;
@@ -462,7 +462,7 @@ namespace LiveView.Presenters
                     var sequence = sequenceRepository.Select(selectedSequenceProcess.SequenceId.Value);
                     if (sequence != null)
                     {
-                        var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+                        var gridsInSequence = sequenceGridsRepository.SelectWhere(new { SequenceId = sequence.Id });
                         if (gridsInSequence.Count == 0)
                         {
                             view.LblGridName.Text = $"{Lng.Elem("Grid name")}: N/A";
@@ -499,7 +499,7 @@ namespace LiveView.Presenters
 
             var grid = gridRepository.Select(gridId);
             var sequence = sequenceRepository.Select(selectedSequenceProcess.SequenceId.Value);
-            var gridsInSequence = gridInSequenceRepository.SelectWhere(new { SequenceId = sequence.Id });
+            var gridsInSequence = sequenceGridsRepository.SelectWhere(new { SequenceId = sequence.Id });
             var gridCameras = gridCameraRepository.SelectWhere(new { GridId = grid.Id });
             var allCameraCount = sequenceRepository.SelectCameraCount(selectedSequenceProcess.SequenceId.Value);
 

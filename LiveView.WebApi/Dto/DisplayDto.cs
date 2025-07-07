@@ -39,7 +39,7 @@ namespace LiveView.WebApi.Dto
 
         public bool CanShowFullscreen { get; set; } = true;
 
-        public long? AgentId { get; set; }
+        public int? AgentId { get; set; }
 
         public override string ToString()
         {

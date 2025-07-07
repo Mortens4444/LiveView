@@ -1,2 +1,2 @@
-﻿SELECT * FROM IOPortsLogs;
+﻿SELECT * FROM IOPortsRule;
 

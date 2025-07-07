@@ -1,4 +1,2 @@
-﻿INSERT INTO UsersInGroups
-	(GroupId, UserId)
-VALUES
-	(@GroupId, @UserId);
+﻿INSERT INTO GroupMembers (GroupId, UserId)
+VALUES (@GroupId, @UserId);
