@@ -7194,7 +7194,7 @@
     <PackageReference Include="Mtf.Extensions" Version="1.0.17" />
     <PackageReference Include="Mtf.HardwareKey" Version="1.0.38" />
     <PackageReference Include="Mtf.Joystick" Version="2.0.14" />
-    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.12" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.13" />
     <PackageReference Include="Mtf.Network" Version="2.0.13" />
     <PackageReference Include="Mtf.Permissions" Version="4.0.11" />
     <PackageReference Include="Mtf.Serial" Version="1.0.22" />

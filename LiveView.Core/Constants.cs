@@ -14,7 +14,8 @@
         public const string LiveViewServerListenerPort = "LiveView.Server.ListenerPort";
         public const string LiveViewAgentImageCaptureServerFps= "LiveView.Agent.ImageCaptureServer.FPS";
         public const string LiveViewAgentHideConsoleWindow = "LiveView.Agent.HideConsoleWindow";
-        
+        public const string ShowDebugInfo = "ShowDebugInfo";
+
         public const string AttachDebugger = "AttachDebugger";
         public const string WaitAtStartup = "WaitAtStartup";
 

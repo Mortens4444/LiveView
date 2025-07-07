@@ -12,7 +12,7 @@
     <PackageReference Include="Mtf.Windows.Forms.Extensions" Version="1.0.16" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.5" />
-    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.12" />
+    <PackageReference Include="Mtf.MessageBoxes" Version="6.0.13" />
     <PackageReference Include="Mtf.Network" Version="2.0.13" />
     <PackageReference Include="Mtf.Permissions" Version="4.0.11" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.1.17" />

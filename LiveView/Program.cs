@@ -38,6 +38,7 @@ namespace LiveView
         static void Main()
         {
             ExceptionHandler.CatchUnhandledExceptions();
+            ExceptionHandler.ShowDebugInfo(AppConfig.GetBoolean(Core.Constants.ShowDebugInfo));
             //CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("hu-HU");
             //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
 
