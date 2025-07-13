@@ -68,7 +68,7 @@ namespace Sequence.Services
             ICameraPermissionRepository cameraRightRepository,
             IPermissionRepository rightRepository,
             IOperationRepository operationRepository,
-            IUsersInGroupsRepository usersInGroupsRepository,
+            IGroupMembersRepository groupMembersRepository,
             ICameraFunctionRepository cameraFunctionRepository,
             IGridCameraRepository gridCameraRepository,
             IPersonalOptionsRepository personalOptionsRepository,
@@ -97,7 +97,7 @@ namespace Sequence.Services
 
             cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraRightRepository,
                 rightRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
-                usersInGroupsRepository, videoSourceRepository, generalOptionsRepository);
+                groupMembersRepository, videoSourceRepository, generalOptionsRepository);
         }
 
         public async Task StartSequenceAsync(long sequenceId)

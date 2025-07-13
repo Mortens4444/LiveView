@@ -4,7 +4,7 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class UsersInGroupsRepository : BaseRepository<UserGroup>, IUsersInGroupsRepository
+    public sealed class GroupMembersRepository : BaseRepository<GroupMember>, IGroupMembersRepository
     {
     }
 }

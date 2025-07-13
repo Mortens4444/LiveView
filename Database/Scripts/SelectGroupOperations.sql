@@ -1,1 +1,1 @@
-﻿SELECT o.* FROM Operations o JOIN Permissions p ON o.Id = p.OperationId WHERE p.GroupId = @GroupId AND p.UserEvent = @UserEventId;
+﻿SELECT o.* FROM Operations o JOIN Permissions p ON o.Id = p.OperationId WHERE p.GroupId = @GroupId AND p.dUserEventI = @UserEventId;

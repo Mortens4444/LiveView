@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record UserGroupDto : IHaveIdWithSetter<int>
+    public record GroupMemberDto : IHaveIdWithSetter<int>
     {
         public int Id { get; set; }
 

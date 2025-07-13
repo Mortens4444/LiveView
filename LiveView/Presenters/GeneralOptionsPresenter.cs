@@ -31,7 +31,7 @@ namespace LiveView.Presenters
         private readonly ITemplateRepository templateRepository;
         private readonly IUserRepository userRepository;
         private readonly IGroupRepository groupRepository;
-        private readonly IUsersInGroupsRepository userGroupRepository;
+        private readonly IGroupMembersRepository groupMembersRepository;
         private readonly PermissionManager<User> permissionManager;
         public const string AutoDetect = "Auto detect";
 
@@ -41,7 +41,7 @@ namespace LiveView.Presenters
             templateRepository = dependencies.TemplateRepository;
             userRepository = dependencies.UserRepository;
             groupRepository = dependencies.GroupRepository;
-            userGroupRepository = dependencies.UserGroupRepository;
+            groupMembersRepository = dependencies.GroupMembersRepository;
             permissionManager = dependencies.PermissionManager;
             logger = dependencies.Logger;
         }
@@ -56,7 +56,7 @@ namespace LiveView.Presenters
         {
             var groups = groupRepository.SelectAll();
             var users = userRepository.SelectAll();
-            var usersInGroups = userGroupRepository.SelectAll();
+            var usersInGroups = groupMembersRepository.SelectAll();
             var templates = templateRepository.SelectAll();
 
             var userInGroupIds = usersInGroups

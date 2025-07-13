@@ -48,11 +48,11 @@
     <EmbeddedResource Include="Scripts\SelectGroup.sql" />
     <EmbeddedResource Include="Scripts\InsertPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\InsertTemplateProcess.sql" />
-    <EmbeddedResource Include="Scripts\InsertUserGroup.sql" />
+    <EmbeddedResource Include="Scripts\InsertGroupMember.sql" />
     <EmbeddedResource Include="Scripts\SelectAllOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectAllPersonalOption.sql" />
     <EmbeddedResource Include="Scripts\SelectSequence.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllUserGroup.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllGroupMember.sql" />
     <EmbeddedResource Include="Scripts\SelectAllUserEvent.sql" />
     <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
@@ -70,7 +70,7 @@
     <EmbeddedResource Include="Scripts\SelectAllPermission.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWherePermission.sql" />
-    <EmbeddedResource Include="Scripts\SelectWhereUserGroup.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereGroupMember.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
     <EmbeddedResource Include="Scripts\UpdateVideoSource.sql" />
     <EmbeddedResource Include="Scripts\UpdateAgent.sql" />
@@ -160,7 +160,6 @@
     <EmbeddedResource Include="Scripts\SelectLanguageElementsForOperations.sql" />
     <EmbeddedResource Include="Scripts\SelectLanguageElementsForEvents.sql" />
     <EmbeddedResource Include="Scripts\SelectNumberOfUsers.sql" />
-    <EmbeddedResource Include="Scripts\SelectUserIdGroupId.sql" />
     <EmbeddedResource Include="Scripts\InsertDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllGeneralOption.sql" />
     <EmbeddedResource Include="Scripts\InsertDatabase.sql" />

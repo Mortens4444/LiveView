@@ -38,7 +38,7 @@ namespace CameraForms.Forms
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
-            IOperationRepository operationRepository, IUsersInGroupsRepository usersInGroupsRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
             Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -52,7 +52,7 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
 
             var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                cameraPermissionRepository, permissionRepository, operationRepository, usersInGroupsRepository));
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
@@ -97,7 +97,7 @@ namespace CameraForms.Forms
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IUsersInGroupsRepository>()));
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();

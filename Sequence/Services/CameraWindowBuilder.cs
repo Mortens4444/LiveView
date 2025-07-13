@@ -25,7 +25,7 @@ namespace Sequence.Services
         private readonly ICameraPermissionRepository cameraRightRepository;
         private readonly IPermissionRepository rightRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly IUsersInGroupsRepository usersInGroupsRepository;
+        private readonly IGroupMembersRepository groupMembersRepository;
         private readonly IOperationRepository operationRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IGeneralOptionsRepository generalOptionsRepository;
@@ -34,7 +34,7 @@ namespace Sequence.Services
             IAgentRepository agentRepository, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraRightRepository, IPermissionRepository rightRepository, IOperationRepository operationRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
-            IUsersInGroupsRepository usersInGroupsRepository, IVideoSourceRepository videoSourceRepository,
+            IGroupMembersRepository groupMembersRepository, IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository)
         {
             this.permissionManager = permissionManager;
@@ -48,7 +48,7 @@ namespace Sequence.Services
             this.cameraRightRepository = cameraRightRepository;
             this.rightRepository = rightRepository;
             this.operationRepository = operationRepository;
-            this.usersInGroupsRepository = usersInGroupsRepository;
+            this.groupMembersRepository = groupMembersRepository;
         }
 
         public Form ShowVideoWindow(DisplayDto display, Form parentForm, CameraInfo camera, (Grid grid, SequenceGrid gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
@@ -61,7 +61,7 @@ namespace Sequence.Services
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
                     result = new AxVideoCameraWindow(permissionManager, cameraRepository, cameraRightRepository, rightRepository, operationRepository,
-                        usersInGroupsRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
+                        groupMembersRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm
                     };

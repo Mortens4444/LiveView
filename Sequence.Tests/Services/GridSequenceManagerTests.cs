@@ -30,7 +30,7 @@ namespace Sequence.Tests.Services
         private Mock<ICameraPermissionRepository> cameraPermissionRepositoryMock;
         private Mock<IPermissionRepository> permissionRepositoryMock;
         private Mock<IOperationRepository> operationRepositoryMock;
-        private Mock<IUsersInGroupsRepository> usersInGroupsRepositoryMock;
+        private Mock<IGroupMembersRepository> groupMembersRepositoryMock;
 
         private GridSequenceManager manager;
 
@@ -46,7 +46,7 @@ namespace Sequence.Tests.Services
             cameraPermissionRepositoryMock = new Mock<ICameraPermissionRepository>();
             permissionRepositoryMock = new Mock<IPermissionRepository>();
             operationRepositoryMock = new Mock<IOperationRepository>();
-            usersInGroupsRepositoryMock = new Mock<IUsersInGroupsRepository>();
+            groupMembersRepositoryMock = new Mock<IGroupMembersRepository>();
 
             gridCameraRepositoryMock = new Mock<IGridCameraRepository>();
             videoSourceRepositoryMock = new Mock<IVideoSourceRepository>();
@@ -308,7 +308,7 @@ namespace Sequence.Tests.Services
                     cameraPermissionRepositoryMock.Object,
                     permissionRepositoryMock.Object,
                     operationRepositoryMock.Object,
-                    usersInGroupsRepositoryMock.Object,
+                    groupMembersRepositoryMock.Object,
                     new Mock<ICameraFunctionRepository>().Object,
                     gridCameraRepositoryMock.Object,
                     new Mock<IPersonalOptionsRepository>().Object,

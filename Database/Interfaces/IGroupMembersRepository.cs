@@ -3,7 +3,7 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IUsersInGroupsRepository : IRepository<UserGroup>
+    public interface IGroupMembersRepository : IRepository<GroupMember>
     {
     }
 }

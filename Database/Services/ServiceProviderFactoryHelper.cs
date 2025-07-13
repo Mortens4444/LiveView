@@ -40,7 +40,7 @@ namespace Database.Services
             services.AddScoped<ITemplateProcessRepository, TemplateProcessRepository>();
             services.AddScoped<IUserEventRepository, UserEventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUsersInGroupsRepository, UsersInGroupsRepository>();
+            services.AddScoped<IGroupMembersRepository, GroupMembersRepository>();
             services.AddScoped<IVideoSourceRepository, VideoSourceRepository>();
         }
     }

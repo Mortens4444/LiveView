@@ -14,7 +14,7 @@ namespace LiveView.Extensions
         private static void Log<TLoggerType>(this ILogger<TLoggerType> logger, LogLevel logLevel, LogEntry logEntry, Exception ex = null)
         {
             logger.Log(logLevel, new EventId(), logEntry, ex, (state, exception) =>
-                $"LogEntry: Date={state.Date}, UserId={state.UserId}, OperationId={state.OperationId}, EventId={state.EventId}, OtherInformation={state.OtherInformation}"
+                $"LogEntry: Date={state.Date}, UserId={state.UserId}, OperationId={state.OperationId}, EventId={state.UserEventId}, OtherInformation={state.OtherInformation}"
             );
         }
 

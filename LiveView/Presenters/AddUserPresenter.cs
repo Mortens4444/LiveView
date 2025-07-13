@@ -13,14 +13,14 @@ namespace LiveView.Presenters
     {
         private IAddUserView view;
         private readonly IUserRepository userRepository;
-        private readonly IUsersInGroupsRepository usersInGroupsRepository;
+        private readonly IGroupMembersRepository groupMembersRepository;
         private readonly ILogger<AddUser> logger;
 
         public AddUserPresenter(AddUserPresenterDependencies dependencies)
             : base(dependencies)
         {
             userRepository = dependencies.UserRepository;
-            usersInGroupsRepository = dependencies.UsersInGroupsRepository;
+            groupMembersRepository = dependencies.GroupMembersRepository;
             logger = dependencies.Logger;
         }
 
@@ -36,7 +36,7 @@ namespace LiveView.Presenters
             if (user.Id == 0)
             {
                 int userId = userRepository.InsertAndReturnId<int>(user);
-                usersInGroupsRepository.Insert(new UserGroup
+                groupMembersRepository.Insert(new GroupMember
                 {
                     UserId = userId,
                     GroupId = parentGroup.Id

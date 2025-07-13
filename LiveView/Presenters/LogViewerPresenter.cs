@@ -74,7 +74,7 @@ namespace LiveView.Presenters
                 result.SubItems.Add($"{Lng.Elem(operation.PermissionGroup.Replace("ManagementPermissions", String.Empty))} {Lng.Elem(operation.PermissionValue)}");
                 result.SubItems.Add(Lng.Elem(entry.OtherInformation));
             }
-            if (entry.EventId.HasValue)
+            if (entry.UserEventId.HasValue)
             {
                 //var @event = events.First(o => o.Id == entry.OperationId);
                 result.SubItems.Add(Lng.Elem("Event"));

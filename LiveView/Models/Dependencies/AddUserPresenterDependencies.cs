@@ -9,12 +9,12 @@ namespace LiveView.Models.Dependencies
         public AddUserPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             IUserRepository userRepository,
-            IUsersInGroupsRepository usersInGroupsRepository,
+            IGroupMembersRepository groupMembersRepository,
             ILogger<AddUser> logger)
             : base(generalOptionsRepository)
         {
             UserRepository = userRepository;
-            UsersInGroupsRepository = usersInGroupsRepository;
+            GroupMembersRepository = groupMembersRepository;
             Logger = logger;
         }
 
@@ -22,6 +22,6 @@ namespace LiveView.Models.Dependencies
 
         public ILogger<AddUser> Logger { get; private set; }
 
-        public IUsersInGroupsRepository UsersInGroupsRepository { get; private set; }
+        public IGroupMembersRepository GroupMembersRepository { get; private set; }
     }
 }

@@ -21,7 +21,7 @@ namespace LiveView.Presenters
         private IUserAndGroupManagementView view;
         private readonly IUserRepository userRepository;
         private readonly IGroupRepository groupRepository;
-        private readonly IUsersInGroupsRepository userGroupRepository;
+        private readonly IGroupMembersRepository groupMembersRepository;
         private readonly ILogger<UserAndGroupManagement> logger;
         private readonly PermissionManager<User> permissionManager;
         
@@ -34,7 +34,7 @@ namespace LiveView.Presenters
             permissionManager = dependencies.PermissionManager;
             userRepository = dependencies.UserRepository;
             groupRepository = dependencies.GroupRepository;
-            userGroupRepository = dependencies.UserGroupRepository;
+            groupMembersRepository = dependencies.GroupMembersRepository;
             logger = dependencies.Logger;
         }
 
@@ -106,7 +106,7 @@ namespace LiveView.Presenters
         {
             var groups = groupRepository.SelectAll();
             var users = userRepository.SelectAll();
-            var usersInGroups = userGroupRepository.SelectAll();
+            var usersInGroups = groupMembersRepository.SelectAll();
 
             var userInGroupIds = usersInGroups
                 .Where(ug => ug.UserId == permissionManager.CurrentUser.Tag.Id)
@@ -125,7 +125,7 @@ namespace LiveView.Presenters
             view.ExpandAll(groupsNode);
         }
 
-        private TreeNode CreateGroupTreeNode(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups)
+        private TreeNode CreateGroupTreeNode(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<GroupMember> allUsersInGroups)
         {
             var groupNode = new TreeNode(group.Name, GroupIconIndex, GroupIconIndex)
             {
@@ -140,7 +140,7 @@ namespace LiveView.Presenters
             return groupNode;
         }
 
-        private void AddChildGroups(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups, TreeNode groupNode)
+        private void AddChildGroups(Group group, IEnumerable<Group> allGroups, IEnumerable<User> allUsers, IEnumerable<GroupMember> allUsersInGroups, TreeNode groupNode)
         {
             var childGroups = allGroups.Where(g => g.ParentGroupId == group.Id);
             foreach (var childGroup in childGroups)
@@ -150,7 +150,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private static void AddUsersToGroupNode(Group group, IEnumerable<User> allUsers, IEnumerable<UserGroup> allUsersInGroups, TreeNode groupNode)
+        private static void AddUsersToGroupNode(Group group, IEnumerable<User> allUsers, IEnumerable<GroupMember> allUsersInGroups, TreeNode groupNode)
         {
             var usersOfGroup = allUsersInGroups.Where(ug => ug.GroupId == group.Id);
             foreach (var userOfGroup in usersOfGroup)

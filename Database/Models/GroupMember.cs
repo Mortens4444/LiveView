@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class UserGroup : IHaveId<int>
+    public class GroupMember : IHaveId<int>
     {
         public int Id { get; set; }
 

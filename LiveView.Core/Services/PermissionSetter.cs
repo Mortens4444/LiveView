@@ -18,7 +18,7 @@ namespace LiveView.Core.Services
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraPermissionRepository cameraPermissionRepository;
         private readonly IPermissionRepository permissionRepository;
-        private readonly IUsersInGroupsRepository userGroupRepository;
+        private readonly IGroupMembersRepository groupMembersRepository;
         private readonly IOperationRepository operationRepository;
 
         public PermissionSetter(PermissionSetterDependencies permissionSetterDependencies)
@@ -26,14 +26,14 @@ namespace LiveView.Core.Services
             cameraRepository = permissionSetterDependencies.CameraRepository;
             cameraPermissionRepository = permissionSetterDependencies.CameraPermissionRepository;
             permissionRepository = permissionSetterDependencies.PermissionRepository;
-            userGroupRepository = permissionSetterDependencies.UserGroupRepository;
+            groupMembersRepository = permissionSetterDependencies.GroupMembersRepository;
             operationRepository = permissionSetterDependencies.OperationRepository;
         }
 
         public void SetGroups(Mtf.Permissions.Models.User<User> result)
         {
             result.Groups = new List<Mtf.Permissions.Models.Group>();
-            var groupIds = userGroupRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
+            var groupIds = groupMembersRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
             foreach (var groupId in groupIds)
             {
                 SetUserGroup(result, groupId);

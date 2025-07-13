@@ -76,7 +76,7 @@ namespace Sequence.Tests.Services
 
             builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository,
                 new CameraPermissionRepository(), new PermissionRepository(), new OperationRepository(), cameraFunctionRepository,
-                personalOptionsRepository, new UsersInGroupsRepository(), videoSourceRepository, generalOptionsRepository);
+                personalOptionsRepository, new GroupMembersRepository(), videoSourceRepository, generalOptionsRepository);
         }
 
         [Test]

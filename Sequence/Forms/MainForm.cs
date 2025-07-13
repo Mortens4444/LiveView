@@ -113,7 +113,7 @@ namespace Sequence.Forms
             var cameraRightRepository = serviceProvider.GetRequiredService<ICameraPermissionRepository>();
             var rightRepository = serviceProvider.GetRequiredService<IPermissionRepository>();
             var operationRepository = serviceProvider.GetRequiredService<IOperationRepository>();
-            var usersInGroupsRepository = serviceProvider.GetRequiredService<IUsersInGroupsRepository>();
+            var groupMembersRepository = serviceProvider.GetRequiredService<IGroupMembersRepository>();
             var cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             var gridCameraRepository = serviceProvider.GetRequiredService<IGridCameraRepository>();
             var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
@@ -122,7 +122,7 @@ namespace Sequence.Forms
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
 
             gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, sequenceGridsRepository, gridRepository, agentRepository,
-                videoSourceRepository, serverRepository, cameraRepository, cameraRightRepository, rightRepository, operationRepository, usersInGroupsRepository,
+                videoSourceRepository, serverRepository, cameraRepository, cameraRightRepository, rightRepository, operationRepository, groupMembersRepository,
                 cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, generalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }

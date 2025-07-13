@@ -1,1 +1,1 @@
-﻿SELECT * FROM Permissions WHERE GroupId = @GroupId AND UserEvent = @UserEventId;
+﻿SELECT * FROM Permissions WHERE GroupId = @GroupId AND UserEventId = @UserEventId;

@@ -9,13 +9,13 @@ namespace LiveView.Core.Dependencies
             ICameraPermissionRepository cameraRightRepository,
             IPermissionRepository rightRepository,
             IOperationRepository operationRepository,
-            IUsersInGroupsRepository userGroupRepository)
+            IGroupMembersRepository groupMembersRepository)
         {
             CameraRepository = cameraRepository;
             CameraPermissionRepository = cameraRightRepository;
             PermissionRepository = rightRepository;
             OperationRepository = operationRepository;
-            UserGroupRepository = userGroupRepository;
+            GroupMembersRepository = groupMembersRepository;
         }
 
         public ICameraRepository CameraRepository { get; private set; }
@@ -26,6 +26,6 @@ namespace LiveView.Core.Dependencies
 
         public IOperationRepository OperationRepository { get; private set; }
 
-        public IUsersInGroupsRepository UserGroupRepository { get; private set; }
+        public IGroupMembersRepository GroupMembersRepository { get; private set; }
     }
 }
