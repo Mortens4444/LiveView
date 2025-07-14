@@ -1,4 +1,4 @@
 ﻿INSERT INTO Logs
-	(Date, UserId, OperationId, EventId, OtherInformation)
+	(Date, UserId, OperationId, UserEventId, OtherInformation)
 VALUES
-	(@Date, @UserId, @OperationId, @EventId, @OtherInformation);
+	(@Date, @UserId, @OperationId, @UserEventId, @OtherInformation);
