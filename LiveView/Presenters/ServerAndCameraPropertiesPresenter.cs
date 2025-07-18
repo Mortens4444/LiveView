@@ -1,5 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Enums;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -52,7 +53,7 @@ namespace LiveView.Presenters
             view.TbVideoServerPassword.Text = view.Server.Password;
             view.TbMacAddress.Text = view.Server.MacAddress;
             view.TbWindowsUsername.Text = view.Server.WinUser;
-            view.TbWindowsPassword.Text = view.Server.WinPass;
+            view.TbWindowsPassword.Text = WindowsPasswordCryptor.Decrypt(view.Server.WinPass);
 
             var iszSziltechDeice = SziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
             if (iszSziltechDeice)

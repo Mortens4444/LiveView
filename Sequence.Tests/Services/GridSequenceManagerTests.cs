@@ -79,7 +79,7 @@ namespace Sequence.Tests.Services
                             Id = 1,
                             IpAddress = "127.0.0.1",
                             Username = "u",
-                            Password = "p"
+                            Password = "uOoHO/Q9yym9zfCQtM0X3Q=="
                         }
                     }));
 

@@ -5,8 +5,8 @@ namespace Database.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        User Login(string username, string password);
+        User Login(string username, string encryptedPassword);
 
-        User SecondaryLogin(string text1, string text2);
+        User SecondaryLogin(string username, string encryptedPassword);
     }
 }

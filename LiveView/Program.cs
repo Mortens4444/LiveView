@@ -57,6 +57,7 @@ namespace LiveView
             try
             {
                 BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
+                BaseRepository.CommandTimeout = 150;
                 BaseRepository.ExecuteWithoutTransaction("CreateUser");
                 BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
                 BaseRepository.Execute("CreateTables");
@@ -111,6 +112,7 @@ namespace LiveView
         private static void FillOperationsTable(IServiceProvider serviceProvider)
         {
             var operationRepository = serviceProvider.GetRequiredService<IOperationRepository>();
+            var permissionRepository = serviceProvider.GetRequiredService<IPermissionRepository>();
             if (!operationRepository.HasAnyRow())
             {
                 var enums = PermissionEnumProviders.Get();
@@ -126,6 +128,18 @@ namespace LiveView
                             PermissionValue = valueStr
                         };
                         operationRepository.Insert(operation);
+                        permissionRepository.Insert(new Permission
+                        {
+                            OperationId = operation.Id,
+                            GroupId = 1,
+                            UserEventId = 1,
+                        });
+                        permissionRepository.Insert(new Permission
+                        {
+                            OperationId = operation.Id,
+                            GroupId = 2,
+                            UserEventId = 1,
+                        });
                     }
                 }
             }

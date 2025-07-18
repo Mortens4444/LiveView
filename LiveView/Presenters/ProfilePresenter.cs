@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -53,11 +54,7 @@ namespace LiveView.Presenters
         {
             if (!String.IsNullOrEmpty(view.TbNewPassword.Password))
             {
-                if (view.TbCurrentPassword.Password == user.Password)
-                {
-                    user.Password = view.TbNewPassword.Password;
-                }
-                else
+                if (view.TbCurrentPassword.Password != user.Password)
                 {
                     logger.LogWarning(SettingsManagementPermissions.UpdatePersonal, "Profile cannot be changed because the current password is incorrect.");
                     ShowError("The current password does not match.");
@@ -65,6 +62,7 @@ namespace LiveView.Presenters
                 }
             }
 
+            user.Password = UserPasswordHasher.Hash(view.TbNewPassword.Password);
             user.FullName = view.TbFullName.Text;
             user.Address = view.TbAddress.Text;
             user.Email = view.TbEmailAddress.Text;

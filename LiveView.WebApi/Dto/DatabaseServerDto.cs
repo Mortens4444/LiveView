@@ -8,9 +8,7 @@ namespace LiveView.WebApi.Dto
     {
         public int Id { get; set; }
 
-        public string IpOrHost { get; set; }
-
-        public string DisplayedName { get; set; }
+        public string IpAddress { get; set; }
 
         public string Username { get; set; }
 
@@ -35,7 +33,7 @@ namespace LiveView.WebApi.Dto
         public string ToHtml()
         {
             return $"<strong>{Hostname ?? "N/A"}</strong><br>" +
-                $"<small>IP: {IpOrHost ?? "N/A"}</small><br>" +
+                $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
                 $"<small>Username: {Username}</small><br>" +
                 $"<small>Password: {Password}</small>";
         }

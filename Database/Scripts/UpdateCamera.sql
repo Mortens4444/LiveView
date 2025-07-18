@@ -1,4 +1,4 @@
-﻿UPDATE Cameras SET
+﻿UPDATE Cameras SET 
     RecorderIndex = @RecorderIndex,
     CameraName = @CameraName,
     FullscreenMode = @FullscreenMode,
@@ -6,8 +6,6 @@
     HttpStreamUrl = @HttpStreamUrl,
     IpAddress = @IpAddress,
     Priority = @Priority,
-    Username = @Username,
-    Password = @Password,
     StreamId = @StreamId,
     MotionTrigger = @MotionTrigger,
     MotionTriggerMinimumLength = @MotionTriggerMinimumLength,
@@ -15,3 +13,8 @@
     VideoSourceId = @VideoSourceId,
     PermissionCamera = @PermissionCamera
 WHERE Id = @Id;
+
+UPDATE Credentials SET 
+    Username = @Username,
+    EncryptedPassword = @Password
+WHERE Id = @CameraCredentialsId;

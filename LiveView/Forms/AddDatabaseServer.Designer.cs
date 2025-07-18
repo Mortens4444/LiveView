@@ -42,8 +42,8 @@
             tbDatabaseName = new System.Windows.Forms.TextBox();
             lblDatabaseName = new System.Windows.Forms.Label();
             cbIpAddress = new System.Windows.Forms.ComboBox();
-            tbDisplayedName = new System.Windows.Forms.TextBox();
-            lblDisplayedName = new System.Windows.Forms.Label();
+            tbHostname = new System.Windows.Forms.TextBox();
+            lblHostname = new System.Windows.Forms.Label();
             tbPassword = new Mtf.Controls.PasswordBox();
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
@@ -157,8 +157,8 @@
             gbDatabaseServer.Controls.Add(tbDatabaseName);
             gbDatabaseServer.Controls.Add(lblDatabaseName);
             gbDatabaseServer.Controls.Add(cbIpAddress);
-            gbDatabaseServer.Controls.Add(tbDisplayedName);
-            gbDatabaseServer.Controls.Add(lblDisplayedName);
+            gbDatabaseServer.Controls.Add(tbHostname);
+            gbDatabaseServer.Controls.Add(lblHostname);
             gbDatabaseServer.Controls.Add(tbPassword);
             gbDatabaseServer.Controls.Add(lblPassword);
             gbDatabaseServer.Controls.Add(tbUsername);
@@ -226,25 +226,25 @@
             cbIpAddress.Size = new System.Drawing.Size(294, 23);
             cbIpAddress.TabIndex = 1;
             // 
-            // tbDisplayedName
+            // tbHostname
             // 
-            tbDisplayedName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbDisplayedName.Location = new System.Drawing.Point(10, 83);
-            tbDisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbDisplayedName.MaxLength = 100;
-            tbDisplayedName.Name = "tbDisplayedName";
-            tbDisplayedName.Size = new System.Drawing.Size(294, 23);
-            tbDisplayedName.TabIndex = 3;
+            tbHostname.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbHostname.Location = new System.Drawing.Point(10, 83);
+            tbHostname.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbHostname.MaxLength = 100;
+            tbHostname.Name = "tbDisplayedName";
+            tbHostname.Size = new System.Drawing.Size(294, 23);
+            tbHostname.TabIndex = 3;
             // 
-            // lblDisplayedName
+            // lblHostname
             // 
-            lblDisplayedName.AutoSize = true;
-            lblDisplayedName.Location = new System.Drawing.Point(7, 65);
-            lblDisplayedName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblDisplayedName.Name = "lblDisplayedName";
-            lblDisplayedName.Size = new System.Drawing.Size(91, 15);
-            lblDisplayedName.TabIndex = 2;
-            lblDisplayedName.Text = "Displayed name";
+            lblHostname.AutoSize = true;
+            lblHostname.Location = new System.Drawing.Point(7, 65);
+            lblHostname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHostname.Name = "lblDisplayedName";
+            lblHostname.Size = new System.Drawing.Size(91, 15);
+            lblHostname.TabIndex = 2;
+            lblHostname.Text = "Displayed name";
             // 
             // tbPassword
             // 
@@ -334,8 +334,8 @@
         private System.Windows.Forms.TextBox tbDatabaseName;
         private System.Windows.Forms.Label lblDatabaseName;
         private System.Windows.Forms.ComboBox cbIpAddress;
-        private System.Windows.Forms.TextBox tbDisplayedName;
-        private System.Windows.Forms.Label lblDisplayedName;
+        private System.Windows.Forms.TextBox tbHostname;
+        private System.Windows.Forms.Label lblHostname;
         private Mtf.Controls.PasswordBox tbPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;

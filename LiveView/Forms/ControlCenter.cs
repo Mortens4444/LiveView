@@ -66,7 +66,7 @@ namespace LiveView.Forms
 
         public void SetImagesEnabledState()
         {
-            var panTilt = permissionManager.CurrentUser?.HasPermission(CameraManagementPermissions.PanTilt) ?? false;
+            var panTilt = permissionManager.HasPermission(CameraManagementPermissions.PanTilt);
             if (!panTilt)
             {
                 btnMoveCameraNorthWest.Image = Properties.Resources.nw_g;

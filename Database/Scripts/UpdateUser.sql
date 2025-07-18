@@ -9,7 +9,10 @@ SET
     NeededSecondaryLogonPriority = @NeededSecondaryLogonPriority,
     OtherInformation = @OtherInformation,
     SecondaryLogonPriority = @SecondaryLogonPriority,
-    Phone = @Phone,
-    Username = @Username,
-    Password = @Password
+    Phone = @Phone
 WHERE Id = @Id;
+
+UPDATE Credentials SET 
+    Username = @Username,
+    EncryptedPassword = @Password
+WHERE Id = @LoginCredentialsId;

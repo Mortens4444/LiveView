@@ -1,5 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -29,7 +30,7 @@ namespace LiveView.Presenters
 
         public User Login()
         {
-            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
+            var user = userRepository.Login(view.TbUsername.Text, UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {
                 logger.LogWarning(UserManagementPermissions.Login, "Login failed with user '{0}'.", view.TbUsername.Text);

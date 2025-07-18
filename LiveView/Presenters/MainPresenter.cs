@@ -7,6 +7,7 @@ using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -459,7 +460,7 @@ namespace LiveView.Presenters
 
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var user = userRepository.Login(view.TbUsername.Text, view.TbPassword.Password);
+            var user = userRepository.Login(view.TbUsername.Text, UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {
                 ShowError("Invalid username or password");
@@ -662,7 +663,7 @@ namespace LiveView.Presenters
             view.TbPassword.Visible = false;
             view.GbPrimaryLogon.Size = new Size(253, 111);
             view.BtnLoginLogoutPrimary.Text = Lng.Elem("Logout");
-            Globals.ControlCenter.SetImagesEnabledState();
+            Globals.ControlCenter?.SetImagesEnabledState();
         }
 
         private void ChangeControlsOnLogout()

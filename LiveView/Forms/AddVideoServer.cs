@@ -1,7 +1,9 @@
 ﻿using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
+using Mtf.Extensions.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -63,7 +65,7 @@ namespace LiveView.Forms
         private void CbIpAddress_SelectedIndexChanged(object sender, EventArgs e)
         {
             var hostDiscoveryResult = (HostDiscoveryResult)cbIpAddress.SelectedItem;
-            tbDisplayedName.Text = hostDiscoveryResult.Hostname;
+            tbHostname.Text = hostDiscoveryResult.Hostname;
             tbMacAddress.Text = hostDiscoveryResult.MacAddress;
             tbManufacturer.Text = hostDiscoveryResult.Manufacturer;
         }
@@ -73,14 +75,19 @@ namespace LiveView.Forms
             return new ServerDto
             {
                 IpAddress = cbIpAddress.Text,
-                Hostname = tbDisplayedName.Text,
+                Hostname = tbHostname.Text,
                 MacAddress = tbMacAddress.Text,
                 SerialNumber = tbSziltechSerialNumber.Text,
                 VideoServerCredentials = new Credentials
                 {
                     Username = tbUsername.Text,
-                    Password = tbPassword.Password
-                }
+                    Password = VideoServerPasswordCryptor.Encrypt(tbPassword.Password)
+                },
+                WindowsCredentials = new Credentials
+                {
+                    Username = tbWinUsername.Text,
+                    Password = WindowsPasswordCryptor.Encrypt(tbWinPassword.Password)
+                },
             };
         }
 
@@ -100,11 +107,13 @@ namespace LiveView.Forms
             }
 
             cbIpAddress.Text = server.IpAddress;
-            tbDisplayedName.Text = server.Hostname;
+            tbHostname.Text = server.Hostname;
             tbMacAddress.Text = server.MacAddress;
             tbSziltechSerialNumber.Text = server.SerialNumber;
             tbUsername.Text = server.Username;
-            tbPassword.Text = server.Password;
+            tbPassword.Password = VideoServerPasswordCryptor.Decrypt(server.Password);
+            tbWinUsername.Text = server.WinUser;
+            tbWinPassword.Password = WindowsPasswordCryptor.Decrypt(server.WinPass);
         }
     }
 }

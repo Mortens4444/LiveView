@@ -101,7 +101,7 @@ namespace LiveView.Presenters
                         view.CbUsers.SelectedIndex = i;
                         break;
                     }
-                }                
+                }
             }
 
             view.NudFPS.Value = generalOptionsRepository.Get(Setting.FPS, 25);

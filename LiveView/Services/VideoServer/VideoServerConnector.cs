@@ -1,5 +1,6 @@
 ﻿using AxVIDEOCONTROL4Lib;
 using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Models.VideoServer;
@@ -43,7 +44,7 @@ namespace LiveView.Services.VideoServer
                     connectTcs.TrySetResult(false);
                 };
 
-                axVideoServer.Connect(server.IpAddress, server.Username, server.Password);
+                axVideoServer.Connect(server.IpAddress, server.Username, VideoServerPasswordCryptor.Decrypt(server.Password));
                 //axVideoServer.WaitForConnect(server.VideoServerInfo.ConnectionTimeoutMs); // It will hang the UI
 
                 await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs));

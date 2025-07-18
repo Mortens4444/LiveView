@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService;
@@ -57,7 +58,7 @@ namespace LiveView.Forms
             {
                 Id = user?.Id ?? 0,
                 Username = tbUsername.Text,
-                Password = String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : tbPassword.Password,
+                Password = UserPasswordHasher.Hash(String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : tbPassword.Password),
                 Email = tbEmail.Text,
                 NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,
                 SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value

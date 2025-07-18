@@ -45,8 +45,8 @@
             lblMacAddressOptional = new System.Windows.Forms.Label();
             gbVideoServer = new System.Windows.Forms.GroupBox();
             cbIpAddress = new System.Windows.Forms.ComboBox();
-            tbDisplayedName = new System.Windows.Forms.TextBox();
-            lblDisplayedName = new System.Windows.Forms.Label();
+            tbHostname = new System.Windows.Forms.TextBox();
+            lblHostname = new System.Windows.Forms.Label();
             tbPassword = new Mtf.Controls.PasswordBox();
             lblPassword = new System.Windows.Forms.Label();
             tbUsername = new System.Windows.Forms.TextBox();
@@ -54,7 +54,7 @@
             lblIpAddress = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
             lblWinPassword = new System.Windows.Forms.Label();
-            tbWinPassword = new System.Windows.Forms.TextBox();
+            tbWinPassword = new Mtf.Controls.PasswordBox();
             tbWinUsername = new System.Windows.Forms.TextBox();
             lblWinUsername = new System.Windows.Forms.Label();
             pMain.SuspendLayout();
@@ -233,8 +233,8 @@
             // gbVideoServer
             // 
             gbVideoServer.Controls.Add(cbIpAddress);
-            gbVideoServer.Controls.Add(tbDisplayedName);
-            gbVideoServer.Controls.Add(lblDisplayedName);
+            gbVideoServer.Controls.Add(tbHostname);
+            gbVideoServer.Controls.Add(lblHostname);
             gbVideoServer.Controls.Add(tbPassword);
             gbVideoServer.Controls.Add(lblPassword);
             gbVideoServer.Controls.Add(tbUsername);
@@ -261,25 +261,25 @@
             cbIpAddress.TabIndex = 1;
             cbIpAddress.SelectedIndexChanged += CbIpAddress_SelectedIndexChanged;
             // 
-            // tbDisplayedName
+            // tbHostname
             // 
-            tbDisplayedName.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbDisplayedName.Location = new System.Drawing.Point(10, 83);
-            tbDisplayedName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbDisplayedName.MaxLength = 100;
-            tbDisplayedName.Name = "tbDisplayedName";
-            tbDisplayedName.Size = new System.Drawing.Size(294, 23);
-            tbDisplayedName.TabIndex = 3;
+            tbHostname.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbHostname.Location = new System.Drawing.Point(10, 83);
+            tbHostname.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbHostname.MaxLength = 100;
+            tbHostname.Name = "tbDisplayedName";
+            tbHostname.Size = new System.Drawing.Size(294, 23);
+            tbHostname.TabIndex = 3;
             // 
-            // lblDisplayedName
+            // lblHostname
             // 
-            lblDisplayedName.AutoSize = true;
-            lblDisplayedName.Location = new System.Drawing.Point(7, 65);
-            lblDisplayedName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblDisplayedName.Name = "lblDisplayedName";
-            lblDisplayedName.Size = new System.Drawing.Size(91, 15);
-            lblDisplayedName.TabIndex = 2;
-            lblDisplayedName.Text = "Displayed name";
+            lblHostname.AutoSize = true;
+            lblHostname.Location = new System.Drawing.Point(7, 65);
+            lblHostname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblHostname.Name = "lblDisplayedName";
+            lblHostname.Size = new System.Drawing.Size(91, 15);
+            lblHostname.TabIndex = 2;
+            lblHostname.Text = "Displayed name";
             // 
             // tbPassword
             // 
@@ -367,6 +367,7 @@
             tbWinPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbWinPassword.MaxLength = 20;
             tbWinPassword.Name = "tbWinPassword";
+            tbWinPassword.PasswordChar = '*';
             tbWinPassword.Size = new System.Drawing.Size(152, 23);
             tbWinPassword.TabIndex = 2;
             // 
@@ -429,8 +430,8 @@
         private System.Windows.Forms.Label lblMacAddressOptional;
         private System.Windows.Forms.GroupBox gbVideoServer;
         private System.Windows.Forms.ComboBox cbIpAddress;
-        private System.Windows.Forms.TextBox tbDisplayedName;
-        private System.Windows.Forms.Label lblDisplayedName;
+        private System.Windows.Forms.TextBox tbHostname;
+        private System.Windows.Forms.Label lblHostname;
         private Mtf.Controls.PasswordBox tbPassword;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbUsername;
@@ -442,7 +443,7 @@
         private System.Windows.Forms.Label lblModel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblWinPassword;
-        private System.Windows.Forms.TextBox tbWinPassword;
+        private Mtf.Controls.PasswordBox tbWinPassword;
         private System.Windows.Forms.TextBox tbWinUsername;
         private System.Windows.Forms.Label lblWinUsername;
     }

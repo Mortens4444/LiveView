@@ -1,4 +1,6 @@
-﻿namespace Database.Models
+﻿using LiveView.Core.Services.PasswordHashers;
+
+namespace Database.Models
 {
     public class ServerDto
     {
@@ -14,9 +16,7 @@
 
         public string SerialNumber { get; set; }
 
-        public string WinUser { get; set; }
-
-        public string WinPass { get; set; }
+        public Credentials WindowsCredentials { get; set; }
 
         public Credentials VideoServerCredentials { get; set; }
 
@@ -26,13 +26,13 @@
             {
                 IpAddress = IpAddress,
                 Username = VideoServerCredentials.Username,
-                Password = VideoServerCredentials.Password,
+                Password = VideoServerPasswordCryptor.Encrypt(VideoServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
-                WinUser = WinUser,
-                WinPass = WinPass,
+                WinUser = WindowsCredentials.Username,
+                WinPass = WindowsPasswordCryptor.Encrypt(WindowsCredentials.Password),
                 StartInMotionPopup = false
             };
         }
@@ -52,12 +52,15 @@
                 IpAddress = server.IpAddress,
                 MacAddress = server.MacAddress,
                 SerialNumber = server.SerialNumber,
-                WinUser = server.WinUser,
-                WinPass = server.WinPass,
+                WindowsCredentials = new Credentials
+                {
+                    Username = server.WinUser,
+                    Password = WindowsPasswordCryptor.Decrypt(server.WinPass)
+                },
                 VideoServerCredentials = new Credentials
                 {
                     Username = server.Username,
-                    Password = server.Password
+                    Password = VideoServerPasswordCryptor.Decrypt(server.Password)
                 }
             };
         }

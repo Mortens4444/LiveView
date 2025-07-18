@@ -20,8 +20,7 @@
         {
             return new DatabaseServer
             {
-                IpOrHost = IpAddress,
-                DisplayedName = Hostname,
+                IpAddress = IpAddress,
                 Username = DatabaseServerCredentials.Username,
                 Password = DatabaseServerCredentials.Password,
                 MacAddress = MacAddress,

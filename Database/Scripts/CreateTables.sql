@@ -1,17 +1,27 @@
-﻿IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Servers]') AND type in (N'U'))
+﻿IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Credentials]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE Credentials (
+        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CredentialType INT,
+        Username NVARCHAR(MAX),
+        EncryptedPassword NVARCHAR(MAX)
+    );
+END;
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Servers]') AND type in (N'U'))
 BEGIN
     CREATE TABLE Servers (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        DisplayedName NVARCHAR(100) NOT NULL,
+        Hostname NVARCHAR(100) NOT NULL,
         DongleSn NVARCHAR(20) NULL,
-        SziltechSn NVARCHAR(20) NULL,
-        IpOrHost NVARCHAR(100) NOT NULL,
+        SerialNumber NVARCHAR(20) NULL,
+        IpAddress NVARCHAR(100) NOT NULL,
         MacAddress NVARCHAR(20) NULL,
         StartInMotionPopup BIT NOT NULL DEFAULT 1,
-        Username NVARCHAR(MAX) NOT NULL,
-        Password NVARCHAR(MAX) NOT NULL,
-        WinUser NVARCHAR(100) NULL,
-        WinPass NVARCHAR(100) NULL
+        VideoServerCredentialsId INT NULL,
+        WindowsCredentialsId INT NULL,
+        FOREIGN KEY (VideoServerCredentialsId) REFERENCES Credentials(Id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        FOREIGN KEY (WindowsCredentialsId) REFERENCES Credentials(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 END;
 
@@ -42,6 +52,8 @@ BEGIN
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         ServerId INT NOT NULL,
         PartnerCameraId INT NULL,
+        CameraCredentialsId INT NULL,
+        VideoSourceId INT NULL,
         StreamId INT NULL,
         RecorderIndex BIGINT NOT NULL,
         CameraName NVARCHAR(100) NOT NULL,
@@ -52,13 +64,11 @@ BEGIN
         MotionTrigger BIGINT NULL,
         MotionTriggerMinimumLength BIGINT NULL,
         Priority INT NULL,
-        Username NVARCHAR(200) NULL,
-        Password NVARCHAR(200) NULL,
-        VideoSourceId INT NULL,
         PermissionCamera INT NOT NULL DEFAULT 0,
         FOREIGN KEY (ServerId) REFERENCES Servers(Id) ON DELETE CASCADE,
         FOREIGN KEY (VideoSourceId) REFERENCES VideoSources(Id) ON DELETE SET NULL,
-        FOREIGN KEY (PartnerCameraId) REFERENCES Cameras(Id) ON DELETE NO ACTION
+        FOREIGN KEY (PartnerCameraId) REFERENCES Cameras(Id) ON DELETE NO ACTION,
+        FOREIGN KEY (CameraCredentialsId) REFERENCES Credentials(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
@@ -176,8 +186,8 @@ BEGIN
         OtherInformation NVARCHAR(MAX) NULL,
         SecondaryLogonPriority INT NOT NULL,
         Phone NVARCHAR(50) NULL,
-        Username NVARCHAR(MAX) NOT NULL,
-        Password NVARCHAR(MAX) NOT NULL
+        LoginCredentialsId INT NULL,
+        FOREIGN KEY (LoginCredentialsId) REFERENCES Credentials(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
@@ -431,17 +441,17 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DBServers]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DatabaseServers]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE DBServers (
+    CREATE TABLE DatabaseServers (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        IporHost NVARCHAR(100) NOT NULL,
+        IpAddress NVARCHAR(100) NOT NULL,
+        Hostname NVARCHAR(100) NOT NULL,
         DbName NVARCHAR(100) NOT NULL,
         DbPort INT NOT NULL,
-        DisplayedName NVARCHAR(100) NOT NULL,
         MacAddress NVARCHAR(20) NULL,
-        Username NVARCHAR(100) NOT NULL,
-        Password NVARCHAR(100) NOT NULL
+        DatabaseServerCredentialsId INT NULL,
+        FOREIGN KEY (DatabaseServerCredentialsId) REFERENCES Credentials(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );
 END;
 
@@ -485,18 +495,6 @@ BEGIN
         ZeroSignaled BIT NOT NULL,
         FOREIGN KEY (OperationId) REFERENCES Operations(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
         FOREIGN KEY (UserEventId) REFERENCES UserEvents(Id) ON DELETE CASCADE ON UPDATE NO ACTION
-    );
-END;
-
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Credentials]') AND type in (N'U'))
-BEGIN
-    CREATE TABLE Credentials (
-        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        UserId INT,
-        CredentialType INT,
-        Username NVARCHAR(MAX),
-        EncryptedPassword NVARCHAR(MAX),
-        FOREIGN KEY (UserId) REFERENCES Users(Id)
     );
 END;
 

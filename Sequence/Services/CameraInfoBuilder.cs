@@ -1,6 +1,7 @@
 ﻿using CameraForms.Dto;
 using Database.Enums;
 using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using Mtf.Extensions;
 using Sequence.Dto;
 using System;
@@ -102,7 +103,7 @@ namespace Sequence.Services
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
                         Username = camera.Username,
-                        Password = camera.Password,
+                        Password = CameraPasswordCryptor.Decrypt(camera.Password),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
                     };
@@ -114,7 +115,7 @@ namespace Sequence.Services
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
                         Username = camera.Username,
-                        Password = camera.Password,
+                        Password = CameraPasswordCryptor.Decrypt(camera.Password),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
                     };

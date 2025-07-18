@@ -8,6 +8,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Video.Sunell.IPR67;
@@ -100,7 +101,7 @@ namespace CameraForms.Forms
                 CameraIp = camera.IpAddress,
                 CameraPort = SunellLegacyCameraInfo.PagoPort,
                 Username = camera.Username,
-                Password = camera.Password,
+                Password = CameraPasswordCryptor.Decrypt(camera.Password),
                 CameraId = camera.CameraId ?? 1,
                 StreamId = camera.StreamId ?? 1
             };

@@ -51,7 +51,7 @@ namespace LiveView.Forms
             return new DatabaseServerDto
             {
                 IpAddress = cbIpAddress.Text,
-                Hostname = tbDisplayedName.Text,
+                Hostname = tbHostname.Text,
                 MacAddress = tbMacAddress.Text,
                 DatabaseName = tbDatabaseName.Text,
                 DatabaseServerPort = (int)nudDatabaseServerPort.Value,

@@ -9,6 +9,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
@@ -161,8 +162,7 @@ namespace CameraForms.Forms
             if (permissionManager.HasCameraAndUser(camera)
                 && permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
             {
-                //axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, server.Password);
+                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.Decrypt(server.Password));
             }
         }
 

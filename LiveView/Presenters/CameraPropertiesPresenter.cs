@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -47,7 +48,7 @@ namespace LiveView.Presenters
         {
             view.Camera.IpAddress = view.TbCameraIpAddress.Text;
             view.Camera.Username = view.TbCameraUsername.Text;
-            view.Camera.Password = view.TbCameraPassword.Password;
+            view.Camera.Password = CameraPasswordCryptor.Encrypt(view.TbCameraPassword.Password);
             view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
             view.Camera.FullscreenMode = (CameraMode)Enum.Parse(typeof(CameraMode), view.CbFullscreenMode.SelectedItem.ToString());
@@ -86,7 +87,7 @@ namespace LiveView.Presenters
             view.TbCameraGuid.Text = view.Camera.Guid;
             view.TbCameraIpAddress.Text = view.Camera.IpAddress;
             view.TbCameraUsername.Text = view.Camera.Username;
-            view.TbCameraPassword.Password = view.Camera.Password;
+            view.TbCameraPassword.Password = CameraPasswordCryptor.Decrypt(view.Camera.Password);
             view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
 

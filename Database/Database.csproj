@@ -54,7 +54,6 @@
     <EmbeddedResource Include="Scripts\SelectSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectAllGroupMember.sql" />
     <EmbeddedResource Include="Scripts\SelectAllUserEvent.sql" />
-    <EmbeddedResource Include="Scripts\SecondaryLoginUser.sql" />
     <EmbeddedResource Include="Scripts\LoginUser.sql" />
     <EmbeddedResource Include="Scripts\HasAnyRowOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSourceAndAgentInfoByName.sql" />

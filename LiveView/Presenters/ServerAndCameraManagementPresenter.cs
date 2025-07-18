@@ -308,7 +308,7 @@ namespace LiveView.Presenters
                 {
                     Name = dbServer.Id.ToString(),
                     Tag = dbServer,
-                    ToolTipText = dbServer.IpOrHost
+                    ToolTipText = dbServer.IpAddress
                 };
 
                 dbServerTreeNodes.Add(dbServerTreeNode);
