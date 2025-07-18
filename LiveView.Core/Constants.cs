@@ -16,6 +16,17 @@
         public const string LiveViewAgentHideConsoleWindow = "LiveView.Agent.HideConsoleWindow";
         public const string ShowDebugInfo = "ShowDebugInfo";
 
+        public const string CameraPasswordCryptorKey = "CameraPasswordCryptorKey";
+        public const string CameraPasswordCryptorIV = "CameraPasswordCryptorIV";
+        public const string DatabaseServerPasswordCryptorKey = "DatabaseServerPasswordCryptorKey";
+        public const string DatabaseServerPasswordCryptorIV = "DatabaseServerPasswordCryptorIV";
+        public const string UserPasswordCryptorKey = "UserPasswordCryptorKey";
+        public const string UserPasswordCryptorIV = "UserPasswordCryptorIV";
+        public const string VideoServerPasswordCryptorKey = "VideoServerPasswordCryptorKey";
+        public const string VideoServerPasswordCryptorIV = "VideoServerPasswordCryptorIV";
+        public const string WindowsPasswordCryptorKey = "WindowsPasswordCryptorKey";
+        public const string WindowsPasswordCryptorIV = "WindowsPasswordCryptorIV";
+
         public const string AttachDebugger = "AttachDebugger";
         public const string WaitAtStartup = "WaitAtStartup";
 

@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using LiveView.Core.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService;
@@ -57,8 +58,8 @@ namespace LiveView.Forms
                 DatabaseServerPort = (int)nudDatabaseServerPort.Value,
                 DatabaseServerCredentials = new Credentials
                 {
-                    Username = tbUsername.Text,
-                    Password = tbPassword.Password
+                    Username = DatabaseServerPasswordCryptor.Encrypt(tbUsername.Text),
+                    Password = DatabaseServerPasswordCryptor.Encrypt(tbPassword.Password)
                 }
             };
         }

@@ -40,7 +40,7 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.TbUsername.Text = user.Username;
+            view.TbUsername.Text = UserPasswordHasher.Decrypt(user.Username);
             view.TbFullName.Text = user.FullName;
             view.TbAddress.Text = user.Address;
             view.TbEmailAddress.Text = user.Email;

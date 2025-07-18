@@ -460,7 +460,8 @@ namespace LiveView.Presenters
 
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var user = userRepository.Login(view.TbUsername.Text, UserPasswordHasher.Hash(view.TbPassword.Password));
+            var user = userRepository.Login(UserPasswordHasher.Decrypt(view.TbUsername.Text),
+                UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {
                 ShowError("Invalid username or password");

@@ -44,7 +44,9 @@ namespace LiveView.Services.VideoServer
                     connectTcs.TrySetResult(false);
                 };
 
-                axVideoServer.Connect(server.IpAddress, server.Username, VideoServerPasswordCryptor.Decrypt(server.Password));
+                axVideoServer.Connect(server.IpAddress,
+                    VideoServerPasswordCryptor.Decrypt(server.Username),
+                    VideoServerPasswordCryptor.Decrypt(server.Password));
                 //axVideoServer.WaitForConnect(server.VideoServerInfo.ConnectionTimeoutMs); // It will hang the UI
 
                 await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs));

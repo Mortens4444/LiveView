@@ -102,7 +102,7 @@ namespace Sequence.Services
                         GridCamera = gridCamera,
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
-                        Username = camera.Username,
+                        Username = CameraPasswordCryptor.Decrypt(camera.Username),
                         Password = CameraPasswordCryptor.Decrypt(camera.Password),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
@@ -114,7 +114,7 @@ namespace Sequence.Services
                         GridCamera = gridCamera,
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
-                        Username = camera.Username,
+                        Username = CameraPasswordCryptor.Decrypt(camera.Username),
                         Password = CameraPasswordCryptor.Decrypt(camera.Password),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1

@@ -1,4 +1,6 @@
-﻿namespace Database.Models
+﻿using LiveView.Core.Services.PasswordHashers;
+
+namespace Database.Models
 {
     public class DatabaseServerDto
     {
@@ -21,8 +23,8 @@
             return new DatabaseServer
             {
                 IpAddress = IpAddress,
-                Username = DatabaseServerCredentials.Username,
-                Password = DatabaseServerCredentials.Password,
+                Username = DatabaseServerPasswordCryptor.Decrypt(DatabaseServerCredentials.Username),
+                Password = DatabaseServerPasswordCryptor.Decrypt(DatabaseServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DbName = DatabaseName,

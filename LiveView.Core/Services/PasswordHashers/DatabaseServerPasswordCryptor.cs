@@ -5,7 +5,7 @@ namespace LiveView.Core.Services.PasswordHashers
 {
     public static class DatabaseServerPasswordCryptor
     {
-        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes("u710c_'e~hre:i6~WUE!?WfH5Q~Kr@$6"), Encoding.ASCII.GetBytes("<g.?9w|70G*/v0Qpp"));
+        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.DatabaseServerPasswordCryptorKey)), Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.DatabaseServerPasswordCryptorIV)));
 
         public static string Encrypt(string input)
         {

@@ -25,13 +25,13 @@ namespace Database.Models
             return new Server
             {
                 IpAddress = IpAddress,
-                Username = VideoServerCredentials.Username,
+                Username = VideoServerPasswordCryptor.Encrypt(VideoServerCredentials.Username),
                 Password = VideoServerPasswordCryptor.Encrypt(VideoServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
-                WinUser = WindowsCredentials.Username,
+                WinUser = WindowsPasswordCryptor.Encrypt(WindowsCredentials.Username),
                 WinPass = WindowsPasswordCryptor.Encrypt(WindowsCredentials.Password),
                 StartInMotionPopup = false
             };
@@ -54,12 +54,12 @@ namespace Database.Models
                 SerialNumber = server.SerialNumber,
                 WindowsCredentials = new Credentials
                 {
-                    Username = server.WinUser,
+                    Username = WindowsPasswordCryptor.Decrypt(server.WinUser),
                     Password = WindowsPasswordCryptor.Decrypt(server.WinPass)
                 },
                 VideoServerCredentials = new Credentials
                 {
-                    Username = server.Username,
+                    Username = VideoServerPasswordCryptor.Decrypt(server.Username),
                     Password = VideoServerPasswordCryptor.Decrypt(server.Password)
                 }
             };

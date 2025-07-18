@@ -5,7 +5,7 @@ namespace LiveView.Core.Services.PasswordHashers
 {
     public static class CameraPasswordCryptor
     {
-        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes("7gz0c_'e~f6r:i6~QWS!?S4Eq1~Kr@$6"), Encoding.ASCII.GetBytes("<g.?8w|6G*/v0Qpp"));
+        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.CameraPasswordCryptorKey)), Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.CameraPasswordCryptorIV)));
 
         public static string Encrypt(string input)
         {

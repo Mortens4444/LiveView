@@ -7,11 +7,21 @@ namespace LiveView.Core.Services.PasswordHashers
 {
     public static class UserPasswordHasher
     {
-        private static readonly VigenereCipher cipher = new VigenereCipher("_9U|{m8J#5'O");
+        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.UserPasswordCryptorKey)), Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.UserPasswordCryptorIV)));
 
         public static string Hash(string input)
         {
-            return Sha256Hash(Reverse(Sha256Hash(Reverse(cipher.Encrypt(input)))));
+            return Sha256Hash(Reverse(Sha256Hash(Encrypt(input))));
+        }
+
+        public static string Encrypt(string input)
+        {
+            return Reverse(cipher.Encrypt(input));
+        }
+
+        public static string Decrypt(string input)
+        {
+            return cipher.Decrypt(Reverse(input));
         }
 
         public static string Sha256Hash(string input)

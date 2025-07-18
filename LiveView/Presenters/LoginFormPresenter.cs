@@ -30,7 +30,9 @@ namespace LiveView.Presenters
 
         public User Login()
         {
-            var user = userRepository.Login(view.TbUsername.Text, UserPasswordHasher.Hash(view.TbPassword.Password));
+            var user = userRepository.Login(
+                UserPasswordHasher.Decrypt(view.TbUsername.Text),
+                UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {
                 logger.LogWarning(UserManagementPermissions.Login, "Login failed with user '{0}'.", view.TbUsername.Text);
