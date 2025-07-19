@@ -1,11 +1,10 @@
-﻿using Mtf.Cryptography.SymmetricCiphers;
-using System.Text;
+﻿using Mtf.Cryptography.Interfaces;
 
 namespace LiveView.Core.Services.PasswordHashers
 {
     public static class CameraPasswordCryptor
     {
-        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.CameraPasswordCryptorKey)), Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.CameraPasswordCryptorIV)));
+        private static readonly ICipher cipher = CipherFactory.CreateCipher(Constants.CameraPasswordCryptorKey, Constants.CameraPasswordCryptorIV);
 
         public static string Encrypt(string input)
         {

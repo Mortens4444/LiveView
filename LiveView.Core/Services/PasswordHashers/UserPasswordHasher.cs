@@ -1,4 +1,4 @@
-﻿using Mtf.Cryptography.SymmetricCiphers;
+﻿using Mtf.Cryptography.Interfaces;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,7 +7,7 @@ namespace LiveView.Core.Services.PasswordHashers
 {
     public static class UserPasswordHasher
     {
-        private static readonly AesCipher cipher = new AesCipher(Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.UserPasswordCryptorKey)), Encoding.ASCII.GetBytes(AppConfig.GetString(Constants.UserPasswordCryptorIV)));
+        private static readonly ICipher cipher = CipherFactory.CreateCipher(Constants.UserPasswordCryptorKey, Constants.UserPasswordCryptorIV);
 
         public static string Hash(string input)
         {
