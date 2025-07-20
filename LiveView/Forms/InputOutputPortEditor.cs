@@ -9,11 +9,11 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class IOPortEditor : BaseView, IIOPortEditorView
+    public partial class InputOutputPortEditor : BaseView, IInputOutputPortEditorView
     {
-        private IOPortEditorPresenter presenter;
+        private InputOutputPortEditorPresenter presenter;
         
-        public IOPort IOPort { get; }
+        public InputOutputPort InputOutputPort { get; }
 
         public TextBox TbFriendlyName => tbFriendlyName;
 
@@ -21,10 +21,10 @@ namespace LiveView.Forms
 
         public NumericUpDown NudMaxSignalPerDay => nudMaxSignalPerDay;
 
-        public IOPortEditor(IServiceProvider serviceProvider, IOPort ioPort) : base(serviceProvider, typeof(IOPortEditorPresenter))
+        public InputOutputPortEditor(IServiceProvider serviceProvider, InputOutputPort inputOutputPort) : base(serviceProvider, typeof(InputOutputPortEditorPresenter))
         {
             InitializeComponent();
-            IOPort = ioPort;
+            InputOutputPort = inputOutputPort;
 
             permissionManager.ApplyPermissionsOnControls(this);
 
@@ -43,9 +43,9 @@ namespace LiveView.Forms
             presenter.CloseForm();
         }
 
-        private void IOPortEditor_Shown(object sender, EventArgs e)
+        private void InputOutputPortEditor_Shown(object sender, EventArgs e)
         {
-            presenter = Presenter as IOPortEditorPresenter;
+            presenter = Presenter as InputOutputPortEditorPresenter;
             presenter.Load();
         }
     }

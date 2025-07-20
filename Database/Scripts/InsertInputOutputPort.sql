@@ -1,4 +1,4 @@
-﻿INSERT INTO IOPorts
+﻿INSERT INTO InputOutputPorts
 	(DeviceId, PortNum, Name, FriendlyName, Direction, State, MinTriggerTime, MaxCount)
 VALUES
 	(@DeviceId, @PortNum, @Name, @FriendlyName, @Direction, @State, @MinTriggerTime, @MaxCount);

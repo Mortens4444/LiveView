@@ -1,1 +1,0 @@
-﻿DELETE FROM IOPorts WHERE Id = @Id;

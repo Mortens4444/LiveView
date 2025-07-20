@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace LiveView.Interfaces
 {
-    public interface IIOPortEditorView : IView
+    public interface IInputOutputPortEditorView : IView
     {
-        IOPort IOPort { get; }
+        InputOutputPort InputOutputPort { get; }
 
         TextBox TbFriendlyName { get; }
 

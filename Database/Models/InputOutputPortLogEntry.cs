@@ -3,7 +3,7 @@ using System;
 
 namespace Database.Models
 {
-    public class IOPortsLog : IHaveId<int>
+    public class InputOutputPortLogEntry : IHaveId<int>
     {
         public int Id { get; set; }
 

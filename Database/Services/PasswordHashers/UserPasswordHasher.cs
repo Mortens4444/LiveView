@@ -36,6 +36,11 @@ namespace Database.Services.PasswordHashers
 
         public static string Reverse(string input)
         {
+            if (String.IsNullOrEmpty(input))
+            {
+                return String.Empty;
+            }
+
             var chars = input.ToCharArray();
             Array.Reverse(chars);
             return new string(chars);

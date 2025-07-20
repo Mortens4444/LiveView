@@ -12,7 +12,7 @@ SET
     Phone = @Phone
 WHERE Id = @Id;
 
-UPDATE Credentials SET 
+UPDATE Credentials SET
     Username = @Username,
     EncryptedPassword = @Password
 WHERE Id = @LoginCredentialsId;

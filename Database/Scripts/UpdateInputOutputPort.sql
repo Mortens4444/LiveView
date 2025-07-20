@@ -1,4 +1,4 @@
-﻿UPDATE IOPorts
+﻿UPDATE InputOutputPorts
 SET 
     DeviceId = @DeviceId,
     PortNum = @PortNum,

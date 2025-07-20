@@ -200,10 +200,10 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(IODeviceManagementPermissions.Select | IODeviceManagementPermissions.Update)]
-        private void TsmiIOPortsSettings_Click(object sender, EventArgs e)
+        private void TsmiInputOutputPortsSettings_Click(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter.ShowForm<IOPortSettings>();
+            presenter.ShowForm<InputOutputPortSettings>();
         }
 
         [RequirePermission(CameraManagementPermissions.MotionPopupSettings)]

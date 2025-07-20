@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class IOPortSettings
+    partial class InputOutputPortSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -32,18 +32,18 @@
             pMain = new System.Windows.Forms.Panel();
             lblIODevice = new System.Windows.Forms.Label();
             chkZeroSignalled = new System.Windows.Forms.CheckBox();
-            lvIOPortRules = new Mtf.Controls.MtfListView();
+            lvInputOutputPortRules = new Mtf.Controls.MtfListView();
             chRuleIODevice = new System.Windows.Forms.ColumnHeader();
-            chOutputIOPort = new System.Windows.Forms.ColumnHeader();
+            chOutputInputOutputPort = new System.Windows.Forms.ColumnHeader();
             chOperationOrEvent = new System.Windows.Forms.ColumnHeader();
-            chZeroSignaled = new System.Windows.Forms.ColumnHeader();
+            chZeroSignalled = new System.Windows.Forms.ColumnHeader();
             cmdDeleteRules = new System.Windows.Forms.ContextMenuStrip(components);
             deleteRulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            lblOutputIOPort = new System.Windows.Forms.Label();
+            lblOutputInputOutputPort = new System.Windows.Forms.Label();
             btnAddToRules = new System.Windows.Forms.Button();
-            cbOutputIOPort = new System.Windows.Forms.ComboBox();
+            cbOutputInputOutputPort = new System.Windows.Forms.ComboBox();
             lblOperationOrEvent = new System.Windows.Forms.Label();
-            cbIODevice = new System.Windows.Forms.ComboBox();
+            cbInputOutputDevice = new System.Windows.Forms.ComboBox();
             cbOperationOrEvent = new System.Windows.Forms.ComboBox();
             pLower = new System.Windows.Forms.Panel();
             gbIORules = new System.Windows.Forms.GroupBox();
@@ -55,7 +55,7 @@
             chPortName = new System.Windows.Forms.ColumnHeader();
             chPortNumber = new System.Windows.Forms.ColumnHeader();
             chIODevice = new System.Windows.Forms.ColumnHeader();
-            lvIODevices = new Mtf.Controls.MtfListView();
+            lvInputOutputDevices = new Mtf.Controls.MtfListView();
             pUpper = new System.Windows.Forms.Panel();
             cmdDeleteRules.SuspendLayout();
             pLower.SuspendLayout();
@@ -94,51 +94,51 @@
             chkZeroSignalled.Text = "Zero signaled";
             chkZeroSignalled.UseVisualStyleBackColor = true;
             // 
-            // lvIOPortRules
+            // lvInputOutputPortRules
             // 
-            lvIOPortRules.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvIOPortRules.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvIOPortRules.AlternatingColorsAreInUse = true;
-            lvIOPortRules.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvIOPortRules.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvIOPortRules.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            lvIOPortRules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chRuleIODevice, chOutputIOPort, chOperationOrEvent, chZeroSignaled });
-            lvIOPortRules.CompactView = false;
-            lvIOPortRules.ContextMenuStrip = cmdDeleteRules;
-            lvIOPortRules.EnsureLastItemIsVisible = false;
-            lvIOPortRules.FirstItemIsGray = false;
-            lvIOPortRules.FullRowSelect = true;
-            lvIOPortRules.Location = new System.Drawing.Point(4, 77);
-            lvIOPortRules.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvIOPortRules.Name = "lvIOPortRules";
-            lvIOPortRules.OwnerDraw = true;
-            lvIOPortRules.ReadonlyCheckboxes = false;
-            lvIOPortRules.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvIOPortRules.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvIOPortRules.Size = new System.Drawing.Size(907, 151);
-            lvIOPortRules.TabIndex = 5;
-            lvIOPortRules.UseCompatibleStateImageBehavior = false;
-            lvIOPortRules.View = System.Windows.Forms.View.Details;
+            lvInputOutputPortRules.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvInputOutputPortRules.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvInputOutputPortRules.AlternatingColorsAreInUse = true;
+            lvInputOutputPortRules.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvInputOutputPortRules.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvInputOutputPortRules.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lvInputOutputPortRules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chRuleIODevice, chOutputInputOutputPort, chOperationOrEvent, chZeroSignalled });
+            lvInputOutputPortRules.CompactView = false;
+            lvInputOutputPortRules.ContextMenuStrip = cmdDeleteRules;
+            lvInputOutputPortRules.EnsureLastItemIsVisible = false;
+            lvInputOutputPortRules.FirstItemIsGray = false;
+            lvInputOutputPortRules.FullRowSelect = true;
+            lvInputOutputPortRules.Location = new System.Drawing.Point(4, 77);
+            lvInputOutputPortRules.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvInputOutputPortRules.Name = "lvInputOutputPortRules";
+            lvInputOutputPortRules.OwnerDraw = true;
+            lvInputOutputPortRules.ReadonlyCheckboxes = false;
+            lvInputOutputPortRules.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvInputOutputPortRules.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvInputOutputPortRules.Size = new System.Drawing.Size(907, 151);
+            lvInputOutputPortRules.TabIndex = 5;
+            lvInputOutputPortRules.UseCompatibleStateImageBehavior = false;
+            lvInputOutputPortRules.View = System.Windows.Forms.View.Details;
             // 
             // chRuleIODevice
             // 
             chRuleIODevice.Text = "I/O Device";
             chRuleIODevice.Width = 102;
             // 
-            // chOutputIOPort
+            // chOutputInputOutputPort
             // 
-            chOutputIOPort.Text = "Output I/O port";
-            chOutputIOPort.Width = 183;
+            chOutputInputOutputPort.Text = "Output I/O port";
+            chOutputInputOutputPort.Width = 183;
             // 
             // chOperationOrEvent
             // 
             chOperationOrEvent.Text = "Operation or event";
             chOperationOrEvent.Width = 184;
             // 
-            // chZeroSignaled
+            // chZeroSignalled
             // 
-            chZeroSignaled.Text = "Zero signaled";
-            chZeroSignaled.Width = 81;
+            chZeroSignalled.Text = "Zero signalled";
+            chZeroSignalled.Width = 81;
             // 
             // cmdDeleteRules
             // 
@@ -153,15 +153,15 @@
             deleteRulesToolStripMenuItem.Text = "Delete rules";
             deleteRulesToolStripMenuItem.Click += DeleteRulesToolStripMenuItem_Click;
             // 
-            // lblOutputIOPort
+            // lblOutputInputOutputPort
             // 
-            lblOutputIOPort.AutoSize = true;
-            lblOutputIOPort.Location = new System.Drawing.Point(122, 28);
-            lblOutputIOPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblOutputIOPort.Name = "lblOutputIOPort";
-            lblOutputIOPort.Size = new System.Drawing.Size(90, 15);
-            lblOutputIOPort.TabIndex = 2;
-            lblOutputIOPort.Text = "Output I/O port";
+            lblOutputInputOutputPort.AutoSize = true;
+            lblOutputInputOutputPort.Location = new System.Drawing.Point(122, 28);
+            lblOutputInputOutputPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblOutputInputOutputPort.Name = "lblOutputInputOutputPort";
+            lblOutputInputOutputPort.Size = new System.Drawing.Size(90, 15);
+            lblOutputInputOutputPort.TabIndex = 2;
+            lblOutputInputOutputPort.Text = "Output I/O port";
             // 
             // btnAddToRules
             // 
@@ -175,14 +175,14 @@
             btnAddToRules.UseVisualStyleBackColor = true;
             btnAddToRules.Click += BtnAddToRules_Click;
             // 
-            // cbOutputIOPort
+            // cbOutputInputOutputPort
             // 
-            cbOutputIOPort.FormattingEnabled = true;
-            cbOutputIOPort.Location = new System.Drawing.Point(122, 46);
-            cbOutputIOPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbOutputIOPort.Name = "cbOutputIOPort";
-            cbOutputIOPort.Size = new System.Drawing.Size(207, 23);
-            cbOutputIOPort.TabIndex = 1;
+            cbOutputInputOutputPort.FormattingEnabled = true;
+            cbOutputInputOutputPort.Location = new System.Drawing.Point(122, 46);
+            cbOutputInputOutputPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbOutputInputOutputPort.Name = "cbOutputInputOutputPort";
+            cbOutputInputOutputPort.Size = new System.Drawing.Size(207, 23);
+            cbOutputInputOutputPort.TabIndex = 1;
             // 
             // lblOperationOrEvent
             // 
@@ -196,12 +196,12 @@
             // 
             // cbIODevice
             // 
-            cbIODevice.FormattingEnabled = true;
-            cbIODevice.Location = new System.Drawing.Point(4, 46);
-            cbIODevice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbIODevice.Name = "cbIODevice";
-            cbIODevice.Size = new System.Drawing.Size(108, 23);
-            cbIODevice.TabIndex = 9;
+            cbInputOutputDevice.FormattingEnabled = true;
+            cbInputOutputDevice.Location = new System.Drawing.Point(4, 46);
+            cbInputOutputDevice.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbInputOutputDevice.Name = "cbIODevice";
+            cbInputOutputDevice.Size = new System.Drawing.Size(108, 23);
+            cbInputOutputDevice.TabIndex = 9;
             // 
             // cbOperationOrEvent
             // 
@@ -225,13 +225,13 @@
             // gbIORules
             // 
             gbIORules.Controls.Add(lblIODevice);
-            gbIORules.Controls.Add(cbIODevice);
+            gbIORules.Controls.Add(cbInputOutputDevice);
             gbIORules.Controls.Add(chkZeroSignalled);
-            gbIORules.Controls.Add(lvIOPortRules);
+            gbIORules.Controls.Add(lvInputOutputPortRules);
             gbIORules.Controls.Add(btnAddToRules);
             gbIORules.Controls.Add(lblOperationOrEvent);
-            gbIORules.Controls.Add(cbOutputIOPort);
-            gbIORules.Controls.Add(lblOutputIOPort);
+            gbIORules.Controls.Add(cbOutputInputOutputPort);
+            gbIORules.Controls.Add(lblOutputInputOutputPort);
             gbIORules.Controls.Add(cbOperationOrEvent);
             gbIORules.Dock = System.Windows.Forms.DockStyle.Fill;
             gbIORules.Location = new System.Drawing.Point(0, 0);
@@ -288,34 +288,34 @@
             // 
             // lvIODevices
             // 
-            lvIODevices.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvIODevices.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvIODevices.AlternatingColorsAreInUse = true;
-            lvIODevices.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvIODevices.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvIODevices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chIODevice, chPortNumber, chPortName, chFriendlyName, chMaxSignalPerDay, chMinTriggerTime });
-            lvIODevices.CompactView = false;
-            lvIODevices.ContextMenuStrip = cmsChangeSettings;
-            lvIODevices.Dock = System.Windows.Forms.DockStyle.Fill;
-            lvIODevices.EnsureLastItemIsVisible = false;
-            lvIODevices.FirstItemIsGray = false;
-            lvIODevices.FullRowSelect = true;
-            lvIODevices.Location = new System.Drawing.Point(0, 0);
-            lvIODevices.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            lvIODevices.MultiSelect = false;
-            lvIODevices.Name = "lvIODevices";
-            lvIODevices.OwnerDraw = true;
-            lvIODevices.ReadonlyCheckboxes = false;
-            lvIODevices.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvIODevices.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvIODevices.Size = new System.Drawing.Size(915, 285);
-            lvIODevices.TabIndex = 0;
-            lvIODevices.UseCompatibleStateImageBehavior = false;
-            lvIODevices.View = System.Windows.Forms.View.Details;
+            lvInputOutputDevices.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvInputOutputDevices.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvInputOutputDevices.AlternatingColorsAreInUse = true;
+            lvInputOutputDevices.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvInputOutputDevices.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvInputOutputDevices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chIODevice, chPortNumber, chPortName, chFriendlyName, chMaxSignalPerDay, chMinTriggerTime });
+            lvInputOutputDevices.CompactView = false;
+            lvInputOutputDevices.ContextMenuStrip = cmsChangeSettings;
+            lvInputOutputDevices.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvInputOutputDevices.EnsureLastItemIsVisible = false;
+            lvInputOutputDevices.FirstItemIsGray = false;
+            lvInputOutputDevices.FullRowSelect = true;
+            lvInputOutputDevices.Location = new System.Drawing.Point(0, 0);
+            lvInputOutputDevices.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvInputOutputDevices.MultiSelect = false;
+            lvInputOutputDevices.Name = "lvIODevices";
+            lvInputOutputDevices.OwnerDraw = true;
+            lvInputOutputDevices.ReadonlyCheckboxes = false;
+            lvInputOutputDevices.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvInputOutputDevices.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvInputOutputDevices.Size = new System.Drawing.Size(915, 285);
+            lvInputOutputDevices.TabIndex = 0;
+            lvInputOutputDevices.UseCompatibleStateImageBehavior = false;
+            lvInputOutputDevices.View = System.Windows.Forms.View.Details;
             // 
             // pUpper
             // 
-            pUpper.Controls.Add(lvIODevices);
+            pUpper.Controls.Add(lvInputOutputDevices);
             pUpper.Dock = System.Windows.Forms.DockStyle.Top;
             pUpper.Location = new System.Drawing.Point(0, 0);
             pUpper.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -323,7 +323,7 @@
             pUpper.Size = new System.Drawing.Size(915, 285);
             pUpper.TabIndex = 3;
             // 
-            // IOPortSettings
+            // InputOutputPortSettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -332,10 +332,10 @@
             Controls.Add(pUpper);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "IOPortSettings";
+            Name = "InputOutputPortSettings";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "I/O ports’ settings";
-            Shown += IOPortSettings_Shown;
+            Shown += InputOutputPortSettings_Shown;
             cmdDeleteRules.ResumeLayout(false);
             pLower.ResumeLayout(false);
             gbIORules.ResumeLayout(false);
@@ -348,20 +348,20 @@
         #endregion
 
         private System.Windows.Forms.Panel pMain;
-        private System.Windows.Forms.ComboBox cbOutputIOPort;
+        private System.Windows.Forms.ComboBox cbOutputInputOutputPort;
         private System.Windows.Forms.Label lblIODevice;
         private System.Windows.Forms.CheckBox chkZeroSignalled;
-        private Mtf.Controls.MtfListView lvIOPortRules;
+        private Mtf.Controls.MtfListView lvInputOutputPortRules;
         private System.Windows.Forms.ColumnHeader chRuleIODevice;
-        private System.Windows.Forms.ColumnHeader chOutputIOPort;
+        private System.Windows.Forms.ColumnHeader chOutputInputOutputPort;
         private System.Windows.Forms.ColumnHeader chOperationOrEvent;
-        private System.Windows.Forms.ColumnHeader chZeroSignaled;
+        private System.Windows.Forms.ColumnHeader chZeroSignalled;
         private System.Windows.Forms.ContextMenuStrip cmdDeleteRules;
         private System.Windows.Forms.ToolStripMenuItem deleteRulesToolStripMenuItem;
-        private System.Windows.Forms.Label lblOutputIOPort;
+        private System.Windows.Forms.Label lblOutputInputOutputPort;
         private System.Windows.Forms.Button btnAddToRules;
         private System.Windows.Forms.Label lblOperationOrEvent;
-        private System.Windows.Forms.ComboBox cbIODevice;
+        private System.Windows.Forms.ComboBox cbInputOutputDevice;
         private System.Windows.Forms.ComboBox cbOperationOrEvent;
         private System.Windows.Forms.Panel pLower;
         private System.Windows.Forms.GroupBox gbIORules;
@@ -373,7 +373,7 @@
         private System.Windows.Forms.ColumnHeader chPortName;
         private System.Windows.Forms.ColumnHeader chPortNumber;
         private System.Windows.Forms.ColumnHeader chIODevice;
-        private Mtf.Controls.MtfListView lvIODevices;
+        private Mtf.Controls.MtfListView lvInputOutputDevices;
         private System.Windows.Forms.Panel pUpper;
     }
 }

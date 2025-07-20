@@ -3,7 +3,7 @@ using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
-    public class IOPort : IHaveId<int>
+    public class InputOutputPort : IHaveId<int>
     {
         public int Id { get; set; }
 

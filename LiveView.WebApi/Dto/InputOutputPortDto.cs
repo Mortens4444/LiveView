@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record IOPortDto : IHaveIdWithSetter<int>
+    public record InputOutputPortDto : IHaveIdWithSetter<int>
     {
         public int Id { get; set; }
 

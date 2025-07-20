@@ -8,23 +8,23 @@ using System.Windows.Forms;
 
 namespace LiveView.Forms
 {
-    public partial class IOPortSettings : BaseView, IIOPortSettingsView
+    public partial class InputOutputPortSettings : BaseView, IInputOutputPortSettingsView
     {
-        private IOPortSettingsPresenter presenter;
+        private InputOutputPortSettingsPresenter presenter;
 
         public CheckBox ChkZeroSignalled => chkZeroSignalled;
 
-        public ComboBox CbIODevice => cbIODevice;
+        public ComboBox CbInputOutputDevice => cbInputOutputDevice;
 
         public ComboBox CbOperationOrEvent => cbOperationOrEvent;
 
-        public ComboBox CbOutputIOPort => cbOutputIOPort;
+        public ComboBox CbOutputInputOutputPort => cbOutputInputOutputPort;
 
-        public ListView LvIODevices => lvIODevices;
+        public ListView LvInputOutputDevices => lvInputOutputDevices;
 
-        public ListView LvIOPortRules => lvIOPortRules;
+        public ListView LvInputOutputPortRules => lvInputOutputPortRules;
 
-        public IOPortSettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(IOPortSettingsPresenter))
+        public InputOutputPortSettings(IServiceProvider serviceProvider) : base(serviceProvider, typeof(InputOutputPortSettingsPresenter))
         {
             InitializeComponent();
 
@@ -34,10 +34,10 @@ namespace LiveView.Forms
         }
 
         [RequirePermission(IODeviceManagementPermissions.Select)]
-        private void IOPortSettings_Shown(object sender, EventArgs e)
+        private void InputOutputPortSettings_Shown(object sender, EventArgs e)
         {
             permissionManager.EnsurePermissions();
-            presenter = Presenter as IOPortSettingsPresenter;
+            presenter = Presenter as InputOutputPortSettingsPresenter;
             presenter.Load();
         }
 

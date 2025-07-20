@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class IOPortsRule : IHaveId<int>
+    public class InputOutputPortRule : IHaveId<int>
     {
         public int Id { get; set; }
 

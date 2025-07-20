@@ -30,8 +30,8 @@
     <EmbeddedResource Include="Scripts\SelectAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeCharChanger.sql" />
     <EmbeddedResource Include="Scripts\SelectAllBarcodeScanOptions.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllIOPortsRule.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllIOPortsLog.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllInputOutputPortRule.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllInputOutputPortLogEntry.sql" />
     <EmbeddedResource Include="Scripts\SelectFullscreenDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectAllEvent.sql" />
@@ -94,7 +94,7 @@
     <EmbeddedResource Include="Scripts\DeleteCamerasOfGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteGridInSequence.sql" />
     <EmbeddedResource Include="Scripts\DeleteGroup.sql" />
-    <EmbeddedResource Include="Scripts\DeleteIOPort.sql" />
+    <EmbeddedResource Include="Scripts\DeleteInputOutputPort.sql" />
     <EmbeddedResource Include="Scripts\DeleteLogEntry.sql" />
     <EmbeddedResource Include="Scripts\InsertLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
@@ -125,9 +125,9 @@
     <EmbeddedResource Include="Scripts\SelectAllMapObject.sql" />
     <EmbeddedResource Include="Scripts\UpdateMap.sql" />
     <EmbeddedResource Include="Scripts\InsertMap.sql" />
-    <EmbeddedResource Include="Scripts\UpdateIOPort.sql" />
-    <EmbeddedResource Include="Scripts\InsertIOPort.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllIOPort.sql" />
+    <EmbeddedResource Include="Scripts\UpdateInputOutputPort.sql" />
+    <EmbeddedResource Include="Scripts\InsertInputOutputPort.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllInputOutputPort.sql" />
     <EmbeddedResource Include="Scripts\UpdateGroup.sql" />
     <EmbeddedResource Include="Scripts\InsertGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectAllGroup.sql" />

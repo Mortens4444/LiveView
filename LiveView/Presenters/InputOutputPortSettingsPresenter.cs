@@ -13,36 +13,36 @@ using System.Windows.Forms;
 
 namespace LiveView.Presenters
 {
-    public class IOPortSettingsPresenter : BasePresenter
+    public class InputOutputPortSettingsPresenter : BasePresenter
     {
-        private IIOPortSettingsView view;
+        private IInputOutputPortSettingsView view;
         private readonly IUserEventRepository userEventRepository;
-        private readonly IIOPortRepository ioPortRepository;
-        private readonly IIOPortsLogRepository ioPortsLogRepository;
-        private readonly IIOPortsRuleRepository ioPortsRuleRepository;
-        private readonly ILogger<IOPortSettings> logger;
+        private readonly IInputOutputPortRepository inputOutputPortRepository;
+        private readonly IInputOutputPortLogRepository inputOutputPortsLogRepository;
+        private readonly IInputOutputPortRuleRepository inputOutputPortsRuleRepository;
+        private readonly ILogger<InputOutputPortSettings> logger;
 
-        public IOPortSettingsPresenter(IOPortSettingsPresenterDependencies dependencies)
+        public InputOutputPortSettingsPresenter(InputOutputPortSettingsPresenterDependencies dependencies)
             : base(dependencies)
         {
             userEventRepository = dependencies.UserEventRepository;
-            ioPortRepository = dependencies.IOPortRepository;
-            ioPortsLogRepository = dependencies.IOPortsLogRepository;
-            ioPortsRuleRepository = dependencies.IOPortsRuleRepository;
+            inputOutputPortRepository = dependencies.InputOutputPortRepository;
+            inputOutputPortsLogRepository = dependencies.InputOutputPortsLogRepository;
+            inputOutputPortsRuleRepository = dependencies.InputOutputPortsRuleRepository;
             logger = dependencies.Logger;
         }
 
         public new void SetView(IView view)
         {
             base.SetView(view);
-            this.view = view as IIOPortSettingsView;
+            this.view = view as IInputOutputPortSettingsView;
         }
 
         public void AddRule()
         {
             var userEvent = view.CbOperationOrEvent.SelectedItem as UserEvent;
-            var port = view.CbIODevice.SelectedItem as IOPort;
-            ioPortsRuleRepository.Insert(new IOPortsRule
+            var port = view.CbInputOutputDevice.SelectedItem as InputOutputPort;
+            inputOutputPortsRuleRepository.Insert(new InputOutputPortRule
             {
                 DeviceId = port.DeviceId,
                 PortNum = port.PortNum,
@@ -57,8 +57,8 @@ namespace LiveView.Presenters
             var events = userEventRepository.SelectAll();
             view.AddItems(view.CbOperationOrEvent, events);
 
-            var ioPorts = ioPortRepository.SelectAll();
-            view.LvIODevices.AddItems(ioPorts, (IOPort port) =>
+            var inputOutputPorts = inputOutputPortRepository.SelectAll();
+            view.LvInputOutputDevices.AddItems(inputOutputPorts, (InputOutputPort port) =>
             {
                 var result = new ListViewItem(port.DeviceId.ToString())
                 {
@@ -72,13 +72,13 @@ namespace LiveView.Presenters
                 return result;
             });
 
-            view.AddItems(view.CbIODevice, ioPorts);
-            view.AddItems(view.CbOutputIOPort, ioPorts.Where(p => p.Direction == PortDirection.Output));
+            view.AddItems(view.CbInputOutputDevice, inputOutputPorts);
+            view.AddItems(view.CbOutputInputOutputPort, inputOutputPorts.Where(p => p.Direction == PortDirection.Output));
         }
 
         public void ChangePortSettings()
         {
-            if (ShowDialog<IOPortEditor>())
+            if (ShowDialog<InputOutputPortEditor>())
             {
 
             }
@@ -86,11 +86,11 @@ namespace LiveView.Presenters
 
         public void DeleteRules()
         {
-            foreach (ListViewItem item in view.LvIOPortRules.SelectedItems)
+            foreach (ListViewItem item in view.LvInputOutputPortRules.SelectedItems)
             {
-                if (item.Tag is IOPortsRule ioPortsRule)
+                if (item.Tag is InputOutputPortRule inputOutputPortsRule)
                 {
-                    ioPortsRuleRepository.Delete(ioPortsRule.Id);
+                    inputOutputPortsRuleRepository.Delete(inputOutputPortsRule.Id);
                 }
             }
             logger.LogInfo(IODeviceManagementPermissions.Update, "I/O device rules have been deleted.");

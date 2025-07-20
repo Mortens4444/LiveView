@@ -455,9 +455,9 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPorts]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InputOutputPorts]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE IOPorts (
+    CREATE TABLE InputOutputPorts (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         DeviceId INT NOT NULL,
         Direction INT NOT NULL,
@@ -465,34 +465,34 @@ BEGIN
         MinTriggerTime INT NOT NULL,
         MaxCount INT NOT NULL,
         Name NVARCHAR(255) NOT NULL,
-        PortNum INT NOT NULL,
+        PortNumber INT NOT NULL,
         State INT NOT NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPortsLogs]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InputOutputPortLogs]') AND type = N'U')
 BEGIN
-    CREATE TABLE IOPortsLogs (
+    CREATE TABLE InputOutputPortLogs (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         UserId INT NOT NULL,
         DeviceId INT NOT NULL,
         Date DATETIME NOT NULL,
         Note NVARCHAR(MAX) NULL,
-        PortNum INT NOT NULL,
+        PortNumber INT NOT NULL,
         State INT NOT NULL,
         FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[IOPortsRules]') AND type = N'U')
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InputOutputPortRules]') AND type = N'U')
 BEGIN
-    CREATE TABLE IOPortsRules (
+    CREATE TABLE InputOutputPortRules (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         OperationId INT NULL,
         UserEventId INT NULL,
         DeviceId INT NOT NULL,
-        PortNum INT NOT NULL,
-        ZeroSignaled BIT NOT NULL,
+        PortNumber INT NOT NULL,
+        ZeroSignalled BIT NOT NULL,
         FOREIGN KEY (OperationId) REFERENCES Operations(Id) ON DELETE CASCADE ON UPDATE NO ACTION,
         FOREIGN KEY (UserEventId) REFERENCES UserEvents(Id) ON DELETE CASCADE ON UPDATE NO ACTION
     );

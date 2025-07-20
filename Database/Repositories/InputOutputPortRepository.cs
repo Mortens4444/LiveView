@@ -4,7 +4,7 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class IOPortsRuleRepository : BaseRepository<IOPortsRule>, IIOPortsRuleRepository
+    public sealed class InputOutputPortRepository : BaseRepository<InputOutputPort>, IInputOutputPortRepository
     {
     }
 }

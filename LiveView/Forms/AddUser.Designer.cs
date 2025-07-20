@@ -67,7 +67,6 @@
             tbEmail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbEmail.MaxLength = 100;
             tbEmail.Name = "tbEmail";
-            tbEmail.PasswordChar = '*';
             tbEmail.Size = new System.Drawing.Size(182, 23);
             tbEmail.TabIndex = 5;
             // 

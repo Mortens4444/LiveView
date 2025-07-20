@@ -70,7 +70,7 @@ namespace LiveView.Forms
             tsmiAbout = new ToolStripMenuItem();
             tsmiMapCreator = new ToolStripMenuItem();
             tsmiMotionPopup = new ToolStripMenuItem();
-            tsmiIOPortsSettings = new ToolStripMenuItem();
+            tsmiInputOutputPortSettings = new ToolStripMenuItem();
             tsmiSynchronView = new ToolStripMenuItem();
             tsmiBarCodeReadings = new ToolStripMenuItem();
             tsmiPositioningMousePointer = new ToolStripMenuItem();
@@ -89,23 +89,23 @@ namespace LiveView.Forms
             pLeft = new Panel();
             pLeftBottom = new Panel();
             splitter4 = new Splitter();
-            tvIOPorts = new Mtf.Controls.MtfTreeView();
-            ilIOPortIcons = new ImageList(components);
+            tvInputOutputPorts = new Mtf.Controls.MtfTreeView();
+            ilInputOutputPortIcons = new ImageList(components);
             splitter2 = new Splitter();
-            lvIOPorts = new Mtf.Controls.MtfListView();
+            lvInputOutputPorts = new Mtf.Controls.MtfListView();
             chPortName = new ColumnHeader();
             chPortValue = new ColumnHeader();
             chPortDirection = new ColumnHeader();
             gbPrimaryLogon = new GroupBox();
-            chIOPortEventNote = new ColumnHeader();
-            chIOPortEventLoggedOnUser = new ColumnHeader();
-            chIOPortEventPortState = new ColumnHeader();
-            chIOPortEventPortNumber = new ColumnHeader();
-            chIOPortEventDevice = new ColumnHeader();
-            chIOPortEventDate = new ColumnHeader();
-            chIOPortEventID = new ColumnHeader();
+            chInputOutputPortEventNote = new ColumnHeader();
+            chInputOutputPortEventLoggedOnUser = new ColumnHeader();
+            chInputOutputPortEventPortState = new ColumnHeader();
+            chInputOutputPortEventPortNumber = new ColumnHeader();
+            chInputOutputPortEventDevice = new ColumnHeader();
+            chInputOutputPortEventDate = new ColumnHeader();
+            chInputOutputPortEventId = new ColumnHeader();
             lvPortEvents = new Mtf.Controls.MtfListView();
-            gb_PortEvents = new GroupBox();
+            gbPortEvents = new GroupBox();
             splitter3 = new Splitter();
             pRightBottom = new Panel();
             pbMap = new Mtf.Controls.MtfPictureBox();
@@ -119,7 +119,7 @@ namespace LiveView.Forms
             pLeft.SuspendLayout();
             pLeftBottom.SuspendLayout();
             gbPrimaryLogon.SuspendLayout();
-            gb_PortEvents.SuspendLayout();
+            gbPortEvents.SuspendLayout();
             pRightBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbMap).BeginInit();
             pMap.SuspendLayout();
@@ -436,14 +436,14 @@ namespace LiveView.Forms
             tsmiMotionPopup.Text = "Motion popup";
             tsmiMotionPopup.Click += TsmiMotionPopup_Click;
             // 
-            // tsmiIOPortsSettings
+            // tsmiInputOutputPortsSettings
             // 
-            tsmiIOPortsSettings.Enabled = false;
-            tsmiIOPortsSettings.Image = Properties.Resources.io_port_settings;
-            tsmiIOPortsSettings.Name = "tsmiIOPortsSettings";
-            tsmiIOPortsSettings.Size = new System.Drawing.Size(215, 22);
-            tsmiIOPortsSettings.Text = "I/O ports' settings";
-            tsmiIOPortsSettings.Click += TsmiIOPortsSettings_Click;
+            tsmiInputOutputPortSettings.Enabled = false;
+            tsmiInputOutputPortSettings.Image = Properties.Resources.io_port_settings;
+            tsmiInputOutputPortSettings.Name = "tsmiInputOutputPortsSettings";
+            tsmiInputOutputPortSettings.Size = new System.Drawing.Size(215, 22);
+            tsmiInputOutputPortSettings.Text = "I/O ports' settings";
+            tsmiInputOutputPortSettings.Click += TsmiInputOutputPortsSettings_Click;
             // 
             // tsmiSynchronView
             // 
@@ -500,7 +500,7 @@ namespace LiveView.Forms
             // 
             // tsmiTools
             // 
-            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSynchronView, tsmiIOPortsSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator, tsmiVncClient });
+            tsmiTools.DropDownItems.AddRange(new ToolStripItem[] { tsmiLanguageEditor, tsmiLogViewer, tsmiPositioningMousePointer, tsmiBarCodeReadings, tsmiSynchronView, tsmiInputOutputPortSettings, tsmiMotionPopup, tsmiMapCreator, tsmiKBD300ASimulator, tsmiVncClient });
             tsmiTools.Image = (System.Drawing.Image)resources.GetObject("tsmiTools.Image");
             tsmiTools.Name = "tsmiTools";
             tsmiTools.Size = new System.Drawing.Size(63, 20);
@@ -610,9 +610,9 @@ namespace LiveView.Forms
             // 
             pLeftBottom.Controls.Add(gbUserEvents);
             pLeftBottom.Controls.Add(splitter4);
-            pLeftBottom.Controls.Add(tvIOPorts);
+            pLeftBottom.Controls.Add(tvInputOutputPorts);
             pLeftBottom.Controls.Add(splitter2);
-            pLeftBottom.Controls.Add(lvIOPorts);
+            pLeftBottom.Controls.Add(lvInputOutputPorts);
             pLeftBottom.Dock = DockStyle.Fill;
             pLeftBottom.Location = new System.Drawing.Point(0, 161);
             pLeftBottom.Margin = new Padding(4, 3, 4, 3);
@@ -630,43 +630,43 @@ namespace LiveView.Forms
             splitter4.TabIndex = 4;
             splitter4.TabStop = false;
             // 
-            // tvIOPorts
+            // tvInputOutputPorts
             // 
-            tvIOPorts.BackColor = System.Drawing.Color.Silver;
-            tvIOPorts.CheckBoxBackground = System.Drawing.SystemColors.Window;
-            tvIOPorts.Dock = DockStyle.Top;
-            tvIOPorts.DrawDefaultImageToNodes = true;
-            tvIOPorts.HideSelection = false;
-            tvIOPorts.ImageIndex = 0;
-            tvIOPorts.ImageList = ilIOPortIcons;
-            tvIOPorts.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-            tvIOPorts.Location = new System.Drawing.Point(0, 80);
-            tvIOPorts.Margin = new Padding(4, 3, 4, 3);
-            tvIOPorts.MultiSelect = false;
-            tvIOPorts.Name = "tvIOPorts";
+            tvInputOutputPorts.BackColor = System.Drawing.Color.Silver;
+            tvInputOutputPorts.CheckBoxBackground = System.Drawing.SystemColors.Window;
+            tvInputOutputPorts.Dock = DockStyle.Top;
+            tvInputOutputPorts.DrawDefaultImageToNodes = true;
+            tvInputOutputPorts.HideSelection = false;
+            tvInputOutputPorts.ImageIndex = 0;
+            tvInputOutputPorts.ImageList = ilInputOutputPortIcons;
+            tvInputOutputPorts.LineStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+            tvInputOutputPorts.Location = new System.Drawing.Point(0, 80);
+            tvInputOutputPorts.Margin = new Padding(4, 3, 4, 3);
+            tvInputOutputPorts.MultiSelect = false;
+            tvInputOutputPorts.Name = "tvInputOutputPorts";
             treeNode2.ImageIndex = 0;
-            treeNode2.Name = "IO_Devices";
+            treeNode2.Name = "InputOutput_Devices";
             treeNode2.SelectedImageIndex = 0;
             treeNode2.Text = "I/O Devices";
-            tvIOPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
-            tvIOPorts.SelectedImageIndex = 0;
-            tvIOPorts.ShowPlusMinusOnRootNodes = true;
-            tvIOPorts.Size = new System.Drawing.Size(253, 186);
-            tvIOPorts.StateImageList = ilIOPortIcons;
-            tvIOPorts.StateImageOrCheckBoxOnLeft = false;
-            tvIOPorts.TabIndex = 3;
-            tvIOPorts.TickColor = System.Drawing.Color.Green;
+            tvInputOutputPorts.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            tvInputOutputPorts.SelectedImageIndex = 0;
+            tvInputOutputPorts.ShowPlusMinusOnRootNodes = true;
+            tvInputOutputPorts.Size = new System.Drawing.Size(253, 186);
+            tvInputOutputPorts.StateImageList = ilInputOutputPortIcons;
+            tvInputOutputPorts.StateImageOrCheckBoxOnLeft = false;
+            tvInputOutputPorts.TabIndex = 3;
+            tvInputOutputPorts.TickColor = System.Drawing.Color.Green;
             // 
-            // ilIOPortIcons
+            // ilInputOutputPortIcons
             // 
-            ilIOPortIcons.ColorDepth = ColorDepth.Depth8Bit;
-            ilIOPortIcons.ImageStream = (ImageListStreamer)resources.GetObject("ilIOPortIcons.ImageStream");
-            ilIOPortIcons.TransparentColor = System.Drawing.Color.Transparent;
-            ilIOPortIcons.Images.SetKeyName(0, "app.ico");
-            ilIOPortIcons.Images.SetKeyName(1, "0.ico");
-            ilIOPortIcons.Images.SetKeyName(2, "1.ico");
-            ilIOPortIcons.Images.SetKeyName(3, "in.ico");
-            ilIOPortIcons.Images.SetKeyName(4, "out.ico");
+            ilInputOutputPortIcons.ColorDepth = ColorDepth.Depth8Bit;
+            ilInputOutputPortIcons.ImageStream = (ImageListStreamer)resources.GetObject("ilInputOutputPortIcons.ImageStream");
+            ilInputOutputPortIcons.TransparentColor = System.Drawing.Color.Transparent;
+            ilInputOutputPortIcons.Images.SetKeyName(0, "app.ico");
+            ilInputOutputPortIcons.Images.SetKeyName(1, "0.ico");
+            ilInputOutputPortIcons.Images.SetKeyName(2, "1.ico");
+            ilInputOutputPortIcons.Images.SetKeyName(3, "in.ico");
+            ilInputOutputPortIcons.Images.SetKeyName(4, "out.ico");
             // 
             // splitter2
             // 
@@ -678,32 +678,32 @@ namespace LiveView.Forms
             splitter2.TabIndex = 2;
             splitter2.TabStop = false;
             // 
-            // lvIOPorts
+            // lvInputOutputPorts
             // 
-            lvIOPorts.AlternatingColorEven = System.Drawing.Color.LightBlue;
-            lvIOPorts.AlternatingColorOdd = System.Drawing.SystemColors.Window;
-            lvIOPorts.AlternatingColorsAreInUse = true;
-            lvIOPorts.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
-            lvIOPorts.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
-            lvIOPorts.BackColor = System.Drawing.Color.Silver;
-            lvIOPorts.Columns.AddRange(new ColumnHeader[] { chPortName, chPortValue, chPortDirection });
-            lvIOPorts.CompactView = false;
-            lvIOPorts.Dock = DockStyle.Top;
-            lvIOPorts.EnsureLastItemIsVisible = false;
-            lvIOPorts.FirstItemIsGray = false;
-            lvIOPorts.FullRowSelect = true;
-            lvIOPorts.Location = new System.Drawing.Point(0, 0);
-            lvIOPorts.Margin = new Padding(4, 3, 4, 3);
-            lvIOPorts.Name = "lvIOPorts";
-            lvIOPorts.OwnerDraw = true;
-            lvIOPorts.ReadonlyCheckboxes = false;
-            lvIOPorts.SameItemsColorEven = System.Drawing.Color.DarkOrange;
-            lvIOPorts.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvIOPorts.Size = new System.Drawing.Size(253, 77);
-            lvIOPorts.TabIndex = 1;
-            lvIOPorts.UseCompatibleStateImageBehavior = false;
-            lvIOPorts.View = View.Details;
-            lvIOPorts.Visible = false;
+            lvInputOutputPorts.AlternatingColorEven = System.Drawing.Color.LightBlue;
+            lvInputOutputPorts.AlternatingColorOdd = System.Drawing.SystemColors.Window;
+            lvInputOutputPorts.AlternatingColorsAreInUse = true;
+            lvInputOutputPorts.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
+            lvInputOutputPorts.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
+            lvInputOutputPorts.BackColor = System.Drawing.Color.Silver;
+            lvInputOutputPorts.Columns.AddRange(new ColumnHeader[] { chPortName, chPortValue, chPortDirection });
+            lvInputOutputPorts.CompactView = false;
+            lvInputOutputPorts.Dock = DockStyle.Top;
+            lvInputOutputPorts.EnsureLastItemIsVisible = false;
+            lvInputOutputPorts.FirstItemIsGray = false;
+            lvInputOutputPorts.FullRowSelect = true;
+            lvInputOutputPorts.Location = new System.Drawing.Point(0, 0);
+            lvInputOutputPorts.Margin = new Padding(4, 3, 4, 3);
+            lvInputOutputPorts.Name = "lvInputOutputPorts";
+            lvInputOutputPorts.OwnerDraw = true;
+            lvInputOutputPorts.ReadonlyCheckboxes = false;
+            lvInputOutputPorts.SameItemsColorEven = System.Drawing.Color.DarkOrange;
+            lvInputOutputPorts.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
+            lvInputOutputPorts.Size = new System.Drawing.Size(253, 77);
+            lvInputOutputPorts.TabIndex = 1;
+            lvInputOutputPorts.UseCompatibleStateImageBehavior = false;
+            lvInputOutputPorts.View = View.Details;
+            lvInputOutputPorts.Visible = false;
             // 
             // chPortName
             // 
@@ -736,40 +736,40 @@ namespace LiveView.Forms
             gbPrimaryLogon.TabStop = false;
             gbPrimaryLogon.Text = "Primary login";
             // 
-            // chIOPortEventNote
+            // chInputOutputPortEventNote
             // 
-            chIOPortEventNote.Text = "Note";
-            chIOPortEventNote.Width = 200;
+            chInputOutputPortEventNote.Text = "Note";
+            chInputOutputPortEventNote.Width = 200;
             // 
-            // chIOPortEventLoggedOnUser
+            // chInputOutputPortEventLoggedOnUser
             // 
-            chIOPortEventLoggedOnUser.Text = "Logged in user";
-            chIOPortEventLoggedOnUser.Width = 215;
+            chInputOutputPortEventLoggedOnUser.Text = "Logged in user";
+            chInputOutputPortEventLoggedOnUser.Width = 215;
             // 
-            // chIOPortEventPortState
+            // chInputOutputPortEventPortState
             // 
-            chIOPortEventPortState.Text = "State";
-            chIOPortEventPortState.Width = 56;
+            chInputOutputPortEventPortState.Text = "State";
+            chInputOutputPortEventPortState.Width = 56;
             // 
-            // chIOPortEventPortNumber
+            // chInputOutputPortEventPortNumber
             // 
-            chIOPortEventPortNumber.Text = "Port number";
-            chIOPortEventPortNumber.Width = 70;
+            chInputOutputPortEventPortNumber.Text = "Port number";
+            chInputOutputPortEventPortNumber.Width = 70;
             // 
-            // chIOPortEventDevice
+            // chInputOutputPortEventDevice
             // 
-            chIOPortEventDevice.Text = "I/O device";
-            chIOPortEventDevice.Width = 73;
+            chInputOutputPortEventDevice.Text = "I/O device";
+            chInputOutputPortEventDevice.Width = 73;
             // 
-            // chIOPortEventDate
+            // chInputOutputPortEventDate
             // 
-            chIOPortEventDate.Text = "Date";
-            chIOPortEventDate.Width = 114;
+            chInputOutputPortEventDate.Text = "Date";
+            chInputOutputPortEventDate.Width = 114;
             // 
-            // chIOPortEventID
+            // chInputOutputPortEventID
             // 
-            chIOPortEventID.Text = "ID";
-            chIOPortEventID.Width = 56;
+            chInputOutputPortEventId.Text = "ID";
+            chInputOutputPortEventId.Width = 56;
             // 
             // lvPortEvents
             // 
@@ -779,7 +779,7 @@ namespace LiveView.Forms
             lvPortEvents.AlternatingPairColorEven = System.Drawing.Color.LightSeaGreen;
             lvPortEvents.AlternatingPairColorOdd = System.Drawing.Color.CadetBlue;
             lvPortEvents.BackColor = System.Drawing.Color.Silver;
-            lvPortEvents.Columns.AddRange(new ColumnHeader[] { chIOPortEventID, chIOPortEventDate, chIOPortEventDevice, chIOPortEventPortNumber, chIOPortEventPortState, chIOPortEventLoggedOnUser, chIOPortEventNote });
+            lvPortEvents.Columns.AddRange(new ColumnHeader[] { chInputOutputPortEventId, chInputOutputPortEventDate, chInputOutputPortEventDevice, chInputOutputPortEventPortNumber, chInputOutputPortEventPortState, chInputOutputPortEventLoggedOnUser, chInputOutputPortEventNote });
             lvPortEvents.CompactView = false;
             lvPortEvents.Dock = DockStyle.Fill;
             lvPortEvents.EnsureLastItemIsVisible = false;
@@ -799,15 +799,15 @@ namespace LiveView.Forms
             // 
             // gb_PortEvents
             // 
-            gb_PortEvents.Controls.Add(lvPortEvents);
-            gb_PortEvents.Dock = DockStyle.Fill;
-            gb_PortEvents.Location = new System.Drawing.Point(0, 0);
-            gb_PortEvents.Margin = new Padding(4, 3, 4, 3);
-            gb_PortEvents.Name = "gb_PortEvents";
-            gb_PortEvents.Padding = new Padding(4, 3, 4, 3);
-            gb_PortEvents.Size = new System.Drawing.Size(929, 164);
-            gb_PortEvents.TabIndex = 0;
-            gb_PortEvents.TabStop = false;
+            gbPortEvents.Controls.Add(lvPortEvents);
+            gbPortEvents.Dock = DockStyle.Fill;
+            gbPortEvents.Location = new System.Drawing.Point(0, 0);
+            gbPortEvents.Margin = new Padding(4, 3, 4, 3);
+            gbPortEvents.Name = "gb_PortEvents";
+            gbPortEvents.Padding = new Padding(4, 3, 4, 3);
+            gbPortEvents.Size = new System.Drawing.Size(929, 164);
+            gbPortEvents.TabIndex = 0;
+            gbPortEvents.TabStop = false;
             // 
             // splitter3
             // 
@@ -822,7 +822,7 @@ namespace LiveView.Forms
             // 
             // pRightBottom
             // 
-            pRightBottom.Controls.Add(gb_PortEvents);
+            pRightBottom.Controls.Add(gbPortEvents);
             pRightBottom.Dock = DockStyle.Bottom;
             pRightBottom.Location = new System.Drawing.Point(257, 511);
             pRightBottom.Margin = new Padding(4, 3, 4, 3);
@@ -915,7 +915,7 @@ namespace LiveView.Forms
             pLeftBottom.ResumeLayout(false);
             gbPrimaryLogon.ResumeLayout(false);
             gbPrimaryLogon.PerformLayout();
-            gb_PortEvents.ResumeLayout(false);
+            gbPortEvents.ResumeLayout(false);
             pRightBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbMap).EndInit();
             pMap.ResumeLayout(false);
@@ -962,7 +962,7 @@ namespace LiveView.Forms
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.ToolStripMenuItem tsmiMapCreator;
         private System.Windows.Forms.ToolStripMenuItem tsmiMotionPopup;
-        private System.Windows.Forms.ToolStripMenuItem tsmiIOPortsSettings;
+        private System.Windows.Forms.ToolStripMenuItem tsmiInputOutputPortSettings;
         private System.Windows.Forms.ToolStripMenuItem tsmiSynchronView;
         private System.Windows.Forms.ToolStripMenuItem tsmiBarCodeReadings;
         private System.Windows.Forms.ToolStripMenuItem tsmiPositioningMousePointer;
@@ -979,23 +979,23 @@ namespace LiveView.Forms
         private System.Windows.Forms.Panel pLeft;
         private System.Windows.Forms.Panel pLeftBottom;
         private System.Windows.Forms.Splitter splitter4;
-        private Mtf.Controls.MtfTreeView tvIOPorts;
-        private System.Windows.Forms.ImageList ilIOPortIcons;
+        private Mtf.Controls.MtfTreeView tvInputOutputPorts;
+        private System.Windows.Forms.ImageList ilInputOutputPortIcons;
         private System.Windows.Forms.Splitter splitter2;
-        private Mtf.Controls.MtfListView lvIOPorts;
+        private Mtf.Controls.MtfListView lvInputOutputPorts;
         private System.Windows.Forms.ColumnHeader chPortName;
         private System.Windows.Forms.ColumnHeader chPortValue;
         private System.Windows.Forms.ColumnHeader chPortDirection;
         private System.Windows.Forms.GroupBox gbPrimaryLogon;
-        private System.Windows.Forms.ColumnHeader chIOPortEventNote;
-        private System.Windows.Forms.ColumnHeader chIOPortEventLoggedOnUser;
-        private System.Windows.Forms.ColumnHeader chIOPortEventPortState;
-        private System.Windows.Forms.ColumnHeader chIOPortEventPortNumber;
-        private System.Windows.Forms.ColumnHeader chIOPortEventDevice;
-        private System.Windows.Forms.ColumnHeader chIOPortEventDate;
-        private System.Windows.Forms.ColumnHeader chIOPortEventID;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventNote;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventLoggedOnUser;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventPortState;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventPortNumber;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventDevice;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventDate;
+        private System.Windows.Forms.ColumnHeader chInputOutputPortEventId;
         private Mtf.Controls.MtfListView lvPortEvents;
-        private System.Windows.Forms.GroupBox gb_PortEvents;
+        private System.Windows.Forms.GroupBox gbPortEvents;
         private System.Windows.Forms.Splitter splitter3;
         private System.Windows.Forms.Panel pRightBottom;
         private Mtf.Controls.MtfPictureBox pbMap;

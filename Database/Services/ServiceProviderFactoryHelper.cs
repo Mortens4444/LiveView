@@ -22,9 +22,9 @@ namespace Database.Services
             services.AddScoped<ISequenceGridsRepository, SequenceGridsRepository>();
             services.AddScoped<IGridRepository, GridRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IIOPortRepository, IOPortRepository>();
-            services.AddScoped<IIOPortsLogRepository, IOPortsLogRepository>();
-            services.AddScoped<IIOPortsRuleRepository, IOPortsRuleRepository>();
+            services.AddScoped<IInputOutputPortRepository, InputOutputPortRepository>();
+            services.AddScoped<IInputOutputPortLogRepository, InputOutputPortLogRepository>();
+            services.AddScoped<IInputOutputPortRuleRepository, InputOutputPortRuleRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IActionObjectRepository, ActionObjectRepository>();

@@ -1,120 +1,120 @@
 ﻿GO
 
-CREATE PROCEDURE Select_All_IOPorts_Rules
+CREATE PROCEDURE SelectAllInputOutputPortRules
 AS
 BEGIN
-	SELECT * FROM IOPorts_Rules ORDER BY device_id, port_num, operation_id, event_id;
+	SELECT * FROM InputOutputPortRules ORDER BY DeviceId, PortNumber, OperationId, UserEventId;
 END;
 
 GO
 
-CREATE PROCEDURE Insert_IOPorts_Rule
-	@device_id BIGINT,
-	@port_number INT,
-	@operation_id BIGINT = NULL,
-	@event_id BIGINT = NULL,
-	@zero_signaled BIT
+CREATE PROCEDURE InsertInputOutputPortRule
+	@DeviceId INT,
+	@PortNumber INT,
+	@OperationId INT = NULL,
+	@UserEventId INT = NULL,
+	@ZeroSignalled BIT
 AS
 BEGIN
-	INSERT INTO IOPorts_Rules (device_id, port_num, operation_id, event_id, zero_signaled)
-	VALUES (@device_id, @port_number, @operation_id, @event_id, @zero_signaled);
+	INSERT INTO InputOutputPortRules (DeviceId, PortNumber, OperationId, EventId, ZeroSignalled)
+	VALUES (@DeviceId, @PortNumber, @OperationId, @EventId, @ZeroSignalled);
 END;
 
 GO
 
-CREATE PROCEDURE Delete_IOPorts_Rule
-	@ID BIGINT
+CREATE PROCEDURE DeleteInputOutputPortRule
+	@Id INT
 AS
 BEGIN
-	DELETE FROM IOPorts_Rules WHERE ID = @ID;
+	DELETE FROM InputOutputPortRules WHERE Id = @Id;
 END;
 
 GO
 
-CREATE PROCEDURE Select_All_IOPorts_Logs
+CREATE PROCEDURE SelectAllInputOutputPortLogs
 AS
 BEGIN
-	SELECT * FROM IOPorts_Logs ORDER BY date DESC;
+	SELECT * FROM InputOutputPortLogs ORDER BY date DESC;
 END;
 
 GO
 
-CREATE PROCEDURE Insert_IOPort_LogEntry
-	@device_id int,
-	@port_number int,
-	@state int,
-	@date datetime,
-	@user_id bigint,
-	@note nvarchar(max)
+CREATE PROCEDURE InsertInputOutputPortLogEntry
+	@DeviceId INT,
+	@PortNumber INT,
+	@State INT,
+	@Date DATETIME,
+	@UserId INT,
+	@Note NVARCHAR(MAX)
 AS
 BEGIN
-	INSERT INTO IOPorts_Logs (device_id, port_num, state, date, user_id, note)
-	VALUES (@device_id, @port_number, @state, @date, @user_id, @note);
+	INSERT INTO InputOutputPortLogs (DeviceId, PortNumber, State, Date, UserId, Note)
+	VALUES (@DeviceId, @PortNumber, @State, @Date, @UserId, @Note);
 END;
 
 GO
 
-CREATE PROCEDURE Get_IOPort_Change_Count
-	@device_id int,
-	@port_number int,
-	@D1 datetime,
-	@D2 datetime
+CREATE PROCEDURE GetInputOutputPortChangeCount
+	@DeviceId INT,
+	@PortNumber INT,
+	@D1 DATETIME,
+	@D2 DATETIME
 AS
 BEGIN
-	SELECT COUNT(ID) FROM IOPorts_Logs WHERE (device_id = @device_id) AND (port_num = @port_number) AND date BETWEEN @D1 AND @D2;
+	SELECT COUNT(ID) FROM InputOutputPortLogs WHERE (DeviceId = @DeviceId) AND (PortNumber = @PortNumber) AND date BETWEEN @D1 AND @D2;
 END;
 
 GO
 
-CREATE PROCEDURE Select_All_IOPorts
+CREATE PROCEDURE SelectAllInputOutputPorts
 AS
 BEGIN
-	SELECT * FROM IOPorts ORDER BY device_id, port_num;
+	SELECT * FROM InputOutputPorts ORDER BY DeviceId, PortNumber;
 END;
 
 GO
 
-CREATE PROCEDURE Insert_IOPort
-	@device_id int,
-	@port_number int,
-	@name nvarchar(255),
-	@friendly_name nvarchar(255),
-	@direction int,
-	@state int,
-	@min_trigger_time int,
-	@max_count int
+CREATE PROCEDURE InsertInputOutputPort
+	@DeviceId INT,
+	@PortNumber INT,
+	@Name NVARCHAR(255),
+	@FriendlyName NVARCHAR(255),
+	@Direction INT,
+	@State INT,
+	@MinTriggerTime INT,
+	@MaxCount INT
 AS
 BEGIN
-	INSERT INTO IOPorts (device_id, port_num, name, friendly_name, direction, state, min_trigger_time, max_count)
-	VALUES (@device_id, @port_number, @name, @friendly_name, @direction, @state, @min_trigger_time, @max_count);
+	INSERT INTO InputOutputPorts (DeviceId, PortNumber, Name, FriendlyName, Direction, State, MinTriggerTime, MaxCount)
+	VALUES (@DeviceId, @PortNumber, @Name, @FriendlyName, @Direction, @State, @MinTriggerTime, @MaxCount);
 END;
 
 GO
 
-CREATE PROCEDURE Update_IOPort
-	@friendly_name nvarchar(255),
-	@max_count int,
-	@min_trigger_time int,
-	@device_id int,
-	@port_number int
+CREATE PROCEDURE UpdateInputOutputPort
+	@FriendlyName NVARCHAR(255),
+	@MaxCount INT,
+	@MinTriggerTime INT,
+	@DeviceId INT,
+	@PortNumber INT
 AS
 BEGIN
-	UPDATE IOPorts SET friendly_name = @friendly_name, max_count = @max_count, min_trigger_time = @min_trigger_time
-	WHERE (device_id = @device_id) AND (port_num = @port_number);
+	UPDATE InputOutputPorts SET FriendlyName = @FriendlyName, MaxCount = @MaxCount, MinTriggerTime = @MinTriggerTime
+	WHERE (DeviceId = @DeviceId) AND (PortNumber = @PortNumber);
 END;
 
 GO
 
-CREATE PROCEDURE Update_IOPort_State
-	@name nvarchar(255),
-	@direction int,
-	@state int,
-	@device_id int,
-	@port_number int
+CREATE PROCEDURE UpdateInputOutputPortState
+	@Name NVARCHAR(255),
+	@Direction INT,
+	@State INT,
+	@DeviceId INT,
+	@PortNumber INT
 AS
 BEGIN
-	UPDATE IOPorts SET name = @name, direction = @direction, state = @state
-	WHERE (device_id = @device_id) AND (port_num = @port_number);
+	UPDATE InputOutputPorts SET Name = @Name, Direction = @Direction, State = @State
+	WHERE (DeviceId = @DeviceId) AND (PortNumber = @PortNumber);
 END;
 
 GO

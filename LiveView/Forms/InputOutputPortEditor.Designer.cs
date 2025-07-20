@@ -1,6 +1,6 @@
 ﻿namespace LiveView.Forms
 {
-    partial class IOPortEditor
+    partial class InputOutputPortEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -158,17 +158,17 @@
             lblFriendlyName.TabIndex = 0;
             lblFriendlyName.Text = "Friendly name";
             // 
-            // IOPortEditor
+            // InputOutputPortEditor
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(341, 167);
             Controls.Add(pMain);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            Name = "IOPortEditor";
+            Name = "InputOutputPortEditor";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Change I/O port settings";
-            Shown += IOPortEditor_Shown;
+            Shown += InputOutputPortEditor_Shown;
             pMain.ResumeLayout(false);
             pMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudMinTriggerTime).EndInit();

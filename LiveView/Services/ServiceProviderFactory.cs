@@ -50,8 +50,8 @@ namespace LiveView.Services
             services.AddTransient<UpgradeFormPresenterDependencies>();
             services.AddTransient<GeneralOptionsPresenterDependencies>();
             services.AddTransient<GridManagerPresenterDependencies>();
-            services.AddTransient<IOPortEditorPresenterDependencies>();
-            services.AddTransient<IOPortSettingsPresenterDependencies>();
+            services.AddTransient<InputOutputPortEditorPresenterDependencies>();
+            services.AddTransient<InputOutputPortSettingsPresenterDependencies>();
             services.AddTransient<KBD300ASimulatorPresenterDependencies>();
             services.AddTransient<LanguageFileChangedPresenterDependencies>();
             services.AddTransient<LogViewerPresenterDependencies>();
@@ -90,8 +90,8 @@ namespace LiveView.Services
             services.AddTransient<UpgradeFormPresenter>();
             services.AddTransient<GeneralOptionsPresenter>();
             services.AddTransient<GridManagerPresenter>();
-            services.AddTransient<IOPortEditorPresenter>();
-            services.AddTransient<IOPortSettingsPresenter>();
+            services.AddTransient<InputOutputPortEditorPresenter>();
+            services.AddTransient<InputOutputPortSettingsPresenter>();
             services.AddTransient<KBD300ASimulatorPresenter>();
             services.AddTransient<LanguageFileChangedPresenter>();
             services.AddTransient<LicenseFormPresenter>();
@@ -128,8 +128,8 @@ namespace LiveView.Services
             services.AddTransient<DisplayProperties>();
             services.AddTransient<UpgradeForm>();
             services.AddTransient<GridManager>();
-            services.AddTransient<IOPortEditor>();
-            services.AddTransient<IOPortSettings>();
+            services.AddTransient<InputOutputPortEditor>();
+            services.AddTransient<InputOutputPortSettings>();
             services.AddTransient<KBD300ASimulator>();
             services.AddTransient<LanguageFileChangedForm>();
             services.AddTransient<LicenseForm>();

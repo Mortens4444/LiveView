@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record IOPortsLogDto : IHaveIdWithSetter<int>
+    public record InputOutputPortLogDto : IHaveIdWithSetter<int>
     {
         public int Id { get; set; }
 

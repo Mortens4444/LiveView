@@ -3,7 +3,7 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IIOPortRepository : IRepository<IOPort>
+    public interface IInputOutputPortLogRepository : IRepository<InputOutputPortLogEntry>
     {
     }
 }

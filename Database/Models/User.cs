@@ -40,6 +40,8 @@ namespace Database.Models
 
         public int NeededSecondaryLogonPriority { get; set; }
 
+        public int LoginCredentialsId { get; set; }
+
         public override string ToString()
         {
             if (String.IsNullOrWhiteSpace(Username))
