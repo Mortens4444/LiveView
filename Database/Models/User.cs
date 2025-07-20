@@ -1,13 +1,20 @@
-﻿using Mtf.Extensions.Interfaces;
+﻿using Database.Services.PasswordHashers;
+using Mtf.Extensions.Interfaces;
 using System;
 
 namespace Database.Models
 {
     public class User : IHaveId<int>
     {
+        private string username;
+
         public int Id { get; set; }
 
-        public string Username { get; set; }
+        public string Username
+        {
+            get => UserPasswordHasher.Decrypt(username);
+            set => username = value;
+        }
 
         public string Password { get; set; }
 

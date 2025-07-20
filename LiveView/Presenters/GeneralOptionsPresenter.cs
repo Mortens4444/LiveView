@@ -264,14 +264,8 @@ namespace LiveView.Presenters
             {
                 generalOptionsRepository.Set(Setting.AutoLoadedTemplate, template.TemplateName);
             }
-            if (view.CbUsers.SelectedItem is User user)
-            {
-                generalOptionsRepository.Set(Setting.AutoLoginUser, user.Username);
-            }
-            else
-            {
-                generalOptionsRepository.Set(Setting.AutoLoginUser, String.Empty);
-            }
+            var username = view.CbUsers.SelectedItem is User user ? user.Username : String.Empty;
+            generalOptionsRepository.Set(Setting.AutoLoginUser, username);
 
             generalOptionsRepository.Set(Setting.ReduceSequenceUsageOfNetworkAndCPU, view.ChkReduceSequenceUsageOfNetworkAndCPU.Checked);
             generalOptionsRepository.Set(Setting.Deblock, view.ChkDeblock.Checked);
