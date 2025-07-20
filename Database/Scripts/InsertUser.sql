@@ -1,5 +1,5 @@
 ﻿INSERT INTO Credentials (Username, EncryptedPassword, CredentialType)
-VALUES (@Username, @Password, 1);
+VALUES (@EncryptedUsername, @Password, 1);
 
 DECLARE @LoginCredentialsId INT = SCOPE_IDENTITY();
 
