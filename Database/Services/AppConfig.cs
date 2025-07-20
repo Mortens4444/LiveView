@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace LiveView.Core.Services
+namespace Database.Services
 {
     public static class AppConfig
     {

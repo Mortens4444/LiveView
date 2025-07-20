@@ -1,4 +1,4 @@
-﻿namespace LiveView.Core
+﻿namespace Database
 {
     public static class Constants
     {

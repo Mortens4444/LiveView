@@ -3,7 +3,7 @@ using Mtf.Cryptography.SymmetricCiphers;
 using System;
 using System.Text;
 
-namespace LiveView.Core.Services.PasswordHashers
+namespace Database.Services.PasswordHashers
 {
     public static class CipherFactory
     {

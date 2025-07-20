@@ -4,11 +4,11 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services.PasswordHashers;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
-using LiveView.Core.Services.PasswordHashers;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Video.Sunell.IPR67;
@@ -108,7 +108,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
                 client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();

@@ -5,8 +5,8 @@ BEGIN
 
     INSERT INTO Credentials (Id, Username, EncryptedPassword, CredentialType)
     VALUES
-        (1, 'Sziltech', 'c0a071f7947fa1fe3170139666fc9c364021bc387bde89c68ba33f7d9e038502', 1), -- Plaintext password:   \-;!J401LnE|
-        (2, 'admin', '591b16925313a3c1f7626ea8ac2669c9005b4f90abe7753da90245410ccf917e', 1); -- Plaintext password:   admin
+        (1, @SziltechUserName, '81d2c3b1ad3f54ad6d0f5792282c9eaf2784352ec3f6f2144c061768235ae64e', 1), -- \-;!J401LnE|
+        (2, @AdminUserName, '97a524ee5f747a16446a0c15edc47613f395ab7fd6719d2cde96e636808f81b1', 1); -- admin
 
     SET IDENTITY_INSERT Credentials OFF;
 

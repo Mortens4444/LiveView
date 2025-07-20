@@ -21,7 +21,7 @@ namespace LiveView.Agent.Network.Commands
 
         public void Execute()
         {
-            Console.WriteLine($"Starting process {Core.Constants.SequenceExe} ({message}).");
+            Console.WriteLine($"Starting process {Database.Constants.SequenceExe} ({message}).");
             var sequenceProcessId = StartProcess(messageParts, sequenceProcesses);
             Console.WriteLine($"Process started with PID: {sequenceProcessId}.");
         }

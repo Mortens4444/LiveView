@@ -20,7 +20,7 @@ namespace LiveView.Network.Commands
             var key = agentSocket.RemoteEndPoint.ToString();
             if (Globals.CameraProcesses.ContainsKey(key))
             {
-                MainPresenter.SentToClient(key, NetworkCommand.Kill, Core.Constants.CameraAppExe, process.ProcessId);
+                MainPresenter.SentToClient(key, NetworkCommand.Kill, Database.Constants.CameraAppExe, process.ProcessId);
                 Globals.CameraProcesses.Remove(key);
             }
         }

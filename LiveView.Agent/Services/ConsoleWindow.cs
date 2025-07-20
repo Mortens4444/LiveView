@@ -1,4 +1,4 @@
-﻿using LiveView.Core.Services;
+﻿using Database.Services;
 using System;
 using System.Runtime.InteropServices;
 
@@ -14,7 +14,7 @@ namespace LiveView.Agent.Services
 
         public static void Hide()
         {
-            if (AppConfig.GetBoolean(Core.Constants.LiveViewAgentHideConsoleWindow))
+            if (AppConfig.GetBoolean(Database.Constants.LiveViewAgentHideConsoleWindow))
             {
                 const int SW_HIDE = 0;
                 var handle = GetConsoleWindow();

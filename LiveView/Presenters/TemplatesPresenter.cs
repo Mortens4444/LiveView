@@ -74,7 +74,7 @@ namespace LiveView.Presenters
                 {
                     AgentId = sequenceProcessInfo.Agent?.Id,
                     TemplateId = templateId,
-                    ProcessName = Core.Constants.CameraAppExe,
+                    ProcessName = Database.Constants.CameraAppExe,
                     ProcessParameters = String.Concat(sequenceProcessInfo.Agent?.Id, ' ', sequenceProcessInfo.UserId, ' ', sequenceProcessInfo.SequenceId, ' ', sequenceProcessInfo.DisplayId, ' ', sequenceProcessInfo.IsMdi)
                 });
             }
@@ -92,7 +92,7 @@ namespace LiveView.Presenters
                 {
                     AgentId = sequenceProcessInfo.Agent?.Id,
                     TemplateId = templateId,
-                    ProcessName = Core.Constants.SequenceExe,
+                    ProcessName = Database.Constants.SequenceExe,
                     ProcessParameters = String.Concat(sequenceProcessInfo.Agent?.Id ?? 0, ' ', sequenceProcessInfo.UserId, ' ', sequenceProcessInfo.SequenceId, ' ', sequenceProcessInfo.DisplayId, ' ', sequenceProcessInfo.IsMdi)
                 });
             }

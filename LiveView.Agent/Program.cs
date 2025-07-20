@@ -83,15 +83,15 @@ namespace LiveView.Agent
                 throw;
             }
 
-            var serverIp = AppConfig.GetString(Core.Constants.LiveViewServerIpAddress);
-            var serverPort = AppConfig.GetUInt16WithThrowOnError(Core.Constants.LiveViewServerListenerPort);
+            var serverIp = AppConfig.GetString(Database.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(Database.Constants.LiveViewServerListenerPort);
             if (serverPort != default)
             {
                 Task.Run(() => liveViewConnector.ConnectAsync(serverIp, serverPort, vncServer.CommandServer.ListenerPortOfServer, videoCaptureServer.CancellationTokenSource.Token)).Wait();
             }
             else
             {
-                var message = $"{Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.";
+                var message = $"{Database.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.";
                 logger.LogError(message);
                 ErrorBox.Show("General error", message);
             }

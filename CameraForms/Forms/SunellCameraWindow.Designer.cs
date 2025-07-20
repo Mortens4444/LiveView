@@ -1,4 +1,5 @@
-﻿using LiveView.Core.Services;
+﻿using Database.Services;
+using LiveView.Core.Services;
 
 namespace CameraForms.Forms
 {
@@ -34,7 +35,7 @@ namespace CameraForms.Forms
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(SunellCameraWindow));
-            sunellVideoWindow1 = new Mtf.Controls.Video.Sunell.IPR67.SunellVideoWindow(AppConfig.GetInt32(LiveView.Core.Constants.SunellCameraWindowRotateSpeed, 50));
+            sunellVideoWindow1 = new Mtf.Controls.Video.Sunell.IPR67.SunellVideoWindow(AppConfig.GetInt32(Database.Constants.SunellCameraWindowRotateSpeed, 50));
             cmsMenu = new System.Windows.Forms.ContextMenuStrip(components);
             closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)sunellVideoWindow1).BeginInit();

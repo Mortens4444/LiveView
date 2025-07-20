@@ -195,7 +195,7 @@ namespace Sequence.Services
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
                     var cameraId = camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo ? $"{videoCaptureSourceCameraInfo.ServerIp} {videoCaptureSourceCameraInfo.VideoSourceName}" : camera.GridCamera.CameraId?.ToString(CultureInfo.InvariantCulture) ?? "0";
-                    result.Add(AppStarter.Start(LiveView.Core.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {cameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
+                    result.Add(AppStarter.Start(Database.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {cameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
                 });
             }
             return result;

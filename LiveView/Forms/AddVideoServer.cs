@@ -1,9 +1,8 @@
 ﻿using Database.Models;
-using LiveView.Core.Services.PasswordHashers;
+using Database.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
-using Mtf.Extensions.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;

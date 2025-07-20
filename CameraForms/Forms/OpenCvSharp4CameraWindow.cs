@@ -79,7 +79,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.OpenCvSharp4, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();

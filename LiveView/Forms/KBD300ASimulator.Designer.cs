@@ -42,7 +42,7 @@
             kbd300aSimulator.Name = "kbd300aSimulator2";
             kbd300aSimulator.OriginalSize = new System.Drawing.Size(673, 427);
             kbd300aSimulator.PaintDebounceIntervalInMs = 0;
-            kbd300aSimulator.PipeName = LiveView.Core.Constants.PipeServerName;
+            kbd300aSimulator.PipeName = Database.Constants.PipeServerName;
             kbd300aSimulator.RepositioningAndResizingControlsOnResize = true;
             kbd300aSimulator.ResizeDebounceIntervalInMs = 0;
             kbd300aSimulator.Shift = false;

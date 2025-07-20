@@ -95,7 +95,7 @@ namespace LiveView.Presenters
             {
                 foreach (var remoteCameraProcess in Globals.CameraProcesses)
                 {
-                    MainPresenter.SentToClient(remoteCameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, remoteCameraProcess.Value);
+                    MainPresenter.SentToClient(remoteCameraProcess.Key, NetworkCommand.Kill, Database.Constants.CameraAppExe, remoteCameraProcess.Value);
                     Globals.CameraProcesses.Remove(remoteCameraProcess.Key);
                 }
             }
@@ -107,7 +107,7 @@ namespace LiveView.Presenters
             SequenceProcesses.Clear();
             foreach (var agent in Globals.Agents)
             {
-                MainPresenter.SentToClient(agent.Key, NetworkCommand.KillAll, Core.Constants.SequenceExe);
+                MainPresenter.SentToClient(agent.Key, NetworkCommand.KillAll, Database.Constants.SequenceExe);
             }
         }
 
@@ -341,13 +341,13 @@ namespace LiveView.Presenters
         public Process StartCamera(List<string> protectedParameters)
         {
             protectedParameters.Insert(0, "0"); // Add 0 as agent Id for local agent.
-            return AppStarter.Start(Core.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
+            return AppStarter.Start(Database.Constants.CameraAppExe, String.Join(" ", protectedParameters), logger);
         }
 
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
-            Globals.Server.SendMessageToAllClients($"{NetworkCommand.KillAll}|{Core.Constants.CameraAppExe}");
+            Globals.Server.SendMessageToAllClients($"{NetworkCommand.KillAll}|{Database.Constants.CameraAppExe}");
             CameraProcess = null;
 
             var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();
@@ -385,14 +385,14 @@ namespace LiveView.Presenters
             }
             else
             {
-                MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.CameraAppExe, selectedDisplay.AgentId, protectedParameters.ToArray());
+                MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Database.Constants.CameraAppExe, selectedDisplay.AgentId, protectedParameters.ToArray());
             }
         }
 
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
         {
             CloseSequenceOnDisplay(selectedDisplayId);
-            return AppStarter.Start(Core.Constants.SequenceExe, $"0 {permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger); // Add 0 as agent Id for local agent.
+            return AppStarter.Start(Database.Constants.SequenceExe, $"0 {permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger); // Add 0 as agent Id for local agent.
         }
 
         public bool StartSequenceApp(Database.Models.Sequence sequence)
@@ -407,8 +407,8 @@ namespace LiveView.Presenters
                 }
                 else
                 {
-                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, NetworkCommand.KillOnDisplay, Core.Constants.SequenceExe, selectedDisplay.GetId());
-                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Core.Constants.SequenceExe, selectedDisplay.AgentId, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, NetworkCommand.KillOnDisplay, Database.Constants.SequenceExe, selectedDisplay.GetId());
+                    MainPresenter.SentToClient(selectedDisplay.AgentHostInfo, Database.Constants.SequenceExe, selectedDisplay.AgentId, permissionManager.CurrentUser.Tag.Id, sequence.Id, selectedDisplay.Id.Remove(selectedDisplay.AgentHostInfo), isMdi);
                 }
                 return true;
             }

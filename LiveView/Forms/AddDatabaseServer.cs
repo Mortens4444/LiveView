@@ -1,5 +1,5 @@
 ﻿using Database.Models;
-using LiveView.Core.Services.PasswordHashers;
+using Database.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService;

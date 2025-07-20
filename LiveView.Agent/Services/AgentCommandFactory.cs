@@ -22,27 +22,27 @@ namespace LiveView.Agent.Services
             {
                 var messageParts = message.Split('|');
 
-                if (message.StartsWith($"{Core.Constants.CameraAppExe}|", StringComparison.InvariantCulture))
+                if (message.StartsWith($"{Database.Constants.CameraAppExe}|", StringComparison.InvariantCulture))
                 {
                     result.Add(new StartCameraProcessCommand(cameraProcesses, client, message, messageParts, logger));
                 }
-                else if (message.StartsWith($"{Core.Constants.SequenceExe}|", StringComparison.InvariantCulture))
+                else if (message.StartsWith($"{Database.Constants.SequenceExe}|", StringComparison.InvariantCulture))
                 {
                     result.Add(new StartSequenceCommand(sequenceProcesses, message, messageParts, logger));
                 }
                 else if (message.StartsWith($"{NetworkCommand.KillOnDisplay}|", StringComparison.InvariantCulture))
                 {
-                    var dict = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
+                    var dict = messageParts[1] == Database.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
                     result.Add(new KillOnDisplayProcessCommand(messageParts[1], messageParts[2], dict));
                 }
                 else if (message.StartsWith($"{NetworkCommand.Kill}|", StringComparison.InvariantCulture))
                 {
-                    var dict = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
+                    var dict = messageParts[1] == Database.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
                     result.Add(new KillProcessCommand(messageParts[1], messageParts[2], dict));
                 }
                 else if (message.StartsWith($"{NetworkCommand.KillAll}|", StringComparison.InvariantCulture))
                 {
-                    var dict = messageParts[1] == Core.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
+                    var dict = messageParts[1] == Database.Constants.CameraAppExe ? cameraProcesses : sequenceProcesses;
                     result.Add(new KillAllProcessCommand(messageParts[1], dict));
                 }
                 else if (message.StartsWith($"{NetworkCommand.VideoCaptureSourcesRequest}|", StringComparison.InvariantCulture))

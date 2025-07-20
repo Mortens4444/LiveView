@@ -1,4 +1,5 @@
-﻿using LiveView.Core.Extensions;
+﻿using Database.Services;
+using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ namespace LiveView.Agent.Services
         public VideoCaptureServer(IServiceProvider serviceProvider)
         {
             logger = serviceProvider.GetRequiredService<ILogger<VideoCaptureServer>>();
-            bufferSize = AppConfig.GetInt32(Core.Constants.ImageCaptureServerBufferSize, 409600);
+            bufferSize = AppConfig.GetInt32(Database.Constants.ImageCaptureServerBufferSize, 409600);
             cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -62,7 +63,7 @@ namespace LiveView.Agent.Services
         public void StartAll(LiveViewConnector liveViewConnector)
         {
             Console.WriteLine("Starting video capture servers...");
-            var json = AppConfig.GetString(Core.Constants.StartCameras);
+            var json = AppConfig.GetString(Database.Constants.StartCameras);
             var videoCaptureIds = Json.Deserialize<List<string>>(json);
 
             foreach (var videoCaptureId in videoCaptureIds)
@@ -94,7 +95,7 @@ namespace LiveView.Agent.Services
                     BufferSize = bufferSize
                 };
                 imageCaptureServers.Add(imageCaptureServer);
-                imageCaptureServer.FPS = AppConfig.GeByte(Core.Constants.LiveViewAgentImageCaptureServerFps, 4);
+                imageCaptureServer.FPS = AppConfig.GeByte(Database.Constants.LiveViewAgentImageCaptureServerFps, 4);
 
                 var videoCaptureServer = imageCaptureServer.StartVideoCaptureServer(cancellationTokenSource);
                 //var videoCaptureServer = new VideoCaptureServer();

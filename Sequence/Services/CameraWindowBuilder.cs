@@ -2,6 +2,7 @@
 using CameraForms.Forms;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Extensions;
@@ -119,7 +120,7 @@ namespace Sequence.Services
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
                     result = new SunellCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, sunellCameraInfo, rectangle, camera.GridCamera)
                     {
-                        TopMost = AppConfig.GetBoolean(LiveView.Core.Constants.TopMost)
+                        TopMost = AppConfig.GetBoolean(Database.Constants.TopMost)
                     };
                 }
                 else if (camera is SunellLegacyCameraInfo sunellLegacyCameraInfo)
@@ -127,7 +128,7 @@ namespace Sequence.Services
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
                     result = new SunellLegacyCameraWindow(permissionManager, cameraRepository, personalOptionsRepository, sunellLegacyCameraInfo, rectangle, camera.GridCamera)
                     {
-                        TopMost = AppConfig.GetBoolean(LiveView.Core.Constants.TopMost)
+                        TopMost = AppConfig.GetBoolean(Database.Constants.TopMost)
                     };
                 }
 

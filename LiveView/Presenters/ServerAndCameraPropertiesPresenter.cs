@@ -1,6 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
-using LiveView.Core.Services.PasswordHashers;
+using Database.Services.PasswordHashers;
 using LiveView.Enums;
 using LiveView.Forms;
 using LiveView.Interfaces;

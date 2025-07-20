@@ -1,13 +1,14 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services;
+using Database.Services.PasswordHashers;
 using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Keyboard;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
-using LiveView.Core.Services.PasswordHashers;
 using LiveView.Dto;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -142,7 +143,7 @@ namespace LiveView.Presenters
 
         private void CheckCameraApplication()
         {
-            var camera = Path.GetFileNameWithoutExtension(Core.Constants.CameraAppExe);
+            var camera = Path.GetFileNameWithoutExtension(Database.Constants.CameraAppExe);
             var cameraProcesses = Process.GetProcessesByName(camera);
             foreach (var cameraProcess in Globals.CameraProcessInfo)
             {
@@ -159,7 +160,7 @@ namespace LiveView.Presenters
                     }
                     else
                     {
-                        //SentToClient(cameraProcess.Value.LocalEndPoint, Core.Constants.CameraAppExe, protectedParameters.ToArray());
+                        //SentToClient(cameraProcess.Value.LocalEndPoint, Database.Constants.CameraAppExe, protectedParameters.ToArray());
                     }
                 }
                 catch (Exception ex)
@@ -171,7 +172,7 @@ namespace LiveView.Presenters
         }
         private static void CheckSequenceApplications()
         {
-            var sequence = Path.GetFileNameWithoutExtension(Core.Constants.SequenceExe);
+            var sequence = Path.GetFileNameWithoutExtension(Database.Constants.SequenceExe);
             var sequenceProcesses = Process.GetProcessesByName(sequence);
             foreach (var sequenceProcess in Globals.SequenceProcesses)
             {
@@ -224,7 +225,7 @@ namespace LiveView.Presenters
 
         private void StartServer()
         {
-            var serverPort = AppConfig.GetUInt16WithThrowOnError(Core.Constants.LiveViewServerListenerPort);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(Database.Constants.LiveViewServerListenerPort);
             if (serverPort != default)
             {
                 try
@@ -460,7 +461,7 @@ namespace LiveView.Presenters
 
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var user = userRepository.Login(UserPasswordHasher.Decrypt(view.TbUsername.Text),
+            var user = userRepository.Login(UserPasswordHasher.Encrypt(view.TbUsername.Text),
                 UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {
@@ -597,7 +598,7 @@ namespace LiveView.Presenters
             {
                 try
                 {
-                    SentToClient(cameraProcess.Key, NetworkCommand.Kill, Core.Constants.CameraAppExe, cameraProcess.Value);
+                    SentToClient(cameraProcess.Key, NetworkCommand.Kill, Database.Constants.CameraAppExe, cameraProcess.Value);
                 }
                 catch (Exception ex)
                 {

@@ -37,7 +37,7 @@ namespace LiveView.Services.Template
                     if (templateProcess.AgentId == null)
                     {
                         var process = AppStarter.Start(templateProcess.ProcessName, templateProcess.ProcessParameters, logger);
-                        if (templateProcess.ProcessName == Core.Constants.CameraAppExe)
+                        if (templateProcess.ProcessName == Database.Constants.CameraAppExe)
                         {
                             ControlCenterPresenter.CameraProcess = process;
                         }
@@ -57,8 +57,8 @@ namespace LiveView.Services.Template
                         var agent = agentRepository.Select(agentId);
                         if (agent != null)
                         {
-                            MainPresenter.SentToClient(agent.ToString(), NetworkCommand.KillOnDisplay, Core.Constants.SequenceExe, displayId);
-                            MainPresenter.SentToClient(agent.ToString(), Core.Constants.SequenceExe, agentId, userId, sequenceId, displayId, isMdi);
+                            MainPresenter.SentToClient(agent.ToString(), NetworkCommand.KillOnDisplay, Database.Constants.SequenceExe, displayId);
+                            MainPresenter.SentToClient(agent.ToString(), Database.Constants.SequenceExe, agentId, userId, sequenceId, displayId, isMdi);
                         }
                     }
                 }

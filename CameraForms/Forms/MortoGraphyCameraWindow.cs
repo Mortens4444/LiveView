@@ -4,6 +4,7 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -90,7 +91,7 @@ namespace CameraForms.Forms
 
         private void SetBufferSize()
         {
-            bufferSize = AppConfig.GetInt32(LiveView.Core.Constants.VideoCaptureClientBufferSize, 409600);
+            bufferSize = AppConfig.GetInt32(Database.Constants.VideoCaptureClientBufferSize, 409600);
         }
 
         private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
@@ -101,7 +102,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();

@@ -1,4 +1,5 @@
-﻿using LiveView.Agent.Dto;
+﻿using Database.Services;
+using LiveView.Agent.Dto;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
@@ -27,7 +28,7 @@ namespace LiveView.Agent.Network.Commands
 
             var application = messageParts[0];
             var processArgs = messageParts.Skip(1);
-            var redirect = AppConfig.GetBoolean(Core.Constants.StartAppsWithRedirectedOutput);
+            var redirect = AppConfig.GetBoolean(Database.Constants.StartAppsWithRedirectedOutput);
             var process = redirect ? AppStarter.StartWithRedirect(application, String.Join(" ", processArgs), logger) :
                 AppStarter.Start(application, String.Join(" ", processArgs), logger);
 

@@ -21,11 +21,11 @@ namespace Sequence
         [STAThread]
         static void Main(string[] args)
         {
-            if (AppConfig.GetBoolean(LiveView.Core.Constants.AttachDebugger))
+            if (AppConfig.GetBoolean(Database.Constants.AttachDebugger))
             {
                 Debugger.Launch();
             }
-            var waitTime = AppConfig.GetInt32(LiveView.Core.Constants.WaitAtStartup);
+            var waitTime = AppConfig.GetInt32(Database.Constants.WaitAtStartup);
             Thread.Sleep(waitTime);
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;

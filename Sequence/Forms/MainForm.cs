@@ -1,5 +1,6 @@
 using Database.Interfaces;
 using Database.Models;
+using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
@@ -41,8 +42,8 @@ namespace Sequence.Forms
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 
-            var serverIp = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
-            var serverPort = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+            var serverIp = AppConfig.GetString(Database.Constants.LiveViewServerIpAddress);
+            var serverPort = AppConfig.GetUInt16WithThrowOnError(Database.Constants.LiveViewServerListenerPort);
             if (serverPort != default)
             {
                 try
@@ -73,7 +74,7 @@ namespace Sequence.Forms
             }
             else
             {
-                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
+                ErrorBox.Show("General error", $"{Database.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
             }
 
             Console.CancelKeyPress += async (sender, e) => await OnExitAsync().ConfigureAwait(false);

@@ -1,6 +1,6 @@
 ﻿using Mtf.Cryptography.Interfaces;
 
-namespace LiveView.Core.Services.PasswordHashers
+namespace Database.Services.PasswordHashers
 {
     public class NoCryptor : ICipher
     {

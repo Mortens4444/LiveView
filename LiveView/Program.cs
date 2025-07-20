@@ -1,6 +1,5 @@
 using Database.Interfaces;
 using Database.Models;
-using Database.Repositories;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Forms;
@@ -38,7 +37,7 @@ namespace LiveView
         static void Main()
         {
             ExceptionHandler.CatchUnhandledExceptions();
-            ExceptionHandler.ShowDebugInfo(AppConfig.GetBoolean(Core.Constants.ShowDebugInfo));
+            ExceptionHandler.ShowDebugInfo(AppConfig.GetBoolean(Database.Constants.ShowDebugInfo));
             //CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("hu-HU");
             //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
 
@@ -56,23 +55,7 @@ namespace LiveView
 
             try
             {
-                BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
-                BaseRepository.CommandTimeout = 150;
-                BaseRepository.ExecuteWithoutTransaction("CreateUser");
-                BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
-                BaseRepository.Execute("CreateTables");
-                var migrationsToExecute = new string[] { "InsertInitialData" };
-
-                var migrationRepository = new MigrationRepository();
-                var migrations = migrationRepository.SelectAll();
-                foreach (var migrationToExecute in migrationsToExecute)
-                {
-                    if (!migrations.Any(migration => migration.Name == migrationToExecute))
-                    {
-                        BaseRepository.Execute(migrationToExecute);
-                        migrationRepository.Insert(new Migration { Name = migrationToExecute });
-                    }
-                }
+                DatabaseInitializer.CreateDatabase();
             }
             catch (SqlException ex) when (ex.Number == 26)
             {

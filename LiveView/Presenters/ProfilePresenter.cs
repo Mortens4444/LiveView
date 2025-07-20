@@ -1,6 +1,6 @@
 ﻿using Database.Interfaces;
 using Database.Models;
-using LiveView.Core.Services.PasswordHashers;
+using Database.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;

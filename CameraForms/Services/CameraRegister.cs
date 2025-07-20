@@ -1,7 +1,7 @@
 ﻿using Database.Enums;
+using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
-using LiveView.Core.Services;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -25,12 +25,12 @@ namespace CameraForms.Services
 
         private static Client Register(DisplayDto display, EventHandler<DataArrivedEventArgs> handler, string messageTemplate)
         {
-            var ip = AppConfig.GetString(LiveView.Core.Constants.LiveViewServerIpAddress);
-            var port = AppConfig.GetUInt16WithThrowOnError(LiveView.Core.Constants.LiveViewServerListenerPort);
+            var ip = AppConfig.GetString(Database.Constants.LiveViewServerIpAddress);
+            var port = AppConfig.GetUInt16WithThrowOnError(Database.Constants.LiveViewServerListenerPort);
 
             if (port == default)
             {
-                ErrorBox.Show("General error", $"{LiveView.Core.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
+                ErrorBox.Show("General error", $"{Database.Constants.LiveViewServerListenerPort} cannot be parsed as an ushort.");
                 return null;
             }
 

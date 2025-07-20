@@ -3,7 +3,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LiveView.Core.Services.PasswordHashers
+namespace Database.Services.PasswordHashers
 {
     public static class UserPasswordHasher
     {

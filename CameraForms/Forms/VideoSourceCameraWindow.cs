@@ -3,6 +3,7 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -73,7 +74,7 @@ namespace CameraForms.Forms
             this.gridCamera = gridCamera;
             camera = cameraRepository.Select(gridCamera);
 
-            reconnectTimeout = AppConfig.GetInt32(LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
+            reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
             if (gridCamera?.Frame ?? false)
             {
@@ -99,7 +100,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
-            reconnectTimeout = AppConfig.GetInt32(LiveView.Core.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
+            reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
             Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
         }
@@ -116,7 +117,7 @@ namespace CameraForms.Forms
 
             if (fullScreen)
             {
-                kBD300ASimulatorServer.StartPipeServerAsync(LiveView.Core.Constants.PipeServerName);
+                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
                 fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
 
                 Console.CancelKeyPress += (sender, e) => OnExit();

@@ -1,4 +1,4 @@
-﻿using LiveView.Core.Services.PasswordHashers;
+﻿using Database.Services.PasswordHashers;
 
 namespace Database.Models
 {
