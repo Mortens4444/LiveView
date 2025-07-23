@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using Database.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -72,6 +73,7 @@ namespace LiveView.Presenters
 
             var filteredUsers = users
                 .Where(u => usersInGroups.Any(ug => ug.UserId == u.Id && userGroups.Any(g => g.Id == ug.GroupId)))
+                .OrderBy(u => u.Username)
                 .ToList();
 
             view.CbUsers.AddItems(filteredUsers);

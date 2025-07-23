@@ -23,6 +23,7 @@
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
+    <EmbeddedResource Include="Scripts\InsertDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\InsertVideoSource.sql" />
