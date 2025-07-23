@@ -1,5 +1,9 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
-  <Bundle Id="$(var.Company).LiveView.Installer" Name="LiveView" Manufacturer="$(var.Company)" Version="$(var.ProgramVersion)">
+  <Bundle Id="$(var.Company).LiveView.Installer"
+          Name="LiveView"
+          Manufacturer="$(var.Company)"
+          Version="$(var.ProgramVersion)"
+          UpgradeCode="{57BF2271-6E27-4527-8A40-79F58E193991}">
     <BootstrapperApplication>
       <bal:WixStandardBootstrapperApplication LicenseUrl="https://www.sziltech.hu/license.html" Theme="hyperlinkLicense" />
     </BootstrapperApplication>

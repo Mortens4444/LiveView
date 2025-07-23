@@ -14,12 +14,22 @@ namespace Database.Services.PasswordHashers
             return Sha256Hash(Reverse(Sha256Hash(Encrypt(input))));
         }
 
-        public static string Encrypt(string input)
+        public static string UsernameEncrypt(string input)
+        {
+            return Encrypt(Encrypt(input));
+        }
+
+        private static string Encrypt(string input)
         {
             return Reverse(cipher.Encrypt(input));
         }
 
-        public static string Decrypt(string input)
+        public static string UsernameDecrypt(string input)
+        {
+            return Decrypt(Decrypt(input));
+        }
+
+        private static string Decrypt(string input)
         {
             return cipher.Decrypt(Reverse(input));
         }

@@ -25,14 +25,14 @@ namespace Database.Models
             return new Server
             {
                 IpAddress = IpAddress,
-                Username = VideoServerPasswordCryptor.Encrypt(VideoServerCredentials.Username),
-                Password = VideoServerPasswordCryptor.Encrypt(VideoServerCredentials.Password),
+                Username = VideoServerPasswordCryptor.UsernameEncrypt(VideoServerCredentials.Username),
+                Password = VideoServerPasswordCryptor.PasswordEncrypt(VideoServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
-                WinUser = WindowsPasswordCryptor.Encrypt(WindowsCredentials.Username),
-                WinPass = WindowsPasswordCryptor.Encrypt(WindowsCredentials.Password),
+                WinUser = WindowsPasswordCryptor.UsernameEncrypt(WindowsCredentials.Username),
+                WinPass = WindowsPasswordCryptor.PasswordEncrypt(WindowsCredentials.Password),
                 StartInMotionPopup = false
             };
         }
@@ -54,13 +54,13 @@ namespace Database.Models
                 SerialNumber = server.SerialNumber,
                 WindowsCredentials = new Credentials
                 {
-                    Username = WindowsPasswordCryptor.Decrypt(server.WinUser),
-                    Password = WindowsPasswordCryptor.Decrypt(server.WinPass)
+                    Username = WindowsPasswordCryptor.UsernameDecrypt(server.WinUser),
+                    Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass)
                 },
                 VideoServerCredentials = new Credentials
                 {
-                    Username = VideoServerPasswordCryptor.Decrypt(server.Username),
-                    Password = VideoServerPasswordCryptor.Decrypt(server.Password)
+                    Username = VideoServerPasswordCryptor.UsernameDecrypt(server.Username),
+                    Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password)
                 }
             };
         }

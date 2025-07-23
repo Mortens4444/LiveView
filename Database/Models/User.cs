@@ -12,7 +12,7 @@ namespace Database.Models
 
         public string Username
         {
-            get => UserPasswordHasher.Decrypt(username);
+            get => UserPasswordHasher.UsernameDecrypt(username);
             set => username = value;
         }
 

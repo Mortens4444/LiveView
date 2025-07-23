@@ -519,8 +519,8 @@ namespace LiveView.Presenters
                     view.AxVideoPlayerWindow.Visible = true;
                     view.MtfCamera.Visible = false;
                     view.AxVideoPlayerWindow.AxVideoPlayer.Start(camera.Server.IpAddress, camera.Guid,
-                        VideoServerPasswordCryptor.Decrypt(camera.Server.VideoServerCredentials.Username),
-                        VideoServerPasswordCryptor.Decrypt(camera.Server.VideoServerCredentials.Password));
+                        VideoServerPasswordCryptor.UsernameDecrypt(camera.Server.VideoServerCredentials.Username),
+                        VideoServerPasswordCryptor.PasswordDecrypt(camera.Server.VideoServerCredentials.Password));
                     var matrixRegion = comboBox.Tag as MatrixRegion;
                     view.AxVideoPlayerWindow.Location = GetControlLocation(matrixRegion, 62);
                     view.AxVideoPlayerWindow.Size = new Size(matrixRegion.ColumnSpan * defaultWindowSize.Width - 10, defaultWindowSize.Height - (2 * comboBox.Height + 10));

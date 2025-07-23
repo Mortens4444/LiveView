@@ -461,7 +461,7 @@ namespace LiveView.Presenters
 
         public Mtf.Permissions.Models.User<User> PrimaryLogon()
         {
-            var user = userRepository.Login(UserPasswordHasher.Encrypt(view.TbUsername.Text),
+            var user = userRepository.Login(UserPasswordHasher.UsernameEncrypt(view.TbUsername.Text),
                 UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {

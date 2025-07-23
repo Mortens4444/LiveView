@@ -31,7 +31,7 @@ namespace LiveView.Presenters
         public User Login()
         {
             var user = userRepository.Login(
-                UserPasswordHasher.Encrypt(view.TbUsername.Text),
+                UserPasswordHasher.UsernameEncrypt(view.TbUsername.Text),
                 UserPasswordHasher.Hash(view.TbPassword.Password));
             if (user == null)
             {

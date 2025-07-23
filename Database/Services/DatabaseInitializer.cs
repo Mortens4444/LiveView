@@ -56,8 +56,8 @@ namespace Database.Services
                         insertInitialData,
                         new
                         {
-                            SziltechUserName = UserPasswordHasher.Encrypt("Sziltech"),
-                            AdminUserName = UserPasswordHasher.Encrypt("admin")
+                            SziltechUserName = UserPasswordHasher.UsernameEncrypt("Sziltech"),
+                            AdminUserName = UserPasswordHasher.UsernameEncrypt("admin")
                         }
                     }
                 };

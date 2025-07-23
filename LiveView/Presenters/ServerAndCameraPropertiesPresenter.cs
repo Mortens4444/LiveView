@@ -49,11 +49,11 @@ namespace LiveView.Presenters
             var hwKey = Globals.HardwareKey as SiliconVideoHardwareKey;
             view.TbVideoServerName.Text = view.Server.Hostname;
             view.TbHost.Text = view.Server.IpAddress;
-            view.TbVideoServerUsername.Text = VideoServerPasswordCryptor.Decrypt(view.Server.Username);
-            view.TbVideoServerPassword.Text = VideoServerPasswordCryptor.Decrypt(view.Server.Password);
+            view.TbVideoServerUsername.Text = VideoServerPasswordCryptor.UsernameDecrypt(view.Server.Username);
+            view.TbVideoServerPassword.Text = VideoServerPasswordCryptor.PasswordDecrypt(view.Server.Password);
             view.TbMacAddress.Text = view.Server.MacAddress;
-            view.TbWindowsUsername.Text = WindowsPasswordCryptor.Decrypt(view.Server.WinUser);
-            view.TbWindowsPassword.Text = WindowsPasswordCryptor.Decrypt(view.Server.WinPass);
+            view.TbWindowsUsername.Text = WindowsPasswordCryptor.UsernameDecrypt(view.Server.WinUser);
+            view.TbWindowsPassword.Text = WindowsPasswordCryptor.PasswordDecrypt(view.Server.WinPass);
 
             var iszSziltechDeice = SziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
             if (iszSziltechDeice)
