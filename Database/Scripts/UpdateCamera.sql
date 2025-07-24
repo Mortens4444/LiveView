@@ -15,6 +15,6 @@
 WHERE Id = @Id;
 
 UPDATE Credentials SET 
-    Username = @Username,
+    Username = @EncryptedUsername,
     EncryptedPassword = @Password
 WHERE Id = @CameraCredentialsId;

@@ -23,7 +23,7 @@ namespace Database.Models
             return new DatabaseServer
             {
                 IpAddress = IpAddress,
-                Username = DatabaseServerPasswordCryptor.UsernameDecrypt(DatabaseServerCredentials.Username),
+                Username = DatabaseServerCredentials.Username,
                 Password = DatabaseServerPasswordCryptor.PasswordDecrypt(DatabaseServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,

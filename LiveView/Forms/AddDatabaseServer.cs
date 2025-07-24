@@ -59,7 +59,7 @@ namespace LiveView.Forms
                 DatabaseServerCredentials = new Credentials
                 {
                     Username = DatabaseServerPasswordCryptor.UsernameEncrypt(tbUsername.Text),
-                    Password = DatabaseServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
+                    Password = String.IsNullOrEmpty(tbPassword.Password) ? databaseServer?.Password : DatabaseServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
                 }
             };
         }

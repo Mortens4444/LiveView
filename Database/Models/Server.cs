@@ -1,15 +1,25 @@
-﻿using Mtf.Extensions.Interfaces;
+﻿using Database.Services.PasswordHashers;
+using Mtf.Extensions.Interfaces;
 using System;
 
 namespace Database.Models
 {
     public class Server : IHaveId<int>, IEquatable<Server>
     {
+        private string username;
+        private string winUser;
+
         public int Id { get; set; }
 
         public string IpAddress { get; set; }
 
-        public string Username { get; set; }
+        public string Username
+        {
+            get => VideoServerPasswordCryptor.UsernameDecrypt(username);
+            set => username = value;
+        }
+
+        public string EncryptedUsername => username;
 
         public string Password { get; set; }
 
@@ -21,11 +31,21 @@ namespace Database.Models
 
         public string SerialNumber { get; set; }
 
-        public string WinUser { get; set; }
+        public string WinUser
+        {
+            get => WindowsPasswordCryptor.UsernameDecrypt(winUser);
+            set => winUser = value;
+        }
+
+        public string EncryptedWinUser => winUser;
 
         public string WinPass { get; set; }
 
         public bool StartInMotionPopup { get; set; }
+
+        public int VideoServerCredentialsId { get; set; }
+
+        public int WindowsCredentialsId { get; set; }
 
         public override int GetHashCode()
         {

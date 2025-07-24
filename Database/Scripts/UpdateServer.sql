@@ -2,16 +2,16 @@
 	IpAddress = @IpAddress,
 	Hostname = @Hostname,
 	DongleSn = @DongleSn,
-	SziltechSn = @SerialNumber,
+	SerialNumber = @SerialNumber,
 	MacAddress = @MacAddress
 WHERE Id = @Id;
 
 UPDATE Credentials SET 
-    Username = @Username,
+    Username = @EncryptedUsername,
     EncryptedPassword = @Password
 WHERE Id = @VideoServerCredentialsId;
 
 UPDATE Credentials SET 
-    Username = @WinUser,
+    Username = @EncryptedWinUser,
     EncryptedPassword = @WinPass
 WHERE Id = @WindowsCredentialsId;

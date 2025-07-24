@@ -1,10 +1,13 @@
 ﻿using Database.Enums;
+using Database.Services.PasswordHashers;
 using Mtf.Extensions.Interfaces;
 
 namespace Database.Models
 {
     public class Camera : IHaveGuid, IHaveId<int>
     {
+        private string username;
+
         public int Id { get; set; }
 
         public int? PartnerCameraId { get; set; }
@@ -21,7 +24,13 @@ namespace Database.Models
 
         public int? StreamId { get; set; }
 
-        public string Username { get; set; }
+        public string Username
+        {
+            get => CameraPasswordCryptor.UsernameDecrypt(username);
+            set => username = value;
+        }
+
+        public string EncryptedUsername => username;
 
         public string Password { get; set; }
 
@@ -48,6 +57,10 @@ namespace Database.Models
         public long? VideoSourceId { get; set; }
 
         public long PermissionCamera { get; set; }
+
+        public int CameraServerCredentialsId { get; set; }
+
+        //public int VideoServerCredentialsId { get; set; }
 
         public override string ToString()
         {

@@ -58,7 +58,7 @@ namespace LiveView.Forms
             {
                 Id = user?.Id ?? 0,
                 Username = UserPasswordHasher.UsernameEncrypt(tbUsername.Text),
-                Password = UserPasswordHasher.Hash(String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : tbPassword.Password),
+                Password = String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : UserPasswordHasher.Hash(tbPassword.Password),
                 Email = tbEmail.Text,
                 NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,
                 SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value
@@ -73,7 +73,7 @@ namespace LiveView.Forms
             }
 
             tbUsername.Text = user.Username;
-            tbPassword.Password = user.Password;
+            //tbPassword.Password = user.Password; // It's hashed
             tbEmail.Text = user.Email;
             chkLoginSupervisorsRequiredPriority.Checked = user.NeededSecondaryLogonPriority == 0;
             nudNeededSecondaryLogonPriority.Value = user.NeededSecondaryLogonPriority;

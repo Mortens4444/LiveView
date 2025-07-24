@@ -80,12 +80,12 @@ namespace LiveView.Forms
                 VideoServerCredentials = new Credentials
                 {
                     Username = VideoServerPasswordCryptor.UsernameEncrypt(tbUsername.Text),
-                    Password = VideoServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
+                    Password = String.IsNullOrEmpty(tbPassword.Password) ? server?.Password : VideoServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
                 },
                 WindowsCredentials = new Credentials
                 {
                     Username = WindowsPasswordCryptor.UsernameEncrypt(tbWinUsername.Text),
-                    Password = WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
+                    Password = String.IsNullOrEmpty(tbWinPassword.Password) ? server?.Password : WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
                 },
             };
         }
@@ -109,10 +109,10 @@ namespace LiveView.Forms
             tbHostname.Text = server.Hostname;
             tbMacAddress.Text = server.MacAddress;
             tbSziltechSerialNumber.Text = server.SerialNumber;
-            tbUsername.Text = VideoServerPasswordCryptor.UsernameDecrypt(server.Username);
-            tbPassword.Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password);
-            tbWinUsername.Text = WindowsPasswordCryptor.UsernameDecrypt(server.WinUser);
-            tbWinPassword.Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass);
+            tbUsername.Text = server.Username;
+            //tbPassword.Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password);
+            tbWinUsername.Text = server.WinUser;
+            //tbWinPassword.Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass);
         }
     }
 }

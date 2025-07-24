@@ -162,7 +162,7 @@ namespace CameraForms.Forms
             if (permissionManager.HasCameraAndUser(camera)
                 && permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
             {
-                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, VideoServerPasswordCryptor.UsernameDecrypt(server.Username), VideoServerPasswordCryptor.PasswordDecrypt(server.Password));
+                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.Password));
             }
         }
 

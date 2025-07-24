@@ -54,12 +54,12 @@ namespace Database.Models
                 SerialNumber = server.SerialNumber,
                 WindowsCredentials = new Credentials
                 {
-                    Username = WindowsPasswordCryptor.UsernameDecrypt(server.WinUser),
+                    Username = server.WinUser,
                     Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass)
                 },
                 VideoServerCredentials = new Credentials
                 {
-                    Username = VideoServerPasswordCryptor.UsernameDecrypt(server.Username),
+                    Username = server.Username,
                     Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password)
                 }
             };

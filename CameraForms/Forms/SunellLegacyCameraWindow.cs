@@ -103,7 +103,7 @@ namespace CameraForms.Forms
             {
                 CameraIp = camera.IpAddress,
                 CameraPort = SunellLegacyCameraInfo.PagoPort,
-                Username = CameraPasswordCryptor.UsernameDecrypt(camera.Username),
+                Username = camera.Username,
                 Password = CameraPasswordCryptor.PasswordDecrypt(camera.Password),
                 CameraId = camera.CameraId ?? 1,
                 StreamId = camera.StreamId ?? 1
