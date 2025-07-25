@@ -24,10 +24,10 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            view.AxVideoPlayerWindow.AxVideoPlayer.Start(view.Camera.IpAddress, view.Camera.Guid, view.Camera.ServerUsername, view.Camera.ServerPassword);
+            view.AxVideoPlayerWindow.AxVideoPlayer.Start(view.Camera.IpAddress, view.Camera.Guid, view.Camera.ServerEncryptedUsername, view.Camera.ServerEncryptedPassword);
             if (view.PartnerCamera != null)
             {
-                view.AxVideoPlayerWindow2.AxVideoPlayer.Start(view.PartnerCamera.IpAddress, view.PartnerCamera.Guid, view.PartnerCamera.ServerUsername, view.PartnerCamera.ServerPassword);
+                view.AxVideoPlayerWindow2.AxVideoPlayer.Start(view.PartnerCamera.IpAddress, view.PartnerCamera.Guid, view.PartnerCamera.ServerEncryptedUsername, view.PartnerCamera.ServerEncryptedPassword);
             }
             else
             {

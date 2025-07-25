@@ -9,7 +9,6 @@
   <ItemGroup>
     <None Remove="Scripts\SelectAllBarcodeScanOptions.sql" />
     <None Remove="Scripts\SelectAllCamera.sql" />
-    <None Remove="Scripts\SelectAllServer.sql" />
     <None Remove="Scripts\SelectCamera.sql" />
     <None Remove="Scripts\SelectCameraName.sql" />
   </ItemGroup>
@@ -89,7 +88,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts\DeleteGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteTemplate.sql" />
-    <EmbeddedResource Include="Scripts\DeleteServer.sql" />
+    <EmbeddedResource Include="Scripts\DeleteVideoServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteSequence.sql" />
     <EmbeddedResource Include="Scripts\DeleteMapObject.sql" />
     <EmbeddedResource Include="Scripts\InsertGrid.sql" />
@@ -105,7 +104,7 @@
     <EmbeddedResource Include="Scripts\SelectWhereGridInSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCamera.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereGridCamera.sql" />
-    <EmbeddedResource Include="Scripts\SelectServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectVideoServer.sql" />
     <EmbeddedResource Include="Scripts\SelectGridInSequence.sql" />
     <EmbeddedResource Include="Scripts\SelectGroupByName.sql" />
     <EmbeddedResource Include="Scripts\SelectGridCamera.sql" />
@@ -146,7 +145,7 @@
     <EmbeddedResource Include="Scripts\DeleteStaticOptions.sql" />
     <EmbeddedResource Include="Scripts\InsertGeneralOption.sql" />
     <EmbeddedResource Include="Scripts\InsertCamera.sql" />
-    <EmbeddedResource Include="Scripts\InsertServer.sql" />
+    <EmbeddedResource Include="Scripts\InsertVideoServer.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDisplay.sql" />
     <EmbeddedResource Include="Scripts\SelectAllDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\InsertGridCamera.sql" />
@@ -156,7 +155,7 @@
     <EmbeddedResource Include="Scripts\SelectAllUser.sql" />
     <EmbeddedResource Include="Scripts\SelectMap.sql" />
     <EmbeddedResource Include="Scripts\SelectAllSequence.sql" />
-    <EmbeddedResource Include="Scripts\UpdateServer.sql" />
+    <EmbeddedResource Include="Scripts\UpdateVideoServer.sql" />
     <EmbeddedResource Include="Scripts\SelectServerCameras.sql" />
     <EmbeddedResource Include="Scripts\SelectLanguageElementsForOperations.sql" />
     <EmbeddedResource Include="Scripts\SelectLanguageElementsForEvents.sql" />
@@ -181,7 +180,7 @@
     <EmbeddedResource Include="Scripts\GridCameraSetHeightAndWidth.sql" />
     <EmbeddedResource Include="Scripts\GridCameraSetShowMethod.sql" />
     <EmbeddedResource Include="Scripts\SelectAllCamera.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllServer.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllVideoServer.sql" />
     <EmbeddedResource Include="Scripts\SelectCamera.sql" />
     <EmbeddedResource Include="Scripts\SelectCameraName.sql" />
   </ItemGroup>

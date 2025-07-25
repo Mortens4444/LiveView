@@ -21,7 +21,7 @@ namespace LiveView.Presenters
     {
         private IAddCamerasView view;
         private readonly ICameraRepository cameraRepository;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository serverRepository;
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
@@ -29,7 +29,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             cameraRepository = dependencies.CameraRepository;
-            serverRepository = dependencies.ServerRepository;
+            serverRepository = dependencies.VideoServerRepository;
             logger = dependencies.Logger;
         }
 
@@ -59,7 +59,7 @@ namespace LiveView.Presenters
             view.RemoveSelectedItems(view.CamerasToView);
         }
 
-        public void LoadServers(Server server)
+        public void LoadServers(VideoServer server)
         {
             var servers = serverRepository.SelectAll();
             view.AddItems(view.Servers, servers);
@@ -69,7 +69,7 @@ namespace LiveView.Presenters
 
         public async Task GetCamerasAsync()
         {
-            var server = view.GetSelectedItem<Server>(view.Servers);
+            var server = view.GetSelectedItem<VideoServer>(view.Servers);
             var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
             var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server, connectionTimeout);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
@@ -88,7 +88,7 @@ namespace LiveView.Presenters
 
         public void SaveCameras()
         {
-            var server = view.GetSelectedItem<Server>(view.Servers);
+            var server = view.GetSelectedItem<VideoServer>(view.Servers);
             cameraRepository.DeleteCamerasOfServer(server.Id);
             var cameras = view.GetItems(view.CamerasToView);
             var orderedCameras = cameras.Cast<ListViewItem>().OrderBy(camera => camera.Text).ToList();

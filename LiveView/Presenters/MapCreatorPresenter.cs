@@ -28,7 +28,7 @@ namespace LiveView.Presenters
         private const string MapHasBeenUpdated = "Map '{0}' has been updated.";
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
         private readonly IAgentRepository agentRepository;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridCameraRepository gridCameraRepository;
@@ -45,7 +45,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             agentRepository = dependencies.AgentRepository;
-            serverRepository = dependencies.ServerRepository;
+            serverRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             mapRepository = dependencies.MapRepository;

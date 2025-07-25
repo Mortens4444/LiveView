@@ -29,7 +29,7 @@ namespace LiveView.Presenters
     public class ServerAndCameraPropertiesPresenter : BasePresenter, IDisposable
     {
         private IServerAndCameraPropertiesView view;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraProperties> logger;
         private Ping ping;
@@ -39,7 +39,7 @@ namespace LiveView.Presenters
         public ServerAndCameraPropertiesPresenter(ServerAndCameraPropertiesPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.ServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
         }
@@ -50,10 +50,10 @@ namespace LiveView.Presenters
             view.TbVideoServerName.Text = view.Server.Hostname;
             view.TbHost.Text = view.Server.IpAddress;
             view.TbVideoServerUsername.Text = view.Server.Username;
-            view.TbVideoServerPassword.Text = VideoServerPasswordCryptor.PasswordDecrypt(view.Server.Password);
+            view.TbVideoServerPassword.Text = VideoServerPasswordCryptor.PasswordDecrypt(view.Server.EncryptedPassword);
             view.TbMacAddress.Text = view.Server.MacAddress;
             view.TbWindowsUsername.Text = view.Server.WinUser;
-            view.TbWindowsPassword.Text = WindowsPasswordCryptor.PasswordDecrypt(view.Server.WinPass);
+            view.TbWindowsPassword.Text = WindowsPasswordCryptor.PasswordDecrypt(view.Server.EncryptedWinPass);
 
             var iszSziltechDeice = SziltechDeviceChecker.IsSziltechDevice(view.Server?.DongleSn, out var deviceInfo);
             if (iszSziltechDeice)

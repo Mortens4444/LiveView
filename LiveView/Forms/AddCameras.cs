@@ -14,7 +14,7 @@ namespace LiveView.Forms
 {
     public partial class AddCameras : BaseView, IAddCamerasView, IVideoServerView
     {
-        private readonly Server server;
+        private readonly VideoServer server;
         private readonly bool cameraLicenseRunnedOut;
         private readonly bool isSziltech;
 
@@ -28,7 +28,7 @@ namespace LiveView.Forms
 
         public ComboBox Servers => cbServers;
 
-        public AddCameras(IServiceProvider serviceProvider, Server server = null) : base(serviceProvider, typeof(AddCamerasPresenter))
+        public AddCameras(IServiceProvider serviceProvider, VideoServer server = null) : base(serviceProvider, typeof(AddCamerasPresenter))
         {
             InitializeComponent();
             this.server = server;

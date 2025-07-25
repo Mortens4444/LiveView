@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
 {
-    public record ServerDto : IHaveIdWithSetter<int>
+    public record VideoServerDto : IHaveIdWithSetter<int>
     {
         public int Id { get; set; }
 

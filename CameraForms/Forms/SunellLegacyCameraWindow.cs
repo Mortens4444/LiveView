@@ -93,9 +93,9 @@ namespace CameraForms.Forms
             {
                 throw new MissingFieldException(nameof(Camera), nameof(camera.Username));
             }
-            if (camera.Password == null)
+            if (camera.EncryptedPassword == null)
             {
-                throw new MissingFieldException(nameof(Camera), nameof(camera.Password));
+                throw new MissingFieldException(nameof(Camera), nameof(camera.EncryptedPassword));
             }
 
             fullScreen = true;
@@ -104,7 +104,7 @@ namespace CameraForms.Forms
                 CameraIp = camera.IpAddress,
                 CameraPort = SunellLegacyCameraInfo.PagoPort,
                 Username = camera.Username,
-                Password = CameraPasswordCryptor.PasswordDecrypt(camera.Password),
+                Password = CameraPasswordCryptor.PasswordDecrypt(camera.EncryptedPassword),
                 CameraId = camera.CameraId ?? 1,
                 StreamId = camera.StreamId ?? 1
             };

@@ -57,7 +57,7 @@ namespace LiveView.Forms
             return new User
             {
                 Id = user?.Id ?? 0,
-                Username = UserPasswordHasher.UsernameEncrypt(tbUsername.Text),
+                EncryptedUsername = UserPasswordHasher.UsernameEncrypt(tbUsername.Text),
                 Password = String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : UserPasswordHasher.Hash(tbPassword.Password),
                 Email = tbEmail.Text,
                 NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,

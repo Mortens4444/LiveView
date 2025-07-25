@@ -12,7 +12,7 @@ namespace LiveView.Models.Dependencies
             IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IGridRepository gridRepository,
-            IServerRepository serverRepository,
+            IVideoServerRepository videoServerRepository,
             ICameraRepository cameraRepository,
             IGridCameraRepository gridCameraRepository,
             ISequenceRepository sequenceRepository,
@@ -23,7 +23,7 @@ namespace LiveView.Models.Dependencies
             VideoSourceRepository = videoSourceRepository;
             DisplayManager = displayManager;
             GridRepository = gridRepository;
-            ServerRepository = serverRepository;
+            VideoServerRepository = videoServerRepository;
             CameraRepository = cameraRepository;
             GridCameraRepository = gridCameraRepository;
             SequenceRepository = sequenceRepository;
@@ -37,7 +37,7 @@ namespace LiveView.Models.Dependencies
 
         public IGridRepository GridRepository { get; private set; }
 
-        public IServerRepository ServerRepository { get; private set; }
+        public IVideoServerRepository VideoServerRepository { get; private set; }
 
         public ICameraRepository CameraRepository { get; private set; }
 

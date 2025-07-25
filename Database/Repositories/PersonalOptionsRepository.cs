@@ -66,7 +66,7 @@ namespace Database.Repositories
             }
         }
 
-        public string GetCameraName(long userId, Server server, Camera camera)
+        public string GetCameraName(long userId, VideoServer server, Camera camera)
         {
             if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
             {

@@ -1,10 +1,10 @@
 ﻿SELECT 
     c.*,
     s.Hostname AS ServerDisplayName,
-    vc.Username AS ServerUsername,
-    vc.EncryptedPassword AS ServerPassword,
-    cc.Username AS Username,
-    cc.EncryptedPassword AS Password,
+    vc.EncryptedUsername AS ServerEncryptedUsername,
+    vc.EncryptedPassword AS ServerEncryptedPassword,
+    cc.EncryptedUsername,
+    cc.EncryptedPassword,
     s.Id AS ServerId
 FROM 
     Cameras AS c

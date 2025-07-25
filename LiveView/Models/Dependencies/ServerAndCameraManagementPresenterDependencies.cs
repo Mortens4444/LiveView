@@ -13,14 +13,14 @@ namespace LiveView.Models.Dependencies
             PermissionManager<Database.Models.User> permissionManager,
             IGeneralOptionsRepository generalOptionsRepository,
             IDatabaseServerRepository databaseServerRepository,
-            IServerRepository serverRepository,
+            IVideoServerRepository videoServerRepository,
             ICameraRepository cameraRepository,
             ILogger<ServerAndCameraManagement> logger)
             : base(generalOptionsRepository, formFactory)
         {
             PermissionManager = permissionManager;
             DatabaseServerRepository = databaseServerRepository;
-            ServerRepository = serverRepository;
+            VideoServerRepository = videoServerRepository;
             CameraRepository = cameraRepository;
             Logger = logger;
         }
@@ -29,7 +29,7 @@ namespace LiveView.Models.Dependencies
 
         public IDatabaseServerRepository DatabaseServerRepository { get; private set; }
 
-        public IServerRepository ServerRepository { get; private set; }
+        public IVideoServerRepository VideoServerRepository { get; private set; }
 
         public ICameraRepository CameraRepository { get; private set; }
         

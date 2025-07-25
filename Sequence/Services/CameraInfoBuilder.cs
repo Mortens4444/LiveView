@@ -13,7 +13,7 @@ namespace Sequence.Services
 {
     public static class CameraInfoBuilder
     {
-        public static CameraInfo GetCameraInfo(ReadOnlyCollection<Server> servers, GridCamera gridCamera, Camera camera, Tuple<string, string> videoSourceInfo)
+        public static CameraInfo GetCameraInfo(ReadOnlyCollection<VideoServer> servers, GridCamera gridCamera, Camera camera, Tuple<string, string> videoSourceInfo)
         {
             if (gridCamera == null || camera == null)
             {
@@ -103,7 +103,7 @@ namespace Sequence.Services
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
                         Username = camera.Username,
-                        Password = CameraPasswordCryptor.PasswordDecrypt(camera.Password),
+                        Password = CameraPasswordCryptor.PasswordDecrypt(camera.EncryptedPassword),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
                     };
@@ -115,7 +115,7 @@ namespace Sequence.Services
                         CameraIp = camera.IpAddress,
                         CameraPort = SunellLegacyCameraInfo.PagoPort,
                         Username = camera.Username,
-                        Password = CameraPasswordCryptor.PasswordDecrypt(camera.Password),
+                        Password = CameraPasswordCryptor.PasswordDecrypt(camera.EncryptedPassword),
                         CameraId = camera.CameraId ?? 1,
                         StreamId = camera.StreamId ?? 1
                     };

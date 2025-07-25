@@ -7,9 +7,9 @@ namespace LiveView.WebApi.Dto
     {
         public int Id { get; set; }
 
-        public string Username { get; set; }
+        public string EncryptedUsername { get; set; }
 
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string FullName { get; set; }
 
@@ -37,8 +37,8 @@ namespace LiveView.WebApi.Dto
         public string ToHtml()
         {
             return $"<strong>Id: {Id}</strong><br>" +
-                $"<small>Username: {Username}</small><br>" +
-                $"<small>Password: {Password}</small><br>" +
+                $"<small>Username: {EncryptedUsername}</small><br>" +
+                $"<small>Password: {EncryptedPassword}</small><br>" +
                 $"<small>FullName: {FullName}</small><br>" +
                 $"<small>Address: {Address}</small>";
         }

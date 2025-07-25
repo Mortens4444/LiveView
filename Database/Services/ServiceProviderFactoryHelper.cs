@@ -35,7 +35,7 @@ namespace Database.Services
             services.AddScoped<IPersonalOptionsRepository, PersonalOptionsRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<ISequenceRepository, SequenceRepository>();
-            services.AddScoped<IServerRepository, ServerRepository>();
+            services.AddScoped<IVideoServerRepository, VideoServerRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<ITemplateProcessRepository, TemplateProcessRepository>();
             services.AddScoped<IUserEventRepository, UserEventRepository>();

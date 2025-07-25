@@ -17,15 +17,15 @@ namespace LiveView.Presenters
     public class SynchronViewPresenter : BasePresenter
     {
         private ISynchronViewView view;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository serverRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<SynchronView> logger;
-        private readonly ReadOnlyCollection<Server> servers;
+        private readonly ReadOnlyCollection<VideoServer> servers;
 
         public SynchronViewPresenter(SynchronViewPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.ServerRepository;
+            serverRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
             servers = serverRepository.SelectAll();
@@ -106,7 +106,7 @@ namespace LiveView.Presenters
                         videoPicture.Disconnect();
                     }
                     var server = servers.FirstOrDefault(s => s.Id == camera.ServerId);
-                    videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.ServerUsername, camera.ServerPassword);
+                    videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.ServerEncryptedUsername, camera.ServerEncryptedPassword);
                 }
             }
         }

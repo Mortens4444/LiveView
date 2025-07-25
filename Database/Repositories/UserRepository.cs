@@ -11,20 +11,20 @@ namespace Database.Repositories
             return ExecuteScalar<long>("SelectNumberOfUsers");
         }
 
-        public User Login(string username, string encryptedPassword)
+        public User Login(string encryptedUsername, string encryptedPassword)
         {
             return QuerySingleOrDefault("LoginUser", new
             {
-                Username = username,
+                EncryptedUsername = encryptedUsername,
                 EncryptedPassword = encryptedPassword
             });
         }
 
-        public User SecondaryLogin(string username, string encryptedPassword)
+        public User SecondaryLogin(string encryptedUsername, string encryptedPassword)
         {
             return ExecuteScalar<User>("LoginUser", new
             {
-                Username = username,
+                EncryptedUsername = encryptedUsername,
                 EncryptedPassword = encryptedPassword
             });
         }

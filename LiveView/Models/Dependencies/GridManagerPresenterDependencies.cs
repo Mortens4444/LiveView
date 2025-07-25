@@ -13,14 +13,14 @@ namespace LiveView.Models.Dependencies
             IGridRepository gridRepository,
             IGridCameraRepository gridCameraRepository,
             ICameraRepository cameraRepository,
-            IServerRepository serverRepository,
+            IVideoServerRepository videoServerRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             ILogger<GridManager> logger)
             : base(generalOptionsRepository, formFactory)
         {
             GridRepository = gridRepository;
             GridCameraRepository = gridCameraRepository;
-            ServerRepository = serverRepository;
+            VideoServerRepository = videoServerRepository;
             CameraRepository = cameraRepository;
             Logger = logger;
         }
@@ -31,7 +31,7 @@ namespace LiveView.Models.Dependencies
 
         public IGridCameraRepository GridCameraRepository { get; private set; }
 
-        public IServerRepository ServerRepository { get; private set; }
+        public IVideoServerRepository VideoServerRepository { get; private set; }
 
         public ICameraRepository CameraRepository { get; private set; }
         

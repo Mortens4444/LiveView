@@ -4,24 +4,24 @@ using System;
 
 namespace Database.Models
 {
-    public class Server : IHaveId<int>, IEquatable<Server>
+    public class VideoServer : IHaveId<int>, IEquatable<VideoServer>
     {
-        private string username;
-        private string winUser;
+        private string encryptedUsername;
+        private string encryptedWinUser;
 
         public int Id { get; set; }
 
         public string IpAddress { get; set; }
 
-        public string Username
+        public string Username => VideoServerPasswordCryptor.UsernameDecrypt(encryptedUsername);
+
+        public string EncryptedUsername
         {
-            get => VideoServerPasswordCryptor.UsernameDecrypt(username);
-            set => username = value;
+            get => encryptedUsername;
+            set => encryptedUsername = value;
         }
 
-        public string EncryptedUsername => username;
-
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string MacAddress { get; set; }
 
@@ -31,15 +31,15 @@ namespace Database.Models
 
         public string SerialNumber { get; set; }
 
-        public string WinUser
+        public string WinUser => WindowsPasswordCryptor.UsernameDecrypt(encryptedWinUser);
+
+        public string EncryptedWinUser
         {
-            get => WindowsPasswordCryptor.UsernameDecrypt(winUser);
-            set => winUser = value;
+            get => encryptedWinUser;
+            set => encryptedWinUser = value;
         }
 
-        public string EncryptedWinUser => winUser;
-
-        public string WinPass { get; set; }
+        public string EncryptedWinPass { get; set; }
 
         public bool StartInMotionPopup { get; set; }
 
@@ -54,10 +54,10 @@ namespace Database.Models
 
         public override bool Equals(object obj)
         {
-            return obj is Server other && Equals(other);
+            return obj is VideoServer other && Equals(other);
         }
 
-        public bool Equals(Server other)
+        public bool Equals(VideoServer other)
         {
             return other != null && Id == other.Id;
         }

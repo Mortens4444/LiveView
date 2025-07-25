@@ -45,7 +45,7 @@ namespace LiveView.Services.VideoServer
             motionPopup.AxVideoMotion.onConnectFailed += OnConnectFailed;
             motionPopup.AxVideoMotion.onDisconnect += OnDisconnect;
 
-            motionPopup.AxVideoMotion.Connect(camera.IpAddress, camera.Guid, camera.ServerUsername, camera.ServerPassword);
+            motionPopup.AxVideoMotion.Connect(camera.IpAddress, camera.Guid, camera.ServerEncryptedUsername, camera.ServerEncryptedPassword);
 
             var completedTask = await Task.WhenAny(connectTcs.Task, Task.Delay(connectionTimeoutMs, cancellationToken));
             if (completedTask != connectTcs.Task)

@@ -23,7 +23,7 @@ namespace Sequence.Tests.Services
         private Mock<ISequenceGridsRepository> sequenceGridsRepositoryMock;
         private Mock<IAgentRepository> agentRepositoryMock;
         private Mock<IGridRepository> gridRepositoryMock;
-        private Mock<IServerRepository> serverRepositoryMock;
+        private Mock<IVideoServerRepository> videoServerRepositoryMock;
         private Mock<ICameraRepository> cameraRepositoryMock;
         private Mock<IGridCameraRepository> gridCameraRepositoryMock;
         private Mock<IVideoSourceRepository> videoSourceRepositoryMock;
@@ -41,7 +41,7 @@ namespace Sequence.Tests.Services
             sequenceGridsRepositoryMock = new Mock<ISequenceGridsRepository>();
             agentRepositoryMock = new Mock<IAgentRepository>();
             gridRepositoryMock = new Mock<IGridRepository>();
-            serverRepositoryMock = new Mock<IServerRepository>();
+            videoServerRepositoryMock = new Mock<IVideoServerRepository>();
             cameraRepositoryMock = new Mock<ICameraRepository>();
             cameraPermissionRepositoryMock = new Mock<ICameraPermissionRepository>();
             permissionRepositoryMock = new Mock<IPermissionRepository>();
@@ -70,16 +70,16 @@ namespace Sequence.Tests.Services
                         }
                     }));
 
-            serverRepositoryMock.Setup(r => r.SelectAll())
-                .Returns(new ReadOnlyCollection<Database.Models.Server>(
-                    new List<Database.Models.Server>
+            videoServerRepositoryMock.Setup(r => r.SelectAll())
+                .Returns(new ReadOnlyCollection<VideoServer>(
+                    new List<VideoServer>
                     {
-                        new Database.Models.Server
+                        new VideoServer
                         {
                             Id = 1,
                             IpAddress = "127.0.0.1",
-                            Username = "u",
-                            Password = "uOoHO/Q9yym9zfCQtM0X3Q=="
+                            EncryptedUsername = "=oTkFzPjtAti8faaRAJ9pdX2U03ilY7AB0DmL5MgLIA6",
+                            EncryptedPassword = "97a524ee5f747a16446a0c15edc47613f395ab7fd6719d2cde96e636808f81b1"
                         }
                     }));
 
@@ -303,7 +303,7 @@ namespace Sequence.Tests.Services
                     gridRepositoryMock.Object,
                     agentRepositoryMock.Object,
                     videoSourceRepositoryMock.Object,
-                    serverRepositoryMock.Object,
+                    videoServerRepositoryMock.Object,
                     cameraRepositoryMock.Object,
                     cameraPermissionRepositoryMock.Object,
                     permissionRepositoryMock.Object,

@@ -1,0 +1,1 @@
+﻿DELETE FROM VideoServers WHERE Id = @Id;

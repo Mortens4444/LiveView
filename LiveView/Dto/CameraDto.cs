@@ -15,19 +15,19 @@ namespace LiveView.Dto
 
         public int? StreamId { get; set; }
 
-        public string Username { get; set; }
+        public string EncryptedUsername { get; set; }
 
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string ServerDisplayName { get; set; }
 
-        public string ServerUsername { get; set; }
+        public string ServerEncryptedUsername { get; set; }
 
-        public string ServerPassword { get; set; }
+        public string ServerEncryptedPassword { get; set; }
 
         public bool Actual { get; set; }
 
-        public ServerDto Server { get; set; }
+        public VideoServerDto Server { get; set; }
 
         public int Id { get; set; }
 
@@ -35,7 +35,7 @@ namespace LiveView.Dto
 
         public int RecorderIndex { get; set; }
 
-        public static CameraDto FromModel(Camera camera, Server server = null)
+        public static CameraDto FromModel(Camera camera, VideoServer server = null)
         {
             if (camera == null)
             {
@@ -50,15 +50,15 @@ namespace LiveView.Dto
                 StreamId = camera.StreamId,
                 RecorderIndex = camera.RecorderIndex,
                 IpAddress = camera.IpAddress,
-                Username = camera.Username,
-                Password = camera.Password,
+                EncryptedUsername = camera.EncryptedUsername,
+                EncryptedPassword = camera.EncryptedPassword,
                 ServerDisplayName = camera.ServerDisplayName,
-                ServerUsername = camera.ServerUsername,
-                ServerPassword = camera.ServerPassword,
+                ServerEncryptedUsername = camera.ServerEncryptedUsername,
+                ServerEncryptedPassword = camera.ServerEncryptedPassword,
                 Actual = camera.Actual,
                 CameraName = camera.CameraName,
                 FullscreenMode = camera.FullscreenMode,
-                Server = ServerDto.FromModel(server)
+                Server = VideoServerDto.FromModel(server)
             };
         }
 

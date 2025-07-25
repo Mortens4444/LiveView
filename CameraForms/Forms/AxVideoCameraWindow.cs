@@ -32,7 +32,7 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
 
-        private readonly Database.Models.Server server;
+        private readonly Database.Models.VideoServer server;
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private GridCamera gridCamera;
@@ -41,7 +41,7 @@ namespace CameraForms.Forms
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
             IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
-            Camera camera, Database.Models.Server server, Rectangle rectangle, GridCamera gridCamera)
+            Camera camera, Database.Models.VideoServer server, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -80,8 +80,8 @@ namespace CameraForms.Forms
             }
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
-            var serverRepository = serviceProvider.GetRequiredService<IServerRepository>();
-            server = serverRepository.Select(camera.ServerId);
+            var videoServerRepository = serviceProvider.GetRequiredService<IVideoServerRepository>();
+            server = videoServerRepository.Select(camera.ServerId);
             if (server == null)
             {
                 DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
@@ -162,7 +162,7 @@ namespace CameraForms.Forms
             if (permissionManager.HasCameraAndUser(camera)
                 && permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
             {
-                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.Password));
+                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword));
             }
         }
 

@@ -3,7 +3,7 @@ BEGIN
 
     SET IDENTITY_INSERT Credentials ON;
 
-    INSERT INTO Credentials (Id, Username, EncryptedPassword, CredentialType)
+    INSERT INTO Credentials (Id, EncryptedUsername, EncryptedPassword, CredentialType)
     VALUES
         (1, @SziltechUserName, '81d2c3b1ad3f54ad6d0f5792282c9eaf2784352ec3f6f2144c061768235ae64e', 1), -- \-;!J401LnE|
         (2, @AdminUserName, '97a524ee5f747a16446a0c15edc47613f395ab7fd6719d2cde96e636808f81b1', 1); -- admin

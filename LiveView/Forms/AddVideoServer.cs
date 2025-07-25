@@ -1,5 +1,6 @@
 ﻿using Database.Models;
 using Database.Services.PasswordHashers;
+using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
@@ -13,14 +14,14 @@ namespace LiveView.Forms
 {
     public partial class AddVideoServer : BaseView, IAddVideoServerView
     {
-        private readonly Server server;
+        private readonly VideoServer server;
         private AddVideoServerPresenter presenter;
 
         public TextBox TbModel => tbModel;
 
         public TextBox TbSziltechSerialNumber => tbSziltechSerialNumber;
 
-        public AddVideoServer(IServiceProvider serviceProvider, Server server = null) : base(serviceProvider, typeof(AddVideoServerPresenter))
+        public AddVideoServer(IServiceProvider serviceProvider, VideoServer server = null) : base(serviceProvider, typeof(AddVideoServerPresenter))
         {
             InitializeComponent();
             this.server = server;
@@ -69,23 +70,25 @@ namespace LiveView.Forms
             tbManufacturer.Text = hostDiscoveryResult.Manufacturer;
         }
 
-        public ServerDto GetServerDto()
+        public VideoServerDto GetServerDto()
         {
-            return new ServerDto
+            return new VideoServerDto
             {
                 IpAddress = cbIpAddress.Text,
                 Hostname = tbHostname.Text,
                 MacAddress = tbMacAddress.Text,
                 SerialNumber = tbSziltechSerialNumber.Text,
+                VideoServerCredentialsId = server?.VideoServerCredentialsId ?? 0,
+                WindowsCredentialsId = server?.WindowsCredentialsId ?? 0,
                 VideoServerCredentials = new Credentials
                 {
                     Username = VideoServerPasswordCryptor.UsernameEncrypt(tbUsername.Text),
-                    Password = String.IsNullOrEmpty(tbPassword.Password) ? server?.Password : VideoServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
+                    Password = String.IsNullOrEmpty(tbPassword.Password) ? server?.EncryptedPassword : VideoServerPasswordCryptor.PasswordEncrypt(tbPassword.Password)
                 },
                 WindowsCredentials = new Credentials
                 {
                     Username = WindowsPasswordCryptor.UsernameEncrypt(tbWinUsername.Text),
-                    Password = String.IsNullOrEmpty(tbWinPassword.Password) ? server?.Password : WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
+                    Password = String.IsNullOrEmpty(tbWinPassword.Password) ? server?.EncryptedPassword : WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
                 },
             };
         }
@@ -98,7 +101,7 @@ namespace LiveView.Forms
             }));
         }
 
-        public void LoadData(Server server)
+        public void LoadData(VideoServer server)
         {
             if (server == null)
             {

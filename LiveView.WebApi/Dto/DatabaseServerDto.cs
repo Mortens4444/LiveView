@@ -10,9 +10,9 @@ namespace LiveView.WebApi.Dto
 
         public string IpAddress { get; set; }
 
-        public string Username { get; set; }
+        public string EncryptedUsername { get; set; }
 
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string MacAddress { get; set; }
 
@@ -34,8 +34,8 @@ namespace LiveView.WebApi.Dto
         {
             return $"<strong>{Hostname ?? "N/A"}</strong><br>" +
                 $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
-                $"<small>Username: {Username}</small><br>" +
-                $"<small>Password: {Password}</small>";
+                $"<small>Username: {EncryptedUsername}</small><br>" +
+                $"<small>Password: {EncryptedPassword}</small>";
         }
     }
 }

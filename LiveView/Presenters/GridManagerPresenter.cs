@@ -23,7 +23,7 @@ namespace LiveView.Presenters
         private readonly IGridRepository gridRepository;
         private readonly IGridCameraRepository gridCameraRepository;
         private readonly ICameraRepository cameraRepository;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository serverRepository;
         private readonly ILogger<GridManager> logger;
         private static readonly bool[] boolItems = new[] { true, false };
 
@@ -33,7 +33,7 @@ namespace LiveView.Presenters
             gridRepository = dependencies.GridRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             cameraRepository = dependencies.CameraRepository;
-            serverRepository = dependencies.ServerRepository;
+            serverRepository = dependencies.VideoServerRepository;
             logger = dependencies.Logger;
         }
 
@@ -149,7 +149,7 @@ namespace LiveView.Presenters
                 foreach (ListViewItem item in view.LvGridCameras.SelectedItems)
                 {
                     var serverToolStripMenuItem = toolStripMenuItem.OwnerItem as ToolStripMenuItem;
-                    if (serverToolStripMenuItem.Tag is Server server)
+                    if (serverToolStripMenuItem.Tag is VideoServer server)
                     {
                         var gridCamera = item.Tag as GridCamera;
                         gridCamera.CameraId = camera.Id;
@@ -261,7 +261,7 @@ namespace LiveView.Presenters
             }
         }
 
-        private ListViewItem CreateListViewItem(GridCamera gridCamera, Camera camera, Server server)
+        private ListViewItem CreateListViewItem(GridCamera gridCamera, Camera camera, VideoServer server)
         {
             var item = new ListViewItem((view.LvGridCameras.Items.Count + 1).ToString())
             {

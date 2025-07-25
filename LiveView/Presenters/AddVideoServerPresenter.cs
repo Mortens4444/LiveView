@@ -16,13 +16,13 @@ namespace LiveView.Presenters
     public class AddVideoServerPresenter : BasePresenter
     {
         private IAddVideoServerView view;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ILogger<AddVideoServer> logger;
 
-        public AddVideoServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IServerRepository serverRepository, ILogger<AddVideoServer> logger)
+        public AddVideoServerPresenter(IGeneralOptionsRepository generalOptionsRepository, IVideoServerRepository videoServerRepository, ILogger<AddVideoServer> logger)
             : base(generalOptionsRepository)
         {
-            this.serverRepository = serverRepository;
+            this.videoServerRepository = videoServerRepository;
             this.logger = logger;
         }
 
@@ -32,19 +32,19 @@ namespace LiveView.Presenters
             this.view = view as IAddVideoServerView;
         }
 
-        public void AddOrModify(Server server)
+        public void AddOrModify(VideoServer server)
         {
             var serverDto = view.GetServerDto();
             var newServer = serverDto.ToModel();
             if (server == null)
             {
-                serverRepository.Insert(newServer);
+                videoServerRepository.Insert(newServer);
                 logger.LogInfo(ServerManagementPermissions.Create, "Video server '{0}' has been created.", serverDto);
             }
             else
             {
                 newServer.Id = server.Id;
-                serverRepository.Update(newServer);
+                videoServerRepository.Update(newServer);
                 logger.LogInfo(ServerManagementPermissions.Update, "Video server '{0}' has been updated.", serverDto);
             }
         }
@@ -56,7 +56,7 @@ namespace LiveView.Presenters
             HostDiscoveryService.HostDiscovered -= OnHostDiscovered;
         }
 
-        public void LoadData(Server server)
+        public void LoadData(VideoServer server)
         {
             view.LoadData(server);
         }

@@ -17,7 +17,7 @@ namespace LiveView.Forms
         private ServerAndCameraPropertiesPresenter presenter;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Server Server { get; private set; }
+        public VideoServer Server { get; private set; }
 
         public MtfListView LvCameraList => lvCameraList;
 
@@ -91,7 +91,7 @@ namespace LiveView.Forms
 
         public TextBox TbRecording => tbRecording;
 
-        public ServerAndCameraProperties(IServiceProvider serviceProvider, Server server) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
+        public ServerAndCameraProperties(IServiceProvider serviceProvider, VideoServer server) : base(serviceProvider, typeof(ServerAndCameraPropertiesPresenter))
         {
             InitializeComponent();
             Server = server;

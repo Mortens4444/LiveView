@@ -56,7 +56,7 @@ namespace LiveView.Presenters
         private readonly ILogger<AddGrid> logger;
         private readonly DisplayManager displayManager;
         private readonly List<CameraDto> cameras;
-        private readonly ReadOnlyCollection<Server> servers;
+        private readonly ReadOnlyCollection<VideoServer> servers;
 
         public AddGridPresenter(AddGridPresenterDependencies dependencies)
             : base(dependencies)
@@ -68,7 +68,7 @@ namespace LiveView.Presenters
             sequenceRepository = dependencies.SequenceRepository;
             sequenceGridsRepository = dependencies.SequenceGridsRepository;
             logger = dependencies.Logger;
-            servers = dependencies.ServerRepository.SelectAll();
+            servers = dependencies.VideoServerRepository.SelectAll();
             cameras = dependencies.CameraRepository.SelectAll().Select(c => CameraDto.FromModel(c, servers.FirstOrDefault(s => s.Id == c.ServerId))).ToList();
         }
 

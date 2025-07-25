@@ -9,16 +9,16 @@ namespace LiveView.Models.Dependencies
         public AddCamerasPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             ICameraRepository cameraRepository,
-            IServerRepository serverRepository,
+            IVideoServerRepository videoServerRepository,
             ILogger<AddCameras> logger)
             : base(generalOptionsRepository)
         {
-            ServerRepository = serverRepository;
+            VideoServerRepository = videoServerRepository;
             CameraRepository = cameraRepository;
             Logger = logger;
         }
 
-        public IServerRepository ServerRepository { get; private set; }
+        public IVideoServerRepository VideoServerRepository { get; private set; }
 
         public ICameraRepository CameraRepository { get; private set; }
         

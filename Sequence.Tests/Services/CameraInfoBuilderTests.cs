@@ -12,14 +12,14 @@ namespace Sequence.Tests.Services
     [TestFixture]
     public class CameraInfoBuilderTests
     {
-        private ReadOnlyCollection<Server> servers;
-        private Server server;
+        private ReadOnlyCollection<VideoServer> servers;
+        private VideoServer server;
 
         [SetUp]
         public void SetUp()
         {
-            server = new Server { Id = 1 };
-            servers = new ReadOnlyCollection<Server>(new[] { server });
+            server = new VideoServer { Id = 1 };
+            servers = new ReadOnlyCollection<VideoServer>(new[] { server });
         }
 
         [Test]

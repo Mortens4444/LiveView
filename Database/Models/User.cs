@@ -6,18 +6,17 @@ namespace Database.Models
 {
     public class User : IHaveId<int>
     {
-        private string username;
+        private string encryptedUsername;
 
         public int Id { get; set; }
 
-        public string Username
+        public string Username => UserPasswordHasher.UsernameDecrypt(encryptedUsername);
+
+        public string EncryptedUsername
         {
-            get => UserPasswordHasher.UsernameDecrypt(username);
-            set => username = value;
+            get => encryptedUsername;
+            set => encryptedUsername = value;
         }
-
-        public string EncryptedUsername => username;
-
         public string Password { get; set; }
 
         public string FullName { get; set; }

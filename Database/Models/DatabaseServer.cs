@@ -5,7 +5,7 @@ namespace Database.Models
 {
     public class DatabaseServer : IHaveId<int>
     {
-        private string username;
+        private string encryptedUsername;
 
         public int Id { get; set; }
 
@@ -13,15 +13,15 @@ namespace Database.Models
 
         public string Hostname { get; set; }
 
-        public string Username
+        public string Username => DatabaseServerPasswordCryptor.UsernameDecrypt(encryptedUsername);
+
+        public string EncryptedUsername
         {
-            get => DatabaseServerPasswordCryptor.UsernameDecrypt(username);
-            set => username = value;
+            get => encryptedUsername;
+            set => encryptedUsername = value;
         }
 
-        public string EncryptedUsername => username;
-
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string MacAddress { get; set; }
 

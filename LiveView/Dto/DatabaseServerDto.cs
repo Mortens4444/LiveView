@@ -16,6 +16,8 @@ namespace Database.Models
 
         public int DatabaseServerPort { get; set; }
 
+        public int DatabaseServerCredentialsId { get; set; }
+
         public Credentials DatabaseServerCredentials { get; set; }
 
         public DatabaseServer ToModel()
@@ -23,12 +25,13 @@ namespace Database.Models
             return new DatabaseServer
             {
                 IpAddress = IpAddress,
-                Username = DatabaseServerCredentials.Username,
-                Password = DatabaseServerPasswordCryptor.PasswordDecrypt(DatabaseServerCredentials.Password),
+                EncryptedUsername = DatabaseServerCredentials.Username,
+                EncryptedPassword = DatabaseServerPasswordCryptor.PasswordDecrypt(DatabaseServerCredentials.Password),
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DbName = DatabaseName,
-                DbPort = DatabaseServerPort
+                DbPort = DatabaseServerPort,
+                DatabaseServerCredentialsId = DatabaseServerCredentialsId
             };
         }
 

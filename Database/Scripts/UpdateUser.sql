@@ -13,6 +13,6 @@ SET
 WHERE Id = @Id;
 
 UPDATE Credentials SET
-    Username = @EncryptedUsername,
-    EncryptedPassword = @Password
+    EncryptedUsername = @EncryptedUsername,
+    EncryptedPassword = @EncryptedPassword
 WHERE Id = @LoginCredentialsId;

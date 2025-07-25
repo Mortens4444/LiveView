@@ -14,16 +14,16 @@ namespace LiveView.Presenters
         private ILicenseFormView view;
         private readonly ILogger<LicenseForm> logger;
         private readonly IUserRepository userRepository;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ICameraRepository cameraRepository;
 
         public LicenseFormPresenter(FormFactory formFactory, IGeneralOptionsRepository generalOptionsRepository, IUserRepository userRepository,
-            IServerRepository serverRepository, ICameraRepository cameraRepository, ILogger<LicenseForm> logger)
+            IVideoServerRepository videoServerRepository, ICameraRepository cameraRepository, ILogger<LicenseForm> logger)
             : base(generalOptionsRepository, formFactory)
         {
             this.logger = logger;
             this.userRepository = userRepository;
-            this.serverRepository = serverRepository;
+            this.videoServerRepository = videoServerRepository;
             this.cameraRepository = cameraRepository;
         }
 
@@ -44,7 +44,7 @@ namespace LiveView.Presenters
         public override void Load()
         {
             var users = userRepository.SelectAll();
-            var servers = serverRepository.SelectAll();
+            var servers = videoServerRepository.SelectAll();
             var cameras = cameraRepository.SelectAll();
             var dedicatedServerIds = servers.Where(server => server.SerialNumber != null).Select(server => server.Id).ToList();
             var notDedicatedServerIds = servers.Where(server => server.SerialNumber == null).Select(server => server.Id).ToList();

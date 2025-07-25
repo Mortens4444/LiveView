@@ -47,8 +47,8 @@ namespace LiveView.Presenters
         public void Save()
         {
             view.Camera.IpAddress = view.TbCameraIpAddress.Text;
-            view.Camera.Username = CameraPasswordCryptor.UsernameEncrypt(view.TbCameraUsername.Text);
-            view.Camera.Password = CameraPasswordCryptor.PasswordEncrypt(view.TbCameraPassword.Password);
+            view.Camera.EncryptedUsername = CameraPasswordCryptor.UsernameEncrypt(view.TbCameraUsername.Text);
+            view.Camera.EncryptedPassword = CameraPasswordCryptor.PasswordEncrypt(view.TbCameraPassword.Password);
             view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
             view.Camera.FullscreenMode = (CameraMode)Enum.Parse(typeof(CameraMode), view.CbFullscreenMode.SelectedItem.ToString());
@@ -87,7 +87,7 @@ namespace LiveView.Presenters
             view.TbCameraGuid.Text = view.Camera.Guid;
             view.TbCameraIpAddress.Text = view.Camera.IpAddress;
             view.TbCameraUsername.Text = view.Camera.Username;
-            view.TbCameraPassword.Password = CameraPasswordCryptor.PasswordDecrypt(view.Camera.Password);
+            view.TbCameraPassword.Password = CameraPasswordCryptor.PasswordDecrypt(view.Camera.EncryptedPassword);
             view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
 

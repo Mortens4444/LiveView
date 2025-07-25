@@ -9,18 +9,18 @@ namespace LiveView.Models.Dependencies
         public SynchronViewPresenterDependencies(
             IGeneralOptionsRepository generalOptionsRepository,
             ICameraRepository cameraRepository,
-            IServerRepository serverRepository,
+            IVideoServerRepository videoServerRepository,
             ILogger<SynchronView> logger)
             : base(generalOptionsRepository)
         {
             CameraRepository = cameraRepository;
-            ServerRepository = serverRepository;
+            VideoServerRepository = videoServerRepository;
             Logger = logger;
         }
 
         public ICameraRepository CameraRepository { get; private set; }
         
-        public IServerRepository ServerRepository { get; private set; }
+        public IVideoServerRepository VideoServerRepository { get; private set; }
 
         public ILogger<SynchronView> Logger { get; private set; }
     }

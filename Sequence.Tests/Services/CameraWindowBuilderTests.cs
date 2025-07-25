@@ -26,7 +26,7 @@ namespace Sequence.Tests.Services
         private PermissionManager<User> permissionManager;
         private ILogger<GridSequenceManager> logger;
         private IAgentRepository agentRepository;
-        private IServerRepository serverRepository;
+        private IVideoServerRepository videoServerRepository;
         private ICameraRepository cameraRepository;
         private ICameraFunctionRepository cameraFunctionRepository;
         private IPersonalOptionsRepository personalOptionsRepository;
@@ -67,7 +67,7 @@ namespace Sequence.Tests.Services
             });
             logger = new Mock<ILogger<GridSequenceManager>>().Object;
             agentRepository = new AgentRepository();
-            serverRepository = new ServerRepository();
+            videoServerRepository = new VideoServerRepository();
             cameraRepository = new CameraRepository();
             cameraFunctionRepository = new CameraFunctionRepository();
             personalOptionsRepository = new PersonalOptionsRepository();
@@ -89,7 +89,7 @@ namespace Sequence.Tests.Services
                     Id = CameraId,
                     ServerId = ServerId
                 },
-                Server = new Server
+                Server = new VideoServer
                 {
                     Id = ServerId
                 },

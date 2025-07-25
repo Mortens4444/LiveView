@@ -1,4 +1,4 @@
-﻿UPDATE Servers SET
+﻿UPDATE VideoServers SET
 	IpAddress = @IpAddress,
 	Hostname = @Hostname,
 	DongleSn = @DongleSn,
@@ -7,11 +7,11 @@
 WHERE Id = @Id;
 
 UPDATE Credentials SET 
-    Username = @EncryptedUsername,
-    EncryptedPassword = @Password
+    EncryptedUsername = @EncryptedUsername,
+    EncryptedPassword = @EncryptedPassword
 WHERE Id = @VideoServerCredentialsId;
 
 UPDATE Credentials SET 
-    Username = @EncryptedWinUser,
-    EncryptedPassword = @WinPass
+    EncryptedUsername = @EncryptedWinUser,
+    EncryptedPassword = @EncryptedWinPass
 WHERE Id = @WindowsCredentialsId;

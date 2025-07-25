@@ -3,14 +3,14 @@ BEGIN
     CREATE TABLE Credentials (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         CredentialType INT,
-        Username NVARCHAR(MAX),
+        EncryptedUsername NVARCHAR(MAX),
         EncryptedPassword NVARCHAR(MAX)
     );
 END;
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Servers]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE Servers (
+    CREATE TABLE VideoServers (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         Hostname NVARCHAR(100) NOT NULL,
         DongleSn NVARCHAR(20) NULL,

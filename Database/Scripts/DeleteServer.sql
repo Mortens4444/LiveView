@@ -1,1 +1,0 @@
-﻿DELETE FROM Servers WHERE Id = @Id;

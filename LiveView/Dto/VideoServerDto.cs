@@ -1,8 +1,9 @@
-﻿using Database.Services.PasswordHashers;
+﻿using Database.Models;
+using Database.Services.PasswordHashers;
 
-namespace Database.Models
+namespace LiveView.Dto
 {
-    public class ServerDto
+    public class VideoServerDto
     {
         public long Id { get; set; }
 
@@ -16,35 +17,41 @@ namespace Database.Models
 
         public string SerialNumber { get; set; }
 
+        public int WindowsCredentialsId { get; set; }
+
         public Credentials WindowsCredentials { get; set; }
+
+        public int VideoServerCredentialsId { get; set; }
 
         public Credentials VideoServerCredentials { get; set; }
 
-        public Server ToModel()
+        public VideoServer ToModel()
         {
-            return new Server
+            return new VideoServer
             {
                 IpAddress = IpAddress,
-                Username = VideoServerPasswordCryptor.UsernameEncrypt(VideoServerCredentials.Username),
-                Password = VideoServerPasswordCryptor.PasswordEncrypt(VideoServerCredentials.Password),
+                EncryptedUsername = VideoServerCredentials.Username,
+                EncryptedPassword = VideoServerCredentials.Password,
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DongleSn = DongleSerialNumber,
                 SerialNumber = SerialNumber,
-                WinUser = WindowsPasswordCryptor.UsernameEncrypt(WindowsCredentials.Username),
-                WinPass = WindowsPasswordCryptor.PasswordEncrypt(WindowsCredentials.Password),
-                StartInMotionPopup = false
+                EncryptedWinUser = WindowsCredentials.Username,
+                EncryptedWinPass = WindowsCredentials.Password,
+                StartInMotionPopup = false,
+                VideoServerCredentialsId = VideoServerCredentialsId,
+                WindowsCredentialsId = WindowsCredentialsId
             };
         }
 
-        public static ServerDto FromModel(Server server)
+        public static VideoServerDto FromModel(VideoServer server)
         {
             if (server == null)
             {
                 return null;
             }
 
-            return new ServerDto
+            return new VideoServerDto
             {
                 Id = server.Id,
                 DongleSerialNumber = server.DongleSn,
@@ -52,15 +59,17 @@ namespace Database.Models
                 IpAddress = server.IpAddress,
                 MacAddress = server.MacAddress,
                 SerialNumber = server.SerialNumber,
+                WindowsCredentialsId = server.WindowsCredentialsId,
+                VideoServerCredentialsId = server.VideoServerCredentialsId,
                 WindowsCredentials = new Credentials
                 {
-                    Username = server.WinUser,
-                    Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass)
+                    Username = server.EncryptedWinUser,
+                    Password = WindowsPasswordCryptor.PasswordDecrypt(server.EncryptedWinPass)
                 },
                 VideoServerCredentials = new Credentials
                 {
-                    Username = server.Username,
-                    Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password)
+                    Username = server.EncryptedUsername,
+                    Password = VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword)
                 }
             };
         }

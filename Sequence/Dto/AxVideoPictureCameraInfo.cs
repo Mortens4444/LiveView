@@ -6,6 +6,6 @@ namespace Sequence.Dto
     {
         public Camera Camera { get; set; }
 
-        public Server Server { get; set; }
+        public VideoServer Server { get; set; }
     }
 }

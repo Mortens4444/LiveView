@@ -6,7 +6,7 @@ namespace Database.Models
 {
     public class Camera : IHaveGuid, IHaveId<int>
     {
-        private string username;
+        private string encryptedUsername;
 
         public int Id { get; set; }
 
@@ -24,21 +24,21 @@ namespace Database.Models
 
         public int? StreamId { get; set; }
 
-        public string Username
+        public string Username => CameraPasswordCryptor.UsernameDecrypt(encryptedUsername);
+
+        public string EncryptedUsername
         {
-            get => CameraPasswordCryptor.UsernameDecrypt(username);
-            set => username = value;
+            get => encryptedUsername;
+            set => encryptedUsername = value;
         }
 
-        public string EncryptedUsername => username;
-
-        public string Password { get; set; }
+        public string EncryptedPassword { get; set; }
 
         public string ServerDisplayName { get; set; }
 
-        public string ServerUsername { get; set; }
+        public string ServerEncryptedUsername { get; set; }
 
-        public string ServerPassword { get; set; }
+        public string ServerEncryptedPassword { get; set; }
 
         public string HttpStreamUrl { get; set; }
 

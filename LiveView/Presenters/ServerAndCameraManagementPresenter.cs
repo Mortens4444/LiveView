@@ -17,14 +17,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Server = Database.Models.Server;
+using VideoServer = Database.Models.VideoServer;
 
 namespace LiveView.Presenters
 {
     public class ServerAndCameraManagementPresenter : BasePresenter
     {
         private IServerAndCameraManagementView view;
-        private readonly IServerRepository serverRepository;
+        private readonly IVideoServerRepository serverRepository;
         private readonly IDatabaseServerRepository databaseServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraManagement> logger;
@@ -42,7 +42,7 @@ namespace LiveView.Presenters
         public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.ServerRepository;
+            serverRepository = dependencies.VideoServerRepository;
             databaseServerRepository = dependencies.DatabaseServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
@@ -58,7 +58,7 @@ namespace LiveView.Presenters
         public void CreateNewCameraForm()
         {
             var node = view.GetSelectedItem(view.ServersAndCameras);
-            if (ShowDialog<AddCameras>(node?.Tag as Server))
+            if (ShowDialog<AddCameras>(node?.Tag as VideoServer))
             {
                 Load();
             }
@@ -69,7 +69,7 @@ namespace LiveView.Presenters
             var node = view.GetSelectedItem(view.ServersAndCameras);
             if (node != null)
             {
-                if (node.Tag is Server server)
+                if (node.Tag is VideoServer server)
                 {
                     if (permissionManager.HasPermission(ServerManagementPermissions.Update))
                     {
@@ -126,7 +126,7 @@ namespace LiveView.Presenters
             var node = view.GetSelectedItem(view.ServersAndCameras);
             if (node != null)
             {
-                if (node.Tag is Server server)
+                if (node.Tag is VideoServer server)
                 {
                     if (!ShowConfirm("Are you sure you want to delete this server?", Decide.No))
                     {
@@ -197,7 +197,7 @@ namespace LiveView.Presenters
             {
                 var syncMode = view.GetSynchronizationMode();
 
-                if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
+                if (view.ServersAndCameras.SelectedNode?.Tag is VideoServer server)
                 {
                     var camerasInDatabase = cameraRepository.SelectWhere(new { ServerId = server.Id });
                     var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
@@ -317,7 +317,7 @@ namespace LiveView.Presenters
             return dbServerTreeNodes;
         }
 
-        private static List<TreeNode> CreateServerAndCamerasTreeNodes(ReadOnlyCollection<Server> servers, ReadOnlyCollection<Camera> cameras)
+        private static List<TreeNode> CreateServerAndCamerasTreeNodes(ReadOnlyCollection<VideoServer> servers, ReadOnlyCollection<Camera> cameras)
         {
             var videoServerTreeNodes = new List<TreeNode>();
             foreach (var server in servers)
@@ -358,7 +358,7 @@ namespace LiveView.Presenters
         public void ChangeButtonStates(TreeNode treeNode)
         {
             var cameraSelected = treeNode?.Tag is Camera;
-            var serverSelected = treeNode?.Tag is Server;
+            var serverSelected = treeNode?.Tag is VideoServer;
             var dbServerSelected = treeNode?.Tag is DatabaseServer;
 
             view.BtnNewCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Create) &&
@@ -382,7 +382,7 @@ namespace LiveView.Presenters
 
         public void ShowServerAndCameraProperties()
         {
-            if (view.ServersAndCameras.SelectedNode?.Tag is Server server)
+            if (view.ServersAndCameras.SelectedNode?.Tag is VideoServer server)
             {
                 if (permissionManager.HasPermission(ServerManagementPermissions.Select))
                 {

@@ -1,6 +1,6 @@
-﻿SELECT c.*, cc.Username, cc.EncryptedPassword AS Password,
-    vc.Username AS ServerUsername,
-    vc.EncryptedPassword AS ServerPassword,
+﻿SELECT c.*, cc.EncryptedUsername, cc.EncryptedPassword,
+    vc.EncryptedUsername AS ServerEncryptedUsername,
+    vc.EncryptedPassword AS ServerEncryptedPassword,
     s.Id AS ServerId
 FROM
     Cameras AS c

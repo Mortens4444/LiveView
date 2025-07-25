@@ -6,7 +6,7 @@ namespace LiveView.Interfaces
 {
     public interface IServerAndCameraPropertiesView : IView
     {
-        Server Server { get; }
+        VideoServer Server { get; }
 
         MtfListView LvCameraList { get; }
 
