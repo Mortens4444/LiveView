@@ -88,7 +88,7 @@ namespace LiveView.Forms
                 WindowsCredentials = new Credentials
                 {
                     Username = WindowsPasswordCryptor.UsernameEncrypt(tbWinUsername.Text),
-                    Password = String.IsNullOrEmpty(tbWinPassword.Password) ? server?.EncryptedPassword : WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
+                    Password = String.IsNullOrEmpty(tbWinPassword.Password) ? server?.EncryptedWinPass: WindowsPasswordCryptor.PasswordEncrypt(tbWinPassword.Password)
                 },
             };
         }
