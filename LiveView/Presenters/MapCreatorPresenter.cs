@@ -28,7 +28,7 @@ namespace LiveView.Presenters
         private const string MapHasBeenUpdated = "Map '{0}' has been updated.";
         private const string MapHasBeenDeleted = "Map '{0}' has been deleted.";
         private readonly IAgentRepository agentRepository;
-        private readonly IVideoServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly IGridCameraRepository gridCameraRepository;
@@ -45,7 +45,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             agentRepository = dependencies.AgentRepository;
-            serverRepository = dependencies.VideoServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             gridCameraRepository = dependencies.GridCameraRepository;
             mapRepository = dependencies.MapRepository;
@@ -100,12 +100,12 @@ namespace LiveView.Presenters
             }
 
             var cameras = cameraRepository.SelectAll();
-            var servers = serverRepository.SelectAll();
+            var videoServers = videoServerRepository.SelectAll();
             CameraListProvider.PopulateMenuItems(
                 view.TsmiOpenCamera,
-                servers,
-                server => server.ToString(),
-                server => cameras.Where(c => c.ServerId == server.Id),
+                videoServers,
+                videoServer => videoServer.ToString(),
+                videoServer => cameras.Where(c => c.VideoServerId == videoServer.Id),
                 camera => camera.ToString(),
                 MapObjectMenuItem_Click
             );

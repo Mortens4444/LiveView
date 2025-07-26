@@ -34,7 +34,7 @@ namespace Sequence.Tests.Services
         private IGeneralOptionsRepository generalOptionsRepository;
         
         private const int CameraId = 10; // // This must be an existing Camera in the database.
-        private const int ServerId = 3; // // This must be an existing Server in the database.
+        private const int VideoServerId = 3; // // This must be an existing VideoServer in the database.
         private const int GridCameraId = 100; // This must be an existing GridCamera in the database.
 
         [SetUp]
@@ -87,11 +87,11 @@ namespace Sequence.Tests.Services
                 Camera = new Camera
                 {
                     Id = CameraId,
-                    ServerId = ServerId
+                    VideoServerId = VideoServerId
                 },
                 Server = new VideoServer
                 {
-                    Id = ServerId
+                    Id = VideoServerId
                 },
                 GridCamera = GetGridCamera()
             };

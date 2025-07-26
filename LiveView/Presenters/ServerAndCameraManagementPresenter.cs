@@ -24,7 +24,7 @@ namespace LiveView.Presenters
     public class ServerAndCameraManagementPresenter : BasePresenter
     {
         private IServerAndCameraManagementView view;
-        private readonly IVideoServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly IDatabaseServerRepository databaseServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<ServerAndCameraManagement> logger;
@@ -42,7 +42,7 @@ namespace LiveView.Presenters
         public ServerAndCameraManagementPresenter(ServerAndCameraManagementPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.VideoServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             databaseServerRepository = dependencies.DatabaseServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
@@ -135,7 +135,7 @@ namespace LiveView.Presenters
 
                     if (permissionManager.HasPermission(ServerManagementPermissions.Delete))
                     {
-                        serverRepository.Delete(server.Id);
+                        videoServerRepository.Delete(server.Id);
                         logger.LogInfo(ServerManagementPermissions.Delete, "Video server '{0}' has been deleted.", server);
                     }
                     else
@@ -197,11 +197,11 @@ namespace LiveView.Presenters
             {
                 var syncMode = view.GetSynchronizationMode();
 
-                if (view.ServersAndCameras.SelectedNode?.Tag is VideoServer server)
+                if (view.ServersAndCameras.SelectedNode?.Tag is VideoServer videoServer)
                 {
-                    var camerasInDatabase = cameraRepository.SelectWhere(new { ServerId = server.Id });
+                    var camerasInDatabase = cameraRepository.SelectWhere(new { VideoServerId = videoServer.Id });
                     var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
-                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server, connectionTimeout);
+                    var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), videoServer, connectionTimeout);
                     if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
                     {
                         foreach (var camera in connectionResult.Cameras)
@@ -260,9 +260,9 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var servers = serverRepository.SelectAll();
+            var videoServers = videoServerRepository.SelectAll();
             var cameras = cameraRepository.SelectAll();
-            var videoServerTreeNodes = CreateServerAndCamerasTreeNodes(servers, cameras);
+            var videoServerTreeNodes = CreateServerAndCamerasTreeNodes(videoServers, cameras);
             AddNodes("Servers", videoServerTreeNodes);
 
             var dbServers = databaseServerRepository.SelectAll();
@@ -317,26 +317,26 @@ namespace LiveView.Presenters
             return dbServerTreeNodes;
         }
 
-        private static List<TreeNode> CreateServerAndCamerasTreeNodes(ReadOnlyCollection<VideoServer> servers, ReadOnlyCollection<Camera> cameras)
+        private static List<TreeNode> CreateServerAndCamerasTreeNodes(ReadOnlyCollection<VideoServer> videoServers, ReadOnlyCollection<Camera> cameras)
         {
             var videoServerTreeNodes = new List<TreeNode>();
-            foreach (var server in servers)
+            foreach (var videoServer in videoServers)
             {
-                var serverTreeNode = new TreeNode(server.Hostname, ServerIconIndex, ServerIconIndex)
+                var serverTreeNode = new TreeNode(videoServer.Hostname, ServerIconIndex, ServerIconIndex)
                 {
-                    Name = server.Id.ToString(),
-                    Tag = server,
-                    ToolTipText = server.IpAddress
+                    Name = videoServer.Id.ToString(),
+                    Tag = videoServer,
+                    ToolTipText = videoServer.IpAddress
                 };
 
-                var serverCameras = cameras.Where(camera => camera.ServerId == server.Id);
-                foreach (var serverCamera in serverCameras)
+                var videoServerCameras = cameras.Where(camera => camera.VideoServerId == videoServer.Id);
+                foreach (var videoServerCamera in videoServerCameras)
                 {
-                    var cameraTreeNode = new TreeNode(serverCamera.CameraName, CameraIconIndex, CameraIconIndex)
+                    var cameraTreeNode = new TreeNode(videoServerCamera.CameraName, CameraIconIndex, CameraIconIndex)
                     {
-                        Name = serverCamera.Guid,
-                        Tag = serverCamera,
-                        ToolTipText = serverCamera.Guid
+                        Name = videoServerCamera.Guid,
+                        Tag = videoServerCamera,
+                        ToolTipText = videoServerCamera.Guid
                     };
                     serverTreeNode.Nodes.Add(cameraTreeNode);
                 }

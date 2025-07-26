@@ -4,7 +4,7 @@ namespace LiveView.Interfaces
 {
     public interface IAddCamerasView : IView
     {
-        ComboBox Servers { get; }
+        ComboBox VideoServers { get; }
 
         ListView ServerCameras { get; }
 

@@ -21,7 +21,7 @@ namespace LiveView.Presenters
     {
         private IAddCamerasView view;
         private readonly ICameraRepository cameraRepository;
-        private readonly IVideoServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ILogger<AddCameras> logger;
         private const int CameraIconIndex = 0;
 
@@ -29,7 +29,7 @@ namespace LiveView.Presenters
             : base(dependencies)
         {
             cameraRepository = dependencies.CameraRepository;
-            serverRepository = dependencies.VideoServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             logger = dependencies.Logger;
         }
 
@@ -59,17 +59,17 @@ namespace LiveView.Presenters
             view.RemoveSelectedItems(view.CamerasToView);
         }
 
-        public void LoadServers(VideoServer server)
+        public void LoadServers(VideoServer videoServer)
         {
-            var servers = serverRepository.SelectAll();
-            view.AddItems(view.Servers, servers);
-            var index = servers.IndexOf(server);
-            view.SelectByIndex(view.Servers, index);
+            var videoServers = videoServerRepository.SelectAll();
+            view.AddItems(view.VideoServers, videoServers);
+            var index = videoServers.IndexOf(videoServer);
+            view.SelectByIndex(view.VideoServers, index);
         }
 
         public async Task GetCamerasAsync()
         {
-            var server = view.GetSelectedItem<VideoServer>(view.Servers);
+            var server = view.GetSelectedItem<VideoServer>(view.VideoServers);
             var connectionTimeout = generalOptionsRepository.Get(Setting.MaximumTimeToWaitForAVideoServerIs, 500);
             var connectionResult = await VideoServerConnector.ConnectAsync(view.GetSelf<IVideoServerView>(), server, connectionTimeout);
             if (connectionResult.ErrorCode == VideoServerErrorHandler.Success)
@@ -88,8 +88,8 @@ namespace LiveView.Presenters
 
         public void SaveCameras()
         {
-            var server = view.GetSelectedItem<VideoServer>(view.Servers);
-            cameraRepository.DeleteCamerasOfServer(server.Id);
+            var videoServer = view.GetSelectedItem<VideoServer>(view.VideoServers);
+            cameraRepository.DeleteCamerasOfVideoServer(videoServer.Id);
             var cameras = view.GetItems(view.CamerasToView);
             var orderedCameras = cameras.Cast<ListViewItem>().OrderBy(camera => camera.Text).ToList();
 
@@ -100,7 +100,7 @@ namespace LiveView.Presenters
                 var newCamera = new Camera
                 {
                     CameraName = videoServerCamera.Name,
-                    ServerId = server.Id,
+                    VideoServerId = videoServer.Id,
                     Guid = videoServerCamera.Guid,
                     RecorderIndex = GetRecorderIndex(items, videoServerCamera.Name)
                 };

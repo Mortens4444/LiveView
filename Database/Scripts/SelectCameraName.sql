@@ -2,12 +2,12 @@
     (SELECT CONCAT(PresetName, ' - ', s.Name) AS Name
      FROM CameraPresets AS cp
      JOIN Cameras AS c ON cp.CameraId = c.Id
-     JOIN Servers AS s ON c.ServerId = s.Id
+     JOIN VideoServers AS s ON c.VideoServerId = s.Id
      WHERE c.Guid = @Guid AND cp.Preset = @PresetValue),
     (SELECT CONCAT(PatternName, ' - ', s.Name) AS Name
      FROM CameraPatterns AS cp
      JOIN Cameras AS c ON cp.CameraId = c.Id
-     JOIN Servers AS s ON c.ServerId = s.Id
+     JOIN VideoServers AS s ON c.VideoServerId = s.Id
      WHERE c.Guid = @Guid AND cp.Pattern = @PatternValue)
 ) AS name;
 

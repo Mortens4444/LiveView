@@ -16,14 +16,14 @@ namespace LiveView.Presenters
     public class CameraMotionOptionsPresenter : BasePresenter
     {
         private ICameraMotionSettingsView view;
-        private readonly IVideoServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<CameraMotionSettings> logger;
 
         public CameraMotionOptionsPresenter(CameraMotionOptionsPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.VideoServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
         }
@@ -53,17 +53,17 @@ namespace LiveView.Presenters
 
         public override void Load()
         {
-            var servers = serverRepository.SelectAll();
-            view.AddItems(view.CbPartnerVideoServer, servers);
+            var videoServers = videoServerRepository.SelectAll();
+            view.AddItems(view.CbPartnerVideoServer, videoServers);
 
             var cameras = cameraRepository.SelectAll();
             view.AddItems(view.CbPartnerCamera, cameras);
 
             view.LvCameras.AddItems(cameras, (Camera camera) =>
             {
-                var server = servers.First(s => s.Id == camera.ServerId);
+                var server = videoServers.First(s => s.Id == camera.VideoServerId);
                 var partnerCamera = cameras.FirstOrDefault(c => c.Id == camera.PartnerCameraId);
-                var partnerServer = partnerCamera != null ? servers.FirstOrDefault(s => s.Id == partnerCamera.ServerId) : null;
+                var partnerServer = partnerCamera != null ? videoServers.FirstOrDefault(s => s.Id == partnerCamera.VideoServerId) : null;
                 var result = new ListViewItem(server.Hostname)
                 {
                     Tag = camera

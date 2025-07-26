@@ -27,7 +27,7 @@ namespace Sequence.Services
                     {
                         GridCamera = gridCamera,
                         Camera = camera,
-                        Server = servers.First(s => s.Id == camera.ServerId)
+                        Server = servers.First(s => s.Id == camera.VideoServerId)
                     };
 
                 case CameraMode.VideoSource:

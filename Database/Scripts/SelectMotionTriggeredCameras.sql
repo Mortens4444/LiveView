@@ -1,26 +1,26 @@
-﻿SELECT 
-    c.Id, 
-    FullscreenMode, 
-    StreamId, 
-    cc.Username AS CameraUsername, 
+﻿SELECT
+    c.Id,
+    VideoServerId,
+    FullscreenMode,
+    StreamId,
+    Guid,
+    CameraName,
+    c.IpAddress,
+    MotionTrigger,
+    MotionTriggerMinimumLength,
+    PartnerCameraId,
+    RecorderIndex,
+    HttpStreamUrl,
+    Priority,
+    cc.EncryptedUsername AS CameraUsername,
     cc.EncryptedPassword AS CameraPassword,
-    Guid, 
-    CameraName, 
-    c.IpAddress, 
-    vc.Username AS ServerUsername, 
-    vc.EncryptedPassword AS ServerPassword, 
-    s.Id AS ServerId, 
-    MotionTrigger, 
-    MotionTriggerMinimumLength, 
-    PartnerCameraId, 
-    RecorderIndex, 
-    HttpStreamUrl, 
-    Priority
-FROM 
+    vc.EncryptedUsername AS ServerEncryptedUsername,
+    vc.EncryptedPassword AS ServerEncryptedPassword
+FROM
     Cameras AS c
-LEFT JOIN 
-    Servers AS s ON c.ServerId = s.Id
-LEFT JOIN 
+LEFT JOIN
+    VideoServers AS s ON c.VideoServerId = s.Id
+LEFT JOIN
     Credentials AS vc ON s.VideoServerCredentialsId = vc.Id
-LEFT JOIN 
+LEFT JOIN
     Credentials AS cc ON c.CameraCredentialsId = cc.Id;

@@ -1,1 +1,1 @@
-﻿DELETE FROM Cameras WHERE ServerId = @ServerId
+﻿DELETE FROM Cameras WHERE VideoServerId = @VideoServerId

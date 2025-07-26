@@ -92,7 +92,7 @@ namespace Sequence.Tests.Services
                             Id = 1,
                             CameraId = 1,
                             CameraName = "Cam 1",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.AxVideoPlayer,
                         },
                         new Camera
@@ -100,7 +100,7 @@ namespace Sequence.Tests.Services
                             Id = 2,
                             CameraId = 2,
                             CameraName = "Cam 2",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.FFMpeg,
                         },
                         new Camera
@@ -108,7 +108,7 @@ namespace Sequence.Tests.Services
                             Id = 3,
                             CameraId = 3,
                             CameraName = "Cam 3",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.MortoGraphy,
                         },
                         new Camera
@@ -116,7 +116,7 @@ namespace Sequence.Tests.Services
                             Id = 4,
                             CameraId = 4,
                             CameraName = "Cam 4",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.OpenCvSharp,
                         },
                         new Camera
@@ -124,7 +124,7 @@ namespace Sequence.Tests.Services
                             Id = 5,
                             CameraId = 5,
                             CameraName = "Cam 5",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.OpenCvSharp4,
                         },
                         new Camera
@@ -132,7 +132,7 @@ namespace Sequence.Tests.Services
                             Id = 6,
                             CameraId = 6,
                             CameraName = "Cam 6",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.SunellCamera,
                         },
                         new Camera
@@ -140,7 +140,7 @@ namespace Sequence.Tests.Services
                             Id = 7,
                             CameraId = 7,
                             CameraName = "Cam 7",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.SunellLegacyCamera,
                         },
                         new Camera
@@ -148,7 +148,7 @@ namespace Sequence.Tests.Services
                             Id = 8,
                             CameraId = 8,
                             CameraName = "Cam 8",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.VideoSource,
                             VideoSourceId = 1
                         },
@@ -157,7 +157,7 @@ namespace Sequence.Tests.Services
                             Id = 9,
                             CameraId = 9,
                             CameraName = "Cam 9",
-                            ServerId = 1,
+                            VideoServerId = 1,
                             FullscreenMode = CameraMode.Vlc,
                         },
                     }));

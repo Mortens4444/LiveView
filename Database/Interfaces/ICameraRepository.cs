@@ -6,7 +6,7 @@ namespace Database.Interfaces
 {
     public interface ICameraRepository : IRepository<Camera>
     {
-        void DeleteCamerasOfServer(long serverId);
+        void DeleteCamerasOfVideoServer(long videoServerId);
 
         string SelectCameraName(long cameraId);
 

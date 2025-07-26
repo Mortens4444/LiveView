@@ -29,7 +29,7 @@ namespace Sequence.Services
         private readonly Dictionary<long, List<Form>> cameraForms = new Dictionary<long, List<Form>>();
         private readonly Dictionary<long, List<Process>> processes = new Dictionary<long, List<Process>>();
 
-        private readonly ReadOnlyCollection<Database.Models.VideoServer> servers;
+        private readonly ReadOnlyCollection<VideoServer> videoServers;
         private readonly ReadOnlyCollection<Camera> allCameras;
         private readonly ReadOnlyCollection<GridCamera> gridCameras;
         private readonly Form parentForm;
@@ -91,7 +91,7 @@ namespace Sequence.Services
             this.generalOptionsRepository = generalOptionsRepository;
             this.logger = logger;
 
-            servers = videoServerRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(videoServerRepository));
+            videoServers = videoServerRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(videoServerRepository));
             allCameras = cameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(cameraRepository));
             gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
 
@@ -269,7 +269,7 @@ namespace Sequence.Services
                 {
                     var camera = allCameras.First(c => c.Id == gridCamera.CameraId);
                     var videoSourceInfo = videoSourceRepository.SelectVideoSourceInfo(camera.VideoSourceId);
-                    return CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, videoSourceInfo);
+                    return CameraInfoBuilder.GetCameraInfo(videoServers, gridCamera, camera, videoSourceInfo);
                 })
                 .ToList();
         }

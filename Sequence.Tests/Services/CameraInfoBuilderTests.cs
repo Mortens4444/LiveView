@@ -12,23 +12,23 @@ namespace Sequence.Tests.Services
     [TestFixture]
     public class CameraInfoBuilderTests
     {
-        private ReadOnlyCollection<VideoServer> servers;
-        private VideoServer server;
+        private ReadOnlyCollection<VideoServer> videoServers;
+        private VideoServer videoServer;
 
         [SetUp]
         public void SetUp()
         {
-            server = new VideoServer { Id = 1 };
-            servers = new ReadOnlyCollection<VideoServer>(new[] { server });
+            videoServer = new VideoServer { Id = 1 };
+            videoServers = new ReadOnlyCollection<VideoServer>(new[] { videoServer });
         }
 
         [Test]
         public void GetCameraInfo_AxVideoPlayer_ReturnsAxVideoPictureCameraInfo()
         {
             var gridCamera = new GridCamera { CameraMode = CameraMode.AxVideoPlayer };
-            var camera = new Camera { ServerId = server.Id };
+            var camera = new Camera { VideoServerId = videoServer.Id };
 
-            var result = CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, null);
+            var result = CameraInfoBuilder.GetCameraInfo(videoServers, gridCamera, camera, null);
 
             Assert.That(result, Is.InstanceOf<AxVideoPictureCameraInfo>());
             Assert.That(result.GridCamera, Is.SameAs(gridCamera));
@@ -42,11 +42,11 @@ namespace Sequence.Tests.Services
             var camera = new Camera
             {
                 VideoSourceId = 1,
-                ServerId = server.Id
+                VideoServerId = videoServer.Id
             };
             var videoSourceInfo = new Tuple<string, string>("127.0.0.1", "source");
 
-            var result = CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, videoSourceInfo);
+            var result = CameraInfoBuilder.GetCameraInfo(videoServers, gridCamera, camera, videoSourceInfo);
 
             var info = result as VideoCaptureSourceCameraInfo;
             Assert.That(info, Is.Not.Null);
@@ -58,7 +58,7 @@ namespace Sequence.Tests.Services
         [Test]
         public void GetCameraInfo_NullCamera_ReturnsNull()
         {
-            var result = CameraInfoBuilder.GetCameraInfo(servers, new GridCamera(), null, null);
+            var result = CameraInfoBuilder.GetCameraInfo(videoServers, new GridCamera(), null, null);
             Assert.That(result, Is.Null);
         }
 
@@ -68,7 +68,7 @@ namespace Sequence.Tests.Services
             var gridCamera = new GridCamera { CameraMode = (CameraMode)999 };
             var camera = new Camera();
 
-            Assert.Throws<NotSupportedException>(() => CameraInfoBuilder.GetCameraInfo(servers, gridCamera, camera, null));
+            Assert.Throws<NotSupportedException>(() => CameraInfoBuilder.GetCameraInfo(videoServers, gridCamera, camera, null));
         }
     }
 }

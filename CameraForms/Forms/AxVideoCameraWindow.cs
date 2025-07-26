@@ -81,10 +81,10 @@ namespace CameraForms.Forms
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             var videoServerRepository = serviceProvider.GetRequiredService<IVideoServerRepository>();
-            server = videoServerRepository.Select(camera.ServerId);
+            server = videoServerRepository.Select(camera.VideoServerId);
             if (server == null)
             {
-                DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.ServerId}");
+                DebugErrorBox.Show("Server is null", $"Cannot find server with Id: {camera.VideoServerId}");
             }
 
             InitializeComponent();

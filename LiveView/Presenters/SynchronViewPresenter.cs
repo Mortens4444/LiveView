@@ -17,18 +17,18 @@ namespace LiveView.Presenters
     public class SynchronViewPresenter : BasePresenter
     {
         private ISynchronViewView view;
-        private readonly IVideoServerRepository serverRepository;
+        private readonly IVideoServerRepository videoServerRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly ILogger<SynchronView> logger;
-        private readonly ReadOnlyCollection<VideoServer> servers;
+        private readonly ReadOnlyCollection<VideoServer> videoServers;
 
         public SynchronViewPresenter(SynchronViewPresenterDependencies dependencies)
             : base(dependencies)
         {
-            serverRepository = dependencies.VideoServerRepository;
+            videoServerRepository = dependencies.VideoServerRepository;
             cameraRepository = dependencies.CameraRepository;
             logger = dependencies.Logger;
-            servers = serverRepository.SelectAll();
+            videoServers = videoServerRepository.SelectAll();
         }
 
         public new void SetView(IView view)
@@ -82,9 +82,9 @@ namespace LiveView.Presenters
             var cameras = cameraRepository.SelectAll();
             CameraListProvider.PopulateMenuItems(
                 view.TsmiChangeCameraTo,
-                servers,
-                server => server.ToString(),
-                server => cameras.Where(c => c.ServerId == server.Id),
+                videoServers,
+                videoServer => videoServer.ToString(),
+                videoServer => cameras.Where(c => c.VideoServerId == videoServer.Id),
                 camera => camera.ToString(),
                 CameraMenuItem_Click
             );
@@ -105,7 +105,7 @@ namespace LiveView.Presenters
                     {
                         videoPicture.Disconnect();
                     }
-                    var server = servers.FirstOrDefault(s => s.Id == camera.ServerId);
+                    var server = videoServers.FirstOrDefault(s => s.Id == camera.VideoServerId);
                     videoPicture.Connect(server?.IpAddress ?? camera.IpAddress, camera.Guid, camera.ServerEncryptedUsername, camera.ServerEncryptedPassword);
                 }
             }

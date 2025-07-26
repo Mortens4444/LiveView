@@ -83,10 +83,10 @@ namespace LiveView.WebApi.Dto
         public bool Actual { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreign key reference to the Server entity's Id.
+        /// Gets or sets the foreign key reference to the VideoServer entity's Id.
         /// Indicates which server hosts this camera.
         /// </summary>
-        public int ServerId { get; set; }
+        public int VideoServerId { get; set; }
 
         /// <summary>
         /// Gets or sets the optional identifier for motion triggering.

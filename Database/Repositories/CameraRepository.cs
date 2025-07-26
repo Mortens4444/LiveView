@@ -7,7 +7,7 @@ namespace Database.Repositories
 {
     public sealed class CameraRepository : BaseRepository<Camera>, ICameraRepository
     {
-        public void DeleteCamerasOfServer(long serverId)
+        public void DeleteCamerasOfVideoServer(long serverId)
         {
             Execute("DeleteCamerasOfServer", new { ServerId = serverId });
         }

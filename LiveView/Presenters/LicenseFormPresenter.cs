@@ -44,19 +44,19 @@ namespace LiveView.Presenters
         public override void Load()
         {
             var users = userRepository.SelectAll();
-            var servers = videoServerRepository.SelectAll();
+            var videoServers = videoServerRepository.SelectAll();
             var cameras = cameraRepository.SelectAll();
-            var dedicatedServerIds = servers.Where(server => server.SerialNumber != null).Select(server => server.Id).ToList();
-            var notDedicatedServerIds = servers.Where(server => server.SerialNumber == null).Select(server => server.Id).ToList();
+            var dedicatedVideoServerIds = videoServers.Where(videoServer => videoServer.SerialNumber != null).Select(videoServer => videoServer.Id).ToList();
+            var notDedicatedVideoServerIds = videoServers.Where(videoServer => videoServer.SerialNumber == null).Select(videoServer => videoServer.Id).ToList();
 
             dynamic hardwareKey = Globals.HardwareKey;
             view.SetLabelText(view.LblLicenseStatusResult, hardwareKey.VideoSupervisorLicenseStatus ? Lng.Elem("Licensed") : Lng.Elem("Not licensed"));
             view.SetLabelText(view.LblId, hardwareKey.SziltechId);
             view.SetLabelText(view.LblUsersMaxPerAct, $"{GetStr(hardwareKey.LiveViewUserNumber)} / {users.Count}");
-            view.SetLabelText(view.LblValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechServerNumber)} / {dedicatedServerIds.Count}");
-            view.SetLabelText(view.LblValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechCameraNumber)} / {cameras.Count(camera => dedicatedServerIds.Contains(camera.ServerId))}");
-            view.SetLabelText(view.LblNotValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherServerNumber)} / {notDedicatedServerIds.Count}");
-            view.SetLabelText(view.LblNotValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherCameraNumber)} / {cameras.Count(camera => notDedicatedServerIds.Contains(camera.ServerId))}");
+            view.SetLabelText(view.LblValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechServerNumber)} / {dedicatedVideoServerIds.Count}");
+            view.SetLabelText(view.LblValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewSziltechCameraNumber)} / {cameras.Count(camera => dedicatedVideoServerIds.Contains(camera.VideoServerId))}");
+            view.SetLabelText(view.LblNotValidatedServersMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherServerNumber)} / {notDedicatedVideoServerIds.Count}");
+            view.SetLabelText(view.LblNotValidatedCamerasMaxPerAct, $"{GetStr(hardwareKey.LiveViewOtherCameraNumber)} / {cameras.Count(camera => notDedicatedVideoServerIds.Contains(camera.VideoServerId))}");
         }
 
         private static string GetStr(ushort value)

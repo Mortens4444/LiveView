@@ -26,7 +26,7 @@ namespace LiveView.Forms
 
         public ListView CamerasToView => lvCamerasToView;
 
-        public ComboBox Servers => cbServers;
+        public ComboBox VideoServers => cbVideoServers;
 
         public AddCameras(IServiceProvider serviceProvider, VideoServer server = null) : base(serviceProvider, typeof(AddCamerasPresenter))
         {

@@ -31,7 +31,7 @@ namespace LiveView.Dto
 
         public int Id { get; set; }
 
-        public int ServerId { get; set; }
+        public int VideoServerId { get; set; }
 
         public int RecorderIndex { get; set; }
 
@@ -46,7 +46,7 @@ namespace LiveView.Dto
             {
                 Id = camera.Id,
                 Guid = camera.Guid,
-                ServerId = camera.ServerId,
+                VideoServerId = camera.VideoServerId,
                 StreamId = camera.StreamId,
                 RecorderIndex = camera.RecorderIndex,
                 IpAddress = camera.IpAddress,

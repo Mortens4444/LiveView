@@ -66,15 +66,15 @@ namespace Database.Repositories
             }
         }
 
-        public string GetCameraName(long userId, VideoServer server, Camera camera)
+        public string GetCameraName(long userId, VideoServer videoServer, Camera camera)
         {
             if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
             {
-                return $"{server.Hostname} - {camera.CameraName}";
+                return $"{videoServer.Hostname} - {camera.CameraName}";
             }
             if (Get(Setting.VideoServerIdentifierIpAddress, userId, false))
             {
-                return $"{server.IpAddress} - {camera.CameraName}";
+                return $"{videoServer.IpAddress} - {camera.CameraName}";
             }
             if (Get(Setting.VideoServerIdentifierNone, userId, false))
             {
@@ -84,15 +84,15 @@ namespace Database.Repositories
             return String.Empty;
         }
 
-        public string GetCameraName(long userId, string serverIp, string videoSourceName)
+        public string GetCameraName(long userId, string videoServerIp, string videoSourceName)
         {
             if (Get(Setting.VideoServerIdentifierDisplayName, userId, true))
             {
-                return $"{serverIp} - {videoSourceName}";
+                return $"{videoServerIp} - {videoSourceName}";
             }
             if (Get(Setting.VideoServerIdentifierIpAddress, userId, false))
             {
-                return $"{serverIp} - {videoSourceName}";
+                return $"{videoServerIp} - {videoSourceName}";
             }
             if (Get(Setting.VideoServerIdentifierNone, userId, false))
             {

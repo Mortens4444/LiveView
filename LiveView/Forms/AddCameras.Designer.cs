@@ -32,7 +32,7 @@
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(AddCameras));
             ttHint = new System.Windows.Forms.ToolTip(components);
             lblCamerasOfServer = new System.Windows.Forms.Label();
-            cbServers = new System.Windows.Forms.ComboBox();
+            cbVideoServers = new System.Windows.Forms.ComboBox();
             lvCamerasToView = new Mtf.Controls.MtfListView();
             ilImages = new System.Windows.Forms.ImageList(components);
             lblCamerasToView = new System.Windows.Forms.Label();
@@ -70,15 +70,15 @@
             // 
             // cbServers
             // 
-            cbServers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            cbServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbServers.FormattingEnabled = true;
-            cbServers.Location = new System.Drawing.Point(1, 24);
-            cbServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbServers.Name = "cbServers";
-            cbServers.Size = new System.Drawing.Size(423, 23);
-            cbServers.TabIndex = 1;
-            cbServers.SelectedIndexChanged += CbServers_SelectedIndexChanged;
+            cbVideoServers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            cbVideoServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbVideoServers.FormattingEnabled = true;
+            cbVideoServers.Location = new System.Drawing.Point(1, 24);
+            cbVideoServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbVideoServers.Name = "cbServers";
+            cbVideoServers.Size = new System.Drawing.Size(423, 23);
+            cbVideoServers.TabIndex = 1;
+            cbVideoServers.SelectedIndexChanged += CbServers_SelectedIndexChanged;
             // 
             // lvCamerasToView
             // 
@@ -193,7 +193,7 @@
             pHeader.Controls.Add(axVideoServer);
             pHeader.Controls.Add(lblCamerasToView);
             pHeader.Controls.Add(lblCamerasOfServer);
-            pHeader.Controls.Add(cbServers);
+            pHeader.Controls.Add(cbVideoServers);
             pHeader.Controls.Add(lblHost);
             pHeader.Dock = System.Windows.Forms.DockStyle.Top;
             pHeader.Location = new System.Drawing.Point(4, 19);
@@ -337,7 +337,7 @@
 
         private System.Windows.Forms.ToolTip ttHint;
         private System.Windows.Forms.Label lblCamerasOfServer;
-        private System.Windows.Forms.ComboBox cbServers;
+        private System.Windows.Forms.ComboBox cbVideoServers;
         private Mtf.Controls.MtfListView lvCamerasToView;
         private System.Windows.Forms.ImageList ilImages;
         private System.Windows.Forms.Label lblCamerasToView;

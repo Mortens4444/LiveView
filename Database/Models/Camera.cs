@@ -12,7 +12,7 @@ namespace Database.Models
 
         public int? PartnerCameraId { get; set; }
 
-        public int ServerId { get; set; }
+        public int VideoServerId { get; set; }
 
         public string Guid { get; set; }
 

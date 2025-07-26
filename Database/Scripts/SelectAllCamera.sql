@@ -4,12 +4,11 @@
     vc.EncryptedUsername AS ServerEncryptedUsername,
     vc.EncryptedPassword AS ServerEncryptedPassword,
     cc.EncryptedUsername,
-    cc.EncryptedPassword,
-    s.Id AS ServerId
+    cc.EncryptedPassword
 FROM 
     Cameras AS c
 LEFT JOIN
-    Servers AS s ON c.ServerId = s.Id
+    VideoServers AS s ON c.VideoServerId = s.Id
 LEFT JOIN
     Credentials AS vc ON s.VideoServerCredentialsId = vc.Id
 LEFT JOIN

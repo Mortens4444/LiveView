@@ -1,7 +1,7 @@
 ﻿INSERT INTO Cameras
-    (ServerId, CameraName, Guid, Priority, RecorderIndex, PermissionCamera)
+    (VideoServerId, CameraName, Guid, Priority, RecorderIndex, PermissionCamera)
 SELECT
-    @ServerId, @CameraName, @Guid, 0, @RecorderIndex,
+    @VideoServerId, @CameraName, @Guid, 0, @RecorderIndex,
     COALESCE((
         SELECT MIN(t1.PermissionCamera + 1)
         FROM Cameras t1

@@ -8,7 +8,7 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Servers]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[VideoServers]') AND type in (N'U'))
 BEGIN
     CREATE TABLE VideoServers (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -50,7 +50,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ca
 BEGIN
     CREATE TABLE Cameras (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        ServerId INT NOT NULL,
+        VideoServerId INT NOT NULL,
         PartnerCameraId INT NULL,
         CameraCredentialsId INT NULL,
         VideoSourceId INT NULL,
@@ -65,7 +65,7 @@ BEGIN
         MotionTriggerMinimumLength BIGINT NULL,
         Priority INT NULL,
         PermissionCamera INT NOT NULL DEFAULT 0,
-        FOREIGN KEY (ServerId) REFERENCES Servers(Id) ON DELETE CASCADE,
+        FOREIGN KEY (VideoServerId) REFERENCES VideoServers(Id) ON DELETE CASCADE,
         FOREIGN KEY (VideoSourceId) REFERENCES VideoSources(Id) ON DELETE SET NULL,
         FOREIGN KEY (PartnerCameraId) REFERENCES Cameras(Id) ON DELETE NO ACTION,
         FOREIGN KEY (CameraCredentialsId) REFERENCES Credentials(Id) ON DELETE CASCADE ON UPDATE NO ACTION
