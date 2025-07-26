@@ -58,7 +58,7 @@ namespace Database.Models
 
         public long PermissionCamera { get; set; }
 
-        public int CameraServerCredentialsId { get; set; }
+        public int CameraCredentialsId { get; set; }
 
         //public int VideoServerCredentialsId { get; set; }
 

@@ -1,7 +1,12 @@
-﻿INSERT INTO Cameras
-    (VideoServerId, CameraName, Guid, Priority, RecorderIndex, PermissionCamera)
+﻿INSERT INTO Credentials (EncryptedUsername, EncryptedPassword, CredentialType)
+VALUES (@EncryptedUsername, @EncryptedPassword, 2);
+
+DECLARE @CredentialsId INT = SCOPE_IDENTITY();
+
+INSERT INTO Cameras
+    (VideoServerId, CameraName, Guid, Priority, RecorderIndex, CameraCredentialsId, PermissionCamera)
 SELECT
-    @VideoServerId, @CameraName, @Guid, 0, @RecorderIndex,
+    @VideoServerId, @CameraName, @Guid, 0, @RecorderIndex, @CredentialsId,
     COALESCE((
         SELECT MIN(t1.PermissionCamera + 1)
         FROM Cameras t1

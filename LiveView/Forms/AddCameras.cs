@@ -1,6 +1,5 @@
 ﻿using AxVIDEOCONTROL4Lib;
 using Database.Models;
-using LiveView.Extensions;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.LanguageService.Windows.Forms;

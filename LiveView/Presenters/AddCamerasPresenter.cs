@@ -8,12 +8,15 @@ using LiveView.Models.Dependencies;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
+using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VIDEOCONTROL4Lib;
+using VideoServer = Database.Models.VideoServer;
 
 namespace LiveView.Presenters
 {
@@ -82,7 +85,17 @@ namespace LiveView.Presenters
             }
             else
             {
-                ShowError("Connection failed", VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
+                //ShowError("Connection failed", VideoServerErrorHandler.GetMessage(connectionResult.ErrorCode));
+                var videoServer = view.GetSelectedItem<VideoServer>(view.VideoServers);
+                var newCamera = new Camera
+                {
+                    CameraName = Lng.Elem("Camera"),
+                    VideoServerId = videoServer.Id,
+                    Guid = Guid.NewGuid().ToString(),
+                    RecorderIndex = -1
+                };
+                cameraRepository.Insert(newCamera);
+                CloseForm();
             }
         }
 
