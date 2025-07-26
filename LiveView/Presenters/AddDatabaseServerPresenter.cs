@@ -4,11 +4,14 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Models.Network;
+using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
 using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace LiveView.Presenters
 {
@@ -31,6 +34,18 @@ namespace LiveView.Presenters
         {
             base.SetView(view);
             this.view = view as IAddDatabaseServerView;
+        }
+
+        public void LoadData(DatabaseServer server)
+        {
+            view.LoadData(server);
+        }
+
+        public async Task SearchForHostsAsync()
+        {
+            HostDiscoveryService.HostDiscovered += OnHostDiscovered;
+            await Task.Run(HostDiscoveryService.Discovery);
+            HostDiscoveryService.HostDiscovered -= OnHostDiscovered;
         }
 
         public void AddDatabaseOrModifyServer(DatabaseServer server = null)
@@ -66,6 +81,11 @@ namespace LiveView.Presenters
                     throw new UnauthorizedAccessException(message);
                 }
             }
+        }
+
+        private void OnHostDiscovered(HostDiscoveryResult result)
+        {
+            view.AddToServerSelector(result);
         }
     }
 }

@@ -72,6 +72,7 @@
     <EmbeddedResource Include="Scripts\SelectWherePermission.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereGroupMember.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereTemplateProcess.sql" />
+    <EmbeddedResource Include="Scripts\UpdateDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\UpdateVideoSource.sql" />
     <EmbeddedResource Include="Scripts\UpdateAgent.sql" />
     <EmbeddedResource Include="Scripts\UpdateCamera.sql" />

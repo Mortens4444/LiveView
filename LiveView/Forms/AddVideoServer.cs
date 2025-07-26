@@ -113,9 +113,7 @@ namespace LiveView.Forms
             tbMacAddress.Text = server.MacAddress;
             tbSziltechSerialNumber.Text = server.SerialNumber;
             tbUsername.Text = server.Username;
-            //tbPassword.Password = VideoServerPasswordCryptor.PasswordDecrypt(server.Password);
             tbWinUsername.Text = server.WinUser;
-            //tbWinPassword.Password = WindowsPasswordCryptor.PasswordDecrypt(server.WinPass);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Database.Models
             {
                 IpAddress = IpAddress,
                 EncryptedUsername = DatabaseServerCredentials.Username,
-                EncryptedPassword = DatabaseServerPasswordCryptor.PasswordDecrypt(DatabaseServerCredentials.Password),
+                EncryptedPassword = DatabaseServerCredentials.Password,
                 MacAddress = MacAddress,
                 Hostname = Hostname,
                 DbName = DatabaseName,
