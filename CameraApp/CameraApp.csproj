@@ -24,7 +24,7 @@
 
   
   <ItemGroup>
-    <PackageReference Include="Mtf.Database" Version="2.0.65" />
+    <PackageReference Include="Mtf.Database" Version="2.0.66" />
     <PackageReference Include="Mtf.MessageBoxes" Version="6.0.13" />
     <PackageReference Include="Mtf.Network" Version="2.0.17" />
     <PackageReference Include="Mtf.Permissions" Version="4.0.11" />

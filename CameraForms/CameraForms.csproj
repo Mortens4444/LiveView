@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="LibVLCSharp" Version="3.9.3" />
     <PackageReference Include="LibVLCSharp.WinForms" Version="3.9.3" />
-    <PackageReference Include="Mtf.Controls" Version="1.1.51" />
+    <PackageReference Include="Mtf.Controls" Version="1.1.52" />
     <PackageReference Include="Mtf.Controls.Video" Version="1.0.83" />
     <PackageReference Include="Mtf.Controls.Video.ActiveX" Version="1.0.41" />
     <PackageReference Include="Mtf.Controls.Video.FFmpeg" Version="1.0.40" />

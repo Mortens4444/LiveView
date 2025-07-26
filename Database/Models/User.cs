@@ -17,7 +17,8 @@ namespace Database.Models
             get => encryptedUsername;
             set => encryptedUsername = value;
         }
-        public string Password { get; set; }
+
+        public string EncryptedPassword { get; set; }
 
         public string FullName { get; set; }
 

@@ -58,10 +58,11 @@ namespace LiveView.Forms
             {
                 Id = user?.Id ?? 0,
                 EncryptedUsername = UserPasswordHasher.UsernameEncrypt(tbUsername.Text),
-                Password = String.IsNullOrEmpty(tbPassword.Password) ? user?.Password : UserPasswordHasher.Hash(tbPassword.Password),
+                EncryptedPassword = String.IsNullOrEmpty(tbPassword.Password) ? user?.EncryptedPassword : UserPasswordHasher.Hash(tbPassword.Password),
                 Email = tbEmail.Text,
                 NeededSecondaryLogonPriority = (int)nudNeededSecondaryLogonPriority.Value,
-                SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value
+                SecondaryLogonPriority = (int)nudSecondaryLogonPriority.Value,
+                LoginCredentialsId = user?.LoginCredentialsId ?? 0,
             };
         }
 
