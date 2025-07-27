@@ -1,4 +1,4 @@
-﻿UPDATE [dbo].[Users]
+﻿UPDATE Users
 SET
     Address = @Address,
     Barcode = @Barcode,

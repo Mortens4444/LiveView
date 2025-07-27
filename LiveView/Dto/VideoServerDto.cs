@@ -64,12 +64,12 @@ namespace LiveView.Dto
                 WindowsCredentials = new Credentials
                 {
                     Username = server.EncryptedWinUser,
-                    Password = WindowsPasswordCryptor.PasswordDecrypt(server.EncryptedWinPass)
+                    Password = server.EncryptedWinPass
                 },
                 VideoServerCredentials = new Credentials
                 {
                     Username = server.EncryptedUsername,
-                    Password = VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword)
+                    Password = server.EncryptedPassword
                 }
             };
         }

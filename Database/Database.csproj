@@ -18,7 +18,7 @@
     <EmbeddedResource Include="Scripts\DeleteGroupPermissions.sql" />
     <EmbeddedResource Include="Scripts\DeleteCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\DeleteDatabaseServer.sql" />
-    <EmbeddedResource Include="Scripts\DeleteWhereGridInSequence.sql" />
+    <EmbeddedResource Include="Scripts\DeleteWhereSequenceGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
@@ -94,7 +94,7 @@
     <EmbeddedResource Include="Scripts\DeleteMapObject.sql" />
     <EmbeddedResource Include="Scripts\InsertGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfGrid.sql" />
-    <EmbeddedResource Include="Scripts\DeleteGridInSequence.sql" />
+    <EmbeddedResource Include="Scripts\DeleteSequenceGrid.sql" />
     <EmbeddedResource Include="Scripts\DeleteGroup.sql" />
     <EmbeddedResource Include="Scripts\DeleteInputOutputPort.sql" />
     <EmbeddedResource Include="Scripts\DeleteLogEntry.sql" />
@@ -102,11 +102,11 @@
     <EmbeddedResource Include="Scripts\DeleteObjectsInMaps.sql" />
     <EmbeddedResource Include="Scripts\InsertObjectInMap.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereDisplay.sql" />
-    <EmbeddedResource Include="Scripts\SelectWhereGridInSequence.sql" />
+    <EmbeddedResource Include="Scripts\SelectWhereSequenceGrid.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCamera.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereGridCamera.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoServer.sql" />
-    <EmbeddedResource Include="Scripts\SelectGridInSequence.sql" />
+    <EmbeddedResource Include="Scripts\SelectSequenceGrid.sql" />
     <EmbeddedResource Include="Scripts\SelectGroupByName.sql" />
     <EmbeddedResource Include="Scripts\SelectGridCamera.sql" />
     <EmbeddedResource Include="Scripts\SelectUserEventByName.sql" />
@@ -133,9 +133,9 @@
     <EmbeddedResource Include="Scripts\UpdateGroup.sql" />
     <EmbeddedResource Include="Scripts\InsertGroup.sql" />
     <EmbeddedResource Include="Scripts\SelectAllGroup.sql" />
-    <EmbeddedResource Include="Scripts\UpdateGridInSequence.sql" />
-    <EmbeddedResource Include="Scripts\InsertGridInSequence.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllGridInSequence.sql" />
+    <EmbeddedResource Include="Scripts\UpdateSequenceGrid.sql" />
+    <EmbeddedResource Include="Scripts\InsertSequenceGrid.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllSequenceGrid.sql" />
     <EmbeddedResource Include="Scripts\UpdateGridCamera.sql" />
     <EmbeddedResource Include="Scripts\InsertUser.sql" />
     <EmbeddedResource Include="Scripts\CreateUser.sql" />
