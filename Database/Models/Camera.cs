@@ -56,7 +56,7 @@ namespace Database.Models
 
         public long? VideoSourceId { get; set; }
 
-        public long PermissionCamera { get; set; }
+        public int PermissionCamera { get; set; }
 
         public int CameraCredentialsId { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dependencies;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
@@ -13,7 +14,7 @@ namespace LiveView.Core.Services
     {
         public static UserEvent ActualUserEvent { get; set; }
         
-        public static long? ActualUserEventId => ActualUserEvent?.Id ?? 1;
+        public static int ActualUserEventId => ActualUserEvent?.Id ?? 1;
 
         private readonly ICameraRepository cameraRepository;
         private readonly ICameraPermissionRepository cameraPermissionRepository;
@@ -36,15 +37,15 @@ namespace LiveView.Core.Services
             var groupIds = groupMembersRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
             foreach (var groupId in groupIds)
             {
-                SetUserGroup(result, groupId);
+                SetUserGroup(result, groupId, ActualUserEventId);
             }
         }
 
-        private void SetUserGroup(Mtf.Permissions.Models.User<User> user, long groupId)
+        private void SetUserGroup(Mtf.Permissions.Models.User<User> user, int groupId, int userEventId)
         {
-            var group = new Mtf.Permissions.Models.Group();
-            var groupPermissions = permissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
-            var groupCameraPermissions = cameraPermissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = ActualUserEventId });
+            var group = new Mtf.Permissions.Models.Group { Id = groupId };
+            var groupPermissions = permissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = userEventId });
+            var groupCameraPermissions = cameraPermissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = userEventId });
             var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
             var cameraPermissionIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
             var operations = operationRepository.SelectWhere(new { Ids = operationIds });
@@ -55,7 +56,6 @@ namespace LiveView.Core.Services
             foreach (var camera in cameras)
             {
                 var cameraGroupEnumType = assembly.GetType($"{permissionType.Namespace}.{PermissionManager.GetCameraGroupPermissionName(camera.PermissionCamera)}");
-                var cameraPermissionName = $"Camera_{camera.PermissionCamera + 1:D3}";
                 var cameraPermissionValue = PermissionManager.GetCameraPermissionValue(camera.PermissionCamera);
                 if ((cameraGroupEnumType != null) && (cameraPermissionValue != null))
                 {

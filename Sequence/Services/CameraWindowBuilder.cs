@@ -23,8 +23,8 @@ namespace Sequence.Services
         private readonly IAgentRepository agentRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-        private readonly ICameraPermissionRepository cameraRightRepository;
-        private readonly IPermissionRepository rightRepository;
+        private readonly ICameraPermissionRepository cameraPermissionRepository;
+        private readonly IPermissionRepository permissionRepository;
         private readonly ICameraRepository cameraRepository;
         private readonly IGroupMembersRepository groupMembersRepository;
         private readonly IOperationRepository operationRepository;
@@ -33,7 +33,7 @@ namespace Sequence.Services
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
             IAgentRepository agentRepository, ICameraRepository cameraRepository,
-            ICameraPermissionRepository cameraRightRepository, IPermissionRepository rightRepository, IOperationRepository operationRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository, IOperationRepository operationRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
             IGroupMembersRepository groupMembersRepository, IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository)
@@ -46,8 +46,8 @@ namespace Sequence.Services
             this.personalOptionsRepository = personalOptionsRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.generalOptionsRepository = generalOptionsRepository;
-            this.cameraRightRepository = cameraRightRepository;
-            this.rightRepository = rightRepository;
+            this.cameraPermissionRepository = cameraPermissionRepository;
+            this.permissionRepository = permissionRepository;
             this.operationRepository = operationRepository;
             this.groupMembersRepository = groupMembersRepository;
         }
@@ -61,7 +61,7 @@ namespace Sequence.Services
                 if (camera is AxVideoPictureCameraInfo videoPictureCameraInfo)
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
-                    result = new AxVideoCameraWindow(permissionManager, cameraRepository, cameraRightRepository, rightRepository, operationRepository,
+                    result = new AxVideoCameraWindow(permissionManager, cameraRepository, cameraPermissionRepository, permissionRepository, operationRepository,
                         groupMembersRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
                     {
                         MdiParent = parentForm

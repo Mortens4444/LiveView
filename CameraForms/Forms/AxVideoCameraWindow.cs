@@ -32,7 +32,7 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
 
-        private readonly Database.Models.VideoServer server;
+        private readonly VideoServer server;
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private GridCamera gridCamera;
@@ -41,7 +41,7 @@ namespace CameraForms.Forms
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
             IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
-            Camera camera, Database.Models.VideoServer server, Rectangle rectangle, GridCamera gridCamera)
+            Camera camera, VideoServer server, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);

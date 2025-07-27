@@ -12,8 +12,8 @@ namespace LiveView.Models.Dependencies
             IUserEventRepository userEventRepository,
             IOperationRepository operationRepository,
             ICameraRepository cameraRepository,
-            IPermissionRepository rightRepository,
-            ICameraPermissionRepository cameraRightRepository,
+            IPermissionRepository permissionRepository,
+            ICameraPermissionRepository cameraPermissionRepository,
             ILogger<AddGroup> logger)
             : base(generalOptionsRepository)
         {
@@ -21,8 +21,8 @@ namespace LiveView.Models.Dependencies
             UserEventRepository = userEventRepository;
             OperationRepository = operationRepository;
             CameraRepository = cameraRepository;
-            PermissionRepository = rightRepository;
-            CameraPermissionRepository = cameraRightRepository;
+            PermissionRepository = permissionRepository;
+            CameraPermissionRepository = cameraPermissionRepository;
             Logger = logger;
         }
 

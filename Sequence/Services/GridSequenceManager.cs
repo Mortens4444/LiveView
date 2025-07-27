@@ -65,8 +65,8 @@ namespace Sequence.Services
             IVideoSourceRepository videoSourceRepository,
             IVideoServerRepository videoServerRepository,
             ICameraRepository cameraRepository,
-            ICameraPermissionRepository cameraRightRepository,
-            IPermissionRepository rightRepository,
+            ICameraPermissionRepository cameraPermissionRepository,
+            IPermissionRepository permissionRepository,
             IOperationRepository operationRepository,
             IGroupMembersRepository groupMembersRepository,
             ICameraFunctionRepository cameraFunctionRepository,
@@ -95,8 +95,8 @@ namespace Sequence.Services
             allCameras = cameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(cameraRepository));
             gridCameras = gridCameraRepository?.SelectAll() ?? throw new ArgumentNullException(nameof(gridCameraRepository));
 
-            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraRightRepository,
-                rightRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
+            cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraPermissionRepository,
+                permissionRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
                 groupMembersRepository, videoSourceRepository, generalOptionsRepository);
         }
 
