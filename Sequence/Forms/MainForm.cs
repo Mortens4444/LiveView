@@ -1,3 +1,4 @@
+using CameraForms.Extensions;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services;
@@ -208,7 +209,7 @@ namespace Sequence.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Exit();
         }
     }
 }

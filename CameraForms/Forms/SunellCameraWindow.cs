@@ -279,7 +279,7 @@ namespace CameraForms.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Exit();
         }
     }
 }

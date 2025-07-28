@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Extensions;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -378,7 +379,7 @@ namespace CameraForms.Forms
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Exit();
         }
 
         private void OnExit()
