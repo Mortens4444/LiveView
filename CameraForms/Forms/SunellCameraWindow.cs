@@ -5,6 +5,7 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services.PasswordHashers;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
@@ -16,6 +17,7 @@ using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;
 using System;
@@ -40,7 +42,11 @@ namespace CameraForms.Forms
         private GridCamera gridCamera;
         private Camera camera;
 
-        public SunellCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public SunellCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
+            IPersonalOptionsRepository personalOptionsRepository, SunellCameraInfo sunellCameraInfo,
+            Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -51,6 +57,11 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
@@ -76,12 +87,19 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            Initialize(cameraLaunchContext.UserId, camera, display, true);
+            SetupFullscreenPtz(cameraLaunchContext.UserId, camera, display);
         }
 
-        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
+        private void SetupFullscreenPtz(long userId, Camera camera, DisplayDto display)
         {
             if (camera.IpAddress == null)
             {
@@ -106,15 +124,12 @@ namespace CameraForms.Forms
                 StreamId = camera.StreamId ?? 1
             };
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellCamera);
 
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)
@@ -215,13 +230,14 @@ namespace CameraForms.Forms
 
         private int Connect()
         {
-            if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+            var accessResult = permissionManager.HasCameraPermission(camera.PermissionCamera);
+            if (accessResult == AccessResult.Allowed)
             {
                 return sunellVideoWindow1.Connect(sunellCameraInfo.CameraIp, sunellCameraInfo.CameraPort, sunellCameraInfo.Username, sunellCameraInfo.Password, sunellCameraInfo.StreamId, 1, StreamType.D1, true);
             }
             else
             {
-                sunellVideoWindow1.OverlayText = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                sunellVideoWindow1.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return SunellVideoWindow.NoPermission;
             }

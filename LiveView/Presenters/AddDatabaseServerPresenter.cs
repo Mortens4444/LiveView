@@ -54,7 +54,7 @@ namespace LiveView.Presenters
             var newServer = serverDto.ToModel();
             if (server == null)
             {
-                if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Create))
+                if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Create) == AccessResult.Allowed)
                 {
                     databaseServerRepository.Insert(newServer);
                     logger.LogInfo(DatabaseServerManagementPermissions.Update, "Database server '{0}' has been created.", serverDto);
@@ -68,7 +68,7 @@ namespace LiveView.Presenters
             }
             else
             {
-                if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update))
+                if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update) == AccessResult.Allowed)
                 {
                     newServer.Id = server.Id;
                     databaseServerRepository.Update(newServer);

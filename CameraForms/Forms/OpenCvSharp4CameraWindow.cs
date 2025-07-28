@@ -4,6 +4,7 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -30,7 +31,11 @@ namespace CameraForms.Forms
         private Camera camera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public OpenCvSharp4CameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository, 
+            ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
+            string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -43,6 +48,11 @@ namespace CameraForms.Forms
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
@@ -64,28 +74,32 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
+            SetupFullscreenPtz(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display);
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            url = camera.HttpStreamUrl;
         }
 
-        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
+        private void SetupFullscreenPtz(long userId, long cameraId, DisplayDto display)
         {
-            camera = cameraRepository.Select(cameraId);
-            url = camera.HttpStreamUrl;
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.OpenCvSharp4, cameraFunctionRepository);
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.OpenCvSharp4, cameraFunctionRepository);
-
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void OpenCvSharp4_Load(object sender, EventArgs e)

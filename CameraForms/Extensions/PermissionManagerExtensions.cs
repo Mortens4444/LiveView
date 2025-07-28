@@ -1,6 +1,7 @@
 ﻿using Database.Models;
 using Mtf.Controls.Interfaces;
 using Mtf.MessageBoxes;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;
 
@@ -46,13 +47,14 @@ namespace CameraForms.Extensions
 
             try
             {
-                if (permissionManager.HasCameraPermission(camera.PermissionCamera))
+                var accessResult = permissionManager.HasCameraPermission(camera.PermissionCamera);
+                if (accessResult == AccessResult.Allowed)
                 {
                     return true;
                 }
                 else
                 {
-                    videoWindow.OverlayText = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                    videoWindow.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                     DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                     return false;
                 }

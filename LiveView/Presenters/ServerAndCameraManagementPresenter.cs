@@ -69,7 +69,7 @@ namespace LiveView.Presenters
             {
                 if (node.Tag is VideoServer server)
                 {
-                    if (permissionManager.HasPermission(ServerManagementPermissions.Update))
+                    if (permissionManager.HasPermission(ServerManagementPermissions.Update) == AccessResult.Allowed)
                     {
                         if (ShowDialog<AddVideoServer>(server))
                         {
@@ -85,7 +85,7 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is Camera camera)
                 {
-                    if (permissionManager.HasPermission(CameraManagementPermissions.Update))
+                    if (permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed)
                     {
                         if (ShowDialog<CameraProperties>(camera))
                         {
@@ -101,7 +101,7 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is DatabaseServer databaseServer)
                 {
-                    if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update))
+                    if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update) == AccessResult.Allowed)
                     {
                         if (ShowDialog<AddDatabaseServer>(databaseServer))
                         {
@@ -131,7 +131,7 @@ namespace LiveView.Presenters
                         return;
                     }
 
-                    if (permissionManager.HasPermission(ServerManagementPermissions.Delete))
+                    if (permissionManager.HasPermission(ServerManagementPermissions.Delete) == AccessResult.Allowed)
                     {
                         videoServerRepository.Delete(server.Id);
                         logger.LogInfo(ServerManagementPermissions.Delete, "Video server '{0}' has been deleted.", server);
@@ -150,7 +150,7 @@ namespace LiveView.Presenters
                         return;
                     }
 
-                    if (permissionManager.HasPermission(CameraManagementPermissions.Delete))
+                    if (permissionManager.HasPermission(CameraManagementPermissions.Delete) == AccessResult.Allowed)
                     {
                         cameraRepository.Delete(camera.Id);
                         logger.LogInfo(CameraManagementPermissions.Delete, "Camera '{0}' has been deleted.", camera);
@@ -169,7 +169,7 @@ namespace LiveView.Presenters
                         return;
                     }
 
-                    if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Delete))
+                    if (permissionManager.HasPermission(DatabaseServerManagementPermissions.Delete) == AccessResult.Allowed)
                     {
                         databaseServerRepository.Delete(databaseServer.Id);
                         logger.LogInfo(DatabaseServerManagementPermissions.Delete, "Database server '{0}' has been deleted.", databaseServer);
@@ -191,7 +191,7 @@ namespace LiveView.Presenters
 
         public async Task SynchronizeAsync()
         {
-            if (permissionManager.HasPermission(CameraManagementPermissions.Update))
+            if (permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed)
             {
                 var syncMode = view.GetSynchronizationMode();
 
@@ -359,30 +359,30 @@ namespace LiveView.Presenters
             var serverSelected = treeNode?.Tag is VideoServer;
             var dbServerSelected = treeNode?.Tag is DatabaseServer;
 
-            view.BtnNewCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Create) &&
-                permissionManager.HasPermission(ServerManagementPermissions.Update) && serverSelected;
+            view.BtnNewCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Create) == AccessResult.Allowed &&
+                permissionManager.HasPermission(ServerManagementPermissions.Update) == AccessResult.Allowed && serverSelected;
 
-            view.BtnModify.Enabled = (permissionManager.HasPermission(CameraManagementPermissions.Update) && cameraSelected) ||
-                (permissionManager.HasPermission(ServerManagementPermissions.Update) && serverSelected) ||
-                (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update) && dbServerSelected);
+            view.BtnModify.Enabled = (permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed && cameraSelected) ||
+                (permissionManager.HasPermission(ServerManagementPermissions.Update) == AccessResult.Allowed && serverSelected) ||
+                (permissionManager.HasPermission(DatabaseServerManagementPermissions.Update) == AccessResult.Allowed && dbServerSelected);
             
-            view.BtnRemove.Enabled = (permissionManager.HasPermission(CameraManagementPermissions.Delete) && cameraSelected) ||
-                (permissionManager.HasPermission(ServerManagementPermissions.Delete) && serverSelected) ||
-                (permissionManager.HasPermission(DatabaseServerManagementPermissions.Delete) && dbServerSelected);
+            view.BtnRemove.Enabled = (permissionManager.HasPermission(CameraManagementPermissions.Delete) == AccessResult.Allowed && cameraSelected) ||
+                (permissionManager.HasPermission(ServerManagementPermissions.Delete) == AccessResult.Allowed && serverSelected) ||
+                (permissionManager.HasPermission(DatabaseServerManagementPermissions.Delete) == AccessResult.Allowed && dbServerSelected);
             
-            view.BtnProperties.Enabled = permissionManager.HasPermission(ServerManagementPermissions.Select) && serverSelected ||
-                (permissionManager.HasPermission(CameraManagementPermissions.Update) && cameraSelected);
+            view.BtnProperties.Enabled = permissionManager.HasPermission(ServerManagementPermissions.Select) == AccessResult.Allowed && serverSelected ||
+                (permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed && cameraSelected);
             
-            view.BtnMotionDetection.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Update) && cameraSelected;
+            view.BtnMotionDetection.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed && cameraSelected;
             
-            view.BtnSynchronize.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Update) && serverSelected;
+            view.BtnSynchronize.Enabled = permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed && serverSelected;
         }
 
         public void ShowServerAndCameraProperties()
         {
             if (view.ServersAndCameras.SelectedNode?.Tag is VideoServer server)
             {
-                if (permissionManager.HasPermission(ServerManagementPermissions.Select))
+                if (permissionManager.HasPermission(ServerManagementPermissions.Select) == AccessResult.Allowed)
                 {
                     ShowForm<ServerAndCameraProperties>(server);
                 }
@@ -395,7 +395,7 @@ namespace LiveView.Presenters
             }
             else if (view.ServersAndCameras.SelectedNode?.Tag is Camera camera)
             {
-                if (permissionManager.HasPermission(CameraManagementPermissions.Update))
+                if (permissionManager.HasPermission(CameraManagementPermissions.Update) == AccessResult.Allowed)
                 {
                     if (ShowDialog<CameraProperties>(camera))
                     {

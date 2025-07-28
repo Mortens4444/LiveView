@@ -63,13 +63,15 @@ namespace CameraForms.Forms
 
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
-            Initialize(userId, camera.Id, false);
             this.gridCamera = gridCamera;
 
             if (gridCamera?.Frame ?? false)
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
             }
+
+            closeToolStripMenuItem.Text = Lng.Elem("Close");
+            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(Mtf.Permissions.Enums.WindowManagementPermissions.Close) == Mtf.Permissions.Enums.AccessResult.Allowed;
         }
 
         public AxVideoCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
@@ -109,27 +111,24 @@ namespace CameraForms.Forms
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
-            Initialize(cameraLaunchContext.UserId, camera.Id, true);
+            SetupFullscreenPtz(cameraLaunchContext.UserId, camera.Id);
             display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
             axVideoPlayerWindow.ContextMenuStrip = null;
-        }
-
-        private void Initialize(long userId, long cameraId, bool fullScreen)
-        {
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.AxVideoPlayer);
-
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
-            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(WindowManagementPermissions.Close);
+            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(Mtf.Permissions.Enums.WindowManagementPermissions.Close) == Mtf.Permissions.Enums.AccessResult.Allowed;
+        }
+
+        private void SetupFullscreenPtz(long userId, long cameraId)
+        {
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.AxVideoPlayer);
+
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void ClientDataArrivedEventHandler(object sender, DataArrivedEventArgs e)

@@ -33,9 +33,9 @@ namespace Sequence.Tests.Services
         private IVideoSourceRepository videoSourceRepository;
         private IGeneralOptionsRepository generalOptionsRepository;
         
-        private const int CameraId = 10; // // This must be an existing Camera in the database.
-        private const int VideoServerId = 3; // // This must be an existing VideoServer in the database.
-        private const int GridCameraId = 100; // This must be an existing GridCamera in the database.
+        private const int CameraId = 3; // // This must be an existing Camera in the database.
+        private const int VideoServerId = 1; // // This must be an existing VideoServer in the database.
+        private const int GridCameraId = 2; // This must be an existing GridCamera in the database.
 
         [SetUp]
         public void SetUp()

@@ -47,9 +47,9 @@ namespace LiveView.Core.Services
             var groupPermissions = permissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = userEventId });
             var groupCameraPermissions = cameraPermissionRepository.SelectWhere(new { GroupId = groupId, UserEventId = userEventId });
             var operationIds = groupPermissions.Select(gp => gp.OperationId).ToList();
-            var cameraPermissionIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
+            var allowedCameraIds = groupCameraPermissions.Select(gcp => gcp.CameraId).ToList();
             var operations = operationRepository.SelectWhere(new { Ids = operationIds });
-            var cameras = cameraRepository.SelectAll().Where(c => cameraPermissionIds.Contains(c.Id));
+            var cameras = cameraRepository.SelectAll().Where(c => allowedCameraIds.Contains(c.Id));
             var permissionType = typeof(CameraManagementPermissions);
             var assembly = permissionType.Assembly;
 

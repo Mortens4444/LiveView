@@ -4,6 +4,7 @@ using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -31,7 +32,11 @@ namespace CameraForms.Forms
         private GridCamera gridCamera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
-        public VlcCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, string url, Rectangle rectangle, GridCamera gridCamera)
+        public VlcCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
+            ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
+            string url, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -43,6 +48,11 @@ namespace CameraForms.Forms
             this.cameraFunctionRepository = cameraFunctionRepository;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
@@ -65,28 +75,32 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
-            Initialize(cameraLaunchContext.UserId, camera, display, true);
+            SetupFullscreenPtz(cameraLaunchContext.UserId, camera, display);
+            url = camera.HttpStreamUrl;
         }
 
-        private void Initialize(long userId, Camera camera, DisplayDto display, bool fullScreen)
+        private void SetupFullscreenPtz(long userId, Camera camera, DisplayDto display)
         {
-            url = camera.HttpStreamUrl;
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, camera.Id, this, display, CameraMode.Vlc, cameraFunctionRepository);
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, camera.Id, this, display, CameraMode.Vlc, cameraFunctionRepository);
-
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void VlcCameraWindow_Load(object sender, EventArgs e)

@@ -4,6 +4,7 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
+using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;
 using System;
@@ -57,7 +59,12 @@ namespace CameraForms.Forms
         private Pen red = new Pen(new SolidBrush(Color.Red), 3);
         private int reconnectTimeout;
 
-        public VideoSourceCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository, IVideoSourceRepository videoSourceRepository, ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository, VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
+        public VideoSourceCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
+            IVideoSourceRepository videoSourceRepository, ICameraRepository cameraRepository,
+            ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
+            VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo, Rectangle rectangle, GridCamera gridCamera)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -72,6 +79,11 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(gridCamera);
 
             reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
@@ -80,6 +92,8 @@ namespace CameraForms.Forms
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
             }
+
+            SetupFrameLossHandler();
         }
 
         public VideoSourceCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
@@ -93,8 +107,17 @@ namespace CameraForms.Forms
 
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             display = DisplayProvider.Get(cameraLaunchContext.DisplayId);
-            
+
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
@@ -102,29 +125,24 @@ namespace CameraForms.Forms
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
             reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
 
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource, true);
-        }
-
-        private void Initialize(long userId, string serverIp, string videoCaptureSource, bool fullScreen)
-        {
             videoCaptureSourceCameraInfo = new VideoCaptureSourceCameraInfo
             {
-                ServerIp = serverIp,
-                VideoSourceName = videoCaptureSource,
+                ServerIp = cameraLaunchContext.ServerIp,
+                VideoSourceName = cameraLaunchContext.VideoCaptureSource,
                 GridCamera = null
             };
-            SetOsdParameters(userId, serverIp, videoCaptureSource);
+            SetOsdParameters(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource);
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
+            SetupFullscreenPtz(cameraLaunchContext.UserId, cameraLaunchContext.ServerIp, cameraLaunchContext.VideoCaptureSource);
 
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            SetupFrameLossHandler();
 
+            closeToolStripMenuItem.Text = Lng.Elem("Close");
+            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(WindowManagementPermissions.Close);
+        }
+
+        private void SetupFrameLossHandler()
+        {
             frameTimer = new Timer(frameTimeout);
             frameTimer.Elapsed += (s, e) =>
             {
@@ -136,9 +154,16 @@ namespace CameraForms.Forms
             };
 
             frameTimer.AutoReset = false;
+        }
 
-            closeToolStripMenuItem.Text = Lng.Elem("Close");
-            //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(WindowManagementPermissions.Close);
+        private void SetupFullscreenPtz(long userId, string serverIp, string videoCaptureSource)
+        {
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
+
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void SetOsdParameters(long userId, string serverIp, string videoCaptureSource)
@@ -191,10 +216,15 @@ namespace CameraForms.Forms
 
         private void StartVideoCaptureImageReceiver()
         {
-            if (camera != null && !permissionManager.HasCameraPermission(camera.PermissionCamera))
+            if (camera == null)
+            {
+                throw new ArgumentNullException(nameof(camera));
+            }
+            var accessResult = permissionManager.HasCameraPermission(camera.PermissionCamera);
+            if (accessResult != AccessResult.Allowed)
             {
                 mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                var message = $"No permission: {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                var message = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
                 mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, message);
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return;

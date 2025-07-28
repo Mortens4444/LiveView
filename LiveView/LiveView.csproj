@@ -7196,7 +7196,7 @@
     <PackageReference Include="Mtf.Joystick" Version="2.0.14" />
     <PackageReference Include="Mtf.MessageBoxes" Version="6.0.13" />
     <PackageReference Include="Mtf.Network" Version="2.0.17" />
-    <PackageReference Include="Mtf.Permissions" Version="5.0.12" />
+    <PackageReference Include="Mtf.Permissions" Version="6.0.13" />
     <PackageReference Include="Mtf.Serial" Version="1.0.22" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.1.17" />
     <PackageReference Include="Mtf.Wmi" Version="1.0.24" />

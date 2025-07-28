@@ -236,14 +236,14 @@ namespace LiveView.Forms
                     var command = m.WParam.ToInt32() & 0xFFF0;
                     if (command == SC_SIZE)
                     {
-                        if (!permissionManager.HasPermission(WindowManagementPermissions.Resize))
+                        if (permissionManager.HasPermission(WindowManagementPermissions.Resize) != AccessResult.Allowed)
                         {
                             return;
                         }
                     }
                     else if (command == SC_MOVE)
                     {
-                        if (!permissionManager.HasPermission(WindowManagementPermissions.Move))
+                        if (permissionManager.HasPermission(WindowManagementPermissions.Move) != AccessResult.Allowed)
                         {
                             return;
                         }
@@ -252,7 +252,7 @@ namespace LiveView.Forms
 
                 if (m.Msg == WM_CLOSE)
                 {
-                    if (!permissionManager.HasPermission(WindowManagementPermissions.Close) && !canBeClosedAlways)
+                    if (permissionManager.HasPermission(WindowManagementPermissions.Close) != AccessResult.Allowed && !canBeClosedAlways)
                     {
                         return;
                     }

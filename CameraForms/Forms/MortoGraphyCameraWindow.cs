@@ -5,12 +5,12 @@ using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services;
+using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
@@ -38,6 +38,8 @@ namespace CameraForms.Forms
 
         public MortoGraphyCameraWindow(PermissionManager<User> permissionManager,
             ICameraRepository cameraRepository, ICameraFunctionRepository cameraFunctionRepository,
+            ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
+            IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
             IPersonalOptionsRepository personalOptionsRepository, IVideoSourceRepository videoSourceRepository,
             string url, Rectangle rectangle, GridCamera gridCamera)
         {
@@ -53,6 +55,11 @@ namespace CameraForms.Forms
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             camera = cameraRepository.Select(gridCamera);
 
             if (gridCamera?.Frame ?? false)
@@ -75,6 +82,14 @@ namespace CameraForms.Forms
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+
+            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
+                serviceProvider.GetRequiredService<IPermissionRepository>(),
+                serviceProvider.GetRequiredService<IOperationRepository>(),
+                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
+            permissionSetter.SetGroups(permissionManager.CurrentUser);
+
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
@@ -83,11 +98,15 @@ namespace CameraForms.Forms
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
-            Initialize(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display, true);
+            SetBufferSize();
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+            url = camera?.HttpStreamUrl;
             if (url == null)
             {
                 url = $"{cameraLaunchContext.ServerIp}|{cameraLaunchContext.VideoCaptureSource}";
             }
+            
+            SetupFullscreenPtz(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display);
         }
 
         private void SetBufferSize()
@@ -95,21 +114,14 @@ namespace CameraForms.Forms
             bufferSize = AppConfig.GetInt32(Database.Constants.VideoCaptureClientBufferSize, 409600);
         }
 
-        private void Initialize(long userId, long cameraId, DisplayDto display, bool fullScreen)
+        private void SetupFullscreenPtz(long userId, long cameraId, DisplayDto display)
         {
-            SetBufferSize();
-            camera = cameraRepository.Select(cameraId);
-            url = camera?.HttpStreamUrl;
+            kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
 
-            if (fullScreen)
-            {
-                kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-                fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.MortoGraphy, cameraFunctionRepository);
-
-                Console.CancelKeyPress += (sender, e) => OnExit();
-                Application.ApplicationExit += (sender, e) => OnExit();
-                AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
-            }
+            Console.CancelKeyPress += (sender, e) => OnExit();
+            Application.ApplicationExit += (sender, e) => OnExit();
+            AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
         private void MortoGraphyWindow_Load(object sender, EventArgs e)

@@ -66,7 +66,7 @@ namespace LiveView.Forms
 
         public void SetImagesEnabledState()
         {
-            var panTilt = permissionManager.HasPermission(CameraManagementPermissions.PanTilt);
+            var panTilt = permissionManager.HasPermission(CameraManagementPermissions.PanTilt) == AccessResult.Allowed;
             if (!panTilt)
             {
                 btnMoveCameraNorthWest.Image = Properties.Resources.nw_g;
@@ -89,10 +89,10 @@ namespace LiveView.Forms
             btnMoveCameraSouthEast.Enabled = panTilt;
             btnMoveCameraToPresetZero.Enabled = panTilt;
 
-            btnCloseSequenceApplications.Enabled = permissionManager.HasPermission(SequenceManagementPermissions.Close);
-            btnCloseFullScreenCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.CloseFullScreen);
+            btnCloseSequenceApplications.Enabled = permissionManager.HasPermission(SequenceManagementPermissions.Close) == AccessResult.Allowed;
+            btnCloseFullScreenCamera.Enabled = permissionManager.HasPermission(CameraManagementPermissions.CloseFullScreen) == AccessResult.Allowed;
 
-            var pan = permissionManager.HasPermission(CameraManagementPermissions.Pan);
+            var pan = permissionManager.HasPermission(CameraManagementPermissions.Pan) == AccessResult.Allowed;
             if (!pan)
             {
                 btnMoveCameraEast.Image = Properties.Resources.e_g;
@@ -106,7 +106,7 @@ namespace LiveView.Forms
             btnMoveCameraEast.Enabled = pan;
             btnMoveCameraWest.Enabled = pan;
 
-            var tilt = permissionManager.HasPermission(CameraManagementPermissions.Tilt);
+            var tilt = permissionManager.HasPermission(CameraManagementPermissions.Tilt) == AccessResult.Allowed;
             if (!tilt)
             {
                 btnMoveCameraNorth.Image = Properties.Resources.n_g;

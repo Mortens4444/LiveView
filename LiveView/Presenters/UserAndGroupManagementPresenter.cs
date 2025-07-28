@@ -56,7 +56,7 @@ namespace LiveView.Presenters
                         return;
                     }
 
-                    if (permissionManager.HasPermission(GroupManagementPermissions.Delete))
+                    if (permissionManager.HasPermission(GroupManagementPermissions.Delete) == AccessResult.Allowed)
                     {
                         groupRepository.DeleteGroupPermissions(group.Id);
                         groupRepository.Delete(group.Id);
@@ -82,7 +82,7 @@ namespace LiveView.Presenters
                         return;
                     }
 
-                    if (permissionManager.HasPermission(UserManagementPermissions.Delete))
+                    if (permissionManager.HasPermission(UserManagementPermissions.Delete) == AccessResult.Allowed)
                     {
                         userRepository.Delete(user.Id);
                         logger.LogInfo(UserManagementPermissions.Delete, "User '{0}' has been deleted.", user);
@@ -176,7 +176,7 @@ namespace LiveView.Presenters
             {
                 if (node.Tag is Group group)
                 {
-                    if (permissionManager.HasPermission(GroupManagementPermissions.Update))
+                    if (permissionManager.HasPermission(GroupManagementPermissions.Update) == AccessResult.Allowed)
                     {
                         if (group.ParentGroupId.HasValue)
                         {
@@ -196,7 +196,7 @@ namespace LiveView.Presenters
                 }
                 else if (node.Tag is User user)
                 {
-                    if (permissionManager.HasPermission(UserManagementPermissions.Update))
+                    if (permissionManager.HasPermission(UserManagementPermissions.Update) == AccessResult.Allowed)
                     {
                         if (node.Parent.Tag is Group userGroup)
                         {
@@ -231,14 +231,14 @@ namespace LiveView.Presenters
             var userSelected = treeNode?.Tag is User;
             var dbServerSelected = treeNode?.Tag is DatabaseServer;
 
-            view.BtnNewGroup.Enabled = (permissionManager.HasPermission(GroupManagementPermissions.Create) && groupSelected);
-            view.BtnNewUser.Enabled = (permissionManager.HasPermission(UserManagementPermissions.Create) && groupSelected);
+            view.BtnNewGroup.Enabled = (permissionManager.HasPermission(GroupManagementPermissions.Create) == AccessResult.Allowed && groupSelected);
+            view.BtnNewUser.Enabled = (permissionManager.HasPermission(UserManagementPermissions.Create) == AccessResult.Allowed && groupSelected);
 
-            view.BtnModify.Enabled = permissionManager.HasPermission(GroupManagementPermissions.Update) && groupSelected ||
-                (permissionManager.HasPermission(UserManagementPermissions.Update) && userSelected);
+            view.BtnModify.Enabled = permissionManager.HasPermission(GroupManagementPermissions.Update) == AccessResult.Allowed && groupSelected ||
+                (permissionManager.HasPermission(UserManagementPermissions.Update) == AccessResult.Allowed && userSelected);
 
-            view.BtnRemove.Enabled = permissionManager.HasPermission(GroupManagementPermissions.Delete) && groupSelected ||
-                (permissionManager.HasPermission(UserManagementPermissions.Delete) && userSelected);
+            view.BtnRemove.Enabled = permissionManager.HasPermission(GroupManagementPermissions.Delete) == AccessResult.Allowed && groupSelected ||
+                (permissionManager.HasPermission(UserManagementPermissions.Delete) == AccessResult.Allowed && userSelected);
         }
     }
 }
