@@ -1,4 +1,6 @@
-﻿namespace LiveView.Forms
+﻿using System.Drawing;
+
+namespace LiveView.Forms
 {
     partial class ControlCenter
     {
@@ -977,6 +979,7 @@
             // 
             // pbSziltechLogo
             // 
+            pbSziltechLogo.BackColor = Color.WhiteSmoke;
             pbSziltechLogo.BackgroundPaintDebounceIntervalInMs = 0;
             pbSziltechLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             pbSziltechLogo.Image = Properties.Resources.pb_Logo_Image;
@@ -1103,7 +1106,6 @@
             StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             Text = "Control center";
             TopMost = true;
-            Load += ControlCenter_Load;
             Shown += ControlCenter_Shown;
             ResizeEnd += ControlCenter_ResizeEnd;
             gbDisplayDevices.ResumeLayout(false);

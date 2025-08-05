@@ -9,7 +9,7 @@ namespace CameraForms.Extensions
 {
     public static class PermissionManagerExtensions
     {
-        public static bool HasCameraAndUser(this PermissionManager<User> permissionManager, Camera camera)
+        public static bool HasCamera(this PermissionManager<User> permissionManager, Camera camera)
         {
             if (permissionManager == null)
             {
@@ -19,12 +19,6 @@ namespace CameraForms.Extensions
             if (camera == null)
             {
                 throw new ArgumentNullException(nameof(camera));
-            }
-
-            if (permissionManager.CurrentUser == null)
-            {
-                DebugErrorBox.Show(camera.ToString(), "No user is logged in.");
-                return false;
             }
 
             return true;
@@ -54,7 +48,7 @@ namespace CameraForms.Extensions
                 }
                 else
                 {
-                    videoWindow.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                    videoWindow.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser?.Username} ({permissionManager.CurrentUser?.Id ?? 0})";
                     DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                     return false;
                 }

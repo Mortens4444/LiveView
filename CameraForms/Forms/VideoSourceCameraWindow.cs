@@ -12,6 +12,7 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Net;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.Controls.Interfaces;
 using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
@@ -19,6 +20,7 @@ using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,38 +29,74 @@ using Timer = System.Timers.Timer;
 
 namespace CameraForms.Forms
 {
-    public partial class VideoSourceCameraWindow : Form
+    public partial class VideoSourceCameraWindow : Form, IVideoWindow
     {
+        private static readonly Pen red = new Pen(new SolidBrush(Color.Red), 3);
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
-
+        private readonly PermissionSetter permissionSetter;
 
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly int frameTimeout = 1500;
         private readonly Rectangle rectangle;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private readonly VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
+        private readonly Camera camera;
+        private readonly GridCamera gridCamera;
+        private readonly int reconnectTimeout;
 
         private Image lastImage;
         private Timer frameTimer;
         private MyVideoCaptureClient videoCaptureClient;
-        private VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo;
+        private PermissionMonitor permissionMonitor;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
         private bool frameUnchanged;
-        private int largeFontSize;
-        private string fontFamily;
-        private Color fontColor;
-        private SolidBrush fontBrush;
+        //private int largeFontSize;
+        //private string fontFamily;
+        //private Color fontColor;
+        //private SolidBrush fontBrush;
         private Point location = new Point(10, 10);
         private string cameraName;
-        private Camera camera;
-        private GridCamera gridCamera;
-        private Pen red = new Pen(new SolidBrush(Color.Red), 3);
-        private int reconnectTimeout;
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Text to be displayed on the control.")]
+        public string OverlayText
+        {
+            get
+            {
+                return Text;
+            }
+            set
+            {
+                Text = value;
+            }
+        }
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Font type of the text to be displayed on the control.")]
+        public Font OverlayFont { get; set; } = new Font("Arial", 32f, FontStyle.Bold);
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Color of the text to be displayed on the control.")]
+        public Brush OverlayBrush { get; set; } = Brushes.White;
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Background color of the text to be displayed on the control.")]
+        public Color OverlayBackgroundColor { get; set; } = Color.White;
+
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Location of the text to be displayed on the control.")]
+        public Point OverlayLocation { get; set; } = new Point(10, 10);
 
         public VideoSourceCameraWindow(PermissionManager<User> permissionManager, IAgentRepository agentRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
@@ -81,7 +119,7 @@ namespace CameraForms.Forms
             SetOsdParameters(permissionManager?.CurrentUser?.Tag?.Id ?? 0, videoCaptureSourceCameraInfo?.ServerIp, videoCaptureSourceCameraInfo?.VideoSourceName);
             this.gridCamera = gridCamera;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
@@ -112,7 +150,7 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
@@ -157,7 +195,7 @@ namespace CameraForms.Forms
             frameTimer.AutoReset = false;
         }
 
-        private void SetupFullscreenPtz(long userId, string serverIp, string videoCaptureSource)
+        private void SetupFullscreenPtz(int userId, string serverIp, string videoCaptureSource)
         {
             kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
             fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
@@ -167,34 +205,11 @@ namespace CameraForms.Forms
             AppDomain.CurrentDomain.ProcessExit += (sender, e) => OnExit();
         }
 
-        private void SetOsdParameters(long userId, string serverIp, string videoCaptureSource)
+        private void SetOsdParameters(int userId, string serverIp, string videoCaptureSource)
         {
-            largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            fontFamily = personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial");
-            fontColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
-            fontBrush = new SolidBrush(fontColor);
-
             var text = personalOptionsRepository.GetCameraName(userId, serverIp, videoCaptureSource);
-            if (gridCamera?.Frame ?? false)
-            {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = text;
-            }
-            else
-            {
-                if (gridCamera?.Osd ?? false)
-                {
-                    cameraName = text;
-                }
-            }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                cameraName += DateUtils.GetNowFriendlyString();
-            }
-
-            Text = cameraName;
-            mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, cameraName);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, this, gridCamera, osdSettings, Text);
             mtfCamera.Paint += MtfCamera_Paint;
         }
 
@@ -206,7 +221,7 @@ namespace CameraForms.Forms
                 var graphics = e.Graphics;
                 {
                     //_ = graphics.MeasureString(OverlayText, OverlayFont);
-                    graphics.DrawString(cameraName, mtfCamera.Font, fontBrush, location);
+                    graphics.DrawString(cameraName, mtfCamera.Font, OverlayBrush, location);
                     if (frameUnchanged)
                     {
                         graphics.DrawRectangle(red, Bounds);
@@ -226,7 +241,6 @@ namespace CameraForms.Forms
             {
                 mtfCamera.SetImage(Properties.Resources.nosignal, false);
                 var message = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
-                mtfCamera.SetOsdText(fontFamily, largeFontSize, FontStyle.Bold, fontColor, message);
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return;
             }
@@ -333,6 +347,11 @@ namespace CameraForms.Forms
         }
 
         private void VideoSourceCameraWindow_Shown(object sender, EventArgs e)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
         {
             if (permissionManager.CurrentUser == null)
             {

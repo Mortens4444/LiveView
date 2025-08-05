@@ -48,7 +48,7 @@ namespace CameraForms.Forms
             sunellVideoWindowLegacy1.Location = new System.Drawing.Point(0, 0);
             sunellVideoWindowLegacy1.Name = "sunellVideoWindowLegacy1";
             sunellVideoWindowLegacy1.OverlayBackgroundColor = System.Drawing.Color.Black;
-            sunellVideoWindowLegacy1.OverlayColor = System.Drawing.Color.White;
+            sunellVideoWindowLegacy1.OverlayBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             sunellVideoWindowLegacy1.OverlayFont = (System.Drawing.Font)resources.GetObject("sunellVideoWindowLegacy1.OverlayFont");
             sunellVideoWindowLegacy1.OverlayLocation = new System.Drawing.Point(10, 10);
             sunellVideoWindowLegacy1.OverlayText = "";

@@ -3,8 +3,10 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Services;
 using LiveView.Presenters;
 using Microsoft.Extensions.Logging;
+using Mtf.Permissions.Services;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LiveView.Services.Template
@@ -14,9 +16,11 @@ namespace LiveView.Services.Template
         private readonly IAgentRepository agentRepository;
         private readonly ITemplateProcessRepository templateProcessRepository;
         private readonly ILogger logger;
+        private readonly PermissionManager<Database.Models.User> permissionManager;
 
-        public TemplateStarter(IAgentRepository agentRepository, ITemplateProcessRepository templateProcessRepository, ILogger logger)
+        public TemplateStarter(PermissionManager<Database.Models.User> permissionManager, IAgentRepository agentRepository, ITemplateProcessRepository templateProcessRepository, ILogger logger)
         {
+            this.permissionManager = permissionManager;
             this.logger = logger;
             this.agentRepository = agentRepository;
             this.templateProcessRepository = templateProcessRepository;
@@ -36,7 +40,9 @@ namespace LiveView.Services.Template
                 {
                     if (templateProcess.AgentId == null)
                     {
-                        var process = AppStarter.Start(templateProcess.ProcessName, templateProcess.ProcessParameters, logger);
+                        var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
+                        var updatedParameters = ReplaceProcessParameter(templateProcess.ProcessParameters, 1, userId.ToString());
+                        var process = AppStarter.Start(templateProcess.ProcessName, updatedParameters, logger);
                         if (templateProcess.ProcessName == Database.Constants.CameraAppExe)
                         {
                             ControlCenterPresenter.CameraProcess = process;
@@ -63,6 +69,23 @@ namespace LiveView.Services.Template
                     }
                 }
             });
+        }
+
+        private static string ReplaceProcessParameter(string parameters, int index, string newValue)
+        {
+            if (String.IsNullOrWhiteSpace(parameters))
+            {
+                return newValue;
+            }
+
+            var parts = parameters.Split(' ').ToList();
+            while (parts.Count <= index)
+            {
+                parts.Add(String.Empty);
+            }
+
+            parts[index] = newValue;
+            return String.Join(" ", parts);
         }
     }
 }

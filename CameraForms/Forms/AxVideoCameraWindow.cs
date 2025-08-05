@@ -26,16 +26,20 @@ namespace CameraForms.Forms
     public partial class AxVideoCameraWindow : Form
     {
         private Client client;
-        private short cameraMoveValue;
+        private readonly short cameraMoveValue;
+        //private int waitTimeInMs = 0;
 
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
-
+        private readonly PermissionSetter permissionSetter;
+        private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly VideoServer server;
         private readonly Camera camera;
         private readonly Rectangle rectangle;
-        private GridCamera gridCamera;
+        private readonly GridCamera gridCamera;
+
+        private PermissionMonitor permissionMonitor;
 
         public AxVideoCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
@@ -51,15 +55,16 @@ namespace CameraForms.Forms
             this.server = server;
             this.camera = camera;
             this.permissionManager = permissionManager;
+            this.personalOptionsRepository = personalOptionsRepository;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var userId = permissionManager?.CurrentUser?.Tag.Id ?? 0;
             var text = personalOptionsRepository.GetCameraName(userId, server, camera);
             var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
-            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text, userId);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text);
 
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
 
@@ -71,6 +76,7 @@ namespace CameraForms.Forms
             }
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
+            axVideoPlayerWindow.AxVideoPlayer.Connected += AxVideoPlayer_Connected;
             //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(Mtf.Permissions.Enums.WindowManagementPermissions.Close) == Mtf.Permissions.Enums.AccessResult.Allowed;
         }
 
@@ -80,6 +86,7 @@ namespace CameraForms.Forms
             {
                 throw new ArgumentNullException(nameof(cameraLaunchContext));
             }
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             var videoServerRepository = serviceProvider.GetRequiredService<IVideoServerRepository>();
@@ -96,17 +103,12 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
                 serviceProvider.GetRequiredService<IGroupMembersRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
-
-            var personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            var text = personalOptionsRepository.GetCameraName(cameraLaunchContext.UserId, server, camera);
-            var osdSettings = personalOptionsRepository.GetOsdSettings(cameraLaunchContext.UserId);
-            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text, cameraLaunchContext.UserId);
 
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
             cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
@@ -118,6 +120,7 @@ namespace CameraForms.Forms
             axVideoPlayerWindow.ContextMenuStrip = null;
 
             closeToolStripMenuItem.Text = Lng.Elem("Close");
+            axVideoPlayerWindow.AxVideoPlayer.Connected += AxVideoPlayer_Connected;
             //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(Mtf.Permissions.Enums.WindowManagementPermissions.Close) == Mtf.Permissions.Enums.AccessResult.Allowed;
         }
 
@@ -158,23 +161,62 @@ namespace CameraForms.Forms
 
         private void AxVideoCameraWindow_Shown(object sender, EventArgs e)
         {
-            if (permissionManager.HasCameraAndUser(camera)
-                && permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
+            if (!permissionManager.HasCamera(camera))
             {
-                axVideoPlayerWindow.AxVideoPlayer.StartAsync(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword));
+                return;
+            }
+
+            Initialize();
+
+            if (permissionManager.HasCameraPermission(camera, axVideoPlayerWindow))
+            {
+                Start();
+            }
+            else
+            {
+                permissionMonitor = new PermissionMonitor(
+                    () =>
+                    {
+                        permissionSetter.SetGroups(permissionManager.CurrentUser);
+                        return permissionManager.HasCameraPermission(camera, axVideoPlayerWindow);
+                    },
+                    () =>
+                    {
+                        Initialize();
+                        Start();
+                    }
+                );
+                permissionMonitor.Start();
             }
         }
 
-        //private void Start(int waitTimeInMs = 500)
-        //{
-        //    if (waitTimeInMs <= 2000)
-        //    {
-        //        waitTimeInMs *= 2;
-        //    }
-        //    axVideoPlayerWindow.AxVideoPlayer.WaitForConnect(waitTimeInMs);
-        //    axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, server.Password);
-        //    //axVideoPlayerWindow.AxVideoPicture.Connect(server.IpAddress, camera.Guid, server.Username, server.Password);
-        //}
+        private void Initialize()
+        {
+            var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
+            var text = personalOptionsRepository.GetCameraName(userId, server, camera);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text);
+        }
+
+        private void Start()
+        {
+            //axVideoPlayerWindow.AxVideoPlayer.WaitForConnect(waitTimeInMs);
+            //axVideoPlayerWindow.AxVideoPicture.Connect(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword));
+            axVideoPlayerWindow.AxVideoPlayer.Start(server.IpAddress, camera.Guid, server.Username, VideoServerPasswordCryptor.PasswordDecrypt(server.EncryptedPassword));
+            //if (waitTimeInMs <= 2000)
+            //{
+            //    waitTimeInMs *= 2;
+            //    if (waitTimeInMs == 0)
+            //    {
+            //        waitTimeInMs = 100;
+            //    }
+            //}
+        }
+
+        private void AxVideoPlayer_Connected(object sender, EventArgs e)
+        {
+            //waitTimeInMs = 0;
+        }
 
         private void AxVideoCameraWindow_FormClosing(object sender, FormClosingEventArgs e)
         {

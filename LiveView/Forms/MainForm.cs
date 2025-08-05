@@ -71,10 +71,10 @@ namespace LiveView.Forms
         {
             presenter = Presenter as MainPresenter;
             presenter.Load();
-            presenter.AutoLoadTemplate();
             presenter.LoadKbd300A();
             presenter.StartWatchdog();
             presenter.AutoLogin();
+            presenter.AutoLoadTemplate();
         }
 
         private void TsmiControlCenter_Click(object sender, EventArgs e)

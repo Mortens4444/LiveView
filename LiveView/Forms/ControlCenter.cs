@@ -144,6 +144,11 @@ namespace LiveView.Forms
 
         private void ControlCenter_Shown(object sender, EventArgs e)
         {
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             presenter = Presenter as ControlCenterPresenter;
             presenter.Load();
             presenter.StartCameraApp(camera);
@@ -397,11 +402,6 @@ namespace LiveView.Forms
         private void PDisplayDevices_MouseClick(object sender, MouseEventArgs e)
         {
             presenter.SelectDisplay(e.Location);
-        }
-
-        private void ControlCenter_Load(object sender, EventArgs e)
-        {
-            pbSziltechLogo.BackColor = Color.WhiteSmoke;
         }
 
         private async void LvTemplates_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)

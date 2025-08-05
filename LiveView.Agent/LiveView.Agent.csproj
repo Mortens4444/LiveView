@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
-    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.45" />
+    <PackageReference Include="Mtf.Controls.Video.OpenCvSharp" Version="1.0.46" />
     <PackageReference Include="Mtf.MessageBoxes" Version="6.0.13" />
     <PackageReference Include="Mtf.Network" Version="2.0.17" />
     <PackageReference Include="System.Memory" Version="4.6.3" />

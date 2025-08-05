@@ -11,11 +11,13 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
+using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace CameraForms.Forms
 {
@@ -26,12 +28,14 @@ namespace CameraForms.Forms
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private readonly PermissionManager<User> permissionManager;
+        private readonly PermissionSetter permissionSetter;
+        private readonly GridCamera gridCamera;
+        private readonly Camera camera;
 
-        private PermissionManager<User> permissionManager;
+        private PermissionMonitor permissionMonitor;
         private Rectangle rectangle;
         private string url;
-        private GridCamera gridCamera;
-        private Camera camera;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
         private int bufferSize;
         private int onExit;
@@ -56,7 +60,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
@@ -83,7 +87,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
@@ -131,16 +135,42 @@ namespace CameraForms.Forms
 
         private void MortoGraphyWindow_Shown(object sender, EventArgs e)
         {
-            if (!permissionManager.HasCameraAndUser(camera))
+            if (!permissionManager.HasCamera(camera))
             {
                 return;
             }
 
-            var userId = permissionManager.CurrentUser.Tag.Id;
+            Initialize();
+
+            if (permissionManager.HasCameraPermission(camera, mortoGraphyWindow))
+            {
+                mortoGraphyWindow.Start(url);
+            }
+            else
+            {
+                permissionMonitor = new PermissionMonitor(
+                    () =>
+                    {
+                        permissionSetter.SetGroups(permissionManager.CurrentUser);
+                        return permissionManager.HasCameraPermission(camera, mortoGraphyWindow);
+                    },
+                    () =>
+                    {
+                        Initialize();
+                        mortoGraphyWindow.Start(url);
+                    }
+                );
+                permissionMonitor.Start();
+            }
+        }
+
+        private void Initialize()
+        {
+            var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
             mortoGraphyWindow.BufferSize = bufferSize;
             var text = personalOptionsRepository.GetCameraName(userId, url);
             var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
-            OsdSetter.SetInfo(this, mortoGraphyWindow, gridCamera, osdSettings, text, userId);
+            OsdSetter.SetInfo(this, mortoGraphyWindow, gridCamera, osdSettings, text);
 
             if (url.IndexOf('|') > 0)
             {
@@ -148,10 +178,6 @@ namespace CameraForms.Forms
 
                 var videoSourceInfo = videoSourceRepository.SelectVideoSourceAndAgentInfoByName(videoSourceNameInfo[0], videoSourceNameInfo[1]);
                 url = $"{videoSourceInfo.Item1.ServerIp}:{videoSourceInfo.Item2.Port}";
-            }
-            if (permissionManager.HasCameraPermission(camera, mortoGraphyWindow))
-            {
-                mortoGraphyWindow.Start(url);
             }
         }
 

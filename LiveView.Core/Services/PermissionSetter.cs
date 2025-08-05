@@ -33,6 +33,11 @@ namespace LiveView.Core.Services
 
         public void SetGroups(Mtf.Permissions.Models.User<User> result)
         {
+            if (result == null)
+            {
+                return;
+            }
+
             result.Groups = new List<Mtf.Permissions.Models.Group>();
             var groupIds = groupMembersRepository.SelectWhere(new { UserId = result.Tag.Id }).Select(userGroup => userGroup.GroupId);
             foreach (var groupId in groupIds)

@@ -9,7 +9,7 @@ namespace CameraForms.Services
 {
     public static class OsdSetter
     {
-        public static void SetInfo(Form form, IVideoWindow videoWindow, GridCamera gridCamera, OsdSettings osdSettings, string text, long userId)
+        public static void SetInfo(Form form, IVideoWindow videoWindow, GridCamera gridCamera, OsdSettings osdSettings, string text)
         {
             if (form == null)
             {
@@ -39,10 +39,7 @@ namespace CameraForms.Services
             }
             else
             {
-                if (gridCamera.Osd)
-                {
-                    videoWindow.OverlayText = text;
-                }
+                videoWindow.OverlayText = gridCamera.Osd ? text : String.Empty;
             }
             if (gridCamera.ShowDateTime)
             {

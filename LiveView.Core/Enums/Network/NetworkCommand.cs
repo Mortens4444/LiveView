@@ -45,6 +45,8 @@
         SecondsLeftFromGrid,
         CheckSequenceProcess,
         RegisterCameraWithUrl,
-        BarcodeDetected
+        BarcodeDetected,
+        UserLoggedIn,
+        UserLoggedOut
     }
 }

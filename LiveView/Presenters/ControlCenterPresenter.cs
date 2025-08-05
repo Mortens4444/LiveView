@@ -61,7 +61,7 @@ namespace LiveView.Presenters
             cameraRepository = dependencies.CameraRepository;
             permissionManager = dependencies.PermissionManager;
             logger = dependencies.Logger;
-            templateStarter = new TemplateStarter(dependencies.AgentRepository, dependencies.TemplateProcessRepository, logger);
+            templateStarter = new TemplateStarter(permissionManager, dependencies.AgentRepository, dependencies.TemplateProcessRepository, logger);
         }
 
         public new void SetView(IView view)
@@ -392,7 +392,7 @@ namespace LiveView.Presenters
         public Process StartSequence(long sequenceId, string selectedDisplayId, bool isMdi)
         {
             CloseSequenceOnDisplay(selectedDisplayId);
-            return AppStarter.Start(Database.Constants.SequenceExe, $"0 {permissionManager.CurrentUser.Tag.Id} {sequenceId} {selectedDisplayId} {isMdi}", logger); // Add 0 as agent Id for local agent.
+            return AppStarter.Start(Database.Constants.SequenceExe, $"0 {permissionManager.CurrentUser?.Tag.Id ?? 0} {sequenceId} {selectedDisplayId} {isMdi}", logger); // Add 0 as agent Id for local agent.
         }
 
         public bool StartSequenceApp(Database.Models.Sequence sequence)

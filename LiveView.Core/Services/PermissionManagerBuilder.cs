@@ -14,9 +14,9 @@ namespace LiveView.Core.Services
             var user = userRepository.Select(userId);
 
             var permissionManager = serviceProvider.GetRequiredService<PermissionManager<Database.Models.User>>();
-            var permissionUser = new Mtf.Permissions.Models.User<Database.Models.User>
+            var permissionUser = user == null ? null : new Mtf.Permissions.Models.User<Database.Models.User>
             {
-                Id = (int)user.Id, // Theoretically it could be a problem, hopefully we won't have more than 2.1 billion users
+                Id = user.Id,
                 Username = user.Username,
                 Tag = user
             };

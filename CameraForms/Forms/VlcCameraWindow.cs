@@ -25,11 +25,13 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
+        private readonly PermissionSetter permissionSetter;
         private readonly Camera camera;
+        private readonly GridCamera gridCamera;
+        private readonly string url;
 
-        private string url;
         private Rectangle rectangle;
-        private GridCamera gridCamera;
+        private PermissionMonitor permissionMonitor;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
         public VlcCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
@@ -49,7 +51,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
@@ -76,7 +78,7 @@ namespace CameraForms.Forms
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
@@ -110,20 +112,41 @@ namespace CameraForms.Forms
 
         private void VlcCameraWindow_Shown(object sender, EventArgs e)
         {
-            if (!permissionManager.HasCameraAndUser(camera))
+            if (!permissionManager.HasCamera(camera))
             {
                 return;
             }
 
-            var userId = permissionManager.CurrentUser.Tag.Id;
-            var text = personalOptionsRepository.GetCameraName(userId, url);
-            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
-            OsdSetter.SetInfo(this, vlcWindow, gridCamera, osdSettings, text, userId);
+            Initialize();
 
             if (permissionManager.HasCameraPermission(camera, vlcWindow))
             {
                 vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
             }
+            else
+            {
+                permissionMonitor = new PermissionMonitor(
+                    () =>
+                    {
+                        permissionSetter.SetGroups(permissionManager.CurrentUser);
+                        return permissionManager.HasCameraPermission(camera, vlcWindow);
+                    },
+                    () =>
+                    {
+                        Initialize();
+                        vlcWindow.Start(url, true, true, true, 3000, 3000, Demux.none);
+                    }
+                );
+                permissionMonitor.Start();
+            }
+        }
+
+        private void Initialize()
+        {
+            var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, vlcWindow, gridCamera, osdSettings, text);
         }
 
         private void OnExit()

@@ -28,7 +28,7 @@ namespace Sequence.Forms
     internal partial class MainForm : Form
     {
 #if DEBUG
-        private static Mtf.Network.Server server;
+        private static Server server;
 #endif
         private static Client client;
 
@@ -36,6 +36,7 @@ namespace Sequence.Forms
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly GridSequenceManager gridSequenceManager;
+        private readonly IUserRepository userRepository;
         private readonly ILogger<MainForm> logger;
         private int onExit;
 
@@ -52,7 +53,7 @@ namespace Sequence.Forms
 #if DEBUG
                     try
                     {
-                        server = new Mtf.Network.Server(listenerPort: 4444);
+                        server = new Server(listenerPort: 4444);
                         server.Start();
                     }
                     catch (Exception ex)
@@ -122,6 +123,7 @@ namespace Sequence.Forms
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
             var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
+            userRepository = serviceProvider.GetRequiredService<IUserRepository>();
 
             gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, sequenceGridsRepository, gridRepository, agentRepository,
                 videoSourceRepository, videoServerRepository, cameraRepository, cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository,
@@ -139,7 +141,8 @@ namespace Sequence.Forms
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = SequenceCommandFactory.Create(this, gridSequenceManager, messages);
+                var commands = SequenceCommandFactory.Create(this, gridSequenceManager,
+                    permissionManager, userRepository, messages);
                 foreach (var command in commands)
                 {
                     command.Execute();

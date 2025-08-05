@@ -1,6 +1,9 @@
 ﻿using CameraForms.Network.Commands;
+using Database.Interfaces;
+using Database.Models;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
+using Mtf.Permissions.Services;
 using Sequence.Network.Commands;
 using System;
 using System.Collections.Generic;
@@ -10,7 +13,8 @@ namespace Sequence.Services
 {
     public static class SequenceCommandFactory
     {
-        public static List<ICommand> Create(Form form, GridSequenceManager gridSequenceManager, string messages)
+        public static List<ICommand> Create(Form form, GridSequenceManager gridSequenceManager,
+            PermissionManager<User> permissionManager, IUserRepository userRepository, string messages)
         {
             var result = new List<ICommand>();
             var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -38,6 +42,15 @@ namespace Sequence.Services
                 else if (message.StartsWith(NetworkCommand.ShowPreviousGrid.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new ShowPreviousGridCommand(gridSequenceManager));
+                }
+                else if (message.StartsWith(NetworkCommand.UserLoggedIn.ToString(), StringComparison.InvariantCulture))
+                {
+                    var user = userRepository.Select(Convert.ToInt32(messageParts[1]));
+                    result.Add(new UserLoggedInCommand(permissionManager, user));
+                }
+                else if (message.StartsWith(NetworkCommand.UserLoggedOut.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new UserLoggedOutCommand(permissionManager));
                 }
                 else
                 {

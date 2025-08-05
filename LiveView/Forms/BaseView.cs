@@ -275,14 +275,18 @@ namespace LiveView.Forms
             base.OnLoad(e);
             if (!DesignMode)
             {
-#if SET_PRESENTER_WITH_DYNAMIC
-                SetPresenterWithDynamic();
-#else
-                SetPresenterWithReflection();
-#endif
-
+                SetPresenter();
                 Presenter?.SetLocationAndSize();
             }
+        }
+
+        public void SetPresenter()
+        {
+#if SET_PRESENTER_WITH_DYNAMIC
+            SetPresenterWithDynamic();
+#else
+            SetPresenterWithReflection();
+#endif
         }
 
 #if SET_PRESENTER_WITH_DYNAMIC
@@ -290,9 +294,12 @@ namespace LiveView.Forms
         {
             try
             {
-                dynamic presenter = serviceProvider?.GetRequiredService(presenterType);
-                Presenter = presenter as BasePresenter;
-                presenter.SetView(this);
+                if (Presenter == null)
+                {
+                    dynamic presenter = serviceProvider?.GetRequiredService(presenterType);
+                    Presenter = presenter as BasePresenter;
+                    presenter.SetView(this);
+                }
             }
             catch (Exception ex)
             {
@@ -302,10 +309,13 @@ namespace LiveView.Forms
 #else
         private void SetPresenterWithReflection()
         {
-            var presenter = serviceProvider?.GetRequiredService(presenterType);
-            Presenter = presenter as BasePresenter;
-            var setViewMethod = presenterType.GetMethod(nameof(Presenter.SetView));
-            setViewMethod?.Invoke(presenter, new object[] { this });
+            if (Presenter == null)
+            {
+                var presenter = serviceProvider?.GetRequiredService(presenterType);
+                Presenter = presenter as BasePresenter;
+                var setViewMethod = presenterType.GetMethod(nameof(Presenter.SetView));
+                setViewMethod?.Invoke(presenter, new object[] { this });
+            }
         }
 #endif
 

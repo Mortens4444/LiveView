@@ -51,7 +51,7 @@ namespace CameraForms.Forms
             sunellVideoWindow1.Location = new System.Drawing.Point(0, 0);
             sunellVideoWindow1.Name = "sunellVideoWindow1";
             sunellVideoWindow1.OverlayBackgroundColor = System.Drawing.Color.White;
-            sunellVideoWindow1.OverlayColor = System.Drawing.Color.White;
+            sunellVideoWindow1.OverlayBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
             sunellVideoWindow1.OverlayFont = (System.Drawing.Font)resources.GetObject("sunellVideoWindow1.OverlayFont");
             sunellVideoWindow1.OverlayLocation = new System.Drawing.Point(10, 10);
             sunellVideoWindow1.OverlayText = "";

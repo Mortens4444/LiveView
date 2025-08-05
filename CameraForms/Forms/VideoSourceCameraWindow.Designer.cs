@@ -21,7 +21,7 @@ namespace CameraForms.Forms
                 frameTimer?.Dispose();
                 fullScreenCameraMessageHandler?.Dispose();
                 cancellationTokenSource?.CancelAndDispose();
-                fontBrush.Dispose();
+                OverlayBrush.Dispose();
                 red.Dispose();
                 components.Dispose();
             }

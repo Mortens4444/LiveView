@@ -97,7 +97,10 @@ namespace LiveView.Presenters
             permissionManager = dependencies.PermissionManager;
             userEventRepository = dependencies.UserEventRepository;
             uptime = new Uptime();
-            templateStarter = new TemplateStarter(dependencies.AgentRepository, dependencies.TemplateProcessRepository, Logger);
+            templateStarter = new TemplateStarter(permissionManager, dependencies.AgentRepository, dependencies.TemplateProcessRepository, Logger);
+            Globals.ControlCenter = CreateForm<ControlCenter>();
+            Globals.ControlCenter.SetPresenter();
+            Globals.ControlCenter.Initialize();
 
             Task.Run(() =>
             {
@@ -105,7 +108,7 @@ namespace LiveView.Presenters
                 {
                     CheckSequenceApplications();
                     CheckCameraApplication();
-                    MainPresenter.CheckAgents();
+                    CheckAgents();
                     Thread.Sleep(1000);
                 }
             });
@@ -170,6 +173,7 @@ namespace LiveView.Presenters
                 }
             }
         }
+
         private static void CheckSequenceApplications()
         {
             var sequence = Path.GetFileNameWithoutExtension(Database.Constants.SequenceExe);
@@ -682,6 +686,7 @@ namespace LiveView.Presenters
 
         public void Logout()
         {
+            Globals.Server.SendMessageToAllClients(NetworkCommand.UserLoggedOut.ToString());
             permissionManager.LogoutWithForm(view.GetSelf());
             ChangeControlsOnLogout();
         }
@@ -691,6 +696,7 @@ namespace LiveView.Presenters
             var user = PrimaryLogon();
             if (user != null)
             {
+                Globals.Server.SendMessageToAllClients($"{NetworkCommand.UserLoggedIn}|{user.Tag.Id}");
                 permissionManager.LoginWithForm(user, view.GetSelf());
                 LoadLanguage(user.Tag.Id);
             }

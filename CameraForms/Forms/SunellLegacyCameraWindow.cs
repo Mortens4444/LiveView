@@ -14,6 +14,7 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Video.Sunell.IPR66.CustomEventArgs;
+using Mtf.Extensions;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -31,15 +32,17 @@ namespace CameraForms.Forms
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly PermissionManager<User> permissionManager;
+        private readonly PermissionSetter permissionSetter;
         private readonly Camera camera;
+        private readonly GridCamera gridCamera;
+        private readonly short rotateSpeed = 50;
 
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
         private Client client;
         private Label label;
-        private GridCamera gridCamera;
-        private short rotateSpeed = 50;
         private bool fullScreen;
+        private PermissionMonitor permissionMonitor;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
@@ -59,7 +62,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
@@ -89,7 +92,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
@@ -162,7 +165,7 @@ namespace CameraForms.Forms
                 label = new Label
                 {
                     Text = sunellVideoWindowLegacy1.OverlayText,
-                    ForeColor = sunellVideoWindowLegacy1.OverlayColor,
+                    ForeColor = sunellVideoWindowLegacy1.OverlayBrush.ToColor(),
                     BackColor = sunellVideoWindowLegacy1.OverlayBackgroundColor,
                     Font = sunellVideoWindowLegacy1.OverlayFont,
                     Parent = Parent,
@@ -183,36 +186,46 @@ namespace CameraForms.Forms
         private void SunellLegacyCameraWindow_Shown(object sender, EventArgs e)
         {
             Activate();
-            if (!permissionManager.HasCameraAndUser(camera))
+
+            if (!permissionManager.HasCamera(camera))
             {
                 return;
             }
 
-            var userId = permissionManager.CurrentUser.Tag.Id;
-            var largeFontSize = personalOptionsRepository.Get(Setting.CameraLargeFontSize, userId, 30);
-            //var smallFontSize = personalOptionsRepository.Get(Setting.CameraSmallFontSize, userId, 15);
-            sunellVideoWindowLegacy1.OverlayFont = new Font(personalOptionsRepository.Get(Setting.CameraFont, userId, "Arial"), largeFontSize, FontStyle.Bold);
-            sunellVideoWindowLegacy1.OverlayColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontColor, userId, Color.White.ToArgb()));
-            sunellVideoWindowLegacy1.OverlayBackgroundColor = Color.FromArgb(personalOptionsRepository.Get(Setting.CameraFontShadowColor, userId, Color.Black.ToArgb()));
-            var text = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
-            //OsdSetter.SetInfo(this, sunellVideoWindowLegacy1, gridCamera, text);
-            if (gridCamera?.Frame ?? false)
+            Initialize();
+
+            if (permissionManager.HasCameraPermission(camera, sunellVideoWindowLegacy1))
             {
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-                Text = text;
+                ConnectToCamera();
             }
             else
             {
-                if (gridCamera?.Osd ?? false)
-                {
-                    sunellVideoWindowLegacy1.OverlayText = text;
-                }
+                permissionMonitor = new PermissionMonitor(
+                    () =>
+                    {
+                        permissionSetter.SetGroups(permissionManager.CurrentUser);
+                        return permissionManager.HasCameraPermission(camera, sunellVideoWindowLegacy1);
+                    },
+                    () =>
+                    {
+                        Initialize();
+                        ConnectToCamera();
+                    }
+                );
+                permissionMonitor.Start();
             }
-            if (gridCamera?.ShowDateTime ?? false)
-            {
-                sunellVideoWindowLegacy1.OverlayText += DateUtils.GetNowFriendlyString();
-            }
+        }
 
+        private void Initialize()
+        {
+            var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
+            var text = personalOptionsRepository.GetCameraName(userId, sunellLegacyCameraInfo.CameraIp);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, sunellVideoWindowLegacy1, gridCamera, osdSettings, text);
+        }
+
+        private void ConnectToCamera()
+        {
             try
             {
                 var accessResult = permissionManager.HasCameraPermission(camera.PermissionCamera);

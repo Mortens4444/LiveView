@@ -24,11 +24,13 @@ namespace CameraForms.Forms
         private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
+        private readonly PermissionSetter permissionSetter;
+        private readonly GridCamera gridCamera;
+        private readonly Camera camera;
+        private readonly string url;
 
-        private string url;
         private Rectangle rectangle;
-        private GridCamera gridCamera;
-        private Camera camera;
+        private PermissionMonitor permissionMonitor;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
         public OpenCvSharpCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
@@ -49,7 +51,7 @@ namespace CameraForms.Forms
             this.personalOptionsRepository = personalOptionsRepository;
             this.gridCamera = gridCamera;
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
@@ -75,7 +77,7 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            var permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
+            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
@@ -109,20 +111,41 @@ namespace CameraForms.Forms
 
         private void OpenCvSharp_Shown(object sender, EventArgs e)
         {
-            if (!permissionManager.HasCameraAndUser(camera))
+            if (!permissionManager.HasCamera(camera))
             {
                 return;
             }
 
-            var userId = permissionManager.CurrentUser.Tag.Id;
-            var text = personalOptionsRepository.GetCameraName(userId, url);
-            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
-            OsdSetter.SetInfo(this, openCvSharpVideoWindow, gridCamera, osdSettings, text, userId);
+            Initialize();
 
             if (permissionManager.HasCameraPermission(camera, openCvSharpVideoWindow))
             {
                 openCvSharpVideoWindow.Start(url);
             }
+            else
+            {
+                permissionMonitor = new PermissionMonitor(
+                    () =>
+                    {
+                        permissionSetter.SetGroups(permissionManager.CurrentUser);
+                        return permissionManager.HasCameraPermission(camera, openCvSharpVideoWindow);
+                    },
+                    () =>
+                    {
+                        Initialize();
+                        openCvSharpVideoWindow.Start(url);
+                    }
+                );
+                permissionMonitor.Start();
+            }
+        }
+
+        private void Initialize()
+        {
+            var userId = permissionManager.CurrentUser?.Tag.Id ?? 0;
+            var text = personalOptionsRepository.GetCameraName(userId, url);
+            var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
+            OsdSetter.SetInfo(this, openCvSharpVideoWindow, gridCamera, osdSettings, text);
         }
 
         private void OnExit()
