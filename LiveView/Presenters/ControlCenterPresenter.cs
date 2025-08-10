@@ -75,7 +75,7 @@ namespace LiveView.Presenters
             JoystickHandler.CalibrateJoystick();
         }
 
-        public void CloseFullScreenCameraApplication()
+        public static void CloseFullScreenCameraApplication()
         {
             if (CameraProcess != null)
             {
@@ -101,7 +101,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void CloseSequenceApplications()
+        public static void CloseSequenceApplications()
         {
             ProcessUtils.Kill(SequenceProcesses);
             SequenceProcesses.Clear();
@@ -111,7 +111,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void AddSequence(Process sequenceProcess)
+        public static void AddSequence(Process sequenceProcess)
         {
             SequenceProcesses.Add(sequenceProcess);
         }
@@ -347,7 +347,11 @@ namespace LiveView.Presenters
         private bool StartCameraAppInternal(string[] parameters)
         {
             ProcessUtils.Kill(CameraProcess);
-            Globals.Server.SendMessageToAllClients($"{NetworkCommand.KillAll}|{Database.Constants.CameraAppExe}");
+            foreach (var cameraProcess in Globals.CameraProcessInfo.Keys)
+            {
+                Globals.Server.SendMessageToClient(cameraProcess, $"{NetworkCommand.KillAll}|{Database.Constants.CameraAppExe}");
+            }
+            
             CameraProcess = null;
 
             var protectedParameters = parameters.Select(p => p.Contains(' ') ? $"\"{p}\"" : p).ToList();

@@ -1,7 +1,6 @@
 - what happens, when the app started without user and startup template selected
 - Open more fullscreen windows
 - Templates should open fullscreen windows
-- Opening full screen closes sequence applications
 
 Vlc not reconnecting to Maginon
 Vlc image falls apart

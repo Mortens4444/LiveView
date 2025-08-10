@@ -87,17 +87,17 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+
             permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
                 serviceProvider.GetRequiredService<IOperationRepository>(),
                 serviceProvider.GetRequiredService<IGroupMembersRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
-
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;

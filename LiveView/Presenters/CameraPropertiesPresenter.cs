@@ -46,6 +46,7 @@ namespace LiveView.Presenters
 
         public void Save()
         {
+            view.Camera.CameraName = view.TbCameraName.Text;
             view.Camera.IpAddress = view.TbCameraIpAddress.Text;
             view.Camera.EncryptedUsername = CameraPasswordCryptor.UsernameEncrypt(view.TbCameraUsername.Text);
             view.Camera.EncryptedPassword = CameraPasswordCryptor.PasswordEncrypt(view.TbCameraPassword.Password);

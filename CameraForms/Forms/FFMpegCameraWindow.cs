@@ -77,6 +77,10 @@ namespace CameraForms.Forms
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
+            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
+            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+
             permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
                 serviceProvider.GetRequiredService<IPermissionRepository>(),
@@ -84,9 +88,6 @@ namespace CameraForms.Forms
                 serviceProvider.GetRequiredService<IGroupMembersRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
             SetupFullscreenPtz(cameraLaunchContext.UserId, cameraLaunchContext.CameraId, display);

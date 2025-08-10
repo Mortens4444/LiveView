@@ -273,7 +273,6 @@
             tbCameraName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbCameraName.MaxLength = 200;
             tbCameraName.Name = "tbCameraName";
-            tbCameraName.ReadOnly = true;
             tbCameraName.Size = new System.Drawing.Size(731, 23);
             tbCameraName.TabIndex = 25;
             // 

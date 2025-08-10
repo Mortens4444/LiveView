@@ -163,6 +163,7 @@ namespace CameraForms.Forms
         private void SunellCameraWindow_Shown(object sender, EventArgs e)
         {
             Activate();
+
             if (!permissionManager.HasCamera(camera))
             {
                 return;
@@ -248,7 +249,7 @@ namespace CameraForms.Forms
             }
             else
             {
-                sunellVideoWindow1.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                sunellVideoWindow1.OverlayText = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser?.Username} ({permissionManager.CurrentUser?.Id ?? 0})";
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return SunellVideoWindow.NoPermission;
             }

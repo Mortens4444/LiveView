@@ -240,7 +240,7 @@ namespace CameraForms.Forms
             if (accessResult != AccessResult.Allowed)
             {
                 mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                var message = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser.Username} ({permissionManager.CurrentUser.Id})";
+                var message = $"No permission ({accessResult}): {camera} ({camera.PermissionCamera}) - {permissionManager.CurrentUser?.Username} ({permissionManager.CurrentUser?.Id ?? 0})";
                 DebugErrorBox.Show(camera.ToString(), "No permission to view this camera.");
                 return;
             }

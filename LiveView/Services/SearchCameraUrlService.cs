@@ -55,7 +55,7 @@ namespace LiveView.Services
 
         public static string ModifyUrl(NetCamera camera, string url)
         {
-            if (!String.IsNullOrEmpty(camera.Username) || !String.IsNullOrEmpty(camera.Password))
+            if (!String.IsNullOrEmpty(camera?.Username) || !String.IsNullOrEmpty(camera?.Password))
             {
                 url = url.Replace("[USERNAME]", camera.Username);
                 url = url.Replace("[PASSWORD]", camera.Password);
@@ -64,13 +64,13 @@ namespace LiveView.Services
             {
                 url = url.Replace("[USERNAME]:[PASSWORD]@", String.Empty);
             }
-            url = url.Replace("[IP_ADDRESS]", camera.IpAddress);
-            url = url.Replace("[CHANNEL]", camera.Channel.ToString());
+            url = url.Replace("[IP_ADDRESS]", camera?.IpAddress);
+            url = url.Replace("[CHANNEL]", camera?.Channel.ToString());
 
             if (url.Contains("[WIDTH]"))
             {
-                url = url.Replace("[WIDTH]", camera.Width.ToString());
-                url = url.Replace("[HEIGHT]", camera.Height.ToString());
+                url = url.Replace("[WIDTH]", camera?.Width.ToString());
+                url = url.Replace("[HEIGHT]", camera?.Height.ToString());
             }
 
             return url;
