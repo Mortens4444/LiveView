@@ -6,6 +6,7 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.Video.Sunell.IPR67;
 using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
@@ -61,7 +62,7 @@ namespace CameraApp
                 var context = CameraLaunchContextParser.Parse(args);
                 if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
                 {
-                    _ = Sdk.sdk_dev_init(null);
+                    SunellVideoWindow.SdkInit();
                 }
 
                 var factory = new CameraWindowFactory();
@@ -72,7 +73,7 @@ namespace CameraApp
 
                 if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
                 {
-                    Sdk.sdk_dev_quit();
+                    SunellVideoWindow.SdkQuit();
                 }
             }
             catch (Exception ex)

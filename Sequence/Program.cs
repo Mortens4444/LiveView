@@ -2,6 +2,7 @@ using Database.Services;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Mtf.Controls.Video.Sunell.IPR67;
 using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
@@ -57,12 +58,12 @@ namespace Sequence
             var displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
             var isMdi = Convert.ToBoolean(args[4], CultureInfo.InvariantCulture);
 
-            _ = Sdk.sdk_dev_init(null);
+            SunellVideoWindow.SdkInit();
             using (var form = new MainForm(serviceProvider, agentId, userId, sequenceId, displayId, isMdi))
             {
                 Application.Run(form);
             }
-            Sdk.sdk_dev_quit();
+            SunellVideoWindow.SdkQuit();
         }
     }
 }
