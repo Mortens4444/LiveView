@@ -14,6 +14,7 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Video.Sunell.IPR66.CustomEventArgs;
+using Mtf.Controls.Video.Sunell.IPR67;
 using Mtf.Extensions;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -23,6 +24,8 @@ using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -43,6 +46,7 @@ namespace CameraForms.Forms
         private Label label;
         private bool fullScreen;
         private PermissionMonitor permissionMonitor;
+        private CancellationTokenSource cts;
 
         public SunellLegacyCameraWindow(PermissionManager<User> permissionManager, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
@@ -224,20 +228,33 @@ namespace CameraForms.Forms
             OsdSetter.SetInfo(this, sunellVideoWindowLegacy1, gridCamera, osdSettings, text);
         }
 
-        private void ConnectToCamera()
+        private bool Connect()
+        {
+            sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
+            var connectResult = sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
+            if (connectResult && fullScreen)
+            {
+                sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+            }
+            SetOsd();
+            return connectResult;
+        }
+
+        private bool ConnectToCamera()
         {
             try
             {
                 var accessResult = permissionManager.HasCameraPermission(camera.PermissionCamera);
                 if (accessResult == AccessResult.Allowed)
                 {
-                    sunellVideoWindowLegacy1.VideoSignalChanged += SunellVideoWindowLegacy1_VideoSignalChanged;
-                    sunellVideoWindowLegacy1.Connect(sunellLegacyCameraInfo.CameraIp, sunellLegacyCameraInfo.CameraPort, sunellLegacyCameraInfo.Username, sunellLegacyCameraInfo.Password, sunellLegacyCameraInfo.StreamId);
-                    if (fullScreen)
+                    var connectResult = Connect();
+                    if (!connectResult)
                     {
-                        sunellVideoWindowLegacy1.PTZ_Open(sunellLegacyCameraInfo.CameraId);
+                        cts?.Cancel();
+                        cts = new CancellationTokenSource();
+                        _ = TryReconnectAsync(cts.Token);
                     }
-                    SetOsd();
+                    return connectResult;
                 }
                 else
                 {
@@ -248,6 +265,28 @@ namespace CameraForms.Forms
             catch (Exception ex)
             {
                 DebugErrorBox.Show(ex);
+            }
+            return false;
+        }
+
+        private async Task TryReconnectAsync(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var connectResult = ConnectToCamera();
+                if (connectResult)
+                {
+                    return;
+                }
+
+                try
+                {
+                    await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
             }
         }
 

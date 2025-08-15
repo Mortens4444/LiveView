@@ -14,7 +14,7 @@ namespace CameraForms.Dto
 
         public string Password { get; set; }
 
-        public int StreamId { get; set; }
+        public int StreamId { get; set; } = 1;
 
         public int CameraId { get; set; }
     }

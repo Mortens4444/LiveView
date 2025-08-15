@@ -206,7 +206,7 @@ namespace CameraForms.Forms
             try
             {
                 var streamId = Connect();
-                if (streamId == SunellVideoWindow.NoStream)
+                if (streamId == SunellVideoWindow.NoStream || streamId == SunellVideoWindow.NoSdkHandler)
                 {
                     cts?.Cancel();
                     cts = new CancellationTokenSource();
@@ -259,7 +259,8 @@ namespace CameraForms.Forms
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                if (Connect() != SunellVideoWindow.NoStream)
+                var connectResult = Connect();
+                if (connectResult != SunellVideoWindow.NoStream && connectResult != SunellVideoWindow.NoSdkHandler)
                 {
                     return;
                 }
@@ -274,7 +275,6 @@ namespace CameraForms.Forms
                 }
             }
         }
-
 
         private void OnExit()
         {
