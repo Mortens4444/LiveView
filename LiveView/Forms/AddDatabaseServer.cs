@@ -1,12 +1,11 @@
 ﻿using Database.Models;
+using Database.Services;
 using Database.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Models.Network;
 using LiveView.Presenters;
 using Mtf.LanguageService;
 using Mtf.LanguageService.Windows.Forms;
-using Mtf.Network;
-using Mtf.Network.Interfaces;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
 using System;
@@ -21,6 +20,7 @@ namespace LiveView.Forms
         public AddDatabaseServer(IServiceProvider serviceProvider, DatabaseServer databaseServer = null) : base(serviceProvider, typeof(AddDatabaseServerPresenter))
         {
             InitializeComponent();
+            tbPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
             this.databaseServer = databaseServer;
 
             permissionManager.ApplyPermissionsOnControls(this);

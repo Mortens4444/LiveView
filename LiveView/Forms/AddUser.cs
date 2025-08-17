@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using Database.Services;
 using Database.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -19,6 +20,7 @@ namespace LiveView.Forms
         public AddUser(IServiceProvider serviceProvider, Group parentGroup, User user = null) : base(serviceProvider, typeof(AddUserPresenter))
         {
             InitializeComponent();
+            tbPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
             this.user = user;
             this.parentGroup = parentGroup;
 

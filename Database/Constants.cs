@@ -42,5 +42,6 @@
         public const string VideoSourceCameraWindowReconnectTimeout = "VideoSourceCameraWindowReconnectTimeout";
 
         public static string StartAppsWithRedirectedOutput = "StartAppsWithRedirectedOutput";
+        public static string ProtectPasswordLength = "ProtectPasswordLength";
     }
 }

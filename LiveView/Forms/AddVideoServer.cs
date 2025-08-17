@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using Database.Services;
 using Database.Services.PasswordHashers;
 using LiveView.Dto;
 using LiveView.Interfaces;
@@ -24,6 +25,9 @@ namespace LiveView.Forms
         public AddVideoServer(IServiceProvider serviceProvider, VideoServer server = null) : base(serviceProvider, typeof(AddVideoServerPresenter))
         {
             InitializeComponent();
+            tbPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
+            tbWinPassword.ShowRealPasswordLength = tbPassword.ShowRealPasswordLength;
+
             this.server = server;
 
             permissionManager.ApplyPermissionsOnControls(this);

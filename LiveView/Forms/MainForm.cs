@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using Database.Services;
 using LiveView.Core.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
@@ -65,6 +66,7 @@ namespace LiveView.Forms
         public MainForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(MainPresenter))
         {
             InitializeComponent();
+            tbPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

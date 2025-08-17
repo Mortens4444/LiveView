@@ -1,6 +1,8 @@
-﻿using LiveView.Interfaces;
+﻿using Database.Services;
+using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
+using Mtf.Extensions.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -38,6 +40,8 @@ namespace LiveView.Forms
         public Profile(IServiceProvider serviceProvider) : base(serviceProvider, typeof(ProfilePresenter))
         {
             InitializeComponent();
+            tbCurrentPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
+            tbNewPassword.ShowRealPasswordLength = tbCurrentPassword.ShowRealPasswordLength;
 
             permissionManager.ApplyPermissionsOnControls(this);
 

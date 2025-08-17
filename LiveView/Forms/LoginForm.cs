@@ -1,4 +1,5 @@
 ﻿using Database.Models;
+using Database.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
@@ -23,6 +24,7 @@ namespace LiveView.Forms
         public LoginForm(IServiceProvider serviceProvider) : base(serviceProvider, typeof(LoginFormPresenter))
         {
             InitializeComponent();
+            tbPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
 
             permissionManager.ApplyPermissionsOnControls(this);
 

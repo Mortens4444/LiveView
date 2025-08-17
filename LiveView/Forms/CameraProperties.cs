@@ -1,7 +1,9 @@
 ﻿using Database.Models;
+using Database.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
+using Mtf.Extensions.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -59,6 +61,7 @@ namespace LiveView.Forms
         public CameraProperties(IServiceProvider serviceProvider, Camera camera) : base(serviceProvider, typeof(CameraPropertiesPresenter))
         {
             InitializeComponent();
+            tbCameraPassword.ShowRealPasswordLength = AppConfig.GetBoolean(Database.Constants.ProtectPasswordLength);
             Camera = camera;
 
             permissionManager.ApplyPermissionsOnControls(this);
