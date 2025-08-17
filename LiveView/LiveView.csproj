@@ -7200,6 +7200,7 @@
     <PackageReference Include="Mtf.Serial" Version="1.0.22" />
     <PackageReference Include="Mtf.Windows.Forms.LanguageService" Version="3.1.17" />
     <PackageReference Include="Mtf.Wmi" Version="1.0.24" />
+    <PackageReference Include="ZXing.Net" Version="0.16.10" />
   </ItemGroup>
 
   <ItemGroup>

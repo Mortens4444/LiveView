@@ -1,4 +1,6 @@
-- Sunell windows sould be always on top!?
+- Can't run from LiveView bin folder?
+- Sunell Legacy password error, return connected state?
+- Sunell Legacy, VLC OSD not works
 - what happens, when the app started without user and startup template selected
 - Open more fullscreen windows
 - Templates should open fullscreen windows
@@ -15,7 +17,7 @@ Display identify (remote and local, if same do not draw it again, else draw it, 
 If a machine dies, try to start the backup machine
 
 Presenters should check if has correct permissions when RequireAnyPermission is used
-Network encryption
+Network encryption with assymetric cypers
 Template should open remote displays
 Personal options not loaded correctly, not used...
 
@@ -45,8 +47,3 @@ IO Ports
 BarCode readings
 ----------------
 - Need filtering
-
-Other
------
-- Add form functionalities
-- Import LanguageElements into ods file and remove LanguageRepository.cs

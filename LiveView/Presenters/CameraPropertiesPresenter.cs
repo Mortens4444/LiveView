@@ -6,6 +6,7 @@ using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
+using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.LanguageService;
@@ -50,7 +51,7 @@ namespace LiveView.Presenters
             view.Camera.IpAddress = view.TbCameraIpAddress.Text;
             view.Camera.EncryptedUsername = CameraPasswordCryptor.UsernameEncrypt(view.TbCameraUsername.Text);
             view.Camera.EncryptedPassword = CameraPasswordCryptor.PasswordEncrypt(view.TbCameraPassword.Password);
-            view.Camera.HttpStreamUrl = view.TbHttpStream.Text;
+            view.Camera.StreamUrl = view.TbStreamUrl.Text;
             view.Camera.StreamId = (int)view.NudStreamId.Value;
             view.Camera.FullscreenMode = (CameraMode)Enum.Parse(typeof(CameraMode), view.CbFullscreenMode.SelectedItem.ToString());
             view.Camera.VideoSourceId = (view.CbVideoSources.SelectedItem as VideoSource)?.Id;
@@ -79,7 +80,7 @@ namespace LiveView.Presenters
                     var agent = agentRepository.Select(videoSource.AgentId);
                     if (agent != null)
                     {
-                        view.TbHttpStream.Text = $"{agent.ServerIp}|{videoSource.Name}";
+                        view.TbStreamUrl.Text = $"{agent.ServerIp}|{videoSource.Name}";
                     }
                 }
             };
@@ -89,7 +90,7 @@ namespace LiveView.Presenters
             view.TbCameraIpAddress.Text = view.Camera.IpAddress;
             view.TbCameraUsername.Text = view.Camera.Username;
             view.TbCameraPassword.Password = CameraPasswordCryptor.PasswordDecrypt(view.Camera.EncryptedPassword);
-            view.TbHttpStream.Text = view.Camera.HttpStreamUrl;
+            view.TbStreamUrl.Text = view.Camera.StreamUrl;
             view.NudStreamId.Value = view.Camera.StreamId ?? 0;
 
             view.CbFullscreenMode.SelectedIndexChanged += (object sender, EventArgs e) =>
@@ -237,6 +238,12 @@ namespace LiveView.Presenters
 
                 view.LvCameraFunctions.ImportItemsFromCsv(view.OpenFileDialog.FileName);
             }
+        }
+
+        public void CreateQuickResponseCode()
+        {
+            var qrCode = CodeCrafter.CreateQuickResponseCode(view.TbStreamUrl.Text);
+            view.PbStreamUrl.Image = qrCode;
         }
     }
 }

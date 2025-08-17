@@ -104,7 +104,7 @@ namespace CameraForms.Forms
 
             SetBufferSize();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
-            url = camera?.HttpStreamUrl;
+            url = camera?.StreamUrl;
             if (url == null)
             {
                 url = $"{cameraLaunchContext.ServerIp}|{cameraLaunchContext.VideoCaptureSource}";

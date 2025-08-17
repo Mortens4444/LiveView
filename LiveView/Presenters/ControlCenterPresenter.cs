@@ -284,7 +284,7 @@ namespace LiveView.Presenters
 
             if (camera.FullscreenMode == CameraMode.VideoSource)
             {
-                var videoCaptureSourceParts = camera.HttpStreamUrl.Split('|');
+                var videoCaptureSourceParts = camera.StreamUrl.Split('|');
                 if (videoCaptureSourceParts.Length != 2)
                 {
                     ShowError(StreamUrlFormatErrorMessage);

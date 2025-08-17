@@ -10,7 +10,7 @@
     MotionTriggerMinimumLength,
     PartnerCameraId,
     RecorderIndex,
-    HttpStreamUrl,
+    StreamUrl,
     Priority,
     cc.EncryptedUsername AS CameraUsername,
     cc.EncryptedPassword AS CameraPassword,

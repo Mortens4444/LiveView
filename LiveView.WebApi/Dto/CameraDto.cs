@@ -73,9 +73,9 @@ namespace LiveView.WebApi.Dto
         public string? ServerPassword { get; set; }
 
         /// <summary>
-        /// Gets or sets the HTTP stream URL for the camera.
+        /// Gets or sets the stream URL for the camera.
         /// </summary>
-        public string? HttpStreamUrl { get; set; }
+        public string? StreamUrl { get; set; }
 
         /// <summary>
         /// Gets or sets a boolean indicating if the camera is currently active or actual.
@@ -136,7 +136,7 @@ namespace LiveView.WebApi.Dto
             return $"<strong>{CameraName}</strong><br>" +
                 $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
                 $"<small>Server: {ServerDisplayName}</small><br>" +
-                $"<small>Stream: {HttpStreamUrl ?? "N/A"}</small>";
+                $"<small>Stream: {StreamUrl ?? "N/A"}</small>";
         }
     }
 }

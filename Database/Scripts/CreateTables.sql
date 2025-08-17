@@ -59,7 +59,7 @@ BEGIN
         CameraName NVARCHAR(100) NOT NULL,
         FullscreenMode INT NOT NULL DEFAULT 0,
         Guid NVARCHAR(50) NOT NULL,
-        HttpStreamUrl NVARCHAR(500) NULL,
+        StreamUrl NVARCHAR(500) NULL,
         IpAddress NVARCHAR(200) NULL,
         MotionTrigger BIGINT NULL,
         MotionTriggerMinimumLength BIGINT NULL,

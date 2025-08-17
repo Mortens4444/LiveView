@@ -44,7 +44,7 @@ namespace Sequence.Services
                     {
                         try
                         {
-                            var streamUrlVideoSourceInfo = camera.HttpStreamUrl?.GetVideoSourceInfo();
+                            var streamUrlVideoSourceInfo = camera.StreamUrl?.GetVideoSourceInfo();
                             return new VideoCaptureSourceCameraInfo
                             {
                                 GridCamera = gridCamera,
@@ -65,35 +65,35 @@ namespace Sequence.Services
                     return new VlcCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.MortoGraphy:
                     return new MortoGraphyCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.FFMpeg:
                     return new FFMpegCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.OpenCvSharp:
                     return new OpenCvSharpCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.OpenCvSharp4:
                     return new OpenCvSharp4CameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.SunellLegacyCamera:
@@ -124,7 +124,7 @@ namespace Sequence.Services
                     return new ChromiumCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
 #if NETFRAMEWORK
@@ -133,14 +133,14 @@ namespace Sequence.Services
                     return new AccordJpegCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.AccordMjpeg:
                     return new AccordMjpegCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.AccordScreenCapture:
@@ -154,14 +154,14 @@ namespace Sequence.Services
                     return new AForgeJpegCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.AForgeMjpeg:
                     return new AForgeMjpegCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
                 case CameraMode.AForgeScreenCapture:
@@ -175,7 +175,7 @@ namespace Sequence.Services
                     return new AForgeVideoSourceCameraInfo
                     {
                         GridCamera = gridCamera,
-                        Url = camera.HttpStreamUrl
+                        Url = camera.StreamUrl
                     };
 
 #endif

@@ -92,7 +92,7 @@ namespace CameraForms.Forms
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
 
             SetupFullscreenPtz(cameraLaunchContext.UserId, camera, display);
-            url = camera.HttpStreamUrl;
+            url = camera.StreamUrl;
         }
 
         private void SetupFullscreenPtz(long userId, Camera camera, DisplayDto display)

@@ -3,7 +3,6 @@ using Database.Services;
 using LiveView.Interfaces;
 using LiveView.Presenters;
 using Mtf.Controls;
-using Mtf.Extensions.Services;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;
@@ -28,7 +27,7 @@ namespace LiveView.Forms
 
         public PasswordBox TbCameraPassword => tbCameraPassword;
 
-        public TextBox TbHttpStream => tbHttpStream;
+        public TextBox TbStreamUrl => tbStreamUrl;
 
         public NumericUpDown NudStreamId => nudStreamId;
 
@@ -57,6 +56,8 @@ namespace LiveView.Forms
         public ComboBox CbVideoSources => cbVideoSource;
 
         public Label LblVideoSources => lblVideoSource;
+
+        public PictureBox PbStreamUrl => pbStreamUrl;
 
         public CameraProperties(IServiceProvider serviceProvider, Camera camera) : base(serviceProvider, typeof(CameraPropertiesPresenter))
         {
@@ -110,6 +111,11 @@ namespace LiveView.Forms
         private void BtnImport_Click(object sender, EventArgs e)
         {
             presenter.ImportCustomFunctions();
+        }
+
+        private void TbStreamUrl_TextChanged(object sender, EventArgs e)
+        {
+            presenter.CreateQuickResponseCode();
         }
     }
 }

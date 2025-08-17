@@ -58,7 +58,7 @@
             lblCameraUsername = new System.Windows.Forms.Label();
             lblFullscreenMode = new System.Windows.Forms.Label();
             nudPresetNumber = new System.Windows.Forms.NumericUpDown();
-            tbHttpStream = new System.Windows.Forms.TextBox();
+            tbStreamUrl = new System.Windows.Forms.TextBox();
             tpCustomCommands = new System.Windows.Forms.TabPage();
             lvCameraFunctions = new Mtf.Controls.MtfListView();
             chCameraFunction = new System.Windows.Forms.ColumnHeader();
@@ -77,6 +77,8 @@
             btnSave = new System.Windows.Forms.Button();
             saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            tpStreamUrl = new System.Windows.Forms.TabPage();
+            pbStreamUrl = new System.Windows.Forms.PictureBox();
             pMain.SuspendLayout();
             tabControl.SuspendLayout();
             tpGeneral.SuspendLayout();
@@ -85,6 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)nudPresetNumber).BeginInit();
             tpCustomCommands.SuspendLayout();
             contextMenuStrip.SuspendLayout();
+            tpStreamUrl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbStreamUrl).BeginInit();
             SuspendLayout();
             // 
             // pMain
@@ -128,6 +132,7 @@
             tabControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             tabControl.Controls.Add(tpGeneral);
             tabControl.Controls.Add(tpCustomCommands);
+            tabControl.Controls.Add(tpStreamUrl);
             tabControl.Location = new System.Drawing.Point(3, 3);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
@@ -160,7 +165,7 @@
             tpGeneral.Controls.Add(lblCameraUsername);
             tpGeneral.Controls.Add(lblFullscreenMode);
             tpGeneral.Controls.Add(nudPresetNumber);
-            tpGeneral.Controls.Add(tbHttpStream);
+            tpGeneral.Controls.Add(tbStreamUrl);
             tpGeneral.Location = new System.Drawing.Point(4, 24);
             tpGeneral.Name = "tpGeneral";
             tpGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -421,15 +426,16 @@
             nudPresetNumber.TabIndex = 17;
             nudPresetNumber.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // tbHttpStream
+            // tbStreamUrl
             // 
-            tbHttpStream.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            tbHttpStream.Location = new System.Drawing.Point(152, 188);
-            tbHttpStream.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tbHttpStream.MaxLength = 200;
-            tbHttpStream.Name = "tbHttpStream";
-            tbHttpStream.Size = new System.Drawing.Size(704, 23);
-            tbHttpStream.TabIndex = 15;
+            tbStreamUrl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            tbStreamUrl.Location = new System.Drawing.Point(152, 188);
+            tbStreamUrl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbStreamUrl.MaxLength = 200;
+            tbStreamUrl.Name = "tbStreamUrl";
+            tbStreamUrl.Size = new System.Drawing.Size(704, 23);
+            tbStreamUrl.TabIndex = 15;
+            tbStreamUrl.TextChanged += TbStreamUrl_TextChanged;
             // 
             // tpCustomCommands
             // 
@@ -591,6 +597,27 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += BtnSave_Click;
             // 
+            // tpStreamUrl
+            // 
+            tpStreamUrl.Controls.Add(pbStreamUrl);
+            tpStreamUrl.Location = new System.Drawing.Point(4, 24);
+            tpStreamUrl.Name = "tpStreamUrl";
+            tpStreamUrl.Padding = new System.Windows.Forms.Padding(3);
+            tpStreamUrl.Size = new System.Drawing.Size(890, 386);
+            tpStreamUrl.TabIndex = 2;
+            tpStreamUrl.Text = "Stream URL";
+            tpStreamUrl.UseVisualStyleBackColor = true;
+            // 
+            // pbStreamUrl
+            // 
+            pbStreamUrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            pbStreamUrl.Location = new System.Drawing.Point(3, 3);
+            pbStreamUrl.Name = "pbStreamUrl";
+            pbStreamUrl.Size = new System.Drawing.Size(884, 380);
+            pbStreamUrl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pbStreamUrl.TabIndex = 30;
+            pbStreamUrl.TabStop = false;
+            // 
             // CameraProperties
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -612,13 +639,15 @@
             tpCustomCommands.ResumeLayout(false);
             tpCustomCommands.PerformLayout();
             contextMenuStrip.ResumeLayout(false);
+            tpStreamUrl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbStreamUrl).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel pMain;
-        private System.Windows.Forms.TextBox tbHttpStream;
+        private System.Windows.Forms.TextBox tbStreamUrl;
         private System.Windows.Forms.Label lblHttpStream;
         private System.Windows.Forms.ComboBox cbPatternName;
         private System.Windows.Forms.NumericUpDown nudPatternNumber;
@@ -665,5 +694,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ComboBox cbVideoSource;
         private System.Windows.Forms.Label lblVideoSource;
+        private System.Windows.Forms.TabPage tpStreamUrl;
+        private System.Windows.Forms.PictureBox pbStreamUrl;
     }
 }

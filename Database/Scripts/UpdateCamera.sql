@@ -3,7 +3,7 @@
     CameraName = @CameraName,
     FullscreenMode = @FullscreenMode,
     Guid = @Guid,
-    HttpStreamUrl = @HttpStreamUrl,
+    StreamUrl = @StreamUrl,
     IpAddress = @IpAddress,
     Priority = @Priority,
     StreamId = @StreamId,

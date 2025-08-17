@@ -40,7 +40,7 @@ namespace Database.Models
 
         public string ServerEncryptedPassword { get; set; }
 
-        public string HttpStreamUrl { get; set; }
+        public string StreamUrl { get; set; }
 
         public bool Actual { get; set; }
 

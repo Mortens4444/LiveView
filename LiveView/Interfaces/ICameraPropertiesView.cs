@@ -18,7 +18,7 @@ namespace LiveView.Interfaces
 
         PasswordBox TbCameraPassword { get; }
         
-        TextBox TbHttpStream { get; }
+        TextBox TbStreamUrl { get; }
 
         TextBox TbCameraFunctionCallback { get; }
 
@@ -47,5 +47,7 @@ namespace LiveView.Interfaces
         ComboBox CbVideoSources { get; }
 
         Label LblVideoSources { get; }
+
+        PictureBox PbStreamUrl { get; }
     }
 }
