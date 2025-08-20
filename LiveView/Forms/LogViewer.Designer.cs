@@ -63,9 +63,7 @@
             lblResults = new System.Windows.Forms.Label();
             lblResultsFound = new System.Windows.Forms.Label();
             gbMessageFilter = new System.Windows.Forms.GroupBox();
-            lblOtherInformation = new System.Windows.Forms.Label();
             tbOtherInformationPart = new System.Windows.Forms.TextBox();
-            cbMessageFilter = new System.Windows.Forms.CheckBox();
             btnDeleteAllLogs = new System.Windows.Forms.Button();
             gbDates = new System.Windows.Forms.GroupBox();
             dtpFrom = new System.Windows.Forms.DateTimePicker();
@@ -282,7 +280,7 @@
             // btnGetLogs
             // 
             btnGetLogs.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnGetLogs.Location = new System.Drawing.Point(817, 96);
+            btnGetLogs.Location = new System.Drawing.Point(816, 79);
             btnGetLogs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnGetLogs.Name = "btnGetLogs";
             btnGetLogs.Size = new System.Drawing.Size(190, 27);
@@ -295,11 +293,11 @@
             // 
             gbOperations.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             gbOperations.Controls.Add(lvOperationsEventsAndErrors);
-            gbOperations.Location = new System.Drawing.Point(0, 158);
+            gbOperations.Location = new System.Drawing.Point(0, 143);
             gbOperations.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbOperations.Name = "gbOperations";
             gbOperations.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbOperations.Size = new System.Drawing.Size(1013, 391);
+            gbOperations.Size = new System.Drawing.Size(1013, 406);
             gbOperations.TabIndex = 4;
             gbOperations.TabStop = false;
             gbOperations.Text = "Operations, events, errors";
@@ -325,7 +323,7 @@
             lvOperationsEventsAndErrors.ReadonlyCheckboxes = false;
             lvOperationsEventsAndErrors.SameItemsColorEven = System.Drawing.Color.DarkOrange;
             lvOperationsEventsAndErrors.SameItemsColorOdd = System.Drawing.Color.LightSalmon;
-            lvOperationsEventsAndErrors.Size = new System.Drawing.Size(1005, 369);
+            lvOperationsEventsAndErrors.Size = new System.Drawing.Size(1005, 384);
             lvOperationsEventsAndErrors.SmallImageList = ilImages;
             lvOperationsEventsAndErrors.TabIndex = 0;
             lvOperationsEventsAndErrors.UseCompatibleStateImageBehavior = false;
@@ -360,12 +358,12 @@
             // 
             cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { tsmiCopyToClipboard });
             cmsMenu.Name = "contextMenuStrip1";
-            cmsMenu.Size = new System.Drawing.Size(181, 48);
+            cmsMenu.Size = new System.Drawing.Size(170, 26);
             // 
             // tsmiCopyToClipboard
             // 
             tsmiCopyToClipboard.Name = "tsmiCopyToClipboard";
-            tsmiCopyToClipboard.Size = new System.Drawing.Size(180, 22);
+            tsmiCopyToClipboard.Size = new System.Drawing.Size(169, 22);
             tsmiCopyToClipboard.Text = "Copy to clipboard";
             tsmiCopyToClipboard.Click += TsmiCopyToClipboard_Click;
             // 
@@ -446,51 +444,28 @@
             // 
             // gbMessageFilter
             // 
-            gbMessageFilter.Controls.Add(lblOtherInformation);
             gbMessageFilter.Controls.Add(tbOtherInformationPart);
-            gbMessageFilter.Controls.Add(cbMessageFilter);
             gbMessageFilter.Location = new System.Drawing.Point(0, 89);
             gbMessageFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbMessageFilter.Name = "gbMessageFilter";
             gbMessageFilter.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbMessageFilter.Size = new System.Drawing.Size(812, 69);
+            gbMessageFilter.Size = new System.Drawing.Size(812, 48);
             gbMessageFilter.TabIndex = 6;
             gbMessageFilter.TabStop = false;
-            gbMessageFilter.Text = " ";
-            // 
-            // lblOtherInformation
-            // 
-            lblOtherInformation.AutoSize = true;
-            lblOtherInformation.Location = new System.Drawing.Point(14, 21);
-            lblOtherInformation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            lblOtherInformation.Name = "lblOtherInformation";
-            lblOtherInformation.Size = new System.Drawing.Size(103, 15);
-            lblOtherInformation.TabIndex = 6;
-            lblOtherInformation.Text = "Other information";
+            gbMessageFilter.Text = " Other information";
             // 
             // tbOtherInformationPart
             // 
-            tbOtherInformationPart.Location = new System.Drawing.Point(14, 38);
+            tbOtherInformationPart.Location = new System.Drawing.Point(13, 19);
             tbOtherInformationPart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tbOtherInformationPart.Name = "tbOtherInformationPart";
             tbOtherInformationPart.Size = new System.Drawing.Size(790, 23);
             tbOtherInformationPart.TabIndex = 5;
             // 
-            // cbMessageFilter
-            // 
-            cbMessageFilter.AutoSize = true;
-            cbMessageFilter.Location = new System.Drawing.Point(14, -1);
-            cbMessageFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbMessageFilter.Name = "cbMessageFilter";
-            cbMessageFilter.Size = new System.Drawing.Size(99, 19);
-            cbMessageFilter.TabIndex = 4;
-            cbMessageFilter.Text = "Message filter";
-            cbMessageFilter.UseVisualStyleBackColor = true;
-            // 
             // btnDeleteAllLogs
             // 
             btnDeleteAllLogs.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnDeleteAllLogs.Location = new System.Drawing.Point(817, 127);
+            btnDeleteAllLogs.Location = new System.Drawing.Point(816, 110);
             btnDeleteAllLogs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnDeleteAllLogs.Name = "btnDeleteAllLogs";
             btnDeleteAllLogs.Size = new System.Drawing.Size(190, 27);
@@ -631,9 +606,7 @@
         private System.Windows.Forms.Label lblResults;
         private System.Windows.Forms.Label lblResultsFound;
         private System.Windows.Forms.GroupBox gbMessageFilter;
-        private System.Windows.Forms.Label lblOtherInformation;
         private System.Windows.Forms.TextBox tbOtherInformationPart;
-        private System.Windows.Forms.CheckBox cbMessageFilter;
         private System.Windows.Forms.Button btnDeleteAllLogs;
         private System.Windows.Forms.GroupBox gbDates;
         private System.Windows.Forms.DateTimePicker dtpFrom;

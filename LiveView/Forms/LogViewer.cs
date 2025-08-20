@@ -51,10 +51,11 @@ namespace LiveView.Forms
         {
             var fromDate = dtpFrom.Value.ToUniversalTime();
             var toDate = dtpTo.Value.ToUniversalTime();
+
             return new LogEntryFilter
             {
-                From = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day, (int)nudFromHour.Value, (int)nudFromMinutes.Value, 0),
-                To = new DateTime(toDate.Year, toDate.Month, toDate.Day, (int)nudToHour.Value, (int)nudToMinutes.Value, 59),
+                From = chkDates.Checked ? new DateTime(fromDate.Year, fromDate.Month, fromDate.Day, (int)nudFromHour.Value, (int)nudFromMinutes.Value, 0) : new DateTime(1800, 1, 1),
+                To = chkDates.Checked ? new DateTime(toDate.Year, toDate.Month, toDate.Day, (int)nudToHour.Value, (int)nudToMinutes.Value, 59) : DateTime.MaxValue,
                 LogType = (int)(rbAll.Checked ? LogType.Any : rbOperations.Checked ? LogType.Operation : rbEvents.Checked ? LogType.Event : LogType.Error),
                 MaxRows = (int)nudMaxRows.Value,
                 OtherInformationPart = tbOtherInformationPart.Text,

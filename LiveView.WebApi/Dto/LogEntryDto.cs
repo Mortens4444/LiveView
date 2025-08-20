@@ -14,11 +14,11 @@ namespace LiveView.WebApi.Dto
 
         public int? OperationId { get; set; }
 
-        public int? EventId { get; set; }
+        public int? UserEventId { get; set; }
 
         public string OtherInformation { get; set; }
 
-        public LogType LogType => OperationId.HasValue ? LogType.Operation : EventId.HasValue ? LogType.Event : LogType.Error;
+        public LogType LogType => OperationId.HasValue ? LogType.Operation : UserEventId.HasValue ? LogType.Event : LogType.Error;
 
         [JsonPropertyName("html")]
         public string Html => ToHtml();
@@ -30,7 +30,7 @@ namespace LiveView.WebApi.Dto
                 $"<small>LogType: {LogType}</small><br>" +
                 $"<small>UserId: {UserId}</small><br>" +
                 $"<small>OperationId: {OperationId}</small><br>" +
-                $"<small>EventId: {EventId}</small><br>" +
+                $"<small>UserEventId: {UserEventId}</small><br>" +
                 $"<small>OtherInformation: {OtherInformation}</small>";
         }
     }

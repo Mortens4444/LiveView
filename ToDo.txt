@@ -1,6 +1,4 @@
-- Sunell Legacy password error, return connected state?
 - Sunell Legacy, VLC OSD not works
-- what happens, when the app started without user and startup template selected
 - Open more fullscreen windows
 - Templates should open fullscreen windows
 
@@ -35,7 +33,6 @@ Settings
 
 Log Viewer
 ----------
-- Log filters always works
 - Log exception do not log correctly the StackTrace
 - Log entry search
 
