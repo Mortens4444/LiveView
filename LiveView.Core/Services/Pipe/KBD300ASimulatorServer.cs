@@ -1,10 +1,9 @@
-﻿using System.IO.Pipes;
-using System.IO;
-using Mtf.MessageBoxes;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using Mtf.MessageBoxes;
 using System;
-using Microsoft.Extensions.Logging;
+using System.IO;
+using System.IO.Pipes;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LiveView.Core.Services.Pipe
 {

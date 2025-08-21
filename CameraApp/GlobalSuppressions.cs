@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "<Pending>")]
+[assembly: SuppressMessage("Maintainability", "CA1510:Use ArgumentNullException throw helper", Justification = "<Pending>", Scope = "member", Target = "~M:CameraApp.Services.CameraLaunchContextParser.Parse(System.String[])~CameraForms.Dto.CameraLaunchContext")]

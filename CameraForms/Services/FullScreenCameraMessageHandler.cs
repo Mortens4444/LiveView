@@ -91,7 +91,7 @@ namespace CameraForms.Services
 
             if (disposing)
             {
-                client.Dispose();
+                client?.Dispose();
             }
         }
 

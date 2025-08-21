@@ -3,11 +3,13 @@ using CameraForms.Dto;
 using CameraForms.Forms;
 using Database.Enums;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
+[assembly: InternalsVisibleTo("CameraApp.Tests")]
 namespace CameraApp.Services
 {
-    sealed class CameraWindowFactory : ICameraWindowFactory
+    internal sealed class CameraWindowFactory : ICameraWindowFactory
     {
         public Form Create(CameraLaunchContext context, IServiceProvider serviceProvider)
         {

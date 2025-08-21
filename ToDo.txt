@@ -21,7 +21,7 @@ Personal options not loaded correctly, not used...
 VideoSource
 -----------
 - Add synchron view
-- MapCreatorPresenter, MapLoader comments should be addressed
+- MapLoader comment should be addressed
 
 Contol Panel
 ------------
