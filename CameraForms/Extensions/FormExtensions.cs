@@ -6,8 +6,12 @@ namespace CameraForms.Extensions
     {
         public static void Exit(this Form form)
         {
+            try
+            {
+                form?.Close();
+            }
+            catch { }
             Application.Exit();
-            //form.Close();
         }
     }
 }

@@ -27,14 +27,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new CloseCommand(form));
                 }
-                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new FullScreenCameraPanToEastCommand(fullScreenCameraMessageHandler));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new FullScreenCameraTiltToNorthCommand(fullScreenCameraMessageHandler));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new FullScreenCameraPanToEastAndTiltToNorthCommand(fullScreenCameraMessageHandler));
@@ -47,10 +39,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new FullScreenCameraMoveToPresetZeroCommand(fullScreenCameraMessageHandler));
                 }
-                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new FullScreenCameraTiltToSouthCommand(fullScreenCameraMessageHandler));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new FullScreenCameraPanToEastAndTiltToSouthCommand(fullScreenCameraMessageHandler));
@@ -59,9 +47,21 @@ namespace CameraForms.Services
                 {
                     result.Add(new FullScreenCameraPanToWestAndTiltToSouthCommand(fullScreenCameraMessageHandler));
                 }
+                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new FullScreenCameraPanToEastCommand(fullScreenCameraMessageHandler));
+                }
                 else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new FullScreenCameraPanToWestCommand(fullScreenCameraMessageHandler));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new FullScreenCameraTiltToNorthCommand(fullScreenCameraMessageHandler));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new FullScreenCameraTiltToSouthCommand(fullScreenCameraMessageHandler));
                 }
                 else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                 {

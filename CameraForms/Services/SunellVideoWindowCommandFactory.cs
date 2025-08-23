@@ -28,14 +28,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new CloseCommand(form));
                 }
-                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellVideoWindowPanToEastCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellVideoWindowTiltToNorthCommand(sunellVideoWindow));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new SunellVideoWindowPanToEastAndTiltToNorthCommand(sunellVideoWindow));
@@ -48,10 +40,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new SunellVideoWindowMoveToPresetZeroCommand(sunellVideoWindow));
                 }
-                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellVideoWindowTiltToSouthCommand(sunellVideoWindow));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new SunellVideoWindowPanToEastAndTiltToSouthCommand(sunellVideoWindow));
@@ -60,9 +48,21 @@ namespace CameraForms.Services
                 {
                     result.Add(new SunellVideoWindowPanToWestAndTiltToSouthCommand(sunellVideoWindow));
                 }
+                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new SunellVideoWindowPanToEastCommand(sunellVideoWindow));
+                }
                 else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new SunellVideoWindowPanToWestCommand(sunellVideoWindow));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new SunellVideoWindowTiltToNorthCommand(sunellVideoWindow));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new SunellVideoWindowTiltToSouthCommand(sunellVideoWindow));
                 }
                 else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                 {

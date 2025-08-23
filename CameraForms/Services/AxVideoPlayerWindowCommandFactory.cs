@@ -28,14 +28,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new CloseCommand(form));
                 }
-                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToEastCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new AxVideoPlayerPanToEastAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
@@ -48,10 +40,6 @@ namespace CameraForms.Services
                 {
                     result.Add(new AxVideoPlayerMoveToPresetZeroCommand(axVideoPlayerWindow));
                 }
-                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
                 else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new AxVideoPlayerPanToEastAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
@@ -60,9 +48,21 @@ namespace CameraForms.Services
                 {
                     result.Add(new AxVideoPlayerPanToWestAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
                 }
+                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new AxVideoPlayerPanToEastCommand(axVideoPlayerWindow, cameraMoveValue));
+                }
                 else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
                 {
                     result.Add(new AxVideoPlayerPanToWestCommand(axVideoPlayerWindow, cameraMoveValue));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new AxVideoPlayerTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
+                }
+                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
+                {
+                    result.Add(new AxVideoPlayerTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
                 }
                 else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
                 {
