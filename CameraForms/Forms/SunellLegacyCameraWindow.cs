@@ -38,7 +38,8 @@ namespace CameraForms.Forms
         private readonly PermissionSetter permissionSetter;
         private readonly Camera camera;
         private readonly GridCamera gridCamera;
-        private readonly short rotateSpeed = 50;
+        //private readonly short rotateSpeed = 50;
+        private readonly SunellLegacyVideoWindowCommandFactory sunellLegacyVideoWindowCommandFactory;
 
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
@@ -58,7 +59,8 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            rotateSpeed = AppConfig.GetInt16(Database.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
+            var rotateSpeed = AppConfig.GetInt16(Database.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
+            sunellLegacyVideoWindowCommandFactory = new SunellLegacyVideoWindowCommandFactory(this, sunellVideoWindowLegacy1, rotateSpeed);
 
             this.sunellLegacyCameraInfo = sunellLegacyCameraInfo;
             this.rectangle = rectangle;
@@ -91,6 +93,9 @@ namespace CameraForms.Forms
 
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
+
+            var rotateSpeed = AppConfig.GetInt16(Database.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
+            sunellLegacyVideoWindowCommandFactory = new SunellLegacyVideoWindowCommandFactory(this, sunellVideoWindowLegacy1, rotateSpeed);
 
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
@@ -147,7 +152,7 @@ namespace CameraForms.Forms
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = SunellLegacyVideoWindowCommandFactory.Create(this, sunellVideoWindowLegacy1, messages, rotateSpeed);
+                var commands = sunellLegacyVideoWindowCommandFactory.CreateCommands(messages);
                 foreach (var command in commands)
                 {
                     command.Execute();

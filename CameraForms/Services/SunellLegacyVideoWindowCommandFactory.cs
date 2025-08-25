@@ -4,89 +4,31 @@ using LiveView.Core.Interfaces;
 using Mtf.Controls.Video.Sunell.IPR66;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
-    public static class SunellLegacyVideoWindowCommandFactory
+    public class SunellLegacyVideoWindowCommandFactory : BaseCommandFactory
     {
-        public static ReadOnlyCollection<ICommand> Create(Form form, SunellVideoWindowLegacy sunellVideoWindow, string messages, short cameraMoveValue)
-        {
-            var result = new List<ICommand>();
-            if (String.IsNullOrEmpty(messages))
+        public SunellLegacyVideoWindowCommandFactory(Form form, SunellVideoWindowLegacy sunellVideoWindowLegacy, short cameraMoveValue)
+            : base(new Dictionary<string, Func<ICommand>>
             {
-                return new ReadOnlyCollection<ICommand>(result);
-            }
-
-            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var message in allMessages)
-            {
-                //var messageParts = message.Split('|');
-                if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture) ||
-                    (message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture)))
-                {
-                    result.Add(new CloseCommand(form));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToEastAndTiltToNorthCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToWestAndTiltToNorthCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowMoveToPresetZeroCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToEastAndTiltToSouthCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToWestAndTiltToSouthCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToEastCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowPanToWestCommand(sunellVideoWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowTiltToNorthCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowTiltToSouthCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowStopPanAndTiltCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowStopZoomCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowZoomInCommand(sunellVideoWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new SunellLegacyVideoWindowZoomOutCommand(sunellVideoWindow));
-                }
-                else
-                {
-                    result.Add(new ShowErrorCommand(message));
-                }
-            }
-
-            return new ReadOnlyCollection<ICommand>(result);
-        }
+                { NetworkCommand.Close.ToString(), () => new CloseCommand(form) },
+                { NetworkCommand.Kill.ToString(), () => new CloseCommand(form) },
+                { NetworkCommand.PanToEastAndTiltToNorth.ToString(), () => new SunellLegacyVideoWindowPanToEastAndTiltToNorthCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.PanToWestAndTiltToNorth.ToString(), () => new SunellLegacyVideoWindowPanToWestAndTiltToNorthCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.MoveToPresetZero.ToString(), () => new SunellLegacyVideoWindowMoveToPresetZeroCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.PanToEastAndTiltToSouth.ToString(), () => new SunellLegacyVideoWindowPanToEastAndTiltToSouthCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.PanToWestAndTiltToSouth.ToString(), () => new SunellLegacyVideoWindowPanToWestAndTiltToSouthCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.PanToEast.ToString(), () => new SunellLegacyVideoWindowPanToEastCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.PanToWest.ToString(), () => new SunellLegacyVideoWindowPanToWestCommand(sunellVideoWindowLegacy, cameraMoveValue) },
+                { NetworkCommand.TiltToNorth.ToString(), () => new SunellLegacyVideoWindowTiltToNorthCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.TiltToSouth.ToString(), () => new SunellLegacyVideoWindowTiltToSouthCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.StopPanAndTilt.ToString(), () => new SunellLegacyVideoWindowStopPanAndTiltCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.StopZoom.ToString(), () => new SunellLegacyVideoWindowStopZoomCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.ZoomIn.ToString(), () => new SunellLegacyVideoWindowZoomInCommand(sunellVideoWindowLegacy) },
+                { NetworkCommand.ZoomOut.ToString(), () => new SunellLegacyVideoWindowZoomOutCommand(sunellVideoWindowLegacy) }
+            })
+        { }
     }
 }

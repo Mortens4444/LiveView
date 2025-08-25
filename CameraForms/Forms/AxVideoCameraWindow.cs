@@ -26,7 +26,6 @@ namespace CameraForms.Forms
     public partial class AxVideoCameraWindow : Form
     {
         private Client client;
-        private readonly short cameraMoveValue;
         //private int waitTimeInMs = 0;
 
         private readonly DisplayDto display;
@@ -38,6 +37,8 @@ namespace CameraForms.Forms
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private readonly GridCamera gridCamera;
+
+        private readonly AxVideoPlayerWindowCommandFactory axVideoPlayerWindowCommandFactory;
 
         private PermissionMonitor permissionMonitor;
 
@@ -66,7 +67,8 @@ namespace CameraForms.Forms
             var osdSettings = personalOptionsRepository.GetOsdSettings(userId);
             OsdSetter.SetInfo(this, axVideoPlayerWindow, gridCamera, osdSettings, text);
 
-            cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+            var cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+            axVideoPlayerWindowCommandFactory = new AxVideoPlayerWindowCommandFactory(this, axVideoPlayerWindow, cameraMoveValue);
 
             this.gridCamera = gridCamera;
 
@@ -111,7 +113,8 @@ namespace CameraForms.Forms
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
-            cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+            var cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
+            axVideoPlayerWindowCommandFactory = new AxVideoPlayerWindowCommandFactory(this, axVideoPlayerWindow, cameraMoveValue);
 
             SetupFullscreenPtz(cameraLaunchContext.UserId, camera.Id);
             display = cameraLaunchContext.GetDisplay();
@@ -139,7 +142,7 @@ namespace CameraForms.Forms
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = AxVideoPlayerWindowCommandFactory.Create(this, axVideoPlayerWindow, messages, cameraMoveValue);
+                var commands = axVideoPlayerWindowCommandFactory.CreateCommands(messages);
                 foreach (var command in commands)
                 {
                     command.Execute();

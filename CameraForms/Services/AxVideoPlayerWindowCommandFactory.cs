@@ -4,88 +4,30 @@ using LiveView.Core.Interfaces;
 using Mtf.Controls.Video.ActiveX;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
-    public static class AxVideoPlayerWindowCommandFactory
+    public class AxVideoPlayerWindowCommandFactory : BaseCommandFactory
     {
-        public static ReadOnlyCollection<ICommand> Create(Form form, AxVideoPlayerWindow axVideoPlayerWindow, string messages, short cameraMoveValue)
-        {
-            var result = new List<ICommand>();
-            if (String.IsNullOrEmpty(messages))
+        public AxVideoPlayerWindowCommandFactory(Form form, AxVideoPlayerWindow axVideoPlayerWindow, short cameraMoveValue)
+            : base(new Dictionary<string, Func<ICommand>>
             {
-                return new ReadOnlyCollection<ICommand>(result);
-            }
-
-            var allMessages = messages.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var message in allMessages)
-            {
-                //var messageParts = message.Split('|');
-                if (message.StartsWith(NetworkCommand.Close.ToString(), StringComparison.InvariantCulture) ||
-                    message.StartsWith(NetworkCommand.Kill.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new CloseCommand(form));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToEastAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToWestAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.MoveToPresetZero.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerMoveToPresetZeroCommand(axVideoPlayerWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEastAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToEastAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWestAndTiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToWestAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToEast.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToEastCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.PanToWest.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerPanToWestCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToNorth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.TiltToSouth.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.StopPanAndTilt.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerStopPanAndTiltCommand(axVideoPlayerWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.StopZoom.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerStopZoomCommand(axVideoPlayerWindow));
-                }
-                else if (message.StartsWith(NetworkCommand.ZoomIn.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerZoomInCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else if (message.StartsWith(NetworkCommand.ZoomOut.ToString(), StringComparison.InvariantCulture))
-                {
-                    result.Add(new AxVideoPlayerZoomOutCommand(axVideoPlayerWindow, cameraMoveValue));
-                }
-                else
-                {
-                    result.Add(new ShowErrorCommand(message));
-                }
-            }
-            return new ReadOnlyCollection<ICommand>(result);
-        }
+                { NetworkCommand.Close.ToString(), () => new CloseCommand(form) },
+                { NetworkCommand.Kill.ToString(), () => new CloseCommand(form) },
+                { NetworkCommand.PanToEastAndTiltToNorth.ToString(), () => new AxVideoPlayerPanToEastAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.PanToWestAndTiltToNorth.ToString(), () => new AxVideoPlayerPanToWestAndTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.MoveToPresetZero.ToString(), () => new AxVideoPlayerMoveToPresetZeroCommand(axVideoPlayerWindow) },
+                { NetworkCommand.PanToEastAndTiltToSouth.ToString(), () => new AxVideoPlayerPanToEastAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.PanToWestAndTiltToSouth.ToString(), () => new AxVideoPlayerPanToWestAndTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.PanToEast.ToString(), () => new AxVideoPlayerPanToEastCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.PanToWest.ToString(), () => new AxVideoPlayerPanToWestCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.TiltToNorth.ToString(), () => new AxVideoPlayerTiltToNorthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.TiltToSouth.ToString(), () => new AxVideoPlayerTiltToSouthCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.StopPanAndTilt.ToString(), () => new AxVideoPlayerStopPanAndTiltCommand(axVideoPlayerWindow) },
+                { NetworkCommand.StopZoom.ToString(), () => new AxVideoPlayerStopZoomCommand(axVideoPlayerWindow) },
+                { NetworkCommand.ZoomIn.ToString(), () => new AxVideoPlayerZoomInCommand(axVideoPlayerWindow, cameraMoveValue) },
+                { NetworkCommand.ZoomOut.ToString(), () => new AxVideoPlayerZoomOutCommand(axVideoPlayerWindow, cameraMoveValue) }
+            }) { }
     }
 }

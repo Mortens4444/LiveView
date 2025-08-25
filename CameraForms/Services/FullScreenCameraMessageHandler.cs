@@ -3,6 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using Mtf.Controls.Video.ActiveX;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -19,6 +20,7 @@ namespace CameraForms.Services
     {
         private readonly Client client;
         private readonly Form form;
+        private readonly FullScreenCameraCommandFactory fullScreenCameraCommandFactory;
         private volatile int disposed;
 
         public CameraFunction PtzStop { get; }
@@ -63,12 +65,16 @@ namespace CameraForms.Services
             PtzMoveToPresetZero = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Load_Preset_0);
             PtzZoomIn = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_In);
             PtzZoomOut = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Zoom_Out);
+
+            fullScreenCameraCommandFactory = new FullScreenCameraCommandFactory(form, this);
         }
 
         public FullScreenCameraMessageHandler(long userId, string serverIp, string videoCaptureSource, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository)
         {
             this.form = form;
             client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
+
+            fullScreenCameraCommandFactory = new FullScreenCameraCommandFactory(form, this);
         }
 
         ~FullScreenCameraMessageHandler()
@@ -110,7 +116,7 @@ namespace CameraForms.Services
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = FullScreenCameraCommandFactory.Create(this, form, messages);
+                var commands = fullScreenCameraCommandFactory.CreateCommands(messages);
                 foreach (var command in commands)
                 {
                     command.Execute();

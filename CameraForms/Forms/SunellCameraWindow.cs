@@ -37,6 +37,7 @@ namespace CameraForms.Forms
         private readonly PermissionSetter permissionSetter;
         private readonly GridCamera gridCamera;
         private readonly Camera camera;
+        private readonly SunellVideoWindowCommandFactory sunellVideoWindowCommandFactory;
 
         private Rectangle rectangle;
         private SunellCameraInfo sunellCameraInfo;
@@ -71,6 +72,8 @@ namespace CameraForms.Forms
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle;
             }
+
+            sunellVideoWindowCommandFactory = new SunellVideoWindowCommandFactory(this, sunellVideoWindow1);
         }
 
         public SunellCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
@@ -100,6 +103,8 @@ namespace CameraForms.Forms
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
             SetupFullscreenPtz(cameraLaunchContext.UserId, camera, display);
+
+            sunellVideoWindowCommandFactory = new SunellVideoWindowCommandFactory(this, sunellVideoWindow1);
         }
 
         private void SetupFullscreenPtz(long userId, Camera camera, DisplayDto display)
@@ -140,7 +145,7 @@ namespace CameraForms.Forms
             try
             {
                 var messages = $"{client.Encoding.GetString(e.Data)}";
-                var commands = SunellVideoWindowCommandFactory.Create(this, sunellVideoWindow1, messages);
+                var commands = sunellVideoWindowCommandFactory.CreateCommands(messages);
                 foreach (var command in commands)
                 {
                     command.Execute();
