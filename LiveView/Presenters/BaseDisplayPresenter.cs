@@ -76,7 +76,7 @@ namespace LiveView.Presenters
         public Point GetMouseLocation(Size drawnSize)
         {
             var displayDimensions = displayManager.GetScreensBounds();
-            var diminutive = displayManager.GetScaleFactor(displayDimensions.Bounds, drawnSize);
+            var diminutive = DisplayManager.GetScaleFactor(displayDimensions.Bounds, drawnSize);
             WinAPI.GetCursorPos(out var point);
             var mouseLeft = (int)(displayDimensions.Bounds.Left + point.X / diminutive + DisplayManager.FrameWidth / 2 + 1);
             var mouseTop = (int)(displayDimensions.Bounds.Top + point.Y / diminutive + DisplayManager.FrameWidth / 2 + 1);

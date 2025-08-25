@@ -1,5 +1,6 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Extensions;
+using CameraForms.Interfaces;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -28,6 +29,7 @@ namespace CameraForms.Forms
         private readonly GridCamera gridCamera;
         private readonly Camera camera;
         private readonly string url;
+        private readonly ICameraRegister cameraRegister;
 
         private Rectangle rectangle;
         private PermissionMonitor permissionMonitor;
@@ -80,6 +82,7 @@ namespace CameraForms.Forms
             cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
 
             permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
@@ -98,7 +101,7 @@ namespace CameraForms.Forms
         private void SetupFullscreenPtz(long userId, long cameraId, DisplayDto display)
         {
             kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.OpenCvSharp, cameraFunctionRepository);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, cameraId, this, display, CameraMode.OpenCvSharp, cameraFunctionRepository, cameraRegister);
 
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();

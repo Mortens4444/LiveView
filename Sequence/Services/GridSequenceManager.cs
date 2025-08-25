@@ -1,4 +1,5 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Interfaces;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
@@ -74,6 +75,7 @@ namespace Sequence.Services
             IPersonalOptionsRepository personalOptionsRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             ILogger<GridSequenceManager> logger,
+            ICameraRegister cameraRegister,
             Client client, Form parentForm, DisplayDto display, bool isMdi)
         {
             this.client = client;
@@ -97,7 +99,7 @@ namespace Sequence.Services
 
             cameraWindowBuilder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository, cameraPermissionRepository,
                 permissionRepository, operationRepository, cameraFunctionRepository, personalOptionsRepository,
-                groupMembersRepository, videoSourceRepository, generalOptionsRepository);
+                groupMembersRepository, videoSourceRepository, generalOptionsRepository, cameraRegister);
         }
 
         public async Task StartSequenceAsync(long sequenceId)

@@ -1,9 +1,10 @@
-﻿using Database.Enums;
+﻿using CameraForms.Interfaces;
+using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
-using Mtf.Controls.Video.ActiveX;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -19,7 +20,6 @@ namespace CameraForms.Services
     public class FullScreenCameraMessageHandler : IDisposable
     {
         private readonly Client client;
-        private readonly Form form;
         private readonly FullScreenCameraCommandFactory fullScreenCameraCommandFactory;
         private volatile int disposed;
 
@@ -47,10 +47,9 @@ namespace CameraForms.Services
 
         public CameraFunction PtzZoomOut { get; }
 
-        public FullScreenCameraMessageHandler(long userId, long cameraId, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository)
+        public FullScreenCameraMessageHandler(long userId, long cameraId, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository, ICameraRegister cameraRegister)
         {
-            this.form = form;
-            client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, cameraMode);
+            client = cameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, cameraMode);
 
             var cameraFunctions = (cameraFunctionRepository?.SelectWhere(new { CameraId = cameraId }) ?? new ReadOnlyCollection<CameraFunction>(new List<CameraFunction>())).ToList();
             PtzStop = cameraFunctions.FirstOrDefault(cameraFunction => cameraFunction.FunctionId == CameraFunctionType.PTZ_Stop);
@@ -69,10 +68,9 @@ namespace CameraForms.Services
             fullScreenCameraCommandFactory = new FullScreenCameraCommandFactory(form, this);
         }
 
-        public FullScreenCameraMessageHandler(long userId, string serverIp, string videoCaptureSource, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository)
+        public FullScreenCameraMessageHandler(long userId, string serverIp, string videoCaptureSource, Form form, DisplayDto display, CameraMode cameraMode, ICameraFunctionRepository cameraFunctionRepository, ICameraRegister cameraRegister)
         {
-            this.form = form;
-            client = CameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
+            client = cameraRegister.RegisterVideoSource(userId, serverIp, videoCaptureSource, display, ClientDataArrivedEventHandler);
 
             fullScreenCameraCommandFactory = new FullScreenCameraCommandFactory(form, this);
         }

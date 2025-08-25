@@ -1,4 +1,5 @@
 using CameraForms.Extensions;
+using CameraForms.Interfaces;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services;
@@ -123,11 +124,12 @@ namespace Sequence.Forms
             var gridSequenceManagerLogger = serviceProvider.GetRequiredService<ILogger<GridSequenceManager>>();
             var videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
+            var cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
             userRepository = serviceProvider.GetRequiredService<IUserRepository>();
 
             gridSequenceManager = new GridSequenceManager(permissionManager, sequenceRepository, sequenceGridsRepository, gridRepository, agentRepository,
                 videoSourceRepository, videoServerRepository, cameraRepository, cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository,
-                cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, generalOptionsRepository, gridSequenceManagerLogger, client, this, display, isMdi);
+                cameraFunctionRepository, gridCameraRepository, personalOptionsRepository, generalOptionsRepository, gridSequenceManagerLogger, cameraRegister, client, this, display, isMdi);
             HandleCreated += MainForm_HandleCreated;
         }
 

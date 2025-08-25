@@ -1,5 +1,6 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Forms;
+using CameraForms.Interfaces;
 using Database.Interfaces;
 using Database.Models;
 using Database.Services;
@@ -7,6 +8,7 @@ using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
 using LiveView.Core.Extensions;
 using LiveView.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Permissions.Services;
 using Sequence.Dto;
@@ -30,13 +32,14 @@ namespace Sequence.Services
         private readonly IOperationRepository operationRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IGeneralOptionsRepository generalOptionsRepository;
+        private readonly ICameraRegister cameraRegister;
 
         public CameraWindowBuilder(PermissionManager<User> permissionManager, ILogger<GridSequenceManager> logger,
             IAgentRepository agentRepository, ICameraRepository cameraRepository,
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository, IOperationRepository operationRepository,
             ICameraFunctionRepository cameraFunctionRepository, IPersonalOptionsRepository personalOptionsRepository,
             IGroupMembersRepository groupMembersRepository, IVideoSourceRepository videoSourceRepository,
-            IGeneralOptionsRepository generalOptionsRepository)
+            IGeneralOptionsRepository generalOptionsRepository, ICameraRegister cameraRegister)
         {
             this.permissionManager = permissionManager;
             this.logger = logger;
@@ -50,6 +53,7 @@ namespace Sequence.Services
             this.permissionRepository = permissionRepository;
             this.operationRepository = operationRepository;
             this.groupMembersRepository = groupMembersRepository;
+            this.cameraRegister = cameraRegister;
         }
 
         public Form ShowVideoWindow(DisplayDto display, Form parentForm, CameraInfo camera, (Grid grid, SequenceGrid gridInSequence) gridInSequence, CancellationTokenSource cancellationTokenSource)
@@ -62,7 +66,7 @@ namespace Sequence.Services
                 {
                     var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Window);
                     result = new AxVideoCameraWindow(permissionManager, cameraRepository, cameraPermissionRepository, permissionRepository, operationRepository,
-                        groupMembersRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera)
+                        groupMembersRepository, personalOptionsRepository, generalOptionsRepository, videoPictureCameraInfo.Camera, videoPictureCameraInfo.Server, rectangle, camera.GridCamera, cameraRegister)
                     {
                         MdiParent = parentForm
                     };

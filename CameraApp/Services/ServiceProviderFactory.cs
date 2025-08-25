@@ -1,4 +1,5 @@
-﻿using Database.Services;
+﻿using CameraForms.Services;
+using Database.Services;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace CameraApp.Services
             ServiceProviderFactoryHelper.RegisterRepositories(services);
             SingletonServiceProviderFactoryHelper.RegisterSingletonServices(services);
             LogServiceProviderFactoryHelper.RegisterLogServices(services);
+            CameraFormsServiceProviderFactoryHelper.RegisterServices(services);
 
             return services.BuildServiceProvider();
         }

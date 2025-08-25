@@ -1,5 +1,6 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Extensions;
+using CameraForms.Interfaces;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -40,6 +41,7 @@ namespace CameraForms.Forms
         private readonly GridCamera gridCamera;
         //private readonly short rotateSpeed = 50;
         private readonly SunellLegacyVideoWindowCommandFactory sunellLegacyVideoWindowCommandFactory;
+        private readonly ICameraRegister cameraRegister;
 
         private Rectangle rectangle;
         private SunellLegacyCameraInfo sunellLegacyCameraInfo;
@@ -100,6 +102,7 @@ namespace CameraForms.Forms
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
 
             permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
@@ -140,7 +143,7 @@ namespace CameraForms.Forms
             };
 
             kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-            client = CameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
+            client = cameraRegister.RegisterCamera(userId, camera.Id, display, ClientDataArrivedEventHandler, CameraMode.SunellLegacyCamera);
 
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();

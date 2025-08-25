@@ -1,4 +1,5 @@
-﻿using Database.Enums;
+﻿using CameraForms.Interfaces;
+using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
@@ -314,6 +315,7 @@ namespace Sequence.Tests.Services
                     new Mock<IPersonalOptionsRepository>().Object,
                     new Mock<IGeneralOptionsRepository>().Object,
                     new Mock<ILogger<GridSequenceManager>>().Object,
+                    new Mock<ICameraRegister>().Object,
                     client,
                     parentForm,
                     new DisplayDto(),

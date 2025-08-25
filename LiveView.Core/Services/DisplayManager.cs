@@ -283,7 +283,7 @@ namespace LiveView.Core.Services
         {
             var displayDimensions = GetDisplayGroupSizesByAgent(displays);
             var result = new Dictionary<string, Rectangle>();
-            var scale = GetScaleFactor(new Rectangle(new Point(0, 0), displayDimensions), drawnSize);
+            var scale = DisplayManager.GetScaleFactor(new Rectangle(new Point(0, 0), displayDimensions), drawnSize);
 
             var displaysGroupedByHost = displays
                 .GroupBy(d => d.Host)
@@ -312,7 +312,7 @@ namespace LiveView.Core.Services
             return result;
         }
         
-        public double GetScaleFactor(Rectangle screenBounds, Size drawnSize)
+        public static double GetScaleFactor(Rectangle screenBounds, Size drawnSize)
         {
             const double adjustmentFactor = 5;
             const double baseDivisor = 1000;

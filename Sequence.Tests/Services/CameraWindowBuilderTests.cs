@@ -1,4 +1,6 @@
 ﻿using CameraForms.Dto;
+using CameraForms.Interfaces;
+using CameraForms.Services;
 using Database.Interfaces;
 using Database.Models;
 using Database.Repositories;
@@ -31,12 +33,13 @@ namespace Sequence.Tests.Services
         private IPersonalOptionsRepository personalOptionsRepository;
         private IVideoSourceRepository videoSourceRepository;
         private IGeneralOptionsRepository generalOptionsRepository;
+        private ICameraRegister cameraRegister;
         
         private const int CameraId = 3; // // This must be an existing Camera in the database.
         private const int VideoServerId = 1; // // This must be an existing VideoServer in the database.
         private const int GridCameraId = 2; // This must be an existing GridCamera in the database.
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             DatabaseInitializer.Initialize("LiveViewConnectionString");
@@ -71,10 +74,11 @@ namespace Sequence.Tests.Services
             personalOptionsRepository = new PersonalOptionsRepository();
             videoSourceRepository = new VideoSourceRepository();
             generalOptionsRepository = new GeneralOptionsRepository();
+            cameraRegister = new CameraRegister();
 
             builder = new CameraWindowBuilder(permissionManager, logger, agentRepository, cameraRepository,
                 new CameraPermissionRepository(), new PermissionRepository(), new OperationRepository(), cameraFunctionRepository,
-                personalOptionsRepository, new GroupMembersRepository(), videoSourceRepository, generalOptionsRepository);
+                personalOptionsRepository, new GroupMembersRepository(), videoSourceRepository, generalOptionsRepository, cameraRegister);
         }
 
         [Test]

@@ -1,5 +1,6 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Extensions;
+using CameraForms.Interfaces;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -36,7 +37,7 @@ namespace CameraForms.Forms
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
-        private readonly IAgentRepository agentRepository;
+        //private readonly IAgentRepository agentRepository;
         private readonly IVideoSourceRepository videoSourceRepository;
         private readonly PermissionSetter permissionSetter;
 
@@ -48,11 +49,12 @@ namespace CameraForms.Forms
         private readonly Camera camera;
         private readonly GridCamera gridCamera;
         private readonly int reconnectTimeout;
+        private readonly ICameraRegister cameraRegister;
 
         private Image lastImage;
         private Timer frameTimer;
         private MyVideoCaptureClient videoCaptureClient;
-        private PermissionMonitor permissionMonitor;
+        //private PermissionMonitor permissionMonitor;
         private FullScreenCameraMessageHandler fullScreenCameraMessageHandler;
 
         private bool frameUnchanged;
@@ -111,7 +113,7 @@ namespace CameraForms.Forms
 
             this.rectangle = rectangle;
             this.permissionManager = permissionManager;
-            this.agentRepository = agentRepository;
+            //this.agentRepository = agentRepository;
             this.videoSourceRepository = videoSourceRepository;
             this.videoCaptureSourceCameraInfo = videoCaptureSourceCameraInfo;
             this.cameraFunctionRepository = cameraFunctionRepository;
@@ -157,12 +159,13 @@ namespace CameraForms.Forms
                 serviceProvider.GetRequiredService<IGroupMembersRepository>()));
             permissionSetter.SetGroups(permissionManager.CurrentUser);
 
-            agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
+            //agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
             videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
             personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
             rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
             reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
+            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
 
             videoCaptureSourceCameraInfo = new VideoCaptureSourceCameraInfo
             {
@@ -198,7 +201,7 @@ namespace CameraForms.Forms
         private void SetupFullscreenPtz(int userId, string serverIp, string videoCaptureSource)
         {
             kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository);
+            fullScreenCameraMessageHandler = new FullScreenCameraMessageHandler(userId, serverIp, videoCaptureSource, this, display, CameraMode.VideoSource, cameraFunctionRepository, cameraRegister);
 
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();

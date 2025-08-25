@@ -1,4 +1,5 @@
-﻿using Database.Enums;
+﻿using CameraForms.Interfaces;
+using Database.Enums;
 using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
@@ -9,15 +10,15 @@ using System;
 
 namespace CameraForms.Services
 {
-    public static class CameraRegister
+    public class CameraRegister : ICameraRegister
     {
-        public static Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> handler, CameraMode mode)
+        public Client RegisterCamera(long userId, long cameraId, DisplayDto display, EventHandler<DataArrivedEventArgs> handler, CameraMode mode)
         {
             var message = $"{NetworkCommand.RegisterCamera}|{{0}}|{userId}|{cameraId}|{{1}}|{{2}}|{(int)mode}";
             return Register(display, handler, message);
         }
 
-        public static Client RegisterVideoSource(long userId, string serverIp, string source, DisplayDto display, EventHandler<DataArrivedEventArgs> handler)
+        public Client RegisterVideoSource(long userId, string serverIp, string source, DisplayDto display, EventHandler<DataArrivedEventArgs> handler)
         {
             var message = $"{NetworkCommand.RegisterVideoSource}|{{0}}|{userId}|{serverIp}|{source}|{{1}}|{{2}}|{(int)CameraMode.VideoSource}";
             return Register(display, handler, message);

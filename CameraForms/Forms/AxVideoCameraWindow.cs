@@ -1,5 +1,6 @@
 ﻿using CameraForms.Dto;
 using CameraForms.Extensions;
+using CameraForms.Interfaces;
 using CameraForms.Services;
 using Database.Enums;
 using Database.Interfaces;
@@ -37,6 +38,7 @@ namespace CameraForms.Forms
         private readonly Camera camera;
         private readonly Rectangle rectangle;
         private readonly GridCamera gridCamera;
+        private readonly ICameraRegister cameraRegister;
 
         private readonly AxVideoPlayerWindowCommandFactory axVideoPlayerWindowCommandFactory;
 
@@ -46,7 +48,7 @@ namespace CameraForms.Forms
             ICameraPermissionRepository cameraPermissionRepository, IPermissionRepository permissionRepository,
             IOperationRepository operationRepository, IGroupMembersRepository groupMembersRepository,
             IPersonalOptionsRepository personalOptionsRepository, IGeneralOptionsRepository generalOptionsRepository,
-            Camera camera, VideoServer server, Rectangle rectangle, GridCamera gridCamera)
+            Camera camera, VideoServer server, Rectangle rectangle, GridCamera gridCamera, ICameraRegister cameraRegister)
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -57,6 +59,7 @@ namespace CameraForms.Forms
             this.camera = camera;
             this.permissionManager = permissionManager;
             this.personalOptionsRepository = personalOptionsRepository;
+            this.cameraRegister = cameraRegister;
 
             permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
                 cameraPermissionRepository, permissionRepository, operationRepository, groupMembersRepository));
@@ -92,6 +95,7 @@ namespace CameraForms.Forms
             var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
             var videoServerRepository = serviceProvider.GetRequiredService<IVideoServerRepository>();
+            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
             server = videoServerRepository.Select(camera.VideoServerId);
             if (server == null)
             {
@@ -130,7 +134,7 @@ namespace CameraForms.Forms
         private void SetupFullscreenPtz(long userId, long cameraId)
         {
             kBD300ASimulatorServer.StartPipeServerAsync(Database.Constants.PipeServerName);
-            client = CameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.AxVideoPlayer);
+            client = cameraRegister.RegisterCamera(userId, cameraId, display, ClientDataArrivedEventHandler, CameraMode.AxVideoPlayer);
 
             Console.CancelKeyPress += (sender, e) => OnExit();
             Application.ApplicationExit += (sender, e) => OnExit();
