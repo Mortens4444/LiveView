@@ -4,7 +4,6 @@ using Database.Interfaces;
 using Database.Models;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
-using Microsoft.Extensions.DependencyInjection;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Network.EventArg;
@@ -20,7 +19,7 @@ namespace CameraForms.Services
     public class FullScreenCameraMessageHandler : IDisposable
     {
         private readonly Client client;
-        private readonly FullScreenCameraCommandFactory fullScreenCameraCommandFactory;
+        private readonly IFullScreenCameraCommandFactory fullScreenCameraCommandFactory;
         private volatile int disposed;
 
         public CameraFunction PtzStop { get; }

@@ -1,4 +1,5 @@
-﻿using CameraForms.Network.Commands;
+﻿using CameraForms.Interfaces;
+using CameraForms.Network.Commands;
 using LiveView.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,10 @@ using System.Linq;
 
 namespace CameraForms.Services
 {
-    public abstract class BaseCommandFactory
+    public abstract class BaseCommandFactory : IBaseCommandFactory
     {
         protected Dictionary<string, Func<ICommand>> CommandMap { get; private set; }
-        
+
         protected BaseCommandFactory(Dictionary<string, Func<ICommand>> commandMap)
         {
             CommandMap = commandMap;

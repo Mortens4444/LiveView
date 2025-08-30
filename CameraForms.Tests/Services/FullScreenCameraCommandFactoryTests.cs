@@ -35,8 +35,11 @@ namespace CameraForms.Tests.Services
             var res1 = fullScreenCameraCommandFactory.CreateCommands(null);
             var res2 = fullScreenCameraCommandFactory.CreateCommands(String.Empty);
 
-            Assert.That(res1.Count, Is.EqualTo(0));
-            Assert.That(res2.Count, Is.EqualTo(0));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(res1, Is.Empty);
+                Assert.That(res2, Is.Empty);
+            }
         }
 
         [TestCase(NetworkCommand.Close)]
@@ -45,7 +48,7 @@ namespace CameraForms.Tests.Services
         {
             var result = fullScreenCameraCommandFactory.CreateCommands(cmd.ToString());
 
-            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0].GetType().Name, Is.EqualTo(nameof(CloseCommand)));
         }
 
@@ -62,13 +65,16 @@ namespace CameraForms.Tests.Services
 
             var result = fullScreenCameraCommandFactory.CreateCommands(messages);
 
-            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result, Has.Count.EqualTo(4));
 
             var names = result.Select(c => c.GetType().Name).ToArray();
-            Assert.That(names[0], Is.EqualTo(nameof(FullScreenCameraPanToEastAndTiltToNorthCommand)));
-            Assert.That(names[1], Is.EqualTo(nameof(FullScreenCameraPanToWestAndTiltToSouthCommand)));
-            Assert.That(names[2], Is.EqualTo(nameof(FullScreenCameraMoveToPresetZeroCommand)));
-            Assert.That(names[3], Is.EqualTo(nameof(ShowErrorCommand)));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(names[0], Is.EqualTo(nameof(FullScreenCameraPanToEastAndTiltToNorthCommand)));
+                Assert.That(names[1], Is.EqualTo(nameof(FullScreenCameraPanToWestAndTiltToSouthCommand)));
+                Assert.That(names[2], Is.EqualTo(nameof(FullScreenCameraMoveToPresetZeroCommand)));
+                Assert.That(names[3], Is.EqualTo(nameof(ShowErrorCommand)));
+            }
         }
 
         [Test]
@@ -90,7 +96,7 @@ namespace CameraForms.Tests.Services
             foreach (var pair in map)
             {
                 var result = fullScreenCameraCommandFactory.CreateCommands(pair.Cmd);
-                Assert.That(result.Count, Is.EqualTo(1), "Expected single command for " + pair.Cmd);
+                Assert.That(result, Has.Count.EqualTo(1), "Expected single command for " + pair.Cmd);
                 Assert.That(result[0].GetType().Name, Is.EqualTo(pair.Expected), "Type mismatch for " + pair.Cmd);
             }
         }

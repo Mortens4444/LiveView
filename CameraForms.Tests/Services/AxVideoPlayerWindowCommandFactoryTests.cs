@@ -35,8 +35,11 @@ namespace CameraForms.Tests.Services
             var res1 = axVideoPlayerWindowCommandFactory.CreateCommands(null);
             var res2 = axVideoPlayerWindowCommandFactory.CreateCommands(String.Empty);
 
-            Assert.That(res1.Count, Is.EqualTo(0));
-            Assert.That(res2.Count, Is.EqualTo(0));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(res1, Is.Empty);
+                Assert.That(res2, Is.Empty);
+            }
         }
 
         [TestCase(NetworkCommand.Close)]
@@ -45,7 +48,7 @@ namespace CameraForms.Tests.Services
         {
             var result = axVideoPlayerWindowCommandFactory.CreateCommands(cmd.ToString());
 
-            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0].GetType().Name, Is.EqualTo(nameof(CloseCommand)));
         }
 
@@ -62,13 +65,16 @@ namespace CameraForms.Tests.Services
 
             var result = axVideoPlayerWindowCommandFactory.CreateCommands(messages);
 
-            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result, Has.Count.EqualTo(4));
 
             var names = result.Select(c => c.GetType().Name).ToArray();
-            Assert.That(names[0], Is.EqualTo(nameof(AxVideoPlayerPanToEastCommand)));
-            Assert.That(names[1], Is.EqualTo(nameof(AxVideoPlayerTiltToNorthCommand)));
-            Assert.That(names[2], Is.EqualTo(nameof(AxVideoPlayerZoomInCommand)));
-            Assert.That(names[3], Is.EqualTo(nameof(ShowErrorCommand)));
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(names[0], Is.EqualTo(nameof(AxVideoPlayerPanToEastCommand)));
+                Assert.That(names[1], Is.EqualTo(nameof(AxVideoPlayerTiltToNorthCommand)));
+                Assert.That(names[2], Is.EqualTo(nameof(AxVideoPlayerZoomInCommand)));
+                Assert.That(names[3], Is.EqualTo(nameof(ShowErrorCommand)));
+            }
         }
 
         [Test]
@@ -89,7 +95,7 @@ namespace CameraForms.Tests.Services
             foreach (var pair in map)
             {
                 var result = axVideoPlayerWindowCommandFactory.CreateCommands(pair.Cmd);
-                Assert.That(result.Count, Is.EqualTo(1), "Expected single command for " + pair.Cmd);
+                Assert.That(result, Has.Count.EqualTo(1), "Expected single command for " + pair.Cmd);
                 Assert.That(result[0].GetType().Name, Is.EqualTo(pair.Expected), "Type mismatch for " + pair.Cmd);
             }
         }

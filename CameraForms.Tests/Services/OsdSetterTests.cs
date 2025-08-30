@@ -88,8 +88,11 @@ namespace CameraForms.Tests.Services
                 var vw = Substitute.For<IVideoWindow>();
                 var gc = new GridCamera { Frame = true, Osd = false, ShowDateTime = false };
                 OsdSetter.SetInfo(form, vw, gc, null, "caption");
-                Assert.That(form.FormBorderStyle, Is.EqualTo(FormBorderStyle.FixedSingle));
-                Assert.That(form.Text, Is.EqualTo("caption"));
+                using (Assert.EnterMultipleScope())
+                {
+                    Assert.That(form.FormBorderStyle, Is.EqualTo(FormBorderStyle.FixedSingle));
+                    Assert.That(form.Text, Is.EqualTo("caption"));
+                }
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using CameraForms.Services;
 using Database.Enums;
 using LiveView.Core.Dto;
-using Mtf.Network;
 using Mtf.Network.EventArg;
 using NUnit.Framework;
 using System;
@@ -9,29 +8,16 @@ using System;
 namespace CameraForms.Tests.Services
 {
     [TestFixture]
-    public class CameraRegisterTests
+    public class CameraRegisterTests : ServerBaseTest
     {
         private DisplayDto display;
         private EventHandler<DataArrivedEventArgs> handler;
-
-        private Server server;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             display = new DisplayDto { };
             handler = (s, e) => { };
-
-            server = new Server(listenerPort: 4444);
-            server.Start();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            server?.Stop();
-            server.Dispose();
-            server = null;
         }
 
         [Test]
@@ -41,8 +27,8 @@ namespace CameraForms.Tests.Services
             var cameraId = 123L;
             var mode = CameraMode.AxVideoPlayer;
 
-            var sut = new CameraRegister();
-            var client = sut.RegisterCamera(userId, cameraId, display, handler, mode);
+            var cameraRegister = new CameraRegister();
+            var client = cameraRegister.RegisterCamera(userId, cameraId, display, handler, mode);
             Assert.That(client, Is.Not.Null);
         }
 
@@ -53,8 +39,8 @@ namespace CameraForms.Tests.Services
             var serverIp = "192.168.0.10";
             var source = "CameraA";
 
-            var sut = new CameraRegister();
-            var client = sut.RegisterVideoSource(userId, serverIp, source, display, handler);
+            var cameraRegister = new CameraRegister();
+            var client = cameraRegister.RegisterVideoSource(userId, serverIp, source, display, handler);
             Assert.That(client, Is.Not.Null);
         }
     }

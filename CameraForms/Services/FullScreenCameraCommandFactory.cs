@@ -1,4 +1,5 @@
-﻿using CameraForms.Network.Commands;
+﻿using CameraForms.Interfaces;
+using CameraForms.Network.Commands;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Interfaces;
 using System;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace CameraForms.Services
 {
-    public class FullScreenCameraCommandFactory : BaseCommandFactory
+    public class FullScreenCameraCommandFactory : BaseCommandFactory, IFullScreenCameraCommandFactory
     {
         public FullScreenCameraCommandFactory(Form form, FullScreenCameraMessageHandler fullScreenCameraMessageHandler)
             : base(new Dictionary<string, Func<ICommand>>

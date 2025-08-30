@@ -21,17 +21,17 @@ namespace CameraForms.Tests.Services
         [Test]
         public void ThrowsWhenCheckPermissionIsNull()
         {
-            Action act = () => _ = new PermissionMonitor(null, () => { });
+            void act() => _ = new PermissionMonitor(null, () => { });
 
-            Assert.That(act, Throws.TypeOf<ArgumentNullException>());
+            Assert.That((Action)act, Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
         public void ThrowsWhenOnPermissionGrantedIsNull()
         {
-            Action act = () => _ = new PermissionMonitor(() => true, null);
+            void act() => _ = new PermissionMonitor(() => true, null);
 
-            Assert.That(act, Throws.TypeOf<ArgumentNullException>());
+            Assert.That((Action)act, Throws.TypeOf<ArgumentNullException>());
         }
 
         [Test]
@@ -51,8 +51,11 @@ namespace CameraForms.Tests.Services
                 var tickMethod = GetTimerTickMethod();
                 tickMethod.Invoke(monitor, new object[] { null, EventArgs.Empty });
 
-                Assert.That(called, Is.True, "onPermissionGranted should have been called.");
-                Assert.That(timer.Enabled, Is.False, "Timer should be stopped after permission granted.");
+                using (Assert.EnterMultipleScope())
+                {
+                    Assert.That(called, Is.True, "onPermissionGranted should have been called.");
+                    Assert.That(timer.Enabled, Is.False, "Timer should be stopped after permission granted.");
+                }
             }
             finally
             {
@@ -77,8 +80,11 @@ namespace CameraForms.Tests.Services
                 var tickMethod = GetTimerTickMethod();
                 tickMethod.Invoke(monitor, new object[] { null, EventArgs.Empty });
 
-                Assert.That(called, Is.False, "onPermissionGranted should NOT have been called.");
-                Assert.That(timer.Enabled, Is.True, "Timer should remain enabled when permission not granted.");
+                using (Assert.EnterMultipleScope())
+                {
+                    Assert.That(called, Is.False, "onPermissionGranted should NOT have been called.");
+                    Assert.That(timer.Enabled, Is.True, "Timer should remain enabled when permission not granted.");
+                }
             }
             finally
             {
@@ -103,11 +109,12 @@ namespace CameraForms.Tests.Services
             monitor.Dispose();
 
             var disposedFlag = (bool)disposedField.GetValue(monitor);
-            Assert.That(disposedFlag, Is.True, "Disposed flag should be set.");
-
-            Assert.That(timer.Enabled, Is.False, "Timer should be stopped after Dispose.");
-
-            Assert.That(() => monitor.Dispose(), Throws.Nothing);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(disposedFlag, Is.True, "Disposed flag should be set.");
+                Assert.That(timer.Enabled, Is.False, "Timer should be stopped after Dispose.");
+                Assert.That(() => monitor.Dispose(), Throws.Nothing);
+            }
         }
     }
 }
