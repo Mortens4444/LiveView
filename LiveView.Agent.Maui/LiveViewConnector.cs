@@ -10,10 +10,10 @@ namespace LiveView.Agent.Maui
 {
     public class LiveViewConnector
     {
-        private string cameraCaptureServer;
+        private readonly string cameraCaptureServer;
+        private readonly CancellationTokenSource cancellationTokenSource;
+        private readonly string cameraIdentifier;
         private Client? client;
-        private CancellationTokenSource cancellationTokenSource;
-        private string cameraIdentifier;
 
         public LiveViewConnector(string cameraIdentifier, string cameraCaptureServer, CancellationTokenSource cancellationTokenSource)
         {
@@ -66,7 +66,7 @@ namespace LiveView.Agent.Maui
                 var commands = MauiAgentCommandFactory.Create(this, cancellationTokenSource, messages);
                 foreach (var command in commands)
                 {
-                    command.ExecuteAsync();
+                    await command.ExecuteAsync();
                     Console.WriteLine($"{command.GetType().Name} executed in MAUI agent.");
                 }
             }

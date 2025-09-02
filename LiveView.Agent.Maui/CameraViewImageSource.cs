@@ -11,10 +11,10 @@ namespace LiveView.Agent.Maui
             this.cameraView = cameraView;
         }
 
-        public async Task<byte[]> CaptureAsync(CancellationToken token)
+        public Task<byte[]> CaptureAsync(CancellationToken token)
         {
             var snapshot = cameraView.GetSnapShot(Camera.MAUI.ImageFormat.PNG);
-            return await ImageSourceToByteArrayAsync(snapshot, token);
+            return ImageSourceToByteArrayAsync(snapshot, token);
         }
 
         private static async Task<byte[]> ImageSourceToByteArrayAsync(ImageSource imageSource, CancellationToken token = default)

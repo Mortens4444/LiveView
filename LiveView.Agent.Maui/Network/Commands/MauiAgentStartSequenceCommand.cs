@@ -1,12 +1,12 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentStartSequenceCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            await Application.Current.MainPage.DisplayAlert("Information", "Start Sequence.Exe", "OK");
+            return Application.Current.MainPage.DisplayAlert("Information", "Start Sequence.Exe", "OK");
         }
     }
 }

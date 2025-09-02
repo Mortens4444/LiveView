@@ -2,6 +2,6 @@
 {
     public interface IAsyncCommand
     {
-        void ExecuteAsync();
+        Task ExecuteAsync();
     }
 }

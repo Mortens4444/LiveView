@@ -1,12 +1,12 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentMoveToPresetZeroCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            await Application.Current.MainPage.DisplayAlert("Information", "Move to preset zero", "OK");
+            return Application.Current.MainPage.DisplayAlert("Information", "Move to preset zero", "OK");
         }
     }
 }

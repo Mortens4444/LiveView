@@ -1,6 +1,6 @@
 ﻿using LiveView.Agent.Maui.Enums.Network;
 using LiveView.Agent.Maui.Interfaces;
-using Sequence.Network.Commands;
+using LiveView.Agent.Maui.Network.Commands;
 
 namespace LiveView.Agent.Maui.Services
 {

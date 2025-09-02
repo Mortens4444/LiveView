@@ -1,12 +1,12 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentZoomInCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            await Application.Current.MainPage.DisplayAlert("Information", "Zoom in", "OK");
+            return Application.Current.MainPage.DisplayAlert("Information", "Zoom in", "OK");
         }
     }
 }

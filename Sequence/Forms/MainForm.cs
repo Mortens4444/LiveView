@@ -194,7 +194,7 @@ namespace Sequence.Forms
             {
                 var processId = LiveView.Core.Services.ProcessUtils.GetProcessId();
                 var hostInfo = client?.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
-                client?.Send($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
+                client?.SendAsync($"{NetworkCommand.UnregisterSequence}|{hostInfo}|{sequenceId}|{processId}", true);
             }
             catch (Exception ex)
             {

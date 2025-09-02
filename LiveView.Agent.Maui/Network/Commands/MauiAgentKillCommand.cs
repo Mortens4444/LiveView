@@ -1,12 +1,13 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentKillCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
             Environment.Exit(0);
+            return Task.CompletedTask;
         }
     }
 }

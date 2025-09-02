@@ -1,12 +1,12 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentPanToWestAndTiltToSouthCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            await Application.Current.MainPage.DisplayAlert("Information", "Pan to west and tilt to south", "OK");
+            return Application.Current.MainPage.DisplayAlert("Information", "Pan to west and tilt to south", "OK");
         }
     }
 }

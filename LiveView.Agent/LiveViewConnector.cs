@@ -79,17 +79,17 @@ namespace LiveView.Agent
                     client.DataArrived += ClientDataArrivedEventHandler;
                     client.Connect();
                     var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
-                    if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true))
+                    if (await client.SendAsync($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true).ConfigureAwait(false))
                     {
                         var displays = displayManager.GetAll();
                         foreach (var display in displays)
                         {
                             display.Host = client.Socket.LocalEndPoint.ToString();
                             Console.WriteLine($"Registering display {display}.");
-                            client.Send($"{NetworkCommand.RegisterDisplay}|{hostInfo}|{display.Serialize()}", true);
+                            await client.SendAsync($"{NetworkCommand.RegisterDisplay}|{hostInfo}|{display.Serialize()}", true).ConfigureAwait(false);
                         }
 
-                        client.Send($"{NetworkCommand.VideoCaptureSourcesResponse}|{String.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true);
+                        await client.SendAsync($"{NetworkCommand.VideoCaptureSourcesResponse}|{string.Join(";", cameraServers.Select(kvp => $"{kvp.Key}={kvp.Value}"))}", true).ConfigureAwait(false);
 
                         Console.WriteLine($"Connected to server {serverIp}:{serverPort}.");
                         Console.WriteLine(PressCtrlCToExit);
@@ -97,7 +97,7 @@ namespace LiveView.Agent
                         while (!cancellationToken.IsCancellationRequested)
                         {
                             await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
-                            if (!client.Send($"{NetworkCommand.Ping}|{hostInfo}", true))
+                            if (!await client.SendAsync($"{NetworkCommand.Ping}|{hostInfo}", true).ConfigureAwait(false))
                             {
                                 break;
                             }

@@ -23,7 +23,7 @@ namespace CameraForms.Services
             var fullScreenDisplay = (displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay()) ?? throw new InvalidOperationException("Choose a fullscreen display first.");
             var displays = displayManager.GetAll();
             var display = displays.FirstOrDefault(d => d.GetId() == fullScreenDisplay.Id);
-            return display == null ? throw new InvalidOperationException("Choose another fullscreen display.") : display;
+            return display ?? throw new InvalidOperationException("Choose another fullscreen display.");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using LiveView.Agent.Maui;
 using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentVideoCaptureSourcesRequestCommand : IAsyncCommand
     {
@@ -12,9 +12,10 @@ namespace Sequence.Network.Commands
             this.liveViewConnector = liveViewConnector;
         }
 
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
             liveViewConnector.SendVideoCaptureSourcesToLiveView();
+            return Task.CompletedTask;
         }
     }
 }

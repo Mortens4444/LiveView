@@ -1,12 +1,12 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentStartCameraAppCommand : IAsyncCommand
     {
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            await Application.Current.MainPage.DisplayAlert("Information", "Start CameraApp.exe", "OK");
+            return Application.Current.MainPage.DisplayAlert("Information", "Start CameraApp.exe", "OK");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using LiveView.Agent.Maui.Interfaces;
 
-namespace Sequence.Network.Commands
+namespace LiveView.Agent.Maui.Network.Commands
 {
     public class MauiAgentStopVideoCaptureCommand : IAsyncCommand
     {
@@ -11,9 +11,9 @@ namespace Sequence.Network.Commands
             this.cancellationTokenSource = cancellationTokenSource;
         }
 
-        public async void ExecuteAsync()
+        public Task ExecuteAsync()
         {
-            cancellationTokenSource.Cancel();
+            return cancellationTokenSource.CancelAsync();
         }
     }
 }
