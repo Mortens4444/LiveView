@@ -1,11 +1,10 @@
 ﻿using CameraForms.Dto;
-using System;
 using System.Windows.Forms;
 
 namespace CameraApp.Interfaces
 {
     public interface ICameraWindowFactory
     {
-        Form Create(CameraLaunchContext context, IServiceProvider serviceProvider);
+        Form Create(CameraLaunchContext context);
     }
 }

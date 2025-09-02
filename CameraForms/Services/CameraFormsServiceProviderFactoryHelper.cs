@@ -8,6 +8,7 @@ namespace CameraForms.Services
         public static void RegisterServices(ServiceCollection services)
         {
             services.AddSingleton<ICameraRegister, CameraRegister>();
+            services.AddSingleton<IDisplayProvider, DisplayProvider>();
         }
     }
 }

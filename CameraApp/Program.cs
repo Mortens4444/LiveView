@@ -59,14 +59,14 @@ namespace CameraApp
                 logger = serviceProvider.GetRequiredService<ILogger<ExceptionHandler>>();
                 ExceptionHandler.SetLogger(logger);
 
-                var context = CameraLaunchContextParser.Parse(args);
+                var context = CameraLaunchContextParser.Parse(args, serviceProvider);
                 if (context.CameraMode == CameraMode.SunellCamera && (context.StartType != StartType.StartCameraInRectangle && context.StartType != StartType.StartVideoSourceInRectangle))
                 {
                     SunellVideoWindow.SdkInit();
                 }
 
                 var factory = new CameraWindowFactory();
-                using (var form = factory.Create(context, serviceProvider))
+                using (var form = factory.Create(context))
                 {
                     Application.Run(form);
                 }

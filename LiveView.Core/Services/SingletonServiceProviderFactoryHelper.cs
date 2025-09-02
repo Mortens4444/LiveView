@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LiveView.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Mtf.Permissions.Services;
 
 namespace LiveView.Core.Services
@@ -9,7 +10,7 @@ namespace LiveView.Core.Services
         {
             services.AddSingleton<FormFactory>();
             services.AddSingleton<PermissionManager<Database.Models.User>>();
-            services.AddSingleton<DisplayManager>();
+            services.AddSingleton<IDisplayManager, DisplayManager>();
         }
     }
 }

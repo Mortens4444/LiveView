@@ -54,7 +54,7 @@ namespace CameraApp.Tests.Services
         [TestCase(CameraMode.Vlc, "VlcCameraWindow")]
         public void CreateKnownMode(CameraMode mode, string expectedTypeName)
         {
-            var ctx = new CameraLaunchContext
+            var ctx = new CameraLaunchContext(serviceProvider)
             {
                 CameraMode = mode,
                 CameraId = 3,
@@ -63,7 +63,7 @@ namespace CameraApp.Tests.Services
                 StartType = StartType.StartCamera
             };
 
-            var form = factory.Create(ctx, serviceProvider);
+            var form = factory.Create(ctx);
 
             Assert.That(form, Is.Not.Null, "Expected non-null Form for mode " + mode);
             Assert.That(form.GetType().Name, Is.EqualTo(expectedTypeName), "Form type name mismatch for mode " + mode);
@@ -75,9 +75,9 @@ namespace CameraApp.Tests.Services
         [Test]
         public void CreateChromium()
         {
-            var ctx = new CameraLaunchContext { CameraMode = CameraMode.Chromium };
+            var ctx = new CameraLaunchContext(serviceProvider) { CameraMode = CameraMode.Chromium };
 
-            var form = factory.Create(ctx, serviceProvider);
+            var form = factory.Create(ctx);
 
             Assert.That(form, Is.Null);
         }
@@ -85,9 +85,9 @@ namespace CameraApp.Tests.Services
         [Test]
         public void CreateUnsupportedMode()
         {
-            var ctx = new CameraLaunchContext { CameraMode = (CameraMode)999 };
+            var ctx = new CameraLaunchContext(serviceProvider) { CameraMode = (CameraMode)999 };
 
-            Assert.Throws<NotSupportedException>(() => factory.Create(ctx, serviceProvider));
+            Assert.Throws<NotSupportedException>(() => factory.Create(ctx));
         }
     }
 }

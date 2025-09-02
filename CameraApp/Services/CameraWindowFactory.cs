@@ -11,36 +11,36 @@ namespace CameraApp.Services
 {
     internal sealed class CameraWindowFactory : ICameraWindowFactory
     {
-        public Form Create(CameraLaunchContext context, IServiceProvider serviceProvider)
+        public Form Create(CameraLaunchContext context)
         {
             switch (context.CameraMode)
             {
                 case CameraMode.AxVideoPlayer:
-                    return new AxVideoCameraWindow(serviceProvider, context);
+                    return new AxVideoCameraWindow(context);
 
                 case CameraMode.FFMpeg:
-                    return new FFMpegCameraWindow(serviceProvider, context);
+                    return new FFMpegCameraWindow(context);
 
                 case CameraMode.MortoGraphy:
-                    return new MortoGraphyCameraWindow(serviceProvider, context);
+                    return new MortoGraphyCameraWindow(context);
 
                 case CameraMode.OpenCvSharp:
-                    return new OpenCvSharpCameraWindow(serviceProvider, context);
+                    return new OpenCvSharpCameraWindow(context);
 
                 case CameraMode.OpenCvSharp4:
-                    return new OpenCvSharp4CameraWindow(serviceProvider, context);
+                    return new OpenCvSharp4CameraWindow(context);
 
                 case CameraMode.SunellCamera:
-                    return new SunellCameraWindow(serviceProvider, context);
+                    return new SunellCameraWindow(context);
 
                 case CameraMode.SunellLegacyCamera:
-                    return new SunellLegacyCameraWindow(serviceProvider, context);
+                    return new SunellLegacyCameraWindow(context);
 
                 case CameraMode.VideoSource:
-                    return new VideoSourceCameraWindow(serviceProvider, context);
+                    return new VideoSourceCameraWindow(context);
 
                 case CameraMode.Vlc:
-                    return new VlcCameraWindow(serviceProvider, context);
+                    return new VlcCameraWindow(context);
 
                 case CameraMode.Chromium:
                     return null;

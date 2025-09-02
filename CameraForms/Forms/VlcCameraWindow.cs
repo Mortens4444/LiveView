@@ -65,7 +65,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public VlcCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public VlcCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -77,22 +77,18 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraFunctionRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraFunctionRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
             SetupFullscreenPtz(cameraLaunchContext.UserId, camera, display);
             url = camera.StreamUrl;

@@ -85,17 +85,17 @@ namespace CameraForms.Forms
             //closeToolStripMenuItem.Enabled = permissionManager.HasPermission(Mtf.Permissions.Enums.WindowManagementPermissions.Close) == Mtf.Permissions.Enums.AccessResult.Allowed;
         }
 
-        public AxVideoCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public AxVideoCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
                 throw new ArgumentNullException(nameof(cameraLaunchContext));
             }
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            var cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
-            var videoServerRepository = serviceProvider.GetRequiredService<IVideoServerRepository>();
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            var videoServerRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IVideoServerRepository>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
             server = videoServerRepository.Select(camera.VideoServerId);
             if (server == null)
             {
@@ -107,16 +107,12 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
-            var generalOptionsRepository = serviceProvider.GetRequiredService<IGeneralOptionsRepository>();
+            var generalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IGeneralOptionsRepository>();
             var cameraMoveValue = generalOptionsRepository.Get<short>(Setting.CameraMoveValue, 7500);
             axVideoPlayerWindowCommandFactory = new AxVideoPlayerWindowCommandFactory(this, axVideoPlayerWindow, cameraMoveValue);
 

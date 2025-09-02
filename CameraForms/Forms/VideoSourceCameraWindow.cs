@@ -137,7 +137,7 @@ namespace CameraForms.Forms
             SetupFrameLossHandler();
         }
 
-        public VideoSourceCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public VideoSourceCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -146,26 +146,23 @@ namespace CameraForms.Forms
 
             InitializeComponent();
 
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            display = DisplayProvider.Get(cameraLaunchContext.DisplayId);
+            cameraFunctionRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraFunctionRepository>();
+            display = cameraLaunchContext.GetDisplay();
 
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
+            camera = cameraRepository.Select(cameraLaunchContext.CameraId);
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             //agentRepository = serviceProvider.GetRequiredService<IAgentRepository>();
-            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            videoSourceRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IVideoSourceRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            rectangle = cameraLaunchContext.GetDisplay()?.Bounds ?? cameraLaunchContext.Rectangle;
+            rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;
             reconnectTimeout = AppConfig.GetInt32(Database.Constants.VideoSourceCameraWindowReconnectTimeout, 5000);
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
             videoCaptureSourceCameraInfo = new VideoCaptureSourceCameraInfo
             {

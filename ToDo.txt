@@ -1,6 +1,7 @@
 - Sunell Legacy, VLC OSD not works
 - Open more fullscreen windows
 - Templates should open fullscreen windows
+- Review all usages of cameraLaunchContext.ServiceProvider in video windows
 
 Vlc not reconnecting to Maginon
 Vlc image falls apart

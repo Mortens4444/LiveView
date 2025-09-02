@@ -65,7 +65,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public OpenCvSharpCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public OpenCvSharpCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -77,19 +77,15 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
 
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
+            cameraFunctionRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraFunctionRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;

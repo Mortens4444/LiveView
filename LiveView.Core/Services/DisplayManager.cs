@@ -1,5 +1,6 @@
 ﻿using LiveView.Core.Dto;
 using LiveView.Core.Enums.Display;
+using LiveView.Core.Interfaces;
 using Microsoft.Win32;
 using Mtf.Network.Services;
 using System;
@@ -11,12 +12,12 @@ using System.Windows.Forms;
 
 namespace LiveView.Core.Services
 {
-    public class DisplayManager
+    public class DisplayManager : IDisplayManager
     {
         public const int FrameWidth = 3;
         private const int Delta = 5;
 
-        public static ObservableList<DisplayDto> RemoteDisplays = new ObservableList<DisplayDto>();
+        public static readonly ObservableList<DisplayDto> RemoteDisplays = new ObservableList<DisplayDto>();
 
         /// <summary>
         /// Retrieves all connected display devices.
@@ -219,43 +220,46 @@ namespace LiveView.Core.Services
             }
         }
 
-        public DisplayDimensions GetScreensBounds()
+        public DisplayDimensions ScreensBounds
         {
-            var minX = Int32.MaxValue;
-            var minY = Int32.MaxValue;
-            var maxX = Int32.MinValue;
-            var maxY = Int32.MinValue;
-
-            var screens = Screen.AllScreens;
-            foreach (var screen in screens)
+            get
             {
-                if (screen is null)
+                var minX = Int32.MaxValue;
+                var minY = Int32.MaxValue;
+                var maxX = Int32.MinValue;
+                var maxY = Int32.MinValue;
+
+                var screens = Screen.AllScreens;
+                foreach (var screen in screens)
                 {
-                    continue;
+                    if (screen is null)
+                    {
+                        continue;
+                    }
+
+                    var bounds = screen.Bounds;
+
+                    minX = Math.Min(minX, bounds.X);
+                    minY = Math.Min(minY, bounds.Y);
+                    maxX = Math.Max(maxX, bounds.Right);
+                    maxY = Math.Max(maxY, bounds.Bottom);
                 }
 
-                var bounds = screen.Bounds;
-
-                minX = Math.Min(minX, bounds.X);
-                minY = Math.Min(minY, bounds.Y);
-                maxX = Math.Max(maxX, bounds.Right);
-                maxY = Math.Max(maxY, bounds.Bottom);
+                var deltaPoint = new Point();
+                if (minX < 0)
+                {
+                    minX = 0;
+                    maxX += minX;
+                    deltaPoint.X = minX;
+                }
+                if (minY < 0)
+                {
+                    minY = 0;
+                    maxY += minY;
+                    deltaPoint.Y = minY;
+                }
+                return new DisplayDimensions(new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
             }
-
-            var deltaPoint = new Point();
-            if (minX < 0)
-            {
-                minX = 0;
-                maxX += minX;
-                deltaPoint.X = minX;
-            }
-            if (minY < 0)
-            {
-                minY = 0;
-                maxY += minY;
-                deltaPoint.Y = minY;
-            }
-            return new DisplayDimensions(new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
         }
 
         private static Size GetDisplayGroupSizesByAgent(List<DisplayDto> displays)
@@ -283,7 +287,7 @@ namespace LiveView.Core.Services
         {
             var displayDimensions = GetDisplayGroupSizesByAgent(displays);
             var result = new Dictionary<string, Rectangle>();
-            var scale = DisplayManager.GetScaleFactor(new Rectangle(new Point(0, 0), displayDimensions), drawnSize);
+            var scale = GetScaleFactor(new Rectangle(new Point(0, 0), displayDimensions), drawnSize);
 
             var displaysGroupedByHost = displays
                 .GroupBy(d => d.Host)
@@ -311,8 +315,8 @@ namespace LiveView.Core.Services
 
             return result;
         }
-        
-        public static double GetScaleFactor(Rectangle screenBounds, Size drawnSize)
+
+        public double GetScaleFactor(Rectangle screenBounds, Size drawnSize)
         {
             const double adjustmentFactor = 5;
             const double baseDivisor = 1000;

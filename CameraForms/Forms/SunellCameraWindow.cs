@@ -78,7 +78,7 @@ namespace CameraForms.Forms
             sunellVideoWindowCommandFactory = new SunellVideoWindowCommandFactory(this, sunellVideoWindow1);
         }
 
-        public SunellCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public SunellCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -89,19 +89,15 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;

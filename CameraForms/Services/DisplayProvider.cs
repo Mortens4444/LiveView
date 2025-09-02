@@ -1,24 +1,32 @@
-﻿using Database.Repositories;
+﻿using CameraForms.Interfaces;
+using Database.Interfaces;
 using LiveView.Core.Dto;
-using LiveView.Core.Services;
+using LiveView.Core.Interfaces;
 using System;
 using System.Linq;
 
 namespace CameraForms.Services
 {
-    public static class DisplayProvider
+    public class DisplayProvider : IDisplayProvider
     {
-        public static DisplayDto Get(long? displayId)
+        private readonly IDisplayRepository displayRepository;
+        private readonly IDisplayManager displayManager;
+
+        public DisplayProvider(IDisplayRepository displayRepository, IDisplayManager displayManager)
         {
-            var displayRepository = new DisplayRepository();
+            this.displayRepository = displayRepository;
+            this.displayManager = displayManager;
+        }
+
+        public DisplayDto GetDisplay(int? displayId)
+        {
             var fullScreenDisplay = displayId.HasValue ? displayRepository.Select(displayId.Value) : displayRepository.GetFullscreenDisplay();
             if (fullScreenDisplay == null)
             {
                 throw new InvalidOperationException("Choose a fullscreen display first.");
             }
-            var displayManager = new DisplayManager();
-            var displays = displayManager.GetAll();
 
+            var displays = displayManager.GetAll();
             var display = displays.FirstOrDefault(d => d.GetId() == fullScreenDisplay.Id);
             if (display == null)
             {

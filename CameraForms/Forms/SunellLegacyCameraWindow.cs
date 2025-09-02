@@ -15,7 +15,6 @@ using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Video.Sunell.IPR66.CustomEventArgs;
-using Mtf.Controls.Video.Sunell.IPR67;
 using Mtf.Extensions;
 using Mtf.MessageBoxes;
 using Mtf.Network;
@@ -82,7 +81,7 @@ namespace CameraForms.Forms
             }
         }
 
-        public SunellLegacyCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public SunellLegacyCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -93,23 +92,19 @@ namespace CameraForms.Forms
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
-            var cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
+            var cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
             camera = cameraRepository.Select(cameraLaunchContext.CameraId);
 
             var rotateSpeed = AppConfig.GetInt16(Database.Constants.SunellLegacyCameraWindowRotateSpeed, 50);
             sunellLegacyVideoWindowCommandFactory = new SunellLegacyVideoWindowCommandFactory(this, sunellVideoWindowLegacy1, rotateSpeed);
 
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;

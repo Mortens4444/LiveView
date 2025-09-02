@@ -12,13 +12,11 @@ using LiveView.Core.Extensions;
 using LiveView.Core.Services;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
 
 namespace CameraForms.Forms
 {
@@ -75,7 +73,7 @@ namespace CameraForms.Forms
             SetBufferSize();
         }
 
-        public MortoGraphyCameraWindow(IServiceProvider serviceProvider, CameraLaunchContext cameraLaunchContext)
+        public MortoGraphyCameraWindow(CameraLaunchContext cameraLaunchContext)
         {
             if (cameraLaunchContext == null)
             {
@@ -87,20 +85,16 @@ namespace CameraForms.Forms
             UpdateStyles();
 
             kBD300ASimulatorServer = new KBD300ASimulatorServer();
-            permissionManager = PermissionManagerBuilder.Build(serviceProvider, this, cameraLaunchContext.UserId);
+            
+            cameraFunctionRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraFunctionRepository>();
+            cameraRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRepository>();
+            videoSourceRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IVideoSourceRepository>();
+            personalOptionsRepository = cameraLaunchContext.ServiceProvider.GetRequiredService<IPersonalOptionsRepository>();
+            cameraRegister = cameraLaunchContext.ServiceProvider.GetRequiredService<ICameraRegister>();
 
-            cameraFunctionRepository = serviceProvider.GetRequiredService<ICameraFunctionRepository>();
-            cameraRepository = serviceProvider.GetRequiredService<ICameraRepository>();
-            videoSourceRepository = serviceProvider.GetRequiredService<IVideoSourceRepository>();
-            personalOptionsRepository = serviceProvider.GetRequiredService<IPersonalOptionsRepository>();
-            cameraRegister = serviceProvider.GetRequiredService<ICameraRegister>();
-
-            permissionSetter = new PermissionSetter(new PermissionSetterDependencies(cameraRepository,
-                serviceProvider.GetRequiredService<ICameraPermissionRepository>(),
-                serviceProvider.GetRequiredService<IPermissionRepository>(),
-                serviceProvider.GetRequiredService<IOperationRepository>(),
-                serviceProvider.GetRequiredService<IGroupMembersRepository>()));
-            permissionSetter.SetGroups(permissionManager.CurrentUser);
+            var permission = cameraLaunchContext.CreatePermission(this);
+            permissionManager = permission.Item1;
+            permissionSetter = permission.Item2;
 
             var display = cameraLaunchContext.GetDisplay();
             rectangle = display?.Bounds ?? cameraLaunchContext.Rectangle;

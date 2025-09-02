@@ -8,14 +8,18 @@ namespace CameraApp.Services
 {
     public static class CameraLaunchContextParser
     {
-        public static CameraLaunchContext Parse(string[] args)
+        public static CameraLaunchContext Parse(string[] args, IServiceProvider serviceProvider)
         {
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));
             }
+            if (serviceProvider == null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
 
-            var cameraLaunchContext = new CameraLaunchContext();
+            var cameraLaunchContext = new CameraLaunchContext(serviceProvider);
 
             var agentId = Parser.ToInt32(args[0]);
             cameraLaunchContext.AgentId = agentId == 0 ? (int?)null : agentId;
