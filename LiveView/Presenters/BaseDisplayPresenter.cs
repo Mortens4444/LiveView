@@ -1,6 +1,7 @@
 ﻿using Database.Interfaces;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Enums;
@@ -17,7 +18,7 @@ namespace LiveView.Presenters
 {
     public class BaseDisplayPresenter : BasePresenter, IDisplayPresenter
     {
-        private readonly DisplayManager displayManager;
+        private readonly IDisplayManager displayManager;
         private static readonly Pen blackPen;
         private static readonly Pen bluePen;
         private static readonly SolidBrush cornflowerBlueBrush;
@@ -53,7 +54,7 @@ namespace LiveView.Presenters
             displayManager = dependencies.DisplayManager;
         }
 
-        public BaseDisplayPresenter(DisplayManager displayManager, IGeneralOptionsRepository generalOptionsRepository, FormFactory formFactory)
+        public BaseDisplayPresenter(IDisplayManager displayManager, IGeneralOptionsRepository generalOptionsRepository, FormFactory formFactory)
             : base(generalOptionsRepository, formFactory)
         {
             this.displayManager = displayManager;

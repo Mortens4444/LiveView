@@ -6,6 +6,7 @@ using Database.Services;
 using LiveView.Core.Dto;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -94,7 +95,7 @@ namespace Sequence.Forms
 
             var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var sequenceDisplay = displayRepository.Select(displayId) ?? throw new InvalidOperationException($"Display not found in repository with Id '{displayId}'.");
-            var displayManager = new DisplayManager();
+            var displayManager = serviceProvider.GetRequiredService<IDisplayManager>();
             var displays = displayManager.GetAll();
 
             display = displays.FirstOrDefault(d => d.GetId() == sequenceDisplay.Id);

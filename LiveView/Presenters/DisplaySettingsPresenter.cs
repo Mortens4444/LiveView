@@ -1,6 +1,7 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using LiveView.Extensions;
 using LiveView.Forms;
@@ -22,7 +23,7 @@ namespace LiveView.Presenters
         private readonly ReadOnlyCollection<Display> displays;
 
         public DisplaySettingsPresenter(IGeneralOptionsRepository generalOptionsRepository,
-            IDisplayRepository displayRepository, DisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
+            IDisplayRepository displayRepository, IDisplayManager displayManager, ILogger<DisplaySettings> logger, FormFactory formFactory)
             : base(displayManager, generalOptionsRepository, formFactory)
         {
             this.displayRepository = displayRepository;

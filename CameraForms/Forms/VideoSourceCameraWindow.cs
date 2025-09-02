@@ -63,7 +63,7 @@ namespace CameraForms.Forms
         //private Color fontColor;
         //private SolidBrush fontBrush;
         private Point location = new Point(10, 10);
-        private string cameraName;
+        private readonly string cameraName;
 
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

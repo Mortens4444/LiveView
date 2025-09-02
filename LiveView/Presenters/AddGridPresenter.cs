@@ -3,7 +3,7 @@ using Database.Interfaces;
 using Database.Models;
 using Database.Services.PasswordHashers;
 using LiveView.Core.Dto;
-using LiveView.Core.Services;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services.Net;
 using LiveView.Dto;
 using LiveView.Enums;
@@ -54,7 +54,7 @@ namespace LiveView.Presenters
         private readonly ISequenceRepository sequenceRepository;
         private readonly ISequenceGridsRepository sequenceGridsRepository;
         private readonly ILogger<AddGrid> logger;
-        private readonly DisplayManager displayManager;
+        private readonly IDisplayManager displayManager;
         private readonly List<CameraDto> cameras;
         private readonly ReadOnlyCollection<VideoServer> videoServers;
 
@@ -172,7 +172,7 @@ namespace LiveView.Presenters
                 RemoveOldControls(controls);
                 AddGridControls();
                 var matchingComboBox = view.PMain.Controls.OfType<ComboBox>().FirstOrDefault(cb => cb.Tag is MatrixRegion);
-                SetComboboxSelectedIndexes(matchingComboBox);
+                SetComboBoxSelectedIndexes(matchingComboBox);
 
                 gridSettingsChanged = false;
                 gridSelectionMatrixChanged = true;
@@ -471,10 +471,10 @@ namespace LiveView.Presenters
 
         private void CbGrids_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetComboboxSelectedIndexes(sender as ComboBox);
+            SetComboBoxSelectedIndexes(sender as ComboBox);
         }
 
-        private void SetComboboxSelectedIndexes(ComboBox comboBox)
+        private void SetComboBoxSelectedIndexes(ComboBox comboBox)
         {
             if (comboBox != null)
             {

@@ -11,18 +11,17 @@ using Microsoft.Data.SqlClient;
 #endif
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mtf.Database;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Database.Services;
 using Mtf.Extensions;
+using LiveView.Core.Interfaces;
 
 namespace LiveView
 {
@@ -85,7 +84,7 @@ namespace LiveView
             var displayRepository = serviceProvider.GetRequiredService<IDisplayRepository>();
             var displays = displayRepository.SelectAll();
 
-            var displayManager = new DisplayManager();
+            var displayManager = serviceProvider.GetRequiredService<IDisplayManager>();
             var currentDisplays = displayManager.GetAll();
 
             //DeleteDisplaysFromRepository(displayRepository, displays, currentDisplays);

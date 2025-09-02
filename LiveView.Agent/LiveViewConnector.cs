@@ -2,7 +2,9 @@
 using LiveView.Agent.Services;
 using LiveView.Core.Enums.Network;
 using LiveView.Core.Extensions;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.MessageBoxes;
@@ -30,13 +32,16 @@ namespace LiveView.Agent
         private readonly Dictionary<string, CancellationTokenSource> cancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
 
         private readonly ILogger<LiveViewConnector> logger;
+        private readonly IDisplayManager displayManager;
 
         private Client client;
         private bool disposed;
 
-        public LiveViewConnector(ILogger<LiveViewConnector> logger)
+        public LiveViewConnector(ILogger<LiveViewConnector> logger,
+            IDisplayManager displayManager)
         {
             this.logger = logger;
+            this.displayManager = displayManager;
         }
 
         ~LiveViewConnector()
@@ -76,7 +81,6 @@ namespace LiveView.Agent
                     var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                     if (client.Send($"{NetworkCommand.RegisterAgent}|{hostInfo}|{Dns.GetHostName()}|{vncServerPort}", true))
                     {
-                        var displayManager = new DisplayManager();
                         var displays = displayManager.GetAll();
                         foreach (var display in displays)
                         {
@@ -149,7 +153,6 @@ namespace LiveView.Agent
             {
                 var hostInfo = client.Socket?.LocalEndPoint?.GetEndPointInfo(NetUtils.GetLocalIPAddresses);
                 client.Send($"{NetworkCommand.UnregisterAgent}|{hostInfo}|{Dns.GetHostName()}", true);
-                var displayManager = new DisplayManager();
                 var displays = displayManager.GetAll();
                 foreach (var display in displays)
                 {

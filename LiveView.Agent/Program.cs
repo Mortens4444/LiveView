@@ -1,5 +1,6 @@
 ﻿using Database.Services;
 using LiveView.Agent.Services;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -56,7 +57,8 @@ namespace LiveView.Agent
                     ExceptionHandler.SetLogger(logger);
 
                     var liveViewConnectorLogger = serviceProvider.GetRequiredService<ILogger<LiveViewConnector>>();
-                    liveViewConnector = new LiveViewConnector(liveViewConnectorLogger);
+                    var displayManager = serviceProvider.GetRequiredService<IDisplayManager>();
+                    liveViewConnector = new LiveViewConnector(liveViewConnectorLogger, displayManager);
                 }
                 catch (Exception ex)
                 {

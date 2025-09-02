@@ -1,5 +1,5 @@
 ﻿using Database.Interfaces;
-using LiveView.Core.Services;
+using LiveView.Core.Interfaces;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
 
@@ -8,7 +8,7 @@ namespace LiveView.Models.Dependencies
     public class AddGridPresenterDependencies : BasePresenterDependencies
     {
         public AddGridPresenterDependencies(
-            DisplayManager displayManager,
+            IDisplayManager displayManager,
             IVideoSourceRepository videoSourceRepository,
             IGeneralOptionsRepository generalOptionsRepository,
             IGridRepository gridRepository,
@@ -31,7 +31,7 @@ namespace LiveView.Models.Dependencies
             Logger = logger;
         }
 
-        public DisplayManager DisplayManager { get; private set; }
+        public IDisplayManager DisplayManager { get; private set; }
 
         public IVideoSourceRepository VideoSourceRepository { get; private set; }
 

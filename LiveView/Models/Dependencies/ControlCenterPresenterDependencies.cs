@@ -1,4 +1,5 @@
 ﻿using Database.Interfaces;
+using LiveView.Core.Interfaces;
 using LiveView.Core.Services;
 using LiveView.Forms;
 using Microsoft.Extensions.Logging;
@@ -20,7 +21,7 @@ namespace LiveView.Models.Dependencies
             ICameraRepository cameraRepository,
             IAgentRepository agentRepository,
             PermissionManager<Database.Models.User> permissionManager,
-            DisplayManager displayManager,
+            IDisplayManager displayManager,
             FormFactory formFactory,
             ILogger<ControlCenter> logger)
             : base(generalOptionsRepository, formFactory)
@@ -53,7 +54,7 @@ namespace LiveView.Models.Dependencies
 
         public IDisplayRepository DisplayRepository { get; private set; }
         
-        public DisplayManager DisplayManager { get; private set; }
+        public IDisplayManager DisplayManager { get; private set; }
         
         public ICameraRepository CameraRepository { get; private set; }
 
