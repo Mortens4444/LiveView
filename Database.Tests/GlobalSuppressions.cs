@@ -5,4 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Database.Tests.SqlSyntaxTests.___TestSqlScripts___(System.String)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:Database.Tests.Scripts.SqlSyntaxTests.___TestSqlScripts___(System.String)")]
+[assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "<Pending>", Scope = "member", Target = "~M:Database.Tests.Scripts.SqlSyntaxTests.___TestSqlScripts___(System.String)")]
