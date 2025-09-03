@@ -1,6 +1,56 @@
 @LiveView.WebApi_HostAddress = https://localhost:44326
 
+GET {{LiveView.WebApi_HostAddress}}/api/actionobjects/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/agents/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/barcodecharchangers/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/barcodescanoptions/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/barcodescanreadings/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/camerafunctions/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/camerapermissions/
+Accept: application/json
+
+###
+
 GET {{LiveView.WebApi_HostAddress}}/api/cameras/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/databaseservers/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/displays/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/gridcameras/
 Accept: application/json
 
 ###
@@ -10,17 +60,97 @@ Accept: application/json
 
 ###
 
+GET {{LiveView.WebApi_HostAddress}}/api/groupmembers/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/groups/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/inputoutputports/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/inputoutputportrules/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/inputoutputportslog/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/logentries/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/mapactionobjects/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/maps/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/migrations/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/operations/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/permissions/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/sequencegrids/
+Accept: application/json
+
+###
+
 GET {{LiveView.WebApi_HostAddress}}/api/sequences/
 Accept: application/json
 
 ###
 
-GET {{LiveView.WebApi_HostAddress}}/api/servers/
+GET {{LiveView.WebApi_HostAddress}}/api/templateprocesses/
 Accept: application/json
 
 ###
 
 GET {{LiveView.WebApi_HostAddress}}/api/templates/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/userevents/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/users/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/videoservers/
+Accept: application/json
+
+###
+
+GET {{LiveView.WebApi_HostAddress}}/api/videosources/
 Accept: application/json
 
 ###

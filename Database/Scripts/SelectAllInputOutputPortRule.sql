@@ -1,2 +1,2 @@
-﻿SELECT * FROM InputOutputPortRule;
+﻿SELECT * FROM InputOutputPortRules;
 

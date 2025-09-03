@@ -9,10 +9,10 @@ namespace LiveView.WebApi.Controllers
     /// <summary>
     /// Controller for managing InputOutputPort entities via REST API endpoints.
     /// </summary>
-    public class InputOutputPortController : ApiControllerBaseWithIntModelId<InputOutputPortDto, InputOutputPort, IInputOutputPortRepository, IConverter<InputOutputPort, InputOutputPortDto>>
+    public class InputOutputPortsController : ApiControllerBaseWithIntModelId<InputOutputPortDto, InputOutputPort, IInputOutputPortRepository, IConverter<InputOutputPort, InputOutputPortDto>>
     {
-        public InputOutputPortController(
-            ILogger<InputOutputPortController> logger,
+        public InputOutputPortsController(
+            ILogger<InputOutputPortsController> logger,
             IInputOutputPortRepository repository,
             IConverter<InputOutputPort, InputOutputPortDto> converter)
             : base(logger, repository, converter)

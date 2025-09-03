@@ -61,7 +61,7 @@
     <EmbeddedResource Include="Scripts\SelectWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\SelectAllCameraPermission.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllObjectInMap.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllActionObject.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereOperation.sql" />
     <EmbeddedResource Include="Scripts\SelectVideoSource.sql" />
     <EmbeddedResource Include="Scripts\SelectWhereCameraPermission.sql" />
@@ -123,7 +123,7 @@
     <EmbeddedResource Include="Scripts\SelectWhereLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteMap.sql" />
     <EmbeddedResource Include="Scripts\InsertMapObject.sql" />
-    <EmbeddedResource Include="Scripts\SelectAllMapObject.sql" />
+    <EmbeddedResource Include="Scripts\SelectAllMapActionObject.sql" />
     <EmbeddedResource Include="Scripts\UpdateMap.sql" />
     <EmbeddedResource Include="Scripts\InsertMap.sql" />
     <EmbeddedResource Include="Scripts\UpdateInputOutputPort.sql" />

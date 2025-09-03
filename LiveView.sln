@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraForms.Tests", "Camera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.Tests", "Database.Tests\Database.Tests.csproj", "{E6ECA5FA-9C68-480C-B523-5AE1CE62A4AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveView.WebApi.Tests", "LiveView.WebApi.Tests\LiveView.WebApi.Tests.csproj", "{D3400BD2-3240-4124-B378-808862E52232}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -352,6 +354,22 @@ Global
 		{E6ECA5FA-9C68-480C-B523-5AE1CE62A4AC}.Release|x64.Build.0 = Release|Any CPU
 		{E6ECA5FA-9C68-480C-B523-5AE1CE62A4AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{E6ECA5FA-9C68-480C-B523-5AE1CE62A4AC}.Release|x86.Build.0 = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|x64.Build.0 = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Debug|x86.Build.0 = Debug|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|ARM64.Build.0 = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|x64.ActiveCfg = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|x64.Build.0 = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|x86.ActiveCfg = Release|Any CPU
+		{D3400BD2-3240-4124-B378-808862E52232}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
