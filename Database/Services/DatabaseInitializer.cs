@@ -68,9 +68,9 @@ namespace Database.Services
             {
                 if (!migrations.Any(migration => migration.Name == migrationToExecute))
                 {
-                    if (migrationParams.ContainsKey(migrationToExecute))
+                    if (migrationParams.TryGetValue(migrationToExecute, out var value))
                     {
-                        BaseRepository.Execute(migrationToExecute, migrationParams[migrationToExecute]);
+                        BaseRepository.Execute(migrationToExecute, value);
                     }
                     else
                     {

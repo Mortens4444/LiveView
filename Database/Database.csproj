@@ -19,7 +19,6 @@
     <EmbeddedResource Include="Scripts\DeleteCameraFunction.sql" />
     <EmbeddedResource Include="Scripts\DeleteDatabaseServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteWhereSequenceGrid.sql" />
-    <EmbeddedResource Include="Scripts\DeleteWhereAgent.sql" />
     <EmbeddedResource Include="Scripts\DeleteAllLogEntry.sql" />
     <EmbeddedResource Include="Scripts\DeleteCamerasOfServer.sql" />
     <EmbeddedResource Include="Scripts\DeleteUser.sql" />
@@ -195,7 +194,7 @@
     <PackageReference Include="System.Memory" Version="4.6.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.8" />
     <PackageReference Include="Mtf.Extensions" Version="1.0.19" />
-    <PackageReference Include="Mtf.Database" Version="2.0.70" />
+    <PackageReference Include="Mtf.Database" Version="2.0.80" />
   </ItemGroup>
 
 </Project>

@@ -23,8 +23,9 @@ namespace LiveView.Network.Commands
             var videoSources = mainPresenterDependencies.VideoSourceRepository.SelectWhere(new { AgentId = agent.Id, Name = videoSourceName });
             foreach (var videoSource in videoSources)
             {
-                mainPresenterDependencies.AgentRepository.DeleteWhere(new { VideoSourceId = videoSource.Id });
+                mainPresenterDependencies.VideoSourceRepository.Delete(videoSource.Id);
             }
+            mainPresenterDependencies.AgentRepository.Delete(agent.Id);
         }
     }
 }

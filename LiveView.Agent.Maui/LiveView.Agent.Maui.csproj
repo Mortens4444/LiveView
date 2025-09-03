@@ -66,7 +66,7 @@
     <PackageReference Include="CommunityToolkit.Maui.Core" Version="11.2.0" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.70" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
     <PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.70" />
     <PackageReference Include="Microsoft.Maui.Core" Version="9.0.70" />
     <PackageReference Include="Mtf.Extensions" Version="1.0.17" />

@@ -1,1 +1,0 @@
-﻿DELETE FROM Agents WHERE VideoSourceId = @VideoSourceId;

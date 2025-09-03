@@ -17,7 +17,7 @@ CREATE PROCEDURE InsertInputOutputPortRule
 AS
 BEGIN
 	INSERT INTO InputOutputPortRules (DeviceId, PortNumber, OperationId, UserEventId, ZeroSignalled)
-	VALUES (@DeviceId, @PortNumber, @OperationId, @EventId, @ZeroSignalled);
+	VALUES (@DeviceId, @PortNumber, @OperationId, @UserEventId, @ZeroSignalled);
 END;
 
 GO
