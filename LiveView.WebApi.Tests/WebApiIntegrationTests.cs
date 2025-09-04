@@ -1,10 +1,10 @@
 using Database.Repositories;
-using LiveView.WebApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mtf.Database;
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -67,9 +67,10 @@ namespace LiveView.WebApi.Tests
 
             var json = await res.Content.ReadAsStringAsync().ConfigureAwait(false);
             var listType = typeof(List<>).MakeGenericType(dtoType);
-            var deserialized = JsonSerializer.Deserialize(json, listType, JsonSerializerOptions);
+            var list = (IList)JsonSerializer.Deserialize(json, listType, JsonSerializerOptions);
 
-            Assert.That(deserialized, Is.Not.Null, $"Endpoint {uriString} returned null or invalid JSON for {dtoType.Name}");
+            Assert.That(list, Is.Not.Null, $"Endpoint {uriString} returned null or invalid JSON for {dtoType.Name}");
+            Assert.That(list, Has.Count.GreaterThanOrEqualTo(0));
         }
 
         private static IEnumerable<TestCaseData> ApiEndpoints()
