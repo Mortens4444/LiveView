@@ -1,1 +1,1 @@
-﻿SELECT * FROM ActionObjects;
+﻿SELECT * FROM MapActionObjects;

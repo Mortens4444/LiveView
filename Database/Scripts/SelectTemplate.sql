@@ -1,0 +1,1 @@
+﻿SELECT * FROM Templates WHERE @Id = Id;

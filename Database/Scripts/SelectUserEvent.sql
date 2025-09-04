@@ -1,0 +1,1 @@
+﻿SELECT * FROM UserEvents WHERE Id = @Id;

@@ -1,0 +1,1 @@
+﻿SELECT * FROM CameraFunctions WHERE Id = @Id;

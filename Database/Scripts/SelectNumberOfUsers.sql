@@ -1,1 +1,1 @@
-﻿SELECT COUNT(Id) FROM Users
+﻿SELECT COUNT(Id) FROM Users;

@@ -1,1 +1,1 @@
-﻿SELECT * FROM Options WHERE UserId = @UserId
+﻿SELECT * FROM Options WHERE UserId = @UserId;

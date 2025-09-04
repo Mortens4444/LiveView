@@ -1,0 +1,1 @@
+﻿SELECT * FROM Migrations WHERE Id = @Id;

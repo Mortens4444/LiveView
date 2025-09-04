@@ -1,1 +1,1 @@
-﻿SELECT * FROM Migrations
+﻿SELECT * FROM Migrations;

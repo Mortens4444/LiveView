@@ -1,0 +1,1 @@
+﻿SELECT * FROM BSOptions WHERE Id = @Id;

@@ -1,0 +1,1 @@
+﻿SELECT * FROM GroupMembers WHERE Id = @Id;

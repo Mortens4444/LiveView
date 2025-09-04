@@ -1,4 +1,3 @@
-- Fix MapActionObjects in WebAPI
 - Sunell Legacy, VLC OSD not works
 - Open more fullscreen windows
 - Templates should open fullscreen windows

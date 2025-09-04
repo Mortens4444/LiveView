@@ -1,0 +1,1 @@
+﻿SELECT * FROM TemplateProcesses WHERE @Id = Id;

@@ -1,1 +1,1 @@
-﻿SELECT * FROM SequenceGrids WHERE SequenceId = @SequenceId ORDER BY Number;
+﻿SELECT * FROM SequenceGrids WHERE Id = @Id;

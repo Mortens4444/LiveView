@@ -1,1 +1,1 @@
-﻿SELECT * FROM Maps Where Id = @Id
+﻿SELECT * FROM Maps WHERE Id = @Id;

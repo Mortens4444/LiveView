@@ -1,1 +1,1 @@
-﻿SELECT * FROM Events WHERE Id = @Id
+﻿SELECT * FROM Events WHERE Id = @Id;
