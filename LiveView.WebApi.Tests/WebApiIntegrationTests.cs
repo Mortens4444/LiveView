@@ -49,14 +49,14 @@ namespace LiveView.WebApi.Tests
             Assert.That(html, Does.Contain("<h1>LiveView API endpoints</h1>"));
         }
 
-        [Test]
-        public async Task GetResourceHtmlReturnsHtmlPage()
+        [TestCaseSource(nameof(ResourcePages))]
+        public async Task ___GetResourceHtmlReturnsHtmlPage___(string route, string resource)
         {
-            var response = await client.GetAsync(new Uri("/Agents.html", UriKind.Relative)).ConfigureAwait(false);
+            var response = await client.GetAsync(new Uri(route, UriKind.Relative)).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var html = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            Assert.That(html, Does.Contain("<h1>Agents</h1>"));
+            var html = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            Assert.That(html, Does.Contain($"<h1>{resource}</h1>"));
         }
 
         [TestCaseSource(nameof(ApiEndpoints))]
@@ -73,54 +73,79 @@ namespace LiveView.WebApi.Tests
             Assert.That(list, Has.Count.GreaterThanOrEqualTo(0));
         }
 
-        private static IEnumerable<TestCaseData> ApiEndpoints()
+        private static IEnumerable<Type> GetControllerTypes()
         {
             var asm = typeof(Program).Assembly;
             const string controller = nameof(Controller);
             const string ctrlNamespace = "LiveView.WebApi.Controllers";
 
-            var controllers = asm.GetTypes()
+            return asm.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.Namespace == ctrlNamespace && t.Name.EndsWith(controller, StringComparison.Ordinal))
                 .OrderBy(t => t.Name);
+        }
 
-            foreach (var ctrl in controllers)
+        private static string GetResourceName(Type ctrl)
+        {
+            const string controller = nameof(Controller);
+            return ctrl.Name.EndsWith(controller, StringComparison.Ordinal)
+                ? ctrl.Name[..^controller.Length]
+                : ctrl.Name;
+        }
+
+        private static Type GetDtoType(Type ctrl)
+        {
+            var current = ctrl;
+            while (current != null)
             {
-                var resource = ctrl.Name.EndsWith(controller, StringComparison.Ordinal)
-                    ? ctrl.Name[..^controller.Length]
-                    : ctrl.Name;
-
-                Type dtoType = null;
-                var current = ctrl;
-                while (current != null)
+                var baseType = current.BaseType;
+                if (baseType == null)
                 {
-                    var baseType = current.BaseType;
-                    if (baseType == null)
+                    break;
+                }
+
+                if (baseType.IsGenericType)
+                {
+                    var genDef = baseType.GetGenericTypeDefinition();
+                    if (genDef.Name.StartsWith("ApiControllerBase", StringComparison.Ordinal))
                     {
+                        var args = baseType.GetGenericArguments();
+                        if (args.Length > 0)
+                        {
+                            return args[0];
+                        }
                         break;
                     }
-
-                    if (baseType.IsGenericType)
-                    {
-                        var genDef = baseType.GetGenericTypeDefinition();
-                        if (genDef.Name.StartsWith("ApiControllerBase", StringComparison.Ordinal))
-                        {
-                            var args = baseType.GetGenericArguments();
-                            if (args.Length > 0)
-                            {
-                                dtoType = args[0];
-                            }
-                            break;
-                        }
-                    }
-
-                    current = baseType;
                 }
+
+                current = baseType;
+            }
+
+            return null;
+        }
+
+        private static IEnumerable<TestCaseData> ApiEndpoints()
+        {
+            foreach (var ctrl in GetControllerTypes())
+            {
+                var resource = GetResourceName(ctrl);
+                var dtoType = GetDtoType(ctrl);
 
                 if (dtoType != null)
                 {
                     var route = $"/api/{resource.ToLowerInvariant()}";
-                    yield return new TestCaseData(route, dtoType).SetName(resource);
+                    yield return new TestCaseData(route, dtoType).SetName($"Html_{resource}");
                 }
+            }
+        }
+
+        private static IEnumerable<TestCaseData> ResourcePages()
+        {
+            foreach (var ctrl in GetControllerTypes())
+            {
+                var resource = GetResourceName(ctrl);
+                var route = $"/{resource}.html";
+
+                yield return new TestCaseData(route, resource).SetName($"Api_{resource}");
             }
         }
     }
