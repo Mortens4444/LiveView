@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSCharChanger;
+﻿SELECT * FROM BarcodeCharChanger;

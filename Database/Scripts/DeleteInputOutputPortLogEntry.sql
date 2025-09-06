@@ -1,0 +1,1 @@
+﻿DELETE FROM InputOutputPortLogs WHERE Id = @Id;

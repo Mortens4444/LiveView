@@ -1,0 +1,1 @@
+﻿DELETE FROM Agents WHERE Id = @Id

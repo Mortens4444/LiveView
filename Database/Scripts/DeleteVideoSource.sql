@@ -1,0 +1,1 @@
+﻿DELETE FROM VideoSources WHERE Id = @Id;

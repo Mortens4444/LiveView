@@ -1,4 +1,1 @@
-﻿INSERT INTO Migrations
-	(Name)
-VALUES
-	(@Name);
+﻿INSERT INTO Migrations (Name) VALUES (@Name);

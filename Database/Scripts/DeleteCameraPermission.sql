@@ -1,0 +1,1 @@
+﻿DELETE FROM CameraPermissions WHERE Id = @Id;

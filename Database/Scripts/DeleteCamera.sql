@@ -1,1 +1,1 @@
-﻿DELETE FROM Cameras WHERE Id = @Id
+﻿DELETE FROM Cameras WHERE Id = @Id;

@@ -1,1 +1,1 @@
-﻿DELETE FROM CameraFunctions WHERE Id = @Id
+﻿DELETE FROM CameraFunctions WHERE Id = @Id;

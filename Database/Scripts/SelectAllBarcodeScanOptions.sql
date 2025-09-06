@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSOptions;
+﻿SELECT * FROM BarcodeScanOptions;

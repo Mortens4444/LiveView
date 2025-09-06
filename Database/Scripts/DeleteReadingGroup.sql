@@ -1,0 +1,1 @@
+﻿DELETE FROM ReadingGroups WHERE Id = @Id;

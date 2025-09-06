@@ -1,0 +1,1 @@
+﻿DELETE FROM [Options] WHERE Name = @Name AND UserId = @UserId;

@@ -1,0 +1,1 @@
+﻿DELETE FROM CameraFunctionParams WHERE Id = @Id;

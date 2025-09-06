@@ -1,0 +1,1 @@
+﻿DELETE FROM BarcodeCharChanger WHERE Id = @Id;

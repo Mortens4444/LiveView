@@ -5,7 +5,9 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___ApiCallReturnsList___(System.String,System.Type)~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___SelectCollectionApiCallReturnsList___(System.String,System.Type)~System.Threading.Tasks.Task")]
 [assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___GetResourceHtmlReturnsHtmlPage___(System.String,System.String)~System.Threading.Tasks.Task")]
-[assembly: SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.ApiEndpoints~System.Collections.Generic.IEnumerable{NUnit.Framework.TestCaseData}")]
-[assembly: SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.ResourceApiEndpoints~System.Collections.Generic.IEnumerable{NUnit.Framework.TestCaseData}")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___SelectResourceApiCallReturnsList___(System.String,System.Type)~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___UpdateResourceApiCallReturnsItem___(System.String,System.Type)~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.___DeleteResourceApiCallDeletesItem___(System.String,System.Type)~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "<Pending>", Scope = "member", Target = "~M:LiveView.WebApi.Tests.WebApiIntegrationTests.CreateApiTestCases(System.String,System.Func{System.String,System.String})~System.Collections.Generic.IEnumerable{NUnit.Framework.TestCaseData}")]

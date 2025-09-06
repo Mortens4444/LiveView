@@ -1,4 +1,4 @@
 ﻿UPDATE [Options] SET
 	Value = @Value,
 	TypeId = @TypeId
-WHERE Name = @Name
+WHERE Name = @Name;

@@ -1,0 +1,1 @@
+﻿DELETE FROM Migrations WHERE Id = @Id;

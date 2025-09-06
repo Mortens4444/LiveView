@@ -1,0 +1,1 @@
+﻿DELETE FROM Permissions WHERE Id = @Id;

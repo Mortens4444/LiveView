@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSReadings;
+﻿SELECT * FROM BarcodeScanReadings;

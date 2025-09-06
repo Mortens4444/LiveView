@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSCharChanger WHERE Id = @Id;
+﻿SELECT * FROM BarcodeCharChanger WHERE Id = @Id;

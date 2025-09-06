@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSOptions WHERE Id = @Id;
+﻿SELECT * FROM BarcodeScanOptions WHERE Id = @Id;

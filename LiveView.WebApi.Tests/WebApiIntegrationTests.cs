@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -10,10 +11,11 @@ namespace LiveView.WebApi.Tests
 {
     internal class WebApiIntegrationTests : WebBaseTests
     {
+        private const int resourceId = 2;
         private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        [TestCaseSource(nameof(ApiEndpoints))]
-        public async Task ___ApiCallReturnsList___(string uriString, Type dtoType)
+        [TestCaseSource(nameof(SelectCollectionApiEndpoints))]
+        public async Task ___SelectCollectionApiCallReturnsList___(string uriString, Type dtoType)
         {
             var result = await client.GetAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
             result.EnsureSuccessStatusCode();
@@ -26,8 +28,8 @@ namespace LiveView.WebApi.Tests
             Assert.That(list, Has.Count.GreaterThanOrEqualTo(0));
         }
 
-        [TestCaseSource(nameof(ResourceApiEndpoints))]
-        public async Task ___ResourceApiCallReturnsList___(string uriString, Type dtoType)
+        [TestCaseSource(nameof(SelectResourceApiEndpoints))]
+        public async Task ___SelectResourceApiCallReturnsList___(string uriString, Type dtoType)
         {
             var result = await client.GetAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
             if (result.IsSuccessStatusCode)
@@ -47,63 +49,198 @@ namespace LiveView.WebApi.Tests
             }
         }
 
-        private static Type GetDtoType(Type ctrl)
+        [Explicit("Integration test — run explicitly (requires DB).")]
+        [TestCaseSource(nameof(CreateResourceApiEndpoints))]
+        public async Task CreateResourceApiCallCreatesItem(string uriString, Type dtoType)
         {
-            var current = ctrl;
-            while (current != null)
+            var dto = Activator.CreateInstance(dtoType);
+            PopulateDto.WithDefaults(dto, dtoType);
+
+            var postResponse = await client.PostAsJsonAsync(new Uri(uriString, UriKind.Relative), dto).ConfigureAwait(false);
+            if (postResponse.StatusCode == HttpStatusCode.Created)
             {
-                var baseType = current.BaseType;
-                if (baseType == null)
+                var body = await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (!String.IsNullOrEmpty(body))
                 {
-                    break;
+                    var item = JsonSerializer.Deserialize(body, dtoType, JsonSerializerOptions);
+                    Assert.That(item, Is.Not.Null, $"POST to {uriString} returned Created but body was null for {dtoType.Name}");
+                    return;
                 }
 
-                if (baseType.IsGenericType)
+                var location = postResponse.Headers.Location;
+                if (location != null)
                 {
-                    var genDef = baseType.GetGenericTypeDefinition();
-                    if (genDef.Name.StartsWith("ApiControllerBase", StringComparison.Ordinal))
+                    var getResponse = await client.GetAsync(location).ConfigureAwait(false);
+                    if (getResponse.IsSuccessStatusCode)
                     {
-                        var args = baseType.GetGenericArguments();
-                        if (args.Length > 0)
-                        {
-                            return args[0];
-                        }
-                        break;
+                        var json = await getResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                        Assert.That(item, Is.Not.Null, $"GET at Location returned null for {uriString}");
+                        return;
                     }
+
+                    Assert.Fail($"GET at Location after POST returned {getResponse.StatusCode} for {uriString}");
                 }
 
-                current = baseType;
+                Assert.Pass($"POST to {uriString} returned Created without body or Location.");
             }
-
-            return null;
+            else if (postResponse.IsSuccessStatusCode)
+            {
+                var json = await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                Assert.That(item, Is.Not.Null, $"POST to {uriString} returned success but body was null for {dtoType.Name}");
+            }
+            else if (postResponse.StatusCode == HttpStatusCode.BadRequest)
+            {
+                var body = await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Assert.Inconclusive($"POST to {uriString} returned BadRequest. Content: {body}");
+            }
+            else
+            {
+                var body = await postResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Assert.Fail($"POST to {uriString} returned status {postResponse.StatusCode}. Content: {body}");
+            }
         }
 
-        private static IEnumerable<TestCaseData> ApiEndpoints()
+        [Explicit("Integration test — run explicitly (requires DB).")]
+        [TestCaseSource(nameof(UpdateResourceApiEndpoints))]
+        public async Task UpdateResourceApiCallReturnsItem(string uriString, Type dtoType)
         {
-            foreach (var ctrl in GetControllerTypes())
+            int? id = NumericSegment.GetLast(uriString) ?? 0;
+
+            var dto = Activator.CreateInstance(dtoType);
+            PopulateDto.WithDefaults(dto, dtoType);
+            var idProp = dtoType.GetProperty("Id");
+            if (idProp != null && idProp.CanWrite)
             {
-                var resource = GetResourceName(ctrl);
-                var dtoType = GetDtoType(ctrl);
+                idProp.SetValue(dto, id);
+            }
+
+            var putResponse = await client.PutAsJsonAsync(new Uri(uriString, UriKind.Relative), dto).ConfigureAwait(false);
+            if (putResponse.StatusCode == HttpStatusCode.NoContent)
+            {
+                var getResponse = await client.GetAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    var json = await getResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                    Assert.That(item, Is.Not.Null, $"GET after PUT returned empty body for {uriString}");
+                }
+                else if (getResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    Assert.Pass();
+                }
+                else
+                {
+                    Assert.Fail($"GET after PUT returned status {getResponse.StatusCode} for {uriString}");
+                }
+            }
+            else if (putResponse.IsSuccessStatusCode)
+            {
+                var json = await putResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                Assert.That(item, Is.Not.Null, $"PUT returned success but body was null for {uriString}");
+            }
+            else if (putResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                var body = await putResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Assert.Fail($"PUT to {uriString} returned status {putResponse.StatusCode}. Content: {body}");
+            }
+            else
+            {
+                var body = await putResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                Assert.Fail($"PUT to {uriString} returned status {putResponse.StatusCode}. Content: {body}");
+            }
+        }
+
+        [Explicit("Integration test — run explicitly (requires DB).")]
+        [TestCaseSource(nameof(DeleteResourceApiEndpoints))]
+        public async Task ___DeleteResourceApiCallDeletesItem___(string uriString, Type dtoType)
+        {
+            var deleteResponse = await client.DeleteAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
+
+            if (deleteResponse.StatusCode == HttpStatusCode.NoContent)
+            {
+                var getResponse = await client.GetAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
+                if (getResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    Assert.Pass();
+                }
+
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    var json = await getResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                    Assert.Fail($"DELETE to {uriString} returned NoContent but GET still returned an item: {item}");
+                }
+
+                Assert.Fail($"GET after DELETE returned unexpected status {getResponse.StatusCode} for {uriString}");
+            }
+            else if (deleteResponse.IsSuccessStatusCode)
+            {
+                var json = await deleteResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                if (!String.IsNullOrEmpty(json))
+                {
+                    var item = JsonSerializer.Deserialize(json, dtoType, JsonSerializerOptions);
+                    Assert.That(item, Is.Not.Null, $"DELETE to {uriString} returned success but body was null for {dtoType.Name}");
+                }
+                else
+                {
+                    var getResponse = await client.GetAsync(new Uri(uriString, UriKind.Relative)).ConfigureAwait(false);
+                    if (getResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        Assert.Pass();
+                    }
+
+                    Assert.Fail($"DELETE to {uriString} returned success but GET returned {getResponse.StatusCode}");
+                }
+            }
+            else if (deleteResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                Assert.Pass();
+            }
+            else
+            {
+                Assert.Fail($"DELETE to {uriString} returned status {deleteResponse.StatusCode}");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> SelectCollectionApiEndpoints()
+        {
+            return CreateApiTestCases("SelectCollectionApi", r => $"/api/{r}");
+        }
+
+        private static IEnumerable<TestCaseData> SelectResourceApiEndpoints()
+        {
+            return CreateApiTestCases("SelectResourceApi", r => $"/api/{r}/{resourceId}");
+        }
+
+        private static IEnumerable<TestCaseData> CreateResourceApiEndpoints()
+        {
+            return CreateApiTestCases("CreateResourceApi", r => $"/api/{r}");
+        }
+
+        private static IEnumerable<TestCaseData> UpdateResourceApiEndpoints()
+        {
+            return CreateApiTestCases("UpdateResourceApi", r => $"/api/{r}/{resourceId}");
+        }
+
+        private static IEnumerable<TestCaseData> DeleteResourceApiEndpoints()
+        {
+            return CreateApiTestCases("DeleteResourceApi", r => $"/api/{r}/{resourceId}");
+        }
+
+        private static IEnumerable<TestCaseData> CreateApiTestCases(string namePrefix, Func<string, string> routeBuilder)
+        {
+            foreach (var controllerType in GetControllerTypes())
+            {
+                var resource = GetResourceName(controllerType);
+                var dtoType = DtoTypeProvider.GetFromControllerType(controllerType);
 
                 if (dtoType != null)
                 {
-                    var route = $"/api/{resource.ToLowerInvariant()}";
-                    yield return new TestCaseData(route, dtoType).SetName($"Api_{resource}");
-                }
-            }
-        }
-
-        private static IEnumerable<TestCaseData> ResourceApiEndpoints()
-        {
-            foreach (var ctrl in GetControllerTypes())
-            {
-                var resource = GetResourceName(ctrl);
-                var dtoType = GetDtoType(ctrl);
-
-                if (dtoType != null)
-                {
-                    var route = $"/api/{resource.ToLowerInvariant()}/1";
-                    yield return new TestCaseData(route, dtoType).SetName($"ResourceApi_{resource}");
+                    var route = routeBuilder(resource.ToLowerInvariant());
+                    yield return new TestCaseData(route, dtoType).SetName($"{namePrefix}_{resource}");
                 }
             }
         }

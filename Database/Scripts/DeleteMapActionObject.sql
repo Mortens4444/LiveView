@@ -1,0 +1,1 @@
+﻿DELETE FROM MapActionObjects WHERE MapId = @MapId AND ActionObjectId = @ActionObjectId;

@@ -1,0 +1,1 @@
+﻿DELETE FROM Rules WHERE @Id = Id;

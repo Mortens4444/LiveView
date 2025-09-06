@@ -388,9 +388,9 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RgCfRule]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReadingGroupRules]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE RgCfRule (
+    CREATE TABLE ReadingGroupRules (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         ReadingGroupId INT NOT NULL,
         RuleId INT NOT NULL,
@@ -399,18 +399,18 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSReadings]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BarcodeScanReadings]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE BSReadings (
+    CREATE TABLE BarcodeScanReadings (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         Date DATETIME NOT NULL,
         Value NVARCHAR(50) NOT NULL
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSOptions]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BarcodeScanOptions]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE BSOptions (
+    CREATE TABLE BarcodeScanOptions (
         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         CustomIn INT NOT NULL,
         CustomOut INT NOT NULL,
@@ -422,9 +422,9 @@ BEGIN
     );
 END;
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BSCharChanger]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BarcodeCharChanger]') AND type in (N'U'))
 BEGIN
-    CREATE TABLE BSCharChanger (
+    CREATE TABLE BarcodeCharChanger (
         Id INT NOT NULL PRIMARY KEY,
         Chars NVARCHAR(255) NOT NULL
     );
@@ -437,6 +437,9 @@ BEGIN
         ReadDate DATETIME NOT NULL,
         LicensePlate NVARCHAR(50) NOT NULL,
         CameraId INT NOT NULL,
+        ImageId INT NOT NULL,
+        Confidence INT NOT NULL,
+        FOREIGN KEY (ImageId) REFERENCES SavedImages(Id),
 		FOREIGN KEY (CameraId) REFERENCES Cameras(Id)
     );
 END;

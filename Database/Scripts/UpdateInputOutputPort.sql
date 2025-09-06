@@ -1,5 +1,4 @@
-﻿UPDATE InputOutputPorts
-SET 
+﻿UPDATE InputOutputPorts SET
     DeviceId = @DeviceId,
     PortNum = @PortNum,
     Name = @Name,

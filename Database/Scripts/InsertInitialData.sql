@@ -45,12 +45,12 @@ BEGIN
     
     SET IDENTITY_INSERT UserEvents OFF; 
 
-    INSERT INTO BSOptions
+    INSERT INTO BarcodeScanOptions
         (LcidIn, LcidOut, MaxDelay, CustomIn, CustomOut, SerialScanner, SelectedComPort)
     VALUES
         (1038, 1033, 50, 0, 0, 0, -1);
 
-    INSERT INTO BSCharChanger
+    INSERT INTO BarcodeCharChanger
         (Id, Chars)
     VALUES
         (1033, '`1234567890-=qwertyuiop[]asdfghjkl;''\\\\zxcvbnm,./ ~!@#$%&*()_+QWERTYUIOP{}ASDFGHJKL\"||ZXCVBNM<>? '),

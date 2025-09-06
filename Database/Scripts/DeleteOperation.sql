@@ -1,0 +1,1 @@
+﻿DELETE FROM Operations WHERE Id = @Id;

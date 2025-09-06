@@ -1,0 +1,1 @@
+﻿DELETE FROM InputOutputPortRules WHERE Id = @Id;

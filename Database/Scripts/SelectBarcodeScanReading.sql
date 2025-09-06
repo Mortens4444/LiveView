@@ -1,1 +1,1 @@
-﻿SELECT * FROM BSReadings WHERE Id = @Id;
+﻿SELECT * FROM BarcodeScanReadings WHERE Id = @Id;

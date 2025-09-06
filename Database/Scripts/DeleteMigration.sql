@@ -1,0 +1,1 @@
+﻿UPDATE Migrations SET Name = @Name WHERE Id = @Id;

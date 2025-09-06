@@ -1,0 +1,1 @@
+﻿DELETE FROM DeleteReadingGroupRules WHERE Id = @Id;

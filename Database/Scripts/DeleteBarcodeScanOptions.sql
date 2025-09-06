@@ -1,0 +1,1 @@
+﻿DELETE FROM BarcodeScanOptions WHERE Id = @Id;
