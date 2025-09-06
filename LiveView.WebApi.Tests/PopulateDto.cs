@@ -1,263 +1,67 @@
 ﻿using System;
-using System.Collections;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace LiveView.WebApi.Tests
 {
+    internal enum PopulationMode { Default, Update }
+
     internal static class PopulateDto
     {
-        public static void WithDefaults(object dto, Type dtoType)
+        public static void Populate(object dto, PopulationMode mode)
         {
-            WithDefaultsInternal(dto, dtoType, 0, 2);
+            if (dto == null) return;
+            PopulateInternal(dto, dto.GetType(), mode, 0);
         }
 
-        private static void WithDefaultsInternal(object dto, Type dtoType, int depth, int maxDepth)
+        private static void PopulateInternal(object dto, Type dtoType, PopulationMode mode, int depth)
         {
-            if (dto == null || dtoType == null) return;
-            if (depth > maxDepth) return;
+            if (dto == null || depth > 3) return;
 
-            var props = dtoType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanWrite && p.GetIndexParameters().Length == 0);
+            var properties = dtoType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.CanWrite && !string.Equals(p.Name, "Id", StringComparison.OrdinalIgnoreCase));
 
-            foreach (var p in props)
+            foreach (var prop in properties)
             {
-                if (String.Equals(p.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                var value = GenerateValueForType(prop.PropertyType, mode, depth);
+                if (value != null)
                 {
-                    continue;
-                }
-
-                var t = p.PropertyType;
-
-                var currentVal = p.GetValue(dto);
-                if (currentVal != null)
-                {
-                    if (t == typeof(string) && (string)currentVal == String.Empty)
-                    {
-                    }
-                    if (t == typeof(DateTime))
-                    {
-                        p.SetValue(dto, DateTime.UtcNow);
-                        continue;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-                if (String.Equals(p.Name, "Image", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (t == typeof(byte[]))
-                    {
-                        p.SetValue(dto, new byte[] { 0x1, 0x2, 0x3 });
-                        continue;
-                    }
-
-                    if (t == typeof(string))
-                    {
-                        p.SetValue(dto, Convert.ToBase64String(new byte[] { 0x1, 0x2, 0x3 }));
-                        continue;
-                    }
-                }
-
-                var isRequired = p.GetCustomAttributes(typeof(RequiredAttribute), inherit: true).Length != 0;
-
-                if (t == typeof(string))
-                {
-                    p.SetValue(dto, "test");
-                    continue;
-                }
-
-                if (t == typeof(Guid))
-                {
-                    p.SetValue(dto, Guid.NewGuid());
-                    continue;
-                }
-
-                if (t == typeof(int) || t == typeof(long) || t == typeof(short) ||
-                    t == typeof(byte) || t == typeof(uint) || t == typeof(ulong) ||
-                    t == typeof(ushort) || t == typeof(sbyte))
-                {
-                    var val = Convert.ChangeType(1, t, CultureInfo.InvariantCulture);
-                    p.SetValue(dto, val);
-                    continue;
-                }
-
-                if (t == typeof(bool))
-                {
-                    p.SetValue(dto, true);
-                    continue;
-                }
-
-                if (t == typeof(DateTime))
-                {
-                    p.SetValue(dto, DateTime.UtcNow);
-                    continue;
-                }
-
-                if (t.IsEnum)
-                {
-                    var enumValues = Enum.GetValues(t);
-                    if (enumValues.Length > 0)
-                    {
-                        p.SetValue(dto, enumValues.GetValue(0));
-                    }
-                    continue;
-                }
-
-                var underlying = Nullable.GetUnderlyingType(t);
-                if (underlying != null)
-                {
-                    if (underlying == typeof(int) || underlying == typeof(long) || underlying == typeof(short) ||
-                        underlying == typeof(byte))
-                    {
-                        p.SetValue(dto, Convert.ChangeType(1, underlying, CultureInfo.InvariantCulture));
-                        continue;
-                    }
-
-                    if (underlying == typeof(bool))
-                    {
-                        p.SetValue(dto, true);
-                        continue;
-                    }
-
-                    if (underlying == typeof(DateTime))
-                    {
-                        p.SetValue(dto, DateTime.UtcNow);
-                        continue;
-                    }
-
-                    if (underlying.IsEnum)
-                    {
-                        var enumValues = Enum.GetValues(underlying);
-                        if (enumValues.Length > 0)
-                        {
-                            p.SetValue(dto, enumValues.GetValue(0));
-                        }
-                        continue;
-                    }
-                }
-
-                if (t == typeof(byte[]))
-                {
-                    p.SetValue(dto, new byte[] { 0x1, 0x2, 0x3 });
-                    continue;
-                }
-
-                if (typeof(IEnumerable).IsAssignableFrom(t) && t != typeof(string))
-                {
-                    if (t.IsArray)
-                    {
-                        var elemType = t.GetElementType();
-                        var elem = CreateSimpleInstance(elemType, depth, maxDepth);
-                        var arr = Array.CreateInstance(elemType, 1);
-                        arr.SetValue(elem, 0);
-                        p.SetValue(dto, arr);
-                        continue;
-                    }
-
-                    var interfaces = t.GetInterfaces().Concat(new[] { t });
-                    var gen = interfaces
-                        .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                        .Select(i => i.GetGenericArguments()[0])
-                        .FirstOrDefault();
-
-                    if (gen != null)
-                    {
-                        var listType = typeof(List<>).MakeGenericType(gen);
-                        var list = (IList)Activator.CreateInstance(listType);
-                        var elem = CreateSimpleInstance(gen, depth + 1, maxDepth);
-                        list.Add(elem);
-                        p.SetValue(dto, list);
-                        continue;
-                    }
-                }
-
-                if (t.IsClass)
-                {
-                    var child = Activator.CreateInstance(t);
-                    WithDefaultsInternal(child, t, depth + 1, maxDepth);
-                    p.SetValue(dto, child);
-                    continue;
-                }
-
-                if (isRequired)
-                {
-                    p.SetValue(dto, "test");
+                    prop.SetValue(dto, value);
                 }
             }
         }
 
-        private static object CreateSimpleInstance(Type t, int depth, int maxDepth)
+        private static object GenerateValueForType(Type type, PopulationMode mode, int depth)
         {
-            if (t == typeof(string))
-            {
-                return "test";
-            }
+            if (type == typeof(string))
+                return mode == PopulationMode.Default ? "test" : "updated test";
 
-            if (t == typeof(int) || t == typeof(long) || t == typeof(short) ||
-                t == typeof(byte) || t == typeof(uint) || t == typeof(ulong) ||
-                t == typeof(ushort) || t == typeof(sbyte))
-            {
-                return Convert.ChangeType(1, t, CultureInfo.InvariantCulture);
-            }
+            if (type == typeof(int) || type == typeof(long) || type == typeof(short) || type == typeof(byte))
+                return Convert.ChangeType(mode == PopulationMode.Default ? 1 : 100, type);
 
-            if (t == typeof(bool))
-            {
-                return true;
-            }
+            if (type == typeof(byte[]))
+                return mode == PopulationMode.Default ? new byte[] { 1, 2, 3 } : new byte[] { 3, 2, 1 };
 
-            if (t == typeof(DateTime))
-            {
-                return DateTime.UtcNow;
-            }
+            if (type == typeof(bool))
+                return mode == PopulationMode.Default;
 
-            if (t == typeof(Guid))
-            {
+            if (type == typeof(DateTime))
+                return mode == PopulationMode.Default ? DateTime.UtcNow : DateTime.UtcNow.AddDays(1);
+
+            if (type == typeof(Guid))
                 return Guid.NewGuid();
+
+            if (type.IsEnum)
+            {
+                var enumValues = Enum.GetValues(type);
+                var index = (mode == PopulationMode.Default || enumValues.Length < 2) ? 0 : 1;
+                return enumValues.Length > index ? enumValues.GetValue(index) : null;
             }
 
-            if (t.IsEnum)
+            if (type.IsClass)
             {
-                var values = Enum.GetValues(t);
-                if (values.Length > 0)
-                {
-                    return values.GetValue(0);
-                }
-            }
-
-            if (t.IsArray)
-            {
-                var elemType = t.GetElementType();
-                var arr = Array.CreateInstance(elemType, 0);
-                return arr;
-            }
-
-            if (typeof(IEnumerable).IsAssignableFrom(t))
-            {
-                var interfaces = t.GetInterfaces().Concat(new[] { t });
-                var gen = interfaces
-                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                    .Select(i => i.GetGenericArguments()[0])
-                    .FirstOrDefault();
-                if (gen != null)
-                {
-                    var listType = typeof(List<>).MakeGenericType(gen);
-                    var list = (IList)Activator.CreateInstance(listType);
-                    var elem = CreateSimpleInstance(gen, depth + 1, maxDepth);
-                    list.Add(elem);
-                    return list;
-                }
-            }
-
-            if (t.IsClass && depth < maxDepth)
-            {
-                var instance = Activator.CreateInstance(t);
-                WithDefaultsInternal(instance, t, depth + 1, maxDepth);
+                var instance = Activator.CreateInstance(type);
+                PopulateInternal(instance, type, mode, depth + 1);
                 return instance;
             }
 
