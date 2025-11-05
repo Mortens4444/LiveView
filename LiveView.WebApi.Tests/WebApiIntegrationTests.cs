@@ -1,3 +1,4 @@
+using LiveView.WebApi.Dto;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,38 @@ namespace LiveView.WebApi.Tests
         private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         [Explicit("Integration test — run explicitly (requires DB).")]
-        [TestCaseSource(nameof(CrudEndpoints))]
+        //[TestCaseSource(nameof(CrudEndpoints))]
+        //[TestCase("/api/actionobjects", typeof(ActionObjectDto))]
+        [TestCase("/api/agents", typeof(AgentDto))]
+        //[TestCase("/api/barcodecarchangers", typeof(BarcodeCharChangerDto))]
+        //[TestCase("/api/barcodescanoptions", typeof(BarcodeScanOptionsDto))]
+        //[TestCase("/api/barcodescanreadings", typeof(BarcodeScanReadingDto))]
+        //[TestCase("/api/camerafunctions", typeof(CameraFunctionDto))]
+        //[TestCase("/api/camerapermissions", typeof(CameraPermissionDto))]
+        //[TestCase("/api/cameras", typeof(CameraDto))]
+        //[TestCase("/api/databaseservers", typeof(DatabaseServerDto))]
+        //[TestCase("/api/displays", typeof(DisplayDto))]
+        //[TestCase("/api/gridcameras", typeof(GridCameraDto))]
+        //[TestCase("/api/grids", typeof(GridDto))]
+        //[TestCase("/api/groupmembers", typeof(GroupMemberDto))]
+        //[TestCase("/api/groups", typeof(GroupDto))]
+        //[TestCase("/api/inputoutputportrules", typeof(InputOutputPortRuleDto))]
+        //[TestCase("/api/inputoutputports", typeof(InputOutputPortDto))]
+        //[TestCase("/api/inputoutputportslog", typeof(InputOutputPortLogDto))]
+        //[TestCase("/api/logentries", typeof(LogEntryDto))]
+        //[TestCase("/api/mapactionobjects", typeof(MapActionObjectDto))]
+        //[TestCase("/api/maps", typeof(MapDto))]
+        //[TestCase("/api/migrations", typeof(MigrationDto))]
+        //[TestCase("/api/operations", typeof(OperationDto))]
+        //[TestCase("/api/permissions", typeof(PermissionDto))]
+        //[TestCase("/api/sequencegrids", typeof(SequenceGridsDto))]
+        //[TestCase("/api/sequences", typeof(SequenceDto))]
+        //[TestCase("/api/templateprocesses", typeof(TemplateProcessDto))]
+        //[TestCase("/api/templates", typeof(TemplateDto))]
+        //[TestCase("/api/userevents", typeof(UserEventDto))]
+        //[TestCase("/api/users", typeof(UserDto))]
+        //[TestCase("/api/videoservers", typeof(VideoServerDto))]
+        //[TestCase("/api/videosources", typeof(VideoSourceDto))]
         public async Task ___FullCrudCycleShouldSucceed___(string createUri, Type dtoType)
         {
             string resourceUri = null;

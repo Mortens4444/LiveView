@@ -1,156 +1,39 @@
-@LiveView.WebApi_HostAddress = https://localhost:44326
+@LiveView_WebApi_HostAddress = https://localhost:44326
+# @resources = [actionobjects, agents, barcodecharchangers, barcodescanoptions, barcodescanreadings, camerafunctions,
+#   camerapermissions, cameras, databaseservers, displays, gridcameras, grids, groupmembers, groups, inputoutputports,
+#   inputoutputportrules, inputoutputportslog, logentries, mapactionobjects, maps, migrations, operations, permissions,
+#   sequencegrids, sequences, templateprocesses, templates, userevents, users, videoservers, videosources]
 
-GET {{LiveView.WebApi_HostAddress}}/api/actionobjects/
+#@resource = cameras
+@resource = {{$prompt "Choose a resource:" "actionobjects,agents,barcodecharchangers,barcodescanoptions,barcodescanreadings,camerafunctions,camerapermissions,cameras,databaseservers,displays,gridcameras,grids,groupmembers,groups,inputoutputports,inputoutputportrules,inputoutputportslog,logentries,mapactionobjects,maps,migrations,operations,permissions,sequencegrids,sequences,templateprocesses,templates,userevents,users,videoservers,videosources"}}
+@id = 1
+
+### GET all
+GET {{LiveView_WebApi_HostAddress}}/api/{{resource}}/
 Accept: application/json
 
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/agents/
+### GET by id
+GET {{LiveView_WebApi_HostAddress}}/api/{{resource}}/{{id}}
 Accept: application/json
 
-###
+### CREATE
+POST {{LiveView_WebApi_HostAddress}}/api/{{resource}}/
+Content-Type: application/json
 
-GET {{LiveView.WebApi_HostAddress}}/api/barcodecharchangers/
-Accept: application/json
+{
+  "name": "New item",
+  "description": "Test item"
+}
 
-###
+### UPDATE
+PUT {{LiveView_WebApi_HostAddress}}/api/{{resource}}/{{id}}
+Content-Type: application/json
 
-GET {{LiveView.WebApi_HostAddress}}/api/barcodescanoptions/
-Accept: application/json
+{
+  "id": {{id}},
+  "name": "Updated item",
+  "description": "Updated test item"
+}
 
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/barcodescanreadings/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/camerafunctions/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/camerapermissions/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/cameras/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/databaseservers/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/displays/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/gridcameras/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/grids/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/groupmembers/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/groups/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/inputoutputports/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/inputoutputportrules/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/inputoutputportslog/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/logentries/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/mapactionobjects/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/maps/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/migrations/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/operations/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/permissions/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/sequencegrids/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/sequences/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/templateprocesses/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/templates/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/userevents/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/users/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/videoservers/
-Accept: application/json
-
-###
-
-GET {{LiveView.WebApi_HostAddress}}/api/videosources/
-Accept: application/json
-
-###
+### DELETE
+DELETE {{LiveView_WebApi_HostAddress}}/api/{{resource}}/{{id}}
