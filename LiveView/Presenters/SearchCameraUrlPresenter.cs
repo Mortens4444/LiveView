@@ -9,13 +9,12 @@ using LiveView.Models.Network;
 using LiveView.Services;
 using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Models;
 using Mtf.Permissions.Services;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 

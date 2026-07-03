@@ -3,7 +3,7 @@ using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Interfaces;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using System;
 using System.Linq;
 

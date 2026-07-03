@@ -15,7 +15,7 @@ using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.General.Extensions;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;

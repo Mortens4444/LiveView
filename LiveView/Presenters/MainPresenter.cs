@@ -25,7 +25,7 @@ using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.HardwareKey.Enums;
 using Mtf.Joystick;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.MessageBoxes;

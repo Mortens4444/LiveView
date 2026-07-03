@@ -12,11 +12,7 @@ namespace LiveView.Core.Services
     {
         public static int GetProcessId()
         {
-#if NET6_0_OR_GREATER
             return Environment.ProcessId;
-#else
-            return Process.GetCurrentProcess().Id;
-#endif
         }
 
         public static void ChangeExternalProcessesVisibility(List<Process> processes, CmdShow cmdShow)

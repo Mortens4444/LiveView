@@ -1,7 +1,6 @@
 ﻿using Database.Enums;
 using Database.Interfaces;
 using Database.Models;
-using Database.Services.PasswordHashers;
 using LiveView.Extensions;
 using LiveView.Forms;
 using LiveView.Interfaces;
@@ -9,7 +8,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.Extensions;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;

@@ -2,7 +2,7 @@
 using LiveView.Core.Services;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;

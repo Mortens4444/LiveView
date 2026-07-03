@@ -5,7 +5,7 @@ using LiveView.Core.Services;
 using LiveView.Dto;
 using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes.Enums;
 using System;
 using System.Collections.Generic;

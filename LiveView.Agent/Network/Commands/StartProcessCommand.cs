@@ -2,7 +2,7 @@
 using LiveView.Agent.Dto;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using System;
 using System.Collections.Generic;

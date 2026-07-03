@@ -7,7 +7,7 @@ using LiveView.Core.Dependencies;
 using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;

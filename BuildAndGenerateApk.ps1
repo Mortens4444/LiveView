@@ -3,7 +3,7 @@ param(
     [string]$ManifestPath = ".\LiveView.Agent.Maui\Platforms\Android\AndroidManifest.xml"
 )
 
-$solutionDirectory = "C:\Work\Sziltech\LiveView\"
+$solutionDirectory = "F:\Work\Sziltech\LiveView\"
 $csprojFullPath = [System.IO.Path]::Combine($solutionDirectory, $CsprojPath)
 $manifestFullPath = [System.IO.Path]::Combine($solutionDirectory, $ManifestPath)
 $xml = [xml](Get-Content $csprojFullPath)

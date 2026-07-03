@@ -10,7 +10,7 @@ using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.HardwareKey;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.Network.EventArg;
 using Mtf.Network.Services;
 using Mtf.Windows.Forms.Extensions;

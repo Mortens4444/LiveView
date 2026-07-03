@@ -14,7 +14,7 @@ using LiveView.Core.Services.Net;
 using LiveView.Core.Services.Pipe;
 using Microsoft.Extensions.DependencyInjection;
 using Mtf.Controls.Interfaces;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
 using Mtf.Permissions.Enums;

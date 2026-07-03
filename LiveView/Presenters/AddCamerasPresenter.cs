@@ -8,14 +8,13 @@ using LiveView.Models.Dependencies;
 using LiveView.Models.VideoServer;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.Permissions.Enums;
 using Mtf.Windows.Forms.Extensions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VIDEOCONTROL4Lib;
 using VideoServer = Database.Models.VideoServer;
 
 namespace LiveView.Presenters

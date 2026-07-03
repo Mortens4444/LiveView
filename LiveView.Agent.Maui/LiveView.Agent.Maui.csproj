@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-    <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks> -->
     <!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
 		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
@@ -24,7 +24,7 @@
     <!-- Versions -->
     <MajorVersion>1</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <BuildNumber>11</BuildNumber>
+    <BuildNumber>12</BuildNumber>
     <PatchNumber>0</PatchNumber>
     <FileVersion>$(MajorVersion).$(MinorVersion).$(BuildNumber).$(PatchNumber)</FileVersion>
     <AssemblyVersion>$(FileVersion)</AssemblyVersion>
@@ -51,9 +51,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
     <!-- Splash Screen -->
-    <MauiSplashScreen Include="Resources\Images\ipvs47.png" Color="#512BD4" BaseSize="128,128" />
+    <MauiSplashScreen Include="Resources\Images\ipvs47.png" Color="#000000" BaseSize="128,128" />
     <!-- Images -->
     <MauiImage Include="Resources\Images\*" />
     <!-- Custom Fonts -->
@@ -63,13 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Camera.MAUI" Version="1.5.1" />
-    <PackageReference Include="CommunityToolkit.Maui.Core" Version="12.2.0" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.100" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.100" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="9.0.100" />
-    <PackageReference Include="Microsoft.Maui.Core" Version="9.0.100" />
-    <PackageReference Include="Mtf.Extensions" Version="1.0.17" />
+    <PackageReference Include="CommunityToolkit.Maui.Core" Version="14.2.0" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.80" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.80" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
+    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.80" />
+    <PackageReference Include="Microsoft.Maui.Core" Version="10.0.80" />
+    <PackageReference Include="Mtf.Extensions" Version="1.0.31" />
     <PackageReference Include="Mtf.Network" Version="2.0.17" />
   </ItemGroup>
 </Project>

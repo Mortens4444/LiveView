@@ -3,7 +3,7 @@ using Database.Services;
 using Database.Services.PasswordHashers;
 using LiveView.Interfaces;
 using LiveView.Presenters;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Attributes;
 using Mtf.Permissions.Enums;

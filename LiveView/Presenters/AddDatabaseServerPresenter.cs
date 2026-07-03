@@ -7,7 +7,7 @@ using LiveView.Models.Dependencies;
 using LiveView.Models.Network;
 using LiveView.Services.Network;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;

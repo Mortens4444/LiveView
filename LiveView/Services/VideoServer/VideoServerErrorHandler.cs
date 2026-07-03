@@ -1,4 +1,4 @@
-﻿using Mtf.LanguageService;
+﻿using Mtf.LanguageService.Core;
 
 namespace LiveView.Services.VideoServer
 {

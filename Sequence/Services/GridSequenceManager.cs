@@ -8,7 +8,7 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService;
+using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Permissions.Services;
@@ -205,16 +205,10 @@ namespace Sequence.Services
 
         private async Task WaitWithCancellationAsync((Grid grid, SequenceGrid gridInSequence) gridInfo, int checkInterval = 100)
         {
-
-#if NET6_0_OR_GREATER
             long millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
             var start = Environment.TickCount64;
             var elapsedMilliseconds = Environment.TickCount64 - start;
-#else
-            var millisecondsDelay = gridInfo.gridInSequence.TimeToShow * 1000;
-            var start = (uint)Environment.TickCount;
-            var elapsedMilliseconds = ((uint)Environment.TickCount - start);
-#endif
+
             while ((elapsedMilliseconds < millisecondsDelay || IsPaused) && !(showPreviousGrid || showNextGrid))
             {
                 var secondsLeft = Math.Max(0, (millisecondsDelay - elapsedMilliseconds) / 1000);
@@ -225,11 +219,7 @@ namespace Sequence.Services
                     break;
                 }
                 await Task.Delay(checkInterval, CancellationToken.None).ConfigureAwait(false);
-#if NET6_0_OR_GREATER
                 elapsedMilliseconds = Environment.TickCount64 - start;
-#else
-                elapsedMilliseconds = ((uint)Environment.TickCount - start);
-#endif
             }
         }
 
@@ -340,11 +330,7 @@ namespace Sequence.Services
 
         public async Task DisposeCameraWindowsAsync()
         {
-#if NET6_0_OR_GREATER
             await cancellationTokenSource.CancelAsync().ConfigureAwait(false);
-#else
-            cancellationTokenSource.Cancel();
-#endif
             await Task.Delay(0).ConfigureAwait(false);
 
             if (isMdi)
