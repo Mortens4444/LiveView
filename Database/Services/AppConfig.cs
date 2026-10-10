@@ -7,7 +7,11 @@ namespace Database.Services
     {
         public static T GetWithThrowOnError<T>(string settingName, T defaultValue = default)
         {
-            var value = ConfigurationManager.AppSettings[settingName];
+            var value = Environment.GetEnvironmentVariable(settingName);
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                value = ConfigurationManager.AppSettings[settingName];
+            }
             if (String.IsNullOrWhiteSpace(value))
             {
                 return defaultValue;

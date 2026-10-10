@@ -1,4 +1,5 @@
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -30,7 +31,7 @@ namespace LiveView.WebApi.Dto
                 $"<small>PortNum: {PortNum}</small><br>" +
                 $"<small>Date: {Date}</small><br>" +
                 $"<small>State: {State}</small><br>" +
-                $"<small>Note: {Note}</small>";
+                $"<small>Note: {WebUtility.HtmlEncode(Note)}</small>";
         }
     }
 }

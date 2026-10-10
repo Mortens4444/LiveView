@@ -2,18 +2,17 @@
 using Mtf.Database.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface ICameraRepository : IRepository<Camera, int>
 {
-    public interface ICameraRepository : IRepository<Camera>
-    {
-        void DeleteCamerasOfVideoServer(long videoServerId);
+    void DeleteCamerasOfVideoServer(long videoServerId);
 
-        string SelectCameraName(long cameraId);
+    string SelectCameraName(long cameraId);
 
-        ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId);
+    ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId);
 
-        ReadOnlyCollection<Camera> SelectMotionTriggeredCameras();
+    ReadOnlyCollection<Camera> SelectMotionTriggeredCameras();
 
-        Camera Select(GridCamera gridCamera);
-    }
+    Camera Select(GridCamera gridCamera);
 }

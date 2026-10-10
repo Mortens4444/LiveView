@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class Map : IHaveId<int>
+    public class Map : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
     {
         public int Id { get; set; }
 

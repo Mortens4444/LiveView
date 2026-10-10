@@ -20,6 +20,7 @@ using Mtf.Network.EventArg;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -32,6 +33,7 @@ namespace CameraForms.Forms
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private int onExit;
         private readonly PermissionSetter permissionSetter;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly VideoServer server;
@@ -228,10 +230,13 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            kBD300ASimulatorServer?.Stop();
-            axVideoPlayerWindow.AxVideoPlayer.Stop();
-            axVideoPlayerWindow.AxVideoPlayer.Dispose();
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            if (Interlocked.Exchange(ref onExit, 1) == 0)
+            {
+                kBD300ASimulatorServer?.Stop();
+                axVideoPlayerWindow.AxVideoPlayer.Stop();
+                axVideoPlayerWindow.AxVideoPlayer.Dispose();
+                client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+            }
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)

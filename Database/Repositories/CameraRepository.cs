@@ -3,38 +3,38 @@ using Database.Models;
 using Mtf.Database;
 using System.Collections.ObjectModel;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class CameraRepository : BaseRepository<Camera, int>, ICameraRepository
 {
-    public sealed class CameraRepository : BaseRepository<Camera>, ICameraRepository
+    public CameraRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+    public void DeleteCamerasOfVideoServer(long serverId)
     {
-        public void DeleteCamerasOfVideoServer(long serverId)
+        Execute("DeleteCamerasOfServer", new { ServerId = serverId });
+    }
+
+    public string SelectCameraName(long cameraId)
+    {
+        return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
+    }
+
+    public ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId)
+    {
+        return Query("SelectGroupCameras", new { GroupId = groupId, UserEventId = userEventId });
+    }
+
+    public ReadOnlyCollection<Camera> SelectMotionTriggeredCameras()
+    {
+        return Query("SelectMotionTriggeredCameras");
+    }
+
+    public Camera Select(GridCamera gridCamera)
+    {
+        if (gridCamera == null)
         {
-            Execute("DeleteCamerasOfServer", new { ServerId = serverId });
+            return null;
         }
 
-        public string SelectCameraName(long cameraId)
-        {
-            return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
-        }
-
-        public ReadOnlyCollection<Camera> SelectGroupCameras(long groupId, long userEventId)
-        {
-            return Query("SelectGroupCameras", new { GroupId = groupId, UserEventId = userEventId });
-        }
-
-        public ReadOnlyCollection<Camera> SelectMotionTriggeredCameras()
-        {
-            return Query("SelectMotionTriggeredCameras");
-        }
-
-        public Camera Select(GridCamera gridCamera)
-        {
-            if (gridCamera == null)
-            {
-                return null;
-            }
-
-            return gridCamera.CameraId.HasValue ? Select(gridCamera.CameraId.Value) : null;
-        }
+        return gridCamera.CameraId.HasValue ? Select(gridCamera.CameraId.Value) : null;
     }
 }

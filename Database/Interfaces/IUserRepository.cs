@@ -1,12 +1,11 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
-{
-    public interface IUserRepository : IRepository<User>
-    {
-        User Login(string encryptedUsername, string encryptedPassword);
+namespace Database.Interfaces;
 
-        User SecondaryLogin(string encryptedUsername, string encryptedPassword);
-    }
+public interface IUserRepository : IRepository<User, int>
+{
+    User Login(string encryptedUsername, string encryptedPassword);
+
+    User SecondaryLogin(string encryptedUsername, string encryptedPassword);
 }

@@ -1,20 +1,19 @@
 ﻿using Mtf.Extensions.Interfaces;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class VideoSource : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class VideoSource : IHaveId<int>
+    public int Id { get; set; }
+
+    public int AgentId { get; set; }
+
+    public string Name { get; set; }
+
+    public int Port { get; set; }
+
+    public override string ToString()
     {
-        public int Id { get; set; }
-
-        public int AgentId { get; set; }
-
-        public string Name { get; set; }
-
-        public int Port { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
+        return Name;
     }
 }

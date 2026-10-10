@@ -34,7 +34,7 @@ namespace Sequence.Forms
 #endif
         private static Client client;
 
-        private readonly long sequenceId;
+        private readonly int sequenceId;
         private readonly DisplayDto display;
         private readonly PermissionManager<User> permissionManager;
         private readonly GridSequenceManager gridSequenceManager;
@@ -42,7 +42,7 @@ namespace Sequence.Forms
         private readonly ILogger<MainForm> logger;
         private int onExit;
 
-        public MainForm(IServiceProvider serviceProvider, long agentId, long userId, long sequenceId, long displayId, bool isMdi)
+        public MainForm(IServiceProvider serviceProvider, int agentId, int userId, int sequenceId, int displayId, bool isMdi)
         {
             logger = serviceProvider.GetRequiredService<ILogger<MainForm>>();
 

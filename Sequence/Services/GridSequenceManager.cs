@@ -102,7 +102,7 @@ namespace Sequence.Services
                 groupMembersRepository, videoSourceRepository, generalOptionsRepository, cameraRegister);
         }
 
-        public async Task StartSequenceAsync(long sequenceId)
+        public async Task StartSequenceAsync(int sequenceId)
         {
             var sequence = sequenceRepository.Select(sequenceId);
             if (sequence == null)
@@ -127,7 +127,7 @@ namespace Sequence.Services
             else if (grids.Count == 1)
             {
                 var gridCameras = GetCameras(grids[0]);
-                ShowGrid(grids[0], gridCameras);
+                await ShowGridAsync(grids[0], gridCameras).ConfigureAwait(true);
             }
             else
             {
@@ -173,34 +173,32 @@ namespace Sequence.Services
             }
         }
 
-        private List<Form> ShowGridInWindow((Grid grid, SequenceGrid gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
+        private async Task<List<Form>> ShowGridInWindowAsync((Grid grid, SequenceGrid gridInSequence) gridInSequence, List<CameraInfo> gridCameras)
         {
-            var result = new List<Form>();
-            foreach (var camera in gridCameras)
+            var tasks = gridCameras.Select(camera => Task.Run(() =>
             {
-                Task.Run(() =>
-                {
-                    parentForm.InvokeIfRequired(() => result.Add(cameraWindowBuilder.ShowVideoWindow(display, parentForm, camera, gridInSequence, cancellationTokenSource)));
-                });
-            }
-            return result;
+                Form form = null;
+                parentForm.InvokeIfRequired(() => form = cameraWindowBuilder.ShowVideoWindow(display, parentForm, camera, gridInSequence, cancellationTokenSource));
+                return form;
+            })).ToList();
+
+            var forms = await Task.WhenAll(tasks).ConfigureAwait(false);
+            return forms.Where(form => form != null).ToList();
         }
 
-        private List<Process> ShowGridOnScreen((Grid grid, SequenceGrid gridInSequence) gridInSequence)
+        private async Task<List<Process>> ShowGridOnScreenAsync((Grid grid, SequenceGrid gridInSequence) gridInSequence)
         {
-            var result = new List<Process>();
             var cameras = GetCameras(gridInSequence);
 
-            foreach (var camera in cameras)
+            var tasks = cameras.Select(camera => Task.Run(() =>
             {
-                Task.Run(() =>
-                {
-                    var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
-                    var cameraId = camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo ? $"{videoCaptureSourceCameraInfo.ServerIp} {videoCaptureSourceCameraInfo.VideoSourceName}" : camera.GridCamera.CameraId?.ToString(CultureInfo.InvariantCulture) ?? "0";
-                    result.Add(AppStarter.Start(Database.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {cameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger));
-                });
-            }
-            return result;
+                var rectangle = GridCameraLayoutService.Get(display, gridInSequence.grid, camera.GridCamera, LocationType.Screen);
+                var cameraId = camera is VideoCaptureSourceCameraInfo videoCaptureSourceCameraInfo ? $"{videoCaptureSourceCameraInfo.ServerIp} {videoCaptureSourceCameraInfo.VideoSourceName}" : camera.GridCamera.CameraId?.ToString(CultureInfo.InvariantCulture) ?? "0";
+                return AppStarter.Start(Database.Constants.CameraAppExe, $"{permissionManager.CurrentUser.Tag.Id} {cameraId} {rectangle.Left} {rectangle.Top} {rectangle.Width} {rectangle.Height} {(int)camera.GridCamera.CameraMode}", logger);
+            })).ToList();
+
+            var results = await Task.WhenAll(tasks).ConfigureAwait(false);
+            return results.Where(process => process != null).ToList();
         }
 
         private async Task WaitWithCancellationAsync((Grid grid, SequenceGrid gridInSequence) gridInfo, int checkInterval = 100)
@@ -223,7 +221,7 @@ namespace Sequence.Services
             }
         }
 
-        private void ShowGrid((Grid grid, SequenceGrid gridInSequence) grid, List<CameraInfo> gridCameras)
+        private async Task ShowGridAsync((Grid grid, SequenceGrid gridInSequence) grid, List<CameraInfo> gridCameras)
         {
             if (cancellationTokenSource.Token.IsCancellationRequested)
             {
@@ -237,7 +235,7 @@ namespace Sequence.Services
                 }
                 else
                 {
-                    cameraForms[grid.grid.Id] = ShowGridInWindow(grid, gridCameras);
+                    cameraForms[grid.grid.Id] = await ShowGridInWindowAsync(grid, gridCameras).ConfigureAwait(false);
                 }
             }
             else
@@ -248,7 +246,7 @@ namespace Sequence.Services
                 }
                 else
                 {
-                    processes[grid.grid.Id] = ShowGridOnScreen(grid);
+                    processes[grid.grid.Id] = await ShowGridOnScreenAsync(grid).ConfigureAwait(false);
                 }
             }
         }
@@ -298,7 +296,7 @@ namespace Sequence.Services
                         var gridInfo = sequenceGrids[i];
                         var gridCameras = GetCameras(gridInfo);
 
-                        ShowGrid(gridInfo, gridCameras);
+                        await ShowGridAsync(gridInfo, gridCameras).ConfigureAwait(false);
                         parentForm.ResumeLayout();
                         await WaitWithCancellationAsync(gridInfo).ConfigureAwait(false);
                         parentForm.SuspendLayout();

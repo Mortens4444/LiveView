@@ -3,7 +3,7 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IActionObjectRepository : IRepository<ActionObject>
+    public interface IActionObjectRepository : IRepository<ActionObject, int>
     {
     }
 }

@@ -49,16 +49,16 @@ namespace LiveView.Services.Template
                         }
                         else
                         {
-                            ControlCenterPresenter.SequenceProcesses.Add(process);
+                            ControlCenterPresenter.AddSequence(process);
                         }
                     }
                     else
                     {
                         var args = templateProcess.ProcessParameters.Split(' ');
-                        var agentId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
-                        var userId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-                        var sequenceId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
-                        var displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+                        var agentId = Convert.ToInt32(args[0], CultureInfo.InvariantCulture);
+                        var userId = Convert.ToInt32(args[1], CultureInfo.InvariantCulture);
+                        var sequenceId = Convert.ToInt32(args[2], CultureInfo.InvariantCulture);
+                        var displayId = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
                         var isMdi = Convert.ToBoolean(args[4], CultureInfo.InvariantCulture);
                         var agent = agentRepository.Select(agentId);
                         if (agent != null)

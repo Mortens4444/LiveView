@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class InputOutputPortRuleRepository : BaseRepository<InputOutputPortRule, int>, IInputOutputPortRuleRepository
 {
-    public sealed class InputOutputPortRuleRepository : BaseRepository<InputOutputPortRule>, IInputOutputPortRuleRepository
-    {
-    }
+    public InputOutputPortRuleRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

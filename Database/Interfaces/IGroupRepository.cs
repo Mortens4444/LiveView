@@ -1,12 +1,11 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
-{
-    public interface IGroupRepository : IRepository<Group>
-    {
-        void DeleteGroupPermissions(long groupId);
+namespace Database.Interfaces;
 
-        void DeleteGroupPermissions(long groupId, long userEventId);
-    }
+public interface IGroupRepository : IRepository<Group, int>
+{
+    void DeleteGroupPermissions(int groupId);
+
+    void DeleteGroupPermissions(int groupId, int userEventId);
 }

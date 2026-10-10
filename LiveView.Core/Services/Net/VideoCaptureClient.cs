@@ -14,7 +14,7 @@ namespace LiveView.Core.Services.Net
         {
         }
 
-        private new void OnFrameArrived(byte[] fullImageData)
+        protected override void OnFrameArrived(byte[] fullImageData)
         {
             try
             {

@@ -46,7 +46,8 @@ namespace LiveView.Presenters
         private readonly PermissionManager<User> permissionManager;
         private readonly ILogger<ControlCenter> logger;
 
-        public static readonly List<Process> SequenceProcesses = new List<Process>();
+        private static readonly List<Process> SequenceProcesses = new List<Process>();
+        private static readonly object sequenceProcessesLock = new object();
         public static Process CameraProcess { get; set; }
 
         public ControlCenterPresenter(ControlCenterPresenterDependencies dependencies)
@@ -102,8 +103,11 @@ namespace LiveView.Presenters
 
         public static void CloseSequenceApplications()
         {
-            ProcessUtils.Kill(SequenceProcesses);
-            SequenceProcesses.Clear();
+            lock (sequenceProcessesLock)
+            {
+                ProcessUtils.Kill(SequenceProcesses.ToList());
+                SequenceProcesses.Clear();
+            }
             foreach (var agent in Globals.Agents)
             {
                 MainPresenter.SentToClient(agent.Key, NetworkCommand.KillAll, Database.Constants.SequenceExe);
@@ -112,12 +116,18 @@ namespace LiveView.Presenters
 
         public static void AddSequence(Process sequenceProcess)
         {
-            SequenceProcesses.Add(sequenceProcess);
+            lock (sequenceProcessesLock)
+            {
+                SequenceProcesses.Add(sequenceProcess);
+            }
         }
 
         public int RemoveSequence(int sequenceId)
         {
-            return SequenceProcesses.RemoveAll(sp => sp.Id == sequenceId);
+            lock (sequenceProcessesLock)
+            {
+                return SequenceProcesses.RemoveAll(sp => sp.Id == sequenceId);
+            }
         }
 
         public void MoveToEast()
@@ -406,7 +416,7 @@ namespace LiveView.Presenters
                 var isMdi = generalOptionsRepository.Get(Setting.StartSequenceAsAnMdiParent, true);
                 if (selectedDisplay.AgentId == null)
                 {
-                    SequenceProcesses.Add(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
+                    AddSequence(StartSequence(sequence.Id, selectedDisplay.Id, isMdi));
                 }
                 else
                 {
@@ -493,7 +503,7 @@ namespace LiveView.Presenters
             }
         }
 
-        public void ShowGridInfo(long gridId, string secondsLeft)
+        public void ShowGridInfo(int gridId, string secondsLeft)
         {
             if (selectedSequenceProcess == null || !selectedSequenceProcess.SequenceId.HasValue)
             {

@@ -1,4 +1,5 @@
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -51,10 +52,10 @@ namespace LiveView.WebApi.Dto
 
         public string ToHtml()
         {
-            return $"<strong>{DeviceName ?? "N/A"}</strong><br>" +
-                $"<small>MonitorName: {MonitorName ?? "N/A"}</small><br>" +
-                $"<small>AdapterName: {AdapterName}</small><br>" +
-                $"<small>SziltechId: {SziltechId}</small>";
+            return $"<strong>{WebUtility.HtmlEncode(DeviceName) ?? "N/A"}</strong><br>" +
+                $"<small>MonitorName: {WebUtility.HtmlEncode(MonitorName) ?? "N/A"}</small><br>" +
+                $"<small>AdapterName: {WebUtility.HtmlEncode(AdapterName)}</small><br>" +
+                $"<small>SziltechId: {WebUtility.HtmlEncode(SziltechId)}</small>";
         }
     }
 }

@@ -2,13 +2,13 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class DisplayRepository : BaseRepository<Display, int>, IDisplayRepository
 {
-    public sealed class DisplayRepository : BaseRepository<Display>, IDisplayRepository
+    public DisplayRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+    public Display GetFullscreenDisplay()
     {
-        public Display GetFullscreenDisplay()
-        {
-            return QuerySingleOrDefault("SelectFullscreenDisplay");
-        }
+        return QuerySingleOrDefault("SelectFullscreenDisplay");
     }
 }

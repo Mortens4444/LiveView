@@ -1,4 +1,5 @@
 ﻿using Camera.MAUI;
+using Microsoft.Extensions.Logging;
 
 namespace LiveView.Agent.Maui;
 

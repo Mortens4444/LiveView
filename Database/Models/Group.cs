@@ -2,7 +2,7 @@
 
 namespace Database.Models
 {
-    public class Group : IHaveId<int>
+    public class Group : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
     {
         public int Id { get; set; }
 

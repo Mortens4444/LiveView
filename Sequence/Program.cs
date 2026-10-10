@@ -1,10 +1,7 @@
 using Database.Services;
-using LiveView.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mtf.Controls.Video.Sunell.IPR67;
-using Mtf.Controls.Video.Sunell.IPR67.SunellSdk;
-using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using Sequence.Forms;
 using Sequence.Services;
@@ -52,10 +49,10 @@ namespace Sequence
             {
                 throw new ArgumentException($"{Application.ProductName} should be started like this: {Application.ProductName} <agentId> <userId> <sequenceId> <displayId> <isMdi>{Environment.NewLine}Provided arguments were: {String.Join(", ", args)}");
             }
-            var agentId = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
-            var userId = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-            var sequenceId = Convert.ToInt64(args[2], CultureInfo.InvariantCulture);
-            var displayId = Convert.ToInt64(args[3], CultureInfo.InvariantCulture);
+            var agentId = Convert.ToInt32(args[0], CultureInfo.InvariantCulture);
+            var userId = Convert.ToInt32(args[1], CultureInfo.InvariantCulture);
+            var sequenceId = Convert.ToInt32(args[2], CultureInfo.InvariantCulture);
+            var displayId = Convert.ToInt32(args[3], CultureInfo.InvariantCulture);
             var isMdi = Convert.ToBoolean(args[4], CultureInfo.InvariantCulture);
 
             SunellVideoWindow.SdkInit();

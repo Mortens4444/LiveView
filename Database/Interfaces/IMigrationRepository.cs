@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IMigrationRepository : IRepository<Migration, int>
 {
-    public interface IMigrationRepository : IRepository<Migration>
-    {
-    }
 }

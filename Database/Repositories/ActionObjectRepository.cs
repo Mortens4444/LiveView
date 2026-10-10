@@ -2,13 +2,13 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class ActionObjectRepository : BaseRepository<ActionObject, int>, IActionObjectRepository
 {
-    public sealed class ActionObjectRepository : BaseRepository<ActionObject>, IActionObjectRepository
+    public ActionObjectRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+    public string SelectCameraName(int cameraId)
     {
-        public string SelectCameraName(int cameraId)
-        {
-            return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
-        }
+        return ExecuteScalar<string>("SelectCameraName", new { cid = cameraId });
     }
 }

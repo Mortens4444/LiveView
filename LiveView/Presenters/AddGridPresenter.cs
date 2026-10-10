@@ -14,7 +14,6 @@ using LiveView.Models.Dependencies;
 using LiveView.Services;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
-using Mtf.General.Extensions;
 using Mtf.LanguageService.Core;
 using Mtf.MessageBoxes;
 using Mtf.Network.EventArg;
@@ -239,26 +238,26 @@ namespace LiveView.Presenters
             view.RefreshUI();
         }
 
-        private void GetCombinedGridCameras(long gridId)
-        {
-            view.NudInitialRow.Maximum = view.NudNumberOfRows.Value;
-            view.NudClosingRow.Maximum = view.NudInitialRow.Maximum;
-            view.NudInitialColumn.Maximum = view.NudNumberOfColumns.Value;
-            view.NudClosingColumn.Maximum = view.NudInitialColumn.Maximum;
+        //private void GetCombinedGridCameras(int gridId)
+        //{
+        //    view.NudInitialRow.Maximum = view.NudNumberOfRows.Value;
+        //    view.NudClosingRow.Maximum = view.NudInitialRow.Maximum;
+        //    view.NudInitialColumn.Maximum = view.NudNumberOfColumns.Value;
+        //    view.NudClosingColumn.Maximum = view.NudInitialColumn.Maximum;
 
-            var gridCameras = gridCameraRepository.GetCombinedGridCameras(gridId);
-            for (int i = 0; i < gridCameras.Count; i++)
-            {
-                view.NudInitialRow.Value = gridCameras[i].InitRow + 1;
-                view.NudClosingRow.Value = gridCameras[i].EndRow.Value + 1;
-                view.NudInitialColumn.Value = gridCameras[i].InitCol + 1;
-                view.NudClosingColumn.Value = gridCameras[i].EndCol.Value + 1;
-                if (CanCombine())
-                {
-                    Combine();
-                }
-            }
-        }
+        //    var gridCameras = gridCameraRepository.GetCombinedGridCameras(gridId);
+        //    for (int i = 0; i < gridCameras.Count; i++)
+        //    {
+        //        view.NudInitialRow.Value = gridCameras[i].InitRow + 1;
+        //        view.NudClosingRow.Value = gridCameras[i].EndRow.Value + 1;
+        //        view.NudInitialColumn.Value = gridCameras[i].InitCol + 1;
+        //        view.NudClosingColumn.Value = gridCameras[i].EndCol.Value + 1;
+        //        if (CanCombine())
+        //        {
+        //            Combine();
+        //        }
+        //    }
+        //}
 
         private void LoadGridCameras(long gridId)
         {

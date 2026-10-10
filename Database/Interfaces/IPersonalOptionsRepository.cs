@@ -2,20 +2,19 @@
 using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IPersonalOptionsRepository : IRepository<PersonalOption, string>
 {
-    public interface IPersonalOptionsRepository : IRepository<PersonalOption>
-    {
-        void ResetCache();
+    void ResetCache();
 
-        T Get<T>(Setting settingName, long userId, T defaultValue = default);
+    T Get<T>(Setting settingName, long userId, T defaultValue = default);
 
-        void Set<T>(Setting settingName, long userId, T value);
+    void Set<T>(Setting settingName, long userId, T value);
 
-        string GetCameraName(long userId, VideoServer server, Camera camera);
+    string GetCameraName(long userId, VideoServer server, Camera camera);
 
-        string GetCameraName(long userId, string serverIp, string videoSourceName);
+    string GetCameraName(long userId, string serverIp, string videoSourceName);
 
-        string GetCameraName(long userId, string url);
-    }
+    string GetCameraName(long userId, string url);
 }

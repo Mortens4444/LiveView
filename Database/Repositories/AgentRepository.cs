@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class AgentRepository : BaseRepository<Agent, int>, IAgentRepository
 {
-    public sealed class AgentRepository : BaseRepository<Agent>, IAgentRepository
-    {
-    }
+    public AgentRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

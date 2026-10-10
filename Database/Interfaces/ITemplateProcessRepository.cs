@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface ITemplateProcessRepository : IRepository<TemplateProcess, int>
 {
-    public interface ITemplateProcessRepository : IRepository<TemplateProcess>
-    {
-    }
 }

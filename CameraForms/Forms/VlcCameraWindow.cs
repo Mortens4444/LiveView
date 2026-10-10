@@ -16,6 +16,7 @@ using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -23,6 +24,7 @@ namespace CameraForms.Forms
     public partial class VlcCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private int onExit;
         private readonly PermissionManager<User> permissionManager;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly ICameraFunctionRepository cameraFunctionRepository;
@@ -150,15 +152,18 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            kBD300ASimulatorServer?.Stop();
-            fullScreenCameraMessageHandler?.Exit();
-            try
+            if (Interlocked.Exchange(ref onExit, 1) == 0)
             {
-                vlcWindow.Stop();
-            }
-            catch (Exception ex)
-            {
-                DebugErrorBox.Show(ex);
+                kBD300ASimulatorServer?.Stop();
+                fullScreenCameraMessageHandler?.Exit();
+                try
+                {
+                    vlcWindow.Stop();
+                }
+                catch (Exception ex)
+                {
+                    DebugErrorBox.Show(ex);
+                }
             }
         }
 

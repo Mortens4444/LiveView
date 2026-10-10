@@ -1,10 +1,9 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface ISequenceRepository : IRepository<Sequence, int>
 {
-    public interface ISequenceRepository : IRepository<Sequence>
-    {
-        long SelectCameraCount(long sequenceId);
-    }
+    long SelectCameraCount(long sequenceId);
 }

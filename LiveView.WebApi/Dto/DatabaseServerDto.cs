@@ -32,10 +32,10 @@ namespace LiveView.WebApi.Dto
 
         public string ToHtml()
         {
-            return $"<strong>{Hostname ?? "N/A"}</strong><br>" +
-                $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
-                $"<small>Username: {EncryptedUsername}</small><br>" +
-                $"<small>Password: {EncryptedPassword}</small>";
+            return $"<strong>{WebUtility.HtmlEncode(Hostname) ?? "N/A"}</strong><br>" +
+                $"<small>IP: {WebUtility.HtmlEncode(IpAddress) ?? "N/A"}</small><br>" +
+                $"<small>Username: {WebUtility.HtmlEncode(EncryptedUsername)}</small><br>" +
+                $"<small>Password: {WebUtility.HtmlEncode(EncryptedPassword)}</small>";
         }
     }
 }

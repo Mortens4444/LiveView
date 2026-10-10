@@ -63,7 +63,7 @@ namespace LiveView.Agent
                 catch (Exception ex)
                 {
                     Console.Error.WriteLine(ex);
-                    Console.Error.WriteLine($"Used connection string: {BaseRepository.ConnectionString}");
+                    Console.Error.WriteLine($"Used connection string: {DatabaseInitializer.ConnectionString}");
                     throw;
                 }
             }

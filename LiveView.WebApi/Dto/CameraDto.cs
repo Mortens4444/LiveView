@@ -1,5 +1,6 @@
 ﻿using Database.Enums;
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -133,10 +134,10 @@ namespace LiveView.WebApi.Dto
 
         public string ToHtml()
         {
-            return $"<strong>{CameraName}</strong><br>" +
-                $"<small>IP: {IpAddress ?? "N/A"}</small><br>" +
-                $"<small>Server: {ServerDisplayName}</small><br>" +
-                $"<small>Stream: {StreamUrl ?? "N/A"}</small>";
+            return $"<strong>{WebUtility.HtmlEncode(CameraName)}</strong><br>" +
+                $"<small>IP: {WebUtility.HtmlEncode(IpAddress) ?? "N/A"}</small><br>" +
+                $"<small>Server: {WebUtility.HtmlEncode(ServerDisplayName)}</small><br>" +
+                $"<small>Stream: {WebUtility.HtmlEncode(StreamUrl) ?? "N/A"}</small>";
         }
     }
 }

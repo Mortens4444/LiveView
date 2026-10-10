@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class BarcodeScanOptionsRepository : BaseRepository<BarcodeScanOptions, int>, IBarcodeScanOptionsRepository
 {
-    public sealed class BarcodeScanOptionsRepository : BaseRepository<BarcodeScanOptions>, IBarcodeScanOptionsRepository
-    {
-    }
+    public BarcodeScanOptionsRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

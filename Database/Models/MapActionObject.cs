@@ -1,9 +1,10 @@
-﻿namespace Database.Models
-{
-    public class MapActionObject
-    {
-        public int ActionObjectId { get; set; }
+﻿namespace Database.Models;
 
-        public int MapId { get; set; }
-    }
+public class MapActionObject : Mtf.Database.Interfaces.IHasIdentifier<int>
+{
+    public int Id { get; set; }
+
+    public int ActionObjectId { get; set; }
+
+    public int MapId { get; set; }
 }

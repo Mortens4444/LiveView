@@ -26,6 +26,8 @@ namespace LiveView.WebApi.Converters
             var dto = new CameraDto();
             PropertyCopier.CopyMatchingProperties(model, dto);
             dto.Guid = Guid.Parse(model.Guid);
+            // Camera.Username decrypts the stored credential; strip it here so the API never returns it in plaintext.
+            dto.Username = null;
             return dto;
         }
 

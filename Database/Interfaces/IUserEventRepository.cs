@@ -1,10 +1,9 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IUserEventRepository : IRepository<UserEvent, int>
 {
-    public interface IUserEventRepository : IRepository<UserEvent>
-    {
-        UserEvent GetByName(string name);
-    }
+    UserEvent GetByName(string name);
 }

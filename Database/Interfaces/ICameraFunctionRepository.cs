@@ -3,7 +3,7 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface ICameraFunctionRepository : IRepository<CameraFunction>
+    public interface ICameraFunctionRepository : IRepository<CameraFunction, int>
     {
     }
 }

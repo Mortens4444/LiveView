@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class TemplateProcessRepository : BaseRepository<TemplateProcess, int>, ITemplateProcessRepository
 {
-    public sealed class TemplateProcessRepository : BaseRepository<TemplateProcess>, ITemplateProcessRepository
-    {
-    }
+    public TemplateProcessRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

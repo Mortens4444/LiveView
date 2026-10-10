@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class DatabaseServerRepository : BaseRepository<DatabaseServer, int>, IDatabaseServerRepository
 {
-    public sealed class DatabaseServerRepository : BaseRepository<DatabaseServer>, IDatabaseServerRepository
-    {
-    }
+    public DatabaseServerRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class MigrationRepository : BaseRepository<Migration, int>, IMigrationRepository
 {
-    public sealed class MigrationRepository : BaseRepository<Migration>, IMigrationRepository
-    {
-    }
+    public MigrationRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

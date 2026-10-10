@@ -1,4 +1,4 @@
-﻿using LiveView.Core.Interfaces;
+using LiveView.Core.Interfaces;
 using OpenCvSharp;
 using System;
 using System.Collections.Generic;
@@ -9,19 +9,21 @@ namespace LiveView.Agent.Network.Commands
     {
         private readonly Dictionary<string, VideoCapture> videoCaptures;
         private readonly string videoCaptureId;
-        private readonly double value;
+        private readonly double panValue;
+        private readonly double tiltValue;
 
-        public PanToEastAndTiltToNorthCommand(Dictionary<string, VideoCapture> videoCaptures, string videoCaptureId, string value)
+        public PanToEastAndTiltToNorthCommand(Dictionary<string, VideoCapture> videoCaptures, string videoCaptureId, string panValue, string tiltValue)
         {
             this.videoCaptures = videoCaptures;
             this.videoCaptureId = videoCaptureId;
-            _ = Double.TryParse(value?.Replace(',', '.'), out this.value);
+            _ = Double.TryParse(panValue?.Replace(',', '.'), out this.panValue);
+            _ = Double.TryParse(tiltValue?.Replace(',', '.'), out this.tiltValue);
         }
 
         public void Execute()
         {
-            videoCaptures[videoCaptureId].Pan = value;
-            videoCaptures[videoCaptureId].Tilt = value;
+            videoCaptures[videoCaptureId].Pan = panValue;
+            videoCaptures[videoCaptureId].Tilt = tiltValue;
         }
     }
 }

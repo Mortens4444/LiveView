@@ -11,6 +11,8 @@ namespace Database.Services
 {
     public static class DatabaseInitializer
     {
+        public static string ConnectionString { get; set; }
+
         public static bool Initialize(string connectionStringName)
         {
             try
@@ -23,11 +25,11 @@ namespace Database.Services
                     ConfigurationManager.RefreshSection("connectionStrings");
                 }
 
-                BaseRepository.CommandTimeout = 600;
-                BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-                BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
-                BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
-                return BaseRepository.ConnectionString != null;
+                Mtf.Database.BaseRepository.CommandTimeout = 600;
+                Mtf.Database.BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+                Mtf.Database.BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+                ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
+                return ConnectionString != null;
             }
             catch (Exception ex)
             {
@@ -38,11 +40,11 @@ namespace Database.Services
 
         public static void CreateDatabase()
         {
-            BaseRepository.ExecuteWithoutTransaction("CreateDatabase");
-            BaseRepository.CommandTimeout = 150;
-            BaseRepository.ExecuteWithoutTransaction("CreateUser");
-            BaseRepository.ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
-            BaseRepository.Execute("CreateTables");
+            new Mtf.Database.BaseRepository(ConnectionString).ExecuteWithoutTransaction("CreateDatabase");
+            Mtf.Database.BaseRepository.CommandTimeout = 150;
+            new Mtf.Database.BaseRepository(ConnectionString).ExecuteWithoutTransaction("CreateUser");
+            ConnectionString = ConfigurationManager.ConnectionStrings["LiveViewConnectionString"]?.ConnectionString;
+            new Mtf.Database.BaseRepository(ConnectionString).Execute("CreateTables");
             Migrate();
         }
 
@@ -62,6 +64,7 @@ namespace Database.Services
                     }
                 };
 
+            var repository = new Mtf.Database.BaseRepository(ConnectionString);
             var migrationRepository = new MigrationRepository();
             var migrations = migrationRepository.SelectAll();
             foreach (var migrationToExecute in migrationsToExecute)
@@ -70,11 +73,11 @@ namespace Database.Services
                 {
                     if (migrationParams.TryGetValue(migrationToExecute, out var value))
                     {
-                        BaseRepository.Execute(migrationToExecute, value);
+                        repository.Execute(migrationToExecute, value);
                     }
                     else
                     {
-                        BaseRepository.Execute(migrationToExecute);
+                        repository.Execute(migrationToExecute);
                     }
                     migrationRepository.Insert(new Migration { Name = migrationToExecute });
                 }

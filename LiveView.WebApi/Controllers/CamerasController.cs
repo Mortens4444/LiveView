@@ -1,8 +1,10 @@
 ﻿using Database.Interfaces;
 using Database.Models;
+using LiveView.WebApi.Authorization;
 using LiveView.WebApi.Converters;
 using LiveView.WebApi.Dto;
-using Mtf.Web.WebAPI;
+using Mtf.Permissions.Enums;
+using LiveView.WebApi.WebAPI;
 
 namespace LiveView.WebApi.Controllers
 {
@@ -11,6 +13,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Camera data.
     /// Sets the base route for this controller (e.g., /api/cameras)
     /// </summary>
+    [RequiresPermissionGroup(typeof(CameraManagementPermissions))]
     public class CamerasController : ApiControllerBaseWithIntModelId<CameraDto, Camera, ICameraRepository, CameraConverter>
     {
         public CamerasController(

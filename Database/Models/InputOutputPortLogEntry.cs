@@ -3,7 +3,7 @@ using System;
 
 namespace Database.Models
 {
-    public class InputOutputPortLogEntry : IHaveId<int>
+    public class InputOutputPortLogEntry : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
     {
         public int Id { get; set; }
 

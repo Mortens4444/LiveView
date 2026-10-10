@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class GridRepository : BaseRepository<Grid, int>, IGridRepository
 {
-    public sealed class GridRepository : BaseRepository<Grid>, IGridRepository
-    {
-    }
+    public GridRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

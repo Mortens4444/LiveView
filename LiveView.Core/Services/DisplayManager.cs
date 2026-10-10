@@ -248,15 +248,15 @@ namespace LiveView.Core.Services
                 var deltaPoint = new Point();
                 if (minX < 0)
                 {
+                    deltaPoint.X = -minX;
+                    maxX -= minX;
                     minX = 0;
-                    maxX += minX;
-                    deltaPoint.X = minX;
                 }
                 if (minY < 0)
                 {
+                    deltaPoint.Y = -minY;
+                    maxY -= minY;
                     minY = 0;
-                    maxY += minY;
-                    deltaPoint.Y = minY;
                 }
                 return new DisplayDimensions(new Rectangle(minX, minY, maxX - minX, maxY - minY), deltaPoint);
             }

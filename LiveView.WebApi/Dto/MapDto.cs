@@ -1,4 +1,5 @@
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -36,8 +37,8 @@ namespace LiveView.WebApi.Dto
                 : "<em>No image</em>";
 
             return $"<strong>{Id}</strong><br>" +
-                $"<small>Name: {Name}</small><br>" +
-                $"<small>Comment: {Comment}</small><br>" +
+                $"<small>Name: {WebUtility.HtmlEncode(Name)}</small><br>" +
+                $"<small>Comment: {WebUtility.HtmlEncode(Comment)}</small><br>" +
                 $"<small>OriginalWidth, OriginalHeight: {OriginalWidth}x{OriginalHeight}</small><br>" +
                 imageTag;
         }

@@ -21,10 +21,10 @@ namespace LiveView.WebApi.Tests
             factory = new CustomWebApplicationFactory();
             client = factory.CreateClient();
 
-            BaseRepository.CommandTimeout = 600;
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-            BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
-            BaseRepository.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=LiveView;Integrated Security=True;Encrypt=True;";
+            Mtf.Database.BaseRepository.CommandTimeout = 600;
+            Mtf.Database.BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+            Mtf.Database.BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+            Database.Services.DatabaseInitializer.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=LiveView;Integrated Security=True;Encrypt=True;";
         }
 
         [OneTimeTearDown]

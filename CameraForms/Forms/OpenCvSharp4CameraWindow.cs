@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mtf.Permissions.Services;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CameraForms.Forms
@@ -21,6 +22,7 @@ namespace CameraForms.Forms
     public partial class OpenCvSharp4CameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private int onExit;
         private readonly PermissionManager<User> permissionManager;
         private readonly ICameraRepository cameraRepository;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
@@ -150,9 +152,12 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            fullScreenCameraMessageHandler?.Exit();
-            kBD300ASimulatorServer?.Stop();
-            openCvSharp4VideoWindow.Stop();
+            if (Interlocked.Exchange(ref onExit, 1) == 0)
+            {
+                fullScreenCameraMessageHandler?.Exit();
+                kBD300ASimulatorServer?.Stop();
+                openCvSharp4VideoWindow.Stop();
+            }
         }
 
         private void OpenCvSharp4_FormClosing(object sender, FormClosingEventArgs e)

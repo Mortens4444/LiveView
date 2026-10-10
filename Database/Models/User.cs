@@ -2,54 +2,53 @@
 using Mtf.Extensions.Interfaces;
 using System;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class User : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class User : IHaveId<int>
+    private string encryptedUsername;
+
+    public int Id { get; set; }
+
+    public string Username => UserPasswordHasher.UsernameDecrypt(encryptedUsername);
+
+    public string EncryptedUsername
     {
-        private string encryptedUsername;
+        get => encryptedUsername;
+        set => encryptedUsername = value;
+    }
 
-        public int Id { get; set; }
+    public string EncryptedPassword { get; set; }
 
-        public string Username => UserPasswordHasher.UsernameDecrypt(encryptedUsername);
+    public string FullName { get; set; }
 
-        public string EncryptedUsername
+    public string Address { get; set; }
+    
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+    
+    public string LicensePlate { get; set; }
+    
+    public string Barcode { get; set; }
+    
+    public string OtherInformation { get; set; }
+    
+    public byte[] Image { get; set; }
+    
+    public int SecondaryLogonPriority { get; set; }
+
+    public int NeededSecondaryLogonPriority { get; set; }
+
+    public int LoginCredentialsId { get; set; }
+
+    public override string ToString()
+    {
+        if (String.IsNullOrWhiteSpace(Username))
         {
-            get => encryptedUsername;
-            set => encryptedUsername = value;
+            return $"User Id: {Id}";
         }
 
-        public string EncryptedPassword { get; set; }
-
-        public string FullName { get; set; }
-
-        public string Address { get; set; }
-        
-        public string Email { get; set; }
-
-        public string Phone { get; set; }
-        
-        public string LicensePlate { get; set; }
-        
-        public string Barcode { get; set; }
-        
-        public string OtherInformation { get; set; }
-        
-        public byte[] Image { get; set; }
-        
-        public int SecondaryLogonPriority { get; set; }
-
-        public int NeededSecondaryLogonPriority { get; set; }
-
-        public int LoginCredentialsId { get; set; }
-
-        public override string ToString()
-        {
-            if (String.IsNullOrWhiteSpace(Username))
-            {
-                return $"User Id: {Id}";
-            }
-
-            return Username;
-        }
+        return Username;
     }
 }

@@ -419,7 +419,7 @@ namespace LiveView.Forms
             presenter.StartTemplate(template);
         }
 
-        public void ShowGridInfo(long gridId, string secondsLeft)
+        public void ShowGridInfo(int gridId, string secondsLeft)
         {
             presenter?.ShowGridInfo(gridId, secondsLeft);
         }

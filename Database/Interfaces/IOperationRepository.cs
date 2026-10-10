@@ -2,12 +2,11 @@
 using Mtf.Database.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Database.Interfaces
-{
-    public interface IOperationRepository : IRepository<Operation>
-    {
-        bool HasAnyRow();
+namespace Database.Interfaces;
 
-        ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId);
-    }
+public interface IOperationRepository : IRepository<Operation, int>
+{
+    bool HasAnyRow();
+
+    ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId);
 }

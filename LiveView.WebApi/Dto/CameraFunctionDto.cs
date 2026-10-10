@@ -1,5 +1,6 @@
 using Database.Enums;
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -22,7 +23,7 @@ namespace LiveView.WebApi.Dto
             return $"<strong>{Id}</strong><br>" +
                 $"<small>CameraId: {CameraId}</small><br>" +
                 $"<small>FunctionId: {FunctionId}</small><br>" +
-                $"<small>FunctionCallback: {FunctionCallback}</small>";
+                $"<small>FunctionCallback: {WebUtility.HtmlEncode(FunctionCallback)}</small>";
         }
     }
 }

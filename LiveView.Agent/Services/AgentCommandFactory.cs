@@ -63,11 +63,11 @@ namespace LiveView.Agent.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToNorth}|", StringComparison.InvariantCulture))
                 {
-                    result.Add(new PanToEastAndTiltToNorthCommand(videoCaptures, messageParts[1], messageParts[2]));
+                    result.Add(new PanToEastAndTiltToNorthCommand(videoCaptures, messageParts[1], messageParts[2], messageParts[3]));
                 }
                 else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToNorth}|", StringComparison.InvariantCulture))
                 {
-                    result.Add(new PanToWestAndTiltToNorthCommand(videoCaptures, messageParts[1], messageParts[2]));
+                    result.Add(new PanToWestAndTiltToNorthCommand(videoCaptures, messageParts[1], messageParts[2], messageParts[3]));
                 }
                 else if (message.StartsWith($"{NetworkCommand.MoveToPresetZero}|", StringComparison.InvariantCulture))
                 {
@@ -78,11 +78,11 @@ namespace LiveView.Agent.Services
                 }
                 else if (message.StartsWith($"{NetworkCommand.PanToEastAndTiltToSouth}|", StringComparison.InvariantCulture))
                 {
-                    result.Add(new PanToEastAndTiltToSouthCommand(videoCaptures, messageParts[1], messageParts[2]));
+                    result.Add(new PanToEastAndTiltToSouthCommand(videoCaptures, messageParts[1], messageParts[2], messageParts[3]));
                 }
                 else if (message.StartsWith($"{NetworkCommand.PanToWestAndTiltToSouth}|", StringComparison.InvariantCulture))
                 {
-                    result.Add(new PanToWestAndTiltToSouthCommand(videoCaptures, messageParts[1], messageParts[2]));
+                    result.Add(new PanToWestAndTiltToSouthCommand(videoCaptures, messageParts[1], messageParts[2], messageParts[3]));
                 }
                 else if (message.StartsWith($"{NetworkCommand.PanToWest}|", StringComparison.InvariantCulture))
                 {

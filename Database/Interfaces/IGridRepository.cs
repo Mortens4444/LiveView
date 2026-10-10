@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IGridRepository : IRepository<Grid, int>
 {
-    public interface IGridRepository : IRepository<Grid>
-    {
-    }
 }

@@ -1,8 +1,10 @@
 using Database.Interfaces;
 using Database.Models;
+using LiveView.WebApi.Authorization;
 using LiveView.WebApi.Dto;
+using Mtf.Permissions.Enums;
 using Mtf.Web.Interfaces;
-using Mtf.Web.WebAPI;
+using LiveView.WebApi.WebAPI;
 
 namespace LiveView.WebApi.Controllers
 {
@@ -11,6 +13,7 @@ namespace LiveView.WebApi.Controllers
     /// Provides standard CRUD (Create, Read, Update, Delete) operations for Sequence data.
     /// Sets the base route for this controller (e.g., /api/sequences)
     /// </summary>
+    [RequiresPermissionGroup(typeof(SequenceManagementPermissions))]
     public class SequencesController : ApiControllerBaseWithIntModelId<SequenceDto, Sequence, ISequenceRepository, IConverter<Sequence, SequenceDto>>
     {
         public SequencesController(

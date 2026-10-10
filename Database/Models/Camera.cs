@@ -2,69 +2,68 @@
 using Database.Services.PasswordHashers;
 using Mtf.Extensions.Interfaces;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class Camera : IHaveGuid, IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class Camera : IHaveGuid, IHaveId<int>
+    private string encryptedUsername;
+
+    public int Id { get; set; }
+
+    public int? PartnerCameraId { get; set; }
+
+    public int VideoServerId { get; set; }
+
+    public string Guid { get; set; }
+
+    public string CameraName { get; set; }
+
+    public string IpAddress { get; set; }
+
+    public CameraMode FullscreenMode { get; set; }
+
+    public int? StreamId { get; set; }
+
+    public string Username => CameraPasswordCryptor.UsernameDecrypt(encryptedUsername);
+
+    public string EncryptedUsername
     {
-        private string encryptedUsername;
+        get => encryptedUsername;
+        set => encryptedUsername = value;
+    }
 
-        public int Id { get; set; }
+    public string EncryptedPassword { get; set; }
 
-        public int? PartnerCameraId { get; set; }
+    public string ServerDisplayName { get; set; }
 
-        public int VideoServerId { get; set; }
+    public string ServerEncryptedUsername { get; set; }
 
-        public string Guid { get; set; }
+    public string ServerEncryptedPassword { get; set; }
 
-        public string CameraName { get; set; }
+    public string StreamUrl { get; set; }
 
-        public string IpAddress { get; set; }
+    public bool Actual { get; set; }
 
-        public CameraMode FullscreenMode { get; set; }
+    public long? MotionTrigger { get; set; }
 
-        public int? StreamId { get; set; }
+    public long? MotionTriggerMinimumLength { get; set; }
 
-        public string Username => CameraPasswordCryptor.UsernameDecrypt(encryptedUsername);
+    public int Priority { get; set; }
 
-        public string EncryptedUsername
-        {
-            get => encryptedUsername;
-            set => encryptedUsername = value;
-        }
+    public int RecorderIndex { get; set; }
 
-        public string EncryptedPassword { get; set; }
+    public int? CameraId { get; set; }
 
-        public string ServerDisplayName { get; set; }
+    public long? VideoSourceId { get; set; }
 
-        public string ServerEncryptedUsername { get; set; }
+    public int PermissionCamera { get; set; }
 
-        public string ServerEncryptedPassword { get; set; }
+    public int CameraCredentialsId { get; set; }
 
-        public string StreamUrl { get; set; }
+    //public int VideoServerCredentialsId { get; set; }
 
-        public bool Actual { get; set; }
-
-        public long? MotionTrigger { get; set; }
-
-        public long? MotionTriggerMinimumLength { get; set; }
-
-        public int Priority { get; set; }
-
-        public int RecorderIndex { get; set; }
-
-        public int? CameraId { get; set; }
-
-        public long? VideoSourceId { get; set; }
-
-        public int PermissionCamera { get; set; }
-
-        public int CameraCredentialsId { get; set; }
-
-        //public int VideoServerCredentialsId { get; set; }
-
-        public override string ToString()
-        {
-            return $"{ServerDisplayName} - {CameraName}";
-        }
+    public override string ToString()
+    {
+        return $"{ServerDisplayName} - {CameraName}";
     }
 }

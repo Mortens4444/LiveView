@@ -27,7 +27,7 @@ namespace LiveView.Dto
 
         public MapActionType ActionType { get; set; } = MapActionType.NoAction;
 
-        public long ActionReferencedId { get; set; } = -1;
+        public int ActionReferencedId { get; set; } = -1;
 
         public string Comment { get; set; } = String.Empty;
 

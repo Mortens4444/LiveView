@@ -1,10 +1,9 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IDisplayRepository : IRepository<Display, int>
 {
-    public interface IDisplayRepository : IRepository<Display>
-    {
-        Display GetFullscreenDisplay();
-    }
+    Display GetFullscreenDisplay();
 }

@@ -4,14 +4,15 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class GroupRepository : BaseRepository<Group>, IGroupRepository
+    public sealed class GroupRepository : BaseRepository<Group, int>, IGroupRepository
     {
-        public void DeleteGroupPermissions(long groupId)
+        public GroupRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+        public void DeleteGroupPermissions(int groupId)
         {
             Execute("DeleteAllGroupPermissions", new { GroupId = groupId });
         }
 
-        public void DeleteGroupPermissions(long groupId, long userEventId)
+        public void DeleteGroupPermissions(int groupId, int userEventId)
         {
             Execute("DeleteGroupPermissions", new { GroupId = groupId, UserEventId = userEventId });
         }

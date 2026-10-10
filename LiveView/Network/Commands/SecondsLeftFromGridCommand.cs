@@ -5,12 +5,12 @@ namespace LiveView.Network.Commands
 {
     public class SecondsLeftFromGridCommand : ICommand
     {
-        private readonly long gridId;
+        private readonly int gridId;
         private readonly string secondsLeftToShow;
 
         public SecondsLeftFromGridCommand(string gridId, string secondsLeftToShow)
         {
-            this.gridId = Parser.ToInt64(gridId);
+            this.gridId = Parser.ToInt32(gridId);
             this.secondsLeftToShow = secondsLeftToShow;
         }
 

@@ -4,7 +4,8 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class LanguageRepository : BaseRepository<Language>, ILanguageRepository
+    public sealed class LanguageRepository : BaseRepository<Language, int>, ILanguageRepository
     {
+        public LanguageRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
     }
 }

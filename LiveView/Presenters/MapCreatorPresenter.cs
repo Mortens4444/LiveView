@@ -239,7 +239,7 @@ namespace LiveView.Presenters
 
         public void SaveMap()
         {
-            long mapId;
+            int mapId;
             var map = GetMap();
             if (view.CbMap.SelectedItem is Map existingMap)
             {
@@ -266,9 +266,9 @@ namespace LiveView.Presenters
                 else
                 {
                     var mapObjectId = actionObjectRepository.InsertAndReturnId<int>(mapObject);
-                    ((IRepository<MapActionObject>)mapActionObjectRepository).Insert(new MapActionObject
+                    ((IRepository<MapActionObject, int>)mapActionObjectRepository).Insert(new MapActionObject
                     {
-                        MapId = (int)mapId,
+                        MapId = mapId,
                         ActionObjectId = mapObjectId
                     });
                 }

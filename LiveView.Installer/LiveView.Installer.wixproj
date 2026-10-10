@@ -10,12 +10,12 @@
       Company=$(Company);
       ShortVersion=$(ShortVersion);
       ProgramVersion=$(ProgramVersion);
-      LvFilesSource=$(SolutionDir)LiveView\bin\Release\net462;
+      LvFilesSource=$(SolutionDir)LiveView\bin\Release\net10.0-windows;
     </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiveView\LiveView.csproj">
-      <TargetFrameworks>net9.0-windows,net462</TargetFrameworks>
+      <TargetFrameworks>net10.0-windows</TargetFrameworks>
     </ProjectReference>
   </ItemGroup>
 </Project>

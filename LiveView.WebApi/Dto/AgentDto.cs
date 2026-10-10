@@ -1,4 +1,5 @@
 ﻿using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -36,7 +37,7 @@ namespace LiveView.WebApi.Dto
         public string ToHtml()
         {
             return $"<strong>{Id}</strong><br>" +
-                $"<small>IP: {ServerIp ?? "N/A"}</small><br>" +
+                $"<small>IP: {WebUtility.HtmlEncode(ServerIp) ?? "N/A"}</small><br>" +
                 $"<small>Agent port: {AgentPort}</small><br>" +
                 $"<small>VNC port: {VncServerPort}</small>";
         }

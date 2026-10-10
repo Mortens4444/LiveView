@@ -1,4 +1,5 @@
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -28,8 +29,8 @@ namespace LiveView.WebApi.Dto
             return $"<strong>Id: {Id}</strong><br>" +
                 $"<small>TemplateId: {TemplateId}</small><br>" +
                 $"<small>AgentId: {AgentId}</small><br>" +
-                $"<small>ProcessName: {ProcessName}</small><br>" +
-                $"<small>ProcessParameters: {ProcessParameters}</small>";
+                $"<small>ProcessName: {WebUtility.HtmlEncode(ProcessName)}</small><br>" +
+                $"<small>ProcessParameters: {WebUtility.HtmlEncode(ProcessParameters)}</small>";
         }
     }
 }

@@ -1,4 +1,5 @@
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -17,8 +18,8 @@ namespace LiveView.WebApi.Dto
         public string ToHtml()
         {
             return $"<strong>Id: {Id}</strong><br>" +
-                $"<small>PermissionGroup: {PermissionGroup}</small><br>" +
-                $"<small>PermissionValue: {PermissionValue}</small>";
+                $"<small>PermissionGroup: {WebUtility.HtmlEncode(PermissionGroup)}</small><br>" +
+                $"<small>PermissionValue: {WebUtility.HtmlEncode(PermissionValue)}</small>";
         }
     }
 }

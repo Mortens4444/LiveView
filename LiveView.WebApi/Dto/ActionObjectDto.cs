@@ -1,5 +1,6 @@
 using Database.Enums;
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -43,7 +44,7 @@ namespace LiveView.WebApi.Dto
                 $"<small>ActionReferencedId: {ActionReferencedId}</small><br>" +
                 $"<small>X, Y: {X}, {Y}</small><br>" +
                 $"<small>Width x Height: {Width}x{Height}</small><br>" +
-                $"<small>Comment: {Comment}</small><br>" +
+                $"<small>Comment: {WebUtility.HtmlEncode(Comment)}</small><br>" +
                 imageTag;
         }
     }

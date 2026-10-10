@@ -1,14 +1,13 @@
 ﻿using Mtf.Extensions.Interfaces;
 using System;
 
-namespace Database.Models
-{
-    public class BarcodeScanReading : IHaveId<int>
-    {
-        public int Id { get; set; }
-        
-        public DateTime Date { get; set; }
+namespace Database.Models;
 
-        public string Value { get; set; }
-    }
+public class BarcodeScanReading : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
+{
+    public int Id { get; set; }
+    
+    public DateTime Date { get; set; }
+
+    public string Value { get; set; }
 }

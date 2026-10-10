@@ -1,13 +1,12 @@
 ﻿using Mtf.Extensions.Interfaces;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class GroupMember : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class GroupMember : IHaveId<int>
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public int GroupId { get; set; }
-    }
+    public int GroupId { get; set; }
 }

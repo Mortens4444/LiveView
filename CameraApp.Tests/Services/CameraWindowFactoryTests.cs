@@ -29,8 +29,8 @@ namespace CameraApp.Tests.Services
             server = new Server(listenerPort: 4444);
             server.Start();
 
-            BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-            BaseRepository.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=LiveView;Integrated Security=True;Encrypt=True;";
+            Mtf.Database.BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+            Database.Services.DatabaseInitializer.ConnectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=LiveView;Integrated Security=True;Encrypt=True;";
         }
 
         [OneTimeTearDown]
@@ -39,8 +39,8 @@ namespace CameraApp.Tests.Services
             server?.Stop();
             server.Dispose();
             server = null;
-            BaseRepository.DatabaseScriptsAssembly = null;
-            BaseRepository.ConnectionString = null;
+            Mtf.Database.BaseRepository.DatabaseScriptsAssembly = null;
+            Database.Services.DatabaseInitializer.ConnectionString = null;
         }
 
         [TestCase(CameraMode.AxVideoPlayer, "AxVideoCameraWindow")]

@@ -52,7 +52,7 @@ namespace Sequence.Tests.Services
             gridCameraRepositoryMock = new Mock<IGridCameraRepository>();
             videoSourceRepositoryMock = new Mock<IVideoSourceRepository>();
 
-            sequenceRepositoryMock.Setup(r => r.Select(It.Is<long>(id => id == 1)))
+            sequenceRepositoryMock.Setup(r => r.Select(It.Is<int>(id => id == 1)))
                 .Returns(new Database.Models.Sequence
                 {
                     Id = 1,

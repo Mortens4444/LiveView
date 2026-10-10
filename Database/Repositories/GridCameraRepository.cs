@@ -1,58 +1,60 @@
-﻿using Database.Interfaces;
+﻿using Database.Enums;
+using Database.Interfaces;
 using Database.Models;
 using Mtf.Database;
 using System.Collections.ObjectModel;
 
 namespace Database.Repositories
 {
-    public sealed class GridCameraRepository : BaseRepository<GridCamera>, IGridCameraRepository
+    public sealed class GridCameraRepository : BaseRepository<GridCamera, int>, IGridCameraRepository
     {
-        public ReadOnlyCollection<GridCamera> GetCombinedGridCameras(long gridId)
+    public GridCameraRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+        public ReadOnlyCollection<GridCamera> GetCombinedGridCameras(int gridId)
         {
             return Query("SelectCombinedGridCamera", new { GridId = gridId });
         }
 
-        public string GridCameraSetShowMethod(int cameraId)
+        public void GridCameraSetShowMethod(int cameraId, int gridId, int initRow, int initCol, CameraMode cameraMode)
         {
-            return ExecuteScalar<string>("GridCameraSetShowMethod", new { cid = cameraId });
+            Execute("GridCameraSetShowMethod", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, CameraMode = cameraMode });
         }
 
-        public string GridCameraSetOSDState(int cameraId)
+        public void GridCameraSetOSDState(int cameraId, int gridId, int initRow, int initCol, bool osd)
         {
-            return ExecuteScalar<string>("GridCameraSetOSDState", new { cid = cameraId });
+            Execute("GridCameraSetOSDState", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, Osd = osd });
         }
 
-        public string GridCameraSetOSDAndShowDateState(int gridId)
+        public void GridCameraSetOSDAndShowDateState(int gridId, bool osd, bool showDateTime)
         {
-            return ExecuteScalar<string>("GridCameraSetOSDAndShowDateState", new { cid = gridId });
+            Execute("GridCameraSetOSDAndShowDateState", new { GridId = gridId, Osd = osd, ShowDateTime = showDateTime });
         }
 
-        public string GridCameraSetTopLeftCoordinates(int cameraId)
+        public void GridCameraSetTopLeftCoordinates(int cameraId, int gridId, int initRow, int initCol, int left, int top)
         {
-            return ExecuteScalar<string>("GridCameraSetTopLeftCoordinates", new { cid = cameraId });
+            Execute("GridCameraSetTopLeftCoordinates", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, Left = left, Top = top });
         }
 
-        public string GridCameraSetHeightAndWidth(int cameraId)
+        public void GridCameraSetHeightAndWidth(int cameraId, int gridId, int initRow, int initCol, int width, int height)
         {
-            return ExecuteScalar<string>("GridCameraSetHeightAndWidth", new { cid = cameraId });
+            Execute("GridCameraSetHeightAndWidth", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, Width = width, Height = height });
         }
 
-        public string GridCameraReset(int cameraId)
+        public void GridCameraReset(int gridId)
         {
-            return ExecuteScalar<string>("GridCameraReset", new { cid = cameraId });
+            Execute("GridCameraReset", new { GridId = gridId });
         }
 
-        public string GridCameraSetFrameState(int gridId)
+        public void GridCameraSetFrameState(int cameraId, int gridId, int initRow, int initCol, bool frame)
         {
-            return ExecuteScalar<string>("GridCameraSetFrameState", new { cid = gridId });
+            Execute("GridCameraSetFrameState", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, Frame = frame });
         }
 
-        public string GridCameraSetShowDateTimeState(int cameraId)
+        public void GridCameraSetShowDateTimeState(int cameraId, int gridId, int initRow, int initCol, bool showDateTime)
         {
-            return ExecuteScalar<string>("GridCameraSetShowDateTimeState", new { cid = cameraId });
+            Execute("GridCameraSetShowDateTimeState", new { CameraId = cameraId, GridId = gridId, InitRow = initRow, InitCol = initCol, ShowDateTime = showDateTime });
         }
 
-        public void DeleteCamerasOfGrid(long gridId)
+        public void DeleteCamerasOfGrid(int gridId)
         {
             Execute("DeleteCamerasOfGrid", new { GridId = gridId });
         }

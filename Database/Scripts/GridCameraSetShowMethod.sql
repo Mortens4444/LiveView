@@ -1,1 +1,1 @@
-﻿UPDATE GridCameras SET [ShowMethod] = @ShowMethod WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol
+﻿UPDATE GridCameras SET CameraMode = @CameraMode WHERE CameraId = @CameraId AND GridId = @GridId AND InitRow = @InitRow AND InitCol = @InitCol

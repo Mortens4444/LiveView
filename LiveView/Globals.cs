@@ -24,7 +24,7 @@ namespace LiveView
 
         public static ObservableDictionary<string, Socket> Agents { get; } = new ObservableDictionary<string, Socket>(); // Agent IP address:port, Agent socket
 
-        public readonly static Dictionary<string, DateTimeOffset> AgentPingTimes = new Dictionary<string, DateTimeOffset>(); // Agent IP address:port, last ping time
+        public readonly static ConcurrentDictionary<string, DateTimeOffset> AgentPingTimes = new ConcurrentDictionary<string, DateTimeOffset>(); // Agent IP address:port, last ping time
 
         public static string Uptime { get; set; }
 
@@ -46,7 +46,7 @@ namespace LiveView
         {
             var agentSocket = Agents[hostInfo];
             Agents.Remove(hostInfo);
-            AgentPingTimes.Remove(hostInfo);
+            AgentPingTimes.TryRemove(hostInfo, out _);
             VideoCaptureSources.Remove(agentSocket);
 
             for (int i = DisplayManager.RemoteDisplays.Count - 1; i >= 0; i--)

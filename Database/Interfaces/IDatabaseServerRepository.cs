@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IDatabaseServerRepository : IRepository<DatabaseServer, int>
 {
-    public interface IDatabaseServerRepository : IRepository<DatabaseServer>
-    {
-    }
 }

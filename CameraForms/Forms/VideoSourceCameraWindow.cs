@@ -377,23 +377,26 @@ namespace CameraForms.Forms
         private void VideoCaptureClient_FrameArrived(object sender, FrameArrivedEventArgs e)
         {
             frameUnchanged = false;
-            try
+            this.InvokeIfRequired(() =>
             {
-                frameTimer.Stop();
-                lastImage?.Dispose();
-                mtfCamera.SetImage(e.Frame, true);
-                lastImage = e.Frame;
-                frameTimer.Start();
-            }
-            catch (InvalidOperationException)
-            {
-                mtfCamera.SetImage(Properties.Resources.nosignal, false);
-            }
-            catch (Exception ex)
-            {
-                mtfCamera.SetImage(Properties.Resources.nosignal, false);
-                DebugErrorBox.Show(ex);
-            }
+                try
+                {
+                    frameTimer.Stop();
+                    lastImage?.Dispose();
+                    mtfCamera.SetImage(e.Frame, true);
+                    lastImage = e.Frame;
+                    frameTimer.Start();
+                }
+                catch (InvalidOperationException)
+                {
+                    mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                }
+                catch (Exception ex)
+                {
+                    mtfCamera.SetImage(Properties.Resources.nosignal, false);
+                    DebugErrorBox.Show(ex);
+                }
+            });
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)

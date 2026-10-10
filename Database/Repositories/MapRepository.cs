@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class MapRepository : BaseRepository<Map, int>, IMapRepository
 {
-    public sealed class MapRepository : BaseRepository<Map>, IMapRepository
-    {
-    }
+        public MapRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }

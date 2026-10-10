@@ -2,12 +2,11 @@
 using Mtf.Database.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Database.Interfaces
-{
-    public interface IGridCameraRepository : IRepository<GridCamera>
-    {
-        void DeleteCamerasOfGrid(long id);
+namespace Database.Interfaces;
 
-        ReadOnlyCollection<GridCamera> GetCombinedGridCameras(long gridId);
-    }
+public interface IGridCameraRepository : IRepository<GridCamera, int>
+{
+    void DeleteCamerasOfGrid(int id);
+
+    ReadOnlyCollection<GridCamera> GetCombinedGridCameras(int gridId);
 }

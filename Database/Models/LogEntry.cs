@@ -4,7 +4,7 @@ using System;
 
 namespace Database.Models
 {
-    public class LogEntry : IHaveId<long>
+    public class LogEntry : IHaveId<long>, Mtf.Database.Interfaces.IHasIdentifier<long>
     {
         public long Id { get; set; }
 

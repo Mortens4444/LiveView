@@ -3,7 +3,7 @@ using Mtf.Database.Interfaces;
 
 namespace Database.Interfaces
 {
-    public interface IBarcodeScanOptionsRepository : IRepository<BarcodeScanOptions>
+    public interface IBarcodeScanOptionsRepository : IRepository<BarcodeScanOptions, int>
     {
     }
 }

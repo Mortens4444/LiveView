@@ -1,20 +1,19 @@
 ﻿using Mtf.Extensions.Interfaces;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class Agent : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class Agent : IHaveId<int>
+    public int Id { get; set; }
+
+    public string ServerIp { get; set; }
+
+    public int AgentPort { get; set; }
+
+    public int VncServerPort { get; set; }
+
+    public override string ToString()
     {
-        public int Id { get; set; }
-
-        public string ServerIp { get; set; }
-
-        public int AgentPort { get; set; }
-
-        public int VncServerPort { get; set; }
-
-        public override string ToString()
-        {
-            return $"{ServerIp}:{AgentPort}";
-        }
+        return $"{ServerIp}:{AgentPort}";
     }
 }

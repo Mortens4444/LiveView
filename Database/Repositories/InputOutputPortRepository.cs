@@ -4,7 +4,8 @@ using Mtf.Database;
 
 namespace Database.Repositories
 {
-    public sealed class InputOutputPortRepository : BaseRepository<InputOutputPort>, IInputOutputPortRepository
+    public sealed class InputOutputPortRepository : BaseRepository<InputOutputPort, int>, IInputOutputPortRepository
     {
+        public InputOutputPortRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
     }
 }

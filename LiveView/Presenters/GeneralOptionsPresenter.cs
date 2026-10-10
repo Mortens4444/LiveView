@@ -132,8 +132,8 @@ namespace LiveView.Presenters
 
             view.CbKBD300ACOMPort.SelectedItem = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
             view.CbWatchdogPort.SelectedItem = generalOptionsRepository.Get(Setting.WatchdogPort, String.Empty);
-
-            var usage = BaseRepository.GetDatabaseUsagePercentageWithLimit();
+            var databaseRepository = new Mtf.Database.BaseRepository(Database.Services.DatabaseInitializer.ConnectionString);
+            var usage = databaseRepository.GetDatabaseUsagePercentageWithLimit();
             view.TbDatabaseUsage.Text = usage == -1 ? "N/A" : $"{usage}%";
             var builder = new DbConnectionStringBuilder
             {
@@ -142,14 +142,16 @@ namespace LiveView.Presenters
             
             view.TbDataSource.Text = (builder["Data Source"] ?? builder["Server"]).ToString();
             view.TbDatabaseName.Text = (builder["Initial Catalog"] ?? builder["Database"]).ToString();
-            view.NudConnectionTimeout.Value = BaseRepository.CommandTimeout.HasValue ? BaseRepository.CommandTimeout.Value : 30;
+            view.NudConnectionTimeout.Value = Mtf.Database.BaseRepository.CommandTimeout > 0
+                ? Convert.ToDecimal(Mtf.Database.BaseRepository.CommandTimeout)
+                : Convert.ToDecimal(30);
 
             var integratedSecurityObject = builder["Integrated Security"] ?? builder["Trusted_Connection"];
             
             if (Boolean.TryParse(integratedSecurityObject.ToString(), out var integratedSecurity) || String.Equals(integratedSecurityObject.ToString(), "SSPI", StringComparison.OrdinalIgnoreCase))
             {
                 view.ChkIntegratedSecurity.Checked = integratedSecurity;
-                view.TbUsername.Text = BaseRepository.ExecuteQuery("SELECT SYSTEM_USER").Rows[0][0].ToString();
+                view.TbUsername.Text = databaseRepository.ExecuteQuery("SELECT SYSTEM_USER").Rows[0][0].ToString();
                 view.LblPassword.Visible = false;
                 view.TbPassword.Visible = false;
             }

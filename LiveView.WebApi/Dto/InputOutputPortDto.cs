@@ -1,5 +1,6 @@
 using Database.Enums;
 using Mtf.Extensions.Interfaces;
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace LiveView.WebApi.Dto
@@ -36,9 +37,9 @@ namespace LiveView.WebApi.Dto
         {
             return $"<strong>{Id}</strong><br>" +
                 $"<small>DeviceId: {DeviceId}</small><br>" +
-                $"<small>Name: {Name}</small><br>" +
+                $"<small>Name: {WebUtility.HtmlEncode(Name)}</small><br>" +
                 $"<small>PortNum: {PortNum}</small><br>" +
-                $"<small>FriendlyName: {FriendlyName}</small><br>" +
+                $"<small>FriendlyName: {WebUtility.HtmlEncode(FriendlyName)}</small><br>" +
                 $"<small>Direction: {Direction}</small>";
         }
     }

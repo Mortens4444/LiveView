@@ -1,1 +1,1 @@
-﻿DROP TABLE [PersonalOptions]
+﻿DELETE FROM [Options];

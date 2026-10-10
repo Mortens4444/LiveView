@@ -33,6 +33,7 @@ namespace CameraForms.Forms
     public partial class SunellCameraWindow : Form
     {
         private readonly KBD300ASimulatorServer kBD300ASimulatorServer;
+        private int onExit;
         private readonly IPersonalOptionsRepository personalOptionsRepository;
         private readonly PermissionManager<User> permissionManager;
         private readonly PermissionSetter permissionSetter;
@@ -282,10 +283,13 @@ namespace CameraForms.Forms
 
         private void OnExit()
         {
-            kBD300ASimulatorServer?.Stop();
-            sunellVideoWindow1.Disconnect();
-            client?.Send($"{NetworkCommand.UnregisterCamera}", true);
-            client?.Dispose();
+            if (Interlocked.Exchange(ref onExit, 1) == 0)
+            {
+                kBD300ASimulatorServer?.Stop();
+                sunellVideoWindow1.Disconnect();
+                client?.Send($"{NetworkCommand.UnregisterCamera}", true);
+                client?.Dispose();
+            }
         }
 
         private void SunellCameraWindow_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LiveView.WebApi
 {
     public static class HtmlPageBuilder
     {
+        private static readonly Regex ResourceNamePattern = new Regex("^[A-Za-z]+$", RegexOptions.Compiled);
+
         public static Task ResourceHtmlPage(HttpContext ctx, string resource)
         {
+            // resource comes straight from the URL; only letters (as used by real controller names) are allowed
+            // through, since it is otherwise embedded unescaped into both HTML and a <script> block below.
+            if (resource == null || !ResourceNamePattern.IsMatch(resource))
+            {
+                ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
+                return Task.CompletedTask;
+            }
+
             ctx.Response.ContentType = "text/html; charset=utf-8";
 
             return ctx.Response.WriteAsync($@"<!DOCTYPE html>

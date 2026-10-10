@@ -1,15 +1,14 @@
 ﻿using Mtf.Extensions.Interfaces;
 
-namespace Database.Models
+namespace Database.Models;
+
+public class Permission : IHaveId<int>, Mtf.Database.Interfaces.IHasIdentifier<int>
 {
-    public class Permission : IHaveId<int>
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public int? OperationId { get; set; }
+    public int? OperationId { get; set; }
 
-        public int? UserEventId { get; set; }
+    public int? UserEventId { get; set; }
 
-        public int GroupId { get; set; }
-    }
+    public int GroupId { get; set; }
 }

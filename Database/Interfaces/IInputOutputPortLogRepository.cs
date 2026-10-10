@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface IInputOutputPortLogRepository : IRepository<InputOutputPortLogEntry, int>
 {
-    public interface IInputOutputPortLogRepository : IRepository<InputOutputPortLogEntry>
-    {
-    }
 }

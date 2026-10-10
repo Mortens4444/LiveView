@@ -1,9 +1,8 @@
 ﻿using Database.Models;
 using Mtf.Database.Interfaces;
 
-namespace Database.Interfaces
+namespace Database.Interfaces;
+
+public interface ILanguageRepository : IRepository<Language, int>
 {
-    public interface ILanguageRepository : IRepository<Language>
-    {
-    }
 }

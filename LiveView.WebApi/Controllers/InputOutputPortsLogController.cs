@@ -1,14 +1,17 @@
 using Database.Interfaces;
 using Database.Models;
+using LiveView.WebApi.Authorization;
 using LiveView.WebApi.Dto;
+using Mtf.Permissions.Enums;
 using Mtf.Web.Interfaces;
-using Mtf.Web.WebAPI;
+using LiveView.WebApi.WebAPI;
 
 namespace LiveView.WebApi.Controllers
 {
     /// <summary>
     /// Controller for managing InputOutputPortLog entities via REST API endpoints.
     /// </summary>
+    [RequiresPermissionGroup(typeof(IODeviceManagementPermissions))]
     public class InputOutputPortsLogController : ApiControllerBaseWithIntModelId<InputOutputPortLogDto, InputOutputPortLogEntry, IInputOutputPortLogRepository, IConverter<InputOutputPortLogEntry, InputOutputPortLogDto>>
     {
         public InputOutputPortsLogController(

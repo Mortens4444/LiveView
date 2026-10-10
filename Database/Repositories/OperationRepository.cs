@@ -3,18 +3,18 @@ using Database.Models;
 using Mtf.Database;
 using System.Collections.ObjectModel;
 
-namespace Database.Repositories
-{
-    public sealed class OperationRepository : BaseRepository<Operation>, IOperationRepository
-    {
-        public bool HasAnyRow()
-        {
-            return ExecuteScalar<int>("HasAnyRowOperation", null) != 0;
-        }
+namespace Database.Repositories;
 
-        public ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId)
-        {
-            return Query("SelectGroupOperations", new { GroupId = groupId, UserEventId = userEventId });
-        }
+public sealed class OperationRepository : BaseRepository<Operation, int>, IOperationRepository
+{
+    public OperationRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
+    public bool HasAnyRow()
+    {
+        return ExecuteScalar<int>("HasAnyRowOperation", null) != 0;
+    }
+
+    public ReadOnlyCollection<Operation> SelectGroupOperations(long groupId, long userEventId)
+    {
+        return Query("SelectGroupOperations", new { GroupId = groupId, UserEventId = userEventId });
     }
 }

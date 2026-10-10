@@ -2,9 +2,9 @@
 using Database.Models;
 using Mtf.Database;
 
-namespace Database.Repositories
+namespace Database.Repositories;
+
+public sealed class BarcodeCharChangerRepository : BaseRepository<BarcodeCharChanger, int>, IBarcodeCharChangerRepository
 {
-    public sealed class BarcodeCharChangerRepository : BaseRepository<BarcodeCharChanger>, IBarcodeCharChangerRepository
-    {
-    }
+    public BarcodeCharChangerRepository() : base(Database.Services.DatabaseInitializer.ConnectionString) { }
 }
