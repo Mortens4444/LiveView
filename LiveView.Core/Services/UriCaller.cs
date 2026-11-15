@@ -51,9 +51,9 @@ namespace LiveView.Core.Services
                     string cleanedUrl;
                     if (!String.IsNullOrEmpty(uri.UserInfo))
                     {
-                        var userInfo = uri.UserInfo.Split(':');
+                        var userInfo = uri.UserInfo.Split(new[] { ':' }, 2);
                         var user = userInfo[0];
-                        var pass = userInfo[1];
+                        var pass = userInfo.Length > 1 ? userInfo[1] : String.Empty;
                         cleanedUrl = $"{uri.Scheme}://{uri.Host}{uri.PathAndQuery}";
                         client = new HttpClient(new HttpClientHandler
                         {
@@ -82,12 +82,26 @@ namespace LiveView.Core.Services
                         return response.IsSuccessStatusCode;
                     }
                 }
+                catch (Exception ex) when (IsExpectedNetworkFailure(ex))
+                {
+                    // Timeout or unreachable host is the normal result of probing a wrong URL, not an error.
+                    return false;
+                }
                 catch (Exception ex)
                 {
                     DebugErrorBox.Show(ex);
                     return false;
                 }
             }
+        }
+
+        private static bool IsExpectedNetworkFailure(Exception ex)
+        {
+            var baseException = ex.GetBaseException();
+            return baseException is OperationCanceledException
+                || baseException is HttpRequestException
+                || baseException is SocketException
+                || baseException is IOException;
         }
 
         private static bool CallRtspUrl(string url, int timeoutMs)

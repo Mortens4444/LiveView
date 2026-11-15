@@ -38,6 +38,7 @@ namespace Database.Models
                 if (String.IsNullOrEmpty(value))
                 {
                     password = new SecureString();
+                    return;
                 }
 
                 var secureString = new SecureString();
@@ -78,7 +79,7 @@ namespace Database.Models
 
             if (disposing)
             {
-                password.Dispose();
+                password?.Dispose();
             }
         }
     }

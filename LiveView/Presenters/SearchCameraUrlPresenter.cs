@@ -195,6 +195,12 @@ namespace LiveView.Presenters
         {
             var camera = GetNetCamera();
             var url = SearchCameraUrlService.ModifyUrl(camera, view.CbCameraUrls.SelectedItem?.ToString() ?? String.Empty);
+            if (String.IsNullOrEmpty(url))
+            {
+                ShowError("Select a camera URL to copy.");
+                return;
+            }
+
             Clipboard.SetText(url);
         }
 

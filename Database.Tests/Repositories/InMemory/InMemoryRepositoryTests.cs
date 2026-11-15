@@ -31,6 +31,51 @@ namespace Database.Tests.Repositories.InMemory
         }
 
         [Test]
+        public void Seed_DoesNotCreateSziltechUser()
+        {
+            InMemoryDataSeeder.Seed();
+
+            var users = new InMemoryUserRepository();
+
+            Assert.That(users.SelectAll().Select(user => user.Username), Is.EqualTo(new[] { "admin" }));
+            Assert.That(users.Login(UserPasswordHasher.UsernameEncrypt("Sziltech"), "81d2c3b1ad3f54ad6d0f5792282c9eaf2784352ec3f6f2144c061768235ae64e"), Is.Null);
+        }
+
+        [Test]
+        public void Seed_SetsAdminAsAutoLoginUser()
+        {
+            InMemoryDataSeeder.Seed();
+
+            Assert.That(new InMemoryGeneralOptionsRepository().Get(Setting.AutoLoginUser, String.Empty), Is.EqualTo("admin"));
+        }
+
+        [Test]
+        public void Seed_CreatesLocalhostVideoServerWithEmptyCredentials()
+        {
+            InMemoryDataSeeder.Seed();
+
+            var servers = new InMemoryVideoServerRepository().SelectAll();
+
+            Assert.That(servers, Has.Count.EqualTo(1));
+            Assert.That(servers[0].Hostname, Is.EqualTo("localhost"));
+            Assert.That(servers[0].IpAddress, Is.EqualTo("127.0.0.1"));
+            Assert.That(servers[0].Username, Is.Empty);
+            Assert.That(servers[0].WinUser, Is.Empty);
+            Assert.That(VideoServerPasswordCryptor.PasswordDecrypt(servers[0].EncryptedPassword), Is.Empty);
+        }
+
+        [Test]
+        public void Seed_AdminIsMemberOfBuiltInAdminGroup()
+        {
+            InMemoryDataSeeder.Seed();
+
+            var admin = new InMemoryUserRepository().SelectAll().Single();
+            var members = new InMemoryGroupMembersRepository().SelectAll();
+
+            Assert.That(members.Select(member => (member.UserId, member.GroupId)), Is.EqualTo(new[] { (admin.Id, 2) }));
+        }
+
+        [Test]
         public void Seed_CalledTwice_DoesNotDuplicateBuiltInData()
         {
             var users = new InMemoryUserRepository();

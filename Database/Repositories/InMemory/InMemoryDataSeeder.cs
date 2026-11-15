@@ -1,12 +1,15 @@
+using Database.Enums;
 using Database.Models;
 using Database.Services.PasswordHashers;
+using System;
 using System.Linq;
 
 namespace Database.Repositories.InMemory;
 
 /// <summary>
 /// Fills the in-memory storage with the rows that InsertInitialData.sql creates in a new database
-/// (built-in users, groups, the default user event and the barcode scanner defaults).
+/// (built-in admin user, groups, the default user event and the barcode scanner defaults), plus an auto-login for admin
+/// and a credential-less localhost video server, so the application is usable right after start.
 /// </summary>
 public static class InMemoryDataSeeder
 {
@@ -19,21 +22,11 @@ public static class InMemoryDataSeeder
                 return;
             }
 
-            // The hash of the Sziltech user is the same constant as in InsertInitialData.sql. The password of "admin" is hashed here instead,
-            // because the hash depends on the cipher keys of the environment and in-memory mode must always allow admin/admin.
+            // The built-in Sziltech user of InsertInitialData.sql is intentionally not created: the vendor account must not be usable
+            // in in-memory mode. The password of "admin" is hashed here, because the hash depends on the cipher keys of the environment
+            // and in-memory mode must always allow admin/admin.
             var users = new InMemoryUserRepository();
-            users.Insert(new User
-            {
-                EncryptedUsername = UserPasswordHasher.UsernameEncrypt("Sziltech"),
-                EncryptedPassword = "81d2c3b1ad3f54ad6d0f5792282c9eaf2784352ec3f6f2144c061768235ae64e",
-                FullName = "Sziltech Electronic Kft",
-                Address = "4029 Debrecen, F\u00e9nyes udvar 3. 8. em. 48.",
-                Email = "info@sziltech.hu",
-                Phone = "+36 52 452 172",
-                SecondaryLogonPriority = 100,
-                NeededSecondaryLogonPriority = 0
-            });
-            users.Insert(new User
+            var adminUserId = users.InsertAndReturnId<int>(new User
             {
                 EncryptedUsername = UserPasswordHasher.UsernameEncrypt("admin"),
                 EncryptedPassword = UserPasswordHasher.Hash("admin"),
@@ -55,8 +48,24 @@ public static class InMemoryDataSeeder
             });
 
             var groupMembers = new InMemoryGroupMembersRepository();
-            groupMembers.Insert(new GroupMember { UserId = 1, GroupId = 1 });
-            groupMembers.Insert(new GroupMember { UserId = 2, GroupId = 2 });
+            groupMembers.Insert(new GroupMember { UserId = adminUserId, GroupId = 2 });
+
+            // admin logs in automatically at startup (see MainPresenter.AutoLogin), so the application is usable without any setup.
+            new InMemoryGeneralOptionsRepository().Set(Setting.AutoLoginUser, "admin");
+
+            // A video server on this machine without credentials, so a local video server can be used right away.
+            new InMemoryVideoServerRepository().Insert(new VideoServer
+            {
+                Hostname = "localhost",
+                IpAddress = "127.0.0.1",
+                MacAddress = String.Empty,
+                DongleSn = String.Empty,
+                SerialNumber = String.Empty,
+                EncryptedUsername = VideoServerPasswordCryptor.UsernameEncrypt(String.Empty),
+                EncryptedPassword = VideoServerPasswordCryptor.PasswordEncrypt(String.Empty),
+                EncryptedWinUser = WindowsPasswordCryptor.UsernameEncrypt(String.Empty),
+                EncryptedWinPass = WindowsPasswordCryptor.PasswordEncrypt(String.Empty)
+            });
 
             new InMemoryUserEventRepository().Insert(new UserEvent
             {
