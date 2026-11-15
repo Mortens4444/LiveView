@@ -1,5 +1,5 @@
 ﻿using LiveView.Core.Dto;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

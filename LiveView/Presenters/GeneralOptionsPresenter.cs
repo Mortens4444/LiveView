@@ -8,7 +8,7 @@ using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Database;
 using Mtf.Extensions;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;
 using System;

@@ -13,7 +13,7 @@ using LiveView.Services.Template;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
 using Mtf.Joystick;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Permissions.Services;
 using Mtf.Windows.Forms.Extensions;

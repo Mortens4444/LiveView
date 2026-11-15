@@ -2,7 +2,7 @@
 using LiveView.Agent.Dto;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using System;
 using System.Collections.Generic;
@@ -59,7 +59,7 @@ namespace LiveView.Agent.Network.Commands
                 process.BeginOutputReadLine();
             }
 
-            var display = processArgs.ElementAt(processArgs.Count() - 2);
+            var display = processArgs.ElementAt(^2);
             Console.WriteLine($"StartProcess registering process... {String.Join(", ", processArgs)}, Display: {display}");
             if (Int64.TryParse(display, out var displayId))
             {

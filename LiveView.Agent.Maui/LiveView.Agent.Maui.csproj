@@ -63,13 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Camera.MAUI" Version="1.5.1" />
-    <PackageReference Include="CommunityToolkit.Maui.Core" Version="15.0.0" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.90" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.90" />
-    <PackageReference Include="Microsoft.Maui.Core" Version="10.0.90" />
-    <PackageReference Include="Mtf.Extensions" Version="1.0.33" />
-    <PackageReference Include="Mtf.Network" Version="2.0.17" />
+    <PackageReference Include="CommunityToolkit.Maui.Core" Version="16.0.0" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.130" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.130" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.15" />
+    <PackageReference Include="Microsoft.Maui.Controls.Core" Version="10.0.130" />
+    <PackageReference Include="Microsoft.Maui.Core" Version="10.0.130" />
+    <PackageReference Include="Mtf.Extensions" Version="1.0.34" />
+    <PackageReference Include="Mtf.Network" Version="2.0.21" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
   </ItemGroup>
 </Project>

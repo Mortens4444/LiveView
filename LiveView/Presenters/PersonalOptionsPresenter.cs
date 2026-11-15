@@ -6,7 +6,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using Microsoft.Extensions.Logging;
 using Mtf.Extensions;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.LanguageService.Enums;
 using Mtf.LanguageService.Windows.Forms;
 using Mtf.Permissions.Enums;

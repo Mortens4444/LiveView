@@ -25,9 +25,9 @@ namespace Database.Services
                     ConfigurationManager.RefreshSection("connectionStrings");
                 }
 
-                Mtf.Database.BaseRepository.CommandTimeout = 600;
-                Mtf.Database.BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
-                Mtf.Database.BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
+                BaseRepository.CommandTimeout = 600;
+                BaseRepository.DatabaseScriptsAssembly = typeof(CameraRepository).Assembly;
+                BaseRepository.DatabaseScriptsLocation = "Database.Scripts";
                 ConnectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
                 return ConnectionString != null;
             }

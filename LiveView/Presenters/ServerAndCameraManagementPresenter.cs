@@ -7,7 +7,7 @@ using LiveView.Interfaces;
 using LiveView.Models.Dependencies;
 using LiveView.Services.VideoServer;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes.Enums;
 using Mtf.Permissions.Enums;
 using Mtf.Permissions.Services;

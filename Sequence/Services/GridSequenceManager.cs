@@ -8,7 +8,7 @@ using LiveView.Core.Enums.Network;
 using LiveView.Core.Enums.Window;
 using LiveView.Core.Services;
 using Microsoft.Extensions.Logging;
-using Mtf.LanguageService.Core;
+using Mtf.LanguageService;
 using Mtf.MessageBoxes;
 using Mtf.Network;
 using Mtf.Permissions.Services;
