@@ -4,20 +4,13 @@ using LiveView.Core.Dto;
 using LiveView.Core.Services;
 using LiveView.Forms;
 using LiveView.Services;
-#if NET462
-using System.Data.SqlClient;
-#else
-using Microsoft.Data.SqlClient;
-#endif
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Mtf.MessageBoxes;
 using Mtf.MessageBoxes.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Database.Services;
 using Mtf.Extensions;
@@ -47,22 +40,11 @@ namespace LiveView
             ApplicationConfiguration.Initialize();
 #endif
 
-            if (!DatabaseInitializer.Initialize("MasterConnectionString"))
+            if (!TryInitializeDatabase())
             {
-                return;
+                DatabaseInitializer.UseInMemoryStorage();
             }
 
-            try
-            {
-                DatabaseInitializer.CreateDatabase();
-            }
-            catch (SqlException ex) when (ex.Number == 26)
-            {
-                Thread.Sleep(10000);
-                ErrorBox.Show(ex);
-                Application.Restart();
-            }
-            
             LiveViewTranslator.Translate();
 
             var serviceProvider = ServiceProviderFactory.Create();
@@ -75,8 +57,48 @@ namespace LiveView
                 FillOrUpdateDisplaysTable(serviceProvider);
                 FillOperationsTable(serviceProvider);
 
-                Application.Run(serviceProvider.GetRequiredService<MainForm>());
+                var mainForm = serviceProvider.GetRequiredService<MainForm>();
+                if (DatabaseInitializer.IsInMemoryStorage)
+                {
+                    mainForm.Text += " - IN-MEMORY MODE (data is not saved)";
+                }
+
+                Application.Run(mainForm);
             }
+        }
+
+        /// <summary>
+        /// Connects to the database and creates it if needed. When that is not possible the user is warned
+        /// and the caller falls back to the in-memory storage, so the application can still be started.
+        /// </summary>
+        private static bool TryInitializeDatabase()
+        {
+            string reason;
+            try
+            {
+                if (DatabaseInitializer.Initialize("MasterConnectionString"))
+                {
+                    DatabaseInitializer.CreateDatabase();
+                    return true;
+                }
+
+                reason = "The 'MasterConnectionString' connection string is not configured.";
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+                reason = ex.GetBaseException().Message;
+            }
+
+            MessageBox.Show(
+                $"The database is not available:{Environment.NewLine}{reason}{Environment.NewLine}{Environment.NewLine}" +
+                "The application starts with temporary in-memory storage. Everything you create or change (users, cameras, grids, options, logs) " +
+                "is kept only while the application is running and is lost when it is closed." + Environment.NewLine + Environment.NewLine +
+                "To use the database, fix the connection strings (or start the SQL Server) and restart the application.",
+                "LiveView - Database not available",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+            return false;
         }
 
         private static void FillOrUpdateDisplaysTable(IServiceProvider serviceProvider)

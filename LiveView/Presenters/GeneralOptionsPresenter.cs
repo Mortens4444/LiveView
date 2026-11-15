@@ -132,8 +132,9 @@ namespace LiveView.Presenters
 
             view.CbKBD300ACOMPort.SelectedItem = generalOptionsRepository.Get(Setting.KBD300ACOMPort, String.Empty);
             view.CbWatchdogPort.SelectedItem = generalOptionsRepository.Get(Setting.WatchdogPort, String.Empty);
+            var inMemoryStorage = Database.Services.DatabaseInitializer.IsInMemoryStorage;
             var databaseRepository = new Mtf.Database.BaseRepository(Database.Services.DatabaseInitializer.ConnectionString);
-            var usage = databaseRepository.GetDatabaseUsagePercentageWithLimit();
+            var usage = inMemoryStorage ? -1 : databaseRepository.GetDatabaseUsagePercentageWithLimit();
             view.TbDatabaseUsage.Text = usage == -1 ? "N/A" : $"{usage}%";
             var builder = new DbConnectionStringBuilder
             {
@@ -151,7 +152,7 @@ namespace LiveView.Presenters
             if (Boolean.TryParse(integratedSecurityObject.ToString(), out var integratedSecurity) || String.Equals(integratedSecurityObject.ToString(), "SSPI", StringComparison.OrdinalIgnoreCase))
             {
                 view.ChkIntegratedSecurity.Checked = integratedSecurity;
-                view.TbUsername.Text = databaseRepository.ExecuteQuery("SELECT SYSTEM_USER").Rows[0][0].ToString();
+                view.TbUsername.Text = inMemoryStorage ? Environment.UserName : databaseRepository.ExecuteQuery("SELECT SYSTEM_USER").Rows[0][0].ToString();
                 view.LblPassword.Visible = false;
                 view.TbPassword.Visible = false;
             }
